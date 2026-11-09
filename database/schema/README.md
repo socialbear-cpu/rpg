@@ -1,11 +1,11 @@
 # Schema domains
 
-The canonical DDL is in `../migrations/001_initial_schema.sql`. This directory documents the logical grouping without duplicating the migration SQL.
+The canonical DDL is in the ordered files under `../migrations/`. This directory documents the resulting schema after all migrations, without duplicating the SQL.
 
 | Domain | Tables |
 | --- | --- |
 | Accounts | `users`, `user_profiles` |
-| Game systems and sheets | `game_systems`, `characters`, `character_info` |
+| Game systems and sheets | `game_systems`, `characters` |
 | Content | `abilities`, `items`, `achievements` |
 | Character progression | `character_abilities`, `character_inventory`, `character_achievements`, `user_achievements` |
 | Store and orders | `products`, `store_products`, `purchases`, `purchase_items` |
