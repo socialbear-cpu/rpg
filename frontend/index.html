@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#151923" />
+    <title>RPG · Validação de autenticação</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="RPG início"><span class="brand-mark">R</span><span>RPG <small>ÁREA DE VALIDAÇÃO</small></span></a>
+        <div class="health"><span id="health-dot" class="dot"></span><span id="health-text">Verificando API…</span></div>
+      </header>
+
+      <section class="intro">
+        <p class="eyebrow">FERRAMENTA INTERNA</p>
+        <h1>Autenticação e perfil</h1>
+        <p>Interface temporária para validar os fluxos do backend. Os componentes estão separados para facilitar a substituição pelo frontend definitivo.</p>
+      </section>
+
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+      <section class="layout">
+        <article class="card auth-card">
+          <div class="section-heading"><div><p class="eyebrow">CONTA</p><h2>Acessar</h2></div><span class="step">01</span></div>
+          <div class="tabs" role="tablist" aria-label="Acesso à conta">
+            <button class="tab active" id="tab-login" type="button" role="tab" aria-selected="true" aria-controls="panel-auth" data-mode="login">Entrar</button>
+            <button class="tab" id="tab-signup" type="button" role="tab" aria-selected="false" aria-controls="panel-auth" data-mode="signup">Criar conta</button>
+          </div>
+          <form id="auth-form" class="form" autocomplete="on">
+            <label id="name-field" hidden>Nome de exibição<input id="display-name" name="name" type="text" maxlength="80" autocomplete="nickname" placeholder="Como devemos chamar você?" /></label>
+            <label>E-mail<input id="email" name="email" type="email" autocomplete="email" required placeholder="voce@exemplo.com" /></label>
+            <label>Senha<input id="password" name="password" type="password" minlength="6" autocomplete="current-password" required placeholder="Mínimo de 6 caracteres" /></label>
+            <button id="auth-submit" class="button primary" type="submit">Entrar</button>
+          </form>
+          <form id="password-recovery-form" class="form" autocomplete="off" hidden>
+            <p class="card-copy">Defina uma nova senha para concluir a recuperação da conta.</p>
+            <label>Nova senha<input id="new-password" type="password" minlength="6" autocomplete="new-password" required placeholder="Mínimo de 6 caracteres" /></label>
+            <button class="button primary" type="submit">Atualizar senha</button>
+          </form>
+          <button id="reset-password" class="text-button" type="button">Esqueci minha senha</button>
+          <div class="divider"></div>
+          <div class="session-row"><div><span class="label-muted">SESSÃO</span><p id="session-state">Não autenticado</p></div><button id="logout" class="button secondary" type="button" disabled>Sair</button></div>
+        </article>
+
+        <article class="card profile-card">
+          <div class="section-heading"><div><p class="eyebrow">BACKEND API</p><h2>Meu perfil</h2></div><span class="step">02</span></div>
+          <p class="card-copy">Os dados abaixo são carregados e salvos em <code>/api/v1/me/profile</code> com o token da sessão.</p>
+          <form id="profile-form" class="form" autocomplete="off">
+            <label>Nome de exibição<input id="profile-name" name="display_name" type="text" maxlength="80" placeholder="Seu nome público" disabled /></label>
+            <label>URL do avatar<input id="profile-avatar" name="avatar_url" type="url" maxlength="2048" placeholder="https://… ou vazio" disabled /></label>
+            <label>Bio<textarea id="profile-bio" name="bio" maxlength="500" rows="4" placeholder="Conte um pouco sobre você" disabled></textarea><span class="field-hint">Até 500 caracteres</span></label>
+            <div class="actions"><button id="load-profile" class="button secondary" type="button" disabled>Carregar perfil</button><button id="save-profile" class="button primary" type="submit" disabled>Salvar alterações</button></div>
+          </form>
+        </article>
+      </section>
+      <footer><span>RPG · Backend validation</span><span>Sem chave secreta no navegador</span></footer>
+    </main>
+    <script src="/config.js"></script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
