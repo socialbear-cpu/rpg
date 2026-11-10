@@ -41,15 +41,15 @@ node --env-file=.env dist/server.js
 
 **Task 3 database runtime tests were explicitly deferred.** The commands below are the future local setup procedure, not evidence that migrations, Auth provisioning, grants, or RLS have passed. No hosted database changes are part of this work.
 
-Prerequisites: a working Docker engine, Supabase CLI, and PostgreSQL `psql` on PATH. Run these commands from the repository root, one at a time, stopping on any nonzero exit. The project already contains `supabase/config.toml`; do not initialize it again.
+Prerequisites: a working Docker engine, Node.js 20+, and PostgreSQL `psql` on PATH. The Supabase CLI is a repository-level development dependency. From the repository root, run `npm ci` once, then run these commands from the repository root, one at a time, stopping on any nonzero exit. The project already contains `supabase/config.toml`; do not initialize it again.
 
 ```powershell
-supabase --help
-supabase start --help
-supabase status --help
-supabase test db --help
-supabase start
-supabase status
+npx supabase --help
+npx supabase start --help
+npx supabase status --help
+npx supabase test db --help
+npx supabase start
+npx supabase status
 ```
 
 Use the local publishable key reported by your local stack for `backend/.env`. If the installed CLI only reports legacy keys, its `anon` key is the compatibility fallback for this variable; never copy the service-role key. Keep local credentials out of commits and logs shared publicly. The CLI reports the local connection details; see the [CLI reference](https://supabase.com/docs/reference/cli/introduction).
@@ -61,7 +61,7 @@ psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=
 psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/002_character_fields.sql
 psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/003_supabase_auth.sql
 psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/004_profile_rls.sql
-supabase test db
+npx supabase test db
 ```
 
 These files live in `database/migrations/`, not the CLI's `supabase/migrations/` directory; `supabase start` alone does not apply them. Do not rerun them on an already migrated database. Migration 003 requires any existing `public.users.id` to match an Auth user; map existing accounts before attempting it. Migration 003 installs the Auth trigger and backfills profiles; migration 004 restricts profile access to the owner, with updates limited to the three editable columns. Broader game-domain tables still need their own authorization work before exposure.

@@ -14,4 +14,10 @@ O cadastro envia `display_name` como metadado do usuário e retorna a confirmaç
 
 Cadastro e recuperação usam a origem aberta no navegador como redirecionamento. Adicione `http://localhost:4173` às URLs permitidas de redirecionamento do Supabase, se ainda não estiver permitido. A configuração local em `supabase/config.toml` também precisa permitir essa origem caso você use o Supabase local.
 
-Esta UI é um harness local. Ela não configura CORS, hospedagem nem proteção do Preview Vercel; uma publicação futura precisará decidir como o navegador alcançará a API protegida.
+## Publicar a UI na Vercel
+
+O projeto de frontend deve usar esta pasta como Root Directory. O `build.mjs` gera os arquivos estáticos e injeta somente as variáveis públicas `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY`; a chave `service_role` nunca deve ser adicionada. O `vercel.json` encaminha `/healthz` e `/api/*` para o projeto `rpg-backend`, evitando chamadas cross-origin do navegador.
+
+No painel do Supabase, permita o domínio do frontend nas URLs de redirecionamento para que confirmação de e-mail e recuperação de senha retornem à interface publicada.
+
+Esta UI é um harness de validação, não o frontend definitivo.

@@ -1,0 +1,14 @@
+{
+  "buildCommand": "node build.mjs",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/healthz",
+      "destination": "https://rpg-backend-phi.vercel.app/healthz"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://rpg-backend-phi.vercel.app/api/:path*"
+    }
+  ]
+}
