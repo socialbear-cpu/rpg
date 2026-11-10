@@ -56,7 +56,7 @@ it('publishes a required strict PATCH body with editable field limits and cleari
   expect(resolve(body.content['application/json'].schema)).toMatchObject({
     type: 'object', additionalProperties: false, minProperties: 1,
     properties: {
-      display_name: { type: 'string', minLength: 1, maxLength: 80 },
+      display_name: { type: 'string', minLength: 1 },
       avatar_url: { type: 'string', nullable: true, maxLength: 2048, format: 'uri', pattern: '^https?://' },
       bio: { type: 'string', nullable: true, maxLength: 500 },
     },
@@ -65,6 +65,16 @@ it('publishes a required strict PATCH body with editable field limits and cleari
     'display_name', 'avatar_url', 'bio',
   ]);
   expect(document.paths['/api/v1/me/profile'].get.requestBody).toBeUndefined();
+});
+
+it('does not cap the raw display name length before runtime trimming', async () => {
+  const { document, resolve } = await contract();
+  const body = document.paths['/api/v1/me/profile'].patch.requestBody;
+  const displayName = resolve(body.content['application/json'].schema).properties.display_name;
+  // Runtime accepts 80 non-whitespace characters surrounded by whitespace.
+  // A raw maxLength would incorrectly reject that valid client input.
+  expect(displayName.maxLength).toBeUndefined();
+  expect(displayName.description).toMatch(/trimmed before checking the 1–80 character limit/i);
 });
 
 it('documents profile authentication, missing-row and database errors plus PATCH validation errors', async () => {

@@ -52,7 +52,7 @@ export async function profileRoutes(app: FastifyInstance) {
         body: {
           type: 'object', additionalProperties: false, minProperties: 1,
           properties: {
-            display_name: { type: 'string', minLength: 1, maxLength: 80, description: 'Trimmed before checking the 1–80 character limit; whitespace-only names are invalid.' },
+            display_name: { type: 'string', minLength: 1, description: 'Trimmed before checking the 1–80 character limit; whitespace-only names are invalid.' },
             avatar_url: { type: ['string', 'null'], maxLength: 2048, format: 'uri', pattern: '^https?://', description: 'HTTP(S) URL, or null to clear.' },
             bio: { type: ['string', 'null'], maxLength: 500, description: 'Profile bio, or null to clear.' },
           },
