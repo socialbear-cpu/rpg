@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { buildApp } from '../src/app.js';
+import { buildApp } from '../src/create-app.js';
 import { authenticate } from '../src/plugins/authenticate.js';
 
 const userId = 'a72adcaf-9d23-46cc-b312-5fbe7fb6214b';

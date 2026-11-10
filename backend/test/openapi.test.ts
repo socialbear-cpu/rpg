@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, expect, it } from 'vitest';
-import { buildApp } from '../src/app.js';
+import { buildApp } from '../src/create-app.js';
 import { profilePatchSchema } from '../src/modules/profile/profile.schema.js';
 
 let app: ReturnType<typeof buildApp>;

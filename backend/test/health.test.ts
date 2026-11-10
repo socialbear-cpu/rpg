@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { buildApp } from '../src/app.js';
+import { buildApp } from '../src/create-app.js';
 
 it('health route returns 200 and { status: "ok" } without Supabase configuration', async () => {
   const app = buildApp();
