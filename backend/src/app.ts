@@ -2,6 +2,7 @@ import Fastify, { type FastifyServerOptions } from 'fastify';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import { healthRoutes } from './modules/health/health.routes.js';
+import { profileRoutes } from './modules/profile/profile.routes.js';
 import type { Config } from './config.js';
 
 export type AppOptions = FastifyServerOptions & { nodeEnv?: Config['nodeEnv'] };
@@ -22,5 +23,6 @@ export function buildApp({ nodeEnv = 'development', ...options }: AppOptions = {
   }
 
   app.register(healthRoutes);
+  app.register(profileRoutes);
   return app;
 }
