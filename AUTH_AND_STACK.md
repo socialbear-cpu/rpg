@@ -14,6 +14,15 @@ Ponto de partida sugerido:
 
 Esta decisão pressupõe que o primeiro cliente será web. Se o produto for exclusivamente mobile, Expo/React Native pode ser a primeira camada de interface, mantendo TypeScript, Supabase Auth e PostgreSQL.
 
+## Estado implementado neste repositório
+
+- `frontend/` é Next.js; `backend/` é um serviço Fastify separado no projeto Vercel Services.
+- Cadastro, login, logout e recuperação chamam Supabase Auth diretamente pelo navegador. O Fastify não implementa rotas de conta.
+- O Fastify expõe health e leitura/atualização do perfil autenticado. O frontend encaminha `/healthz` e `/api/...` pelo binding privado.
+- O cliente atual guarda o access token apenas em memória e não renova a sessão. Isso é uma implementação mínima de validação, não a sessão persistente recomendada abaixo.
+
+As recomendações deste documento descrevem o alvo arquitetural e ainda não estão todas implementadas.
+
 ## Responsabilidades
 
 - **Supabase Auth** é dono de credenciais, sessões, confirmação de e-mail e recuperação de senha. Senhas nunca devem ir para tabelas da aplicação.

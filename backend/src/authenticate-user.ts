@@ -1,5 +1,5 @@
 import type { SupabaseClient, User } from '@supabase/supabase-js';
-import { createUserSupabaseClient } from './plugins/supabase.js';
+import { createUserSupabaseClient } from './clients/supabase.js';
 
 export interface AuthenticatedRequestContext {
   userId: string;

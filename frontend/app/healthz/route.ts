@@ -1,5 +1,6 @@
-export const dynamic = 'force-dynamic';
+import { forwardToBackend } from '../../src/backend-proxy';
 
-export function GET() {
-  return Response.json({ status: 'ok' }, { headers: { 'cache-control': 'no-store' } });
-}
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
+export const GET = forwardToBackend;

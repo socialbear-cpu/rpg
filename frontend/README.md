@@ -11,7 +11,7 @@ npm ci
 Copy-Item frontend/.env.example frontend/.env.local
 ```
 
-Preencha `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` em `frontend/.env.local`. Use apenas a chave publishable/anon; nunca inclua uma service-role ou chave secreta no frontend.
+Preencha `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` em `frontend/.env.local`. No deploy, o Next também aceita os nomes já usados no projeto Vercel (`SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY`) e os expõe no bundle como configuração pública. Use apenas a chave publishable/anon; nunca inclua uma service-role ou chave secreta nessas variáveis.
 
 Instale/tenha o Vercel CLI disponível e inicie os serviços juntos:
 
@@ -19,13 +19,13 @@ Instale/tenha o Vercel CLI disponível e inicie os serviços juntos:
 npx vercel dev -L
 ```
 
-O CLI inicia ambos os serviços e injeta o binding local. Acesse `http://localhost:3000`. `/healthz` é servido pelo frontend; `/api/v1/me/profile` é encaminhado ao backend. Os fluxos de cadastro e recuperação usam a origem atual como URL de retorno. Adicione `http://localhost:3000` às URLs permitidas de redirecionamento do Supabase Auth e, se usar Supabase local, à configuração correspondente em `supabase/config.toml`.
+O CLI inicia ambos os serviços e injeta o binding local. Acesse `http://localhost:3000`. `/healthz` e `/api/v1/me/profile` são encaminhados ao backend, então o indicador verifica o serviço real. Cadastro, login e recuperação chamam Supabase Auth diretamente do navegador; o token fica apenas em memória e é perdido ao atualizar a página. Os fluxos usam a origem atual como URL de retorno. Adicione `http://localhost:3000` às URLs permitidas de redirecionamento do Supabase Auth e, se usar Supabase local, à configuração correspondente em `supabase/config.toml`.
 
 ## Vercel Services
 
 O arquivo `../vercel.json` define `backend` como Fastify e `frontend` como Next.js. Na configuração do projeto Vercel, selecione o framework **Services**. Os rewrites públicos enviam todo o tráfego ao frontend; o frontend acessa o backend exclusivamente pelo binding `BACKEND_URL`, então o backend não recebe tráfego público direto.
 
-Configure `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` nos ambientes Production, Preview e Development do projeto. O domínio de produção e os domínios Preview usados nos fluxos de confirmação e recuperação também precisam estar permitidos no Supabase Auth.
+Configure a URL do projeto Supabase e a chave publishable nos ambientes Production, Preview e Development do projeto Vercel. São aceitos os nomes `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` e os nomes existentes `SUPABASE_URL` / `SUPABASE_PUBLISHABLE_KEY`. O domínio de produção e os domínios Preview usados nos fluxos de confirmação e recuperação também precisam estar permitidos no Supabase Auth.
 
 TypeScript está fixado em 5.9.3 nos dois serviços porque o builder Fastify da Vercel ainda usa `ts.sys`, que não existe no pacote raiz do TypeScript 7. Atualize esse pin quando o builder oferecer compatibilidade; a falha está registrada na [issue da Vercel](https://github.com/vercel/vercel/issues/17390).
 

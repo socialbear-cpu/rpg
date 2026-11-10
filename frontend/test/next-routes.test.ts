@@ -17,9 +17,15 @@ afterEach(() => {
 });
 
 describe('Next.js routes and backend binding', () => {
-  it('returns health from the public frontend service', async () => {
-    expect(await getHealth()).toMatchObject({ status: 200 });
-    expect(fetchMock).not.toHaveBeenCalled();
+  it('reports health from the backend through the service binding', async () => {
+    const response = await getHealth(new Request('https://rpg.example/healthz'));
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual({ status: 'ok' });
+    expect(fetchMock).toHaveBeenCalledWith(
+      new URL('/healthz', backendUrl),
+      expect.objectContaining({ method: 'GET', cache: 'no-store' }),
+    );
   });
 
   it('forwards the profile request path, query, and authorization through the binding', async () => {

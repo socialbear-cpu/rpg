@@ -1,4 +1,4 @@
-# Módulos compartilhados do backend RPG
+# API Fastify RPG
 
 Este workspace TypeScript executa a API Fastify como serviço `backend` do projeto Vercel Services. O serviço Next.js encaminha `/api/...` para ele usando o binding privado `BACKEND_URL`; não há acesso público direto ao serviço. Supabase Auth é responsável pelas contas e sessões. Senhas não são armazenadas nas tabelas da aplicação.
 
@@ -24,7 +24,7 @@ Inicie os dois serviços a partir da raiz:
 npx vercel dev -L
 ```
 
-O CLI executa os serviços juntos e injeta os bindings locais. `/healthz` é servido pelo frontend; as operações de perfil chegam aqui por `/api/v1/me/profile` e exigem uma URL e chave publishable válidas.
+O CLI executa os serviços juntos e injeta os bindings locais. `/healthz` e as operações de perfil chegam a este Fastify pelo binding do frontend e exigem uma URL e chave publishable válidas.
 
 ## Local database setup (runtime verification pending)
 
@@ -57,16 +57,11 @@ These files live in `database/migrations/`, not the CLI's `supabase/migrations/`
 
 The pgTAP suite is `supabase/tests/004_profile_rls.test.sql`. Backend tests use an HTTP fixture and cannot establish database policy or trigger correctness. Running the local database suite remains required before deployment.
 
-## Client account flow
+## Conta e autenticação
 
-Create a Supabase JavaScript client in the client application using its project URL and publishable key. Account operations go directly through Supabase Auth; this backend has no registration, login, logout, or recovery routes.
+O cadastro, o login, o logout e a recuperação são iniciados pelo navegador contra o Supabase Auth, em `frontend/src/supabase-auth.ts`. O Fastify não tem rotas de conta; ele valida o access token recebido e atende o perfil. A sessão atual fica em memória no módulo do cliente, sem persistência ou renovação automática; atualizar a página encerra a sessão. Use apenas a chave publishable no cliente. O token verificado é enviado ao Fastify para ler ou atualizar o perfil.
 
-1. Register with `supabase.auth.signUp({ email, password, options: { data: { display_name } } })`. Local `supabase/config.toml` enables email confirmation: complete the confirmation email flow before expecting an authenticated session. Use the local mail inbox URL reported by the stack during development. Profile creation belongs to the Auth database trigger, not a client insert. See [signUp](https://supabase.com/docs/reference/javascript/auth-signup).
-2. Sign in with `supabase.auth.signInWithPassword({ email, password })`. Check `error`, then use `data.session.access_token` for this API. The client SDK manages its session and token refresh; use the current access token for each request. See [signInWithPassword](https://supabase.com/docs/reference/javascript/auth-signinwithpassword).
-3. Sign out with `supabase.auth.signOut()` and stop sending the cleared session's token. See [signOut](https://supabase.com/docs/reference/javascript/auth-signout).
-4. Request recovery with `supabase.auth.resetPasswordForEmail(email, { redirectTo })`. Use an allowed client redirect URL, handle the recovery session, then call `supabase.auth.updateUser({ password: newPassword })`. The local allowed redirect is currently `http://localhost:3000`; change the local Auth configuration when your client runs elsewhere. See [password recovery](https://supabase.com/docs/reference/javascript/auth-resetpasswordforemail).
-
-Handle every SDK error before advancing the flow. Do not use user-editable metadata as an authorization claim. O navegador chama a mesma origem; o Route Handler do Next encaminha as chamadas pelo binding privado.
+O callback de recuperação limpa os tokens da URL antes da atualização da senha. A origem atual precisa estar permitida no Supabase Auth. Não use metadados editáveis pelo usuário como identidade ou autorização.
 
 ## Profile API contract
 
