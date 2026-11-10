@@ -15,6 +15,11 @@ export function buildApp({ nodeEnv = 'development', ...options }: AppOptions = {
   app.register(swagger, {
     openapi: {
       info: { title: 'RPG API', version: '0.1.0' },
+      components: {
+        securitySchemes: {
+          bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+        },
+      },
     },
   });
 
