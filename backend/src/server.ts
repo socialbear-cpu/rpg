@@ -1,12 +1,13 @@
-import { buildApp } from './create-app.js';
+import Fastify from 'fastify';
+import { registerApp } from './register-app.js';
 import { loadConfig } from './config.js';
 
 try {
   const config = loadConfig(process.env);
-  const app = buildApp({
-    nodeEnv: config.nodeEnv,
+  const app = Fastify({
     logger: { redact: ['req.headers.authorization'] },
   });
+  registerApp(app, config.nodeEnv);
 
   for (const signal of ['SIGINT', 'SIGTERM'] as const) {
     process.once(signal, () => {
