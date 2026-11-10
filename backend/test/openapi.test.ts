@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, expect, it } from 'vitest';
 import { buildApp } from '../src/app.js';
+import { profilePatchSchema } from '../src/modules/profile/profile.schema.js';
 
 let app: ReturnType<typeof buildApp>;
 
@@ -57,7 +58,7 @@ it('publishes a required strict PATCH body with editable field limits and cleari
     type: 'object', additionalProperties: false, minProperties: 1,
     properties: {
       display_name: { type: 'string', minLength: 1 },
-      avatar_url: { type: 'string', nullable: true, maxLength: 2048, format: 'uri', pattern: '^https?://' },
+      avatar_url: { type: 'string', nullable: true, maxLength: 2048, format: 'uri', pattern: expect.any(String) },
       bio: { type: 'string', nullable: true, maxLength: 500 },
     },
   });
@@ -65,6 +66,24 @@ it('publishes a required strict PATCH body with editable field limits and cleari
     'display_name', 'avatar_url', 'bio',
   ]);
   expect(document.paths['/api/v1/me/profile'].get.requestBody).toBeUndefined();
+});
+
+it('publishes an avatar pattern accepting HTTP and HTTPS schemes in every casing', async () => {
+  const { document, resolve } = await contract();
+  const body = document.paths['/api/v1/me/profile'].patch.requestBody;
+  const avatar = resolve(body.content['application/json'].schema).properties.avatar_url;
+  const pattern = new RegExp(avatar.pattern);
+
+  for (const scheme of ['http', 'https', 'HTTP', 'HTTPS', 'hTtP', 'hTtPs']) {
+    const avatar_url = `${scheme}://example.com/a.png`;
+    expect(profilePatchSchema.safeParse({ avatar_url }).success).toBe(true);
+    expect(pattern.test(avatar_url), avatar_url).toBe(true);
+  }
+  for (const scheme of ['ftp', 'FTPS', 'httpss', 'xhttp']) {
+    const avatar_url = `${scheme}://example.com/a.png`;
+    expect(profilePatchSchema.safeParse({ avatar_url }).success).toBe(false);
+    expect(pattern.test(avatar_url), avatar_url).toBe(false);
+  }
 });
 
 it('does not cap the raw display name length before runtime trimming', async () => {
