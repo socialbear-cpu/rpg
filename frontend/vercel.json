@@ -4,11 +4,11 @@
   "rewrites": [
     {
       "source": "/healthz",
-      "destination": "https://rpgbackend.vercel.app/healthz"
+      "destination": "https://rpg-backend-xi.vercel.app/healthz"
     },
     {
       "source": "/api/:path*",
-      "destination": "https://rpgbackend.vercel.app/api/:path*"
+      "destination": "https://rpg-backend-xi.vercel.app/api/:path*"
     }
   ]
 }
