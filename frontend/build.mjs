@@ -11,7 +11,15 @@ if (!supabaseUrl || !supabasePublishableKey) {
   throw new Error('Set SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY in the frontend deployment environment.');
 }
 
-new URL(supabaseUrl);
+let parsedSupabaseUrl;
+try {
+  parsedSupabaseUrl = new URL(supabaseUrl);
+} catch {
+  throw new Error('SUPABASE_URL must be a valid HTTP(S) URL.');
+}
+if (!['http:', 'https:'].includes(parsedSupabaseUrl.protocol)) {
+  throw new Error('SUPABASE_URL must use HTTP or HTTPS.');
+}
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await cp(join(root, 'index.html'), join(output, 'index.html'));

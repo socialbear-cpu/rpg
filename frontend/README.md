@@ -14,10 +14,17 @@ O cadastro envia `display_name` como metadado do usuário e retorna a confirmaç
 
 Cadastro e recuperação usam a origem aberta no navegador como redirecionamento. Adicione `http://localhost:4173` às URLs permitidas de redirecionamento do Supabase, se ainda não estiver permitido. A configuração local em `supabase/config.toml` também precisa permitir essa origem caso você use o Supabase local.
 
-## Publicar a UI na Vercel
+## Publicar na Vercel
 
-O projeto de frontend deve usar esta pasta como Root Directory. O `build.mjs` gera os arquivos estáticos e injeta somente as variáveis públicas `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY`; a chave `service_role` nunca deve ser adicionada. O `vercel.json` encaminha `/healthz` e `/api/*` para o projeto `rpg-backend`, evitando chamadas cross-origin do navegador.
+Este repositório usa dois projetos Vercel separados:
 
-No painel do Supabase, permita o domínio do frontend nas URLs de redirecionamento para que confirmação de e-mail e recuperação de senha retornem à interface publicada.
+1. **Backend:** crie ou vincule o projeto `rpg-backend` com Root Directory `backend`. O Fastify é detectado pelo ponto de entrada `src/server.ts`. Configure `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` no ambiente Production e Preview do projeto. `PORT` é gerenciada pela plataforma; defina `NODE_ENV=production`.
+2. **Frontend:** crie ou vincule o projeto com Root Directory `frontend`. O `package.json` e o lockfile permitem instalar e executar o build de forma reproduzível. Configure `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` nos ambientes Production e Preview. O build gera `dist/` e injeta essas duas variáveis no `config.js` público.
+
+Use a chave publishable/anon do Supabase. Nunca configure `service_role` ou uma chave secreta no frontend. O `vercel.json` encaminha `/healthz` e `/api/*` para `https://rpg-backend-xi.vercel.app`, mantendo chamadas same-origin no navegador. Se o domínio de produção do backend mudar, atualize o destino nos dois rewrites antes de publicar o frontend.
+
+No painel do Supabase, permita o domínio de produção e os domínios de Preview do frontend nas URLs de redirecionamento de Auth. O frontend usa a origem atual para confirmação de e-mail e recuperação de senha.
+
+Para conferir localmente o build estático, configure as mesmas variáveis e execute `npm ci` e `npm run build` nesta pasta.
 
 Esta UI é um harness de validação, não o frontend definitivo.
