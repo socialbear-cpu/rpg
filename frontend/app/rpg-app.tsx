@@ -5,17 +5,21 @@ import { AccountCard, type AccountMode } from '../src/features/account/account-c
 import { ProfileCard, type ProfileFields } from '../src/features/profile/profile-card';
 import { DailyLoginAdminCard } from '../src/features/daily-login/daily-login-admin-card';
 import { DailyLoginCard } from '../src/features/daily-login/daily-login-card';
+import { SystemMembershipCard, SystemMembershipError } from '../src/features/system-membership/system-membership-card';
 import {
   checkHealth,
   claimDailyLoginReward,
   getMyDailyLoginSystems,
   getOwnerDailyLoginCalendar,
   getMyProfile,
+  getMySystemMemberships,
   saveOwnerDailyLoginCalendar,
+  setSystemModerator,
   updateMyProfile,
   type DailyLoginOwnerCalendar,
   type DailyLoginSystemView,
   type Profile,
+  type SystemMemberships,
 } from '../src/api';
 import { missingSupabaseConfig } from '../src/config';
 import {
@@ -60,6 +64,11 @@ export function RpgApp() {
   const [ownerSaving, setOwnerSaving] = useState(false);
   const [ownerMessage, setOwnerMessage] = useState<string | null>(null);
   const [ownerMessageIsError, setOwnerMessageIsError] = useState(false);
+  const [systemAccess, setSystemAccess] = useState<SystemMemberships | null>(null);
+  const [systemAccessVersion, setSystemAccessVersion] = useState(0);
+  const [systemMembershipBusy, setSystemMembershipBusy] = useState(false);
+  const [systemMembershipMessage, setSystemMembershipMessage] = useState<string | null>(null);
+  const [systemMembershipMessageIsError, setSystemMembershipMessageIsError] = useState(false);
 
   useEffect(() => {
     const missing = missingSupabaseConfig();
@@ -94,6 +103,25 @@ export function RpgApp() {
     });
     return () => { current = false; };
   }, [authenticated, dailyLoginVersion]);
+
+  useEffect(() => {
+    if (!authenticated) {
+      setSystemAccess(null);
+      setSystemMembershipMessage(null);
+      return;
+    }
+    let current = true;
+    void getMySystemMemberships().then((access) => {
+      if (current) setSystemAccess(access);
+    }).catch((error) => {
+      if (current) {
+        setSystemAccess(null);
+        setSystemMembershipMessage(error instanceof Error ? error.message : 'Não foi possível carregar os cargos por sistema.');
+        setSystemMembershipMessageIsError(true);
+      }
+    });
+    return () => { current = false; };
+  }, [authenticated, systemAccessVersion]);
 
   useEffect(() => {
     const manageable = dailyLoginSystems.filter((entry) => entry.can_manage);
@@ -285,6 +313,22 @@ export function RpgApp() {
     }
   }
 
+  async function assignSystemModerator(systemId: string, userId: string, isModerator: boolean) {
+    setSystemMembershipBusy(true);
+    setSystemMembershipMessage(null);
+    try {
+      await setSystemModerator(systemId, userId, isModerator);
+      setSystemMembershipMessage(isModerator ? 'Cargo Mod concedido.' : 'Cargo Mod removido; a pessoa voltou a User.');
+      setSystemMembershipMessageIsError(false);
+      setSystemAccessVersion((version) => version + 1);
+    } catch (error) {
+      setSystemMembershipMessage(error instanceof Error ? error.message : 'Não foi possível atualizar o cargo.');
+      setSystemMembershipMessageIsError(true);
+    } finally {
+      setSystemMembershipBusy(false);
+    }
+  }
+
   return (
     <main className="shell">
       <header className="topbar">
@@ -355,6 +399,17 @@ export function RpgApp() {
           onSave={saveOwnerCalendar}
         />}
       </section>}
+      {authenticated && systemAccess && <SystemMembershipCard
+        access={systemAccess}
+        busy={systemMembershipBusy}
+        message={systemMembershipMessage}
+        messageIsError={systemMembershipMessageIsError}
+        onAssign={(systemId, userId, isModerator) => void assignSystemModerator(systemId, userId, isModerator)}
+      />}
+      {authenticated && !systemAccess && systemMembershipMessage && <SystemMembershipError
+        message={systemMembershipMessage}
+        onRetry={() => { setSystemMembershipMessage(null); setSystemAccessVersion((version) => version + 1); }}
+      />}
       <footer><span>RPG · Backend validation</span><span>Sem chave secreta no navegador</span></footer>
     </main>
   );

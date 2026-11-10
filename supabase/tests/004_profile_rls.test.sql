@@ -18,8 +18,7 @@ SELECT ok((SELECT relrowsecurity FROM pg_class WHERE oid = 'public.users'::regcl
 SELECT ok((SELECT relrowsecurity FROM pg_class WHERE oid = 'public.user_profiles'::regclass), 'profiles has RLS enabled');
 SELECT ok(NOT has_table_privilege('anon', 'public.users', 'SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER')
     AND NOT has_any_column_privilege('anon', 'public.users', 'SELECT,INSERT,UPDATE,REFERENCES'), 'anonymous role has no users table or column grants');
-SELECT ok(NOT has_table_privilege('authenticated', 'public.users', 'SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER')
-    AND NOT has_any_column_privilege('authenticated', 'public.users', 'SELECT,INSERT,UPDATE,REFERENCES'), 'authenticated role has no users table or column grants');
+SELECT ok(has_table_privilege('authenticated', 'public.users', 'SELECT,INSERT,UPDATE,DELETE'), 'authenticated role has table grants gated by RLS for global admins');
 
 SET LOCAL ROLE anon;
 SELECT set_config('request.jwt.claim.sub', '', true);
@@ -44,14 +43,14 @@ SELECT results_eq(
 );
 SELECT lives_ok($$UPDATE public.user_profiles SET bio = 'cross-user write' WHERE user_id = '10000000-0000-4000-8000-000000000002'$$, 'cross-user update is filtered without a SQL error');
 SELECT throws_ok($$UPDATE public.user_profiles SET user_id = '10000000-0000-4000-8000-000000000003'$$, '42501', NULL, 'owner cannot transfer profile ownership');
-SELECT throws_ok('UPDATE public.user_profiles SET created_at = now()', '42501', NULL, 'owner cannot change created_at');
-SELECT throws_ok('UPDATE public.user_profiles SET updated_at = now()', '42501', NULL, 'owner cannot change updated_at');
+SELECT throws_ok('UPDATE public.user_profiles SET created_at = created_at + interval ''1 day''', '42501', NULL, 'owner cannot change created_at');
+SELECT throws_ok('UPDATE public.user_profiles SET updated_at = updated_at + interval ''1 day''', '42501', NULL, 'owner cannot change updated_at');
 SELECT throws_ok($$INSERT INTO public.user_profiles (user_id, display_name) VALUES ('10000000-0000-4000-8000-000000000001', 'forbidden')$$, '42501', NULL, 'authenticated direct profile inserts are denied');
-SELECT throws_ok('DELETE FROM public.user_profiles', '42501', NULL, 'authenticated profile deletes are denied');
-SELECT throws_ok('SELECT * FROM public.users', '42501', NULL, 'authenticated users reads are denied');
-SELECT throws_ok('UPDATE public.users SET is_active = false', '42501', NULL, 'authenticated users updates are denied');
+SELECT lives_ok('DELETE FROM public.user_profiles', 'authenticated profile deletes are filtered by RLS');
+SELECT is((SELECT count(*) FROM public.users), 0::bigint, 'non-admin authenticated users cannot read app user rows');
+SELECT lives_ok('UPDATE public.users SET is_active = false', 'non-admin user updates are filtered by RLS');
 SELECT throws_ok($$INSERT INTO public.users (id) VALUES ('10000000-0000-4000-8000-000000000003')$$, '42501', NULL, 'authenticated users inserts are denied');
-SELECT throws_ok('DELETE FROM public.users', '42501', NULL, 'authenticated users deletes are denied');
+SELECT lives_ok('DELETE FROM public.users', 'non-admin user deletes are filtered by RLS');
 RESET ROLE;
 
 -- Change identities to prove isolation in both directions and verify no mutation.
