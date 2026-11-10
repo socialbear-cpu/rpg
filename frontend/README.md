@@ -1,38 +1,30 @@
 # Aplicação RPG
 
-Aplicação web em Next.js e TypeScript. A interface e a API rodam na mesma origem; `backend/` fornece os módulos de autenticação, validação e acesso ao perfil usados pelos Route Handlers.
+O projeto é composto por dois serviços Vercel no mesmo domínio: `frontend/` usa Next.js e `backend/` usa Fastify. A UI chama `/api/v1/me/profile` na mesma origem; o Route Handler do Next encaminha a chamada ao backend privado usando o binding `BACKEND_URL`.
 
 ## Desenvolvimento local
 
-Na raiz do repositório, instale os workspaces e crie a configuração local:
+Na raiz do repositório, instale os workspaces e configure o Supabase:
 
 ```powershell
 npm ci
 Copy-Item frontend/.env.example frontend/.env.local
 ```
 
-Preencha `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` em `frontend/.env.local`. Use apenas a chave publishable/anon. Essas variáveis são públicas e entram no bundle do navegador; nunca use uma service-role ou chave secreta.
+Preencha `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` em `frontend/.env.local`. Use apenas a chave publishable/anon; nunca inclua uma service-role ou chave secreta no frontend.
 
-Inicie a aplicação a partir da raiz:
-
-```powershell
-npm run dev
-```
-
-Acesse `http://localhost:3000`. Os Route Handlers estão em `/healthz` e `/api/v1/me/profile`; a interface os chama na mesma origem. Os fluxos de cadastro e recuperação usam a origem atual como URL de retorno. Adicione `http://localhost:3000` às URLs permitidas de redirecionamento do Supabase Auth e, se usar o Supabase local, à configuração correspondente em `supabase/config.toml`.
-
-A sessão continua em memória nesta interface de validação. Atualizar a página encerra a sessão; tokens não são renovados automaticamente.
-
-## Deploy único na Vercel
-
-Use um único projeto Vercel vinculado ao repositório, com **Root Directory** `frontend` e Node.js 24 ou superior. Habilite **Include source files outside of the Root Directory in the Build Step** para incluir o workspace `backend/`. Mantenha a instalação padrão com o lockfile da raiz; `frontend/next.config.ts` configura o rastreamento do workspace compartilhado. O comando de build do pacote executa primeiro a compilação de `backend/` e depois `next build`.
-
-Configure `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` nos ambientes Production e Preview. Não há rewrites para outro projeto Vercel. O domínio de produção e os domínios Preview usados para confirmar cadastro e recuperar senha também precisam estar permitidos no Supabase Auth.
-
-Verificação local, a partir da raiz:
+Instale/tenha o Vercel CLI disponível e inicie os serviços juntos:
 
 ```powershell
-npm test
-npm run typecheck
-npm run build
+npx vercel dev -L
 ```
+
+O CLI inicia ambos os serviços e injeta o binding local. Acesse `http://localhost:3000`. `/healthz` é servido pelo frontend; `/api/v1/me/profile` é encaminhado ao backend. Os fluxos de cadastro e recuperação usam a origem atual como URL de retorno. Adicione `http://localhost:3000` às URLs permitidas de redirecionamento do Supabase Auth e, se usar Supabase local, à configuração correspondente em `supabase/config.toml`.
+
+## Vercel Services
+
+O arquivo `../vercel.json` define `backend` como Fastify e `frontend` como Next.js. Na configuração do projeto Vercel, selecione o framework **Services**. Os rewrites públicos enviam todo o tráfego ao frontend; o frontend acessa o backend exclusivamente pelo binding `BACKEND_URL`, então o backend não recebe tráfego público direto.
+
+Configure `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` nos ambientes Production, Preview e Development do projeto. O domínio de produção e os domínios Preview usados nos fluxos de confirmação e recuperação também precisam estar permitidos no Supabase Auth.
+
+Vercel Services é uma funcionalidade Beta; o projeto precisa ter acesso habilitado. Consulte a [documentação de Vercel Services](https://vercel.com/docs/services).

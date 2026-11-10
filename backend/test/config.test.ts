@@ -34,7 +34,7 @@ describe('loadConfig', () => {
     });
   });
 
-  it('loads public Supabase environment names for the single Next.js application', () => {
+  it('loads public Supabase environment names shared by the Vercel services', () => {
     expect(loadConfig({
       NEXT_PUBLIC_SUPABASE_URL: 'https://public.example.supabase.co',
       NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_public',

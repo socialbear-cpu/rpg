@@ -1,10 +1,10 @@
 # Módulos compartilhados do backend RPG
 
-Este workspace TypeScript contém a validação, autenticação de requisições e acesso ao perfil usados pelos Route Handlers em `frontend/app/api/`. A aplicação e a API são executadas juntas pelo Next.js; este pacote não precisa de um projeto Vercel ou servidor separado. Supabase Auth é responsável pelas contas e sessões. Senhas não são armazenadas nas tabelas da aplicação.
+Este workspace TypeScript executa a API Fastify como serviço `backend` do projeto Vercel Services. O serviço Next.js encaminha `/api/...` para ele usando o binding privado `BACKEND_URL`; não há acesso público direto ao serviço. Supabase Auth é responsável pelas contas e sessões. Senhas não são armazenadas nas tabelas da aplicação.
 
 ## Local configuration and development
 
-Na raiz do repositório, instale os workspaces e crie a configuração local do Next.js (PowerShell):
+Na raiz do repositório, instale os workspaces e configure o Next.js (PowerShell):
 
 ```powershell
 npm ci
@@ -18,13 +18,13 @@ Preencha `frontend/.env.local` com estas variáveis públicas:
 | `NEXT_PUBLIC_SUPABASE_URL` | URL do projeto Supabase; para o stack local, `http://127.0.0.1:54321`. |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Chave publishable/anon do projeto. Nunca use uma service-role ou chave secreta. |
 
-Inicie a aplicação a partir da raiz:
+Inicie os dois serviços a partir da raiz:
 
 ```powershell
-npm run dev
+npx vercel dev -L
 ```
 
-O Next.js atende a interface e a API na origem `http://localhost:3000`. A rota `/healthz` verifica se a aplicação está ativa e não depende de credenciais Supabase. As operações de perfil exigem uma URL e chave publishable válidas.
+O CLI executa os serviços juntos e injeta os bindings locais. `/healthz` é servido pelo frontend; as operações de perfil chegam aqui por `/api/v1/me/profile` e exigem uma URL e chave publishable válidas.
 
 ## Local database setup (runtime verification pending)
 
@@ -66,7 +66,7 @@ Create a Supabase JavaScript client in the client application using its project 
 3. Sign out with `supabase.auth.signOut()` and stop sending the cleared session's token. See [signOut](https://supabase.com/docs/reference/javascript/auth-signout).
 4. Request recovery with `supabase.auth.resetPasswordForEmail(email, { redirectTo })`. Use an allowed client redirect URL, handle the recovery session, then call `supabase.auth.updateUser({ password: newPassword })`. The local allowed redirect is currently `http://localhost:3000`; change the local Auth configuration when your client runs elsewhere. See [password recovery](https://supabase.com/docs/reference/javascript/auth-resetpasswordforemail).
 
-Handle every SDK error before advancing the flow. Do not use user-editable metadata as an authorization claim. The Next.js application calls this API on the same origin.
+Handle every SDK error before advancing the flow. Do not use user-editable metadata as an authorization claim. O navegador chama a mesma origem; o Route Handler do Next encaminha as chamadas pelo binding privado.
 
 ## Profile API contract
 
