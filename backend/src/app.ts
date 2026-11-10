@@ -8,6 +8,8 @@ export type AppOptions = FastifyServerOptions & { nodeEnv?: Config['nodeEnv'] };
 
 export function buildApp({ nodeEnv = 'development', ...options }: AppOptions = {}) {
   const app = Fastify(options);
+  app.decorateRequest('userId', null);
+  app.decorateRequest('supabase', null);
 
   app.register(swagger, {
     openapi: {
