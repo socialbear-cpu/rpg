@@ -17,6 +17,11 @@ Apply the numbered files in `migrations/` in order to a new Supabase project (Po
 - Character progression: `character_abilities`, `character_inventory`, `character_achievements`, `user_achievements`
 - Store: `products`, `store_products`, `purchases`, `purchase_items`
 - Campaign and chat: `campaigns`, `campaign_members`, `chat_rooms`, `messages`
+- Daily login: `daily_login_rewards` (one configured item per weekday and system), `daily_login_claims` (account-level claim ledger)
+
+Migration 005 adds an optional owner-managed seven-day reward calendar to each RPG system. Weekdays use ISO numbering (Monday=1 through Sunday=7), and each system uses its configured IANA timezone (default `America/Sao_Paulo`) to decide the current reward and claim date. Missed days do not accumulate. Each account can claim once per system and local date, choosing an active character they own in that system. The claim RPC records the claim and increments that character's existing inventory in one transaction. The item and quantity are snapshotted in the claim history.
+
+`game_systems.owner_user_id` is an authorization field. Assign the system owner through trusted operator tooling; do not let a browser client choose or update it. The owner sets all seven calendar entries through `set_daily_login_reward_schedule`, and the database verifies every item belongs to that same system. The browser-facing Supabase role can read the new calendar and its own claim history, but cannot write either table directly.
 
 The `game_system_id` foreign key scopes content and validates that campaign members, products, and purchases use the matching game system. A shop product sells one item or one ability; a scroll should be modeled as an item that grants an ability. `purchase_items` snapshots the display name and unit price so later catalog edits do not rewrite purchase history.
 

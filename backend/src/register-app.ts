@@ -3,6 +3,7 @@ import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import { healthRoutes } from './modules/health/health.routes.js';
 import { profileRoutes } from './modules/profile/profile.routes.js';
+import { dailyLoginRoutes } from './modules/daily-login/daily-login.routes.js';
 import type { Config } from './config.js';
 
 export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
@@ -26,4 +27,5 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
 
   app.register(healthRoutes);
   app.register(profileRoutes);
+  app.register(dailyLoginRoutes);
 }

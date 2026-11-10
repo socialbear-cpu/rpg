@@ -30,3 +30,7 @@ Configure a URL do projeto Supabase e a chave publishable nos ambientes Producti
 TypeScript está fixado em 5.9.3 nos dois serviços porque o builder Fastify da Vercel ainda usa `ts.sys`, que não existe no pacote raiz do TypeScript 7. Atualize esse pin quando o builder oferecer compatibilidade; a falha está registrada na [issue da Vercel](https://github.com/vercel/vercel/issues/17390).
 
 Vercel Services é uma funcionalidade Beta; o projeto precisa ter acesso habilitado. Consulte a [documentação de Vercel Services](https://vercel.com/docs/services).
+
+## Login diário
+
+Na área autenticada, a pessoa escolhe um sistema ativo e um personagem próprio para resgatar o item do dia. O calendário é independente por sistema, usa segunda a domingo e considera o fuso configurado no sistema (padrão `America/Sao_Paulo`). Há um resgate por conta, por sistema, por data local; dias não resgatados expiram. O owner do sistema configura no painel os sete itens já cadastrados e suas quantidades.

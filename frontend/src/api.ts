@@ -13,6 +13,79 @@ export interface ProfilePatch {
   bio?: string | null;
 }
 
+export interface DailyLoginSystem {
+  id: string;
+  name: string;
+  is_active: boolean;
+  daily_login_timezone: string;
+  daily_login_rewards_enabled: boolean;
+}
+
+export interface DailyLoginCharacter {
+  id: string;
+  character_name: string;
+  game_system_id: string;
+}
+
+export interface DailyLoginReward {
+  weekday: number;
+  item_id: string;
+  item_name: string;
+  quantity: number;
+}
+
+export interface DailyLoginClaim {
+  id: string;
+  character_id: string;
+  item_id: string;
+  item_name_snapshot: string;
+  quantity: number;
+  weekday: number;
+  local_claim_date: string;
+  claimed_at: string;
+}
+
+export interface DailyLoginTodayState {
+  status: 'available' | 'already_claimed' | 'calendar_unavailable' | 'system_unavailable' | 'unauthorized';
+  weekday?: number;
+  local_date?: string;
+  timezone?: string;
+  reward?: DailyLoginReward | null;
+  claim?: DailyLoginClaim | null;
+}
+
+export interface DailyLoginSystemView {
+  system: DailyLoginSystem;
+  is_owner: boolean;
+  characters: DailyLoginCharacter[];
+  today: DailyLoginTodayState | null;
+}
+
+export interface DailyLoginOwnerCalendar {
+  system: DailyLoginSystem;
+  is_active: boolean;
+  items: { id: string; name: string }[];
+  rewards: DailyLoginReward[];
+}
+
+export interface DailyLoginScheduleInput {
+  rewards: { weekday: number; item_id: string; quantity: number }[];
+  is_active: boolean;
+}
+
+export interface DailyLoginClaimResult {
+  status: 'claimed' | 'already_claimed' | 'invalid_character' | 'calendar_unavailable' | 'system_unavailable' | 'unauthorized';
+  claim_id?: string;
+  game_system_id?: string;
+  character_id?: string;
+  item_id?: string;
+  item_name?: string;
+  quantity?: number;
+  weekday?: number;
+  local_claim_date?: string;
+  timezone?: string;
+}
+
 export async function checkHealth(): Promise<{ status: string }> {
   const response = await fetch('/healthz', { cache: 'no-store' });
   if (!response.ok) throw new Error(`API respondeu ${response.status}`);
@@ -31,9 +104,43 @@ export function updateMyProfile(patch: ProfilePatch) {
   }) as Promise<Profile>;
 }
 
+export function getMyDailyLoginSystems() {
+  return authenticatedRequest<DailyLoginSystemView[]>('/api/v1/me/daily-login/systems');
+}
+
+export function getDailyLoginSystem(systemId: string) {
+  return authenticatedRequest<DailyLoginSystemView>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/daily-login/rewards`,
+  );
+}
+
+export function claimDailyLoginReward(systemId: string, characterId: string) {
+  return authenticatedRequest<DailyLoginClaimResult>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/daily-login/claims`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ character_id: characterId }) },
+  );
+}
+
+export function getOwnerDailyLoginCalendar(systemId: string) {
+  return authenticatedRequest<DailyLoginOwnerCalendar>(
+    `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/daily-login/rewards`,
+  );
+}
+
+export function saveOwnerDailyLoginCalendar(systemId: string, schedule: DailyLoginScheduleInput) {
+  return authenticatedRequest<{ status: string }>(
+    `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/daily-login/rewards`,
+    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(schedule) },
+  );
+}
+
 async function profileRequest(path: string, init: RequestInit = {}) {
+  return authenticatedRequest<Profile>(path, init);
+}
+
+async function authenticatedRequest<T>(path: string, init: RequestInit = {}): Promise<T> {
   const token = currentAccessToken();
-  if (!token) throw new Error('Entre na sua conta antes de acessar o perfil.');
+  if (!token) throw new Error('Entre na sua conta antes de continuar.');
   const response = await fetch(path, {
     ...init,
     cache: 'no-store',
@@ -44,5 +151,5 @@ async function profileRequest(path: string, init: RequestInit = {}) {
     const error = data as { error?: string };
     throw new Error(error.error || `API respondeu ${response.status}`);
   }
-  return data;
+  return data as T;
 }

@@ -50,12 +50,13 @@ psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=
 psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/002_character_fields.sql
 psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/003_supabase_auth.sql
 psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/004_profile_rls.sql
+psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/005_daily_login_rewards.sql
 npx supabase test db
 ```
 
 These files live in `database/migrations/`, not the CLI's `supabase/migrations/` directory; `supabase start` alone does not apply them. Do not rerun them on an already migrated database. Migration 003 requires any existing `public.users.id` to match an Auth user; map existing accounts before attempting it. Migration 003 installs the Auth trigger and backfills profiles; migration 004 restricts profile access to the owner, with updates limited to the three editable columns. Broader game-domain tables still need their own authorization work before exposure.
 
-The pgTAP suite is `supabase/tests/004_profile_rls.test.sql`. Backend tests use an HTTP fixture and cannot establish database policy or trigger correctness. Running the local database suite remains required before deployment.
+The pgTAP suites are `supabase/tests/004_profile_rls.test.sql` and `supabase/tests/005_daily_login_rewards.test.sql`. Backend tests use an HTTP fixture and cannot establish database policy or trigger correctness. Running the local database suite remains required before deployment.
 
 ## Conta e autenticação
 
@@ -119,6 +120,20 @@ Application errors use `{ "error": "..." }`:
 | `500` | Database access failure: `{ "error": "Unable to access profile" }`; database details are withheld. |
 
 Malformed JSON and invalid PATCH payloads return `400 { "error": "Invalid profile patch" }`; unsupported PATCH media types return 415. Refresh or reauthenticate on an expired token; do not send a user ID to bypass a 401. If a profile is missing, investigate the Auth trigger/migrations rather than inserting it from the client.
+
+## Daily login rewards
+
+All routes require the same Supabase bearer token. The database derives the account from that token, enforces one claim per system and local date, checks that the selected active character belongs to the account and system, and adds the configured item to inventory atomically.
+
+| Operation | Purpose |
+| --- | --- |
+| `GET /api/v1/me/daily-login/systems` | List active systems with a configured daily reward calendar. |
+| `GET /api/v1/game-systems/:systemId/daily-login/rewards` | Read today's reward and this account's claim status. |
+| `POST /api/v1/game-systems/:systemId/daily-login/claims` | Claim today's reward for `{ "character_id": "..." }`. |
+| `GET /api/v1/owner/game-systems/:systemId/daily-login/rewards` | Owner-only calendar and same-system item catalog. |
+| `PUT /api/v1/owner/game-systems/:systemId/daily-login/rewards` | Owner-only replacement of all seven entries and enabled state. |
+
+The owner endpoint accepts seven unique ISO weekdays (Monday=1 to Sunday=7), each with one existing item and a positive quantity. Non-owners cannot view the owner catalog or save the schedule. A missed weekday's reward expires and does not accumulate.
 
 ## Backend verification
 

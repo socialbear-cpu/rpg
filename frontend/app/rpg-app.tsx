@@ -3,7 +3,20 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { AccountCard, type AccountMode } from '../src/features/account/account-card';
 import { ProfileCard, type ProfileFields } from '../src/features/profile/profile-card';
-import { checkHealth, getMyProfile, updateMyProfile, type Profile } from '../src/api';
+import { DailyLoginAdminCard } from '../src/features/daily-login/daily-login-admin-card';
+import { DailyLoginCard } from '../src/features/daily-login/daily-login-card';
+import {
+  checkHealth,
+  claimDailyLoginReward,
+  getMyDailyLoginSystems,
+  getOwnerDailyLoginCalendar,
+  getMyProfile,
+  saveOwnerDailyLoginCalendar,
+  updateMyProfile,
+  type DailyLoginOwnerCalendar,
+  type DailyLoginSystemView,
+  type Profile,
+} from '../src/api';
 import { missingSupabaseConfig } from '../src/config';
 import {
   consumeAuthCallback,
@@ -33,6 +46,20 @@ export function RpgApp() {
   const [authBusy, setAuthBusy] = useState(false);
   const [recoveryBusy, setRecoveryBusy] = useState(false);
   const [profileBusy, setProfileBusy] = useState(false);
+  const [dailyLoginSystems, setDailyLoginSystems] = useState<DailyLoginSystemView[]>([]);
+  const [dailyLoginLoading, setDailyLoginLoading] = useState(false);
+  const [dailyLoginError, setDailyLoginError] = useState<string | null>(null);
+  const [dailyLoginVersion, setDailyLoginVersion] = useState(0);
+  const [claimingSystemId, setClaimingSystemId] = useState<string | null>(null);
+  const [claimMessage, setClaimMessage] = useState<string | null>(null);
+  const [claimMessageIsError, setClaimMessageIsError] = useState(false);
+  const [ownerSystemId, setOwnerSystemId] = useState('');
+  const [ownerCalendar, setOwnerCalendar] = useState<DailyLoginOwnerCalendar | null>(null);
+  const [ownerCalendarLoading, setOwnerCalendarLoading] = useState(false);
+  const [ownerCalendarVersion, setOwnerCalendarVersion] = useState(0);
+  const [ownerSaving, setOwnerSaving] = useState(false);
+  const [ownerMessage, setOwnerMessage] = useState<string | null>(null);
+  const [ownerMessageIsError, setOwnerMessageIsError] = useState(false);
 
   useEffect(() => {
     const missing = missingSupabaseConfig();
@@ -45,6 +72,62 @@ export function RpgApp() {
 
     void checkHealth().then(() => setHealth('ok')).catch(() => setHealth('bad'));
   }, []);
+
+  useEffect(() => {
+    if (!authenticated) {
+      setDailyLoginSystems([]);
+      setDailyLoginError(null);
+      setOwnerCalendar(null);
+      setOwnerSystemId('');
+      return;
+    }
+
+    let current = true;
+    setDailyLoginLoading(true);
+    setDailyLoginError(null);
+    void getMyDailyLoginSystems().then((systems) => {
+      if (current) setDailyLoginSystems(systems);
+    }).catch((error) => {
+      if (current) setDailyLoginError(error instanceof Error ? error.message : 'Não foi possível carregar o login diário.');
+    }).finally(() => {
+      if (current) setDailyLoginLoading(false);
+    });
+    return () => { current = false; };
+  }, [authenticated, dailyLoginVersion]);
+
+  useEffect(() => {
+    const owned = dailyLoginSystems.filter((entry) => entry.is_owner);
+    if (!authenticated || owned.length === 0) {
+      setOwnerSystemId('');
+      setOwnerCalendar(null);
+      return;
+    }
+    if (!owned.some((entry) => entry.system.id === ownerSystemId)) {
+      setOwnerSystemId(owned[0]!.system.id);
+    }
+  }, [authenticated, dailyLoginSystems, ownerSystemId]);
+
+  useEffect(() => {
+    if (!authenticated || !ownerSystemId) {
+      setOwnerCalendar(null);
+      return;
+    }
+    let current = true;
+    setOwnerCalendarLoading(true);
+    setOwnerMessage(null);
+    void getOwnerDailyLoginCalendar(ownerSystemId).then((calendar) => {
+      if (current) setOwnerCalendar(calendar);
+    }).catch((error) => {
+      if (current) {
+        setOwnerCalendar(null);
+        setOwnerMessage(error instanceof Error ? error.message : 'Não foi possível carregar o calendário.');
+        setOwnerMessageIsError(true);
+      }
+    }).finally(() => {
+      if (current) setOwnerCalendarLoading(false);
+    });
+    return () => { current = false; };
+  }, [authenticated, ownerSystemId, ownerCalendarVersion]);
 
   const showNotice = (message: string, error = false) => setNotice({ message, error });
   const selectMode = (nextMode: AccountMode) => {
@@ -64,7 +147,7 @@ export function RpgApp() {
           : 'Cadastro recebido. Confirme seu e-mail para poder entrar.');
       } else {
         await signIn({ email: email.trim(), password });
-        showNotice('Login realizado. Carregue seu perfil para validar a API.');
+        showNotice('Login realizado. Você já pode resgatar suas recompensas diárias.');
       }
       setAuthenticated(hasSession());
     } catch (error) {
@@ -144,6 +227,64 @@ export function RpgApp() {
     }
   }
 
+  async function submitDailyLoginClaim(systemId: string, characterId: string) {
+    setClaimingSystemId(systemId);
+    setClaimMessage(null);
+    try {
+      const result = await claimDailyLoginReward(systemId, characterId);
+      setClaimMessage(`${result.quantity} ${result.quantity === 1 ? 'unidade' : 'unidades'} de ${result.item_name} entregue(s) ao personagem.`);
+      setClaimMessageIsError(false);
+      setDailyLoginVersion((version) => version + 1);
+    } catch (error) {
+      setClaimMessage(error instanceof Error ? error.message : 'Não foi possível resgatar a recompensa.');
+      setClaimMessageIsError(true);
+    } finally {
+      setClaimingSystemId(null);
+    }
+  }
+
+  function changeOwnerReward(weekday: number, field: 'item_id' | 'quantity', value: string | number) {
+    setOwnerCalendar((current) => {
+      if (!current) return current;
+      const existing = current.rewards.find((reward) => reward.weekday === weekday);
+      const itemId = field === 'item_id' ? String(value) : existing?.item_id ?? '';
+      const itemName = current.items.find((item) => item.id === itemId)?.name ?? '';
+      const next = existing
+        ? { ...existing, [field]: value, item_name: itemName }
+        : { weekday, item_id: itemId, item_name: itemName, quantity: field === 'quantity' ? Number(value) : 1 };
+      return {
+        ...current,
+        rewards: [...current.rewards.filter((reward) => reward.weekday !== weekday), next].sort((a, b) => a.weekday - b.weekday),
+      };
+    });
+  }
+
+  async function saveOwnerCalendar(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!ownerCalendar) return;
+    const rewards = Array.from({ length: 7 }, (_, index) => ownerCalendar.rewards.find((reward) => reward.weekday === index + 1))
+      .filter((reward): reward is NonNullable<typeof reward> => Boolean(reward))
+      .map(({ weekday, item_id, quantity }) => ({ weekday, item_id, quantity }));
+    if (rewards.length !== 7 || rewards.some((reward) => !reward.item_id || !Number.isInteger(reward.quantity) || reward.quantity < 1 || reward.quantity > 1_000_000)) {
+      setOwnerMessage('Escolha um item e uma quantidade válida para cada dia da semana.');
+      setOwnerMessageIsError(true);
+      return;
+    }
+    setOwnerSaving(true);
+    setOwnerMessage(null);
+    try {
+      await saveOwnerDailyLoginCalendar(ownerCalendar.system.id, { rewards, is_active: ownerCalendar.is_active });
+      setOwnerMessage('Calendário salvo.');
+      setOwnerMessageIsError(false);
+      setOwnerCalendarVersion((version) => version + 1);
+    } catch (error) {
+      setOwnerMessage(error instanceof Error ? error.message : 'Não foi possível salvar o calendário.');
+      setOwnerMessageIsError(true);
+    } finally {
+      setOwnerSaving(false);
+    }
+  }
+
   return (
     <main className="shell">
       <header className="topbar">
@@ -190,6 +331,30 @@ export function RpgApp() {
           onSaveProfile={saveProfile}
         />
       </section>
+
+      {authenticated && <section className="daily-login-layout" aria-label="Login diário e configuração de recompensas">
+        <DailyLoginCard
+          systems={dailyLoginSystems}
+          loading={dailyLoginLoading}
+          claimingSystemId={claimingSystemId}
+          message={claimMessage ?? dailyLoginError}
+          messageIsError={claimMessage ? claimMessageIsError : Boolean(dailyLoginError)}
+          onClaim={(systemId, characterId) => void submitDailyLoginClaim(systemId, characterId)}
+        />
+        {dailyLoginSystems.some((entry) => entry.is_owner) && <DailyLoginAdminCard
+          systems={dailyLoginSystems}
+          selectedSystemId={ownerSystemId}
+          calendar={ownerCalendar}
+          loading={ownerCalendarLoading}
+          saving={ownerSaving}
+          message={ownerMessage}
+          messageIsError={ownerMessageIsError}
+          onSystemChange={(systemId) => { setOwnerSystemId(systemId); setOwnerCalendar(null); }}
+          onRewardChange={changeOwnerReward}
+          onActiveChange={(isActive) => setOwnerCalendar((current) => current ? { ...current, is_active: isActive } : current)}
+          onSave={saveOwnerCalendar}
+        />}
+      </section>}
       <footer><span>RPG · Backend validation</span><span>Sem chave secreta no navegador</span></footer>
     </main>
   );
