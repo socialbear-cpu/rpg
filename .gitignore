@@ -21,6 +21,7 @@ coverage/
 *.tsbuildinfo
 *.log
 logs/
+.next/
 
 /docs/superpowers/
 

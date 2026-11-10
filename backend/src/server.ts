@@ -1,9 +1,9 @@
 import Fastify from 'fastify';
 import { registerApp } from './register-app.js';
-import { loadConfig } from './config.js';
+import { loadRuntimeConfig } from './config.js';
 
 try {
-  const config = loadConfig(process.env);
+  const config = loadRuntimeConfig(process.env);
   const app = Fastify({
     logger: { redact: ['req.headers.authorization'] },
   });

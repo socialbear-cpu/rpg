@@ -34,6 +34,16 @@ describe('loadConfig', () => {
     });
   });
 
+  it('loads public Supabase environment names for the single Next.js application', () => {
+    expect(loadConfig({
+      NEXT_PUBLIC_SUPABASE_URL: 'https://public.example.supabase.co',
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_public',
+    })).toMatchObject({
+      supabaseUrl: 'https://public.example.supabase.co',
+      supabasePublishableKey: 'sb_publishable_public',
+    });
+  });
+
   it.each(['0', '65536', '3.5', 'not-a-port', ''])('rejects invalid port %s', (port) => {
     expect(() => loadConfig({ ...validEnv, PORT: port })).toThrow(/PORT/);
   });

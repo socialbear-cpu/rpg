@@ -2,7 +2,20 @@
   "name": "rpg-tooling",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "devDependencies": {
     "supabase": "^3.1.0"
+  },
+  "scripts": {
+    "build": "npm run build --workspace frontend",
+    "dev": "npm run dev --workspace frontend",
+    "test": "npm test --workspace @rpg/backend && npm test --workspace @rpg/frontend",
+    "typecheck": "npm run typecheck --workspace @rpg/backend && npm run typecheck --workspace @rpg/frontend"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }

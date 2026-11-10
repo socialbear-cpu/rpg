@@ -1,41 +1,30 @@
-# RPG backend
+# Módulos compartilhados do backend RPG
 
-Fastify API on Node.js 24+ with TypeScript. Supabase Auth owns accounts and sessions; this service exposes the authenticated user's profile. Passwords are never stored in application tables.
+Este workspace TypeScript contém a validação, autenticação de requisições e acesso ao perfil usados pelos Route Handlers em `frontend/app/api/`. A aplicação e a API são executadas juntas pelo Next.js; este pacote não precisa de um projeto Vercel ou servidor separado. Supabase Auth é responsável pelas contas e sessões. Senhas não são armazenadas nas tabelas da aplicação.
 
 ## Local configuration and development
 
-From `backend/`, install the locked dependencies and create the ignored local environment file (PowerShell):
+Na raiz do repositório, instale os workspaces e crie a configuração local do Next.js (PowerShell):
 
 ```powershell
 npm ci
-Copy-Item .env.example .env
+Copy-Item frontend/.env.example frontend/.env.local
 ```
 
-Edit `.env` with these values:
+Preencha `frontend/.env.local` com estas variáveis públicas:
 
 | Variable | Meaning |
 | --- | --- |
-| `SUPABASE_URL` | Required HTTP(S) Supabase API URL; local default `http://127.0.0.1:54321`. |
-| `SUPABASE_PUBLISHABLE_KEY` | Required nonempty publishable key for that project. Replace the template placeholder. Never use a service-role or secret key. |
-| `PORT` | Integer 1–65535; defaults to `3000`. |
-| `NODE_ENV` | `development`, `test`, or `production`; defaults to `development`. |
+| `NEXT_PUBLIC_SUPABASE_URL` | URL do projeto Supabase; para o stack local, `http://127.0.0.1:54321`. |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Chave publishable/anon do projeto. Nunca use uma service-role ou chave secreta. |
 
-Run from `backend/`:
+Inicie a aplicação a partir da raiz:
 
 ```powershell
 npm run dev
 ```
 
-The development command loads `.env` and starts TypeScript directly; it does not enable file watching. Visit [health](http://localhost:3000/healthz), [Swagger UI](http://localhost:3000/docs/), or [OpenAPI JSON](http://localhost:3000/docs/json). Docs routes are registered only in development. `/healthz` checks the API process, not database readiness. Server startup requires valid configuration even though the health handler itself does not use Supabase.
-
-For a compiled server, run from `backend/`:
-
-```powershell
-npm run build
-node --env-file=.env dist/server.js
-```
-
-`npm start` runs `node dist/server.js` and expects the environment to have already been supplied by the process manager or shell; it does not load `.env`.
+O Next.js atende a interface e a API na origem `http://localhost:3000`. A rota `/healthz` verifica se a aplicação está ativa e não depende de credenciais Supabase. As operações de perfil exigem uma URL e chave publishable válidas.
 
 ## Local database setup (runtime verification pending)
 
@@ -52,7 +41,7 @@ npx supabase start
 npx supabase status
 ```
 
-Use the local publishable key reported by your local stack for `backend/.env`. If the installed CLI only reports legacy keys, its `anon` key is the compatibility fallback for this variable; never copy the service-role key. Keep local credentials out of commits and logs shared publicly. The CLI reports the local connection details; see the [CLI reference](https://supabase.com/docs/reference/cli/introduction).
+Use a URL e chave publishable reportadas pelo stack local em `frontend/.env.local`. Se a CLI mostrar apenas chaves antigas, a chave `anon` é compatível; nunca copie a service-role. Mantenha configurações locais fora de commits e logs públicos. A CLI informa os detalhes da conexão; consulte a [referência da CLI](https://supabase.com/docs/reference/cli/introduction).
 
 On a fresh local database, apply the canonical SQL files in order. The following URL is the default local database from this repository's port configuration; adjust it only if your local configuration differs:
 
@@ -77,11 +66,11 @@ Create a Supabase JavaScript client in the client application using its project 
 3. Sign out with `supabase.auth.signOut()` and stop sending the cleared session's token. See [signOut](https://supabase.com/docs/reference/javascript/auth-signout).
 4. Request recovery with `supabase.auth.resetPasswordForEmail(email, { redirectTo })`. Use an allowed client redirect URL, handle the recovery session, then call `supabase.auth.updateUser({ password: newPassword })`. The local allowed redirect is currently `http://localhost:3000`; change the local Auth configuration when your client runs elsewhere. See [password recovery](https://supabase.com/docs/reference/javascript/auth-resetpasswordforemail).
 
-Handle every SDK error before advancing the flow. Do not use user-editable metadata as an authorization claim. A browser client must use a same-origin reverse proxy for this API or explicitly configure CORS in a later change; this backend currently does not install a CORS plugin.
+Handle every SDK error before advancing the flow. Do not use user-editable metadata as an authorization claim. The Next.js application calls this API on the same origin.
 
 ## Profile API contract
 
-Send `Authorization: Bearer <Supabase access token>` to both operations. The backend verifies the token with Supabase Auth and forwards it to the Data API with the publishable key. Identity comes from the verified user; caller-supplied IDs, query parameters, and identity headers cannot select another profile. Swagger's Authorize dialog takes the access token without the `Bearer ` prefix.
+Send `Authorization: Bearer <Supabase access token>` to both operations. The server verifies the token with Supabase Auth and forwards it to the Data API with the publishable key. Identity comes from the verified user; caller-supplied IDs, query parameters, and identity headers cannot select another profile.
 
 | Operation | Result |
 | --- | --- |
@@ -108,15 +97,15 @@ PATCH allows only these fields; omitted fields remain unchanged:
 | `avatar_url` | HTTP(S) URL up to 2048 characters, or `null` to clear. |
 | `bio` | String up to 500 characters (empty allowed), or `null` to clear. |
 
-Unknown fields, empty objects, nonobjects, and invalid values are rejected. Send `Content-Type: application/json`. The following client fragment reads and updates an existing signed-in session's profile; `accessToken` is its current access token and `apiBase` is your API origin:
+Unknown fields, empty objects, nonobjects, and invalid values are rejected. Send `Content-Type: application/json`. The following client fragment reads and updates an existing signed-in session's profile; `accessToken` is its current access token. The API uses the same origin as the Next.js application:
 
 ```javascript
 const headers = { Authorization: `Bearer ${accessToken}` };
-const profile = await fetch(`${apiBase}/api/v1/me/profile`, { headers });
+const profile = await fetch('/api/v1/me/profile', { headers });
 if (!profile.ok) throw new Error(`Profile read failed: ${profile.status}`);
 const currentProfile = await profile.json();
 
-const updated = await fetch(`${apiBase}/api/v1/me/profile`, {
+const updated = await fetch('/api/v1/me/profile', {
   method: 'PATCH',
   headers: { ...headers, 'Content-Type': 'application/json' },
   body: JSON.stringify({ display_name: 'Player', bio: null }),
@@ -134,17 +123,16 @@ Application errors use `{ "error": "..." }`:
 | `404` | No profile row: `{ "error": "Profile not found" }`. No automatic provisioning or upsert occurs. |
 | `500` | Database access failure: `{ "error": "Unable to access profile" }`; database details are withheld. |
 
-Malformed JSON, unsupported media types, and request-size limits use Fastify's own transport-level error responses and may have a different shape. Refresh or reauthenticate on an expired token; do not send a user ID to bypass a 401. If a profile is missing, investigate the Auth trigger/migrations rather than inserting it from the client.
+Malformed JSON and invalid PATCH payloads return `400 { "error": "Invalid profile patch" }`; unsupported PATCH media types return 415. Refresh or reauthenticate on an expired token; do not send a user ID to bypass a 401. If a profile is missing, investigate the Auth trigger/migrations rather than inserting it from the client.
 
 ## Backend verification
 
-Run from `backend/`:
+Run from the repository root:
 
 ```powershell
-npm test -- --run test/openapi.test.ts
-npm test -- --run
+npm test
 npm run typecheck
 npm run build
 ```
 
-These commands require no running Supabase stack. Contract checks inspect the generated development OpenAPI JSON; route tests exercise the real Fastify/auth/repository code with external HTTP replaced. They do not prove Postgres RLS. Database verification remains deferred as stated above.
+These commands require no running Supabase stack. Route tests exercise the Next.js handlers and Supabase/auth/repository modules with external HTTP replaced. They do not prove Postgres RLS. Database verification remains deferred as stated above.
