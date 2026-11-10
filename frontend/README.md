@@ -27,4 +27,6 @@ O arquivo `../vercel.json` define `backend` como Fastify e `frontend` como Next.
 
 Configure `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` nos ambientes Production, Preview e Development do projeto. O domínio de produção e os domínios Preview usados nos fluxos de confirmação e recuperação também precisam estar permitidos no Supabase Auth.
 
+TypeScript está fixado em 5.9.3 nos dois serviços porque o builder Fastify da Vercel ainda usa `ts.sys`, que não existe no pacote raiz do TypeScript 7. Atualize esse pin quando o builder oferecer compatibilidade; a falha está registrada na [issue da Vercel](https://github.com/vercel/vercel/issues/17390).
+
 Vercel Services é uma funcionalidade Beta; o projeto precisa ter acesso habilitado. Consulte a [documentação de Vercel Services](https://vercel.com/docs/services).

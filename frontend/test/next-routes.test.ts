@@ -53,7 +53,7 @@ describe('Next.js routes and backend binding', () => {
     const [url, init] = fetchMock.mock.calls[0] as [URL, RequestInit];
     expect(url.pathname).toBe('/api/v1/me/profile');
     expect(init.method).toBe('PATCH');
-    expect(init.body).toBe(JSON.stringify({ unknown: true }));
+    expect(new TextDecoder().decode(init.body as ArrayBuffer)).toBe(JSON.stringify({ unknown: true }));
   });
 
   it('returns 503 if the binding is unavailable', async () => {
