@@ -7,6 +7,7 @@ const systemId = '30000000-0000-4000-8000-000000000001';
 const characterId = '50000000-0000-4000-8000-000000000001';
 const itemId = '40000000-0000-4000-8000-000000000001';
 const ownerId = '20000000-0000-4000-8000-000000000001';
+const adminId = '20000000-0000-4000-8000-000000000005';
 const authorization = 'Bearer accepted-token';
 let requests: { url: URL; method: string; headers: Headers; body: unknown }[];
 let claimStatus: string;
@@ -43,10 +44,20 @@ beforeEach(() => {
         id: systemId, name: 'System A', is_active: true,
         daily_login_timezone: 'UTC', daily_login_rewards_enabled: true,
       };
-      if (url.searchParams.get('owner_user_id') === `eq.${authenticatedUserId}`) {
-        return authenticatedUserId === ownerId ? Response.json(system) : Response.json(null);
+      if (url.searchParams.get('id') === `eq.${systemId}`) {
+        return Response.json(system);
       }
-      return Response.json(url.searchParams.get('is_active') === 'eq.true' ? [system] : []);
+      return Response.json(url.searchParams.get('is_active') === 'eq.true' || authenticatedUserId === adminId ? [system] : []);
+    }
+    if (url.pathname === '/rest/v1/rpc/get_my_system_memberships') {
+      return Response.json({
+        is_platform_admin: authenticatedUserId === adminId,
+        memberships: authenticatedUserId === ownerId ? [{
+          game_system_id: systemId, game_system_name: 'System A', role: 'owner',
+        }] : [{
+          game_system_id: systemId, game_system_name: 'System A', role: 'user',
+        }],
+      });
     }
     if (url.pathname === '/rest/v1/items') {
       return Response.json([{ id: itemId, name: 'Daily Token' }]);
@@ -111,6 +122,7 @@ describe('daily login API writes', () => {
     expect(response.json()).toEqual([expect.objectContaining({
       system: expect.objectContaining({ id: systemId, name: 'System A' }),
       is_owner: false,
+      can_manage: false,
       characters: [{ id: characterId, character_name: 'Player A', game_system_id: systemId }],
       today: expect.objectContaining({ status: 'available', local_date: '2026-11-10' }),
     })]);
@@ -128,8 +140,18 @@ describe('daily login API writes', () => {
       items: [{ id: itemId, name: 'Daily Token' }],
       rewards: [{ weekday: 2, item_id: itemId, quantity: 3, item_name: 'Daily Token' }],
     });
-    const ownerQuery = requests.find(({ url }) => url.pathname === '/rest/v1/game_systems')!;
-    expect(ownerQuery.url.searchParams.get('owner_user_id')).toBe(`eq.${ownerId}`);
+    const membershipRpc = requests.find(({ url }) => url.pathname.endsWith('/get_my_system_memberships'))!;
+    expect(membershipRpc.body).toEqual({});
+    const systemQuery = requests.find(({ url }) => url.pathname === '/rest/v1/game_systems')!;
+    expect(systemQuery.url.searchParams.has('owner_user_id')).toBe(false);
+  });
+
+  it('allows a global Admin to load a system calendar without a per-system Owner row', async () => {
+    authenticatedUserId = adminId;
+    const response = await request('GET', `/api/v1/owner/game-systems/${systemId}/daily-login/rewards`);
+    expect(response.statusCode).toBe(200);
+    expect(requests.some(({ url }) => url.pathname.endsWith('/get_my_system_memberships'))).toBe(true);
+    expect(requests.some(({ url }) => url.pathname === '/rest/v1/items')).toBe(true);
   });
 
   it('does not reveal owner catalog to a non-owner', async () => {

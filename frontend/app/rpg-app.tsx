@@ -96,14 +96,14 @@ export function RpgApp() {
   }, [authenticated, dailyLoginVersion]);
 
   useEffect(() => {
-    const owned = dailyLoginSystems.filter((entry) => entry.is_owner);
-    if (!authenticated || owned.length === 0) {
+    const manageable = dailyLoginSystems.filter((entry) => entry.can_manage);
+    if (!authenticated || manageable.length === 0) {
       setOwnerSystemId('');
       setOwnerCalendar(null);
       return;
     }
-    if (!owned.some((entry) => entry.system.id === ownerSystemId)) {
-      setOwnerSystemId(owned[0]!.system.id);
+    if (!manageable.some((entry) => entry.system.id === ownerSystemId)) {
+      setOwnerSystemId(manageable[0]!.system.id);
     }
   }, [authenticated, dailyLoginSystems, ownerSystemId]);
 
@@ -341,7 +341,7 @@ export function RpgApp() {
           messageIsError={claimMessage ? claimMessageIsError : Boolean(dailyLoginError)}
           onClaim={(systemId, characterId) => void submitDailyLoginClaim(systemId, characterId)}
         />
-        {dailyLoginSystems.some((entry) => entry.is_owner) && <DailyLoginAdminCard
+        {dailyLoginSystems.some((entry) => entry.can_manage) && <DailyLoginAdminCard
           systems={dailyLoginSystems}
           selectedSystemId={ownerSystemId}
           calendar={ownerCalendar}

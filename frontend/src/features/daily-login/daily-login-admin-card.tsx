@@ -35,10 +35,10 @@ export function DailyLoginAdminCard({
   onActiveChange,
   onSave,
 }: Props) {
-  const ownedSystems = systems.filter((entry) => entry.is_owner);
-  if (ownedSystems.length === 0) return null;
+  const manageableSystems = systems.filter((entry) => entry.can_manage);
+  if (manageableSystems.length === 0) return null;
 
-  const selected = ownedSystems.find((entry) => entry.system.id === selectedSystemId) ?? ownedSystems[0]!;
+  const selected = manageableSystems.find((entry) => entry.system.id === selectedSystemId) ?? manageableSystems[0]!;
   const rewards = calendar?.system.id === selected.system.id ? calendar.rewards : [];
   const rewardByDay = new Map(rewards.map((reward) => [reward.weekday, reward]));
   const complete = weekdays.every((_, index) => {
@@ -51,12 +51,12 @@ export function DailyLoginAdminCard({
   });
 
   return <article className="card daily-login-admin-card">
-    <div className="section-heading"><div><p className="eyebrow">OWNER</p><h2>Gerenciar recompensas diárias</h2></div><span className="step">02</span></div>
+    <div className="section-heading"><div><p className="eyebrow">{manageableSystems.some((entry) => !entry.is_owner) ? 'OWNER / ADMIN' : 'OWNER'}</p><h2>Gerenciar recompensas diárias</h2></div><span className="step">02</span></div>
     <p className="card-copy">Escolha um item do catálogo e a quantidade para cada dia da semana deste sistema.</p>
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status" aria-live="polite">{message}</p>}
-    {ownedSystems.length > 1 && <label className="daily-field" htmlFor="daily-login-owner-system">Sistema de RPG
+    {manageableSystems.length > 1 && <label className="daily-field" htmlFor="daily-login-owner-system">Sistema de RPG
       <select id="daily-login-owner-system" value={selected.system.id} onChange={(event) => onSystemChange(event.target.value)}>
-        {ownedSystems.map(({ system }) => <option key={system.id} value={system.id}>{system.name}</option>)}
+        {manageableSystems.map(({ system }) => <option key={system.id} value={system.id}>{system.name}</option>)}
       </select>
     </label>}
     {loading && <p className="card-copy" role="status">Carregando calendário…</p>}

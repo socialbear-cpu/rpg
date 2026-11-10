@@ -57,6 +57,7 @@ export interface DailyLoginTodayState {
 export interface DailyLoginSystemView {
   system: DailyLoginSystem;
   is_owner: boolean;
+  can_manage: boolean;
   characters: DailyLoginCharacter[];
   today: DailyLoginTodayState | null;
 }
@@ -84,6 +85,30 @@ export interface DailyLoginClaimResult {
   weekday?: number;
   local_claim_date?: string;
   timezone?: string;
+}
+
+export type SystemRole = 'owner' | 'mod' | 'user';
+
+export interface SystemMembership {
+  game_system_id: string;
+  game_system_name: string;
+  role: SystemRole;
+}
+
+export interface SystemMemberships {
+  is_platform_admin: boolean;
+  memberships: SystemMembership[];
+}
+
+export async function getMySystemMemberships() {
+  return authenticatedRequest<SystemMemberships>('/api/v1/me/system-memberships');
+}
+
+export async function setSystemModerator(gameSystemId: string, userId: string, isModerator: boolean) {
+  return authenticatedRequest<{ status: 'updated' }>(
+    `/api/v1/owner/game-systems/${encodeURIComponent(gameSystemId)}/members/${encodeURIComponent(userId)}/moderator`,
+    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ is_moderator: isModerator }) },
+  );
 }
 
 export async function checkHealth(): Promise<{ status: string }> {

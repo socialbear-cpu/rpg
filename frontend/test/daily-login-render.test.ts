@@ -18,6 +18,7 @@ const systemView: DailyLoginSystemView = {
     daily_login_rewards_enabled: true,
   },
   is_owner: true,
+  can_manage: true,
   characters: [{ id: characterId, character_name: 'Aventureira', game_system_id: systemId }],
   today: {
     status: 'available',

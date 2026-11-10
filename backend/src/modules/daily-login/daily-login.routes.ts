@@ -126,7 +126,7 @@ export async function dailyLoginRoutes(app: FastifyInstance) {
     const systemId = getSystemId(request.params);
     if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
     try {
-      const result = await readOwnerDailyLoginCalendar(request.supabase!, request.userId!, systemId);
+      const result = await readOwnerDailyLoginCalendar(request.supabase!, systemId);
       if (!result) return reply.code(404).send({ error: 'Owned game system not found' });
       return reply.send(result);
     } catch {
