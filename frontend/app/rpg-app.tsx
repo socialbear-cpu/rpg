@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
+import { AccountCard, type AccountMode } from '../src/features/account/account-card';
+import { ProfileCard, type ProfileFields } from '../src/features/profile/profile-card';
 import { checkHealth, getMyProfile, updateMyProfile, type Profile } from '../src/api';
 import { missingSupabaseConfig } from '../src/config';
 import {
@@ -13,14 +15,12 @@ import {
   updatePassword,
 } from '../src/supabase-auth';
 
-type Mode = 'login' | 'signup';
 type Notice = { message: string; error: boolean } | null;
-type ProfileFields = { displayName: string; avatarUrl: string; bio: string };
 
 const emptyProfile: ProfileFields = { displayName: '', avatarUrl: '', bio: '' };
 
 export function RpgApp() {
-  const [mode, setMode] = useState<Mode>('login');
+  const [mode, setMode] = useState<AccountMode>('login');
   const [notice, setNotice] = useState<Notice>(null);
   const [health, setHealth] = useState<'checking' | 'ok' | 'bad'>('checking');
   const [authenticated, setAuthenticated] = useState(false);
@@ -47,7 +47,7 @@ export function RpgApp() {
   }, []);
 
   const showNotice = (message: string, error = false) => setNotice({ message, error });
-  const selectMode = (nextMode: Mode) => {
+  const selectMode = (nextMode: AccountMode) => {
     setMode(nextMode);
     setNotice(null);
   };
@@ -160,39 +160,35 @@ export function RpgApp() {
       {notice && <div className={`notice${notice.error ? ' error' : ''}`} role="status" aria-live="polite">{notice.message}</div>}
 
       <section className="layout">
-        <article className="card auth-card">
-          <div className="section-heading"><div><p className="eyebrow">CONTA</p><h2>Acessar</h2></div><span className="step">01</span></div>
-          {!recovery && <div className="tabs" role="tablist" aria-label="Acesso à conta">
-            <button className={`tab${mode === 'login' ? ' active' : ''}`} id="tab-login" type="button" role="tab" aria-selected={mode === 'login'} aria-controls="panel-auth" onClick={() => selectMode('login')}>Entrar</button>
-            <button className={`tab${mode === 'signup' ? ' active' : ''}`} id="tab-signup" type="button" role="tab" aria-selected={mode === 'signup'} aria-controls="panel-auth" onClick={() => selectMode('signup')}>Criar conta</button>
-          </div>}
-          <div id="panel-auth">
-            {recovery ? <form className="form" autoComplete="off" onSubmit={submitRecovery}>
-              <p className="card-copy">Defina uma nova senha para concluir a recuperação da conta.</p>
-              <label>Nova senha<input value={newPassword} onChange={(event) => setNewPassword(event.target.value)} type="password" minLength={6} autoComplete="new-password" required placeholder="Mínimo de 6 caracteres" /></label>
-              <button className="button primary" type="submit" disabled={recoveryBusy}>{recoveryBusy ? 'Atualizando…' : 'Atualizar senha'}</button>
-            </form> : <form className="form" autoComplete="on" onSubmit={submitAuth}>
-              {mode === 'signup' && <label>Nome de exibição<input value={displayName} onChange={(event) => setDisplayName(event.target.value)} type="text" maxLength={80} autoComplete="nickname" placeholder="Como devemos chamar você?" required /></label>}
-              <label>E-mail<input value={email} onChange={(event) => setEmail(event.target.value)} type="email" autoComplete="email" required placeholder="voce@exemplo.com" /></label>
-              <label>Senha<input value={password} onChange={(event) => setPassword(event.target.value)} type="password" minLength={6} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} required placeholder="Mínimo de 6 caracteres" /></label>
-              <button className="button primary" type="submit" disabled={authBusy}>{authBusy ? (mode === 'signup' ? 'Criando…' : 'Entrando…') : mode === 'signup' ? 'Criar conta' : 'Entrar'}</button>
-            </form>}
-          </div>
-          {!recovery && mode === 'login' && <button className="text-button" type="button" onClick={() => void resetPassword()}>Esqueci minha senha</button>}
-          <div className="divider" />
-          <div className="session-row"><div><span className="label-muted">SESSÃO</span><p>{authenticated ? 'Autenticado nesta sessão' : 'Não autenticado'}</p></div><button className="button secondary" type="button" onClick={() => void logout()} disabled={!authenticated}>Sair</button></div>
-        </article>
+        <AccountCard
+          mode={mode}
+          recovery={recovery}
+          authenticated={authenticated}
+          email={email}
+          password={password}
+          displayName={displayName}
+          newPassword={newPassword}
+          authBusy={authBusy}
+          recoveryBusy={recoveryBusy}
+          onModeChange={selectMode}
+          onEmailChange={setEmail}
+          onPasswordChange={setPassword}
+          onDisplayNameChange={setDisplayName}
+          onNewPasswordChange={setNewPassword}
+          onSubmitAuth={submitAuth}
+          onSubmitRecovery={submitRecovery}
+          onResetPassword={() => void resetPassword()}
+          onLogout={() => void logout()}
+        />
 
-        <article className="card profile-card">
-          <div className="section-heading"><div><p className="eyebrow">BACKEND API</p><h2>Meu perfil</h2></div><span className="step">02</span></div>
-          <p className="card-copy">Os dados abaixo são carregados e salvos em <code>/api/v1/me/profile</code> com o token da sessão.</p>
-          <form className="form" autoComplete="off" onSubmit={saveProfile}>
-            <label>Nome de exibição<input id="profile-name" value={profile.displayName} onChange={(event) => setProfile({ ...profile, displayName: event.target.value })} name="display_name" type="text" maxLength={80} placeholder="Seu nome público" disabled={!authenticated} /></label>
-            <label>URL do avatar<input id="profile-avatar" value={profile.avatarUrl} onChange={(event) => setProfile({ ...profile, avatarUrl: event.target.value })} name="avatar_url" type="url" maxLength={2048} placeholder="https://… ou vazio" disabled={!authenticated} /></label>
-            <label>Bio<textarea id="profile-bio" value={profile.bio} onChange={(event) => setProfile({ ...profile, bio: event.target.value })} name="bio" maxLength={500} rows={4} placeholder="Conte um pouco sobre você" disabled={!authenticated} /><span className="field-hint">Até 500 caracteres</span></label>
-            <div className="actions"><button id="load-profile" className="button secondary" type="button" onClick={() => void loadProfile()} disabled={!authenticated}>Carregar perfil</button><button id="save-profile" className="button primary" type="submit" disabled={!authenticated || profileBusy}>{profileBusy ? 'Salvando…' : 'Salvar alterações'}</button></div>
-          </form>
-        </article>
+        <ProfileCard
+          profile={profile}
+          authenticated={authenticated}
+          profileBusy={profileBusy}
+          onProfileChange={(field, value) => setProfile((current) => ({ ...current, [field]: value }))}
+          onLoadProfile={() => void loadProfile()}
+          onSaveProfile={saveProfile}
+        />
       </section>
       <footer><span>RPG · Backend validation</span><span>Sem chave secreta no navegador</span></footer>
     </main>
