@@ -1,14 +1,13 @@
 
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { useState } from 'react';
 import { NotificationCenter } from '../notifications/notification-center';
 import './dashboard.css';
 
 interface DashboardProps {
   playerName?: string;
   onLogout: () => void;
-  systemNavigation?: ReactNode;
 }
 
 type IconName =
@@ -132,10 +131,12 @@ function Icon({
   );
 }
 
-export function Dashboard({ playerName, onLogout, systemNavigation }: DashboardProps) {
+export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
   const [activePage, setActivePage] = useState('Início');
+  const [detailTabs, setDetailTabs] = useState<number[]>([]);
+  const [activeTableId, setActiveTableId] = useState<number | null>(null);
   const [search, setSearch] = useState('');
 
   const safePlayerName = (playerName ?? '').trim();
@@ -157,7 +158,25 @@ export function Dashboard({ playerName, onLogout, systemNavigation }: DashboardP
   const visibleTables =
     activePage === 'Minhas mesas'
       ? tables.filter((table) => table.players > 0)
-      : filteredTables;
+      : activePage === 'Comunidade'
+        ? tables.filter((table) => table.category !== 'Anime')
+        : filteredTables;
+
+  const selectedTable = tables.find((table) => table.id === activeTableId) ?? null;
+
+  function openTableDetail(table: (typeof tables)[number]) {
+    setDetailTabs((current) => (current.includes(table.id) ? current : [...current, table.id]));
+    setActiveTableId(table.id);
+    setActivePage('Minhas mesas');
+  }
+
+  function closeTableDetail(tableId: number) {
+    setDetailTabs((current) => current.filter((id) => id !== tableId));
+    if (activeTableId === tableId) {
+      const next = detailTabs.filter((id) => id !== tableId).at(-1) ?? null;
+      setActiveTableId(next);
+    }
+  }
 
   return (
     <div className={`platform ${sidebarOpen ? '' : 'sidebar-collapsed'}`}>
@@ -187,7 +206,10 @@ export function Dashboard({ playerName, onLogout, systemNavigation }: DashboardP
             <button
               key={item.label}
               className={`nav-item ${activePage === item.label ? 'active' : ''}`}
-              onClick={() => setActivePage(item.label)}
+              onClick={() => {
+                setActivePage(item.label);
+                setActiveTableId(null);
+              }}
               title={!sidebarOpen ? item.label : undefined}
             >
               <Icon name={item.icon} />
@@ -252,15 +274,109 @@ export function Dashboard({ playerName, onLogout, systemNavigation }: DashboardP
 
             <button
               className="primary-button"
-              onClick={() => setActivePage('Explorar mesas')}
+              onClick={() => {
+                setActivePage('Explorar mesas');
+                setActiveTableId(null);
+              }}
             >
               <Icon name="plus" size={18} />
               Encontrar uma mesa
             </button>
           </section>
 
-          {systemNavigation && (
-            <div className="dashboard-system-navigation">{systemNavigation}</div>
+          <div className="dashboard-tabs" role="group" aria-label="Navegação das mesas">
+            {([
+              { label: 'Minhas mesas', icon: 'table' },
+              { label: 'Explorar mesas', icon: 'explore' },
+              { label: 'Comunidade', icon: 'community' },
+            ] as const).map(({ label, icon }) => (
+              <button
+                key={label}
+                type="button"
+                aria-pressed={activePage === label && activeTableId === null}
+                className={`dashboard-tab ${activePage === label && activeTableId === null ? 'active' : ''}`}
+                onClick={() => {
+                  setActivePage(label);
+                  setActiveTableId(null);
+                }}
+              >
+                <Icon name={icon} size={16} />
+                <span>{label}</span>
+              </button>
+            ))}
+
+            {detailTabs.map((tableId) => {
+              const table = tables.find((item) => item.id === tableId);
+              if (!table) return null;
+              return (
+                <div
+                  key={table.id}
+                  className={`detail-tab-wrapper ${activeTableId === table.id ? 'active' : ''}`}
+                >
+                  <button
+                    type="button"
+                    aria-pressed={activeTableId === table.id}
+                    className="dashboard-tab detail"
+                    onClick={() => {
+                      setActivePage('Minhas mesas');
+                      setActiveTableId(table.id);
+                    }}
+                  >
+                    <Icon name="dices" size={16} />
+                    <span>{table.title}</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="detail-tab-close"
+                    aria-label={`Fechar ${table.title}`}
+                    onClick={() => closeTableDetail(table.id)}
+                  >
+                    ×
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {selectedTable && activePage === 'Minhas mesas' && (
+            <section className="table-detail-card" aria-live="polite">
+              <div className="table-detail-header">
+                <div>
+                  <span className="table-detail-system">{selectedTable.system}</span>
+                  <h2>{selectedTable.title}</h2>
+                </div>
+                <button
+                  type="button"
+                  className="detail-close-button"
+                  onClick={() => closeTableDetail(selectedTable.id)}
+                >
+                  Fechar
+                </button>
+              </div>
+
+              <div className="table-detail-body">
+                <div className={`table-cover cover-${selectedTable.image}`}>
+                  <span className="table-category">{selectedTable.category}</span>
+                  <span className={`table-status ${selectedTable.status === 'Mesa cheia' ? 'full' : ''}`}>
+                    {selectedTable.status}
+                  </span>
+                  <div className="cover-decoration">
+                    <Icon name="dices" size={34} />
+                  </div>
+                </div>
+
+                <div className="table-detail-info">
+                  <p>{selectedTable.description}</p>
+                  <div className="table-detail-meta">
+                    <span><Icon name="users" size={15} /> {selectedTable.players}/{selectedTable.maxPlayers} jogadores</span>
+                    <span><Icon name="user" size={15} /> {selectedTable.master}</span>
+                  </div>
+                  <button type="button" className="primary-button" onClick={() => setActivePage('Minhas mesas')}>
+                    Participar da mesa
+                  </button>
+                </div>
+              </div>
+            </section>
           )}
 
           <section className="quick-stats">
@@ -348,7 +464,7 @@ export function Dashboard({ playerName, onLogout, systemNavigation }: DashboardP
                       </span>
                       <button
                         className="text-button"
-                        onClick={() => setActivePage('Minhas mesas')}
+                        onClick={() => openTableDetail(table)}
                       >
                         Ver mesa <Icon name="chevron" size={15} />
                       </button>
