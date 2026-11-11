@@ -33,4 +33,6 @@ Vercel Services é uma funcionalidade Beta; o projeto precisa ter acesso habilit
 
 ## Login diário
 
+Ao selecionar um sistema no dashboard, um pop-up centralizado oferece a recompensa desse sistema. A exibição automática é registrada por conta e sistema no banco, uma vez por dia no fuso configurado no sistema, inclusive entre dispositivos. Entrar em outro sistema permite uma exibição independente. Fechar o pop-up não resgata itens e não permite nova abertura automática para o mesmo sistema naquele dia. Sem recompensa disponível para um personagem próprio, o pop-up não abre nem consome a exibição. A mudança requer as migrations `008_daily_login_popup.sql` e `010_daily_login_popup_per_system.sql`; o teste da separação por sistema está em `supabase/tests/010_daily_login_popup_per_system.test.sql`.
+
 Na área autenticada, a pessoa escolhe um sistema ativo e um personagem próprio para resgatar o item do dia. O calendário é independente por sistema, usa segunda a domingo e considera o fuso configurado no sistema (padrão `America/Sao_Paulo`). Há um resgate por conta, por sistema, por data local; dias não resgatados expiram. O owner do sistema configura no painel os sete itens já cadastrados e suas quantidades.

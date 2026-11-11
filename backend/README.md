@@ -135,6 +135,24 @@ All routes require the same Supabase bearer token. The database derives the acco
 
 The owner endpoint accepts seven unique ISO weekdays (Monday=1 to Sunday=7), each with one existing item and a positive quantity. Non-owners cannot view the owner catalog or save the schedule. A missed weekday's reward expires and does not accumulate.
 
+## Notifications
+
+All notification routes require the Supabase bearer token. The authenticated account is the notification recipient; do not pass a user ID to select another account.
+
+| Operation | Purpose |
+| --- | --- |
+| `GET /api/v1/me/notifications?limit=20&offset=0` | List the newest notifications and unread count. `limit` defaults to 20 (maximum 50); `offset` defaults to 0. |
+| `PATCH /api/v1/me/notifications/:notificationId/read` | Mark one of your notifications as read. Repeating the request is safe. |
+| `POST /api/v1/game-systems/:systemId/announcements` | Publish `{ "title": "...", "body": "..." }` to current members. Only an Owner or Mod in that system can publish. |
+
+The dashboard refreshes the feed when the panel opens and can load older pages. The API and app are not subscribed to Realtime in this first version.
+
+The list response contains `notifications`, `unread_count`, `limit`, and `offset`. Each notification contains its ID, optional system ID, type, structured payload, creation time, and `read_at` (null while unread). Initial types are `system_role_changed` (`game_system_name`, `previous_role`, `new_role`) and `system_announcement` (`title`, `body`). Unknown types are shown as a generic notice so new notification types can be added without changing the inbox contract.
+
+Announcement titles are trimmed and limited to 100 characters; bodies are trimmed and limited to 2000 characters. Content is plain text. Role changes create a notice for the affected member only when the role actually changes. Announcements are delivered separately to every system member at publication time, including the publisher.
+
+An unknown notification ID and an ID owned by someone else both return `404 { "error": "Notification not found" }`. Invalid announcement content returns 400, a caller without Owner/Mod membership receives 403, and database failures return 500 without exposing database details. The Next.js API proxy forwards GET, PATCH, and POST to Fastify. RLS restricts feed reads to the recipient; creation and read-state changes go through validated RPCs.
+
 ## Backend verification
 
 Run from the repository root:

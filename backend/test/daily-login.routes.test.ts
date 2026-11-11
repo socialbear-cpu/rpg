@@ -13,6 +13,7 @@ let requests: { url: URL; method: string; headers: Headers; body: unknown }[];
 let claimStatus: string;
 let scheduleStatus: string;
 let authenticatedUserId: string;
+let showPopup: boolean;
 
 beforeEach(() => {
   vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
@@ -21,12 +22,16 @@ beforeEach(() => {
   claimStatus = 'claimed';
   scheduleStatus = 'updated';
   authenticatedUserId = userId;
+  showPopup = true;
   vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input));
     const method = init?.method ?? 'GET';
     const headers = new Headers(init?.headers);
     const body: unknown = init?.body ? JSON.parse(String(init.body)) : null;
     requests.push({ url, method, headers, body });
+    if (url.pathname === '/rest/v1/rpc/take_daily_login_popup') {
+      return Response.json(showPopup);
+    }
     if (url.pathname === '/auth/v1/user') {
       return Response.json({
         id: authenticatedUserId, aud: 'authenticated', role: 'authenticated',
@@ -97,6 +102,33 @@ beforeEach(() => {
 afterEach(() => {
   vi.unstubAllGlobals();
   vi.unstubAllEnvs();
+});
+
+describe('daily login popup', () => {
+  it('returns rewards only when the database allows the daily display', async () => {
+    const first = await request('POST', `/api/v1/game-systems/${systemId}/daily-login/popup`, {});
+    expect(first.statusCode).toBe(200);
+    expect(first.json().show).toBe(true);
+    expect(first.json().systems).toHaveLength(1);
+    expect(requests.find(({ url }) => url.pathname.endsWith('/take_daily_login_popup'))?.body)
+      .toEqual({ p_game_system_id: systemId });
+    showPopup = false;
+    const next = await request('POST', `/api/v1/game-systems/${systemId}/daily-login/popup`, {});
+    expect(next.json()).toEqual({ show: false, systems: [] });
+  });
+
+  it('requires authentication', async () => {
+    const response = await request('POST', `/api/v1/game-systems/${systemId}/daily-login/popup`, {}, false);
+    expect(response.statusCode).toBe(401);
+    expect(requests.some(({ url }) => url.pathname.endsWith('/take_daily_login_popup'))).toBe(false);
+  });
+
+  it('does not consume the daily display without an eligible character', async () => {
+    authenticatedUserId = otherUserId;
+    const response = await request('POST', `/api/v1/game-systems/${systemId}/daily-login/popup`, {});
+    expect(response.json()).toEqual({ show: false, systems: [] });
+    expect(requests.some(({ url }) => url.pathname.endsWith('/take_daily_login_popup'))).toBe(false);
+  });
 });
 
 async function request(method: 'GET' | 'POST' | 'PUT', url: string, payload?: unknown, authorized = true) {

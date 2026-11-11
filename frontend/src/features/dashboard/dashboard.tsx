@@ -2,10 +2,13 @@
 'use client';
 
 import './dashboard.css';
+import type { ReactNode } from 'react';
+import { NotificationCenter } from '../notifications/notification-center';
 
 type DashboardProps = {
   playerName: string;
   onLogout: () => void;
+  systemNavigation?: ReactNode;
 };
 
 const menuItems = [
@@ -17,7 +20,7 @@ const menuItems = [
   { symbol: '◇', label: 'Loja' },
 ];
 
-export function Dashboard({ playerName, onLogout }: DashboardProps) {
+export function Dashboard({ playerName, onLogout, systemNavigation }: DashboardProps) {
   return (
     <main className="game-dashboard">
       <aside className="dashboard-sidebar">
@@ -63,12 +66,14 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
               {playerName.charAt(0).toUpperCase() || 'S'}
             </div>
             <span>{playerName || 'Shinobi'}</span>
+            <NotificationCenter />
             <button type="button" onClick={onLogout}>
               Sair
             </button>
           </div>
         </header>
 
+        {systemNavigation}
         <div className="dashboard-welcome">
           <div>
             <span className="dashboard-overline">BEM-VINDA DE VOLTA</span>

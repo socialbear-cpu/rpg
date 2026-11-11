@@ -62,6 +62,12 @@ export interface DailyLoginSystemView {
   today: DailyLoginTodayState | null;
 }
 
+export function takeDailyLoginPopup(systemId: string) {
+  return authenticatedRequest<{ show: boolean; systems: DailyLoginSystemView[] }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/daily-login/popup`, { method: 'POST' },
+  );
+}
+
 export interface DailyLoginOwnerCalendar {
   system: DailyLoginSystem;
   is_active: boolean;
@@ -100,6 +106,29 @@ export interface SystemMemberships {
   memberships: SystemMembership[];
 }
 
+export type NotificationType = 'system_role_changed' | 'system_announcement' | (string & {});
+
+export interface NotificationItem {
+  id: string;
+  game_system_id: string | null;
+  type: NotificationType;
+  payload: Record<string, unknown>;
+  read_at: string | null;
+  created_at: string;
+}
+
+export interface MyNotificationsResponse {
+  notifications: NotificationItem[];
+  unread_count: number;
+  limit: number;
+  offset: number;
+}
+
+export interface SystemAnnouncementInput {
+  title: string;
+  body: string;
+}
+
 export async function getMySystemMemberships() {
   return authenticatedRequest<SystemMemberships>('/api/v1/me/system-memberships');
 }
@@ -108,6 +137,25 @@ export async function setSystemModerator(gameSystemId: string, userId: string, i
   return authenticatedRequest<{ status: 'updated' }>(
     `/api/v1/owner/game-systems/${encodeURIComponent(gameSystemId)}/members/${encodeURIComponent(userId)}/moderator`,
     { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ is_moderator: isModerator }) },
+  );
+}
+
+export function getMyNotifications(limit = 20, offset = 0) {
+  const params = new URLSearchParams({ limit: String(limit), offset: String(offset) });
+  return authenticatedRequest<MyNotificationsResponse>(`/api/v1/me/notifications?${params.toString()}`);
+}
+
+export function markNotificationRead(notificationId: string) {
+  return authenticatedRequest<{ status: 'updated' }>(
+    `/api/v1/me/notifications/${encodeURIComponent(notificationId)}/read`,
+    { method: 'PATCH' },
+  );
+}
+
+export function publishSystemAnnouncement(systemId: string, input: SystemAnnouncementInput) {
+  return authenticatedRequest<{ status: 'created' }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/announcements`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) },
   );
 }
 

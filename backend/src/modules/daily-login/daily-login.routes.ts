@@ -48,6 +48,20 @@ function databaseError(reply: FastifyReply) {
 }
 
 export async function dailyLoginRoutes(app: FastifyInstance) {
+  app.post('/api/v1/game-systems/:systemId/daily-login/popup', authOptions, async (request, reply) => {
+    const systemId = getSystemId(request.params);
+    if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
+    try {
+      const system = await readPlayerDailyLoginSystem(request.supabase!, request.userId!, systemId);
+      if (!system || system.today?.status !== 'available') return reply.send({ show: false, systems: [] });
+      const { data, error } = await request.supabase!.rpc('take_daily_login_popup', { p_game_system_id: systemId });
+      if (error) return databaseError(reply);
+      return reply.send({ show: data === true, systems: data === true ? [system] : [] });
+    } catch {
+      return databaseError(reply);
+    }
+  });
+
   app.get('/api/v1/me/daily-login/systems', {
     ...authOptions,
     schema: {
