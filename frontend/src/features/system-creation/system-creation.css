@@ -1,0 +1,209 @@
+.sheet-builder {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.sheet-builder-heading h2 {
+  margin: 6px 0;
+  color: #f0eff7;
+  font: 700 22px 'Outfit', sans-serif;
+}
+
+.sheet-builder-heading p,
+.sheet-built-in-field span,
+.sheet-field-topline label > span,
+.sheet-field-options > span {
+  color: #9294a5;
+  font-size: 13px;
+}
+
+.sheet-builder-eyebrow {
+  color: #bca6ff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.sheet-built-in-field,
+.sheet-field-card {
+  border: 1px solid #343340;
+  border-radius: 14px;
+  background: #171922;
+}
+
+.sheet-built-in-field {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+}
+
+.sheet-built-in-field > div {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+}
+
+.sheet-built-in-field strong {
+  color: #f0eff7;
+  font-size: 14px;
+}
+
+.sheet-field-number {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  place-items: center;
+  border: 1px solid #4b4261;
+  border-radius: 9px;
+  color: #c4b5fd;
+  background: #282333;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.sheet-required-badge {
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: #d7caff !important;
+  background: #342b46;
+  font-size: 11px !important;
+}
+
+.sheet-field-card {
+  display: grid;
+  gap: 15px;
+  min-width: 0;
+  padding: 16px;
+}
+
+.sheet-field-topline {
+  display: grid;
+  grid-template-columns: auto minmax(150px, 1fr) minmax(150px, 0.7fr);
+  align-items: end;
+  gap: 12px;
+}
+
+.sheet-field-topline label,
+.sheet-field-options {
+  display: grid;
+  gap: 7px;
+}
+
+.sheet-field-topline input,
+.sheet-field-topline select,
+.sheet-field-options textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #343744;
+  border-radius: 9px;
+  outline: none;
+  color: #f0eff7;
+  background: #11131a;
+  font: inherit;
+}
+
+.sheet-field-options textarea {
+  resize: vertical;
+}
+
+.sheet-field-topline input:focus,
+.sheet-field-topline select:focus,
+.sheet-field-options textarea:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 3px #a78bfa2b;
+}
+
+.sheet-field-settings {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.sheet-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #c4c4d0;
+  font-size: 12px;
+}
+
+.sheet-checkbox input {
+  accent-color: #a78bfa;
+}
+
+.sheet-field-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.sheet-field-actions button,
+.sheet-add-button {
+  min-height: 36px;
+  padding: 0 11px;
+  border: 1px solid #363744;
+  border-radius: 8px;
+  color: #d9d6e7;
+  background: #20222d;
+}
+
+.sheet-field-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.sheet-field-actions .sheet-remove-button {
+  color: #ffb8bd;
+  border-color: #59353b;
+  background: #2c2025;
+}
+
+.sheet-add-button {
+  justify-self: start;
+  min-height: 42px;
+  padding: 0 16px;
+  color: #d9caff;
+  border-color: #58477a;
+  background: #282333;
+  font-weight: 600;
+}
+
+.sheet-add-button span {
+  margin-right: 6px;
+  font-size: 18px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 620px) {
+  .sheet-field-topline {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-field-number {
+    margin-bottom: -5px;
+  }
+
+  .sheet-built-in-field {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .sheet-field-actions {
+    margin-left: 0;
+  }
+}

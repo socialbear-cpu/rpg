@@ -13,6 +13,44 @@ export interface ProfilePatch {
   bio?: string | null;
 }
 
+export type CharacterSheetFieldType = 'short_text' | 'long_text' | 'number' | 'single_select';
+
+export interface CharacterSheetField {
+  key: string;
+  label: string;
+  type: CharacterSheetFieldType;
+  required: boolean;
+  position: number;
+  show_on_card: boolean;
+  options?: string[];
+}
+
+export interface GameSystem {
+  id: string;
+  slug: string;
+  name: string;
+  description: string | null;
+}
+
+export interface SystemCharacter {
+  id: string;
+  game_system_id: string;
+  character_name: string;
+  attributes: Record<string, unknown>;
+  status: 'active';
+}
+
+export interface CreateGameSystemInput {
+  name: string;
+  description?: string | null;
+  fields: CharacterSheetField[];
+}
+
+export interface CreateCharacterInput {
+  character_name: string;
+  attributes: Record<string, unknown>;
+}
+
 export interface DailyLoginSystem {
   id: string;
   name: string;
@@ -291,6 +329,35 @@ export async function checkHealth(): Promise<{ status: string }> {
 
 export function getMyProfile() {
   return profileRequest('/api/v1/me/profile') as Promise<Profile>;
+}
+
+export function getGameSystems() {
+  return authenticatedRequest<{ systems: GameSystem[] }>('/api/v1/game-systems');
+}
+
+export function createGameSystem(input: CreateGameSystemInput) {
+  return authenticatedRequest<{ system: GameSystem; fields: CharacterSheetField[] }>('/api/v1/game-systems', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  });
+}
+
+export function getCharacterSheet(systemId: string) {
+  return authenticatedRequest<{ game_system_id: string; fields: CharacterSheetField[] }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/character-sheet`,
+  );
+}
+
+export function getSystemCharacters(systemId: string) {
+  return authenticatedRequest<{ characters: SystemCharacter[] }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/characters`,
+  );
+}
+
+export function createSystemCharacter(systemId: string, input: CreateCharacterInput) {
+  return authenticatedRequest<{ character: SystemCharacter }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/characters`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) },
+  );
 }
 
 export function updateMyProfile(patch: ProfilePatch) {
