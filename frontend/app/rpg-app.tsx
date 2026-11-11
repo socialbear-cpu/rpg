@@ -8,6 +8,7 @@ import { DailyLoginAdminCard } from '../src/features/daily-login/daily-login-adm
 import { DailyLoginCard } from '../src/features/daily-login/daily-login-card';
 import { formatDailyLoginClaimSuccess } from '../src/features/daily-login/daily-login-messages';
 import { ExperienceAdminCard } from '../src/features/experience/experience-admin-card';
+import { TradingCard } from '../src/features/trading/trading-card';
 import { addCustomExperienceSource } from '../src/features/experience/experience-model';
 import { SystemMembershipCard, SystemMembershipError } from '../src/features/system-membership/system-membership-card';
 import {
@@ -511,6 +512,7 @@ export function RpgApp() {
           onSave={saveOwnerExperience}
         />}
       </section>}
+      {authenticated && <TradingCard systems={dailyLoginSystems} systemsLoading={dailyLoginLoading} />}
       {authenticated && systemAccess && <SystemMembershipCard
         access={systemAccess}
         busy={systemMembershipBusy}

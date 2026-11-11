@@ -9,6 +9,7 @@ The canonical DDL is in the ordered files under `../migrations/`. This directory
 | Game systems and sheets | `game_systems`, `characters` |
 | Content | `abilities`, `items`, `achievements` |
 | Character progression | `character_abilities`, `character_inventory`, `character_achievements`, `user_achievements` |
+| Character trading | `trade_offers`, `trade_offer_lines` |
 | Store and orders | `products`, `store_products`, `purchases`, `purchase_items` |
 | Campaigns and chat | `campaigns`, `campaign_members`, `chat_rooms`, `messages` |
 

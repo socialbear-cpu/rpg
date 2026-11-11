@@ -27,6 +27,82 @@ export interface DailyLoginCharacter {
   game_system_id: string;
 }
 
+export interface TradeCharacter {
+  id: string;
+  character_name: string;
+  owner_display_name: string;
+  is_mine: boolean;
+}
+
+export interface TradeInventoryStack {
+  stack_id: string;
+  item_id: string;
+  item_name: string;
+  quantity: number;
+  metadata: Record<string, unknown>;
+}
+
+export interface TradeInventoryCharacter {
+  id: string;
+  character_name: string;
+  owner_display_name: string;
+  is_mine: boolean;
+}
+
+export interface TradeOfferCharacter {
+  id: string;
+  character_name: string;
+  owner_display_name: string;
+}
+
+export interface TradeOfferLine extends TradeInventoryStack {}
+
+export type TradeOfferStatus = 'pending' | 'accepted' | 'declined' | 'cancelled' | 'countered' | 'expired' | 'invalidated';
+export type TradeOfferBox = 'incoming' | 'sent' | 'history';
+
+export interface TradeOffer {
+  id: string;
+  game_system_id: string;
+  status: TradeOfferStatus;
+  created_at: string;
+  expires_at: string;
+  responded_at: string | null;
+  countered_from_offer_id: string | null;
+  sender_character: TradeOfferCharacter;
+  recipient_character: TradeOfferCharacter;
+  sender_lines: TradeOfferLine[];
+  recipient_lines: TradeOfferLine[];
+}
+
+export interface TradeOfferLineInput {
+  stack_id: string;
+  quantity: number;
+}
+
+export interface TradeOfferInput {
+  sender_character_id: string;
+  recipient_character_id: string;
+  sender_lines: TradeOfferLineInput[];
+  recipient_lines: TradeOfferLineInput[];
+}
+
+export interface TradeCounterOfferInput {
+  sender_lines: TradeOfferLineInput[];
+  recipient_lines: TradeOfferLineInput[];
+}
+
+export interface TradeOffersResponse {
+  offers: TradeOffer[];
+  limit: number;
+  offset: number;
+}
+
+export interface TradeMutationResult {
+  status: 'created' | 'accepted' | 'declined' | 'cancelled';
+  offer_id?: string;
+  countered_offer_id?: string;
+}
+
 export interface DailyLoginReward {
   weekday: number;
   item_id: string;
@@ -227,6 +303,47 @@ export function updateMyProfile(patch: ProfilePatch) {
 
 export function getMyDailyLoginSystems() {
   return authenticatedRequest<DailyLoginSystemView[]>('/api/v1/me/daily-login/systems');
+}
+
+export function getTradeCharacters(systemId: string) {
+  return authenticatedRequest<{ characters: TradeCharacter[] }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/trading/characters`,
+  );
+}
+
+export function getTradeCharacterInventory(systemId: string, characterId: string) {
+  return authenticatedRequest<{ character: TradeInventoryCharacter; stacks: TradeInventoryStack[] }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/trading/characters/${encodeURIComponent(characterId)}/inventory`,
+  );
+}
+
+export function getTradeOffers(box: TradeOfferBox, limit = 50, offset = 0) {
+  const params = new URLSearchParams({ box, limit: String(limit), offset: String(offset) });
+  return authenticatedRequest<TradeOffersResponse>(`/api/v1/me/trade-offers?${params.toString()}`);
+}
+
+export function createTradeOffer(input: TradeOfferInput) {
+  return authenticatedRequest<TradeMutationResult>('/api/v1/me/trade-offers', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  });
+}
+
+export function respondToTradeOffer(offerId: string, action: 'accept' | 'decline') {
+  return authenticatedRequest<TradeMutationResult>(`/api/v1/me/trade-offers/${encodeURIComponent(offerId)}/respond`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action }),
+  });
+}
+
+export function counterTradeOffer(offerId: string, input: TradeCounterOfferInput) {
+  return authenticatedRequest<TradeMutationResult>(`/api/v1/me/trade-offers/${encodeURIComponent(offerId)}/counter`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  });
+}
+
+export function cancelTradeOffer(offerId: string) {
+  return authenticatedRequest<TradeMutationResult>(`/api/v1/me/trade-offers/${encodeURIComponent(offerId)}/cancel`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}',
+  });
 }
 
 export function getDailyLoginSystem(systemId: string) {

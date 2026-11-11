@@ -15,6 +15,7 @@ Apply the numbered files in `migrations/` in order to a new Supabase project (Po
 - Systems and sheets: `game_systems`, `characters` (after migration 002)
 - Game content: `abilities`, `items`, `achievements`
 - Character progression: `character_abilities`, `character_inventory`, `character_achievements`, `user_achievements`
+- Character trading: `trade_offers`, `trade_offer_lines` (migration 012)
 - Store: `products`, `store_products`, `purchases`, `purchase_items`
 - Campaign and chat: `campaigns`, `campaign_members`, `chat_rooms`, `messages`
 - Daily login: `daily_login_rewards` (one configured item per weekday and system), `daily_login_claims` (account-level claim ledger)
@@ -30,6 +31,8 @@ Owners manage all seven daily-login calendar entries through `set_daily_login_re
 The `game_system_id` foreign key scopes content and validates that campaign members, products, and purchases use the matching game system. A shop product sells one item or one ability; a scroll should be modeled as an item that grants an ability. `purchase_items` snapshots the display name and unit price so later catalog edits do not rewrite purchase history.
 
 Migration 009 adds `public.notifications` with a string type and JSONB payload so new notification types do not require a PostgreSQL enum change. RLS allows each authenticated user to read only their own rows; clients cannot directly create notifications or alter their payload/recipient. The moderator-role RPC creates a notification for a real role change in the same transaction. Owner/Mod announcement RPCs validate system membership and fan out one inbox row per current member. Read-state changes also use an authenticated RPC.
+
+Migration 012 gives each inventory stack a stable ID and permits multiple stacks of one item when their JSONB characteristics differ. Trade offers and counteroffers are asynchronous and same-system; offer acceptance revalidates stack IDs, metadata, and quantities, then debits and credits every line in one database transaction. Pending offers do not reserve inventory. Trade tables are not directly exposed through RLS; authenticated RPCs scope character discovery and inventory visibility to the selected same-system trade context. Offers expire after 14 days, retain item and metadata snapshots, and write in-app notifications for offer changes. Daily-login rewards continue to merge into the default-metadata stack.
 
 The canonical file is `database/migrations/009_notifications.sql`; the generated Supabase CLI migration contains the same SQL. The local daily-login popup migration 008 is also mirrored under `supabase/migrations/`. Apply either the canonical numbered migration sequence or the Supabase CLI migration sequence to a database, not both.
 
