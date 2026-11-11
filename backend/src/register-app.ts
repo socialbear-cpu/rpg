@@ -6,6 +6,7 @@ import { profileRoutes } from './modules/profile/profile.routes.js';
 import { dailyLoginRoutes } from './modules/daily-login/daily-login.routes.js';
 import { systemMembershipRoutes } from './modules/system-membership/system-membership.routes.js';
 import { notificationsRoutes } from './modules/notifications/notifications.routes.js';
+import { experienceRoutes } from './modules/experience/experience.routes.js';
 import type { Config } from './config.js';
 
 export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
@@ -32,4 +33,5 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
   app.register(dailyLoginRoutes);
   app.register(systemMembershipRoutes);
   app.register(notificationsRoutes);
+  app.register(experienceRoutes);
 }

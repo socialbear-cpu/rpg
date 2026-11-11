@@ -6,6 +6,10 @@ import { ProfileCard } from '../src/features/profile/profile-card.js';
 import { RpgApp } from '../app/rpg-app.js';
 import { checkHealth } from '../src/api.js';
 
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: () => undefined, replace: () => undefined }),
+}));
+
 describe('account card', () => {
   const accountCardProps = {
     mode: 'login' as const,

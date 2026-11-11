@@ -11,6 +11,7 @@ const adminId = '20000000-0000-4000-8000-000000000005';
 const authorization = 'Bearer accepted-token';
 let requests: { url: URL; method: string; headers: Headers; body: unknown }[];
 let claimStatus: string;
+let claimXpAwarded: number;
 let scheduleStatus: string;
 let authenticatedUserId: string;
 let showPopup: boolean;
@@ -20,6 +21,7 @@ beforeEach(() => {
   vi.stubEnv('SUPABASE_PUBLISHABLE_KEY', 'sb_publishable_test');
   requests = [];
   claimStatus = 'claimed';
+  claimXpAwarded = 25;
   scheduleStatus = 'updated';
   authenticatedUserId = userId;
   showPopup = true;
@@ -87,6 +89,7 @@ beforeEach(() => {
         item_id: itemId,
         item_name: 'Daily Token',
         quantity: 3,
+        xp_awarded: claimXpAwarded,
         weekday: 2,
         local_claim_date: '2026-11-10',
         timezone: 'America/Sao_Paulo',
@@ -202,12 +205,19 @@ describe('daily login API writes', () => {
   it('claims only for the route system and verified token, never caller-supplied identity or date', async () => {
     const response = await request('POST', `/api/v1/game-systems/${systemId}/daily-login/claims`, { character_id: characterId });
     expect(response.statusCode).toBe(201);
-    expect(response.json()).toMatchObject({ status: 'claimed', quantity: 3, character_id: characterId });
+    expect(response.json()).toMatchObject({ status: 'claimed', quantity: 3, character_id: characterId, xp_awarded: 25 });
     const rpc = requests.find(({ url }) => url.pathname.endsWith('/claim_daily_login_reward'))!;
     expect(rpc.body).toEqual({ p_game_system_id: systemId, p_character_id: characterId });
     expect(rpc.body).not.toHaveProperty('user_id');
     expect(rpc.body).not.toHaveProperty('local_claim_date');
     expect(rpc.headers.get('authorization')).toBe(authorization);
+  });
+
+  it('returns zero XP when the owner has not enabled the daily-login XP source', async () => {
+    claimXpAwarded = 0;
+    const response = await request('POST', `/api/v1/game-systems/${systemId}/daily-login/claims`, { character_id: characterId });
+    expect(response.statusCode).toBe(201);
+    expect(response.json()).toMatchObject({ status: 'claimed', xp_awarded: 0 });
   });
 
   it('rejects malformed claim payloads before calling the database operation', async () => {

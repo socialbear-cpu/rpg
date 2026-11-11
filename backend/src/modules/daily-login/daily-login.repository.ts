@@ -36,6 +36,7 @@ export interface DailyLoginClaimResult {
   weekday?: number;
   local_claim_date?: string;
   timezone?: string;
+  xp_awarded: number;
 }
 
 const systemColumns = 'id,name,is_active,daily_login_timezone,daily_login_rewards_enabled';

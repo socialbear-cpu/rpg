@@ -101,7 +101,20 @@ export async function dailyLoginRoutes(app: FastifyInstance) {
     schema: {
       ...authOptions.schema,
       summary: 'Claim today’s daily login reward',
-      response: { 201: { type: 'object', additionalProperties: true }, 400: errorSchema, 401: errorSchema, 404: errorSchema, 409: errorSchema, 500: errorSchema },
+      response: {
+        201: {
+          type: 'object', required: ['status', 'claim_id', 'game_system_id', 'character_id', 'item_id', 'item_name', 'quantity', 'weekday', 'local_claim_date', 'timezone', 'xp_awarded'],
+          additionalProperties: false,
+          properties: {
+            status: { const: 'claimed' }, claim_id: { type: 'string', format: 'uuid' },
+            game_system_id: { type: 'string', format: 'uuid' }, character_id: { type: 'string', format: 'uuid' },
+            item_id: { type: 'string', format: 'uuid' }, item_name: { type: 'string' }, quantity: { type: 'integer', minimum: 1 },
+            weekday: { type: 'integer', minimum: 1, maximum: 7 }, local_claim_date: { type: 'string', format: 'date' },
+            timezone: { type: 'string' }, xp_awarded: { type: 'integer', minimum: 0 },
+          },
+        },
+        400: errorSchema, 401: errorSchema, 404: errorSchema, 409: errorSchema, 500: errorSchema,
+      },
     },
     config: {
       // Keep strict Zod parsing authoritative: Fastify's runtime AJV may

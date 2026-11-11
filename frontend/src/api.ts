@@ -91,6 +91,54 @@ export interface DailyLoginClaimResult {
   weekday?: number;
   local_claim_date?: string;
   timezone?: string;
+  xp_awarded: number;
+}
+
+export type ExperienceSourceType = 'daily_login' | 'mission' | 'fight' | 'custom';
+
+export interface ExperienceSource {
+  id: string;
+  name: string;
+  source_type: ExperienceSourceType;
+  award_amount: number;
+  is_enabled: boolean;
+}
+
+export interface ExperienceSourceInput {
+  id?: string;
+  name: string;
+  source_type: ExperienceSourceType;
+  award_amount: number;
+  is_enabled: boolean;
+}
+
+export interface ExperienceSettings {
+  game_system_id: string;
+  xp_per_level: number;
+  sources: ExperienceSource[];
+}
+
+export interface ExperienceSettingsInput {
+  xp_per_level: number;
+  sources: ExperienceSourceInput[];
+}
+
+export interface CharacterExperienceHistoryItem {
+  id: string;
+  source_type: ExperienceSourceType;
+  source_name: string;
+  amount: number;
+  created_at: string;
+}
+
+export interface CharacterExperienceSummary {
+  character_id: string;
+  game_system_id: string;
+  total_xp: number;
+  level: number;
+  xp_in_level: number;
+  xp_to_next_level: number;
+  history: CharacterExperienceHistoryItem[];
 }
 
 export type SystemRole = 'owner' | 'mod' | 'user';
@@ -204,6 +252,25 @@ export function saveOwnerDailyLoginCalendar(systemId: string, schedule: DailyLog
   return authenticatedRequest<{ status: string }>(
     `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/daily-login/rewards`,
     { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(schedule) },
+  );
+}
+
+export function getOwnerExperienceSettings(systemId: string) {
+  return authenticatedRequest<ExperienceSettings>(
+    `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/xp`,
+  );
+}
+
+export function saveOwnerExperienceSettings(systemId: string, settings: ExperienceSettingsInput) {
+  return authenticatedRequest<{ status: 'updated' }>(
+    `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/xp`,
+    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings) },
+  );
+}
+
+export function getCharacterExperience(characterId: string) {
+  return authenticatedRequest<CharacterExperienceSummary>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/xp`,
   );
 }
 

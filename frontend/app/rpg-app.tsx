@@ -6,6 +6,9 @@ import { AccountCard, type AccountMode } from '../src/features/account/account-c
 import { ProfileCard, type ProfileFields } from '../src/features/profile/profile-card';
 import { DailyLoginAdminCard } from '../src/features/daily-login/daily-login-admin-card';
 import { DailyLoginCard } from '../src/features/daily-login/daily-login-card';
+import { formatDailyLoginClaimSuccess } from '../src/features/daily-login/daily-login-messages';
+import { ExperienceAdminCard } from '../src/features/experience/experience-admin-card';
+import { addCustomExperienceSource } from '../src/features/experience/experience-model';
 import { SystemMembershipCard, SystemMembershipError } from '../src/features/system-membership/system-membership-card';
 import {
   checkHealth,
@@ -14,11 +17,14 @@ import {
   getOwnerDailyLoginCalendar,
   getMyProfile,
   getMySystemMemberships,
+  getOwnerExperienceSettings,
   saveOwnerDailyLoginCalendar,
+  saveOwnerExperienceSettings as saveOwnerXpSettings,
   setSystemModerator,
   updateMyProfile,
   type DailyLoginOwnerCalendar,
   type DailyLoginSystemView,
+  type ExperienceSettingsInput,
   type Profile,
   type SystemMemberships,
 } from '../src/api';
@@ -66,6 +72,12 @@ export function RpgApp() {
   const [ownerSaving, setOwnerSaving] = useState(false);
   const [ownerMessage, setOwnerMessage] = useState<string | null>(null);
   const [ownerMessageIsError, setOwnerMessageIsError] = useState(false);
+  const [ownerExperienceSettings, setOwnerExperienceSettings] = useState<(ExperienceSettingsInput & { game_system_id: string }) | null>(null);
+  const [ownerExperienceLoading, setOwnerExperienceLoading] = useState(false);
+  const [ownerExperienceSaving, setOwnerExperienceSaving] = useState(false);
+  const [ownerExperienceVersion, setOwnerExperienceVersion] = useState(0);
+  const [ownerExperienceMessage, setOwnerExperienceMessage] = useState<string | null>(null);
+  const [ownerExperienceMessageIsError, setOwnerExperienceMessageIsError] = useState(false);
   const [systemAccess, setSystemAccess] = useState<SystemMemberships | null>(null);
   const [systemAccessVersion, setSystemAccessVersion] = useState(0);
   const [systemMembershipBusy, setSystemMembershipBusy] = useState(false);
@@ -90,6 +102,8 @@ export function RpgApp() {
       setDailyLoginError(null);
       setOwnerCalendar(null);
       setOwnerSystemId('');
+      setOwnerExperienceSettings(null);
+      setOwnerExperienceMessage(null);
       return;
     }
 
@@ -158,6 +172,28 @@ export function RpgApp() {
     });
     return () => { current = false; };
   }, [authenticated, ownerSystemId, ownerCalendarVersion]);
+
+  useEffect(() => {
+    if (!authenticated || !ownerSystemId) {
+      setOwnerExperienceSettings(null);
+      return;
+    }
+    let current = true;
+    setOwnerExperienceLoading(true);
+    setOwnerExperienceMessage(null);
+    void getOwnerExperienceSettings(ownerSystemId).then((settings) => {
+      if (current) setOwnerExperienceSettings(settings);
+    }).catch((error) => {
+      if (current) {
+        setOwnerExperienceSettings(null);
+        setOwnerExperienceMessage(error instanceof Error ? error.message : 'Não foi possível carregar as regras de XP.');
+        setOwnerExperienceMessageIsError(true);
+      }
+    }).finally(() => {
+      if (current) setOwnerExperienceLoading(false);
+    });
+    return () => { current = false; };
+  }, [authenticated, ownerSystemId, ownerExperienceVersion]);
 
   const showNotice = (message: string, error = false) => setNotice({ message, error });
   const selectMode = (nextMode: AccountMode) => {
@@ -262,7 +298,7 @@ export function RpgApp() {
     setClaimMessage(null);
     try {
       const result = await claimDailyLoginReward(systemId, characterId);
-      setClaimMessage(`${result.quantity} ${result.quantity === 1 ? 'unidade' : 'unidades'} de ${result.item_name} entregue(s) ao personagem.`);
+      setClaimMessage(formatDailyLoginClaimSuccess(result));
       setClaimMessageIsError(false);
       setDailyLoginVersion((version) => version + 1);
     } catch (error) {
@@ -312,6 +348,62 @@ export function RpgApp() {
       setOwnerMessageIsError(true);
     } finally {
       setOwnerSaving(false);
+    }
+  }
+
+  function changeOwnerExperienceThreshold(amount: number) {
+    setOwnerExperienceSettings((current) => current ? { ...current, xp_per_level: amount } : current);
+  }
+
+  function changeOwnerExperienceSource(
+    index: number,
+    field: 'name' | 'award_amount' | 'is_enabled',
+    value: string | number | boolean,
+  ) {
+    setOwnerExperienceSettings((current) => current ? {
+      ...current,
+      sources: current.sources.map((source, sourceIndex) => sourceIndex === index
+        ? { ...source, [field]: value }
+        : source),
+    } : current);
+  }
+
+  function addOwnerCustomExperienceSource() {
+    setOwnerExperienceSettings((current) => current ? {
+      ...current,
+      sources: addCustomExperienceSource(current.sources),
+    } : current);
+  }
+
+  function removeOwnerCustomExperienceSource(index: number) {
+    setOwnerExperienceSettings((current) => current ? {
+      ...current,
+      sources: current.sources.filter((source, sourceIndex) => sourceIndex !== index),
+    } : current);
+  }
+
+  async function saveOwnerExperience(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!ownerExperienceSettings) return;
+    const sources = ownerExperienceSettings.sources.map(({ id, ...source }) => ({
+      ...(id ? { id } : {}),
+      ...source,
+    }));
+    setOwnerExperienceSaving(true);
+    setOwnerExperienceMessage(null);
+    try {
+      await saveOwnerXpSettings(ownerExperienceSettings.game_system_id, {
+        xp_per_level: ownerExperienceSettings.xp_per_level,
+        sources,
+      });
+      setOwnerExperienceMessage('Configuração de XP salva.');
+      setOwnerExperienceMessageIsError(false);
+      setOwnerExperienceVersion((version) => version + 1);
+    } catch (error) {
+      setOwnerExperienceMessage(error instanceof Error ? error.message : 'Não foi possível salvar as regras de XP.');
+      setOwnerExperienceMessageIsError(true);
+    } finally {
+      setOwnerExperienceSaving(false);
     }
   }
 
@@ -399,6 +491,24 @@ export function RpgApp() {
           onRewardChange={changeOwnerReward}
           onActiveChange={(isActive) => setOwnerCalendar((current) => current ? { ...current, is_active: isActive } : current)}
           onSave={saveOwnerCalendar}
+        />}
+        {dailyLoginSystems.some((entry) => entry.can_manage) && <ExperienceAdminCard
+          systems={dailyLoginSystems}
+          selectedSystemId={ownerSystemId}
+          settings={ownerExperienceSettings}
+          loading={ownerExperienceLoading}
+          saving={ownerExperienceSaving}
+          message={ownerExperienceMessage}
+          messageIsError={ownerExperienceMessageIsError}
+          onSystemChange={(systemId) => {
+            setOwnerSystemId(systemId);
+            setOwnerExperienceSettings(null);
+          }}
+          onXpPerLevelChange={changeOwnerExperienceThreshold}
+          onSourceChange={changeOwnerExperienceSource}
+          onAddCustomSource={addOwnerCustomExperienceSource}
+          onRemoveCustomSource={removeOwnerCustomExperienceSource}
+          onSave={saveOwnerExperience}
         />}
       </section>}
       {authenticated && systemAccess && <SystemMembershipCard
