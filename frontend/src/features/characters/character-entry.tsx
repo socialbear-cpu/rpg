@@ -10,6 +10,7 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
   const [system, setSystem] = useState<GameSystem | null>(null);
   const [fields, setFields] = useState<CharacterSheetField[]>([]);
   const [characters, setCharacters] = useState<SystemCharacter[]>([]);
+  const [selectedCharacterId, setSelectedCharacterId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -36,7 +37,10 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
     setSaving(true);
     try {
       const { character } = await createSystemCharacter(systemId, { character_name: characterName, attributes });
-      push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(character.id)}`);
+      setCharacters((current) => [...current, character]);
+      setSelectedCharacterId(character.id);
+      setCreating(false);
+      setSaving(false);
     } catch {
       setError('Não foi possível criar o personagem. Confira os campos e tente novamente.');
       setSaving(false);
@@ -47,5 +51,5 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
   if (error && !system) return <main className="character-entry-page"><p role="alert">{error}</p><a className="character-back-link" href="/dashboard">Voltar ao dashboard</a></main>;
   if (!system) return null;
   if (creating) return <main className="character-entry-page"><a className="character-back-link" href="#" onClick={(event) => { event.preventDefault(); setCreating(false); }}>← Voltar aos personagens</a><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm fields={fields} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
-  return <CharacterGallery systemName={system.name} fields={fields} characters={characters} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} />;
+  return <CharacterGallery systemName={system.name} fields={fields} characters={characters} selectedCharacterId={selectedCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} />;
 }

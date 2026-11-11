@@ -17,11 +17,12 @@ const character: SystemCharacter = {
 describe('character entry', () => {
   it('shows the system gallery, card fields, and character actions', () => {
     const html = renderToStaticMarkup(createElement(CharacterGallery, {
-      systemName: 'Crônicas', fields, characters: [character], onCreate: vi.fn(), onEnter: vi.fn(),
+      systemName: 'Crônicas', fields, characters: [character], selectedCharacterId: character.id, onCreate: vi.fn(), onEnter: vi.fn(),
     }));
     expect(html).toContain('Crônicas');
     expect(html).toContain('Ayla');
     expect(html).toContain('Mago');
+    expect(html).toContain('PERSONAGEM CRIADO');
     expect(html).toContain('Entrar com Ayla');
     expect(html).toContain('Criar personagem');
   });

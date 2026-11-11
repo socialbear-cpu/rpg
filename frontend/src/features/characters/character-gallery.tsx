@@ -7,11 +7,12 @@ interface CharacterGalleryProps {
   systemName: string;
   fields: CharacterSheetField[];
   characters: SystemCharacter[];
+  selectedCharacterId?: string | null;
   onCreate: () => void;
   onEnter: (characterId: string) => void;
 }
 
-export function CharacterGallery({ systemName, fields, characters, onCreate, onEnter }: CharacterGalleryProps) {
+export function CharacterGallery({ systemName, fields, characters, selectedCharacterId = null, onCreate, onEnter }: CharacterGalleryProps) {
   const cardFields = [...fields].filter((field) => field.show_on_card).sort((a, b) => a.position - b.position);
   return (
     <main className="character-entry-page">
@@ -22,9 +23,9 @@ export function CharacterGallery({ systemName, fields, characters, onCreate, onE
       ) : (
         <div className="character-grid">
           {characters.map((character) => (
-            <article className="character-card" key={character.id}>
+            <article className={`character-card ${selectedCharacterId === character.id ? 'character-card-selected' : ''}`} key={character.id}>
               <div className="character-card-avatar" aria-hidden="true">{character.character_name.slice(0, 1).toUpperCase()}</div>
-              <div className="character-card-content"><span className="character-card-system">PERSONAGEM</span><h2>{character.character_name}</h2>
+              <div className="character-card-content"><span className="character-card-system">{selectedCharacterId === character.id ? 'PERSONAGEM CRIADO' : 'PERSONAGEM'}</span><h2>{character.character_name}</h2>
                 {cardFields.length > 0 && <dl>{cardFields.map((field) => <div key={field.key}><dt>{field.label}</dt><dd>{String(character.attributes[field.key] ?? '—')}</dd></div>)}</dl>}
               </div>
               <button className="character-primary-button" type="button" aria-label={`Entrar com ${character.character_name}`} onClick={() => onEnter(character.id)}>Entrar na aventura <span aria-hidden="true">→</span></button>

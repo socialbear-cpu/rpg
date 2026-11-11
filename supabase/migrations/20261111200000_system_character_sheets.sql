@@ -115,10 +115,10 @@ BEGIN
                 IF pg_catalog.jsonb_typeof(v_option) IS DISTINCT FROM 'string'
                    OR pg_catalog.btrim(v_option #>> '{}') = ''
                    OR pg_catalog.char_length(v_option #>> '{}') > 80
-                   OR (v_option #>> '{}') = ANY(v_seen_options) THEN
+                   OR pg_catalog.btrim(v_option #>> '{}') = ANY(v_seen_options) THEN
                     RETURN FALSE;
                 END IF;
-                v_seen_options := pg_catalog.array_append(v_seen_options, v_option #>> '{}');
+                v_seen_options := pg_catalog.array_append(v_seen_options, pg_catalog.btrim(v_option #>> '{}'));
             END LOOP;
         ELSIF v_field ? 'options' THEN
             RETURN FALSE;

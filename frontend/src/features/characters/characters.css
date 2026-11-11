@@ -7,6 +7,7 @@
 .character-entry-heading p { color: #afa6ba; }
 .character-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 17px; }
 .character-card, .character-empty-state, .character-home-card, .character-unavailable, .character-form { padding: 25px; border: 1px solid #342c42; border-radius: 16px; background: #191521; }
+.character-card-selected { border-color: #9c78d0; box-shadow: 0 0 0 1px #76589e, 0 12px 35px #5d408222; }
 .character-card-avatar { display: grid; width: 56px; height: 56px; place-items: center; margin-bottom: 18px; border: 1px solid #574473; border-radius: 50%; color: #decaf9; background: #2b2039; font-size: 24px; font-weight: 700; }
 .character-card h2 { margin: 6px 0 14px; }
 .character-card dl, .character-home-fields { display: grid; gap: 10px; margin: 0 0 20px; }

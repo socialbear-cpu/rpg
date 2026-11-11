@@ -62,6 +62,15 @@ SELECT throws_ok(
 );
 
 SELECT throws_ok(
+  $$SELECT public.create_game_system_with_sheet(
+      'Duplicate Normalized Options', NULL,
+      '[{"key":"class","label":"Classe","type":"single_select","required":true,"position":0,"show_on_card":true,"options":["Mago"," Mago "]}]'::jsonb
+    )$$,
+  '22023', 'Invalid game system or character sheet',
+  'rejects select options that collide after trimming'
+);
+
+SELECT throws_ok(
   $$INSERT INTO public.game_system_character_sheets (game_system_id, fields)
     SELECT id, '[]'::jsonb FROM public.game_systems WHERE name = 'Sheet Test System'$$,
   '42501', NULL,
