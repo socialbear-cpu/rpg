@@ -61,7 +61,26 @@ function NotificationContent({ notification }: { notification: NotificationItem 
   return <p>Você recebeu uma notificação.</p>;
 }
 
-export function NotificationCenter() {
+function BellIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5" />
+      <path d="M10 20a2 2 0 0 0 4 0" />
+    </svg>
+  );
+}
+
+export function NotificationCenter({ compact = false }: { compact?: boolean }) {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -170,13 +189,15 @@ export function NotificationCenter() {
 
   return <div className="notification-center">
     <button
-      className="notification-toggle"
+      className={`notification-toggle${compact ? ' compact' : ''}`}
       type="button"
+      aria-label={compact ? 'Notificações' : 'Abrir notificações'}
       aria-expanded={open}
       aria-controls="notification-panel"
       onClick={() => setOpen((value) => !value)}
     >
-      Notificações
+      <span className="notification-toggle-icon" aria-hidden="true"><BellIcon size={compact ? 18 : 16} /></span>
+      {!compact && <span className="notification-toggle-label">Notificações</span>}
       {unreadCount > 0 && <span className="notification-count" aria-label={`${unreadCount} não lidas`}>{unreadCount}</span>}
     </button>
     {open && <section className="notification-panel" id="notification-panel" aria-label="Central de notificações">

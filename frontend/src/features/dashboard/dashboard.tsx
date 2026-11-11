@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
+import { NotificationCenter } from '../notifications/notification-center';
 import './dashboard.css';
 
 interface DashboardProps {
@@ -223,10 +224,7 @@ export function Dashboard({ playerName, onLogout, systemNavigation }: DashboardP
           </div>
 
           <div className="topbar-actions">
-            <button className="icon-button notification-button" aria-label="Notificações">
-              <Icon name="bell" />
-              <span className="notification-dot" />
-            </button>
+            <NotificationCenter compact />
 
             <button
               className={`profile-trigger ${profileOpen ? 'selected' : ''}`}
