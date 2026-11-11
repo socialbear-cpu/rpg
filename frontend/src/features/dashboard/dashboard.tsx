@@ -1,7 +1,10 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getGameSystems, type GameSystem } from '../../api';
+import { SystemsSection } from './systems-section';
 import { NotificationCenter } from '../notifications/notification-center';
 import './dashboard.css';
 
@@ -34,57 +37,6 @@ const menuItems: { label: string; icon: IconName }[] = [
   { label: 'Minhas mesas', icon: 'table' },
   { label: 'Explorar mesas', icon: 'explore' },
   { label: 'Comunidade', icon: 'community' },
-];
-
-const tables = [
-  {
-    id: 1,
-    title: 'Naruto: O legado Shinobi',
-    system: 'Sistema Naruto',
-    description: 'Uma nova geração de ninjas está prestes a mudar o destino das cinco grandes nações.',
-    master: 'Mestre Kakashi',
-    players: 4,
-    maxPlayers: 6,
-    status: 'Em andamento',
-    category: 'Anime',
-    image: 'naruto',
-  },
-  {
-    id: 2,
-    title: 'Reinos Esquecidos',
-    system: 'Dungeons & Dragons 5e',
-    description: 'Explore terras antigas, enfrente criaturas lendárias e descubra os segredos de um reino perdido.',
-    master: 'Arthur',
-    players: 5,
-    maxPlayers: 5,
-    status: 'Mesa cheia',
-    category: 'Fantasia',
-    image: 'fantasy',
-  },
-  {
-    id: 3,
-    title: 'Ecos da Meia-Noite',
-    system: 'Ordem Paranormal',
-    description: 'Uma investigação misteriosa começa após o desaparecimento de uma equipe inteira.',
-    master: 'Luna',
-    players: 3,
-    maxPlayers: 5,
-    status: 'Procurando jogadores',
-    category: 'Terror',
-    image: 'horror',
-  },
-  {
-    id: 4,
-    title: 'Além das Estrelas',
-    system: 'Sistema próprio',
-    description: 'Uma jornada espacial em um universo onde a humanidade não está sozinha.',
-    master: 'Mika',
-    players: 2,
-    maxPlayers: 4,
-    status: 'Procurando jogadores',
-    category: 'Ficção científica',
-    image: 'space',
-  },
 ];
 
 function Icon({
@@ -132,44 +84,31 @@ function Icon({
 }
 
 export function Dashboard({ playerName, onLogout }: DashboardProps) {
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [activePage, setActivePage] = useState('Início');
-  const [activeTableId, setActiveTableId] = useState<number | null>(null);
-  const [search, setSearch] = useState('');
+  const [activePage, setActivePage] = useState('Meus sistemas');
+  const [systems, setSystems] = useState<GameSystem[]>([]);
+  const [systemsLoading, setSystemsLoading] = useState(true);
+  const [systemsError, setSystemsError] = useState<string | null>(null);
+
+  useEffect(() => {
+    getGameSystems()
+      .then(({ systems: loadedSystems }) => setSystems(loadedSystems))
+      .catch(() => setSystemsError('Não foi possível carregar seus sistemas.'))
+      .finally(() => setSystemsLoading(false));
+  }, []);
 
   const safePlayerName = (playerName ?? '').trim();
   const firstName = safePlayerName ? safePlayerName.split(' ')[0] : 'Jogador';
   const avatarInitial = safePlayerName ? safePlayerName.charAt(0).toUpperCase() : 'J';
 
-  const filteredTables = tables.filter((table) => {
-    const text = `${table.title} ${table.system} ${table.category}`.toLowerCase();
-    return text.includes(search.toLowerCase());
-  });
-
   const pageDescription: Record<string, string> = {
-    'Início': 'Encontre suas aventuras e acompanhe suas campanhas.',
-    'Minhas mesas': 'Todas as campanhas das quais você participa.',
-    'Explorar mesas': 'Descubra novas aventuras e encontre seu próximo grupo.',
-    'Comunidade': 'Conheça outros jogadores e mestres da comunidade.',
+    'Início': 'Acesse seus sistemas de RPG e continue sua aventura.',
+    'Minhas mesas': 'Acesse os sistemas de RPG dos quais você participa.',
+    'Explorar mesas': 'Crie um novo sistema de RPG para começar sua aventura.',
+    'Comunidade': 'Acesse seus sistemas e personagens de RPG.',
   };
-
-  const visibleTables =
-    activePage === 'Minhas mesas'
-      ? tables.filter((table) => table.players > 0)
-      : activePage === 'Comunidade'
-        ? tables.filter((table) => table.category !== 'Anime')
-        : filteredTables;
-
-  const selectedTable = tables.find((table) => table.id === activeTableId) ?? null;
-
-  function openTableDetail(table: (typeof tables)[number]) {
-    setActiveTableId(table.id);
-  }
-
-  function closeTableDetail(tableId: number) {
-    if (activeTableId === tableId) setActiveTableId(null);
-  }
 
   return (
     <div className={`platform ${sidebarOpen ? '' : 'sidebar-collapsed'}`}>
@@ -201,7 +140,6 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
               className={`nav-item nav-item-${item.icon} ${activePage === item.label ? 'active' : ''}`}
               onClick={() => {
                 setActivePage(item.label);
-                setActiveTableId(null);
               }}
               title={!sidebarOpen ? item.label : undefined}
             >
@@ -267,153 +205,16 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
 
             <button
               className="primary-button"
-              onClick={() => {
-                setActivePage('Explorar mesas');
-                setActiveTableId(null);
-              }}
+              onClick={() => router.push('/dashboard/systems/new')}
             >
               <Icon name="plus" size={18} />
-              Encontrar uma mesa
+              Criar sistema
             </button>
           </section>
 
-          {selectedTable && (
-            <section className="table-detail-card" aria-live="polite">
-              <div className="table-detail-header">
-                <div>
-                  <span className="table-detail-system">{selectedTable.system}</span>
-                  <h2>{selectedTable.title}</h2>
-                </div>
-                <button
-                  type="button"
-                  className="detail-close-button"
-                  onClick={() => closeTableDetail(selectedTable.id)}
-                >
-                  Fechar
-                </button>
-              </div>
-
-              <div className="table-detail-body">
-                <div className={`table-cover cover-${selectedTable.image}`}>
-                  <span className="table-category">{selectedTable.category}</span>
-                  <span className={`table-status ${selectedTable.status === 'Mesa cheia' ? 'full' : ''}`}>
-                    {selectedTable.status}
-                  </span>
-                  <div className="cover-decoration">
-                    <Icon name="dices" size={34} />
-                  </div>
-                </div>
-
-                <div className="table-detail-info">
-                  <p>{selectedTable.description}</p>
-                  <div className="table-detail-meta">
-                    <span><Icon name="users" size={15} /> {selectedTable.players}/{selectedTable.maxPlayers} jogadores</span>
-                    <span><Icon name="user" size={15} /> {selectedTable.master}</span>
-                  </div>
-                  <button type="button" className="primary-button" onClick={() => setActivePage('Minhas mesas')}>
-                    Participar da mesa
-                  </button>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {!selectedTable && <section className="quick-stats">
-            <div className="quick-stat">
-              <div className="quick-stat-icon purple"><Icon name="table" /></div>
-              <div>
-                <strong>{tables.length}</strong>
-                <span>Mesas disponíveis</span>
-              </div>
-            </div>
-            <div className="quick-stat">
-              <div className="quick-stat-icon blue"><Icon name="users" /></div>
-              <div>
-                <strong>14</strong>
-                <span>Jogadores ativos</span>
-              </div>
-            </div>
-          </section>}
-
-          {!selectedTable && <section className="tables-section">
-            <div className="section-heading">
-              <div>
-                <h2>
-                  {activePage === 'Explorar mesas'
-                    ? 'Explore novas mesas'
-                    : activePage === 'Minhas mesas'
-                      ? 'Minhas mesas'
-                      : activePage === 'Comunidade'
-                        ? 'Mesas da comunidade'
-                        : 'Mesas em destaque'}
-                </h2>
-                <p>Campanhas de diferentes universos e sistemas.</p>
-              </div>
-
-              <label className="search-box">
-                <Icon name="search" size={18} />
-                <input
-                  type="search"
-                  placeholder="Buscar mesas..."
-                  value={search}
-                  onChange={(event) => setSearch(event.target.value)}
-                />
-              </label>
-            </div>
-
-            <div className="table-grid">
-              {visibleTables.map((table) => (
-                <article className="table-card" key={table.id}>
-                  <div className={`table-cover cover-${table.image}`}>
-                    <span className="table-category">{table.category}</span>
-                    <span className={`table-status ${table.status === 'Mesa cheia' ? 'full' : ''}`}>
-                      {table.status}
-                    </span>
-                    <div className="cover-decoration">
-                      <Icon name="dices" size={34} />
-                    </div>
-                  </div>
-
-                  <div className="table-card-content">
-                    <span className="table-system">{table.system}</span>
-                    <h3>{table.title}</h3>
-                    <p className="table-description">{table.description}</p>
-
-                    <div className="table-master">
-                      <span className="master-avatar">
-                        {table.master.charAt(0)}
-                      </span>
-                      <div>
-                        <span className="master-label">Mestre</span>
-                        <strong>{table.master}</strong>
-                      </div>
-                    </div>
-
-                    <div className="table-card-footer">
-                      <span className="player-count">
-                        <Icon name="users" size={16} />
-                        {table.players}/{table.maxPlayers} jogadores
-                      </span>
-                      <button
-                        className="text-button"
-                        onClick={() => openTableDetail(table)}
-                      >
-                        Ver mesa <Icon name="chevron" size={15} />
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              ))}
-
-              {visibleTables.length === 0 && (
-                <div className="empty-state">
-                  <Icon name="search" size={30} />
-                  <h3>Nenhuma mesa encontrada</h3>
-                  <p>Tente pesquisar por outro nome ou sistema.</p>
-                </div>
-              )}
-            </div>
-          </section>}
+          <SystemsSection systems={systems} loading={systemsLoading} error={systemsError}
+            onCreate={() => router.push('/dashboard/systems/new')}
+            onEnter={(systemId) => router.push(`/systems/${encodeURIComponent(systemId)}/characters`)} />
         </div>
       </main>
 

@@ -9,6 +9,8 @@ import {
   removeSheetField,
 } from '../src/features/system-creation/sheet-model.js';
 import { CharacterSheetBuilder } from '../src/features/system-creation/character-sheet-builder.js';
+import { SystemsSection } from '../src/features/dashboard/systems-section.js';
+import { SystemCreationWizard } from '../src/features/system-creation/system-creation-wizard.js';
 
 const field: CharacterSheetField = {
   key: 'origin', label: 'Origem', type: 'short_text', required: true, position: 0, show_on_card: true,
@@ -60,5 +62,28 @@ describe('character sheet builder', () => {
     expect(html).toContain('Mover campo Origem para cima');
     expect(html).toContain('Mover campo Origem para baixo');
     expect(html).toContain('Remover campo Origem');
+  });
+});
+
+describe('system dashboard and creation', () => {
+  it('lists owned systems with an entry action and a create action', () => {
+    const html = renderToStaticMarkup(createElement(SystemsSection, {
+      systems: [{ id: 'sys-1', slug: 'fantasia', name: 'Fantasia', description: null }],
+      loading: false,
+      error: null,
+      onCreate: vi.fn(),
+      onEnter: vi.fn(),
+    }));
+    expect(html).toContain('Fantasia');
+    expect(html).toContain('Entrar no sistema Fantasia');
+    expect(html).toContain('Criar sistema');
+  });
+
+  it('builds a system with its sheet and routes to character selection', async () => {
+    const createSystem = vi.fn().mockResolvedValue({ id: 'sys-created', slug: 'meu-sistema', name: 'Meu Sistema', description: null });
+    const push = vi.fn();
+    const html = renderToStaticMarkup(createElement(SystemCreationWizard, { createSystem, push }));
+    expect(html).toContain('Nome do sistema');
+    expect(html).toContain('Continuar para ficha');
   });
 });
