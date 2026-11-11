@@ -8,6 +8,7 @@ import { systemMembershipRoutes } from './modules/system-membership/system-membe
 import { notificationsRoutes } from './modules/notifications/notifications.routes.js';
 import { experienceRoutes } from './modules/experience/experience.routes.js';
 import { tradingRoutes } from './modules/trading/trading.routes.js';
+import { gameSystemsRoutes } from './modules/game-systems/game-systems.routes.js';
 import type { Config } from './config.js';
 
 export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
@@ -36,4 +37,5 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
   app.register(notificationsRoutes);
   app.register(experienceRoutes);
   app.register(tradingRoutes);
+  app.register(gameSystemsRoutes);
 }
