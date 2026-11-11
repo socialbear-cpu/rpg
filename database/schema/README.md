@@ -6,7 +6,7 @@ The canonical DDL is in the ordered files under `../migrations/`. This directory
 | --- | --- |
 | Accounts | `users`, `user_profiles` |
 | Authorization | `private.platform_admins`, `game_system_memberships` |
-| Game systems and sheets | `game_systems`, `characters` |
+| Game systems and sheets | `game_systems`, `game_system_character_sheets`, `characters` |
 | Content | `abilities`, `items`, `achievements` |
 | Character progression | `character_abilities`, `character_inventory`, `character_achievements`, `user_achievements` |
 | Character trading | `trade_offers`, `trade_offer_lines` |
