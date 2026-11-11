@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import { AccountCard, type AccountMode } from '../src/features/account/account-card';
 import { ProfileCard, type ProfileFields } from '../src/features/profile/profile-card';
 import { DailyLoginAdminCard } from '../src/features/daily-login/daily-login-admin-card';
@@ -37,6 +38,7 @@ type Notice = { message: string; error: boolean } | null;
 const emptyProfile: ProfileFields = { displayName: '', avatarUrl: '', bio: '' };
 
 export function RpgApp() {
+  const router = useRouter();
   const [mode, setMode] = useState<AccountMode>('login');
   const [notice, setNotice] = useState<Notice>(null);
   const [health, setHealth] = useState<'checking' | 'ok' | 'bad'>('checking');
@@ -175,7 +177,7 @@ export function RpgApp() {
           : 'Cadastro recebido. Confirme seu e-mail para poder entrar.');
       } else {
         await signIn({ email: email.trim(), password });
-        showNotice('Login realizado. Você já pode resgatar suas recompensas diárias.');
+        router.push('/dashboard');
       }
       setAuthenticated(hasSession());
     } catch (error) {
