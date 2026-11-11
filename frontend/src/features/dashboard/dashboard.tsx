@@ -135,7 +135,6 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
   const [activePage, setActivePage] = useState('Início');
-  const [detailTabs, setDetailTabs] = useState<number[]>([]);
   const [activeTableId, setActiveTableId] = useState<number | null>(null);
   const [search, setSearch] = useState('');
 
@@ -165,17 +164,11 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const selectedTable = tables.find((table) => table.id === activeTableId) ?? null;
 
   function openTableDetail(table: (typeof tables)[number]) {
-    setDetailTabs((current) => (current.includes(table.id) ? current : [...current, table.id]));
     setActiveTableId(table.id);
-    setActivePage('Minhas mesas');
   }
 
   function closeTableDetail(tableId: number) {
-    setDetailTabs((current) => current.filter((id) => id !== tableId));
-    if (activeTableId === tableId) {
-      const next = detailTabs.filter((id) => id !== tableId).at(-1) ?? null;
-      setActiveTableId(next);
-    }
+    if (activeTableId === tableId) setActiveTableId(null);
   }
 
   return (
@@ -205,7 +198,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
           {menuItems.map((item) => (
             <button
               key={item.label}
-              className={`nav-item ${activePage === item.label ? 'active' : ''}`}
+              className={`nav-item nav-item-${item.icon} ${activePage === item.label ? 'active' : ''}`}
               onClick={() => {
                 setActivePage(item.label);
                 setActiveTableId(null);
@@ -219,11 +212,11 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
         </nav>
 
         <div className="sidebar-bottom">
-          <button className="nav-item" title={!sidebarOpen ? 'Mensagens' : undefined}>
+          <button className="nav-item nav-item-message" title={!sidebarOpen ? 'Mensagens' : undefined}>
             <Icon name="message" />
             {sidebarOpen && <span>Mensagens</span>}
           </button>
-          <button className="nav-item" title={!sidebarOpen ? 'Configurações' : undefined}>
+          <button className="nav-item nav-item-settings" title={!sidebarOpen ? 'Configurações' : undefined}>
             <Icon name="settings" />
             {sidebarOpen && <span>Configurações</span>}
           </button>
@@ -284,61 +277,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
             </button>
           </section>
 
-          <div className="dashboard-tabs" role="group" aria-label="Navegação das mesas">
-            {([
-              { label: 'Minhas mesas', icon: 'table' },
-              { label: 'Explorar mesas', icon: 'explore' },
-              { label: 'Comunidade', icon: 'community' },
-            ] as const).map(({ label, icon }) => (
-              <button
-                key={label}
-                type="button"
-                aria-pressed={activePage === label && activeTableId === null}
-                className={`dashboard-tab ${activePage === label && activeTableId === null ? 'active' : ''}`}
-                onClick={() => {
-                  setActivePage(label);
-                  setActiveTableId(null);
-                }}
-              >
-                <Icon name={icon} size={16} />
-                <span>{label}</span>
-              </button>
-            ))}
-
-            {detailTabs.map((tableId) => {
-              const table = tables.find((item) => item.id === tableId);
-              if (!table) return null;
-              return (
-                <div
-                  key={table.id}
-                  className={`detail-tab-wrapper ${activeTableId === table.id ? 'active' : ''}`}
-                >
-                  <button
-                    type="button"
-                    aria-pressed={activeTableId === table.id}
-                    className="dashboard-tab detail"
-                    onClick={() => {
-                      setActivePage('Minhas mesas');
-                      setActiveTableId(table.id);
-                    }}
-                  >
-                    <Icon name="dices" size={16} />
-                    <span>{table.title}</span>
-                  </button>
-                  <button
-                    type="button"
-                    className="detail-tab-close"
-                    aria-label={`Fechar ${table.title}`}
-                    onClick={() => closeTableDetail(table.id)}
-                  >
-                    ×
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-
-          {selectedTable && activePage === 'Minhas mesas' && (
+          {selectedTable && (
             <section className="table-detail-card" aria-live="polite">
               <div className="table-detail-header">
                 <div>
@@ -379,7 +318,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
             </section>
           )}
 
-          <section className="quick-stats">
+          {!selectedTable && <section className="quick-stats">
             <div className="quick-stat">
               <div className="quick-stat-icon purple"><Icon name="table" /></div>
               <div>
@@ -394,16 +333,9 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
                 <span>Jogadores ativos</span>
               </div>
             </div>
-            <div className="quick-stat">
-              <div className="quick-stat-icon gold"><Icon name="dices" /></div>
-              <div>
-                <strong>4</strong>
-                <span>Sistemas de RPG</span>
-              </div>
-            </div>
-          </section>
+          </section>}
 
-          <section className="tables-section">
+          {!selectedTable && <section className="tables-section">
             <div className="section-heading">
               <div>
                 <h2>
@@ -481,7 +413,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
                 </div>
               )}
             </div>
-          </section>
+          </section>}
         </div>
       </main>
 
