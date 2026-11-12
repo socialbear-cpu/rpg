@@ -46,10 +46,10 @@ The canonical file is `database/migrations/009_notifications.sql`; the generated
 - Use a new numbered migration for later changes; do not edit an existing migration.
 - `updated_at` columns are initialized by the database; the API should update them when it changes a row.
 - Store mutable, system-specific attributes in `characters.attributes` (JSONB) while keeping frequently queried fields and relationships in relational columns.
-- Migration 016 implements character wallets and atomic item purchases. Payment processing and refunds remain outside the store scope.
+- Migration 017 implements character wallets and atomic item purchases. Payment processing and refunds remain outside the store scope.
 - Migration 007 configures Row Level Security for the public app tables before they are exposed through the Supabase Data API.
 
-## System store economy (016)
+## System store economy (017)
 
 `game_systems.currency_name` defaults to `Créditos`; existing owner RLS controls changes. Owners manage item products/offers through the existing catalog policies. Offers have unlimited supply: the legacy `stock_quantity` and `currency_code` on offers are ignored by purchases. Only item products are purchasable.
 
