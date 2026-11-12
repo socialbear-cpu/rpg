@@ -79,12 +79,12 @@ SELECT is((SELECT balance FROM character_wallets WHERE character_id='93000000-00
 SELECT is((SELECT count(*) FROM character_currency_ledger WHERE source_type='daily_login'),1::bigint,'daily currency logged once');
 SELECT is(purchase_store_product('93000000-0000-4000-8000-000000000001','96000000-0000-4000-8000-000000000001',0)->>'status','invalid_quantity','zero quantity rejected');
 SELECT is(set_daily_login_reward_schedule('92000000-0000-4000-8000-000000000001','[]',true)->>'status','not_owner','player cannot configure daily money');
-SELECT throws_ok($DELETE FROM character_currency_ledger$,'42501',NULL,'ledger cannot be deleted by client');
+SELECT throws_ok($$DELETE FROM character_currency_ledger$$,'42501',NULL,'ledger cannot be deleted by client');
 RESET ROLE;
 UPDATE character_inventory SET quantity=2147483647 WHERE character_id='93000000-0000-4000-8000-000000000001';
 UPDATE character_wallets SET balance=25 WHERE character_id='93000000-0000-4000-8000-000000000001';
 SET LOCAL ROLE authenticated;
-SELECT throws_ok($SELECT purchase_store_product('93000000-0000-4000-8000-000000000001','96000000-0000-4000-8000-000000000001',1)$,'22003',NULL,'delivery failure aborts entire purchase');
+SELECT throws_ok($$SELECT purchase_store_product('93000000-0000-4000-8000-000000000001','96000000-0000-4000-8000-000000000001',1)$$,'22003',NULL,'delivery failure aborts entire purchase');
 SELECT is((SELECT balance FROM character_wallets WHERE character_id='93000000-0000-4000-8000-000000000001'),25::numeric,'delivery failure rolls back debit');
 SELECT is((SELECT count(*) FROM purchases),1::bigint,'delivery failure rolls back purchase history');
 SELECT is((SELECT count(*) FROM character_currency_ledger WHERE source_type='purchase'),1::bigint,'delivery failure rolls back ledger');
