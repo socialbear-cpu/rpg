@@ -114,8 +114,8 @@
 .lobby-detail-panel { margin: 0; padding: 18px; }
 .lobby-detail-panel h3 { margin: 0 0 8px; }
 .lobby-detail-panel .lobby-sheet-fields { grid-template-columns: 1fr; }
-.lobby-main { min-width: 0; padding-top: 0; }
-.lobby-welcome { margin: 0 0 12px; }
+.lobby-main { width: min(100%, 1200px); min-width: 0; margin-inline: auto; padding-top: 0; }
+.lobby-welcome { margin: 0 0 12px; text-align: center; }
 .lobby-welcome .character-entry-eyebrow { font-size: 10px; }
 .lobby-welcome h1 { margin: 7px 0 5px; color: #f4f1fa; font: 700 clamp(30px, 3.2vw, 46px) 'Outfit', sans-serif; letter-spacing: -.035em; }
 .lobby-welcome p { margin: 0; color: #a7a2b2; font-size: 14px; }
@@ -130,8 +130,8 @@
 .lobby-search-decoration-left { left: 15%; top: 48%; font-size: 23px; }
 .lobby-search-decoration-right { right: 15%; top: 42%; font-size: 26px; }
 .lobby-matchmaking-caption { color: #a9a1b4; font-size: 12px; }
-.lobby-rooms { margin-top: 3px; }
-.lobby-section-heading { justify-content: flex-start; margin-bottom: 17px; text-align: left; }
+.lobby-rooms { width: 100%; margin: 3px auto 0; }
+.lobby-section-heading { justify-content: center; margin-bottom: 17px; text-align: center; }
 .lobby-section-heading h2 { margin-top: 5px; font: 700 26px 'Outfit', sans-serif; }
 .lobby-room-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
 .lobby-room-card { min-height: 236px; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; padding: 17px; border-color: #373140; border-radius: 14px; background: linear-gradient(145deg, #1b1924, #171720); }
