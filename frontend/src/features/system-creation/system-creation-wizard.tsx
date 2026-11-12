@@ -44,7 +44,7 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
 
   return (
     <main className="system-creation-page">
-      <AppHeader section="Criar sistema" backHref="/dashboard" backLabel="Voltar ao dashboard" />
+      <AppHeader activeItem="Explorar mesas" backHref="/dashboard" backLabel="Voltar ao dashboard" />
       <div className="system-creation-progress"><span>ETAPA {step === 'details' ? '1' : '2'} DE 2</span><span>{step === 'details' ? 'Detalhes do sistema' : 'Ficha do personagem'}</span></div>
       {step === 'details' ? (
         <form className="system-creation-panel" onSubmit={continueToSheet}>

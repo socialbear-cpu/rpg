@@ -1,42 +1,53 @@
 .app-header {
   position: relative;
-  z-index: 4;
+  z-index: 5;
   min-height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 0 clamp(18px, 3vw, 40px);
+  gap: 24px;
+  padding: 0 clamp(20px, 4vw, 80px);
   border-bottom: 1px solid #292c38;
   color: #f0eff7;
   background: #14161f;
   font-family: 'DM Sans', sans-serif;
 }
 
-.app-header-left,
-.app-header-brand,
-.app-header-breadcrumb,
-.app-header-actions {
-  display: flex;
-  align-items: center;
+.app-header-brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 10px; color: #f4f3fa; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 750; letter-spacing: .06em; }
+.app-header-brand em { color: #a78bfa; font-style: normal; }
+.app-header-mark { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #8067bc; border-radius: 11px; color: #eee5ff; background: #55427f; font-size: 20px; }
+.app-header-nav { display: flex; flex: 1 1 auto; align-items: center; justify-content: center; gap: clamp(16px, 2.3vw, 36px); min-width: 0; }
+.app-header-nav-link { min-height: 76px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; color: #a4a5b4; text-decoration: none; font-size: 13px; white-space: nowrap; transition: color .18s ease, border-color .18s ease; }
+.app-header-nav-link:hover { color: #f0eff7; }
+.app-header-nav-link.active { border-bottom-color: #a78bfa; color: #f3efff; }
+.app-header-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 14px; }
+.app-header-back { color: #c4b5df; font-size: 12px; text-decoration: none; }
+.app-header-back:hover { color: #f0e9ff; }
+.app-header button.app-header-back { padding: 0; border: 0; background: transparent; font: inherit; cursor: pointer; }
+.app-header-mobile-menu { display: none; }
+
+@media (max-width: 1000px) {
+  .app-header { gap: 14px; }
+  .app-header-nav { gap: 14px; }
+  .app-header-nav-link { font-size: 12px; }
 }
 
-.app-header-left { min-width: 0; gap: clamp(18px, 3vw, 38px); }
-.app-header-brand { flex: 0 0 auto; gap: 10px; color: #f4f3fa; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: .06em; }
-.app-header-brand em { color: #a78bfa; font-style: normal; }
-.app-header-mark { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #8067bc; border-radius: 11px; color: #eee5ff; background: linear-gradient(135deg, #8b70d8, #55427f); font-size: 20px; }
-.app-header-breadcrumb { min-width: 0; gap: 10px; color: #777989; font-size: 12px; white-space: nowrap; }
-.app-header-breadcrumb strong { overflow: hidden; color: #e4e2ed; font-weight: 600; text-overflow: ellipsis; }
-.app-header-actions { flex: 0 0 auto; gap: 14px; }
-.app-header-back { color: #c4b5df; font-size: 12px; text-decoration: none; }
-.app-header button.app-header-back { padding: 0; border: 0; background: transparent; font: inherit; cursor: pointer; }
-.app-header-back:hover { color: #f0e9ff; }
+@media (max-width: 760px) {
+  .app-header { min-height: 66px; padding: 0 18px; }
+  .app-header-nav { display: none; }
+  .app-header-mobile-menu { position: relative; display: block; margin-left: auto; }
+  .app-header-mobile-menu summary { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid #383746; border-radius: 9px; color: #e4e2ed; background: #1d202b; font-size: 17px; list-style: none; cursor: pointer; }
+  .app-header-mobile-menu summary::-webkit-details-marker { display: none; }
+  .app-header-mobile-menu nav { position: absolute; top: calc(100% + 10px); right: 0; z-index: 8; width: min(260px, calc(100vw - 36px)); display: grid; padding: 7px; border: 1px solid #383746; border-radius: 12px; background: #171922; box-shadow: 0 16px 40px #0008; }
+  .app-header-mobile-menu nav a { padding: 12px; border-radius: 7px; color: #c5c2ce; text-decoration: none; font-size: 13px; }
+  .app-header-mobile-menu nav a:hover, .app-header-mobile-menu nav a.active { color: #f3efff; background: #302844; }
+  .app-header-actions { gap: 8px; }
+}
 
-@media (max-width: 650px) {
-  .app-header { min-height: 66px; padding: 0 15px; }
-  .app-header-left { gap: 12px; }
+@media (max-width: 520px) {
+  .app-header { padding: 0 14px; }
   .app-header-brand { gap: 8px; font-size: 14px; }
   .app-header-mark { width: 32px; height: 32px; }
-  .app-header-breadcrumb { display: none; }
-  .app-header-actions { gap: 8px; }
+  .app-header-actions { gap: 6px; }
+  .app-header-back { font-size: 11px; }
 }

@@ -48,9 +48,9 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
     }
   }
 
-  if (loading) return <main className="character-entry-page"><AppHeader section="Personagens" /><p role="status">Carregando sistema...</p></main>;
-  if (error && !system) return <main className="character-entry-page"><AppHeader section="Personagens" backHref="/dashboard" backLabel="Voltar ao dashboard" /><p role="alert">{error}</p></main>;
+  if (loading) return <main className="character-entry-page"><AppHeader activeItem="Minhas mesas" /><p role="status">Carregando sistema...</p></main>;
+  if (error && !system) return <main className="character-entry-page"><AppHeader activeItem="Minhas mesas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><p role="alert">{error}</p></main>;
   if (!system) return null;
-  if (creating) return <main className="character-entry-page"><AppHeader section="Criar personagem"><button className="app-header-back" type="button" onClick={() => setCreating(false)}>← Voltar aos personagens</button></AppHeader><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm fields={fields} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
+  if (creating) return <main className="character-entry-page"><AppHeader activeItem="Minhas mesas"><button className="app-header-back" type="button" onClick={() => setCreating(false)}>← Voltar aos personagens</button></AppHeader><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm fields={fields} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
   return <CharacterGallery systemName={system.name} fields={fields} characters={characters} selectedCharacterId={selectedCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} />;
 }

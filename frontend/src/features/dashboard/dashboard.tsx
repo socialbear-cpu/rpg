@@ -32,13 +32,6 @@ type IconName =
   | 'clock'
   | 'dices';
 
-const menuItems: { label: string; icon: IconName }[] = [
-  { label: 'Início', icon: 'home' },
-  { label: 'Minhas mesas', icon: 'table' },
-  { label: 'Explorar mesas', icon: 'explore' },
-  { label: 'Comunidade', icon: 'community' },
-];
-
 function Icon({
   name,
   size = 20,
@@ -84,9 +77,8 @@ function Icon({
 
 export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const router = useRouter();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [activePage, setActivePage] = useState('Meus sistemas');
+  const [activePage, setActivePage] = useState('Minhas mesas');
   const [systems, setSystems] = useState<GameSystem[]>([]);
   const [systemsLoading, setSystemsLoading] = useState(true);
   const [systemsError, setSystemsError] = useState<string | null>(null);
@@ -110,58 +102,12 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
   };
 
   return (
-    <div className={`platform ${sidebarOpen ? '' : 'sidebar-collapsed'}`}>
-      <aside className="sidebar">
-        <button
-          className="sidebar-toggle"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          aria-label={sidebarOpen ? 'Recolher menu' : 'Expandir menu'}
-          title={sidebarOpen ? 'Recolher menu' : 'Expandir menu'}
-        >
-          <Icon name="menu" />
-        </button>
-
-        <div className="sidebar-section-label">
-          {sidebarOpen ? 'MENU PRINCIPAL' : ''}
-        </div>
-
-        <nav className="sidebar-nav">
-          {menuItems.map((item) => (
-            <button
-              key={item.label}
-              className={`nav-item nav-item-${item.icon} ${activePage === item.label ? 'active' : ''}`}
-              onClick={() => {
-                setActivePage(item.label);
-              }}
-              title={!sidebarOpen ? item.label : undefined}
-            >
-              <Icon name={item.icon} />
-              {sidebarOpen && <span>{item.label}</span>}
-            </button>
-          ))}
-        </nav>
-
-        <div className="sidebar-bottom">
-          <button className="nav-item nav-item-message" title={!sidebarOpen ? 'Mensagens' : undefined}>
-            <Icon name="message" />
-            {sidebarOpen && <span>Mensagens</span>}
-          </button>
-          <button className="nav-item nav-item-settings" title={!sidebarOpen ? 'Configurações' : undefined}>
-            <Icon name="settings" />
-            {sidebarOpen && <span>Configurações</span>}
-          </button>
-
-          {sidebarOpen && (
-            <div className="sidebar-version">
-              <span className="version-dot" />
-              Plataforma em desenvolvimento
-            </div>
-          )}
-        </div>
-      </aside>
-
+    <div className="platform">
       <main className="main-area">
-        <AppHeader section={activePage}>
+        <AppHeader activeItem={activePage} onNavigate={(label) => {
+          if (label === 'Explorar mesas') router.push('/dashboard/systems/new');
+          else setActivePage(label);
+        }}>
             <NotificationCenter compact />
 
             <button

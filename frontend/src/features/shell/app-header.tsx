@@ -2,22 +2,36 @@ import type { ReactNode } from 'react';
 import './app-header.css';
 
 interface AppHeaderProps {
-  section?: string;
+  activeItem?: string;
   backHref?: string;
   backLabel?: string;
+  onNavigate?: (label: string) => void;
   children?: ReactNode;
 }
 
-export function AppHeader({ section, backHref, backLabel = 'Voltar', children }: AppHeaderProps) {
+const navItems = [
+  { label: 'Início', href: '/dashboard' },
+  { label: 'Minhas mesas', href: '/dashboard' },
+  { label: 'Explorar mesas', href: '/dashboard/systems/new' },
+  { label: 'Comunidade', href: '/dashboard' },
+];
+
+export function AppHeader({ activeItem = 'Minhas mesas', backHref, backLabel = 'Voltar', onNavigate, children }: AppHeaderProps) {
   return (
     <header className="app-header">
-      <div className="app-header-left">
-        <a className="app-header-brand" href="/dashboard" aria-label="Nexus RPG início">
-          <span className="app-header-mark" aria-hidden="true">✧</span>
-          <span>NEXUS <em>RPG</em></span>
-        </a>
-        {section && <div className="app-header-breadcrumb"><span>Plataforma</span><span aria-hidden="true">/</span><strong>{section}</strong></div>}
-      </div>
+      <a className="app-header-brand" href="/dashboard" aria-label="Nexus RPG início">
+        <span className="app-header-mark" aria-hidden="true">✧</span>
+        <span>NEXUS <em>RPG</em></span>
+      </a>
+      <nav className="app-header-nav" aria-label="Navegação principal">
+        {navItems.map((item) => <a key={item.label} className={`app-header-nav-link ${activeItem === item.label ? 'active' : ''}`} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</a>)}
+      </nav>
+      <details className="app-header-mobile-menu">
+        <summary aria-label="Abrir navegação">☰</summary>
+        <nav aria-label="Navegação principal">
+          {navItems.map((item) => <a key={item.label} className={activeItem === item.label ? 'active' : ''} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</a>)}
+        </nav>
+      </details>
       <div className="app-header-actions">
         {backHref && <a className="app-header-back" href={backHref}>← {backLabel}</a>}
         {children}

@@ -477,7 +477,7 @@ export function RpgApp() {
 
   return (
     <main className="shell">
-      <AppHeader section="Minha conta">
+      <AppHeader activeItem="Início">
         <div className="health"><span className={`dot ${health === 'ok' ? 'ok' : health === 'bad' ? 'bad' : ''}`} /><span>{health === 'checking' ? 'Verificando API…' : health === 'ok' ? 'API disponível' : 'API indisponível'}</span></div>
       </AppHeader>
 

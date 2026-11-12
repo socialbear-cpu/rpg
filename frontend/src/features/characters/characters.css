@@ -86,6 +86,65 @@
 @media (max-width: 900px) { .lobby-layout { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr); gap: 18px; } .lobby-room-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lobby-room-card:last-child { grid-column: 1 / -1; } }
 @media (max-width: 700px) { .lobby-layout { grid-template-columns: 1fr; } .lobby-character { width: 100%; } .lobby-portrait { max-height: 340px; aspect-ratio: 1.1; } .lobby-matchmaking { align-items: flex-start; flex-direction: column; } .lobby-search-button { width: 100%; justify-content: center; } .lobby-sheet-fields { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { .character-entry-page { padding: 0 15px 48px; } .character-entry-page > .app-header { width: calc(100% + 30px); margin: 0 -15px 27px; } .character-card, .character-empty-state, .character-home-card, .character-unavailable, .character-form { padding: 20px; } .character-form-actions { flex-direction: column-reverse; } .character-form-actions button { width: 100%; } .lobby-room-grid { grid-template-columns: 1fr; } .lobby-room-card:last-child { grid-column: auto; } }
+
+/* Character lobby: shared app navigation above the character and room dashboard. */
+.character-home-page { min-height: 100vh; padding: 0 clamp(20px, 4vw, 80px) 56px; background: radial-gradient(ellipse at 18% 64%, #242038 0, #171521 34%, #11121a 75%); }
+.character-home-page > .app-header { width: calc(100% + clamp(40px, 8vw, 160px)); margin: 0 calc(-1 * clamp(20px, 4vw, 80px)) 42px; }
+.character-home-page > * { max-width: none; }
+.lobby-layout { grid-template-columns: minmax(275px, .72fr) minmax(0, 1.8fr); gap: clamp(30px, 4vw, 76px); max-width: 1640px !important; margin: 0 auto; }
+.lobby-character { width: 100%; max-width: none; align-self: start; margin-top: 92px; padding: 24px; gap: 18px; border-color: #3a3446; border-radius: 17px; background: linear-gradient(145deg, #1c1a27ed, #171720ed); box-shadow: 0 18px 70px #0003; }
+.lobby-character-heading { display: grid; gap: 8px; }
+.lobby-character-heading .character-entry-eyebrow { font-size: 10px; }
+.lobby-character-name { margin: 0; color: #f4f0fb; text-align: left; font: 700 clamp(22px, 2vw, 29px) 'Outfit', sans-serif; overflow-wrap: anywhere; }
+.lobby-level { justify-self: start; padding: 5px 10px; border: 1px solid #49345f; border-radius: 999px; color: #dfcaff; background: #2a2038; font-size: 12px; }
+.lobby-xp { display: grid; gap: 9px; padding: 15px; border: 1px solid #342c42; border-radius: 12px; background: #14131c; }
+.lobby-xp-label, .lobby-xp-caption { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; }
+.lobby-xp-label { color: #bdb5ca; }
+.lobby-xp-label strong { color: #eee6fb; }
+.lobby-xp-track { height: 9px; overflow: hidden; border-radius: 99px; background: #30283b; }
+.lobby-xp-track span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #7549bd, #bd8bff); box-shadow: 0 0 15px #9a69e466; transition: width .25s ease; }
+.lobby-xp-caption { color: #9e96aa; font-size: 10px; }
+.lobby-sheet-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; margin: 0; }
+.lobby-sheet-fields > div { display: grid; gap: 4px; padding: 10px 0; border-bottom: 1px solid #302a3a; }
+.lobby-sheet-fields dt { color: #9e96aa; font-size: 11px; }
+.lobby-sheet-fields dd { color: #eee8f5; font-size: 13px; overflow-wrap: anywhere; }
+.lobby-character-actions { gap: 4px; }
+.lobby-character-actions .character-secondary-button { margin: 0; }
+.lobby-text-button { min-height: 40px; color: #b9a7d2; }
+.lobby-detail-panel { margin: 0; padding: 18px; }
+.lobby-detail-panel h3 { margin: 0 0 8px; }
+.lobby-detail-panel .lobby-sheet-fields { grid-template-columns: 1fr; }
+.lobby-main { min-width: 0; padding-top: 0; }
+.lobby-welcome { margin: 0 0 12px; }
+.lobby-welcome .character-entry-eyebrow { font-size: 10px; }
+.lobby-welcome h1 { margin: 7px 0 5px; color: #f4f1fa; font: 700 clamp(30px, 3.2vw, 46px) 'Outfit', sans-serif; letter-spacing: -.035em; }
+.lobby-welcome p { margin: 0; color: #a7a2b2; font-size: 14px; }
+.lobby-matchmaking { min-height: 295px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; overflow: visible; padding: 30px; border: 0; background: radial-gradient(ellipse at center, #4833604f, #251d310f 50%, transparent 72%); }
+.lobby-matchmaking::after { right: 50%; bottom: -160px; width: 410px; height: 410px; transform: translateX(50%); }
+.lobby-search-button { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 20px 34px; border: 1px solid #aa7cff; border-radius: 12px; color: #fff; background: linear-gradient(135deg, #7540bf, #5b2d99 58%, #482477); box-shadow: 0 0 0 5px #8e5ad31a, 0 14px 42px #6d39a866, inset 0 1px #ffffff45; font: 700 clamp(18px, 2.1vw, 27px) 'Outfit', sans-serif; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
+.lobby-search-button:disabled { opacity: 1; cursor: not-allowed; }
+.lobby-search-button small { padding: 5px 8px; border: 1px solid #ffffff2b; border-radius: 99px; color: #f0e8ff; background: #ffffff1c; font: 700 9px 'DM Sans', sans-serif; letter-spacing: .08em; }
+.lobby-search-icon { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid #ffffff46; border-radius: 8px; background: #ffffff20; font-size: 25px; line-height: 1; }
+.lobby-search-decoration { position: absolute; z-index: 1; color: #dfc3ff; text-shadow: 0 0 17px #b26aff; pointer-events: none; }
+.lobby-search-decoration-top { top: 50px; font-size: 30px; }
+.lobby-search-decoration-left { left: 15%; top: 48%; font-size: 23px; }
+.lobby-search-decoration-right { right: 15%; top: 42%; font-size: 26px; }
+.lobby-matchmaking-caption { color: #a9a1b4; font-size: 12px; }
+.lobby-rooms { margin-top: 3px; }
+.lobby-section-heading { justify-content: flex-start; margin-bottom: 17px; text-align: left; }
+.lobby-section-heading h2 { margin-top: 5px; font: 700 26px 'Outfit', sans-serif; }
+.lobby-room-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+.lobby-room-card { min-height: 236px; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; padding: 17px; border-color: #373140; border-radius: 14px; background: linear-gradient(145deg, #1b1924, #171720); }
+.lobby-room-icon { width: 42px; height: 42px; border: 1px solid #463452; color: #d7b5ff; background: #2a2037; }
+.lobby-room-content { display: flex; min-height: 142px; flex-direction: column; }
+.lobby-room-content h3 { margin-top: 2px; color: #f0ebf6; font: 700 16px 'Outfit', sans-serif; }
+.lobby-room-content p { min-height: 42px; color: #b0aab8; font-size: 12px; line-height: 1.5; }
+.lobby-room-people { margin-top: auto; color: #c1b7cf; font-size: 11px; }
+.lobby-room-card > .character-secondary-button { grid-column: 1 / -1; width: 100%; margin: 2px 0 0; border-color: #40394a; background: #17151f; }
+.lobby-room-card > .character-secondary-button:hover { border-color: #8058b8; background: #251d31; }
+@media (max-width: 1100px) { .lobby-layout { grid-template-columns: minmax(245px, .75fr) minmax(0, 1.5fr); gap: 26px; } .lobby-room-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lobby-room-card:last-child { grid-column: 1 / -1; } }
+@media (max-width: 760px) { .character-home-page { padding: 0 15px 48px; } .character-home-page > .app-header { width: calc(100% + 30px); margin: 0 -15px 28px; } .lobby-layout { grid-template-columns: 1fr; gap: 26px; } .lobby-character { order: 2; margin-top: 0; } .lobby-main { order: 1; } .lobby-matchmaking { min-height: 210px; } .lobby-search-button { flex-wrap: wrap; padding: 16px 18px; font-size: 19px; } .lobby-search-decoration-left { left: 3%; } .lobby-search-decoration-right { right: 3%; } }
+@media (max-width: 520px) { .lobby-room-grid { grid-template-columns: 1fr; } .lobby-room-card:last-child { grid-column: auto; } .lobby-sheet-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lobby-welcome h1 { font-size: 31px; } .lobby-matchmaking { min-height: 180px; padding: 18px 5px; } .lobby-search-button { gap: 8px; font-size: 16px; } .lobby-search-button small { font-size: 8px; } }
 .character-home-page { padding-right: clamp(20px, 4vw, 80px); padding-left: clamp(20px, 4vw, 80px); }
 .character-home-page > .app-header { width: calc(100% + clamp(40px, 8vw, 160px)); margin-right: calc(-1 * clamp(20px, 4vw, 80px)); margin-left: calc(-1 * clamp(20px, 4vw, 80px)); }
 .lobby-header-content { position: absolute; top: 50%; right: clamp(20px, 4vw, 80px); left: 39%; display: flex; align-items: center; justify-content: space-between; gap: 20px; transform: translateY(-50%); }
