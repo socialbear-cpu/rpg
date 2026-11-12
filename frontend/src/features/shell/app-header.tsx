@@ -80,6 +80,23 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
   return (
     <header className="app-header">
       <div className="app-header-leading">
+        <a className="app-header-brand" href="/dashboard" aria-label="Nexus RPG início">
+          <span className="app-header-mark" aria-hidden="true">✧</span>
+          <span>NEXUS <em>RPG</em></span>
+        </a>
+      </div>
+      <nav className="app-header-nav" aria-label="Navegação principal">
+        {navItems.map((item) => <a key={item.label} className={`app-header-nav-link ${activeItem === item.label ? 'active' : ''}`} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</a>)}
+      </nav>
+      <details className="app-header-mobile-menu">
+        <summary aria-label="Abrir navegação">☰</summary>
+        <nav aria-label="Navegação principal">
+          {navItems.map((item) => <a key={item.label} className={activeItem === item.label ? 'active' : ''} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</a>)}
+        </nav>
+      </details>
+      <div className="app-header-actions">
+        {backHref && <a className="app-header-back" href={backHref}>← {backLabel}</a>}
+        {children}
         <details className="app-header-profile" ref={profileMenu}>
           <summary className="app-header-profile-trigger" aria-label="Abrir perfil do jogador" title="Perfil do jogador">
             {profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : <span>{avatarInitial}</span>}
@@ -109,23 +126,6 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
             </section>
           </section>
         </details>
-        <a className="app-header-brand" href="/dashboard" aria-label="Nexus RPG início">
-          <span className="app-header-mark" aria-hidden="true">✧</span>
-          <span>NEXUS <em>RPG</em></span>
-        </a>
-      </div>
-      <nav className="app-header-nav" aria-label="Navegação principal">
-        {navItems.map((item) => <a key={item.label} className={`app-header-nav-link ${activeItem === item.label ? 'active' : ''}`} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</a>)}
-      </nav>
-      <details className="app-header-mobile-menu">
-        <summary aria-label="Abrir navegação">☰</summary>
-        <nav aria-label="Navegação principal">
-          {navItems.map((item) => <a key={item.label} className={activeItem === item.label ? 'active' : ''} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</a>)}
-        </nav>
-      </details>
-      <div className="app-header-actions">
-        {backHref && <a className="app-header-back" href={backHref}>← {backLabel}</a>}
-        {children}
       </div>
     </header>
   );

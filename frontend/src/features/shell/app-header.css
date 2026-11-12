@@ -21,7 +21,7 @@
 .app-header-profile-trigger { width: 40px; height: 40px; display: grid; place-items: center; overflow: hidden; border: 1px solid #624b87; border-radius: 50%; color: #f5edff; background: linear-gradient(140deg, #8f68cb, #442f67); font: 700 15px 'Outfit', sans-serif; list-style: none; cursor: pointer; }
 .app-header-profile-trigger::-webkit-details-marker { display: none; }
 .app-header-profile-trigger img, .app-header-profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.app-header-profile-popover { position: absolute; top: calc(100% + 13px); left: 0; z-index: 20; width: min(380px, calc(100vw - 28px)); max-height: calc(100dvh - 100px); padding: 18px; overflow-y: auto; border: 1px solid #42364f; border-radius: 16px; color: #eeeaf5; background: #191721; box-shadow: 0 20px 55px #0009; }
+.app-header-profile-popover { position: absolute; top: calc(100% + 13px); right: 0; z-index: 20; width: min(380px, calc(100vw - 28px)); max-height: calc(100dvh - 100px); padding: 18px; overflow-y: auto; border: 1px solid #42364f; border-radius: 16px; color: #eeeaf5; background: #191721; box-shadow: 0 20px 55px #0009; }
 .app-header-profile:hover > .app-header-profile-popover, .app-header-profile:focus-within > .app-header-profile-popover, .app-header-profile[open] > .app-header-profile-popover { display: block; }
 .app-header-profile-identity { display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 1px solid #342e3e; }
 .app-header-profile-avatar { width: 48px; height: 48px; display: grid; flex: 0 0 auto; place-items: center; overflow: hidden; border: 1px solid #8067bc; border-radius: 50%; color: #f3eaff; background: linear-gradient(140deg, #8f68cb, #442f67); font: 700 19px 'Outfit', sans-serif; }
