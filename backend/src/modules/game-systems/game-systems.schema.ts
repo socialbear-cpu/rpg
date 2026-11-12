@@ -1,44 +1,130 @@
 import { z } from 'zod';
 
-const fieldBaseSchema = {
-  key: z.string().regex(/^[a-z][a-z0-9_]{0,39}$/),
-  label: z.string().trim().min(1).max(80),
+const keySchema = z.string().regex(/^[a-z][a-z0-9_]{0,39}$/);
+const labelSchema = z.string().trim().min(1).max(80);
+
+const componentBaseSchema = {
+  key: keySchema,
+  label: labelSchema,
+  required: z.boolean(),
+  position: z.number().int().min(0).max(49),
+  width: z.enum(['full', 'half', 'third']),
+  show_on_card: z.boolean(),
+};
+
+const optionSchema = z.strictObject({
+  label: labelSchema,
+  image_url: z.string().trim().url().max(2048).refine((value) => new URL(value).protocol === 'https:').optional(),
+  description: z.string().trim().max(500).optional(),
+});
+
+const selectOptionsSchema = z.array(optionSchema).min(1).max(50)
+  .refine((options) => new Set(options.map(({ label }) => label)).size === options.length);
+
+export const characterSheetComponentSchema = z.discriminatedUnion('type', [
+  z.strictObject({ ...componentBaseSchema, type: z.literal('short_text') }),
+  z.strictObject({ ...componentBaseSchema, type: z.literal('long_text') }),
+  z.strictObject({ ...componentBaseSchema, type: z.literal('number') }),
+  z.strictObject({
+    ...componentBaseSchema,
+    type: z.literal('single_select'),
+    presentation: z.enum(['select', 'cards']),
+    options: selectOptionsSchema,
+  }),
+]);
+
+export type CharacterSheetComponent = z.infer<typeof characterSheetComponentSchema>;
+
+export const characterSheetStepSchema = z.strictObject({
+  key: keySchema,
+  label: labelSchema,
+  position: z.number().int().min(0).max(19),
+  components: z.array(characterSheetComponentSchema).max(50),
+});
+
+export const characterSheetDefinitionSchema = z.strictObject({
+  version: z.literal(1),
+  steps: z.array(characterSheetStepSchema).min(1).max(20),
+}).superRefine((definition, context) => {
+  const stepKeys = new Set<string>();
+  const stepPositions = new Set<number>();
+  const componentKeys = new Set<string>();
+
+  definition.steps.forEach((step, stepIndex) => {
+    if (stepKeys.has(step.key)) {
+      context.addIssue({ code: 'custom', message: 'Step keys must be unique', path: ['steps', stepIndex, 'key'] });
+    }
+    if (stepPositions.has(step.position)) {
+      context.addIssue({ code: 'custom', message: 'Step positions must be unique', path: ['steps', stepIndex, 'position'] });
+    }
+    stepKeys.add(step.key);
+    stepPositions.add(step.position);
+
+    const componentPositions = new Set<number>();
+    step.components.forEach((component, componentIndex) => {
+      if (componentKeys.has(component.key)) {
+        context.addIssue({ code: 'custom', message: 'Component keys must be unique', path: ['steps', stepIndex, 'components', componentIndex, 'key'] });
+      }
+      if (componentPositions.has(component.position)) {
+        context.addIssue({ code: 'custom', message: 'Component positions must be unique within a step', path: ['steps', stepIndex, 'components', componentIndex, 'position'] });
+      }
+      componentKeys.add(component.key);
+      componentPositions.add(component.position);
+    });
+  });
+
+  if (definition.steps.reduce((total, step) => total + step.components.length, 0) > 50) {
+    context.addIssue({ code: 'custom', message: 'A character sheet cannot have more than 50 components', path: ['steps'] });
+  }
+});
+
+export type CharacterSheetStep = z.infer<typeof characterSheetStepSchema>;
+export type CharacterSheetDefinition = z.infer<typeof characterSheetDefinitionSchema>;
+
+const legacyFieldBaseSchema = {
+  key: keySchema,
+  label: labelSchema,
   required: z.boolean(),
   position: z.number().int().min(0).max(49),
   show_on_card: z.boolean(),
 };
 
-const selectOptionsSchema = z.array(z.string().trim().min(1).max(80)).min(1).max(50)
-  .refine((options) => new Set(options).size === options.length);
-
-export const characterSheetFieldSchema = z.discriminatedUnion('type', [
-  z.strictObject({ ...fieldBaseSchema, type: z.literal('short_text') }),
-  z.strictObject({ ...fieldBaseSchema, type: z.literal('long_text') }),
-  z.strictObject({ ...fieldBaseSchema, type: z.literal('number') }),
-  z.strictObject({ ...fieldBaseSchema, type: z.literal('single_select'), options: selectOptionsSchema }),
+export const legacyCharacterSheetFieldSchema = z.discriminatedUnion('type', [
+  z.strictObject({ ...legacyFieldBaseSchema, type: z.literal('short_text') }),
+  z.strictObject({ ...legacyFieldBaseSchema, type: z.literal('long_text') }),
+  z.strictObject({ ...legacyFieldBaseSchema, type: z.literal('number') }),
+  z.strictObject({ ...legacyFieldBaseSchema, type: z.literal('single_select'), options: z.array(labelSchema).min(1).max(50) }),
 ]);
 
-export type CharacterSheetField = z.infer<typeof characterSheetFieldSchema>;
-
-export const characterSheetFieldsSchema = z.array(characterSheetFieldSchema).max(50).superRefine((fields, context) => {
+export const legacyCharacterSheetFieldsSchema = z.array(legacyCharacterSheetFieldSchema).max(50).superRefine((fields, context) => {
   const keys = new Set<string>();
   const positions = new Set<number>();
   fields.forEach((field, index) => {
-    if (keys.has(field.key)) {
-      context.addIssue({ code: 'custom', message: 'Field keys must be unique', path: [index, 'key'] });
-    }
-    if (positions.has(field.position)) {
-      context.addIssue({ code: 'custom', message: 'Field positions must be unique', path: [index, 'position'] });
-    }
+    if (keys.has(field.key)) context.addIssue({ code: 'custom', message: 'Field keys must be unique', path: [index, 'key'] });
+    if (positions.has(field.position)) context.addIssue({ code: 'custom', message: 'Field positions must be unique', path: [index, 'position'] });
     keys.add(field.key);
     positions.add(field.position);
   });
 });
 
+export type LegacyCharacterSheetField = z.infer<typeof legacyCharacterSheetFieldSchema>;
+
+export function legacyFieldsToDefinition(fields: LegacyCharacterSheetField[]): CharacterSheetDefinition {
+  const components = [...fields].sort((a, b) => a.position - b.position).map((field, position) => {
+    const base = { key: field.key, label: field.label, required: field.required, position, width: 'full' as const, show_on_card: field.show_on_card };
+    if (field.type === 'single_select') {
+      return { ...base, type: field.type, presentation: 'select' as const, options: field.options.map((label) => ({ label })) };
+    }
+    return { ...base, type: field.type };
+  });
+
+  return { version: 1, steps: [{ key: 'step_1', label: 'Etapa 1', position: 0, components }] };
+}
+
 export const createSystemInputSchema = z.strictObject({
   name: z.string().trim().min(1).max(80),
   description: z.string().trim().max(500).nullable().optional(),
-  fields: characterSheetFieldsSchema,
+  definition: characterSheetDefinitionSchema,
 });
 
 export const createCharacterInputSchema = z.strictObject({
@@ -60,12 +146,12 @@ export const gameSystemsResponseSchema = z.strictObject({
 export const createGameSystemResultSchema = z.strictObject({
   status: z.literal('created'),
   system: gameSystemSchema,
-  fields: characterSheetFieldsSchema,
+  definition: characterSheetDefinitionSchema,
 });
 
 export const characterSheetResponseSchema = z.strictObject({
   game_system_id: z.uuid(),
-  fields: characterSheetFieldsSchema,
+  definition: characterSheetDefinitionSchema,
 });
 
 export const systemCharacterSchema = z.strictObject({
@@ -84,55 +170,53 @@ export const createSystemCharacterResultSchema = z.strictObject({
   character: systemCharacterSchema,
 });
 
-export function characterAttributesSchemaFor(fields: CharacterSheetField[]) {
+export function characterAttributesSchemaFor(definition: CharacterSheetDefinition) {
+  const components = definition.steps.flatMap((step) => step.components);
+
   return z.record(z.string(), z.unknown()).superRefine((attributes, context) => {
-    const fieldKeys = new Set(fields.map((field) => field.key));
+    const componentKeys = new Set(components.map((component) => component.key));
     Object.keys(attributes).forEach((key) => {
-      if (!fieldKeys.has(key)) {
-        context.addIssue({ code: 'custom', message: 'Unknown character attribute', path: [key] });
-      }
+      if (!componentKeys.has(key)) context.addIssue({ code: 'custom', message: 'Unknown character attribute', path: [key] });
     });
 
-    fields.forEach((field) => {
-      if (!Object.hasOwn(attributes, field.key)) {
-        if (field.required) {
-          context.addIssue({ code: 'custom', message: 'Required character attribute is missing', path: [field.key] });
+    components.forEach((component) => {
+      if (!Object.hasOwn(attributes, component.key)) {
+        if (component.required) context.addIssue({ code: 'custom', message: 'Required character attribute is missing', path: [component.key] });
+        return;
+      }
+
+      const value = attributes[component.key];
+      if (!component.required && (value === '' || value === null || value === undefined)) return;
+
+      if (component.type === 'short_text' || component.type === 'long_text') {
+        if (typeof value !== 'string' || (component.required && value.trim().length === 0)) {
+          context.addIssue({ code: 'custom', message: 'Character attribute must be nonblank text', path: [component.key] });
         }
         return;
       }
 
-      const value = attributes[field.key];
-      if (!field.required && (value === '' || value === null || value === undefined)) return;
-
-      if (field.type === 'short_text' || field.type === 'long_text') {
-        if (typeof value !== 'string' || (field.required && value.trim().length === 0)) {
-          context.addIssue({ code: 'custom', message: 'Character attribute must be nonblank text', path: [field.key] });
-        }
-        return;
-      }
-
-      if (field.type === 'number') {
+      if (component.type === 'number') {
         if (typeof value !== 'number' || !Number.isFinite(value)) {
-          context.addIssue({ code: 'custom', message: 'Character attribute must be a finite number', path: [field.key] });
+          context.addIssue({ code: 'custom', message: 'Character attribute must be a finite number', path: [component.key] });
         }
         return;
       }
 
-      if (typeof value !== 'string' || !field.options.includes(value)) {
-        context.addIssue({ code: 'custom', message: 'Character attribute must match a configured option', path: [field.key] });
+      if (typeof value !== 'string' || !component.options.some((option) => option.label === value)) {
+        context.addIssue({ code: 'custom', message: 'Character attribute must match a configured option', path: [component.key] });
       }
     });
   }).transform((attributes) => {
     const normalized: Record<string, unknown> = {};
-    for (const field of fields) {
-      const value = attributes[field.key];
+    for (const component of components) {
+      const value = attributes[component.key];
       if (value === undefined || value === null) continue;
       if (typeof value === 'string') {
         const trimmed = value.trim();
         if (!trimmed) continue;
-        normalized[field.key] = trimmed;
+        normalized[component.key] = trimmed;
       } else {
-        normalized[field.key] = value;
+        normalized[component.key] = value;
       }
     }
     return normalized;

@@ -244,3 +244,28 @@
     margin-left: 0;
   }
 }
+
+.visual-sheet-step { margin: 20px 0; padding: 18px; border: 1px solid #40364f; border-radius: 14px; background: #14111b; }
+.visual-sheet-step > header { display: flex; justify-content: space-between; align-items: end; gap: 12px; margin-bottom: 14px; }
+.visual-sheet-step > header label { display: grid; gap: 6px; font-weight: 700; }
+.visual-sheet-step input, .visual-sheet-step select { min-height: 40px; padding: 9px 10px; border: 1px solid #40364f; border-radius: 8px; color: #f5f1fb; background: #110e18; font: inherit; }
+.visual-sheet-components { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.visual-sheet-components .sheet-field-card { min-width: 0; }
+.visual-sheet-components .sheet-field-topline { display: grid; grid-template-columns: 1fr minmax(150px,.6fr); gap: 12px; }
+.sheet-field-label-control, .sheet-field-type-control { display: grid; gap: 6px; color: #d9d0e4; font-size: 13px; }
+.visual-sheet-options { display: grid; gap: 8px; margin-top: 12px; }
+.visual-sheet-options fieldset { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; min-width: 0; border: 1px solid #40364f; border-radius: 9px; }
+.visual-sheet-options legend { color: #b8a5d3; font-size: 12px; }
+.visual-sheet-preview { margin-top: 18px; padding: 16px; border-radius: 12px; background: #1d1827; }
+.visual-sheet-preview h3 { margin: 0 0 12px; }
+.character-sheet-step-grid { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 12px; }
+.character-sheet-component { grid-column: span 6; min-width: 0; padding: 10px; border: 1px solid #40364f; border-radius: 9px; }
+.character-sheet-component.width-half { grid-column: span 3; }
+.character-sheet-component.width-third { grid-column: span 2; }
+.character-sheet-component input, .character-sheet-component textarea, .character-sheet-component select { width: 100%; min-height: 40px; padding: 8px; border: 1px solid #514560; border-radius: 7px; color: #fff; background: #110e18; }
+.character-sheet-option-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); gap: 8px; }
+.character-sheet-option-cards button { display: grid; gap: 6px; padding: 8px; border: 1px solid #514560; border-radius: 9px; color: #f5f1fb; background: #211b2b; text-align: left; cursor: pointer; }
+.character-sheet-option-cards button:focus-visible, .character-sheet-option-cards button.selected { outline: 2px solid #b399ed; outline-offset: 2px; }
+.character-sheet-option-cards img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; }
+.character-sheet-option-cards span { color: #c9bfd5; font-size: 12px; }
+@media(max-width:620px){.visual-sheet-step>header{align-items:flex-start;flex-direction:column}.visual-sheet-components{grid-template-columns:1fr}.visual-sheet-options fieldset{grid-template-columns:1fr}.character-sheet-component.width-half,.character-sheet-component.width-third{grid-column:span 6}}

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="920" viewBox="0 0 1440 920" role="img" aria-labelledby="title desc">
+  <title id="title">Duas opções de editor visual de ficha de personagem</title>
+  <desc id="desc">Comparação entre editor guiado com prévia e editor livre por etapas.</desc>
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#15121d"/><stop offset="1" stop-color="#0e0d14"/></linearGradient>
+    <linearGradient id="leaf" x2="1" y2="1"><stop stop-color="#e3b36b"/><stop offset=".48" stop-color="#a44743"/><stop offset="1" stop-color="#57405f"/></linearGradient>
+    <linearGradient id="sand" x2="1" y2="1"><stop stop-color="#e8cf80"/><stop offset=".52" stop-color="#b87b4c"/><stop offset="1" stop-color="#555039"/></linearGradient>
+    <linearGradient id="mist" x2="1" y2="1"><stop stop-color="#a9c7d0"/><stop offset=".5" stop-color="#597d87"/><stop offset="1" stop-color="#26384a"/></linearGradient>
+  </defs>
+  <rect width="1440" height="920" fill="url(#bg)"/>
+  <text x="72" y="78" fill="#bca6ff" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="3">EDITOR VISUAL DE FICHAS</text>
+  <text x="72" y="130" fill="#f6f1fc" font-family="Arial,sans-serif" font-size="34" font-weight="700">Como o criador monta a ficha?</text>
+  <text x="72" y="165" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="17">Ambas permitem imagens, descrições e opções visuais personalizadas.</text>
+  <!-- Guided editor -->
+  <rect x="60" y="205" width="640" height="630" rx="20" fill="#191521" stroke="#a78bfa" stroke-width="2"/>
+  <rect x="60" y="205" width="640" height="58" rx="20" fill="#282136"/>
+  <path d="M60 243v20h640v-20" fill="#282136"/>
+  <text x="88" y="242" fill="#e9ddff" font-family="Arial,sans-serif" font-size="18" font-weight="700">A · Editor guiado com prévia</text>
+  <rect x="86" y="288" width="282" height="425" rx="14" fill="#11131a" stroke="#40364f"/>
+  <text x="108" y="322" fill="#bca6ff" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5">CAMPO 02 · ESCOLHA VISUAL</text>
+  <text x="108" y="358" fill="#f4effa" font-family="Arial,sans-serif" font-size="23" font-weight="700">Vila</text>
+  <text x="108" y="390" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="14">Tipo de componente</text>
+  <rect x="108" y="402" width="238" height="42" rx="8" fill="#191521" stroke="#514668"/>
+  <text x="124" y="429" fill="#eee8f5" font-family="Arial,sans-serif" font-size="15">Cartões com imagem</text>
+  <text x="108" y="479" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="14">Opções · arraste para ordenar</text>
+  <rect x="108" y="493" width="238" height="50" rx="8" fill="#211d2b" stroke="#514668"/>
+  <text x="122" y="524" fill="#eee8f5" font-family="Arial,sans-serif" font-size="14">⠿  Vila da Folha</text>
+  <rect x="108" y="553" width="238" height="50" rx="8" fill="#191521" stroke="#40364f"/>
+  <text x="122" y="584" fill="#eee8f5" font-family="Arial,sans-serif" font-size="14">⠿  Vila da Areia</text>
+  <rect x="108" y="623" width="176" height="38" rx="8" fill="#282333" stroke="#58477a"/>
+  <text x="125" y="648" fill="#d9caff" font-family="Arial,sans-serif" font-size="14" font-weight="700">+ Adicionar opção</text>
+  <rect x="388" y="288" width="286" height="425" rx="14" fill="#11131a" stroke="#40364f"/>
+  <text x="410" y="322" fill="#bca6ff" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5">PRÉVIA DO JOGADOR</text>
+  <text x="410" y="358" fill="#f4effa" font-family="Arial,sans-serif" font-size="21" font-weight="700">Escolha sua vila</text>
+  <rect x="410" y="378" width="118" height="155" rx="10" fill="#242034" stroke="#a78bfa" stroke-width="3"/>
+  <rect x="413" y="381" width="112" height="96" rx="7" fill="url(#leaf)"/>
+  <text x="426" y="507" fill="#f7f1fc" font-family="Arial,sans-serif" font-size="14" font-weight="700">Folha</text>
+  <rect x="542" y="378" width="110" height="155" rx="10" fill="#211e29" stroke="#514668"/>
+  <rect x="545" y="381" width="104" height="96" rx="7" fill="url(#sand)"/>
+  <text x="558" y="507" fill="#f7f1fc" font-family="Arial,sans-serif" font-size="14" font-weight="700">Areia</text>
+  <text x="410" y="570" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="13">Descrição aparece ao focar</text>
+  <text x="410" y="591" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="13">ou passar o mouse.</text>
+  <rect x="86" y="735" width="588" height="72" rx="12" fill="#201b2a"/>
+  <text x="108" y="766" fill="#f0e8ff" font-family="Arial,sans-serif" font-size="16" font-weight="700">Mais simples de aprender</text>
+  <text x="108" y="790" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="14">Lista ordenável, opções configuráveis e prévia ao lado.</text>
+  <!-- Free canvas -->
+  <rect x="740" y="205" width="640" height="630" rx="20" fill="#191521" stroke="#40364f" stroke-width="2"/>
+  <rect x="740" y="205" width="640" height="58" rx="20" fill="#211e29"/>
+  <path d="M740 243v20h640v-20" fill="#211e29"/>
+  <text x="768" y="242" fill="#eee8f5" font-family="Arial,sans-serif" font-size="18" font-weight="700">B · Montagem livre em tela</text>
+  <rect x="766" y="288" width="588" height="425" rx="14" fill="#11131a" stroke="#40364f"/>
+  <text x="792" y="323" fill="#bca6ff" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1.5">PÁGINA 1 · ORIGEM</text>
+  <text x="792" y="358" fill="#f4effa" font-family="Arial,sans-serif" font-size="22" font-weight="700">Quem é seu personagem?</text>
+  <rect x="1180" y="304" width="145" height="38" rx="8" fill="#282333" stroke="#58477a"/>
+  <text x="1195" y="329" fill="#d9caff" font-family="Arial,sans-serif" font-size="14" font-weight="700">+ Componente</text>
+  <rect x="792" y="382" width="536" height="207" rx="12" fill="#201b2a" stroke="#a78bfa" stroke-dasharray="6 5"/>
+  <text x="812" y="411" fill="#c7b3e8" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">↕ CAMPO: VILA</text>
+  <text x="1190" y="411" fill="#c7b3e8" font-family="Arial,sans-serif" font-size="12">⚙ Configurar</text>
+  <rect x="812" y="428" width="155" height="96" rx="9" fill="url(#leaf)"/>
+  <rect x="982" y="428" width="155" height="96" rx="9" fill="url(#sand)"/>
+  <rect x="1152" y="428" width="155" height="96" rx="9" fill="url(#mist)"/>
+  <text x="812" y="551" fill="#eee8f5" font-family="Arial,sans-serif" font-size="14">Folha</text>
+  <text x="982" y="551" fill="#eee8f5" font-family="Arial,sans-serif" font-size="14">Areia</text>
+  <text x="1152" y="551" fill="#eee8f5" font-family="Arial,sans-serif" font-size="14">Névoa</text>
+  <rect x="792" y="604" width="536" height="72" rx="10" fill="#191521" stroke="#514668" stroke-dasharray="6 5"/>
+  <text x="1060" y="647" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="15" text-anchor="middle">＋ Solte componentes aqui</text>
+  <text x="792" y="699" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="13">← Página anterior</text>
+  <text x="1328" y="699" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="13" text-anchor="end">Próxima etapa →</text>
+  <rect x="766" y="735" width="588" height="72" rx="12" fill="#201b2a"/>
+  <text x="788" y="766" fill="#f0e8ff" font-family="Arial,sans-serif" font-size="16" font-weight="700">Mais liberdade de composição</text>
+  <text x="788" y="790" fill="#aaa2b3" font-family="Arial,sans-serif" font-size="14">Arrastar, posicionar e dividir a criação em etapas.</text>
+  <text x="720" y="878" fill="#9e96a9" font-family="Arial,sans-serif" font-size="14" text-anchor="middle">Minha recomendação: começar por A e evoluir para etapas quando houver essa necessidade.</text>
+</svg>

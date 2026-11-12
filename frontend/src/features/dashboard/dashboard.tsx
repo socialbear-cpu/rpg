@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getGameSystems, type GameSystem } from '../../api';
+import { getGameSystems, getMySystemMemberships, type GameSystem } from '../../api';
 import { SystemsSection } from './systems-section';
 import { NotificationCenter } from '../notifications/notification-center';
 import { AppHeader } from '../shell/app-header';
@@ -21,12 +21,14 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const [systemsLoading, setSystemsLoading] = useState(true);
   const [systemsError, setSystemsError] = useState<string | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [ownerSystemIds, setOwnerSystemIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     getGameSystems()
       .then(({ systems: loadedSystems }) => setSystems(loadedSystems))
       .catch(() => setSystemsError('Não foi possível carregar seus sistemas.'))
       .finally(() => setSystemsLoading(false));
+    getMySystemMemberships().then(({ memberships }) => setOwnerSystemIds(new Set(memberships.filter((membership) => membership.role === 'owner').map((membership) => membership.game_system_id)))).catch(() => setOwnerSystemIds(new Set()));
   }, []);
 
   const safePlayerName = (playerName ?? '').trim();
@@ -83,8 +85,9 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
             </div>
           </section>
 
-          <SystemsSection systems={systems} loading={systemsLoading} error={systemsError}
+          <SystemsSection systems={systems} loading={systemsLoading} error={systemsError} ownerSystemIds={ownerSystemIds}
             onCreate={() => router.push('/dashboard/systems/new')}
+            onEditSheet={(systemId) => router.push(`/systems/${encodeURIComponent(systemId)}/sheet`)}
             onEnter={(systemId) => router.push(`/systems/${encodeURIComponent(systemId)}/characters`)} />
         </div>
       </main>

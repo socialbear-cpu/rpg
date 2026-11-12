@@ -25,12 +25,12 @@ export async function createGameSystem(client: SupabaseClient, input: CreateSyst
   const { data, error } = await client.rpc('create_game_system_with_sheet', {
     p_name: input.name,
     p_description: input.description ?? null,
-    p_fields: input.fields,
+    p_fields: input.definition,
   });
   if (error) throw error;
   const result = createGameSystemResultSchema.safeParse(data);
   if (!result.success) throw new Error('Invalid game system creation response');
-  return { system: result.data.system, fields: result.data.fields };
+  return { system: result.data.system, definition: result.data.definition };
 }
 
 export async function readActiveGameSystem(client: SupabaseClient, systemId: string) {
@@ -42,7 +42,7 @@ export async function readActiveGameSystem(client: SupabaseClient, systemId: str
 
 export async function readGameSystemCharacterSheet(client: SupabaseClient, systemId: string) {
   const { data, error } = await client.from('game_system_character_sheets')
-    .select('game_system_id,fields').eq('game_system_id', systemId).maybeSingle();
+    .select('game_system_id,definition').eq('game_system_id', systemId).maybeSingle();
   if (error) throw error;
   if (!data) return null;
   const result = characterSheetResponseSchema.safeParse(data);

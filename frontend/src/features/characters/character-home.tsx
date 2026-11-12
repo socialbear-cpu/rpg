@@ -24,9 +24,11 @@ export function CharacterHome({ systemName, character, fields = [], experience =
 
   if (!character) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{systemName}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
 
+  const visibleFields = fields.filter((field) => field.show_on_card && Object.hasOwn(character.attributes, field.key));
+
   return (
     <main className="character-entry-page character-home-page">
-      <AppHeader activeItem="Meus Sistemas" characterSheet={{ systemName, character, fields, experience }} />
+      <AppHeader activeItem="Meus Sistemas" characterSheet={{ systemName, character, fields: visibleFields, experience }} />
 
       <div className="lobby-layout">
         <div className="lobby-main">

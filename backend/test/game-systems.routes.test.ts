@@ -6,7 +6,12 @@ const systemId = '37000000-0000-4000-8000-000000000001';
 const characterId = '57000000-0000-4000-8000-000000000001';
 const authorization = 'Bearer accepted-token';
 const system = { id: systemId, slug: 'forest-system-a1b2c3d4', name: 'Forest System', description: null };
-const fields = [{ key: 'origin', label: 'Origem', type: 'short_text', required: true, position: 0, show_on_card: true }];
+const definition = {
+  version: 1 as const,
+  steps: [{ key: 'identity', label: 'Identidade', position: 0, components: [
+    { key: 'origin', label: 'Origem', type: 'short_text' as const, required: true, position: 0, width: 'full' as const, show_on_card: true },
+  ] }],
+};
 const character = {
   id: characterId,
   game_system_id: systemId,
@@ -18,6 +23,7 @@ const character = {
 let requests: { url: URL; method: string; headers: Headers; body: unknown }[];
 let databaseFails: boolean;
 let missingSystem: boolean;
+let updateResult: 'ok' | 'forbidden' | 'not_found' | 'invalid';
 
 beforeEach(() => {
   vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
@@ -25,6 +31,7 @@ beforeEach(() => {
   requests = [];
   databaseFails = false;
   missingSystem = false;
+  updateResult = 'ok';
   vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input));
     const method = init?.method ?? 'GET';
@@ -41,7 +48,13 @@ beforeEach(() => {
     if (databaseFails) return Response.json({ message: 'private database detail', code: 'XX000' }, { status: 500 });
 
     if (url.pathname === '/rest/v1/rpc/create_game_system_with_sheet') {
-      return Response.json({ status: 'created', system, fields });
+      return Response.json({ status: 'created', system, definition });
+    }
+    if (url.pathname === '/rest/v1/rpc/update_game_system_character_sheet') {
+      if (updateResult === 'forbidden') return Response.json({ message: 'Only system owner', code: '42501' }, { status: 403 });
+      if (updateResult === 'not_found') return Response.json({ message: 'Not found', code: 'P0002' }, { status: 404 });
+      if (updateResult === 'invalid') return Response.json({ message: 'Invalid definition', code: '22023' }, { status: 400 });
+      return Response.json({ game_system_id: systemId, definition: body && typeof body === 'object' ? (body as { p_definition: unknown }).p_definition : definition });
     }
     if (url.pathname === '/rest/v1/game_systems' && method === 'GET') {
       return Response.json(missingSystem ? [] : [system]);
@@ -50,7 +63,7 @@ beforeEach(() => {
       if (missingSystem) {
         return Response.json({ code: 'PGRST116', details: 'The result contains 0 rows', message: 'Cannot coerce the result to a single JSON object' }, { status: 406 });
       }
-      return Response.json({ game_system_id: systemId, fields });
+      return Response.json({ game_system_id: systemId, definition });
     }
     if (url.pathname === '/rest/v1/characters' && method === 'GET') return Response.json([character]);
     if (url.pathname === '/rest/v1/characters' && method === 'POST') return Response.json(character);
@@ -63,7 +76,7 @@ afterEach(() => {
   vi.unstubAllEnvs();
 });
 
-async function request(method: 'GET' | 'POST', url: string, payload?: unknown, authorized = true) {
+async function request(method: 'GET' | 'POST' | 'PUT', url: string, payload?: unknown, authorized = true) {
   const app = buildApp({ nodeEnv: 'test' });
   try {
     return await app.inject({
@@ -86,17 +99,39 @@ describe('game system and character API', () => {
   });
 
   it('creates a system and its sheet through one RPC', async () => {
-    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', description: null, fields });
+    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', description: null, definition });
     expect(response.statusCode).toBe(201);
-    expect(response.json()).toEqual({ system, fields });
+    expect(response.json()).toEqual({ system, definition });
     const rpc = requests.find(({ url }) => url.pathname.endsWith('/create_game_system_with_sheet'))!;
-    expect(rpc.body).toEqual({ p_name: 'Forest System', p_description: null, p_fields: fields });
+    expect(rpc.body).toEqual({ p_name: 'Forest System', p_description: null, p_fields: definition });
   });
 
   it('reads a system sheet', async () => {
     const response = await request('GET', `/api/v1/game-systems/${systemId}/character-sheet`);
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toEqual({ game_system_id: systemId, fields });
+    expect(response.json()).toEqual({ game_system_id: systemId, definition });
+  });
+
+  it('updates a system sheet through the owner-checked RPC', async () => {
+    const updated = structuredClone(definition);
+    updated.steps[0]!.label = 'Origem';
+    const response = await request('PUT', `/api/v1/game-systems/${systemId}/character-sheet`, { definition: updated });
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({ definition: updated });
+    const rpc = requests.find(({ url }) => url.pathname.endsWith('/update_game_system_character_sheet'))!;
+    expect(rpc.body).toEqual({ p_system_id: systemId, p_definition: updated });
+  });
+
+  it('rejects invalid, unauthorized, and missing sheet updates', async () => {
+    const invalid = await request('PUT', `/api/v1/game-systems/${systemId}/character-sheet`, { definition: { version: 1, steps: [] } });
+    expect(invalid.statusCode).toBe(400);
+    expect(requests.some(({ url }) => url.pathname.endsWith('/update_game_system_character_sheet'))).toBe(false);
+
+    updateResult = 'forbidden';
+    expect((await request('PUT', `/api/v1/game-systems/${systemId}/character-sheet`, { definition })).statusCode).toBe(403);
+    updateResult = 'not_found';
+    expect((await request('PUT', `/api/v1/game-systems/${systemId}/character-sheet`, { definition })).statusCode).toBe(404);
+    expect((await request('PUT', `/api/v1/game-systems/${systemId}/character-sheet`, { definition }, false)).statusCode).toBe(401);
   });
 
   it("lists only the caller's active characters in the requested system", async () => {
@@ -131,7 +166,7 @@ describe('game system and character API', () => {
 
   it('requires authentication before reading or writing systems and characters', async () => {
     expect((await request('GET', '/api/v1/game-systems', undefined, false)).statusCode).toBe(401);
-    expect((await request('POST', '/api/v1/game-systems', { name: 'System', fields: [] }, false)).statusCode).toBe(401);
+    expect((await request('POST', '/api/v1/game-systems', { name: 'System', definition }, false)).statusCode).toBe(401);
     expect(requests.filter(({ url }) => url.pathname.startsWith('/rest/'))).toHaveLength(0);
   });
 

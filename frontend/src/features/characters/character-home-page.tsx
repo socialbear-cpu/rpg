@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getCharacterExperience, getCharacterSheet, getGameSystems, getSystemCharacters, type CharacterExperienceSummary, type CharacterSheetField, type GameSystem, type SystemCharacter } from '../../api';
 import { CharacterHome } from './character-home';
 import { AppHeader } from '../shell/app-header';
+import { definitionToLegacyFields } from '../system-creation/sheet-model';
 
 export function CharacterHomePage({ systemId, characterId, push }: { systemId: string; characterId: string; push: (path: string) => void }) {
   const [system, setSystem] = useState<GameSystem | null>(null);
@@ -20,7 +21,7 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
         setSystem(systemsResult.systems.find((item) => item.id === systemId) ?? null);
         const selected = characterResult.characters.find((item) => item.id === characterId && item.game_system_id === systemId && item.status === 'active') ?? null;
         setCharacter(selected);
-        setFields(sheet.fields);
+        setFields(definitionToLegacyFields(sheet.definition));
         setExperience(experienceResult);
       })
       .catch(() => { if (!cancelled) { setSystem(null); setCharacter(null); } })

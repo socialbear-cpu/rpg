@@ -8,9 +8,11 @@ interface SystemsSectionProps {
   error: string | null;
   onCreate: () => void;
   onEnter: (systemId: string) => void;
+  ownerSystemIds?: Set<string>;
+  onEditSheet?: (systemId: string) => void;
 }
 
-export function SystemsSection({ systems, loading, error, onCreate, onEnter }: SystemsSectionProps) {
+export function SystemsSection({ systems, loading, error, onCreate, onEnter, ownerSystemIds = new Set(), onEditSheet }: SystemsSectionProps) {
   return (
     <section className="systems-section" aria-labelledby="systems-title">
       <div className="section-heading">
@@ -56,6 +58,7 @@ export function SystemsSection({ systems, loading, error, onCreate, onEnter }: S
                 <button type="button" className="system-card-enter" aria-label={`Entrar no sistema ${system.name}`} onClick={() => onEnter(system.id)}>
                   Abrir aventura <span aria-hidden="true">↗</span>
                 </button>
+                {ownerSystemIds.has(system.id) && <button type="button" className="system-card-enter" onClick={() => onEditSheet?.(system.id)}>Editar ficha</button>}
               </div>
             </article>
           ))}

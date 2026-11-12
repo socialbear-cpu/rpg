@@ -1,15 +1,21 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import type { CharacterSheetField, SystemCharacter } from '../src/api.js';
+import type { CharacterSheetDefinition, CharacterSheetField, SystemCharacter } from '../src/api.js';
 import { CharacterGallery } from '../src/features/characters/character-gallery.js';
 import { CharacterForm } from '../src/features/characters/character-form.js';
 import { CharacterHome } from '../src/features/characters/character-home.js';
+
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }) }));
 
 const fields: CharacterSheetField[] = [
   { key: 'class', label: 'Classe', type: 'single_select', required: true, position: 0, show_on_card: true, options: ['Guerreiro', 'Mago'] },
   { key: 'notes', label: 'História', type: 'long_text', required: false, position: 1, show_on_card: false },
 ];
+const definition: CharacterSheetDefinition = { version: 1, steps: [{ key: 'identity', label: 'Identidade', position: 0, components: [
+  { key: 'class', label: 'Classe', type: 'single_select', presentation: 'cards', required: true, position: 0, width: 'full', show_on_card: true, options: [{ label: 'Guerreiro' }, { label: 'Mago' }] },
+  { key: 'notes', label: 'História', type: 'long_text', required: false, position: 1, width: 'full', show_on_card: false },
+] }] };
 const character: SystemCharacter = {
   id: 'char-1', game_system_id: 'sys-1', character_name: 'Ayla', attributes: { class: 'Mago', notes: 'Uma história longa' }, status: 'active',
 };
@@ -28,12 +34,14 @@ describe('character entry', () => {
   });
 
   it('renders controls from the configured sheet and keeps the name required', () => {
-    const html = renderToStaticMarkup(createElement(CharacterForm, { fields, onSubmit: vi.fn(), onCancel: vi.fn() }));
+    const html = renderToStaticMarkup(createElement(CharacterForm, { definition, onSubmit: vi.fn(), onCancel: vi.fn() }));
     expect(html).toContain('Nome do personagem');
     expect(html).toContain('aria-required="true"');
     expect(html).toContain('Classe');
     expect(html).toContain('Guerreiro');
     expect(html).toContain('História');
+    expect(html).toContain('role="radiogroup"');
+    expect(html).toContain('Guerreiro');
   });
 
   it('shows only the active character summary and a switch action', () => {
@@ -44,7 +52,7 @@ describe('character entry', () => {
     expect(html).toContain('Ayla');
     expect(html).toContain('Mago');
     expect(html).not.toContain('Uma história longa');
-    expect(html).toContain('Trocar personagem');
+    expect(html).toContain('Salas de bate-papo');
   });
 
   it('renders a safe unavailable state when the selected character is missing', () => {

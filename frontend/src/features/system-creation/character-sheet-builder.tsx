@@ -1,143 +1,31 @@
 'use client';
 
-import type { CharacterSheetField, CharacterSheetFieldType } from '../../api';
-import { addSheetField, moveSheetField, removeSheetField } from './sheet-model';
+import type { CharacterSheetComponent, CharacterSheetDefinition } from '../../api';
+import { addSheetComponent, addSheetStep, moveSheetComponent, moveSheetComponentToStep, moveSheetStep, removeSheetComponent, removeSheetStep } from './sheet-model';
+import { CharacterSheetStepRenderer } from '../character-sheet/character-sheet-step-renderer';
 import './system-creation.css';
 
-interface CharacterSheetBuilderProps {
-  fields: CharacterSheetField[];
-  onChange: (fields: CharacterSheetField[]) => void;
-}
-
-const fieldTypes: { value: CharacterSheetFieldType; label: string }[] = [
-  { value: 'short_text', label: 'Texto curto' },
-  { value: 'long_text', label: 'Texto longo' },
-  { value: 'number', label: 'Número' },
-  { value: 'single_select', label: 'Seleção única' },
-];
-
-export function CharacterSheetBuilder({ fields, onChange }: CharacterSheetBuilderProps) {
-  function updateField(fieldKey: string, patch: Partial<CharacterSheetField>) {
-    onChange(fields.map((field) => field.key === fieldKey ? { ...field, ...patch } : field));
+export function CharacterSheetBuilder({ definition, onChange }: { definition: CharacterSheetDefinition; onChange: (definition: CharacterSheetDefinition) => void }) {
+  function patchComponent(stepKey: string, componentKey: string, patch: Partial<CharacterSheetComponent>) {
+    onChange({ ...definition, steps: definition.steps.map((step) => step.key === stepKey ? { ...step, components: step.components.map((component) => component.key === componentKey ? { ...component, ...patch } as CharacterSheetComponent : component) } : step) });
   }
-
-  function changeType(field: CharacterSheetField, type: CharacterSheetFieldType) {
-    if (type === 'single_select') {
-      updateField(field.key, { type, options: ['Opção 1'] });
-      return;
-    }
-    const { options: _options, ...base } = field;
-    onChange(fields.map((current) => current.key === field.key ? { ...base, type } : current));
+  function changeType(stepKey: string, component: CharacterSheetComponent, type: CharacterSheetComponent['type']) {
+    const base = { key: component.key, label: component.label, required: component.required, position: component.position, width: component.width, show_on_card: component.show_on_card };
+    const replacement: CharacterSheetComponent = type === 'single_select' ? { ...base, type, presentation: 'cards', options: [{ label: 'Opção 1' }] } : { ...base, type } as CharacterSheetComponent;
+    patchComponent(stepKey, component.key, replacement);
   }
-
-  return (
-    <section className="sheet-builder" aria-labelledby="sheet-builder-title">
-      <div className="sheet-builder-heading">
-        <div>
-          <span className="sheet-builder-eyebrow">FICHA DO PERSONAGEM</span>
-          <h2 id="sheet-builder-title">Defina os campos da ficha</h2>
-          <p>O nome do personagem já vem incluído. Adicione os atributos usados neste sistema.</p>
-        </div>
-      </div>
-
-      <div className="sheet-built-in-field">
-        <span className="sheet-field-number">01</span>
-        <div>
-          <strong>Nome do personagem</strong>
-          <span>Campo obrigatório incluído automaticamente</span>
-        </div>
-        <span className="sheet-required-badge">Obrigatório</span>
-      </div>
-
-      <div className="sheet-custom-fields">
-        {fields.map((field, index) => {
-          const optionsId = `sheet-${field.key}-options`;
-          return (
-            <fieldset className="sheet-field-card" key={field.key}>
-              <legend className="sr-only">Campo configurável {index + 1}</legend>
-              <div className="sheet-field-topline">
-                <span className="sheet-field-number">{String(index + 2).padStart(2, '0')}</span>
-                <label className="sheet-field-label-control">
-                  <span>Nome do campo</span>
-                  <input
-                    value={field.label}
-                    maxLength={80}
-                    onChange={(event) => updateField(field.key, { label: event.target.value })}
-                    aria-label={`Nome do campo ${field.label || index + 1}`}
-                  />
-                </label>
-                <label className="sheet-field-type-control">
-                  <span>Tipo</span>
-                  <select
-                    value={field.type}
-                    onChange={(event) => changeType(field, event.target.value as CharacterSheetFieldType)}
-                    aria-label={`Tipo do campo ${field.label || index + 1}`}
-                  >
-                    {fieldTypes.map((type) => <option key={type.value} value={type.value}>{type.label}</option>)}
-                  </select>
-                </label>
-              </div>
-
-              {field.type === 'single_select' && <label className="sheet-field-options" htmlFor={optionsId}>
-                <span>Opções, uma por linha</span>
-                <textarea
-                  id={optionsId}
-                  value={(field.options ?? []).join('\n')}
-                  rows={3}
-                  onChange={(event) => updateField(field.key, {
-                    options: event.target.value.split('\n').map((option) => option.trim()).filter(Boolean),
-                  })}
-                />
-              </label>}
-
-              <div className="sheet-field-settings">
-                <label className="sheet-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={field.required}
-                    onChange={(event) => updateField(field.key, { required: event.target.checked })}
-                  />
-                  <span>Obrigatório</span>
-                </label>
-                <label className="sheet-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={field.show_on_card}
-                    onChange={(event) => updateField(field.key, { show_on_card: event.target.checked })}
-                  />
-                  <span>Exibir na galeria</span>
-                </label>
-                <div className="sheet-field-actions">
-                  <button
-                    type="button"
-                    aria-label={`Mover campo ${field.label} para cima`}
-                    disabled={index === 0}
-                    onClick={() => onChange(moveSheetField(fields, field.key, 'up'))}
-                  >↑</button>
-                  <button
-                    type="button"
-                    aria-label={`Mover campo ${field.label} para baixo`}
-                    disabled={index === fields.length - 1}
-                    onClick={() => onChange(moveSheetField(fields, field.key, 'down'))}
-                  >↓</button>
-                  <button
-                    type="button"
-                    className="sheet-remove-button"
-                    aria-label={`Remover campo ${field.label}`}
-                    onClick={() => onChange(removeSheetField(fields, field.key))}
-                  >
-                    Remover
-                  </button>
-                </div>
-              </div>
-            </fieldset>
-          );
-        })}
-      </div>
-
-      <button type="button" className="sheet-add-button" onClick={() => onChange(addSheetField(fields))}>
-        <span aria-hidden="true">+</span> Adicionar campo
-      </button>
-    </section>
-  );
+  return <section className="sheet-builder" aria-labelledby="sheet-builder-title">
+    <div className="sheet-builder-heading"><div><span className="sheet-builder-eyebrow">FICHA DO PERSONAGEM</span><h2 id="sheet-builder-title">Monte a experiência de criação</h2><p>Organize etapas e escolha como cada opção aparece para os jogadores.</p></div></div>
+    <div className="sheet-built-in-field"><span className="sheet-field-number">01</span><div><strong>Nome do personagem</strong><span>Campo obrigatório incluído automaticamente</span></div><span className="sheet-required-badge">Obrigatório</span></div>
+    {definition.steps.slice().sort((a,b) => a.position-b.position).map((step, stepIndex) => <section className="visual-sheet-step" key={step.key} aria-label={`Etapa ${stepIndex + 1}`} onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();try{const data=JSON.parse(e.dataTransfer.getData('application/json')) as {stepKey:string;componentKey:string};if(data.stepKey!==step.key)onChange(moveSheetComponentToStep(definition,data.stepKey,step.key,data.componentKey))}catch{}}}>
+      <header><label>Etapa {stepIndex + 1}<input aria-label={`Nome da etapa ${stepIndex + 1}`} value={step.label} maxLength={80} onChange={e => onChange({...definition,steps:definition.steps.map(s=>s.key===step.key?{...s,label:e.target.value}:s)})}/></label><div className="sheet-field-actions"><button type="button" aria-label={`Mover etapa ${step.label} para cima`} disabled={stepIndex===0} onClick={()=>onChange(moveSheetStep(definition,step.key,'up'))}>↑</button><button type="button" aria-label={`Mover etapa ${step.label} para baixo`} disabled={stepIndex===definition.steps.length-1} onClick={()=>onChange(moveSheetStep(definition,step.key,'down'))}>↓</button><button type="button" className="sheet-remove-button" disabled={definition.steps.length===1} onClick={()=>onChange(removeSheetStep(definition,step.key))}>Remover etapa</button></div></header>
+      <div className="visual-sheet-components">{step.components.slice().sort((a,b)=>a.position-b.position).map((component,index)=><fieldset className="sheet-field-card" key={component.key} draggable onDragStart={e=>e.dataTransfer.setData('application/json',JSON.stringify({stepKey:step.key,componentKey:component.key}))} onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();try{const data=JSON.parse(e.dataTransfer.getData('application/json')) as {stepKey:string;componentKey:string};if(data.stepKey===step.key)onChange(moveSheetComponent(definition,step.key,data.componentKey,index<component.position?'up':'down'));else onChange(moveSheetComponentToStep(definition,data.stepKey,step.key,data.componentKey,index))}catch{}}}>
+        <legend className="sr-only">Componente {index+1}</legend><div className="sheet-field-topline"><label className="sheet-field-label-control"><span>Nome do campo</span><input value={component.label} maxLength={80} onChange={e=>patchComponent(step.key,component.key,{label:e.target.value})}/></label><label className="sheet-field-type-control"><span>Tipo</span><select value={component.type} onChange={e=>changeType(step.key,component,e.target.value as CharacterSheetComponent['type'])}><option value="short_text">Texto curto</option><option value="long_text">Texto longo</option><option value="number">Número</option><option value="single_select">Escolha visual</option></select></label></div>
+        <label className="sheet-field-type-control"><span>Largura</span><select value={component.width} onChange={e=>patchComponent(step.key,component.key,{width:e.target.value as CharacterSheetComponent['width']})}><option value="full">Linha inteira</option><option value="half">Metade</option><option value="third">Um terço</option></select></label>
+        {component.type==='single_select'&&<><label className="sheet-field-type-control"><span>Apresentação</span><select value={component.presentation} onChange={e=>patchComponent(step.key,component.key,{presentation:e.target.value as 'select'|'cards'})}><option value="cards">Cards com imagem</option><option value="select">Lista simples</option></select></label><div className="visual-sheet-options">{component.options.map((option,i)=><fieldset key={i}><legend>Opção {i+1}</legend><input aria-label={`Nome da opção ${i+1}`} placeholder="Nome" value={option.label} onChange={e=>patchComponent(step.key,component.key,{options:component.options.map((o,n)=>n===i?{...o,label:e.target.value}:o)})}/><input aria-label={`Imagem da opção ${i+1}`} placeholder="URL da imagem (HTTPS)" value={option.image_url??''} onChange={e=>patchComponent(step.key,component.key,{options:component.options.map((o,n)=>n===i?{...o,image_url:e.target.value||undefined}:o)})}/><input aria-label={`Descrição da opção ${i+1}`} placeholder="Descrição que aparece ao focar" value={option.description??''} onChange={e=>patchComponent(step.key,component.key,{options:component.options.map((o,n)=>n===i?{...o,description:e.target.value||undefined}:o)})}/><button type="button" onClick={()=>patchComponent(step.key,component.key,{options:component.options.filter((_,n)=>n!==i)})}>Remover opção</button></fieldset>)}<button type="button" onClick={()=>patchComponent(step.key,component.key,{options:[...component.options,{label:`Opção ${component.options.length+1}`}]})}>Adicionar opção</button></div></>}
+        <div className="sheet-field-settings"><label className="sheet-checkbox"><input type="checkbox" checked={component.required} onChange={e=>patchComponent(step.key,component.key,{required:e.target.checked})}/><span>Obrigatório</span></label><label className="sheet-checkbox"><input type="checkbox" checked={component.show_on_card} onChange={e=>patchComponent(step.key,component.key,{show_on_card:e.target.checked})}/><span>Exibir na galeria</span></label><div className="sheet-field-actions"><button type="button" aria-label={`Mover campo ${component.label} para cima`} disabled={index===0} onClick={()=>onChange(moveSheetComponent(definition,step.key,component.key,'up'))}>↑</button><button type="button" aria-label={`Mover campo ${component.label} para baixo`} disabled={index===step.components.length-1} onClick={()=>onChange(moveSheetComponent(definition,step.key,component.key,'down'))}>↓</button><button type="button" className="sheet-remove-button" onClick={()=>onChange(removeSheetComponent(definition,step.key,component.key))}>Remover</button></div></div>
+      </fieldset>)}</div><button type="button" className="sheet-add-button" onClick={()=>onChange(addSheetComponent(definition,step.key))}>+ Adicionar componente</button><div className="visual-sheet-preview"><h3>Prévia para jogadores</h3><CharacterSheetStepRenderer step={step} values={{}} onValueChange={()=>{}} mode="preview"/></div>
+    </section>)}
+    <button type="button" className="sheet-add-button" onClick={()=>onChange(addSheetStep(definition))}>+ Adicionar etapa</button>
+  </section>;
 }

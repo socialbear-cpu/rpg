@@ -1,14 +1,14 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import type { CharacterSheetField, CreateGameSystemInput, GameSystem } from '../../api';
+import type { CharacterSheetDefinition, CreateGameSystemInput, GameSystem } from '../../api';
 import { CharacterSheetBuilder } from './character-sheet-builder';
 import { AppHeader } from '../shell/app-header';
-import { isCharacterSheetDefinitionValid } from './sheet-model';
+import { createDefaultCharacterSheetDefinition, isCharacterSheetDefinitionValid } from './sheet-model';
 import './system-creation.css';
 
 interface SystemCreationWizardProps {
-  createSystem: (input: CreateGameSystemInput) => Promise<{ system: GameSystem; fields: CharacterSheetField[] }>;
+  createSystem: (input: CreateGameSystemInput) => Promise<{ system: GameSystem; definition: CharacterSheetDefinition }>;
   push: (path: string) => void;
 }
 
@@ -16,7 +16,7 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
   const [step, setStep] = useState<'details' | 'sheet'>('details');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [fields, setFields] = useState<CharacterSheetField[]>([]);
+  const [definition, setDefinition] = useState<CharacterSheetDefinition>(createDefaultCharacterSheetDefinition);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
@@ -28,13 +28,13 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
 
   async function submitSystem() {
     setError(null);
-    if (!isCharacterSheetDefinitionValid(fields)) {
+    if (!isCharacterSheetDefinitionValid(definition)) {
       setError('Revise os campos e as opções da ficha antes de continuar.');
       return;
     }
     setSaving(true);
     try {
-      const { system } = await createSystem({ name: name.trim(), description: description.trim() || null, fields });
+      const { system } = await createSystem({ name: name.trim(), description: description.trim() || null, definition });
       push(`/systems/${encodeURIComponent(system.id)}/characters`);
     } catch {
       setError('Não foi possível criar o sistema. Tente novamente.');
@@ -62,7 +62,7 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
       ) : (
         <div className="system-creation-panel system-creation-sheet-panel">
           <div className="system-creation-title"><span className="sheet-builder-eyebrow">{name.trim()}</span><h1>Como são os personagens?</h1><p>Adicione os campos usados pela ficha deste sistema.</p></div>
-          <CharacterSheetBuilder fields={fields} onChange={setFields} />
+          <CharacterSheetBuilder definition={definition} onChange={setDefinition} />
           {error && <p className="systems-error" role="alert">{error}</p>}
           <div className="system-creation-actions">
             <button type="button" className="secondary-button" onClick={() => setStep('details')}>Voltar</button>

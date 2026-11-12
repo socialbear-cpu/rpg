@@ -27,6 +27,39 @@ export interface CharacterSheetField {
   options?: string[];
 }
 
+export interface CharacterSheetOption {
+  label: string;
+  image_url?: string;
+  description?: string;
+}
+
+export interface CharacterSheetComponentBase {
+  key: string;
+  label: string;
+  required: boolean;
+  position: number;
+  width: 'full' | 'half' | 'third';
+  show_on_card: boolean;
+}
+
+export type CharacterSheetComponent =
+  | (CharacterSheetComponentBase & { type: 'short_text' })
+  | (CharacterSheetComponentBase & { type: 'long_text' })
+  | (CharacterSheetComponentBase & { type: 'number' })
+  | (CharacterSheetComponentBase & { type: 'single_select'; presentation: 'select' | 'cards'; options: CharacterSheetOption[] });
+
+export interface CharacterSheetStep {
+  key: string;
+  label: string;
+  position: number;
+  components: CharacterSheetComponent[];
+}
+
+export interface CharacterSheetDefinition {
+  version: 1;
+  steps: CharacterSheetStep[];
+}
+
 export interface GameSystem {
   id: string;
   slug: string;
@@ -45,7 +78,7 @@ export interface SystemCharacter {
 export interface CreateGameSystemInput {
   name: string;
   description?: string | null;
-  fields: CharacterSheetField[];
+  definition: CharacterSheetDefinition;
 }
 
 export interface CreateCharacterInput {
@@ -338,14 +371,21 @@ export function getGameSystems() {
 }
 
 export function createGameSystem(input: CreateGameSystemInput) {
-  return authenticatedRequest<{ system: GameSystem; fields: CharacterSheetField[] }>('/api/v1/game-systems', {
+  return authenticatedRequest<{ system: GameSystem; definition: CharacterSheetDefinition }>('/api/v1/game-systems', {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
   });
 }
 
 export function getCharacterSheet(systemId: string) {
-  return authenticatedRequest<{ game_system_id: string; fields: CharacterSheetField[] }>(
+  return authenticatedRequest<{ game_system_id: string; definition: CharacterSheetDefinition }>(
     `/api/v1/game-systems/${encodeURIComponent(systemId)}/character-sheet`,
+  );
+}
+
+export function updateGameSystemCharacterSheet(systemId: string, definition: CharacterSheetDefinition) {
+  return authenticatedRequest<{ definition: CharacterSheetDefinition }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/character-sheet`,
+    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ definition }) },
   );
 }
 

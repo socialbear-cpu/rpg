@@ -94,10 +94,12 @@ export function RpgApp() {
     const callback = consumeAuthCallback();
     if (callback.recovery) setRecovery(true);
     else if (callback.error) setNotice({ message: `${callback.error} Informe seu e-mail e solicite outro link.`, error: true });
-    setAuthenticated(hasSession());
+    const sessionExists = hasSession();
+    setAuthenticated(sessionExists);
+    if (sessionExists && !callback.recovery) router.replace('/dashboard');
 
     void checkHealth().then(() => setHealth('ok')).catch(() => setHealth('bad'));
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (!authenticated) {
