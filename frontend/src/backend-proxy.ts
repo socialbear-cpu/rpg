@@ -12,8 +12,17 @@ export async function forwardToBackend(request: Request) {
 
   const timeout = AbortSignal.timeout(15_000);
   let upstream: Response;
+  let targetHost: string | undefined;
   try {
-    const targetUrl = new URL(`${incomingUrl.pathname}${incomingUrl.search}`, backendUrl);
+    const targetBaseUrl = new URL(backendUrl);
+    targetBaseUrl.pathname = `${targetBaseUrl.pathname.replace(/\/+$/, '')}/`;
+    targetBaseUrl.search = '';
+    targetBaseUrl.hash = '';
+    const targetUrl = new URL(
+      `${incomingUrl.pathname.replace(/^\/+/, '')}${incomingUrl.search}`,
+      targetBaseUrl,
+    );
+    targetHost = targetUrl.host;
     upstream = await fetch(targetUrl, {
       method: request.method,
       headers,
@@ -26,6 +35,7 @@ export async function forwardToBackend(request: Request) {
     console.error('Backend proxy request failed', {
       method: request.method,
       path: incomingUrl.pathname,
+      targetHost,
       reason: error instanceof Error ? `${error.name}: ${error.message}` : 'Unknown error',
     });
     return Response.json(
