@@ -1,6 +1,6 @@
-import { forwardToBackend } from '../../src/backend-proxy';
+import { handleFastifyRequest } from '../../src/fastify-request';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-export const GET = forwardToBackend;
+export const GET = handleFastifyRequest;

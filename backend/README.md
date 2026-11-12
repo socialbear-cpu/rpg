@@ -1,6 +1,6 @@
 # API Fastify RPG
 
-Este workspace TypeScript executa a API Fastify como serviço `backend` do projeto Vercel Services. O entrypoint `src/vercel-app.ts` exporta a instância Fastify para a Vercel; `src/server.ts` inicia o listener para desenvolvimento local. Rewrites da Vercel encaminham `/api/*` e `/healthz` diretamente ao backend; todas as rotas privadas exigem bearer token validado pelo Supabase Auth. Senhas não são armazenadas nas tabelas da aplicação.
+Este workspace TypeScript contém a API Fastify. Em produção, as rotas Node.js do Next.js em `frontend/` invocam a aplicação por `app.inject` no mesmo deploy; `src/server.ts` inicia o listener para desenvolvimento direto do backend. A API atende `/api/*` e `/healthz`; todas as rotas privadas exigem bearer token validado pelo Supabase Auth. Senhas não são armazenadas nas tabelas da aplicação.
 
 ## Local configuration and development
 
@@ -18,13 +18,13 @@ Preencha `frontend/.env.local` com estas variáveis públicas:
 | `NEXT_PUBLIC_SUPABASE_URL` | URL do projeto Supabase; para o stack local, `http://127.0.0.1:54321`. |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Chave publishable/anon do projeto. Nunca use uma service-role ou chave secreta. |
 
-Inicie os dois serviços a partir da raiz:
+Inicie a aplicação a partir da raiz:
 
 ```powershell
 npx vercel dev -L
 ```
 
-O CLI executa os serviços juntos. `/healthz` e as operações de perfil chegam diretamente a este Fastify pelas regras locais de roteamento e exigem uma URL e chave publishable válidas.
+O CLI executa a aplicação em um único serviço Next.js. `/healthz` e as operações de API chegam ao Fastify pelo handler local e exigem uma URL e chave publishable válidas quando a operação usa Supabase.
 
 ## Local database setup (runtime verification pending)
 
@@ -151,7 +151,7 @@ The list response contains `notifications`, `unread_count`, `limit`, and `offset
 
 Announcement titles are trimmed and limited to 100 characters; bodies are trimmed and limited to 2000 characters. Content is plain text. Role changes create a notice for the affected member only when the role actually changes. Announcements are delivered separately to every system member at publication time, including the publisher.
 
-An unknown notification ID and an ID owned by someone else both return `404 { "error": "Notification not found" }`. Invalid announcement content returns 400, a caller without Owner/Mod membership receives 403, and database failures return 500 without exposing database details. The Next.js API proxy forwards GET, PATCH, and POST to Fastify. RLS restricts feed reads to the recipient; creation and read-state changes go through validated RPCs.
+An unknown notification ID and an ID owned by someone else both return `404 { "error": "Notification not found" }`. Invalid announcement content returns 400, a caller without Owner/Mod membership receives 403, and database failures return 500 without exposing database details. The Next.js API route invokes Fastify locally for GET, PATCH, POST, and PUT requests. RLS restricts feed reads to the recipient; creation and read-state changes go through validated RPCs.
 
 ## Backend verification
 
