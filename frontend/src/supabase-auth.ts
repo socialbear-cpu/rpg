@@ -3,7 +3,8 @@
 import { readAuthCallback, type AuthCallbackState } from './auth-state';
 import { config } from './config';
 
-let accessToken: string | null = null;
+type RpgSessionRuntime = typeof globalThis & { __rpgAccessToken?: string | null };
+const sessionRuntime = globalThis as RpgSessionRuntime;
 
 async function authRequest(path: string, body: unknown, token?: string | null, method = 'POST') {
   const authUrl = `${config.supabaseUrl.replace(/\/$/, '')}/auth/v1`;
@@ -39,7 +40,8 @@ export async function signIn({ email, password }: { email: string; password: str
 
 export async function signOut() {
   try {
-    if (accessToken) await authRequest('/logout', {}, accessToken);
+    const token = currentAccessToken();
+    if (token) await authRequest('/logout', {}, token);
   } finally {
     clearSession();
   }
@@ -51,8 +53,9 @@ export async function requestPasswordReset(email: string) {
 }
 
 export async function updatePassword(password: string) {
-  if (!accessToken) throw new Error('A sessão de recuperação expirou. Solicite um novo link.');
-  await authRequest('/user', { password }, accessToken, 'PUT');
+  const token = currentAccessToken();
+  if (!token) throw new Error('A sessão de recuperação expirou. Solicite um novo link.');
+  await authRequest('/user', { password }, token, 'PUT');
   clearSession();
 }
 
@@ -65,13 +68,13 @@ export function consumeAuthCallback(): AuthCallbackState {
   return callback;
 }
 
-export function currentAccessToken() { return accessToken; }
-export function hasSession() { return Boolean(accessToken); }
+export function currentAccessToken() { return sessionRuntime.__rpgAccessToken ?? null; }
+export function hasSession() { return Boolean(sessionRuntime.__rpgAccessToken); }
 
 function setSession(data: { access_token?: string }) {
-  accessToken = data.access_token ?? null;
+  sessionRuntime.__rpgAccessToken = data.access_token ?? null;
 }
 
 function clearSession() {
-  accessToken = null;
+  sessionRuntime.__rpgAccessToken = null;
 }
