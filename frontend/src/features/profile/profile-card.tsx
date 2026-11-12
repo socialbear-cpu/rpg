@@ -27,8 +27,8 @@ export function ProfileCard({
 }: ProfileCardProps) {
   return (
     <article className="card profile-card">
-      <div className="section-heading"><div><p className="eyebrow">BACKEND API</p><h2>Meu perfil</h2></div><span className="step">02</span></div>
-      <p className="card-copy">Os dados abaixo são carregados e salvos em <code>/api/v1/me/profile</code> com o token da sessão.</p>
+      <div className="section-heading"><div><p className="eyebrow">PERFIL DO JOGADOR</p><h2>Meu perfil</h2></div></div>
+      <p className="card-copy">Atualize seu nome, avatar e uma breve apresentação.</p>
       <form className="form" autoComplete="off" onSubmit={onSaveProfile}>
         <label>Nome de exibição<input id="profile-name" value={profile.displayName} onChange={(event) => onProfileChange('displayName', event.target.value)} name="display_name" type="text" maxLength={80} placeholder="Seu nome público" disabled={!authenticated} /></label>
         <label>URL do avatar<input id="profile-avatar" value={profile.avatarUrl} onChange={(event) => onProfileChange('avatarUrl', event.target.value)} name="avatar_url" type="url" maxLength={2048} placeholder="https://… ou vazio" disabled={!authenticated} /></label>

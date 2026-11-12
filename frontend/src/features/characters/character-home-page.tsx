@@ -12,6 +12,7 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
   const [fields, setFields] = useState<CharacterSheetField[]>([]);
   const [experience, setExperience] = useState<CharacterExperienceSummary | null>(null);
   const [loading, setLoading] = useState(true);
+  const [dailyRewardVersion, setDailyRewardVersion] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -31,5 +32,5 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
 
   if (loading) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando personagem...</p></main>;
   if (!system) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><h1>Sistema indisponível</h1></main>;
-  return <CharacterHome systemName={system.name} character={character} fields={fields} experience={experience} onSwitch={() => push(`/systems/${encodeURIComponent(systemId)}/characters`)} />;
+  return <CharacterHome systemName={system.name} character={character} fields={fields} experience={experience} dailyRewardVersion={dailyRewardVersion} onDailyClaimed={() => setDailyRewardVersion((version) => version + 1)} onSwitch={() => push(`/systems/${encodeURIComponent(systemId)}/characters`)} />;
 }

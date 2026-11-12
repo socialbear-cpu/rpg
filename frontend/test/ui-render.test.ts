@@ -6,6 +6,7 @@ import { ProfileCard } from '../src/features/profile/profile-card.js';
 import { Dashboard } from '../src/features/dashboard/dashboard.js';
 import { RpgApp } from '../app/rpg-app.js';
 import { checkHealth } from '../src/api.js';
+import { AppHeader } from '../src/features/shell/app-header.js';
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: () => undefined, replace: () => undefined }),
@@ -99,6 +100,22 @@ describe('profile card', () => {
 });
 
 describe('initial application UI', () => {
+  it('links navigation and profile actions to their own screens', () => {
+    const html = renderToStaticMarkup(createElement(AppHeader, { activeItem: 'Trocas' }));
+
+    expect(html).toContain('href="/dashboard"');
+    const tradeLinks = html.match(/<a\b[^>]*>Trocas<\/a>/g) ?? [];
+    expect(tradeLinks).toHaveLength(2);
+    for (const link of tradeLinks) {
+      expect(link).toContain('href="/trading"');
+      expect(link).toContain('aria-current="page"');
+    }
+    expect(html).toMatch(/href="\/dashboard\/systems\/new"[^>]*>Criar sistema/);
+    expect(html).toContain('href="/profile">Meu perfil');
+    expect(html).not.toContain('Explorar sistemas');
+    expect(html).not.toContain('Comunidade');
+  });
+
   it('shows the public login experience without exposing profile controls before sign-in', () => {
     const html = renderToStaticMarkup(createElement(RpgApp));
     expect(html).toContain('class="auth-landing "');

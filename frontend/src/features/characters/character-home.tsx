@@ -4,6 +4,7 @@ import { useState } from 'react';
 import type { CharacterExperienceSummary, CharacterSheetField, SystemCharacter } from '../../api';
 import { SystemStore } from '../store/store-card';
 import { AppHeader } from '../shell/app-header';
+import { DailyLoginPopup } from '../daily-login/daily-login-popup';
 import './characters.css';
 
 interface CharacterHomeProps {
@@ -12,6 +13,8 @@ interface CharacterHomeProps {
   fields?: CharacterSheetField[];
   experience?: CharacterExperienceSummary | null;
   onSwitch: () => void;
+  dailyRewardVersion?: number;
+  onDailyClaimed?: () => void;
 }
 
 const rooms = [
@@ -20,7 +23,7 @@ const rooms = [
   { name: 'Procura-se grupo', topic: 'Combine horários e monte sua party' },
 ];
 
-export function CharacterHome({ systemName, character, fields = [], experience = null, onSwitch }: CharacterHomeProps) {
+export function CharacterHome({ systemName, character, fields = [], experience = null, onSwitch, dailyRewardVersion = 0, onDailyClaimed }: CharacterHomeProps) {
   const [activeRoom, setActiveRoom] = useState<string | null>(null);
 
   if (!character) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{systemName}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
@@ -34,6 +37,7 @@ export function CharacterHome({ systemName, character, fields = [], experience =
       <div className="lobby-layout">
         <div className="lobby-main">
           <header className="lobby-welcome"><span className="character-entry-eyebrow">{systemName} · SAGUÃO</span><h1>Bem-vindo à aventura</h1><p>Escolha onde sua próxima história começa.</p></header>
+          <DailyLoginPopup systemId={character.game_system_id} onClaimed={onDailyClaimed} />
           <section className="lobby-matchmaking" aria-label="Procurar partida">
             <div className="lobby-search-decoration lobby-search-decoration-top" aria-hidden="true">✧</div>
             <div className="lobby-search-decoration lobby-search-decoration-left" aria-hidden="true">✧</div>
@@ -42,7 +46,7 @@ export function CharacterHome({ systemName, character, fields = [], experience =
             <span className="lobby-matchmaking-caption">Encontre uma sistema para a sua próxima aventura</span>
           </section>
 
-          <SystemStore key={character.id} systemId={character.game_system_id} characterId={character.id} characterName={character.character_name} />
+          <SystemStore key={`${character.id}-${dailyRewardVersion}`} systemId={character.game_system_id} characterId={character.id} characterName={character.character_name} />
 
           <section className="lobby-rooms"><div className="lobby-section-heading"><div><span className="character-entry-eyebrow">PONTO DE ENCONTRO</span><h2>Salas de bate-papo</h2></div></div>
             <div className="lobby-room-grid">{rooms.map((room) => <article className="lobby-room-card" key={room.name}><div className="lobby-room-icon" aria-hidden="true">＋</div><div className="lobby-room-content"><h3>{room.name}</h3><p>{room.topic}</p><span className="lobby-room-people">Sala da comunidade</span></div><button className="character-secondary-button" type="button" onClick={() => setActiveRoom(activeRoom === room.name ? null : room.name)}>{activeRoom === room.name ? 'Sair da sala' : 'Entrar na sala'} <span aria-hidden="true">→</span></button></article>)}</div>

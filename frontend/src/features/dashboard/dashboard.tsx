@@ -16,7 +16,6 @@ interface DashboardProps {
 
 export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const router = useRouter();
-  const [activePage, setActivePage] = useState('Meus Sistemas');
   const [systems, setSystems] = useState<GameSystem[]>([]);
   const [systemsLoading, setSystemsLoading] = useState(true);
   const [systemsError, setSystemsError] = useState<string | null>(null);
@@ -44,20 +43,10 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
     { title: <>Reúna seu grupo e <span>jogue</span></>, description: 'Abra um dos seus sistemas e continue de onde a história parou.', action: systems[0] ? 'Abrir sistema' : 'Criar sistema', run: () => systems[0] ? router.push(`/systems/${encodeURIComponent(systems[0].id)}/characters`) : router.push('/dashboard/systems/new') },
   ];
 
-  const pageDescription: Record<string, string> = {
-    'Início': 'Acesse seus sistemas de RPG e continue sua aventura.',
-    'Meus Sistemas': 'Acesse os sistemas de RPG dos quais você participa.',
-    'Explorar sistemas': 'Crie um novo sistema de RPG para começar sua aventura.',
-    'Comunidade': 'Acesse seus sistemas e personagens de RPG.',
-  };
-
   return (
     <div className="platform">
       <main className="main-area">
-        <AppHeader activeItem={activePage} onNavigate={(label) => {
-          if (label === 'Explorar sistemas') router.push('/dashboard/systems/new');
-          else setActivePage(label);
-        }} onLogout={onLogout}>
+        <AppHeader activeItem="Meus Sistemas" onLogout={onLogout}>
             <NotificationCenter compact />
         </AppHeader>
 
@@ -68,7 +57,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
               <h1>
                 Olá, {firstName}!
               </h1>
-              <p>{pageDescription[activePage]}</p>
+              <p>Acesse os sistemas de RPG dos quais você participa.</p>
             </div>
 
           </section>

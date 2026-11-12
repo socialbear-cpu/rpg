@@ -26,37 +26,13 @@ npx vercel dev -L
 
 O CLI executa a aplicação em um único serviço Next.js. `/healthz` e as operações de API chegam ao Fastify pelo handler local e exigem uma URL e chave publishable válidas quando a operação usa Supabase.
 
-## Local database setup (runtime verification pending)
+## Database migrations and tests
 
-**Task 3 database runtime tests were explicitly deferred.** The commands below are the future local setup procedure, not evidence that migrations, Auth provisioning, grants, or RLS have passed. No hosted database changes are part of this work.
+The numbered files in `database/migrations/` are the canonical schema history (001–018). The timestamped files in `supabase/migrations/` mirror that history for the Supabase CLI. Apply one sequence only, in order, and never reapply it to an already migrated database. Migration 003 requires existing `public.users.id` values to match `auth.users`; reconcile existing accounts before applying it.
 
-Prerequisites: a working Docker engine, Node.js 20+, and PostgreSQL `psql` on PATH. The Supabase CLI is a repository-level development dependency. From the repository root, run `npm ci` once, then run these commands from the repository root, one at a time, stopping on any nonzero exit. The project already contains `supabase/config.toml`; do not initialize it again.
+The database includes system membership and RLS, daily login, character experience and trading, system-specific character sheets, and the system store. `database/README.md` describes the migration and schema layout. Review the target database's migration history before applying pending changes; migrations update schema and database functions.
 
-```powershell
-npx supabase --help
-npx supabase start --help
-npx supabase status --help
-npx supabase test db --help
-npx supabase start
-npx supabase status
-```
-
-Use a URL e chave publishable reportadas pelo stack local em `frontend/.env.local`. Se a CLI mostrar apenas chaves antigas, a chave `anon` é compatível; nunca copie a service-role. Mantenha configurações locais fora de commits e logs públicos. A CLI informa os detalhes da conexão; consulte a [referência da CLI](https://supabase.com/docs/reference/cli/introduction).
-
-On a fresh local database, apply the canonical SQL files in order. The following URL is the default local database from this repository's port configuration; adjust it only if your local configuration differs:
-
-```powershell
-psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/001_initial_schema.sql
-psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/002_character_fields.sql
-psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/003_supabase_auth.sql
-psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/004_profile_rls.sql
-psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f database/migrations/005_daily_login_rewards.sql
-npx supabase test db
-```
-
-These files live in `database/migrations/`, not the CLI's `supabase/migrations/` directory; `supabase start` alone does not apply them. Do not rerun them on an already migrated database. Migration 003 requires any existing `public.users.id` to match an Auth user; map existing accounts before attempting it. Migration 003 installs the Auth trigger and backfills profiles; migration 004 restricts profile access to the owner, with updates limited to the three editable columns. Broader game-domain tables still need their own authorization work before exposure.
-
-The pgTAP suites are `supabase/tests/004_profile_rls.test.sql` and `supabase/tests/005_daily_login_rewards.test.sql`. Backend tests use an HTTP fixture and cannot establish database policy or trigger correctness. Running the local database suite remains required before deployment.
+The SQL integration suite lives in `supabase/tests/`. It requires a PostgreSQL database with the repository migrations applied. These database tests are separate from the focused backend and frontend test suites; passing application tests does not verify PostgreSQL functions, RLS, or transaction behavior.
 
 ## Conta e autenticação
 

@@ -8,6 +8,6 @@ const frontendManifest = JSON.parse(readFileSync(new URL('../package.json', impo
 describe('workspace scripts', () => {
   it('lets Vercel run the Next.js service without building the backend package into it', () => {
     expect(frontendManifest.scripts.dev).toBe('next dev');
-    expect(frontendManifest.scripts.build).toBe('next build');
+    expect(frontendManifest.scripts.build).toBe('next build --webpack');
   });
 });

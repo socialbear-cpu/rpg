@@ -69,6 +69,8 @@ describe('character entry', () => {
     expect(html).toContain('Mago');
     expect(html).not.toContain('Uma história longa');
     expect(html).toContain('Salas de bate-papo');
+    expect(html).toContain('>Recompensa diária</button>');
+    expect(html).toContain('<dialog');
   });
 
   it('renders a safe unavailable state when the selected character is missing', () => {
@@ -77,5 +79,6 @@ describe('character entry', () => {
     }));
     expect(html).toContain('Personagem indisponível');
     expect(html).not.toContain('Ayla');
+    expect(html).not.toContain('<dialog');
   });
 });

@@ -19,20 +19,18 @@ interface AppHeaderProps {
   activeItem?: string;
   backHref?: string;
   backLabel?: string;
-  onNavigate?: (label: string) => void;
   onLogout?: () => void;
   characterSheet?: CharacterSheetPreview | null;
   children?: ReactNode;
 }
 
 const navItems = [
-  { label: 'Início', href: '/dashboard' },
   { label: 'Meus Sistemas', href: '/dashboard' },
-  { label: 'Explorar sistemas', href: '/dashboard/systems/new' },
-  { label: 'Comunidade', href: '/dashboard' },
+  { label: 'Trocas', href: '/trading' },
+  { label: 'Criar sistema', href: '/dashboard/systems/new' },
 ];
 
-export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 'Voltar', onNavigate, onLogout, characterSheet, children }: AppHeaderProps) {
+export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 'Voltar', onLogout, characterSheet, children }: AppHeaderProps) {
   const router = useRouter();
   const profileMenu = useRef<HTMLDetailsElement>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -92,12 +90,12 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
         </Link>
       </div>
       <nav className="app-header-nav" aria-label="Navegação principal">
-        {navItems.map((item) => <Link key={item.label} className={`app-header-nav-link ${activeItem === item.label ? 'active' : ''}`} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</Link>)}
+        {navItems.map((item) => <Link key={item.label} className={`app-header-nav-link ${activeItem === item.label ? 'active' : ''}`} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
       </nav>
       <details className="app-header-mobile-menu">
         <summary aria-label="Abrir navegação">☰</summary>
         <nav aria-label="Navegação principal">
-          {navItems.map((item) => <Link key={item.label} className={activeItem === item.label ? 'active' : ''} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</Link>)}
+          {navItems.map((item) => <Link key={item.label} className={activeItem === item.label ? 'active' : ''} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
         </nav>
       </details>
       <div className="app-header-actions">
@@ -113,7 +111,7 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
               <div><strong>{profileName}</strong><span>Aventureiro Nexus</span></div>
             </div>
             <nav className="app-header-profile-options" aria-label="Opções do perfil">
-              <Link href="/">Meu perfil <span aria-hidden="true">↗</span></Link>
+              <Link href="/profile">Meu perfil <span aria-hidden="true">↗</span></Link>
               <button type="button" disabled>Configurações <small>Em breve</small></button>
               <button type="button" className="app-header-logout" onClick={() => void logout()}>Sair da conta</button>
             </nav>

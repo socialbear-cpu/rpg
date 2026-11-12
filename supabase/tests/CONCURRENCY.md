@@ -40,6 +40,6 @@ process termination or loss of the admin connection can prevent cleanup; discard
 the disposable test database in that case. Never rely on this harness to clean a
 shared or production database.
 
-Run the existing `014_system_store_economy.test.sql` separately with the project's
+Run the existing `018_system_store_economy.test.sql` separately with the project's
 pgTAP runner for RLS and rollback checks. A syntax check (`node --check`) does not
 validate SQL execution or prove the concurrency assertions pass.
