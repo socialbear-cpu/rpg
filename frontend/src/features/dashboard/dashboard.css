@@ -644,8 +644,8 @@
 
 .system-card {
   min-width: 0;
-  padding: 22px;
-  background: linear-gradient(145deg, #1b1d28, #171922 78%);
+  overflow: hidden;
+  background: #171922;
   border: 1px solid #303341;
   border-radius: 14px;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
@@ -658,6 +658,100 @@
   transform: translateY(-2px);
 }
 
+.system-card-art {
+  position: relative;
+  min-height: 166px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 16px 18px;
+  background:
+    radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 62% 67%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 25% 34%, rgba(255, 255, 255, 0.48) 0 1px, transparent 1.8px),
+    linear-gradient(135deg, #302743, #5b477c 52%, #171922);
+  background-size: auto, auto, auto, cover;
+}
+
+.system-card-art::before,
+.system-card-art::after {
+  position: absolute;
+  right: -34px;
+  bottom: -105px;
+  width: 245px;
+  height: 245px;
+  border: 1px solid rgba(245, 234, 255, 0.32);
+  border-radius: 50%;
+  content: '';
+}
+
+.system-card-art::after {
+  right: -4px;
+  bottom: -75px;
+  width: 185px;
+  height: 185px;
+  border-color: rgba(245, 234, 255, 0.2);
+  box-shadow: 0 0 0 18px rgba(245, 234, 255, 0.035), 0 0 0 38px rgba(245, 234, 255, 0.025);
+}
+
+.system-card-tone-1 .system-card-art {
+  background:
+    radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 62% 67%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 25% 34%, rgba(255, 255, 255, 0.48) 0 1px, transparent 1.8px),
+    linear-gradient(135deg, #1b3b3a, #367268 52%, #171922);
+}
+
+.system-card-tone-2 .system-card-art {
+  background:
+    radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 62% 67%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 25% 34%, rgba(255, 255, 255, 0.48) 0 1px, transparent 1.8px),
+    linear-gradient(135deg, #4a302d, #98654c 52%, #171922);
+}
+
+.system-card-tone-3 .system-card-art {
+  background:
+    radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 62% 67%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 25% 34%, rgba(255, 255, 255, 0.48) 0 1px, transparent 1.8px),
+    linear-gradient(135deg, #203750, #456a8b 52%, #171922);
+}
+
+.system-card-art-brand,
+.system-card-art-caption {
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  color: rgba(250, 247, 255, 0.76);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.system-card-art-caption {
+  color: rgba(250, 247, 255, 0.62);
+  font-size: 8px;
+}
+
+.system-card-art-sigil {
+  position: absolute;
+  right: 43px;
+  bottom: 20px;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Outfit', sans-serif;
+  font-size: 76px;
+  font-weight: 300;
+  line-height: 1;
+  text-shadow: 0 0 28px rgba(255, 255, 255, 0.3);
+}
+
+.system-card-content {
+  padding: 18px 20px 19px;
+}
+
 .system-card-eyebrow {
   color: var(--purple-light);
   font-size: 10px;
@@ -666,11 +760,13 @@
 }
 
 .system-card h3 {
-  margin: 11px 0 7px;
+  margin: 7px 0 8px;
   font-family: 'Outfit', sans-serif;
-  font-size: 19px;
-  font-weight: 600;
-  letter-spacing: -0.25px;
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: -0.35px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .system-card p {
@@ -681,16 +777,84 @@
   line-height: 1.65;
 }
 
-.system-card .text-button {
-  margin-top: 16px;
+.system-card-enter {
+  width: 100%;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 17px;
+  padding: 0 13px;
+  color: #e8ddff;
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.24);
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 650;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.system-card-enter:hover {
+  background: rgba(167, 139, 250, 0.18);
+  border-color: rgba(196, 181, 253, 0.5);
+}
+
+.system-card-enter span {
+  font-size: 15px;
+}
+
+.system-card-skeleton {
+  min-height: 332px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1d202b 0 50%, #171922 50% 100%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  position: relative;
+}
+
+.system-card-skeleton::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, 0.06) 48%, transparent 64%);
+  content: '';
+  animation: system-card-shimmer 1.5s ease-in-out infinite;
+}
+
+.systems-loading-label {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@keyframes system-card-shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
 }
 
 .systems-empty-state {
-  padding: 42px 24px;
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 24px;
   background: radial-gradient(ellipse at 50% 0, rgba(167, 139, 250, 0.1), transparent 70%), var(--panel);
   border: 1px dashed #454052;
   border-radius: 14px;
   text-align: center;
+}
+
+.systems-empty-sigil {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 17px;
+  color: #e2d5ff;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.22), rgba(167, 139, 250, 0.04));
+  border: 1px solid rgba(196, 181, 253, 0.22);
+  border-radius: 18px;
+  font-size: 30px;
 }
 
 .systems-empty-state h3 {
@@ -700,10 +864,24 @@
 }
 
 .systems-empty-state p {
+  max-width: 430px;
   margin: 0 0 20px;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .system-card,
+  .system-card-enter,
+  .system-card-skeleton::after {
+    animation: none;
+    transition: none;
+  }
+
+  .system-card:hover {
+    transform: none;
+  }
 }
 
 .search-box {

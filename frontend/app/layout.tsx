@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'RPG · Validação de autenticação',
-  description: 'Interface de validação de autenticação e perfil RPG.',
+  title: 'Nexus RPG · Sua próxima aventura',
+  description: 'Crie sistemas de RPG, personalize fichas e reúna seu grupo.',
   icons: { icon: '/favicon.svg' },
 };
 

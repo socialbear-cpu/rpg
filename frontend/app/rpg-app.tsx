@@ -11,6 +11,7 @@ import { ExperienceAdminCard } from '../src/features/experience/experience-admin
 import { TradingCard } from '../src/features/trading/trading-card';
 import { addCustomExperienceSource } from '../src/features/experience/experience-model';
 import { SystemMembershipCard, SystemMembershipError } from '../src/features/system-membership/system-membership-card';
+import './account-page.css';
 import {
   checkHealth,
   claimDailyLoginReward,
@@ -424,6 +425,55 @@ export function RpgApp() {
     }
   }
 
+  const accountCard = <AccountCard
+    mode={mode}
+    recovery={recovery}
+    authenticated={authenticated}
+    email={email}
+    password={password}
+    displayName={displayName}
+    newPassword={newPassword}
+    authBusy={authBusy}
+    recoveryBusy={recoveryBusy}
+    onModeChange={selectMode}
+    onEmailChange={setEmail}
+    onPasswordChange={setPassword}
+    onDisplayNameChange={setDisplayName}
+    onNewPasswordChange={setNewPassword}
+    onSubmitAuth={submitAuth}
+    onSubmitRecovery={submitRecovery}
+    onResetPassword={() => void resetPassword()}
+    onLogout={() => void logout()}
+  />;
+
+  if (!authenticated) {
+    return (
+      <main className={`auth-landing ${mode === 'signup' ? 'auth-landing-signup' : ''}`}>
+        <section className="auth-story-panel">
+          <a className="auth-brand" href="/" aria-label="Nexus RPG início">
+            <span className="auth-brand-mark" aria-hidden="true">✧</span>
+            <span>NEXUS <em>RPG</em></span>
+          </a>
+          <div className="auth-story-copy">
+            <p className="auth-story-eyebrow">SUA PRÓXIMA AVENTURA COMEÇA AQUI</p>
+            <h1>O seu mundo.<br /><span>As suas regras.</span></h1>
+            <p>Crie sistemas, personalize fichas e reúna seu grupo para escrever histórias que só poderiam acontecer na sua mesa.</p>
+          </div>
+          <div className="auth-story-rune" aria-hidden="true"><span>✧</span><i /><b /></div>
+          <div className="auth-story-footer"><span className="auth-live-dot" /> Um espaço para quem joga e cria RPG</div>
+        </section>
+        <section className="auth-form-panel" aria-label={mode === 'signup' ? 'Criar conta' : 'Entrar'}>
+          <div className="auth-form-wrap">
+            {notice && <div className={`notice${notice.error ? ' error' : ''}`} role="status" aria-live="polite">{notice.message}</div>}
+            {accountCard}
+            <p className="auth-form-footnote">Seus sistemas, personagens e aventuras em um só lugar.</p>
+          </div>
+          <footer className="auth-footer"><span>NEXUS RPG</span><span>Feito para as suas histórias</span></footer>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className="shell">
       <header className="topbar">
@@ -432,34 +482,15 @@ export function RpgApp() {
       </header>
 
       <section className="intro">
-        <p className="eyebrow">FERRAMENTA INTERNA</p>
-        <h1>Autenticação e perfil</h1>
-        <p>Interface para validar cadastro, login e o perfil do usuário pela API na mesma aplicação.</p>
+        <p className="eyebrow">NEXUS RPG</p>
+        <h1>Continue sua aventura</h1>
+        <p>Gerencie seu perfil e as ferramentas dos seus sistemas.</p>
       </section>
 
       {notice && <div className={`notice${notice.error ? ' error' : ''}`} role="status" aria-live="polite">{notice.message}</div>}
 
       <section className="layout">
-        <AccountCard
-          mode={mode}
-          recovery={recovery}
-          authenticated={authenticated}
-          email={email}
-          password={password}
-          displayName={displayName}
-          newPassword={newPassword}
-          authBusy={authBusy}
-          recoveryBusy={recoveryBusy}
-          onModeChange={selectMode}
-          onEmailChange={setEmail}
-          onPasswordChange={setPassword}
-          onDisplayNameChange={setDisplayName}
-          onNewPasswordChange={setNewPassword}
-          onSubmitAuth={submitAuth}
-          onSubmitRecovery={submitRecovery}
-          onResetPassword={() => void resetPassword()}
-          onLogout={() => void logout()}
-        />
+        {accountCard}
 
         <ProfileCard
           profile={profile}
@@ -524,7 +555,7 @@ export function RpgApp() {
         message={systemMembershipMessage}
         onRetry={() => { setSystemMembershipMessage(null); setSystemAccessVersion((version) => version + 1); }}
       />}
-      <footer><span>RPG · Backend validation</span><span>Sem chave secreta no navegador</span></footer>
+      <footer><span>NEXUS RPG</span><span>Uma plataforma para as suas aventuras</span></footer>
     </main>
   );
 }

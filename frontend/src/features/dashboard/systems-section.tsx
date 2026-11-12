@@ -22,25 +22,41 @@ export function SystemsSection({ systems, loading, error, onCreate, onEnter }: S
           <button type="button" className="primary-button" onClick={onCreate}>+ Criar sistema</button>
         )}
       </div>
-      {loading && <p role="status">Carregando sistemas...</p>}
+      {loading && (
+        <>
+          <p className="systems-loading-label" role="status">Preparando seus mundos...</p>
+          <div className="system-grid" aria-hidden="true">
+            {[0, 1, 2].map((item) => <div className="system-card-skeleton" key={item} />)}
+          </div>
+        </>
+      )}
       {error && <p className="systems-error" role="alert">{error}</p>}
       {!loading && !error && systems.length === 0 && (
         <div className="systems-empty-state">
+          <span className="systems-empty-sigil" aria-hidden="true">✧</span>
+          <span className="system-card-eyebrow">SUA AVENTURA COMEÇA AQUI</span>
           <h3>Seu próximo mundo começa aqui</h3>
-          <p>Crie um sistema para definir a ficha e começar a montar seu grupo.</p>
+          <p>Crie um sistema, personalize a ficha e reúna seu grupo em torno de uma nova aventura.</p>
           <button type="button" className="primary-button" onClick={onCreate}>Criar meu primeiro sistema</button>
         </div>
       )}
       {!loading && !error && systems.length > 0 && (
         <div className="system-grid">
-          {systems.map((system) => (
-            <article className="system-card" key={system.id}>
-              <span className="system-card-eyebrow">SISTEMA DE RPG</span>
-              <h3>{system.name}</h3>
-              <p>{system.description || 'Sem descrição.'}</p>
-              <button type="button" className="text-button" aria-label={`Entrar no sistema ${system.name}`} onClick={() => onEnter(system.id)}>
-                Entrar <span aria-hidden="true">→</span>
-              </button>
+          {systems.map((system, index) => (
+            <article className={`system-card system-card-tone-${index % 4}`} key={system.id}>
+              <div className="system-card-art" aria-hidden="true">
+                <span className="system-card-art-brand">NEXUS RPG</span>
+                <span className="system-card-art-sigil">✧</span>
+                <span className="system-card-art-caption">UM MUNDO À SUA MANEIRA</span>
+              </div>
+              <div className="system-card-content">
+                <span className="system-card-eyebrow">SISTEMA DE RPG</span>
+                <h3>{system.name}</h3>
+                <p>{system.description || 'Uma nova aventura espera pelo seu grupo.'}</p>
+                <button type="button" className="system-card-enter" aria-label={`Entrar no sistema ${system.name}`} onClick={() => onEnter(system.id)}>
+                  Abrir aventura <span aria-hidden="true">↗</span>
+                </button>
+              </div>
             </article>
           ))}
         </div>

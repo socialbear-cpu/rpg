@@ -98,13 +98,13 @@ describe('profile card', () => {
 });
 
 describe('initial application UI', () => {
-  it('shows the login tab selected and keeps profile controls disabled without a session', () => {
+  it('shows the public login experience without exposing profile controls before sign-in', () => {
     const html = renderToStaticMarkup(createElement(RpgApp));
+    expect(html).toContain('class="auth-landing "');
+    expect(html).toContain('O seu mundo.');
     expect(html).toContain('role="tab" aria-selected="true" aria-controls="panel-auth"');
     expect(html).toContain('id="tab-signup" type="button" role="tab" aria-selected="false"');
-    expect(html).toContain('id="profile-name"');
-    expect(html).toMatch(/id="profile-name"[^>]*disabled/);
-    expect(html).toMatch(/disabled=""[^>]*>Salvar alterações/);
+    expect(html).not.toContain('id="profile-name"');
   });
 
   it('checks API health through the same-origin path', async () => {
