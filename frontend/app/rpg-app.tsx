@@ -458,7 +458,7 @@ export function RpgApp() {
           <div className="auth-story-copy">
             <p className="auth-story-eyebrow">SUA PRÓXIMA AVENTURA COMEÇA AQUI</p>
             <h1>O seu mundo.<br /><span>As suas regras.</span></h1>
-            <p>Crie sistemas, personalize fichas e reúna seu grupo para escrever histórias que só poderiam acontecer na sua mesa.</p>
+            <p>Crie sistemas, personalize fichas e reúna seu grupo para escrever histórias que só poderiam acontecer na seu sistema.</p>
           </div>
           <div className="auth-story-rune" aria-hidden="true"><span>✧</span><i /><b /></div>
           <div className="auth-story-footer"><span className="auth-live-dot" /> Um espaço para quem joga e cria RPG</div>

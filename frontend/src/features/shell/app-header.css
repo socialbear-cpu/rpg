@@ -32,7 +32,7 @@
   .app-header-nav-link { font-size: 12px; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 960px) {
   .app-header { min-height: 66px; padding: 0 18px; }
   .app-header-nav { display: none; }
   .app-header-mobile-menu { position: relative; display: block; margin-left: auto; }

@@ -78,7 +78,7 @@ function Icon({
 export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const router = useRouter();
   const [profileOpen, setProfileOpen] = useState(false);
-  const [activePage, setActivePage] = useState('Minhas mesas');
+  const [activePage, setActivePage] = useState('Meus Sistemas');
   const [systems, setSystems] = useState<GameSystem[]>([]);
   const [systemsLoading, setSystemsLoading] = useState(true);
   const [systemsError, setSystemsError] = useState<string | null>(null);
@@ -96,8 +96,8 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
 
   const pageDescription: Record<string, string> = {
     'Início': 'Acesse seus sistemas de RPG e continue sua aventura.',
-    'Minhas mesas': 'Acesse os sistemas de RPG dos quais você participa.',
-    'Explorar mesas': 'Crie um novo sistema de RPG para começar sua aventura.',
+    'Meus Sistemas': 'Acesse os sistemas de RPG dos quais você participa.',
+    'Explorar sistemas': 'Crie um novo sistema de RPG para começar sua aventura.',
     'Comunidade': 'Acesse seus sistemas e personagens de RPG.',
   };
 
@@ -105,7 +105,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
     <div className="platform">
       <main className="main-area">
         <AppHeader activeItem={activePage} onNavigate={(label) => {
-          if (label === 'Explorar mesas') router.push('/dashboard/systems/new');
+          if (label === 'Explorar sistemas') router.push('/dashboard/systems/new');
           else setActivePage(label);
         }}>
             <NotificationCenter compact />
@@ -175,7 +175,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
             <div className="profile-panel-section">
               <span className="profile-section-title">MINHA JORNADA</span>
               <div className="profile-info-row">
-                <span><Icon name="table" size={17} /> Mesas participadas</span>
+                <span><Icon name="table" size={17} /> sistemas participadas</span>
                 <strong>0</strong>
               </div>
               <div className="profile-info-row">

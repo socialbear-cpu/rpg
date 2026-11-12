@@ -11,12 +11,12 @@ interface AppHeaderProps {
 
 const navItems = [
   { label: 'Início', href: '/dashboard' },
-  { label: 'Minhas mesas', href: '/dashboard' },
-  { label: 'Explorar mesas', href: '/dashboard/systems/new' },
+  { label: 'Meus Sistemas', href: '/dashboard' },
+  { label: 'Explorar sistemas', href: '/dashboard/systems/new' },
   { label: 'Comunidade', href: '/dashboard' },
 ];
 
-export function AppHeader({ activeItem = 'Minhas mesas', backHref, backLabel = 'Voltar', onNavigate, children }: AppHeaderProps) {
+export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 'Voltar', onNavigate, children }: AppHeaderProps) {
   return (
     <header className="app-header">
       <a className="app-header-brand" href="/dashboard" aria-label="Nexus RPG início">

@@ -27,7 +27,7 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
     return () => { cancelled = true; };
   }, [systemId, characterId]);
 
-  if (loading) return <main className="character-entry-page"><AppHeader activeItem="Minhas mesas" /><p role="status">Carregando personagem...</p></main>;
-  if (!system) return <main className="character-entry-page"><AppHeader activeItem="Minhas mesas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><h1>Sistema indisponível</h1></main>;
+  if (loading) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando personagem...</p></main>;
+  if (!system) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><h1>Sistema indisponível</h1></main>;
   return <CharacterHome systemName={system.name} character={character} fields={fields} experience={experience} onSwitch={() => push(`/systems/${encodeURIComponent(systemId)}/characters`)} />;
 }

@@ -16,7 +16,7 @@ interface CharacterHomeProps {
 
 const rooms = [
   { name: 'Taverna do Dragão', topic: 'Conversa livre e ideias para aventuras' },
-  { name: 'Mesa de iniciantes', topic: 'Aprenda e encontre companhia para jogar' },
+  { name: 'sistema de iniciantes', topic: 'Aprenda e encontre companhia para jogar' },
   { name: 'Procura-se grupo', topic: 'Combine horários e monte sua party' },
 ];
 
@@ -25,7 +25,7 @@ export function CharacterHome({ systemName, character, fields, experience = null
   const [activeRoom, setActiveRoom] = useState<string | null>(null);
   const [localCharacter, setLocalCharacter] = useState(character);
 
-  if (!character) return <main className="character-entry-page"><AppHeader activeItem="Minhas mesas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{systemName}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
+  if (!character) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{systemName}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
 
   const currentCharacter = localCharacter ?? character;
   const orderedFields = [...fields].sort((a, b) => a.position - b.position);
@@ -34,7 +34,7 @@ export function CharacterHome({ systemName, character, fields, experience = null
 
   return (
     <main className="character-entry-page character-home-page">
-      <AppHeader activeItem="Minhas mesas" />
+      <AppHeader activeItem="Meus Sistemas" />
 
       <div className="lobby-layout">
         <aside className="lobby-character" aria-label="Ficha do personagem selecionado">
@@ -65,7 +65,7 @@ export function CharacterHome({ systemName, character, fields, experience = null
             <div className="lobby-search-decoration lobby-search-decoration-left" aria-hidden="true">✧</div>
             <div className="lobby-search-decoration lobby-search-decoration-right" aria-hidden="true">✧</div>
             <button className="lobby-search-button" type="button" disabled title="O matchmaking estará disponível em breve"><span className="lobby-search-icon" aria-hidden="true">✧</span>Procurar partida<small>Em breve</small></button>
-            <span className="lobby-matchmaking-caption">Encontre uma mesa para a sua próxima aventura</span>
+            <span className="lobby-matchmaking-caption">Encontre uma sistema para a sua próxima aventura</span>
           </section>
 
           <section className="lobby-rooms"><div className="lobby-section-heading"><div><span className="character-entry-eyebrow">PONTO DE ENCONTRO</span><h2>Salas de bate-papo</h2></div></div>
