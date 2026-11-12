@@ -1,2 +1,130 @@
 @import '../styles.css';
 @import '../src/features/trading/trading.css';
+
+:root {
+  --muted: #9294a5;
+  --line: #292c38;
+  --panel: #171922;
+  --accent: #bba5fa;
+  --blue: #9ecbfa;
+  font-family: 'DM Sans', sans-serif;
+  color: #f0eff7;
+  background: #101117;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: #f0eff7;
+  background: radial-gradient(ellipse at 12% 0%, #1a1b27 0, transparent 38%), #101117;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Outfit', sans-serif;
+}
+
+.character-entry-page,
+.system-creation-page {
+  color: #f0eff7;
+  background: #101117;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.character-entry-eyebrow,
+.character-card-system,
+.system-creation-eyebrow,
+.system-card-eyebrow,
+.sheet-builder-eyebrow {
+  color: #a78bfa;
+}
+
+.character-card,
+.character-empty-state,
+.character-home-card,
+.character-unavailable,
+.character-form,
+.lobby-detail-panel,
+.lobby-room-card,
+.system-creation-panel,
+.system-card,
+.systems-empty-state {
+  border-color: #292c38;
+  background: #171922;
+}
+
+.character-primary-button,
+.system-creation-panel > .primary-button {
+  border-color: transparent;
+  color: #171321;
+  background: #bba5fa;
+}
+
+.character-primary-button:hover,
+.system-creation-panel > .primary-button:hover {
+  background: #d0c0ff;
+}
+
+.character-secondary-button,
+.secondary-button {
+  border-color: #383746;
+  color: #e4e2ed;
+  background: #1d202b;
+}
+
+.character-form-field input,
+.character-form-field textarea,
+.character-form-field select,
+.system-creation-label input,
+.system-creation-label textarea {
+  border-color: #343644;
+  color: #f0eff7;
+  background: #11131b;
+}
+
+.character-form-field input:focus,
+.character-form-field textarea:focus,
+.character-form-field select:focus,
+.system-creation-label input:focus,
+.system-creation-label textarea:focus {
+  outline-color: #a78bfa;
+}
+
+.lobby-character {
+  border-color: #4b4261;
+  background: linear-gradient(115deg, #1d202b, #171922);
+}
+
+.lobby-room-icon,
+.lobby-room-status {
+  border-color: #393447;
+  background: #1d202b;
+}
+
+.daily-login-popup {
+  border-color: #393447;
+  background: #171922;
+}
+
+.daily-reward {
+  border-color: #393447;
+  background: linear-gradient(145deg, #242033, #1a1924);
+}
+
+.membership-role {
+  background: #302844;
+}
+
+.notification-list li.unread {
+  border-color: #594778;
+  background: #211b2d;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 3px #a78bfa24;
+}
+
+.daily-popup-close:focus-visible {
+  outline-color: #bba5fa;
+}

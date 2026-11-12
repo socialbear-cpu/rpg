@@ -6,15 +6,18 @@ import './characters.css';
 
 interface CharacterFormProps {
   fields: CharacterSheetField[];
+  initialName?: string;
+  initialAttributes?: Record<string, unknown>;
+  submitLabel?: string;
   error?: string | null;
   saving?: boolean;
   onSubmit: (characterName: string, attributes: Record<string, unknown>) => void;
   onCancel: () => void;
 }
 
-export function CharacterForm({ fields, error = null, saving = false, onSubmit, onCancel }: CharacterFormProps) {
-  const [name, setName] = useState('');
-  const [values, setValues] = useState<Record<string, string>>({});
+export function CharacterForm({ fields, initialName = '', initialAttributes = {}, submitLabel = 'Criar personagem', error = null, saving = false, onSubmit, onCancel }: CharacterFormProps) {
+  const [name, setName] = useState(initialName);
+  const [values, setValues] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialAttributes).map(([key, value]) => [key, String(value)])));
   const orderedFields = [...fields].sort((a, b) => a.position - b.position);
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -39,7 +42,7 @@ export function CharacterForm({ fields, error = null, saving = false, onSubmit, 
         </label>;
       })}
       {error && <p role="alert" className="character-form-error">{error}</p>}
-      <div className="character-form-actions"><button type="button" className="character-secondary-button" onClick={onCancel}>Cancelar</button><button type="submit" className="character-primary-button" disabled={saving}>{saving ? 'Salvando...' : 'Criar personagem'}</button></div>
+      <div className="character-form-actions"><button type="button" className="character-secondary-button" onClick={onCancel}>Cancelar</button><button type="submit" className="character-primary-button" disabled={saving}>{saving ? 'Salvando...' : submitLabel}</button></div>
     </form>
   );
 }
