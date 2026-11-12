@@ -52,7 +52,7 @@ export function ExperienceAdminCard({
     : null);
 
   return <article className="card experience-admin-card">
-    <div className="section-heading"><div><p className="eyebrow">OWNER</p><h2>Configurar experiência e XP</h2></div><span className="step">XP</span></div>
+    <div className="section-heading"><div><p className="eyebrow">{manageableSystems.some((entry) => !entry.is_owner) ? 'OWNER / ADMIN' : 'OWNER'}</p><h2>Configurar experiência e XP</h2></div><span className="step">XP</span></div>
     <p className="card-copy">Defina quanto XP leva a subir de nível e configure as fontes deste sistema.</p>
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status" aria-live="polite">{message}</p>}
     {manageableSystems.length > 1 && <label className="daily-field" htmlFor="experience-owner-system">Sistema de RPG

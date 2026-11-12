@@ -1,0 +1,185 @@
+.system-management-page {
+  min-height: 100vh;
+  color: #f0eff7;
+  background: #101117;
+}
+
+.system-management-content {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 36px 0 72px;
+}
+
+.system-management-hero {
+  padding: 34px clamp(22px, 5vw, 54px);
+  border: 1px solid #343040;
+  border-radius: 22px;
+  background: radial-gradient(ellipse at 86% 15%, #785db533, transparent 38%), linear-gradient(130deg, #1b1a26, #171922 72%);
+}
+
+.system-management-eyebrow,
+.system-management-section-heading > div > p {
+  margin: 0 0 8px;
+  color: #bba5fa;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+}
+
+.system-management-hero h1,
+.system-management-state h1 {
+  margin: 0;
+  font: 700 clamp(30px, 5vw, 48px)/1.1 'Outfit', sans-serif;
+  letter-spacing: -.04em;
+}
+
+.system-management-hero > p,
+.system-management-section-copy,
+.system-management-future > p,
+.system-management-state > p {
+  max-width: 660px;
+  color: #a4a5b4;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.system-management-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.system-management-stats span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 13px;
+  border: 1px solid #343040;
+  border-radius: 10px;
+  background: #11121b99;
+  color: #b4b3c1;
+  font-size: 12px;
+}
+
+.system-management-stats strong {
+  color: #d8caff;
+  font: 700 18px 'Outfit', sans-serif;
+}
+
+.system-management-nav {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  margin: 18px 0 30px;
+  padding: 10px;
+  border: 1px solid #292b37;
+  border-radius: 13px;
+  background: #151720ed;
+  backdrop-filter: blur(12px);
+}
+
+.system-management-nav a {
+  flex: 0 0 auto;
+  padding: 9px 13px;
+  border-radius: 8px;
+  color: #b7b6c4;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.system-management-nav a:hover,
+.system-management-nav a:focus-visible {
+  outline: none;
+  color: #eee8ff;
+  background: #292437;
+}
+
+.system-management-section {
+  display: grid;
+  grid-template-columns: minmax(180px, .32fr) minmax(0, 1fr);
+  gap: 8px 30px;
+  scroll-margin-top: 84px;
+  padding: 26px 0;
+  border-bottom: 1px solid #292b37;
+}
+
+.system-management-section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+
+.system-management-section-heading > span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #48405c;
+  border-radius: 10px;
+  color: #c4b5fd;
+  background: #292437;
+  font: 600 12px 'Outfit', sans-serif;
+}
+
+.system-management-section-heading h2 {
+  margin: 0;
+  color: #f0eff7;
+  font: 600 23px 'Outfit', sans-serif;
+}
+
+.system-management-section > .system-management-section-copy {
+  margin: 0;
+}
+
+.system-management-section > .card,
+.system-management-section > .daily-login-admin-card,
+.system-management-section > .experience-admin-card {
+  grid-column: 2;
+  min-width: 0;
+  margin: 0;
+  border-color: #292b37;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #191b26, #171922);
+  color: #f0eff7;
+}
+
+.system-management-section > .system-membership-card {
+  grid-column: 2;
+}
+
+.system-management-future > p {
+  grid-column: 2;
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px dashed #343040;
+  border-radius: 12px;
+  background: #171922;
+}
+
+.system-management-state {
+  max-width: 700px;
+  margin: 12vh auto 0;
+  padding: clamp(24px, 5vw, 48px);
+  border: 1px solid #292b37;
+  border-radius: 18px;
+  background: #171922;
+}
+
+.system-management-state .system-management-eyebrow { display: block; }
+.system-management-state .button { margin-top: 12px; }
+
+@media (max-width: 700px) {
+  .system-management-content { width: min(100% - 32px, 600px); padding-top: 20px; }
+  .system-management-hero { padding: 26px 22px; }
+  .system-management-nav { margin: 14px 0 22px; }
+  .system-management-section { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 22px 0; }
+  .system-management-section > .card,
+  .system-management-section > .daily-login-admin-card,
+  .system-management-section > .experience-admin-card,
+  .system-management-future > p { grid-column: 1; }
+}

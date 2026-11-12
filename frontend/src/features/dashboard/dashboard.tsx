@@ -22,13 +22,17 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const [systemsError, setSystemsError] = useState<string | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [ownerSystemIds, setOwnerSystemIds] = useState<Set<string>>(new Set());
+  const [isPlatformAdmin, setIsPlatformAdmin] = useState(false);
 
   useEffect(() => {
     getGameSystems()
       .then(({ systems: loadedSystems }) => setSystems(loadedSystems))
       .catch(() => setSystemsError('Não foi possível carregar seus sistemas.'))
       .finally(() => setSystemsLoading(false));
-    getMySystemMemberships().then(({ memberships }) => setOwnerSystemIds(new Set(memberships.filter((membership) => membership.role === 'owner').map((membership) => membership.game_system_id)))).catch(() => setOwnerSystemIds(new Set()));
+    getMySystemMemberships().then(({ memberships, is_platform_admin }) => {
+      setOwnerSystemIds(new Set(memberships.filter((membership) => membership.role === 'owner').map((membership) => membership.game_system_id)));
+      setIsPlatformAdmin(is_platform_admin);
+    }).catch(() => { setOwnerSystemIds(new Set()); setIsPlatformAdmin(false); });
   }, []);
 
   const safePlayerName = (playerName ?? '').trim();
@@ -87,6 +91,8 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
 
           <SystemsSection systems={systems} loading={systemsLoading} error={systemsError} ownerSystemIds={ownerSystemIds}
             onCreate={() => router.push('/dashboard/systems/new')}
+            isPlatformAdmin={isPlatformAdmin}
+            onManage={(systemId) => router.push(`/dashboard/systems/${encodeURIComponent(systemId)}/manage`)}
             onEditSheet={(systemId) => router.push(`/systems/${encodeURIComponent(systemId)}/sheet`)}
             onEnter={(systemId) => router.push(`/systems/${encodeURIComponent(systemId)}/characters`)} />
         </div>

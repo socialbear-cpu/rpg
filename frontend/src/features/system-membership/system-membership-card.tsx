@@ -5,6 +5,7 @@ import type { SystemMemberships } from '../../api';
 
 type Props = {
   access: SystemMemberships;
+  manageableSystems?: { game_system_id: string; game_system_name: string }[];
   busy: boolean;
   message: string | null;
   messageIsError: boolean;
@@ -21,12 +22,13 @@ export function SystemMembershipError({ message, onRetry }: { message: string; o
 
 const roleLabels = { owner: 'Owner', mod: 'Mod', user: 'User' } as const;
 
-export function SystemMembershipCard({ access, busy, message, messageIsError, onAssign }: Props) {
+export function SystemMembershipCard({ access, manageableSystems = [], busy, message, messageIsError, onAssign }: Props) {
   const ownerSystems = access.memberships.filter((membership) => membership.role === 'owner');
-  const [selectedSystemId, setSelectedSystemId] = useState(ownerSystems[0]?.game_system_id ?? '');
+  const availableSystems = access.is_platform_admin ? manageableSystems : ownerSystems;
+  const [selectedSystemId, setSelectedSystemId] = useState(availableSystems[0]?.game_system_id ?? '');
   const [targetUserId, setTargetUserId] = useState('');
   const [isModerator, setIsModerator] = useState(true);
-  const selectedSystem = ownerSystems.find((membership) => membership.game_system_id === selectedSystemId) ?? ownerSystems[0];
+  const selectedSystem = availableSystems.find((membership) => membership.game_system_id === selectedSystemId) ?? availableSystems[0];
 
   const submit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -45,13 +47,13 @@ export function SystemMembershipCard({ access, busy, message, messageIsError, on
         <span className={`membership-role membership-role-${membership.role}`}>{roleLabels[membership.role]}</span>
       </li>)}
     </ul>
-    {ownerSystems.length > 0 && <>
-      <p className="card-copy">Como Owner, você pode conceder ou remover o cargo Mod de uma pessoa já associada ao seu sistema.</p>
+    {availableSystems.length > 0 && <>
+      <p className="card-copy">Como {access.is_platform_admin ? 'Admin global' : 'Owner'}, você pode conceder ou remover o cargo Mod de uma pessoa já associada ao seu sistema.</p>
       {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status" aria-live="polite">{message}</p>}
       <form className="system-membership-form" onSubmit={submit}>
         <label className="daily-field" htmlFor="membership-system">Sistema de RPG
           <select id="membership-system" value={selectedSystem?.game_system_id ?? ''} onChange={(event) => setSelectedSystemId(event.target.value)}>
-            {ownerSystems.map((membership) => <option key={membership.game_system_id} value={membership.game_system_id}>{membership.game_system_name}</option>)}
+        {availableSystems.map((membership) => <option key={membership.game_system_id} value={membership.game_system_id}>{membership.game_system_name}</option>)}
           </select>
         </label>
         <label className="daily-field" htmlFor="membership-user-id">UUID do usuário

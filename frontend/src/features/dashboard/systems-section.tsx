@@ -9,10 +9,12 @@ interface SystemsSectionProps {
   onCreate: () => void;
   onEnter: (systemId: string) => void;
   ownerSystemIds?: Set<string>;
+  isPlatformAdmin?: boolean;
+  onManage?: (systemId: string) => void;
   onEditSheet?: (systemId: string) => void;
 }
 
-export function SystemsSection({ systems, loading, error, onCreate, onEnter, ownerSystemIds = new Set(), onEditSheet }: SystemsSectionProps) {
+export function SystemsSection({ systems, loading, error, onCreate, onEnter, ownerSystemIds = new Set(), isPlatformAdmin = false, onManage, onEditSheet }: SystemsSectionProps) {
   return (
     <section className="systems-section" aria-labelledby="systems-title">
       <div className="section-heading">
@@ -59,6 +61,7 @@ export function SystemsSection({ systems, loading, error, onCreate, onEnter, own
                   Abrir aventura <span aria-hidden="true">↗</span>
                 </button>
                 {ownerSystemIds.has(system.id) && <button type="button" className="system-card-enter" onClick={() => onEditSheet?.(system.id)}>Editar ficha</button>}
+                {(isPlatformAdmin || ownerSystemIds.has(system.id)) && <button type="button" className="system-card-enter" onClick={() => onManage?.(system.id)}>Gerenciar sistema</button>}
               </div>
             </article>
           ))}
