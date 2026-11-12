@@ -44,5 +44,15 @@ The canonical file is `database/migrations/009_notifications.sql`; the generated
 - Use a new numbered migration for later changes; do not edit an existing migration.
 - `updated_at` columns are initialized by the database; the API should update them when it changes a row.
 - Store mutable, system-specific attributes in `characters.attributes` (JSONB) while keeping frequently queried fields and relationships in relational columns.
-- The initial schema does not implement wallets, payment processing, inventory delivery, or purchase refunds. Those need explicit transaction and audit rules before enabling the store.
+- Migration 016 implements character wallets and atomic item purchases. Payment processing and refunds remain outside the store scope.
 - Migration 007 configures Row Level Security for the public app tables before they are exposed through the Supabase Data API.
+
+## System store economy (016)
+
+`game_systems.currency_name` defaults to `Créditos`; existing owner RLS controls changes. Owners manage item products/offers through the existing catalog policies. Offers have unlimited supply: the legacy `stock_quantity` and `currency_code` on offers are ignored by purchases. Only item products are purchasable.
+
+`character_wallets` contains one zero-initialized balance per character, including existing characters. `character_currency_ledger` records nonzero grants/debits with source identity, currency/item snapshots, and resulting balance. Authenticated clients can only read rows for characters they control and cannot write wallets or ledger rows. Future owner-configured mission/event/fight awards may add source types; this migration does not implement those integrations or manual grants.
+
+`purchase_store_product(p_character_id UUID, p_store_product_id UUID, p_quantity INTEGER)` validates the authenticated controller, active character/system, same-system item offer, quantity (1–1,000,000), availability, and funds. A wallet row lock serializes debits. Wallet debit, completed purchase, price/name/currency snapshots, default-metadata inventory delivery, and ledger entry share one transaction. Success returns `status=purchased`, `balance`, `purchase_id`, `item_id`, `item_name`, `quantity`, `amount_charged`, and `currency_name`; rejection statuses are `unauthorized`, `invalid_quantity`, `invalid_character`, `system_unavailable`, `offer_unavailable`, `system_mismatch`, and `insufficient_funds` (with balance). The legacy purchases.currency_code stores the currency name snapshot.
+
+Prices, daily amounts, and purchase totals use two decimals and a maximum of 9,999,999,999.99; wallets/ledger use NUMERIC(16,2). The daily schedule RPC accepts optional `currency_amount` per day (default zero). Successful daily claims additionally return `currency_awarded` and `currency_name`; claims snapshot these values. A zero amount still delivers the scheduled item and existing XP. The unique account/system/local-date claim prevents duplicate item, XP, or money awards. No ledger row is needed for a zero-value movement.
