@@ -2,6 +2,18 @@ import { z } from 'zod';
 
 const keySchema = z.string().regex(/^[a-z][a-z0-9_]{0,39}$/);
 const labelSchema = z.string().trim().min(1).max(80);
+const conditionRuleSchema = z.discriminatedUnion('operator', [
+  z.strictObject({ component_key: keySchema, operator: z.literal('equals'), value: z.string().trim().min(1).max(80) }),
+  z.strictObject({ component_key: keySchema, operator: z.literal('not_equals'), value: z.string().trim().min(1).max(80) }),
+  z.strictObject({ component_key: keySchema, operator: z.literal('contains'), value: z.string().trim().min(1).max(80) }),
+  z.strictObject({ component_key: keySchema, operator: z.literal('not_contains'), value: z.string().trim().min(1).max(80) }),
+  z.strictObject({ component_key: keySchema, operator: z.literal('is_filled') }),
+  z.strictObject({ component_key: keySchema, operator: z.literal('is_empty') }),
+]);
+const conditionGroupSchema = z.strictObject({
+  logic: z.enum(['all', 'any']),
+  rules: z.array(conditionRuleSchema).min(1).max(20),
+});
 
 const componentBaseSchema = {
   key: keySchema,
@@ -10,16 +22,25 @@ const componentBaseSchema = {
   position: z.number().int().min(0).max(49),
   width: z.enum(['full', 'half', 'third']),
   show_on_card: z.boolean(),
+  condition: conditionGroupSchema.optional(),
 };
 
 const optionSchema = z.strictObject({
   label: labelSchema,
+  value: z.string().trim().min(1).max(80).optional(),
   image_url: z.string().trim().url().max(2048).refine((value) => new URL(value).protocol === 'https:').optional(),
   description: z.string().trim().max(500).optional(),
+  x: z.number().min(0).max(100).optional(),
+  y: z.number().min(0).max(100).optional(),
+  width: z.number().min(1).max(100).optional(),
+  height: z.number().min(1).max(100).optional(),
+  rotation: z.number().min(-360).max(360).optional(),
+  condition: conditionGroupSchema.optional(),
 });
 
 const selectOptionsSchema = z.array(optionSchema).min(1).max(50)
-  .refine((options) => new Set(options.map(({ label }) => label)).size === options.length);
+  .refine((options) => new Set(options.map(({ label }) => label)).size === options.length)
+  .refine((options) => new Set(options.map(({ value, label }) => value ?? label)).size === options.length);
 
 export const characterSheetComponentSchema = z.discriminatedUnion('type', [
   z.strictObject({ ...componentBaseSchema, type: z.literal('short_text') }),
@@ -28,7 +49,8 @@ export const characterSheetComponentSchema = z.discriminatedUnion('type', [
   z.strictObject({
     ...componentBaseSchema,
     type: z.literal('single_select'),
-    presentation: z.enum(['select', 'cards']),
+    presentation: z.enum(['select', 'cards', 'canvas']),
+    selection_mode: z.enum(['single', 'multiple']).optional(),
     options: selectOptionsSchema,
   }),
 ]);
@@ -62,6 +84,7 @@ export const characterSheetStepSchema = z.strictObject({
   position: z.number().int().min(0).max(19),
   components: z.array(characterSheetComponentSchema).max(50),
   elements: z.array(visualElementSchema).max(50).optional(),
+  condition: conditionGroupSchema.optional(),
 });
 
 export const characterSheetDefinitionSchema = z.strictObject({
@@ -72,6 +95,7 @@ export const characterSheetDefinitionSchema = z.strictObject({
   const stepPositions = new Set<number>();
   const componentKeys = new Set<string>();
   const elementKeys = new Set<string>();
+  const stepsInOrder = [...definition.steps].sort((a, b) => a.position - b.position);
 
   definition.steps.forEach((step, stepIndex) => {
     if (stepKeys.has(step.key)) {
@@ -93,6 +117,22 @@ export const characterSheetDefinitionSchema = z.strictObject({
       }
       componentKeys.add(component.key);
       componentPositions.add(component.position);
+
+      if (component.type === 'single_select') {
+        component.options.forEach((option, optionIndex) => {
+          const layout = [option.x, option.y, option.width, option.height, option.rotation];
+          const hasLayout = layout.every((value) => value !== undefined);
+          const hasPartialLayout = layout.some((value) => value !== undefined) && !hasLayout;
+          if (component.presentation === 'canvas' && !hasLayout) {
+            context.addIssue({ code: 'custom', message: 'Canvas options require complete positioning', path: ['steps', stepIndex, 'components', componentIndex, 'options', optionIndex] });
+          } else if (hasPartialLayout) {
+            context.addIssue({ code: 'custom', message: 'Option positioning must include all layout values', path: ['steps', stepIndex, 'components', componentIndex, 'options', optionIndex] });
+          }
+          if (hasLayout && (option.x! + option.width! > 100 || option.y! + option.height! > 100)) {
+            context.addIssue({ code: 'custom', message: 'Option positioning exceeds the canvas', path: ['steps', stepIndex, 'components', componentIndex, 'options', optionIndex] });
+          }
+        });
+      }
     });
 
     step.elements?.forEach((element, elementIndex) => {
@@ -108,6 +148,29 @@ export const characterSheetDefinitionSchema = z.strictObject({
   }
   if (definition.steps.reduce((total, step) => total + (step.elements?.length ?? 0), 0) > 50) {
     context.addIssue({ code: 'custom', message: 'A character sheet cannot have more than 50 visual elements', path: ['steps'] });
+  }
+
+  const priorComponentKeys = new Set<string>();
+  for (const step of stepsInOrder) {
+    const validateCondition = (condition: z.infer<typeof conditionGroupSchema> | undefined, path: (string | number)[]) => {
+      condition?.rules.forEach((rule, ruleIndex) => {
+        if (!priorComponentKeys.has(rule.component_key)) {
+          context.addIssue({ code: 'custom', message: 'Conditions must reference an earlier component', path: [...path, 'rules', ruleIndex, 'component_key'] });
+        }
+      });
+    };
+    const stepIndex = definition.steps.findIndex((item) => item.key === step.key);
+    validateCondition(step.condition, ['steps', stepIndex, 'condition']);
+    for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
+      const componentIndex = definition.steps[stepIndex]!.components.findIndex((item) => item.key === component.key);
+      validateCondition(component.condition, ['steps', stepIndex, 'components', componentIndex, 'condition']);
+      if (component.type === 'single_select') {
+        component.options.forEach((option, optionIndex) => {
+          validateCondition(option.condition, ['steps', stepIndex, 'components', componentIndex, 'options', optionIndex, 'condition']);
+        });
+      }
+      priorComponentKeys.add(component.key);
+    }
   }
 });
 
@@ -203,8 +266,33 @@ export const createSystemCharacterResultSchema = z.strictObject({
   character: systemCharacterSchema,
 });
 
+function hasValue(value: unknown): boolean {
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === 'string') return value.trim().length > 0;
+  if (typeof value === 'number') return Number.isFinite(value);
+  return value !== undefined && value !== null;
+}
+
+function conditionMatches(condition: z.infer<typeof conditionGroupSchema> | undefined, values: Record<string, unknown>): boolean {
+  if (!condition) return true;
+  const matches = condition.rules.map((rule) => {
+    const actual = values[rule.component_key];
+    const expected = 'value' in rule ? rule.value ?? '' : '';
+    switch (rule.operator) {
+      case 'is_filled': return hasValue(actual);
+      case 'is_empty': return !hasValue(actual);
+      case 'equals': return !Array.isArray(actual) && actual !== undefined && String(actual).trim() === expected;
+      case 'not_equals': return Array.isArray(actual) || actual === undefined || String(actual).trim() !== expected;
+      case 'contains': return Array.isArray(actual) ? actual.includes(expected) : typeof actual === 'string' && actual.includes(expected);
+      case 'not_contains': return Array.isArray(actual) ? !actual.includes(expected) : typeof actual !== 'string' || !actual.includes(expected);
+    }
+  });
+  return condition.logic === 'all' ? matches.every(Boolean) : matches.some(Boolean);
+}
+
 export function characterAttributesSchemaFor(definition: CharacterSheetDefinition) {
-  const components = definition.steps.flatMap((step) => step.components);
+  const orderedSteps = [...definition.steps].sort((a, b) => a.position - b.position);
+  const components = orderedSteps.flatMap((step) => step.components);
 
   return z.record(z.string(), z.unknown()).superRefine((attributes, context) => {
     const componentKeys = new Set(components.map((component) => component.key));
@@ -212,44 +300,79 @@ export function characterAttributesSchemaFor(definition: CharacterSheetDefinitio
       if (!componentKeys.has(key)) context.addIssue({ code: 'custom', message: 'Unknown character attribute', path: [key] });
     });
 
-    components.forEach((component) => {
-      if (!Object.hasOwn(attributes, component.key)) {
-        if (component.required) context.addIssue({ code: 'custom', message: 'Required character attribute is missing', path: [component.key] });
-        return;
-      }
+    const conditionValues: Record<string, unknown> = {};
+    for (const step of orderedSteps) {
+      if (!conditionMatches(step.condition, conditionValues)) continue;
+      for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
+        if (!conditionMatches(component.condition, conditionValues)) continue;
+        const options = component.type === 'single_select'
+          ? component.options.filter((option) => conditionMatches(option.condition, conditionValues))
+          : [];
+        if (component.type === 'single_select' && options.length === 0) continue;
 
-      const value = attributes[component.key];
-      if (!component.required && (value === '' || value === null || value === undefined)) return;
-
-      if (component.type === 'short_text' || component.type === 'long_text') {
-        if (typeof value !== 'string' || (component.required && value.trim().length === 0)) {
-          context.addIssue({ code: 'custom', message: 'Character attribute must be nonblank text', path: [component.key] });
+        if (!Object.hasOwn(attributes, component.key)) {
+          if (component.required) context.addIssue({ code: 'custom', message: 'Required character attribute is missing', path: [component.key] });
+          continue;
         }
-        return;
-      }
 
-      if (component.type === 'number') {
-        if (typeof value !== 'number' || !Number.isFinite(value)) {
-          context.addIssue({ code: 'custom', message: 'Character attribute must be a finite number', path: [component.key] });
+        const value = attributes[component.key];
+        if (!component.required && !hasValue(value)) continue;
+
+        if (component.type === 'short_text' || component.type === 'long_text') {
+          if (typeof value !== 'string' || (component.required && value.trim().length === 0)) {
+            context.addIssue({ code: 'custom', message: 'Character attribute must be nonblank text', path: [component.key] });
+          } else {
+            conditionValues[component.key] = value.trim();
+          }
+          continue;
         }
-        return;
-      }
 
-      if (typeof value !== 'string' || !component.options.some((option) => option.label === value)) {
-        context.addIssue({ code: 'custom', message: 'Character attribute must match a configured option', path: [component.key] });
+        if (component.type === 'number') {
+          if (typeof value !== 'number' || !Number.isFinite(value)) {
+            context.addIssue({ code: 'custom', message: 'Character attribute must be a finite number', path: [component.key] });
+          } else {
+            conditionValues[component.key] = value;
+          }
+          continue;
+        }
+
+        const allowedValues = new Set(options.map((option) => option.value ?? option.label));
+        if (component.selection_mode === 'multiple') {
+          if (!Array.isArray(value) || value.some((selected) => typeof selected !== 'string' || !allowedValues.has(selected)) || new Set(value).size !== value.length || (component.required && value.length === 0)) {
+            context.addIssue({ code: 'custom', message: 'Character attribute must match configured options', path: [component.key] });
+          } else if (value.length > 0) {
+            conditionValues[component.key] = value;
+          }
+        } else if (typeof value !== 'string' || !allowedValues.has(value)) {
+          context.addIssue({ code: 'custom', message: 'Character attribute must match a configured option', path: [component.key] });
+        } else {
+          conditionValues[component.key] = value;
+        }
       }
-    });
+    }
   }).transform((attributes) => {
     const normalized: Record<string, unknown> = {};
-    for (const component of components) {
-      const value = attributes[component.key];
-      if (value === undefined || value === null) continue;
-      if (typeof value === 'string') {
-        const trimmed = value.trim();
-        if (!trimmed) continue;
-        normalized[component.key] = trimmed;
-      } else {
-        normalized[component.key] = value;
+    for (const step of orderedSteps) {
+      if (!conditionMatches(step.condition, normalized)) continue;
+      for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
+        if (!conditionMatches(component.condition, normalized)) continue;
+        const options = component.type === 'single_select'
+          ? component.options.filter((option) => conditionMatches(option.condition, normalized))
+          : [];
+        if (component.type === 'single_select' && options.length === 0) continue;
+        const value = attributes[component.key];
+        if (value === undefined || value === null) continue;
+        if (typeof value === 'string') {
+          const trimmed = value.trim();
+          if (!trimmed) continue;
+          normalized[component.key] = trimmed;
+        } else if (Array.isArray(value)) {
+          const allowedValues = new Set(options.map((option) => option.value ?? option.label));
+          const selected = [...new Set(value.filter((item): item is string => typeof item === 'string' && item.trim().length > 0 && allowedValues.has(item)))];
+          if (selected.length > 0) normalized[component.key] = selected;
+        } else {
+          normalized[component.key] = value;
+        }
       }
     }
     return normalized;

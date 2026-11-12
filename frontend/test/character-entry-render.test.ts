@@ -5,6 +5,7 @@ import type { CharacterSheetDefinition, CharacterSheetField, SystemCharacter } f
 import { CharacterGallery } from '../src/features/characters/character-gallery.js';
 import { CharacterForm } from '../src/features/characters/character-form.js';
 import { CharacterHome } from '../src/features/characters/character-home.js';
+import { CharacterSheetStepRenderer } from '../src/features/character-sheet/character-sheet-step-renderer.js';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }) }));
 
@@ -33,18 +34,16 @@ describe('character entry', () => {
     expect(html).toContain('Criar personagem');
   });
 
-  it('renders controls from the configured sheet and keeps the name required', () => {
+  it('starts the wizard with the required character-name page', () => {
     const html = renderToStaticMarkup(createElement(CharacterForm, { definition, onSubmit: vi.fn(), onCancel: vi.fn() }));
     expect(html).toContain('Nome do personagem');
     expect(html).toContain('aria-required="true"');
-    expect(html).toContain('Classe');
-    expect(html).toContain('Guerreiro');
-    expect(html).toContain('História');
-    expect(html).toContain('role="radiogroup"');
-    expect(html).toContain('Guerreiro');
+    expect(html).toContain('Página 1 de 4');
+    expect(html).not.toContain('Classe');
+    expect(html).not.toContain('História');
   });
 
-  it('shows each creation step as a page and renders image descriptions as hover text', () => {
+  it('renders image descriptions as hover text in the sheet step renderer', () => {
     const twoStepDefinition: CharacterSheetDefinition = {
       ...definition,
       steps: [
@@ -52,10 +51,12 @@ describe('character entry', () => {
         { key: 'details', label: 'Detalhes', position: 1, components: [] },
       ],
     };
-    const html = renderToStaticMarkup(createElement(CharacterForm, { definition: twoStepDefinition, onSubmit: vi.fn(), onCancel: vi.fn() }));
-    expect(html).toContain('Etapa 1 de 2');
-    expect(html).toContain('Próxima etapa');
-    expect(html).toContain('a ficha avança automaticamente');
+    const html = renderToStaticMarkup(createElement(CharacterSheetStepRenderer, {
+      step: twoStepDefinition.steps[0]!,
+      values: {},
+      onValueChange: vi.fn(),
+      mode: 'preview',
+    }));
     expect(html).toContain('title="Retrato de Ayla"');
   });
 

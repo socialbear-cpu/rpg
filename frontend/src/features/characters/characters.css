@@ -35,6 +35,31 @@
 .character-step-progress { display: grid; gap: 5px; color: #a99fb3; font-size: 12px; }
 .character-step-progress strong { color: #eee8f5; font-size: 15px; }
 .character-step-progress progress { width: 100%; height: 6px; accent-color: #a78bfa; }
+.character-wizard-form { width: min(100%, 980px); min-height: 65vh; }
+.character-wizard-question { display: grid; justify-items: center; gap: 22px; width: 100%; min-height: 42vh; padding: clamp(20px, 5vw, 56px) 0; }
+.character-wizard-question > h2 { max-width: 760px; margin: 0; color: #f5f1fb; font-size: clamp(24px, 4vw, 38px); text-align: center; }
+.character-wizard-question > .character-form-field { width: min(100%, 680px); font-size: 18px; }
+.character-wizard-question > .character-form-field > span { color: #f0e9f8; font-size: clamp(21px, 3vw, 30px); text-align: center; }
+.character-wizard-question > .character-sheet-step-grid { grid-template-columns: minmax(0, 1fr); width: min(100%, 820px); }
+.character-wizard-question .character-sheet-component { grid-column: 1 / -1; width: 100%; }
+.character-sheet-choice-canvas { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 250px; overflow: hidden; border: 1px solid #514560; border-radius: 12px; background: radial-gradient(ellipse at center, #292135, #14121b); }
+.character-sheet-canvas-option { position: absolute; display: grid; place-items: end center; overflow: hidden; padding: 0; border: 2px solid #8e75b2; border-radius: 8px; color: #fff; background: #30243d; cursor: pointer; transition: border-color .15s, box-shadow .15s, filter .15s; }
+.character-sheet-canvas-option img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.character-sheet-canvas-option strong { position: relative; z-index: 1; width: 100%; padding: 6px 8px; background: #100d18cc; font-size: clamp(11px, 1.4vw, 15px); text-align: center; }
+.character-sheet-canvas-option:hover, .character-sheet-canvas-option:focus-visible { z-index: 2; border-color: #e6d3ff; outline: 0; filter: brightness(1.13); }
+.character-sheet-canvas-option.selected { z-index: 3; border-color: #d7b6ff; box-shadow: 0 0 0 3px #a76bff77, 0 0 24px #b57affaa; }
+.character-sheet-canvas-option:disabled { cursor: default; }
+.character-wizard-summary { width: 100%; }
+.character-wizard-summary h2 { text-align: center; }
+.character-wizard-summary dl { display: grid; gap: 9px; margin: 24px 0; }
+.character-wizard-summary dl > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 14px; padding: 12px 0; border-bottom: 1px solid #342c42; }
+.character-wizard-summary dt { color: #a99fb3; }
+.character-wizard-summary dd { margin: 0; color: #eee8f5; text-align: right; overflow-wrap: anywhere; }
+@media(max-width:620px) {
+  .character-sheet-choice-canvas { min-height: 210px; }
+  .character-wizard-summary dl > div { grid-template-columns: 1fr; gap: 5px; }
+  .character-wizard-summary dd { text-align: left; }
+}
 .character-home-page { display: grid; align-content: start; }
 .character-home-card { width: min(100%, 680px); margin-top: 24px; }
 .character-home-card h1 { margin: 5px 0 25px; font-size: 36px; }

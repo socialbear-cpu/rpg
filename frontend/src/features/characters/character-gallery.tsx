@@ -1,6 +1,7 @@
 'use client';
 
 import type { CharacterSheetField, SystemCharacter } from '../../api';
+import { formatCharacterSheetValue } from '../character-sheet/format-value';
 import { AppHeader } from '../shell/app-header';
 import './characters.css';
 
@@ -27,7 +28,7 @@ export function CharacterGallery({ systemName, fields, characters, selectedChara
             <article className={`character-card ${selectedCharacterId === character.id ? 'character-card-selected' : ''}`} key={character.id}>
               <div className="character-card-avatar" aria-hidden="true">{character.character_name.slice(0, 1).toUpperCase()}</div>
               <div className="character-card-content"><span className="character-card-system">{selectedCharacterId === character.id ? 'PERSONAGEM CRIADO' : 'PERSONAGEM'}</span><h2>{character.character_name}</h2>
-                {cardFields.length > 0 && <dl>{cardFields.map((field) => <div key={field.key}><dt>{field.label}</dt><dd>{String(character.attributes[field.key] ?? '—')}</dd></div>)}</dl>}
+                {cardFields.length > 0 && <dl>{cardFields.map((field) => <div key={field.key}><dt>{field.label}</dt><dd>{formatCharacterSheetValue(field, character.attributes[field.key])}</dd></div>)}</dl>}
               </div>
               <button className="character-primary-button" type="button" aria-label={`Entrar com ${character.character_name}`} onClick={() => onEnter(character.id)}>Entrar na aventura <span aria-hidden="true">→</span></button>
             </article>

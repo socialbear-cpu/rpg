@@ -25,12 +25,33 @@ export interface CharacterSheetField {
   position: number;
   show_on_card: boolean;
   options?: string[];
+  option_labels?: Record<string, string>;
 }
 
 export interface CharacterSheetOption {
   label: string;
+  value?: string;
   image_url?: string;
   description?: string;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  rotation?: number;
+  condition?: CharacterSheetConditionGroup;
+}
+
+export type CharacterSheetConditionOperator = 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'is_filled' | 'is_empty';
+
+export interface CharacterSheetConditionRule {
+  component_key: string;
+  operator: CharacterSheetConditionOperator;
+  value?: string;
+}
+
+export interface CharacterSheetConditionGroup {
+  logic: 'all' | 'any';
+  rules: CharacterSheetConditionRule[];
 }
 
 export interface CharacterSheetVisualElementBase {
@@ -53,13 +74,14 @@ export interface CharacterSheetComponentBase {
   position: number;
   width: 'full' | 'half' | 'third';
   show_on_card: boolean;
+  condition?: CharacterSheetConditionGroup;
 }
 
 export type CharacterSheetComponent =
   | (CharacterSheetComponentBase & { type: 'short_text' })
   | (CharacterSheetComponentBase & { type: 'long_text' })
   | (CharacterSheetComponentBase & { type: 'number' })
-  | (CharacterSheetComponentBase & { type: 'single_select'; presentation: 'select' | 'cards'; options: CharacterSheetOption[] });
+  | (CharacterSheetComponentBase & { type: 'single_select'; presentation: 'select' | 'cards' | 'canvas'; selection_mode?: 'single' | 'multiple'; options: CharacterSheetOption[] });
 
 export interface CharacterSheetStep {
   key: string;
@@ -67,6 +89,7 @@ export interface CharacterSheetStep {
   position: number;
   components: CharacterSheetComponent[];
   elements?: CharacterSheetVisualElement[];
+  condition?: CharacterSheetConditionGroup;
 }
 
 export interface CharacterSheetDefinition {

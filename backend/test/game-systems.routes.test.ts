@@ -19,6 +19,24 @@ const visualDefinition = {
     elements: [{ key: 'portrait', type: 'image' as const, image_url: 'https://cdn.example/portrait.jpg', description: 'Retrato do personagem', x: 60, y: 5, width: 30, height: 40, rotation: 0 }],
   }],
 };
+const interactiveDefinition = {
+  version: 1 as const,
+  steps: [
+    { key: 'origin', label: 'Origem', position: 0, components: [
+      { key: 'origin', label: 'Origem', type: 'short_text' as const, required: true, position: 0, width: 'full' as const, show_on_card: false },
+    ] },
+    { key: 'choices', label: 'Escolhas', position: 1, condition: { logic: 'all' as const, rules: [{ component_key: 'origin', operator: 'is_filled' as const }] }, components: [
+      {
+        key: 'interests', label: 'Interesses', type: 'single_select' as const, required: true, position: 0,
+        width: 'full' as const, show_on_card: true, presentation: 'canvas' as const, selection_mode: 'multiple' as const,
+        options: [
+          { label: 'Mapas', value: 'maps', image_url: 'https://cdn.example/maps.jpg', description: 'Explorar o mundo', x: 5, y: 5, width: 40, height: 45, rotation: -5 },
+          { label: 'Guildas', value: 'guilds', x: 55, y: 5, width: 40, height: 45, rotation: 0 },
+        ],
+      },
+    ] },
+  ],
+};
 const character = {
   id: characterId,
   game_system_id: systemId,
@@ -117,6 +135,16 @@ describe('game system and character API', () => {
     const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: visualDefinition });
     expect(response.statusCode).toBe(201);
     expect(response.json()).toEqual({ system, definition: visualDefinition });
+  });
+
+  it('creates and updates sheets with conditional image-choice configuration', async () => {
+    const created = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: interactiveDefinition });
+    expect(created.statusCode).toBe(201);
+    expect(created.json()).toEqual({ system, definition: interactiveDefinition });
+
+    const updated = await request('PUT', `/api/v1/game-systems/${systemId}/character-sheet`, { definition: interactiveDefinition });
+    expect(updated.statusCode).toBe(200);
+    expect(updated.json()).toEqual({ definition: interactiveDefinition });
   });
 
   it('reads a system sheet', async () => {

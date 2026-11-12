@@ -1,4 +1,4 @@
-import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetField, CharacterSheetVisualElement } from '../../api';
+import type { CharacterSheetComponent, CharacterSheetConditionGroup, CharacterSheetDefinition, CharacterSheetField, CharacterSheetVisualElement } from '../../api';
 
 const supportedTypes = new Set(['short_text', 'long_text', 'number', 'single_select']);
 
@@ -94,7 +94,10 @@ export function definitionToLegacyFields(definition: CharacterSheetDefinition): 
   return definition.steps.flatMap((step) => step.components).sort((a, b) => a.position - b.position).map((component, position) => ({
     key: component.key, label: component.label, type: component.type, required: component.required,
     position, show_on_card: component.show_on_card,
-    ...(component.type === 'single_select' ? { options: component.options.map((option) => option.label) } : {}),
+    ...(component.type === 'single_select' ? {
+      options: component.options.map((option) => option.label),
+      option_labels: Object.fromEntries(component.options.map((option) => [option.value ?? option.label, option.label])),
+    } : {}),
   }));
 }
 
@@ -108,6 +111,42 @@ function reindexSteps(steps: CharacterSheetDefinition['steps']) {
 
 function reindexComponents(components: CharacterSheetComponent[]) {
   return components.map((component, position) => ({ ...component, position }));
+}
+
+function conditionsReferenceEarlierComponents(definition: CharacterSheetDefinition): boolean {
+  const priorKeys = new Set<string>();
+  const valid = (condition: CharacterSheetConditionGroup | undefined) => !condition || condition.rules.every((rule) => priorKeys.has(rule.component_key));
+  for (const step of orderedSteps(definition)) {
+    if (!valid(step.condition)) return false;
+    for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
+      if (!valid(component.condition)) return false;
+      if (component.type === 'single_select' && component.options.some((option) => !valid(option.condition))) return false;
+      priorKeys.add(component.key);
+    }
+  }
+  return true;
+}
+
+function removeConditionsReferencing(definition: CharacterSheetDefinition, componentKeys: Set<string>): CharacterSheetDefinition {
+  const withoutReferences = (condition: CharacterSheetConditionGroup | undefined) => {
+    if (!condition) return undefined;
+    const rules = condition.rules.filter((rule) => !componentKeys.has(rule.component_key));
+    return rules.length > 0 ? { ...condition, rules } : undefined;
+  };
+  return {
+    ...definition,
+    steps: definition.steps.map((step) => ({
+      ...step,
+      condition: withoutReferences(step.condition),
+      components: step.components.map((component) => component.type === 'single_select'
+        ? {
+          ...component,
+          condition: withoutReferences(component.condition),
+          options: component.options.map((option) => ({ ...option, condition: withoutReferences(option.condition) })),
+        }
+        : { ...component, condition: withoutReferences(component.condition) }),
+    })),
+  };
 }
 
 export function addSheetStep(definition: CharacterSheetDefinition): CharacterSheetDefinition {
@@ -144,9 +183,11 @@ export function removeSheetVisualElement(definition: CharacterSheetDefinition, s
 }
 
 export function removeSheetStep(definition: CharacterSheetDefinition, stepKey: string): CharacterSheetDefinition {
+  const removed = definition.steps.find((step) => step.key === stepKey);
   const steps = orderedSteps(definition).filter((step) => step.key !== stepKey);
   if (steps.length === 0) return definition;
-  return { ...definition, steps: reindexSteps(steps) };
+  const next = { ...definition, steps: reindexSteps(steps) };
+  return removeConditionsReferencing(next, new Set(removed?.components.map((component) => component.key) ?? []));
 }
 
 export function moveSheetStep(definition: CharacterSheetDefinition, stepKey: string, direction: 'up' | 'down'): CharacterSheetDefinition {
@@ -155,7 +196,8 @@ export function moveSheetStep(definition: CharacterSheetDefinition, stepKey: str
   const target = index + (direction === 'up' ? -1 : 1);
   if (index < 0 || target < 0 || target >= steps.length) return { ...definition, steps: reindexSteps(steps) };
   [steps[index], steps[target]] = [steps[target]!, steps[index]!];
-  return { ...definition, steps: reindexSteps(steps) };
+  const next = { ...definition, steps: reindexSteps(steps) };
+  return conditionsReferenceEarlierComponents(next) ? next : definition;
 }
 
 export function addSheetComponent(definition: CharacterSheetDefinition, stepKey: string): CharacterSheetDefinition {
@@ -168,16 +210,17 @@ export function addSheetComponent(definition: CharacterSheetDefinition, stepKey:
 }
 
 export function removeSheetComponent(definition: CharacterSheetDefinition, stepKey: string, componentKey: string): CharacterSheetDefinition {
-  return {
+  const next = {
     ...definition,
     steps: definition.steps.map((step) => step.key === stepKey
       ? { ...step, components: reindexComponents(step.components.filter((component) => component.key !== componentKey)) }
       : step),
   };
+  return removeConditionsReferencing(next, new Set([componentKey]));
 }
 
 export function moveSheetComponent(definition: CharacterSheetDefinition, stepKey: string, componentKey: string, direction: 'up' | 'down'): CharacterSheetDefinition {
-  return {
+  const next = {
     ...definition,
     steps: definition.steps.map((step) => {
       if (step.key !== stepKey) return step;
@@ -189,6 +232,7 @@ export function moveSheetComponent(definition: CharacterSheetDefinition, stepKey
       return { ...step, components: reindexComponents(components) };
     }),
   };
+  return conditionsReferenceEarlierComponents(next) ? next : definition;
 }
 
 export function moveSheetComponentToStep(definition: CharacterSheetDefinition, sourceStepKey: string, targetStepKey: string, componentKey: string, targetPosition?: number): CharacterSheetDefinition {
@@ -201,7 +245,18 @@ export function moveSheetComponentToStep(definition: CharacterSheetDefinition, s
   const targetComponents = [...target.components].sort((a,b)=>a.position-b.position);
   const position = Math.max(0, Math.min(targetPosition ?? targetComponents.length, targetComponents.length));
   targetComponents.splice(position, 0, { ...component, position });
-  return { ...definition, steps: definition.steps.map((step) => step.key === sourceStepKey ? { ...step, components: sourceComponents } : step.key === targetStepKey ? { ...step, components: reindexComponents(targetComponents) } : step) };
+  const next = { ...definition, steps: definition.steps.map((step) => step.key === sourceStepKey ? { ...step, components: sourceComponents } : step.key === targetStepKey ? { ...step, components: reindexComponents(targetComponents) } : step) };
+  return conditionsReferenceEarlierComponents(next) ? next : definition;
+}
+
+function validCondition(condition: CharacterSheetConditionGroup | undefined, previousKeys: Set<string>) {
+  if (!condition) return true;
+  if (!['all', 'any'].includes(condition.logic) || condition.rules.length < 1 || condition.rules.length > 20) return false;
+  return condition.rules.every((rule) => previousKeys.has(rule.component_key)
+    && ['equals', 'not_equals', 'contains', 'not_contains', 'is_filled', 'is_empty'].includes(rule.operator)
+    && (['is_filled', 'is_empty'].includes(rule.operator)
+      ? rule.value === undefined
+      : Boolean(rule.value?.trim()) && rule.value!.trim().length <= 80));
 }
 
 export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefinition | CharacterSheetField[]): boolean {
@@ -231,19 +286,29 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
       if (!supportedTypes.has(component.type)) return false;
 
       if (component.type === 'single_select') {
-        if (!['select', 'cards'].includes(component.presentation) || component.options.length < 1 || component.options.length > 50) return false;
+        if (!['select', 'cards', 'canvas'].includes(component.presentation) || ![undefined, 'single', 'multiple'].includes(component.selection_mode) || component.options.length < 1 || component.options.length > 50) return false;
         const labels = new Set<string>();
+        const values = new Set<string>();
         for (const option of component.options) {
           if (!option.label.trim() || option.label.trim().length > 80 || labels.has(option.label.trim())) return false;
+          const optionValue = option.value ?? option.label;
+          if (!optionValue.trim() || optionValue.trim().length > 80 || values.has(optionValue.trim())) return false;
           if (option.description !== undefined && option.description.trim().length > 500) return false;
           if (option.image_url !== undefined) {
             if (option.image_url.length > 2048) return false;
             try { if (new URL(option.image_url).protocol !== 'https:') return false; }
             catch { return false; }
           }
+          const layout = [option.x, option.y, option.width, option.height, option.rotation];
+          const hasLayout = layout.every((value) => value !== undefined);
+          if ((component.presentation === 'canvas' && !hasLayout) || (layout.some((value) => value !== undefined) && !hasLayout)) return false;
+          if (hasLayout && (!layout.every(Number.isFinite) || option.x! < 0 || option.y! < 0 || option.width! < 1 || option.height! < 1 || option.width! > 100 || option.height! > 100 || option.rotation! < -360 || option.rotation! > 360 || option.x! + option.width! > 100 || option.y! + option.height! > 100)) return false;
+          if (option.condition && (!['all', 'any'].includes(option.condition.logic) || option.condition.rules.length < 1 || option.condition.rules.length > 20)) return false;
           labels.add(option.label.trim());
+          values.add(optionValue.trim());
         }
       }
+      if (component.condition && (!['all', 'any'].includes(component.condition.logic) || component.condition.rules.length < 1 || component.condition.rules.length > 20)) return false;
 
       componentKeys.add(component.key);
       componentPositions.add(component.position);
@@ -270,9 +335,22 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
       elementKeys.add(element.key);
       elementCount++;
     }
+    if (step.condition && (!['all', 'any'].includes(step.condition.logic) || step.condition.rules.length < 1 || step.condition.rules.length > 20)) return false;
 
     stepKeys.add(step.key);
     stepPositions.add(step.position);
+  }
+
+  const priorKeys = new Set<string>();
+  for (const step of [...definition.steps].sort((a, b) => a.position - b.position)) {
+    if (!validCondition(step.condition, priorKeys)) return false;
+    for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
+      if (!validCondition(component.condition, priorKeys)) return false;
+      if (component.type === 'single_select') {
+        for (const option of component.options) if (!validCondition(option.condition, priorKeys)) return false;
+      }
+      priorKeys.add(component.key);
+    }
   }
 
   return componentCount <= 50 && elementCount <= 50;

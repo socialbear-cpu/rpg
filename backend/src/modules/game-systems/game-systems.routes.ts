@@ -41,9 +41,30 @@ const fieldJsonSchema = {
     show_on_card: { type: 'boolean' }, options: { type: 'array', minItems: 1, maxItems: 50, items: { type: 'string', minLength: 1, maxLength: 80 } },
   },
 } as const;
+const conditionGroupJsonSchema = {
+  type: 'object', required: ['logic', 'rules'], additionalProperties: false,
+  properties: {
+    logic: { type: 'string', enum: ['all', 'any'] },
+    rules: { type: 'array', minItems: 1, maxItems: 20, items: {
+      type: 'object', required: ['component_key', 'operator'], additionalProperties: false,
+      properties: {
+        component_key: { type: 'string', pattern: '^[a-z][a-z0-9_]{0,39}$' },
+        operator: { type: 'string', enum: ['equals', 'not_equals', 'contains', 'not_contains', 'is_filled', 'is_empty'] },
+        value: { type: 'string', minLength: 1, maxLength: 80 },
+      },
+    } },
+  },
+} as const;
 const optionJsonSchema = {
   type: 'object', required: ['label'], additionalProperties: false,
-  properties: { label: { type: 'string', minLength: 1, maxLength: 80 }, image_url: { type: 'string', maxLength: 2048 }, description: { type: 'string', maxLength: 500 } },
+  properties: {
+    label: { type: 'string', minLength: 1, maxLength: 80 }, value: { type: 'string', minLength: 1, maxLength: 80 },
+    image_url: { type: 'string', maxLength: 2048 }, description: { type: 'string', maxLength: 500 },
+    x: { type: 'number', minimum: 0, maximum: 100 }, y: { type: 'number', minimum: 0, maximum: 100 },
+    width: { type: 'number', minimum: 1, maximum: 100 }, height: { type: 'number', minimum: 1, maximum: 100 },
+    rotation: { type: 'number', minimum: -360, maximum: 360 },
+    condition: conditionGroupJsonSchema,
+  },
 } as const;
 const componentJsonSchema = {
   type: 'object', required: ['key', 'label', 'required', 'position', 'width', 'show_on_card', 'type'], additionalProperties: false,
@@ -51,7 +72,8 @@ const componentJsonSchema = {
     key: { type: 'string', pattern: '^[a-z][a-z0-9_]{0,39}$' }, label: { type: 'string', minLength: 1, maxLength: 80 },
     required: { type: 'boolean' }, position: { type: 'integer', minimum: 0, maximum: 49 }, width: { type: 'string', enum: ['full', 'half', 'third'] },
     show_on_card: { type: 'boolean' }, type: { type: 'string', enum: ['short_text', 'long_text', 'number', 'single_select'] },
-    presentation: { type: 'string', enum: ['select', 'cards'] }, options: { type: 'array', minItems: 1, maxItems: 50, items: optionJsonSchema },
+    presentation: { type: 'string', enum: ['select', 'cards', 'canvas'] }, selection_mode: { type: 'string', enum: ['single', 'multiple'] },
+    condition: conditionGroupJsonSchema, options: { type: 'array', minItems: 1, maxItems: 50, items: optionJsonSchema },
   },
 } as const;
 const visualElementJsonSchema = {
@@ -68,7 +90,7 @@ const visualElementJsonSchema = {
 } as const;
 const definitionJsonSchema = {
   type: 'object', required: ['version', 'steps'], additionalProperties: false,
-  properties: { version: { const: 1 }, steps: { type: 'array', minItems: 1, maxItems: 20, items: { type: 'object', required: ['key', 'label', 'position', 'components'], additionalProperties: false, properties: { key: { type: 'string' }, label: { type: 'string' }, position: { type: 'integer' }, components: { type: 'array', maxItems: 50, items: componentJsonSchema }, elements: { type: 'array', maxItems: 50, items: visualElementJsonSchema } } } } },
+  properties: { version: { const: 1 }, steps: { type: 'array', minItems: 1, maxItems: 20, items: { type: 'object', required: ['key', 'label', 'position', 'components'], additionalProperties: false, properties: { key: { type: 'string' }, label: { type: 'string' }, position: { type: 'integer' }, components: { type: 'array', maxItems: 50, items: componentJsonSchema }, elements: { type: 'array', maxItems: 50, items: visualElementJsonSchema }, condition: conditionGroupJsonSchema } } } },
 } as const;
 const characterJsonSchema = {
   type: 'object', required: ['id', 'game_system_id', 'character_name', 'attributes', 'status'], additionalProperties: false,
