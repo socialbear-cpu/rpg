@@ -35,11 +35,33 @@ export const characterSheetComponentSchema = z.discriminatedUnion('type', [
 
 export type CharacterSheetComponent = z.infer<typeof characterSheetComponentSchema>;
 
+const visualElementBaseSchema = {
+  key: keySchema,
+  x: z.number().min(0).max(100),
+  y: z.number().min(0).max(100),
+  width: z.number().min(1).max(100),
+  height: z.number().min(1).max(100),
+  rotation: z.number().min(-360).max(360),
+};
+
+const visualElementSchema = z.discriminatedUnion('type', [
+  z.strictObject({ ...visualElementBaseSchema, type: z.literal('text'), text: z.string().trim().min(1).max(500) }),
+  z.strictObject({
+    ...visualElementBaseSchema,
+    type: z.literal('image'),
+    image_url: z.string().trim().url().max(2048).refine((value) => new URL(value).protocol === 'https:'),
+    description: z.string().trim().max(500).optional(),
+  }),
+]).refine((element) => element.x + element.width <= 100 && element.y + element.height <= 100);
+
+export type CharacterSheetVisualElement = z.infer<typeof visualElementSchema>;
+
 export const characterSheetStepSchema = z.strictObject({
   key: keySchema,
   label: labelSchema,
   position: z.number().int().min(0).max(19),
   components: z.array(characterSheetComponentSchema).max(50),
+  elements: z.array(visualElementSchema).max(50).optional(),
 });
 
 export const characterSheetDefinitionSchema = z.strictObject({
@@ -49,6 +71,7 @@ export const characterSheetDefinitionSchema = z.strictObject({
   const stepKeys = new Set<string>();
   const stepPositions = new Set<number>();
   const componentKeys = new Set<string>();
+  const elementKeys = new Set<string>();
 
   definition.steps.forEach((step, stepIndex) => {
     if (stepKeys.has(step.key)) {
@@ -71,10 +94,20 @@ export const characterSheetDefinitionSchema = z.strictObject({
       componentKeys.add(component.key);
       componentPositions.add(component.position);
     });
+
+    step.elements?.forEach((element, elementIndex) => {
+      if (elementKeys.has(element.key)) {
+        context.addIssue({ code: 'custom', message: 'Visual element keys must be unique', path: ['steps', stepIndex, 'elements', elementIndex, 'key'] });
+      }
+      elementKeys.add(element.key);
+    });
   });
 
   if (definition.steps.reduce((total, step) => total + step.components.length, 0) > 50) {
     context.addIssue({ code: 'custom', message: 'A character sheet cannot have more than 50 components', path: ['steps'] });
+  }
+  if (definition.steps.reduce((total, step) => total + (step.elements?.length ?? 0), 0) > 50) {
+    context.addIssue({ code: 'custom', message: 'A character sheet cannot have more than 50 visual elements', path: ['steps'] });
   }
 });
 

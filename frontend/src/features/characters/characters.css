@@ -32,6 +32,9 @@
 .character-form-field textarea { resize: vertical; }
 .character-form-actions { display: flex; justify-content: space-between; gap: 12px; }
 .character-form-error { color: #ffaaa8; }
+.character-step-progress { display: grid; gap: 5px; color: #a99fb3; font-size: 12px; }
+.character-step-progress strong { color: #eee8f5; font-size: 15px; }
+.character-step-progress progress { width: 100%; height: 6px; accent-color: #a78bfa; }
 .character-home-page { display: grid; align-content: start; }
 .character-home-card { width: min(100%, 680px); margin-top: 24px; }
 .character-home-card h1 { margin: 5px 0 25px; font-size: 36px; }

@@ -44,6 +44,21 @@ describe('character entry', () => {
     expect(html).toContain('Guerreiro');
   });
 
+  it('shows each creation step as a page and renders image descriptions as hover text', () => {
+    const twoStepDefinition: CharacterSheetDefinition = {
+      ...definition,
+      steps: [
+        { ...definition.steps[0]!, elements: [{ key: 'portrait', type: 'image', image_url: 'https://cdn.example/ayla.jpg', description: 'Retrato de Ayla', x: 60, y: 5, width: 30, height: 40, rotation: 0 }] },
+        { key: 'details', label: 'Detalhes', position: 1, components: [] },
+      ],
+    };
+    const html = renderToStaticMarkup(createElement(CharacterForm, { definition: twoStepDefinition, onSubmit: vi.fn(), onCancel: vi.fn() }));
+    expect(html).toContain('Etapa 1 de 2');
+    expect(html).toContain('Próxima etapa');
+    expect(html).toContain('a ficha avança automaticamente');
+    expect(html).toContain('title="Retrato de Ayla"');
+  });
+
   it('shows only the active character summary and a switch action', () => {
     const html = renderToStaticMarkup(createElement(CharacterHome, {
       systemName: 'Crônicas', character, fields, onSwitch: vi.fn(),
