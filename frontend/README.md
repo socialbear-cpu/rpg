@@ -1,6 +1,6 @@
 # Aplicação RPG
 
-O projeto é composto por dois serviços Vercel no mesmo domínio: `frontend/` usa Next.js e `backend/` usa Fastify. A UI chama `/api/v1/me/profile` na mesma origem; o Route Handler do Next encaminha a chamada ao backend privado usando o binding `BACKEND_URL`.
+O projeto é composto por dois serviços Vercel no mesmo domínio: `frontend/` usa Next.js e `backend/` usa Fastify. A UI chama `/api/...` na mesma origem; as regras de roteamento da Vercel encaminham `/api/*` e `/healthz` diretamente ao backend. As rotas da API exigem bearer token.
 
 ## Desenvolvimento local
 
@@ -19,11 +19,11 @@ Instale/tenha o Vercel CLI disponível e inicie os serviços juntos:
 npx vercel dev -L
 ```
 
-O CLI inicia ambos os serviços e injeta o binding local. Acesse `http://localhost:3000`. `/healthz` e `/api/v1/me/profile` são encaminhados ao backend, então o indicador verifica o serviço real. Cadastro, login e recuperação chamam Supabase Auth diretamente do navegador; o token fica apenas em memória e é perdido ao atualizar a página. Os fluxos usam a origem atual como URL de retorno. Adicione `http://localhost:3000` às URLs permitidas de redirecionamento do Supabase Auth e, se usar Supabase local, à configuração correspondente em `supabase/config.toml`.
+O CLI inicia ambos os serviços. Acesse `http://localhost:3000`. `/healthz` e `/api/...` são encaminhados ao backend, então o indicador verifica o serviço real. Cadastro, login e recuperação chamam Supabase Auth diretamente do navegador; o token fica apenas em memória e é perdido ao atualizar a página. Os fluxos usam a origem atual como URL de retorno. Adicione `http://localhost:3000` às URLs permitidas de redirecionamento do Supabase Auth e, se usar Supabase local, à configuração correspondente em `supabase/config.toml`.
 
 ## Vercel Services
 
-O arquivo `../vercel.json` define `backend` como Fastify e `frontend` como Next.js. Na configuração do projeto Vercel, selecione o framework **Services**. Os rewrites públicos enviam todo o tráfego ao frontend; o frontend acessa o backend exclusivamente pelo binding `BACKEND_URL`, então o backend não recebe tráfego público direto.
+O arquivo `../vercel.json` define `backend` como Fastify e `frontend` como Next.js. Na configuração do projeto Vercel, selecione o framework **Services**. Os rewrites enviam `/api/*` e `/healthz` ao backend e o restante ao frontend. A API mantém autenticação bearer em todas as rotas privadas.
 
 Configure a URL do projeto Supabase e a chave publishable nos ambientes Production, Preview e Development do projeto Vercel. São aceitos os nomes `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` e os nomes existentes `SUPABASE_URL` / `SUPABASE_PUBLISHABLE_KEY`. O domínio de produção e os domínios Preview usados nos fluxos de confirmação e recuperação também precisam estar permitidos no Supabase Auth.
 

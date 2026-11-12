@@ -1,6 +1,6 @@
 # API Fastify RPG
 
-Este workspace TypeScript executa a API Fastify como serviço `backend` do projeto Vercel Services. O serviço Next.js encaminha `/api/...` para ele usando o binding privado `BACKEND_URL`; não há acesso público direto ao serviço. Supabase Auth é responsável pelas contas e sessões. Senhas não são armazenadas nas tabelas da aplicação.
+Este workspace TypeScript executa a API Fastify como serviço `backend` do projeto Vercel Services. Rewrites da Vercel encaminham `/api/*` e `/healthz` diretamente a ele; todas as rotas privadas exigem bearer token validado pelo Supabase Auth. Senhas não são armazenadas nas tabelas da aplicação.
 
 ## Local configuration and development
 
@@ -24,7 +24,7 @@ Inicie os dois serviços a partir da raiz:
 npx vercel dev -L
 ```
 
-O CLI executa os serviços juntos e injeta os bindings locais. `/healthz` e as operações de perfil chegam a este Fastify pelo binding do frontend e exigem uma URL e chave publishable válidas.
+O CLI executa os serviços juntos. `/healthz` e as operações de perfil chegam diretamente a este Fastify pelas regras locais de roteamento e exigem uma URL e chave publishable válidas.
 
 ## Local database setup (runtime verification pending)
 
