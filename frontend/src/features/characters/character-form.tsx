@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import type { CharacterSheetDefinition } from '../../api';
+import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetStep } from '../../api';
+import { characterSheetOptionValue, getVisibleCharacterSheetOptions, resolveVisibleCharacterSheetComponents } from '../character-sheet/conditions';
 import { CharacterSheetStepRenderer } from '../character-sheet/character-sheet-step-renderer';
 import './characters.css';
 
@@ -16,59 +17,141 @@ interface CharacterFormProps {
   onCancel: () => void;
 }
 
+type CreationPage =
+  | { key: 'character_name'; kind: 'name' }
+  | { key: string; kind: 'component'; step: CharacterSheetStep; component: CharacterSheetComponent }
+  | { key: 'summary'; kind: 'summary' };
+
+function isFilled(value: unknown): boolean {
+  if (Array.isArray(value)) return value.length > 0;
+  return value !== undefined && value !== null && String(value).trim().length > 0;
+}
+
+function summaryValue(component: CharacterSheetComponent, value: unknown): string {
+  if (value === undefined || value === null || value === '') return '—';
+  if (component.type === 'single_select') {
+    const selected = Array.isArray(value) ? value : [value];
+    return selected.map((selectedValue) => component.options.find((option) => characterSheetOptionValue(option) === selectedValue)?.label ?? String(selectedValue)).join(', ');
+  }
+  return String(value);
+}
+
+function validComponentValue(component: CharacterSheetComponent, value: unknown, values: Record<string, unknown>): boolean {
+  if (!isFilled(value)) return !component.required;
+  if (component.type === 'number') return Number.isFinite(Number(value));
+  if (component.type !== 'single_select') return typeof value === 'string' && value.trim().length > 0;
+  const allowed = new Set(getVisibleCharacterSheetOptions(component, values).map(characterSheetOptionValue));
+  if (component.selection_mode === 'multiple') {
+    return Array.isArray(value) && value.length > 0 && value.every((item) => typeof item === 'string' && allowed.has(item)) && new Set(value).size === value.length;
+  }
+  return typeof value === 'string' && allowed.has(value);
+}
+
 export function CharacterForm({ definition, initialName = '', initialAttributes = {}, submitLabel = 'Criar personagem', error = null, saving = false, onSubmit, onCancel }: CharacterFormProps) {
   const [name, setName] = useState(initialName);
-  const [values, setValues] = useState<Record<string, string>>(() => Object.fromEntries(Object.entries(initialAttributes).map(([key, value]) => [key, String(value)])));
-  const steps = [...definition.steps].sort((a,b)=>a.position-b.position);
-  const [activeStep,setActiveStep]=useState(0);
-  const [stepError,setStepError]=useState('');
-  const step = steps[activeStep];
+  const [values, setValues] = useState<Record<string, unknown>>(() => ({ ...initialAttributes }));
+  const [activePageKey, setActivePageKey] = useState<CreationPage['key']>('character_name');
+  const [pageError, setPageError] = useState('');
+  const { components: visibleComponents, conditionValues } = resolveVisibleCharacterSheetComponents(definition, values);
+  const pages: CreationPage[] = [
+    { key: 'character_name', kind: 'name' },
+    ...visibleComponents.map(({ step, component }) => ({ key: `component:${component.key}`, kind: 'component' as const, step, component })),
+    { key: 'summary', kind: 'summary' },
+  ];
+  const foundIndex = pages.findIndex((page) => page.key === activePageKey);
+  const activePageIndex = foundIndex >= 0 ? foundIndex : 0;
+  const page = pages[activePageIndex]!;
+
+  function attributesForSubmit(): Record<string, unknown> {
+    const attributes: Record<string, unknown> = {};
+    for (const { component } of visibleComponents) {
+      const value = component.type === 'single_select' ? conditionValues[component.key] : values[component.key];
+      if (!isFilled(value)) continue;
+      if (component.type === 'number') {
+        attributes[component.key] = Number(value);
+      } else if (component.type === 'single_select' && component.selection_mode === 'multiple' && Array.isArray(value)) {
+        const available = new Set(getVisibleCharacterSheetOptions(component, conditionValues).map(characterSheetOptionValue));
+        attributes[component.key] = value.filter((selected): selected is string => typeof selected === 'string' && available.has(selected));
+      } else if (component.type === 'single_select') {
+        const available = new Set(getVisibleCharacterSheetOptions(component, conditionValues).map(characterSheetOptionValue));
+        if (typeof value === 'string' && available.has(value)) attributes[component.key] = value;
+      } else {
+        attributes[component.key] = typeof value === 'string' ? value.trim() : value;
+      }
+    }
+    return attributes;
+  }
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    for (let index = 0; index < steps.length; index++) {
-      const missing = steps[index]!.components.find((component) => component.required && !(values[component.key] ?? '').trim());
-      if (missing) { setActiveStep(index); setStepError(`Preencha o campo obrigatório: ${missing.label}.`); return; }
+    if (page.kind !== 'summary') {
+      const missing = page.kind === 'name'
+        ? !name.trim()
+        : !validComponentValue(page.component, conditionValues[page.component.key], conditionValues);
+      if (missing) {
+        setPageError(page.kind === 'name' ? 'Informe o nome do personagem.' : `Preencha a informação obrigatória: ${page.component.label}.`);
+        return;
+      }
+      setPageError('');
+      setActivePageKey(pages[activePageIndex + 1]!.key);
+      return;
     }
-    setStepError('');
-    const attributes: Record<string, unknown> = {};
-    for (const step of steps) for (const component of step.components) { const value=values[component.key]??''; if(!value.trim())continue; attributes[component.key]=component.type==='number'?Number(value):value.trim(); }
-    onSubmit(name.trim(), attributes);
-  }
-  function isStepComplete(currentStep: typeof step, nextValues: Record<string, string>) {
-    const required = currentStep?.components.filter((component) => component.required) ?? [];
-    return required.length > 0 && required.every((component) => Boolean((nextValues[component.key] ?? '').trim()));
-  }
 
-  function maybeAdvance(nextValues: Record<string, string>) {
-    if (isStepComplete(step, nextValues) && activeStep < steps.length - 1) {
-      setStepError('');
-      setActiveStep((current) => Math.min(current + 1, steps.length - 1));
+    const missing = visibleComponents.find(({ component }) => !validComponentValue(component, conditionValues[component.key], conditionValues));
+    if (missing) {
+      const missingKey = `component:${missing.component.key}`;
+      setActivePageKey(missingKey);
+      setPageError(`Preencha a informação obrigatória: ${missing.component.label}.`);
+      return;
     }
+    setPageError('');
+    onSubmit(name.trim(), attributesForSubmit());
   }
 
   function updateValue(key: string, value: unknown) {
-    const nextValues = { ...values, [key]: String(value) };
-    setValues(nextValues);
-    const component = step?.components.find((item) => item.key === key);
-    if (component?.type === 'single_select') maybeAdvance(nextValues);
+    setValues((current) => ({ ...current, [key]: value }));
+    setPageError('');
   }
 
-  function nextStep() {
-    const missing = step?.components.find((component) => component.required && !(values[component.key] ?? '').trim());
-    if (missing) { setStepError(`Preencha o campo obrigatório: ${missing.label}.`); return; }
-    setStepError('');
-    setActiveStep((index) => Math.min(index + 1, steps.length - 1));
+  const pageValues = { ...values };
+  if (page.kind === 'component' && page.component.type === 'single_select') {
+    if (Object.hasOwn(conditionValues, page.component.key)) pageValues[page.component.key] = conditionValues[page.component.key];
+    else delete pageValues[page.component.key];
   }
 
-  return (
-    <form className="character-form" onSubmit={submit}>
-      {activeStep === 0 && <label className="character-form-field"><span>Nome do personagem</span><input required aria-required="true" maxLength={80} autoFocus value={name} onChange={(event) => setName(event.target.value)} /></label>}
-      {steps.length > 1 && <div className="character-step-progress" aria-live="polite"><span>Etapa {activeStep + 1} de {steps.length}</span><strong>{step?.label}</strong><small>Ao preencher os obrigatórios, a ficha avança automaticamente. Você também pode usar Próxima etapa.</small><progress value={activeStep + 1} max={steps.length} /></div>}
-      {step && <CharacterSheetStepRenderer step={step} values={values} onValueChange={updateValue} onFieldBlur={() => maybeAdvance(values)} mode="entry" />}
-      {stepError&&<p role="alert" className="character-form-error">{stepError}</p>}
-      {error && <p role="alert" className="character-form-error">{error}</p>}
-      <div className="character-form-actions"><button type="button" className="character-secondary-button" onClick={activeStep ? () => setActiveStep((index) => index - 1) : onCancel}>{activeStep ? 'Voltar' : 'Cancelar'}</button>{activeStep < steps.length - 1 ? <button type="button" className="character-primary-button" onClick={nextStep}>Próxima etapa</button> : <button type="submit" className="character-primary-button" disabled={saving}>{saving ? 'Salvando...' : submitLabel}</button>}</div>
-    </form>
-  );
+  return <form className="character-form character-wizard-form" onSubmit={submit}>
+    <div className="character-step-progress" aria-live="polite">
+      <span>Página {activePageIndex + 1} de {pages.length}</span>
+      <strong>{page.kind === 'name' ? 'Nome do personagem' : page.kind === 'summary' ? 'Resumo do personagem' : page.component.label}</strong>
+      <progress value={activePageIndex + 1} max={pages.length} />
+    </div>
+
+    {page.kind === 'name' && <label className="character-form-field character-wizard-question"><span>Como seu personagem se chama?</span><input required aria-required="true" maxLength={80} autoFocus value={name} onChange={(event) => { setName(event.target.value); setPageError(''); }} /></label>}
+    {page.kind === 'component' && <section className="character-wizard-question" aria-label={page.component.label}>
+      <h2>{page.component.label}{page.component.required ? ' *' : ''}</h2>
+      <CharacterSheetStepRenderer step={{ ...page.step, components: [page.component] }} values={pageValues} conditionValues={conditionValues} onValueChange={updateValue} mode="entry" />
+    </section>}
+    {page.kind === 'summary' && <section className="character-wizard-summary" aria-labelledby="character-summary-title">
+      <h2 id="character-summary-title">Confira as informações antes de criar</h2>
+      <dl>
+        <div><dt>Nome do personagem</dt><dd>{name || '—'}</dd></div>
+        {visibleComponents.map(({ component }) => <div key={component.key}><dt>{component.label}</dt><dd>{summaryValue(component, component.type === 'single_select' ? conditionValues[component.key] : values[component.key])}</dd></div>)}
+      </dl>
+    </section>}
+
+    {pageError && <p role="alert" className="character-form-error">{pageError}</p>}
+    {error && <p role="alert" className="character-form-error">{error}</p>}
+    <div className="character-form-actions">
+      <button type="button" className="character-secondary-button" onClick={() => {
+        if (activePageIndex === 0) onCancel();
+        else {
+          setPageError('');
+          setActivePageKey(pages[activePageIndex - 1]!.key);
+        }
+      }}>{activePageIndex === 0 ? 'Cancelar' : 'Voltar'}</button>
+      {page.kind === 'summary'
+        ? <button type="submit" className="character-primary-button" disabled={saving}>{saving ? 'Salvando...' : submitLabel}</button>
+        : <button type="submit" className="character-primary-button">{page.kind === 'component' && activePageIndex === pages.length - 2 ? 'Revisar ficha' : 'Próxima etapa'}</button>}
+    </div>
+  </form>;
 }

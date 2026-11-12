@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getMyProfile, type CharacterExperienceSummary, type CharacterSheetField, type Profile, type SystemCharacter } from '../../api';
+import { formatCharacterSheetValue } from '../character-sheet/format-value';
 import { signOut } from '../../supabase-auth';
 import './app-header.css';
 
@@ -126,7 +127,7 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
                   <div className="app-header-sheet-xp-track" role="progressbar" aria-label="Progresso para o próximo nível" aria-valuenow={Math.round(xpProgress)} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${xpProgress}%` }} /></div>
                   <div className="app-header-sheet-xp-caption"><span>{characterSheet.experience && requiredXp !== null ? `${characterSheet.experience.xp_in_level} / ${requiredXp} XP` : 'Progresso indisponível'}</span>{characterSheet.experience && <span>Faltam {characterSheet.experience.xp_to_next_level} XP</span>}</div>
                 </div>
-                <dl className="app-header-sheet-fields">{characterSheet.fields.map((field) => <div key={field.key}><dt>{field.label}</dt><dd>{formatSheetValue(characterSheet.character.attributes[field.key])}</dd></div>)}</dl>
+                <dl className="app-header-sheet-fields">{characterSheet.fields.map((field) => <div key={field.key}><dt>{field.label}</dt><dd>{formatCharacterSheetValue(field, characterSheet.character.attributes[field.key])}</dd></div>)}</dl>
               </> : <p className="app-header-sheet-empty">Selecione um personagem para ver a ficha completa aqui.</p>}
             </section>
           </section>
@@ -134,10 +135,4 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
       </div>
     </header>
   );
-}
-
-function formatSheetValue(value: unknown) {
-  if (value == null || value === '') return '—';
-  if (typeof value === 'object') return JSON.stringify(value);
-  return String(value);
 }
