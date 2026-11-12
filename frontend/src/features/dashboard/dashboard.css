@@ -345,6 +345,41 @@
   margin-bottom: 34px;
 }
 
+.dashboard-hero {
+  position: relative;
+  min-height: 210px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin: -5px 0 36px;
+  padding: 30px 38px 42px;
+  background: linear-gradient(90deg, rgba(13, 11, 22, 0.98) 0%, rgba(17, 12, 29, 0.9) 38%, rgba(17, 12, 29, 0.12) 100%), url('/nexus-portal-hero.png') center 48% / cover;
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  border-radius: 18px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22), inset 0 0 38px rgba(151, 90, 255, 0.08);
+}
+
+.dashboard-hero::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(13, 11, 22, 0.18), transparent 42%);
+  content: '';
+}
+
+.dashboard-hero-copy { position: relative; z-index: 1; max-width: 490px; }
+.dashboard-hero-kicker { color: #c8a4ff; font-size: 9px; font-weight: 700; letter-spacing: .19em; }
+.dashboard-hero h2 { margin: 9px 0 6px; font-family: 'Outfit', sans-serif; font-size: clamp(21px, 2.3vw, 28px); line-height: 1.2; }
+.dashboard-hero h2 span { color: #c28aff; }
+.dashboard-hero p { margin: 0; color: #c1bdce; font-size: 12px; line-height: 1.55; }
+.dashboard-hero-action { display: inline-flex; align-items: center; gap: 12px; margin-top: 18px; padding: 9px 14px; color: #f1e8ff; background: rgba(109, 64, 160, .35); border: 1px solid rgba(197, 149, 255, .55); border-radius: 8px; font-size: 11px; font-weight: 650; transition: background .18s ease, transform .18s ease; }
+.dashboard-hero-action:hover { background: rgba(139, 81, 204, .52); transform: translateY(-1px); }
+.dashboard-hero-controls { position: absolute; z-index: 1; right: 19px; bottom: 15px; left: 19px; display: flex; align-items: center; justify-content: space-between; pointer-events: none; }
+.dashboard-hero-controls > button { width: 28px; height: 28px; color: #eee5ff; background: rgba(19, 15, 29, .72); border: 1px solid rgba(196, 181, 253, .25); border-radius: 50%; font-size: 20px; line-height: 1; pointer-events: auto; }
+.dashboard-hero-controls > div { position: absolute; left: 50%; display: flex; gap: 7px; transform: translateX(-50%); pointer-events: auto; }
+.dashboard-hero-controls > div button { width: 7px; height: 7px; padding: 0; background: rgba(226, 213, 255, .38); border: 0; border-radius: 50%; }
+.dashboard-hero-controls > div button.active { width: 19px; background: #bd75ff; border-radius: 5px; }
+
 .detail-close-button:focus-visible {
   outline: 2px solid var(--purple-light);
   outline-offset: 2px;
@@ -602,8 +637,8 @@
 
 .system-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
 }
 
 .system-card {
@@ -630,12 +665,9 @@
   justify-content: space-between;
   overflow: hidden;
   padding: 16px 18px;
-  background:
-    radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 62% 67%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 25% 34%, rgba(255, 255, 255, 0.48) 0 1px, transparent 1.8px),
-    linear-gradient(135deg, #302743, #5b477c 52%, #171922);
-  background-size: auto, auto, auto, cover;
+  background-image: linear-gradient(90deg, rgba(30, 17, 49, .45), rgba(37, 16, 63, .05)), url('/nexus-portal-hero.png');
+  background-position: center, 72% 54%;
+  background-size: cover;
 }
 
 .system-card-art::before,
@@ -660,27 +692,15 @@
 }
 
 .system-card-tone-1 .system-card-art {
-  background:
-    radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 62% 67%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 25% 34%, rgba(255, 255, 255, 0.48) 0 1px, transparent 1.8px),
-    linear-gradient(135deg, #1b3b3a, #367268 52%, #171922);
+  background-image: linear-gradient(90deg, rgba(10, 61, 57, .65), rgba(0, 147, 129, .12)), url('/nexus-portal-hero.png');
 }
 
 .system-card-tone-2 .system-card-art {
-  background:
-    radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 62% 67%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 25% 34%, rgba(255, 255, 255, 0.48) 0 1px, transparent 1.8px),
-    linear-gradient(135deg, #4a302d, #98654c 52%, #171922);
+  background-image: linear-gradient(90deg, rgba(82, 43, 28, .62), rgba(191, 105, 53, .12)), url('/nexus-portal-hero.png');
 }
 
 .system-card-tone-3 .system-card-art {
-  background:
-    radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 62% 67%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.8px),
-    radial-gradient(circle at 25% 34%, rgba(255, 255, 255, 0.48) 0 1px, transparent 1.8px),
-    linear-gradient(135deg, #203750, #456a8b 52%, #171922);
+  background-image: linear-gradient(90deg, rgba(25, 53, 83, .65), rgba(82, 134, 184, .1)), url('/nexus-portal-hero.png');
 }
 
 .system-card-art-brand,
@@ -1099,6 +1119,8 @@
     padding-right: 25px;
     padding-left: 25px;
   }
+
+  .system-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 760px) {
@@ -1144,6 +1166,10 @@
     flex-direction: column;
   }
 
+  .dashboard-hero { min-height: 230px; align-items: flex-start; padding: 24px 22px 48px; background-position: center, 62% center; }
+  .dashboard-hero-copy { max-width: 80%; }
+  .dashboard-hero h2 { font-size: 23px; }
+
   .quick-stats {
     grid-template-columns: 1fr;
     gap: 9px;
@@ -1179,6 +1205,8 @@
   .table-grid {
     grid-template-columns: 1fr;
   }
+
+  .system-grid { grid-template-columns: 1fr; gap: 15px; }
 }
 
 @media (max-width: 430px) {
