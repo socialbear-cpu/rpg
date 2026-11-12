@@ -1,4 +1,4 @@
-import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetField } from '../../api';
+import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetField, CharacterSheetVisualElement } from '../../api';
 
 const supportedTypes = new Set(['short_text', 'long_text', 'number', 'single_select']);
 
@@ -78,7 +78,7 @@ function createEmptySheetComponent(components: CharacterSheetComponent[]): Chara
 }
 
 export function createDefaultCharacterSheetDefinition(): CharacterSheetDefinition {
-  return { version: 1, steps: [{ key: 'step_1', label: 'Etapa 1', position: 0, components: [] }] };
+  return { version: 1, steps: [{ key: 'step_1', label: 'Etapa 1', position: 0, components: [], elements: [] }] };
 }
 
 export function legacyFieldsToDefinition(fields: CharacterSheetField[]): CharacterSheetDefinition {
@@ -117,8 +117,30 @@ export function addSheetStep(definition: CharacterSheetDefinition): CharacterShe
     label: 'Nova etapa',
     position: steps.length,
     components: [],
+    elements: [],
   };
   return { ...definition, steps: [...steps, next] };
+}
+
+export function addSheetVisualElement(definition: CharacterSheetDefinition, stepKey: string, type: CharacterSheetVisualElement['type']): CharacterSheetDefinition {
+  const element: CharacterSheetVisualElement = type === 'text'
+    ? { key: `element_${globalThis.crypto.randomUUID().replaceAll('-', '')}`, type, text: 'Novo texto', x: 5, y: 5, width: 30, height: 15, rotation: 0 }
+    : { key: `element_${globalThis.crypto.randomUUID().replaceAll('-', '')}`, type, image_url: '', description: '', x: 5, y: 5, width: 30, height: 25, rotation: 0 };
+  return {
+    ...definition,
+    steps: definition.steps.map((step) => step.key === stepKey
+      ? { ...step, elements: [...(step.elements ?? []), element] }
+      : step),
+  };
+}
+
+export function removeSheetVisualElement(definition: CharacterSheetDefinition, stepKey: string, elementKey: string): CharacterSheetDefinition {
+  return {
+    ...definition,
+    steps: definition.steps.map((step) => step.key === stepKey
+      ? { ...step, elements: (step.elements ?? []).filter((element) => element.key !== elementKey) }
+      : step),
+  };
 }
 
 export function removeSheetStep(definition: CharacterSheetDefinition, stepKey: string): CharacterSheetDefinition {
@@ -189,7 +211,9 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
   const stepKeys = new Set<string>();
   const stepPositions = new Set<number>();
   const componentKeys = new Set<string>();
+  const elementKeys = new Set<string>();
   let componentCount = 0;
+  let elementCount = 0;
 
   for (const step of definition.steps) {
     if (!/^[a-z][a-z0-9_]{0,39}$/.test(step.key) || stepKeys.has(step.key)) return false;
@@ -226,9 +250,30 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
       componentCount++;
     }
 
+    for (const element of step.elements ?? []) {
+      if (!/^[a-z][a-z0-9_]{0,39}$/.test(element.key) || elementKeys.has(element.key)) return false;
+      if (![element.x, element.y, element.width, element.height, element.rotation].every(Number.isFinite)) return false;
+      if (element.x < 0 || element.x > 100 || element.y < 0 || element.y > 100) return false;
+      if (element.width < 1 || element.width > 100 || element.height < 1 || element.height > 100) return false;
+      if (element.x + element.width > 100 || element.y + element.height > 100) return false;
+      if (element.rotation < -360 || element.rotation > 360) return false;
+      if (element.type === 'text') {
+        if (!element.text.trim() || element.text.trim().length > 500) return false;
+      } else if (element.type === 'image') {
+        if (element.description !== undefined && element.description.trim().length > 500) return false;
+        if (element.image_url.length > 2048) return false;
+        try { if (new URL(element.image_url).protocol !== 'https:') return false; }
+        catch { return false; }
+      } else {
+        return false;
+      }
+      elementKeys.add(element.key);
+      elementCount++;
+    }
+
     stepKeys.add(step.key);
     stepPositions.add(step.position);
   }
 
-  return componentCount <= 50;
+  return componentCount <= 50 && elementCount <= 50;
 }

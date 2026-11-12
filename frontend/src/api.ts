@@ -33,6 +33,19 @@ export interface CharacterSheetOption {
   description?: string;
 }
 
+export interface CharacterSheetVisualElementBase {
+  key: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation: number;
+}
+
+export type CharacterSheetVisualElement =
+  | (CharacterSheetVisualElementBase & { type: 'text'; text: string })
+  | (CharacterSheetVisualElementBase & { type: 'image'; image_url: string; description?: string });
+
 export interface CharacterSheetComponentBase {
   key: string;
   label: string;
@@ -53,6 +66,7 @@ export interface CharacterSheetStep {
   label: string;
   position: number;
   components: CharacterSheetComponent[];
+  elements?: CharacterSheetVisualElement[];
 }
 
 export interface CharacterSheetDefinition {

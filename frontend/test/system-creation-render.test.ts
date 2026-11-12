@@ -5,12 +5,14 @@ import type { CharacterSheetField } from '../src/api.js';
 import {
   addSheetComponent,
   addSheetStep,
+  addSheetVisualElement,
   createDefaultCharacterSheetDefinition,
   moveSheetComponent,
   moveSheetComponentToStep,
   moveSheetStep,
   removeSheetComponent,
   removeSheetStep,
+  removeSheetVisualElement,
 } from '../src/features/system-creation/sheet-model.js';
 import {
   addSheetField,
@@ -88,6 +90,27 @@ describe('visual character sheet model', () => {
     expect(result.steps[0]?.components).toEqual([]);
     expect(result.steps[1]?.components[0]?.position).toBe(0);
   });
+
+  it('adds and removes free-positioned visual elements per page', () => {
+    const definition = createDefaultCharacterSheetDefinition();
+    const withText = addSheetVisualElement(definition, 'step_1', 'text');
+    expect(withText.steps[0]?.elements?.[0]).toMatchObject({ type: 'text', x: 5, y: 5, width: 30, height: 15, rotation: 0 });
+    const withImage = addSheetVisualElement(withText, 'step_1', 'image');
+    expect(withImage.steps[0]?.elements).toHaveLength(2);
+    expect(removeSheetVisualElement(withImage, 'step_1', withImage.steps[0]!.elements![0]!.key).steps[0]?.elements).toHaveLength(1);
+  });
+
+  it('validates visual element bounds and image URLs before saving', () => {
+    const visualDefinition = {
+      version: 1 as const,
+      steps: [{ key: 'step_1', label: 'Etapa 1', position: 0, components: [], elements: [
+        { key: 'portrait', type: 'image' as const, image_url: 'https://cdn.example/portrait.jpg', description: 'Retrato', x: 60, y: 5, width: 30, height: 40, rotation: 0 },
+      ] }],
+    };
+    expect(isCharacterSheetDefinitionValid(visualDefinition)).toBe(true);
+    expect(isCharacterSheetDefinitionValid({ ...visualDefinition, steps: [{ ...visualDefinition.steps[0]!, elements: [{ ...visualDefinition.steps[0]!.elements[0]!, x: 80 }] }] })).toBe(false);
+    expect(isCharacterSheetDefinitionValid({ ...visualDefinition, steps: [{ ...visualDefinition.steps[0]!, elements: [{ ...visualDefinition.steps[0]!.elements[0]!, image_url: 'http://cdn.example/portrait.jpg' }] }] })).toBe(false);
+  });
 });
 
 describe('character sheet builder', () => {
@@ -114,6 +137,9 @@ describe('character sheet builder', () => {
     expect(html).toContain('Remover</button>');
     expect(html).toContain('Adicionar etapa');
     expect(html).toContain('Prévia para jogadores');
+    expect(html).toContain('Imagens e textos livres');
+    expect(html).toContain('tamanho e rotação');
+    expect(html).toContain('+ Imagem');
   });
 });
 

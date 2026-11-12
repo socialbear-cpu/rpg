@@ -24,6 +24,8 @@ Apply the numbered files in `migrations/` in order to a new Supabase project (Po
 
 Migration 014 adds an optional, case-insensitive unique profile nick. Each account must claim one before using the dashboard; the database does not permit changing a claimed nick.
 
+Migration 015 versions character sheets into ordered steps and components. Migration 016 adds validated, positioned text and image elements to each step and is required before creating or saving sheets that use those elements.
+
 Migration 005 adds an optional owner-managed seven-day reward calendar to each RPG system. Weekdays use ISO numbering (Monday=1 through Sunday=7), and each system uses its configured IANA timezone (default `America/Sao_Paulo`) to decide the current reward and claim date. Missed days do not accumulate. Each account can claim once per system and local date, choosing an active character they own in that system. The claim RPC records the claim and increments that character's existing inventory in one transaction. The item and quantity are snapshotted in the claim history.
 
 Migration 006 establishes the hierarchy. `Admin` is global and comes only from `private.platform_admins`; bootstrap or change this table through trusted operator/database tooling. `Owner`, `Mod`, and `User` are per-system rows in `game_system_memberships`. Legacy `game_systems.owner_user_id` values are backfilled as Owners and retained for compatibility; authenticated system creation also makes the creator Owner. Owners can grant or revoke Mod for an existing member through `set_system_moderator`; clients cannot write memberships directly. Migration 009 also lets Owners and Mods publish system announcements.

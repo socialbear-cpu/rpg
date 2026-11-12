@@ -54,9 +54,21 @@ const componentJsonSchema = {
     presentation: { type: 'string', enum: ['select', 'cards'] }, options: { type: 'array', minItems: 1, maxItems: 50, items: optionJsonSchema },
   },
 } as const;
+const visualElementJsonSchema = {
+  type: 'object', required: ['key', 'type', 'x', 'y', 'width', 'height', 'rotation'], additionalProperties: false,
+  properties: {
+    key: { type: 'string', pattern: '^[a-z][a-z0-9_]{0,39}$' },
+    type: { type: 'string', enum: ['text', 'image'] },
+    x: { type: 'number', minimum: 0, maximum: 100 }, y: { type: 'number', minimum: 0, maximum: 100 },
+    width: { type: 'number', minimum: 1, maximum: 100 }, height: { type: 'number', minimum: 1, maximum: 100 },
+    rotation: { type: 'number', minimum: -360, maximum: 360 },
+    text: { type: 'string', minLength: 1, maxLength: 500 },
+    image_url: { type: 'string', maxLength: 2048 }, description: { type: 'string', maxLength: 500 },
+  },
+} as const;
 const definitionJsonSchema = {
   type: 'object', required: ['version', 'steps'], additionalProperties: false,
-  properties: { version: { const: 1 }, steps: { type: 'array', minItems: 1, maxItems: 20, items: { type: 'object', required: ['key', 'label', 'position', 'components'], additionalProperties: false, properties: { key: { type: 'string' }, label: { type: 'string' }, position: { type: 'integer' }, components: { type: 'array', maxItems: 50, items: componentJsonSchema } } } } },
+  properties: { version: { const: 1 }, steps: { type: 'array', minItems: 1, maxItems: 20, items: { type: 'object', required: ['key', 'label', 'position', 'components'], additionalProperties: false, properties: { key: { type: 'string' }, label: { type: 'string' }, position: { type: 'integer' }, components: { type: 'array', maxItems: 50, items: componentJsonSchema }, elements: { type: 'array', maxItems: 50, items: visualElementJsonSchema } } } } },
 } as const;
 const characterJsonSchema = {
   type: 'object', required: ['id', 'game_system_id', 'character_name', 'attributes', 'status'], additionalProperties: false,

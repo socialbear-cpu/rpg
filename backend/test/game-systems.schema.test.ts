@@ -61,6 +61,24 @@ describe('versioned character-sheet definitions', () => {
     expect(characterSheetDefinitionSchema.safeParse(longDescription).success).toBe(false);
   });
 
+  it('accepts positioned visual elements and rejects unsafe or out-of-bounds images', () => {
+    const withVisuals = structuredClone(definition);
+    withVisuals.steps[0]!.elements = [
+      { key: 'title', type: 'text', text: 'Ficha de Ayla', x: 5, y: 8, width: 35, height: 12, rotation: -5 },
+      { key: 'portrait', type: 'image', image_url: 'https://cdn.example/ayla.jpg', description: 'Retrato de Ayla', x: 60, y: 5, width: 30, height: 40, rotation: 12 },
+    ];
+    expect(characterSheetDefinitionSchema.safeParse(withVisuals).success).toBe(true);
+
+    const unsafeImage = structuredClone(withVisuals);
+    const unsafeImageElement = unsafeImage.steps[0]!.elements![1]!;
+    if (unsafeImageElement.type !== 'image') throw new Error('Expected image element');
+    unsafeImageElement.image_url = 'http://cdn.example/ayla.jpg';
+    const outOfBounds = structuredClone(withVisuals);
+    outOfBounds.steps[0]!.elements![1]!.x = 80;
+    expect(characterSheetDefinitionSchema.safeParse(unsafeImage).success).toBe(false);
+    expect(characterSheetDefinitionSchema.safeParse(outOfBounds).success).toBe(false);
+  });
+
   it('converts legacy fields into a single step and defaults selects to the native menu', () => {
     expect(legacyFieldsToDefinition(legacyFields)).toEqual({
       version: 1,
