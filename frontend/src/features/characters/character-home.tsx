@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { CharacterExperienceSummary, CharacterSheetField, SystemCharacter } from '../../api';
+import { SystemStore } from '../store/store-card';
 import { AppHeader } from '../shell/app-header';
 import './characters.css';
 
@@ -40,6 +41,8 @@ export function CharacterHome({ systemName, character, fields = [], experience =
             <button className="lobby-search-button" type="button" disabled title="O matchmaking estará disponível em breve"><span className="lobby-search-icon" aria-hidden="true">✧</span>Procurar partida<small>Em breve</small></button>
             <span className="lobby-matchmaking-caption">Encontre uma sistema para a sua próxima aventura</span>
           </section>
+
+          <SystemStore key={character.id} systemId={character.game_system_id} characterId={character.id} characterName={character.character_name} />
 
           <section className="lobby-rooms"><div className="lobby-section-heading"><div><span className="character-entry-eyebrow">PONTO DE ENCONTRO</span><h2>Salas de bate-papo</h2></div></div>
             <div className="lobby-room-grid">{rooms.map((room) => <article className="lobby-room-card" key={room.name}><div className="lobby-room-icon" aria-hidden="true">＋</div><div className="lobby-room-content"><h3>{room.name}</h3><p>{room.topic}</p><span className="lobby-room-people">Sala da comunidade</span></div><button className="character-secondary-button" type="button" onClick={() => setActiveRoom(activeRoom === room.name ? null : room.name)}>{activeRoom === room.name ? 'Sair da sala' : 'Entrar na sala'} <span aria-hidden="true">→</span></button></article>)}</div>

@@ -1,6 +1,7 @@
 'use client';
 
 import type { FormEventHandler } from 'react';
+import './daily-login-admin.css';
 import type { DailyLoginOwnerCalendar, DailyLoginSystemView } from '../../api';
 
 const weekdays = [
@@ -17,7 +18,7 @@ type Props = {
   message: string | null;
   messageIsError: boolean;
   onSystemChange: (systemId: string) => void;
-  onRewardChange: (weekday: number, field: 'item_id' | 'quantity', value: string | number) => void;
+  onRewardChange: (weekday: number, field: 'item_id' | 'quantity' | 'currency_amount', value: string | number) => void;
   onActiveChange: (isActive: boolean) => void;
   onSave: FormEventHandler<HTMLFormElement>;
 };
@@ -47,7 +48,10 @@ export function DailyLoginAdminCard({
       && calendar?.items.some((item) => item.id === reward.item_id)
       && Number.isInteger(reward.quantity)
       && reward.quantity >= 1
-      && reward.quantity <= 1_000_000;
+      && reward.quantity <= 1_000_000
+      && Number.isFinite(reward.currency_amount ?? 0)
+      && (reward.currency_amount ?? 0) >= 0
+      && (reward.currency_amount ?? 0) <= 9999999999.99;
   });
 
   return <article className="card daily-login-admin-card">
@@ -85,6 +89,9 @@ export function DailyLoginAdminCard({
                   value={reward?.quantity ?? 1}
                   onChange={(event) => onRewardChange(weekday, 'quantity', event.target.value === '' ? 0 : Number(event.target.value))}
                 />
+              </label>
+              <label className="daily-quantity-label" htmlFor={`daily-login-currency-${weekday}`}>Moedas (opcional)
+                <input id={`daily-login-currency-${weekday}`} type="number" min={0} max={9999999999.99} step="0.01" value={reward?.currency_amount ?? 0} onChange={(event) => onRewardChange(weekday, 'currency_amount', Number(event.target.value))} />
               </label>
             </div>;
           })}

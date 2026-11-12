@@ -1,0 +1,8 @@
+.store-card, .store-admin-card { padding: 1.5rem; border: 1px solid #40334e; border-radius: 16px; background: #1b1624; color: #eee7f5; margin-block: 1.5rem; }
+.store-offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+.store-offer, .store-admin-offer { border: 1px solid #493952; border-radius: 10px; padding: 1rem; }
+.store-admin-form fieldset { border: 0; padding: 0; display: grid; gap: 1rem; min-width: 0; }
+.store-admin-offer { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; }
+.store-admin-form label { display: grid; gap: .4rem; }
+.store-admin-form input:not([type="checkbox"]), .store-admin-form select { background: #241c30; color: inherit; border: 1px solid #655475; border-radius: 6px; padding: .6rem; max-width: 100%; }
+.store-card button:disabled { opacity: .5; cursor: not-allowed; }

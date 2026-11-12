@@ -18,6 +18,7 @@ import {
 import { hasSession } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
 import { DailyLoginAdminCard } from '../daily-login/daily-login-admin-card';
+import { SystemStoreAdmin } from '../store/store-admin-card';
 import { ExperienceAdminCard } from '../experience/experience-admin-card';
 import { addCustomExperienceSource } from '../experience/experience-model';
 import { SystemMembershipCard } from '../system-membership/system-membership-card';
@@ -103,7 +104,7 @@ export function SystemManagementPage() {
     return () => { active = false; };
   }, [router, systemId, reloadKey]);
 
-  function changeReward(weekday: number, field: 'item_id' | 'quantity', value: string | number) {
+  function changeReward(weekday: number, field: 'item_id' | 'quantity' | 'currency_amount', value: string | number) {
     setCalendar((current) => {
       if (!current) return current;
       const existing = current.rewards.find((reward) => reward.weekday === weekday);
@@ -111,7 +112,7 @@ export function SystemManagementPage() {
       const itemName = current.items.find((item) => item.id === itemId)?.name ?? '';
       const next = existing
         ? { ...existing, [field]: value, item_name: itemName }
-        : { weekday, item_id: itemId, item_name: itemName, quantity: field === 'quantity' ? Number(value) : 1 };
+        : { weekday, item_id: itemId, item_name: itemName, quantity: field === 'quantity' ? Number(value) : 1, currency_amount: field === 'currency_amount' ? Number(value) : 0 };
       return { ...current, rewards: [...current.rewards.filter((reward) => reward.weekday !== weekday), next].sort((a, b) => a.weekday - b.weekday) };
     });
   }
@@ -121,8 +122,8 @@ export function SystemManagementPage() {
     if (!calendar) return;
     const rewards = Array.from({ length: 7 }, (_, index) => calendar.rewards.find((reward) => reward.weekday === index + 1))
       .filter((reward): reward is NonNullable<typeof reward> => Boolean(reward))
-      .map(({ weekday, item_id, quantity }) => ({ weekday, item_id, quantity }));
-    if (rewards.length !== 7 || rewards.some((reward) => !reward.item_id || !Number.isInteger(reward.quantity) || reward.quantity < 1 || reward.quantity > 1_000_000)) {
+      .map(({ weekday, item_id, quantity, currency_amount }) => ({ weekday, item_id, quantity, currency_amount: currency_amount ?? 0 }));
+    if (rewards.length !== 7 || rewards.some((reward) => !reward.item_id || !Number.isInteger(reward.quantity) || reward.quantity < 1 || reward.quantity > 1_000_000 || !Number.isFinite(reward.currency_amount) || reward.currency_amount < 0 || reward.currency_amount > 9999999999.99 || Math.abs(reward.currency_amount * 100 - Math.round(reward.currency_amount * 100)) > 0.0001)) {
       setCalendarMessage('Escolha um item e uma quantidade válida para cada dia da semana.');
       setCalendarMessageIsError(true);
       return;
@@ -192,6 +193,7 @@ export function SystemManagementPage() {
           {membershipsForSystem && <SystemMembershipCard access={membershipsForSystem} manageableSystems={selectedManageable ? [{ game_system_id: systemId, game_system_name: selectedManageable.system.name }] : []} busy={membershipBusy} message={membershipMessage} messageIsError={membershipMessageIsError} onAssign={(targetId, userId, isModerator) => void assignModerator(targetId, userId, isModerator)} />}
         </section>
         <section className="system-management-section" id="game"><div className="system-management-section-heading"><span>03</span><div><p>REGRAS</p><h2>Jogo</h2></div></div>
+          <SystemStoreAdmin key={systemId} systemId={systemId} />
           <ExperienceAdminCard systems={[systemView]} selectedSystemId={systemId} settings={experience} loading={experienceLoading} saving={experienceSaving} message={experienceMessage} messageIsError={experienceMessageIsError} onSystemChange={() => undefined} onXpPerLevelChange={(amount) => setExperience((current) => current ? { ...current, xp_per_level: amount } : current)} onSourceChange={(index, field, value) => setExperience((current) => current ? { ...current, sources: current.sources.map((source, sourceIndex) => sourceIndex === index ? { ...source, [field]: value } : source) } : current)} onAddCustomSource={() => setExperience((current) => current ? { ...current, sources: addCustomExperienceSource(current.sources) } : current)} onRemoveCustomSource={(index) => setExperience((current) => current ? { ...current, sources: current.sources.filter((_, sourceIndex) => sourceIndex !== index) } : current)} onSave={(event) => void saveExperience(event)} />
           <DailyLoginAdminCard systems={[systemView]} selectedSystemId={systemId} calendar={calendar} loading={calendarLoading} saving={calendarSaving} message={calendarMessage} messageIsError={calendarMessageIsError} onSystemChange={() => undefined} onRewardChange={changeReward} onActiveChange={(isActive) => setCalendar((current) => current ? { ...current, is_active: isActive } : current)} onSave={(event) => void saveCalendar(event)} />
         </section>

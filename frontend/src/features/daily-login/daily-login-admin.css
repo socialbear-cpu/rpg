@@ -1,0 +1,3 @@
+.daily-login-admin-card .daily-week-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.daily-login-admin-card .daily-week-row > label:first-child,
+.daily-login-admin-card .daily-week-row > select { grid-column: 1 / -1; }

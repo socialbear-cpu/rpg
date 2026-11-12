@@ -191,6 +191,7 @@ export interface TradeMutationResult {
 }
 
 export interface DailyLoginReward {
+  currency_amount?: number;
   weekday: number;
   item_id: string;
   item_name: string;
@@ -239,7 +240,7 @@ export interface DailyLoginOwnerCalendar {
 }
 
 export interface DailyLoginScheduleInput {
-  rewards: { weekday: number; item_id: string; quantity: number }[];
+  rewards: { weekday: number; item_id: string; quantity: number; currency_amount?: number }[];
   is_active: boolean;
 }
 
@@ -255,6 +256,8 @@ export interface DailyLoginClaimResult {
   local_claim_date?: string;
   timezone?: string;
   xp_awarded: number;
+  currency_awarded?: number;
+  currency_name?: string;
 }
 
 export type ExperienceSourceType = 'daily_login' | 'mission' | 'fight' | 'custom';
@@ -532,4 +535,48 @@ async function authenticatedRequest<T>(path: string, init: RequestInit = {}): Pr
     throw new Error(error.error || `API respondeu ${response.status}`);
   }
   return data as T;
+}
+
+export interface StoreOffer {
+  store_product_id?: string;
+  item_id: string;
+  item_name: string;
+  price: number;
+  is_available: boolean;
+}
+export interface OwnerStore {
+  currency_name: string;
+  items: { id: string; name: string }[];
+  offers: StoreOffer[];
+}
+export interface CharacterStore {
+  currency_name: string;
+  character_id: string;
+  balance: number;
+  offers: StoreOffer[];
+}
+export interface StoreSettingsInput {
+  currency_name: string;
+  offers: { store_product_id?: string; item_id: string; price: number; is_available: boolean }[];
+}
+export interface StorePurchaseResult {
+  status: 'purchased'; balance: number; purchase_id: string; item_id: string;
+  item_name: string; quantity: number; amount_charged: number; currency_name: string;
+}
+export function getOwnerStore(systemId: string) {
+  return authenticatedRequest<OwnerStore>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store`);
+}
+export function saveOwnerStore(systemId: string, input: StoreSettingsInput) {
+  return authenticatedRequest<OwnerStore>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  });
+}
+export function getCharacterStore(systemId: string, characterId: string) {
+  return authenticatedRequest<CharacterStore>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/store?character_id=${encodeURIComponent(characterId)}`);
+}
+export function purchaseStoreOffer(systemId: string, characterId: string, offerId: string) {
+  return authenticatedRequest<StorePurchaseResult>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/store/purchases`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ character_id: characterId, store_product_id: offerId, quantity: 1 }),
+  });
 }

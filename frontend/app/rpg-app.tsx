@@ -316,7 +316,7 @@ export function RpgApp() {
     }
   }
 
-  function changeOwnerReward(weekday: number, field: 'item_id' | 'quantity', value: string | number) {
+  function changeOwnerReward(weekday: number, field: 'item_id' | 'quantity' | 'currency_amount', value: string | number) {
     setOwnerCalendar((current) => {
       if (!current) return current;
       const existing = current.rewards.find((reward) => reward.weekday === weekday);
@@ -324,7 +324,7 @@ export function RpgApp() {
       const itemName = current.items.find((item) => item.id === itemId)?.name ?? '';
       const next = existing
         ? { ...existing, [field]: value, item_name: itemName }
-        : { weekday, item_id: itemId, item_name: itemName, quantity: field === 'quantity' ? Number(value) : 1 };
+        : { weekday, item_id: itemId, item_name: itemName, quantity: field === 'quantity' ? Number(value) : 1, currency_amount: field === 'currency_amount' ? Number(value) : 0 };
       return {
         ...current,
         rewards: [...current.rewards.filter((reward) => reward.weekday !== weekday), next].sort((a, b) => a.weekday - b.weekday),
@@ -337,8 +337,8 @@ export function RpgApp() {
     if (!ownerCalendar) return;
     const rewards = Array.from({ length: 7 }, (_, index) => ownerCalendar.rewards.find((reward) => reward.weekday === index + 1))
       .filter((reward): reward is NonNullable<typeof reward> => Boolean(reward))
-      .map(({ weekday, item_id, quantity }) => ({ weekday, item_id, quantity }));
-    if (rewards.length !== 7 || rewards.some((reward) => !reward.item_id || !Number.isInteger(reward.quantity) || reward.quantity < 1 || reward.quantity > 1_000_000)) {
+      .map(({ weekday, item_id, quantity, currency_amount }) => ({ weekday, item_id, quantity, currency_amount: currency_amount ?? 0 }));
+    if (rewards.length !== 7 || rewards.some((reward) => !reward.item_id || !Number.isInteger(reward.quantity) || reward.quantity < 1 || reward.quantity > 1_000_000 || !Number.isFinite(reward.currency_amount) || reward.currency_amount < 0 || reward.currency_amount > 9999999999.99 || Math.abs(reward.currency_amount * 100 - Math.round(reward.currency_amount * 100)) > 0.0001)) {
       setOwnerMessage('Escolha um item e uma quantidade válida para cada dia da semana.');
       setOwnerMessageIsError(true);
       return;
