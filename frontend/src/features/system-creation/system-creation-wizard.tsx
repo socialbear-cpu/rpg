@@ -29,15 +29,15 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
   async function submitSystem() {
     setError(null);
     if (!isCharacterSheetDefinitionValid(definition)) {
-      setError('Revise os campos e as opções da ficha antes de continuar.');
+      setError('Revise as etapas, campos, opções e elementos visuais (incluindo URLs HTTPS) antes de continuar.');
       return;
     }
     setSaving(true);
     try {
       const { system } = await createSystem({ name: name.trim(), description: description.trim() || null, definition });
       push(`/systems/${encodeURIComponent(system.id)}/characters`);
-    } catch {
-      setError('Não foi possível criar o sistema. Tente novamente.');
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Não foi possível criar o sistema. Tente novamente.');
       setSaving(false);
     }
   }

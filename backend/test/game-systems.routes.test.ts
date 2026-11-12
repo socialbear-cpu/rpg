@@ -12,6 +12,13 @@ const definition = {
     { key: 'origin', label: 'Origem', type: 'short_text' as const, required: true, position: 0, width: 'full' as const, show_on_card: true },
   ] }],
 };
+const visualDefinition = {
+  ...definition,
+  steps: [{
+    ...definition.steps[0]!,
+    elements: [{ key: 'portrait', type: 'image' as const, image_url: 'https://cdn.example/portrait.jpg', description: 'Retrato do personagem', x: 60, y: 5, width: 30, height: 40, rotation: 0 }],
+  }],
+};
 const character = {
   id: characterId,
   game_system_id: systemId,
@@ -48,7 +55,7 @@ beforeEach(() => {
     if (databaseFails) return Response.json({ message: 'private database detail', code: 'XX000' }, { status: 500 });
 
     if (url.pathname === '/rest/v1/rpc/create_game_system_with_sheet') {
-      return Response.json({ status: 'created', system, definition });
+      return Response.json({ status: 'created', system, definition: (body as { p_fields?: unknown } | null)?.p_fields ?? definition });
     }
     if (url.pathname === '/rest/v1/rpc/update_game_system_character_sheet') {
       if (updateResult === 'forbidden') return Response.json({ message: 'Only system owner', code: '42501' }, { status: 403 });
@@ -106,6 +113,12 @@ describe('game system and character API', () => {
     expect(rpc.body).toEqual({ p_name: 'Forest System', p_description: null, p_fields: definition });
   });
 
+  it('creates and returns sheets with positioned visual elements', async () => {
+    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: visualDefinition });
+    expect(response.statusCode).toBe(201);
+    expect(response.json()).toEqual({ system, definition: visualDefinition });
+  });
+
   it('reads a system sheet', async () => {
     const response = await request('GET', `/api/v1/game-systems/${systemId}/character-sheet`);
     expect(response.statusCode).toBe(200);
@@ -120,6 +133,12 @@ describe('game system and character API', () => {
     expect(response.json()).toEqual({ definition: updated });
     const rpc = requests.find(({ url }) => url.pathname.endsWith('/update_game_system_character_sheet'))!;
     expect(rpc.body).toEqual({ p_system_id: systemId, p_definition: updated });
+  });
+
+  it('updates and returns sheets with positioned visual elements', async () => {
+    const response = await request('PUT', `/api/v1/game-systems/${systemId}/character-sheet`, { definition: visualDefinition });
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({ definition: visualDefinition });
   });
 
   it('rejects invalid, unauthorized, and missing sheet updates', async () => {
