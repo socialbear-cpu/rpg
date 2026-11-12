@@ -5,19 +5,34 @@ export async function forwardToBackend(request: Request) {
   }
 
   const incomingUrl = new URL(request.url);
-  const targetUrl = new URL(`${incomingUrl.pathname}${incomingUrl.search}`, backendUrl);
   const headers = new Headers(request.headers);
   headers.delete('connection');
   headers.delete('content-length');
   headers.delete('host');
 
-  const upstream = await fetch(targetUrl, {
-    method: request.method,
-    headers,
-    ...(request.method === 'GET' ? {} : { body: await request.arrayBuffer() }),
-    cache: 'no-store',
-    redirect: 'manual',
-  });
+  const timeout = AbortSignal.timeout(15_000);
+  let upstream: Response;
+  try {
+    const targetUrl = new URL(`${incomingUrl.pathname}${incomingUrl.search}`, backendUrl);
+    upstream = await fetch(targetUrl, {
+      method: request.method,
+      headers,
+      ...(request.method === 'GET' ? {} : { body: await request.arrayBuffer() }),
+      cache: 'no-store',
+      redirect: 'manual',
+      signal: timeout,
+    });
+  } catch (error) {
+    console.error('Backend proxy request failed', {
+      method: request.method,
+      path: incomingUrl.pathname,
+      reason: error instanceof Error ? `${error.name}: ${error.message}` : 'Unknown error',
+    });
+    return Response.json(
+      { error: 'Backend service is unavailable' },
+      { status: timeout.aborted ? 504 : 502, headers: { 'cache-control': 'no-store' } },
+    );
+  }
 
   const responseHeaders = new Headers({ 'cache-control': 'no-store' });
   const contentType = upstream.headers.get('content-type');
