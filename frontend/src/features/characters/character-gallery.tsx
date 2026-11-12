@@ -1,6 +1,7 @@
 'use client';
 
 import type { CharacterSheetField, SystemCharacter } from '../../api';
+import { AppHeader } from '../shell/app-header';
 import './characters.css';
 
 interface CharacterGalleryProps {
@@ -16,7 +17,7 @@ export function CharacterGallery({ systemName, fields, characters, selectedChara
   const cardFields = [...fields].filter((field) => field.show_on_card).sort((a, b) => a.position - b.position);
   return (
     <main className="character-entry-page">
-      <a className="character-back-link" href="/dashboard">← Meus sistemas</a>
+      <AppHeader section="Personagens" backHref="/dashboard" backLabel="Meus sistemas" />
       <header className="character-entry-heading"><span className="character-entry-eyebrow">{systemName}</span><h1>Quem vai entrar na aventura?</h1><p>Escolha um dos seus personagens ou crie um novo.</p></header>
       {characters.length === 0 ? (
         <section className="character-empty-state"><span aria-hidden="true" className="character-empty-die">✦</span><h2>Este mundo ainda está sem personagens</h2><p>Crie seu primeiro personagem usando a ficha de {systemName}.</p><button className="character-primary-button" type="button" onClick={onCreate}>Criar personagem</button></section>

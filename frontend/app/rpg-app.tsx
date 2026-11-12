@@ -9,6 +9,7 @@ import { DailyLoginCard } from '../src/features/daily-login/daily-login-card';
 import { formatDailyLoginClaimSuccess } from '../src/features/daily-login/daily-login-messages';
 import { ExperienceAdminCard } from '../src/features/experience/experience-admin-card';
 import { TradingCard } from '../src/features/trading/trading-card';
+import { AppHeader } from '../src/features/shell/app-header';
 import { addCustomExperienceSource } from '../src/features/experience/experience-model';
 import { SystemMembershipCard, SystemMembershipError } from '../src/features/system-membership/system-membership-card';
 import './account-page.css';
@@ -476,10 +477,9 @@ export function RpgApp() {
 
   return (
     <main className="shell">
-      <header className="topbar">
-        <a className="brand" href="/" aria-label="RPG início"><span className="brand-mark">R</span><span>RPG <small>ÁREA DE VALIDAÇÃO</small></span></a>
+      <AppHeader section="Minha conta">
         <div className="health"><span className={`dot ${health === 'ok' ? 'ok' : health === 'bad' ? 'bad' : ''}`} /><span>{health === 'checking' ? 'Verificando API…' : health === 'ok' ? 'API disponível' : 'API indisponível'}</span></div>
-      </header>
+      </AppHeader>
 
       <section className="intro">
         <p className="eyebrow">NEXUS RPG</p>

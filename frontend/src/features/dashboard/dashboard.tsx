@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { getGameSystems, type GameSystem } from '../../api';
 import { SystemsSection } from './systems-section';
 import { NotificationCenter } from '../notifications/notification-center';
+import { AppHeader } from '../shell/app-header';
 import './dashboard.css';
 
 interface DashboardProps {
@@ -111,13 +112,6 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
   return (
     <div className={`platform ${sidebarOpen ? '' : 'sidebar-collapsed'}`}>
       <aside className="sidebar">
-        <div className="sidebar-brand">
-          <div className="brand-symbol">
-            <Icon name="dices" size={23} />
-          </div>
-          {sidebarOpen && <span>NEXUS<span className="brand-light"> RPG</span></span>}
-        </div>
-
         <button
           className="sidebar-toggle"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -167,14 +161,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
       </aside>
 
       <main className="main-area">
-        <header className="topbar">
-          <div className="breadcrumb">
-            <span>Plataforma</span>
-            <Icon name="chevron" size={15} />
-            <strong>{activePage}</strong>
-          </div>
-
-          <div className="topbar-actions">
+        <AppHeader section={activePage}>
             <NotificationCenter compact />
 
             <button
@@ -188,8 +175,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
               </span>
               <span className="profile-trigger-name">{safePlayerName || 'Jogador'}</span>
             </button>
-          </div>
-        </header>
+        </AppHeader>
 
         <div className="page-content">
           <section className="welcome-section">

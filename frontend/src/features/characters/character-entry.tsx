@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { createSystemCharacter, getCharacterSheet, getGameSystems, getSystemCharacters, type CharacterSheetField, type GameSystem, type SystemCharacter } from '../../api';
 import { CharacterForm } from './character-form';
 import { CharacterGallery } from './character-gallery';
+import { AppHeader } from '../shell/app-header';
 import './characters.css';
 
 export function CharacterEntry({ systemId, push }: { systemId: string; push: (path: string) => void }) {
@@ -47,9 +48,9 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
     }
   }
 
-  if (loading) return <main className="character-entry-page"><p role="status">Carregando sistema...</p></main>;
-  if (error && !system) return <main className="character-entry-page"><p role="alert">{error}</p><a className="character-back-link" href="/dashboard">Voltar ao dashboard</a></main>;
+  if (loading) return <main className="character-entry-page"><AppHeader section="Personagens" /><p role="status">Carregando sistema...</p></main>;
+  if (error && !system) return <main className="character-entry-page"><AppHeader section="Personagens" backHref="/dashboard" backLabel="Voltar ao dashboard" /><p role="alert">{error}</p></main>;
   if (!system) return null;
-  if (creating) return <main className="character-entry-page"><a className="character-back-link" href="#" onClick={(event) => { event.preventDefault(); setCreating(false); }}>← Voltar aos personagens</a><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm fields={fields} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
+  if (creating) return <main className="character-entry-page"><AppHeader section="Criar personagem"><button className="app-header-back" type="button" onClick={() => setCreating(false)}>← Voltar aos personagens</button></AppHeader><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm fields={fields} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
   return <CharacterGallery systemName={system.name} fields={fields} characters={characters} selectedCharacterId={selectedCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} />;
 }

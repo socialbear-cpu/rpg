@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import type { CharacterSheetField, CreateGameSystemInput, GameSystem } from '../../api';
 import { CharacterSheetBuilder } from './character-sheet-builder';
+import { AppHeader } from '../shell/app-header';
 import { isCharacterSheetDefinitionValid } from './sheet-model';
 import './system-creation.css';
 
@@ -43,7 +44,7 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
 
   return (
     <main className="system-creation-page">
-      <a className="system-creation-back" href="/dashboard">← Voltar ao dashboard</a>
+      <AppHeader section="Criar sistema" backHref="/dashboard" backLabel="Voltar ao dashboard" />
       <div className="system-creation-progress"><span>ETAPA {step === 'details' ? '1' : '2'} DE 2</span><span>{step === 'details' ? 'Detalhes do sistema' : 'Ficha do personagem'}</span></div>
       {step === 'details' ? (
         <form className="system-creation-panel" onSubmit={continueToSheet}>

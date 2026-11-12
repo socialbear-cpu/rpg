@@ -191,11 +191,12 @@
 
 .system-creation-page {
   min-height: 100vh;
-  padding: 40px 24px 72px;
+  padding: 0 24px 72px;
   color: #f5f1fb;
   background: #110e18;
 }
 .system-creation-page > * { max-width: 860px; margin-right: auto; margin-left: auto; }
+.system-creation-page > .app-header { width: calc(100% + 48px); max-width: none; margin: 0 -24px 30px; }
 .system-creation-back { display: inline-block; margin-bottom: 30px; color: #c4b5df; text-decoration: none; }
 .system-creation-progress { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; color: #a99bbf; font-size: 12px; }
 .system-creation-panel { padding: 34px; border: 1px solid #342c42; border-radius: 18px; background: #191521; }
@@ -223,7 +224,7 @@
 .system-card-eyebrow { color: #ab8be0; font-size: 10px; font-weight: 700; letter-spacing: .12em; }
 .systems-empty-state { text-align: center; }
 .systems-empty-state p { color: #afa6ba; }
-@media (max-width: 600px) { .system-creation-page { padding: 24px 14px 48px; } .system-creation-panel { padding: 22px 17px; } .systems-section .section-heading { align-items: flex-start; flex-direction: column; } }
+@media (max-width: 600px) { .system-creation-page { padding: 0 14px 48px; } .system-creation-page > .app-header { width: calc(100% + 28px); margin: 0 -14px 24px; } .system-creation-panel { padding: 22px 17px; } .systems-section .section-heading { align-items: flex-start; flex-direction: column; } }
 
 @media (max-width: 620px) {
   .sheet-field-topline {

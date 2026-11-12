@@ -1,0 +1,42 @@
+.app-header {
+  position: relative;
+  z-index: 4;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 clamp(18px, 3vw, 40px);
+  border-bottom: 1px solid #292c38;
+  color: #f0eff7;
+  background: #14161f;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.app-header-left,
+.app-header-brand,
+.app-header-breadcrumb,
+.app-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.app-header-left { min-width: 0; gap: clamp(18px, 3vw, 38px); }
+.app-header-brand { flex: 0 0 auto; gap: 10px; color: #f4f3fa; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: .06em; }
+.app-header-brand em { color: #a78bfa; font-style: normal; }
+.app-header-mark { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #8067bc; border-radius: 11px; color: #eee5ff; background: linear-gradient(135deg, #8b70d8, #55427f); font-size: 20px; }
+.app-header-breadcrumb { min-width: 0; gap: 10px; color: #777989; font-size: 12px; white-space: nowrap; }
+.app-header-breadcrumb strong { overflow: hidden; color: #e4e2ed; font-weight: 600; text-overflow: ellipsis; }
+.app-header-actions { flex: 0 0 auto; gap: 14px; }
+.app-header-back { color: #c4b5df; font-size: 12px; text-decoration: none; }
+.app-header button.app-header-back { padding: 0; border: 0; background: transparent; font: inherit; cursor: pointer; }
+.app-header-back:hover { color: #f0e9ff; }
+
+@media (max-width: 650px) {
+  .app-header { min-height: 66px; padding: 0 15px; }
+  .app-header-left { gap: 12px; }
+  .app-header-brand { gap: 8px; font-size: 14px; }
+  .app-header-mark { width: 32px; height: 32px; }
+  .app-header-breadcrumb { display: none; }
+  .app-header-actions { gap: 8px; }
+}
