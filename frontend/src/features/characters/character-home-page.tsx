@@ -1,25 +1,21 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getCharacterExperience, getCharacterSheet, getGameSystems, getSystemCharacters, type CharacterExperienceSummary, type CharacterSheetField, type GameSystem, type SystemCharacter } from '../../api';
+import { getGameSystems, getSystemCharacters, type GameSystem, type SystemCharacter } from '../../api';
 import { CharacterHome } from './character-home';
 import { AppHeader } from '../shell/app-header';
 
 export function CharacterHomePage({ systemId, characterId, push }: { systemId: string; characterId: string; push: (path: string) => void }) {
   const [system, setSystem] = useState<GameSystem | null>(null);
   const [character, setCharacter] = useState<SystemCharacter | null>(null);
-  const [fields, setFields] = useState<CharacterSheetField[]>([]);
-  const [experience, setExperience] = useState<CharacterExperienceSummary | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([getGameSystems(), getCharacterSheet(systemId), getSystemCharacters(systemId), getCharacterExperience(characterId).catch(() => null)])
-      .then(([systemsResult, sheet, characterResult, experienceResult]) => {
+    Promise.all([getGameSystems(), getSystemCharacters(systemId)])
+      .then(([systemsResult, characterResult]) => {
         if (cancelled) return;
         setSystem(systemsResult.systems.find((item) => item.id === systemId) ?? null);
-        setFields(sheet.fields);
-        setExperience(experienceResult);
         setCharacter(characterResult.characters.find((item) => item.id === characterId && item.game_system_id === systemId && item.status === 'active') ?? null);
       })
       .catch(() => { if (!cancelled) { setSystem(null); setCharacter(null); } })
@@ -29,5 +25,5 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
 
   if (loading) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando personagem...</p></main>;
   if (!system) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><h1>Sistema indisponível</h1></main>;
-  return <CharacterHome systemName={system.name} character={character} fields={fields} experience={experience} onSwitch={() => push(`/systems/${encodeURIComponent(systemId)}/characters`)} />;
+  return <CharacterHome systemName={system.name} character={character} onSwitch={() => push(`/systems/${encodeURIComponent(systemId)}/characters`)} />;
 }

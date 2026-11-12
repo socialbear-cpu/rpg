@@ -42,7 +42,6 @@ h1, h2, h3, h4 {
 .character-home-card,
 .character-unavailable,
 .character-form,
-.lobby-detail-panel,
 .lobby-room-card,
 .system-creation-panel,
 .system-card,
@@ -86,11 +85,6 @@ h1, h2, h3, h4 {
 .system-creation-label input:focus,
 .system-creation-label textarea:focus {
   outline-color: #a78bfa;
-}
-
-.lobby-character {
-  border-color: #4b4261;
-  background: linear-gradient(115deg, #1d202b, #171922);
 }
 
 .lobby-room-icon,

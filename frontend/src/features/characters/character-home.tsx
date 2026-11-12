@@ -1,16 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import type { CharacterExperienceSummary, CharacterSheetField, SystemCharacter } from '../../api';
-import { CharacterForm } from './character-form';
+import type { CharacterSheetField, SystemCharacter } from '../../api';
 import { AppHeader } from '../shell/app-header';
 import './characters.css';
 
 interface CharacterHomeProps {
   systemName: string;
   character: SystemCharacter | null;
-  fields: CharacterSheetField[];
-  experience?: CharacterExperienceSummary | null;
+  fields?: CharacterSheetField[];
   onSwitch: () => void;
 }
 
@@ -20,44 +18,16 @@ const rooms = [
   { name: 'Procura-se grupo', topic: 'Combine horários e monte sua party' },
 ];
 
-export function CharacterHome({ systemName, character, fields, experience = null, onSwitch }: CharacterHomeProps) {
-  const [editing, setEditing] = useState(false);
+export function CharacterHome({ systemName, character, onSwitch }: CharacterHomeProps) {
   const [activeRoom, setActiveRoom] = useState<string | null>(null);
-  const [localCharacter, setLocalCharacter] = useState(character);
 
   if (!character) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{systemName}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
-
-  const currentCharacter = localCharacter ?? character;
-  const orderedFields = [...fields].sort((a, b) => a.position - b.position);
-  const requiredXp = experience ? experience.xp_in_level + experience.xp_to_next_level : null;
-  const progress = requiredXp && experience ? Math.min(100, (experience.xp_in_level / requiredXp) * 100) : 0;
 
   return (
     <main className="character-entry-page character-home-page">
       <AppHeader activeItem="Meus Sistemas" />
 
       <div className="lobby-layout">
-        <aside className="lobby-character" aria-label="Ficha do personagem selecionado">
-          <div className="lobby-character-heading">
-            <span className="character-entry-eyebrow">SUA FICHA</span>
-            <h2 className="lobby-character-name">{currentCharacter.character_name}</h2>
-            <span className="lobby-level">Nível {experience?.level ?? '—'}</span>
-          </div>
-          <section className="lobby-xp" aria-label="Experiência do personagem">
-            <div className="lobby-xp-label"><span>Experiência</span><strong>{experience ? `${experience.total_xp} XP` : 'Indisponível'}</strong></div>
-            <div className="lobby-xp-track" role="progressbar" aria-label="Progresso para o próximo nível" aria-valuenow={Math.round(progress)} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${progress}%` }} /></div>
-            <div className="lobby-xp-caption"><span>{experience ? `${experience.xp_in_level} / ${requiredXp} XP` : 'Progresso não disponível'}</span><span>{experience ? `Faltam ${experience.xp_to_next_level} XP` : ''}</span></div>
-          </section>
-          <dl className="lobby-sheet-fields">
-            {orderedFields.length ? orderedFields.map((field) => <div key={field.key}><dt>{field.label}</dt><dd>{String(currentCharacter.attributes[field.key] ?? '—')}</dd></div>) : <div><dt>Sistema</dt><dd>{systemName}</dd></div>}
-          </dl>
-          <div className="lobby-character-actions">
-            <button className="character-secondary-button" type="button" onClick={() => setEditing((value) => !value)}>{editing ? 'Fechar edição' : 'Editar personagem'}</button>
-            <button className="lobby-text-button" type="button" onClick={onSwitch}>Trocar personagem</button>
-          </div>
-          {editing && <section className="lobby-detail-panel"><h3>Editar personagem</h3><p className="lobby-note">Protótipo: as alterações aparecem nesta tela, mas ainda não são salvas no servidor.</p><CharacterForm fields={fields} initialName={currentCharacter.character_name} initialAttributes={currentCharacter.attributes} submitLabel="Salvar alterações" onSubmit={(name, attributes) => { setLocalCharacter({ ...currentCharacter, character_name: name, attributes }); setEditing(false); }} onCancel={() => setEditing(false)} /></section>}
-        </aside>
-
         <div className="lobby-main">
           <header className="lobby-welcome"><span className="character-entry-eyebrow">{systemName} · SAGUÃO</span><h1>Bem-vindo à aventura</h1><p>Escolha onde sua próxima história começa.</p></header>
           <section className="lobby-matchmaking" aria-label="Procurar partida">
