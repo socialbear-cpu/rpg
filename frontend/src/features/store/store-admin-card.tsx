@@ -19,7 +19,7 @@ export function StoreAdminCard({ store, saving, message, onChange, onSave }: {
         </select></label>
         <label>Preço<input required type="number" min={0} max={9999999999.99} step="0.01" value={offer.price} onChange={(event) => onChange({ ...store, offers: store.offers.map((entry, i) => i === index ? { ...entry, price: Number(event.target.value) } : entry) })} /></label>
         <label><input type="checkbox" checked={offer.is_available} onChange={(event) => onChange({ ...store, offers: store.offers.map((entry, i) => i === index ? { ...entry, is_available: event.target.checked } : entry) })} /> Disponível</label>
-        <button className="button secondary" type="button" onClick={() => onChange({ ...store, offers: store.offers.filter((_, i) => i !== index) })}>Remover oferta</button>
+        <button className="button secondary" type="button" onClick={() => onChange({ ...store, offers: store.offers.filter((_, i) => i !== index) })}>{offer.store_product_id ? 'Desativar oferta' : 'Remover oferta'}</button>
       </div>)}
       <button className="button secondary" type="button" disabled={store.items.length === 0} onClick={() => onChange({ ...store, offers: [...store.offers, { item_id: '', item_name: '', price: 0, is_available: true }] })}>Adicionar oferta</button>
       <button className="button primary" type="submit">{saving ? 'Salvando…' : 'Salvar loja'}</button>

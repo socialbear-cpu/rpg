@@ -14,6 +14,7 @@ const systemView: DailyLoginSystemView = {
   system: {
     id: systemId,
     name: 'Sistema A',
+    currency_name: 'Cristais',
     is_active: true,
     daily_login_timezone: 'America/Sao_Paulo',
     daily_login_rewards_enabled: true,
@@ -93,7 +94,7 @@ describe('optional daily currency', () => {
  it.each([0, 5])('shows currency only when positive (%s)', (amount) => {
   const view = { ...systemView, today: { ...systemView.today!, reward: { ...systemView.today!.reward!, currency_amount: amount } } };
   const html = renderToStaticMarkup(createElement(DailyLoginCard, { systems: [view], loading: false, claimingSystemId: null, message: null, messageIsError: false, onClaim: vi.fn() }));
-  expect(html.includes('moedas')).toBe(amount > 0); expect(html).toContain('Poção');
+  expect(html.includes('Cristais')).toBe(amount > 0); expect(html).toContain('Poção');
  });
  it('offers seven optional currency fields', () => {
   const html = renderToStaticMarkup(createElement(DailyLoginAdminCard, { systems: [systemView], selectedSystemId: systemId, calendar: ownerCalendar, loading: false, saving: false, message: null, messageIsError: false, onSystemChange: vi.fn(), onRewardChange: vi.fn(), onActiveChange: vi.fn(), onSave: vi.fn() }));

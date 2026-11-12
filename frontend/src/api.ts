@@ -103,6 +103,7 @@ export interface CreateCharacterInput {
 export interface DailyLoginSystem {
   id: string;
   name: string;
+  currency_name?: string;
   is_active: boolean;
   daily_login_timezone: string;
   daily_login_rewards_enabled: boolean;

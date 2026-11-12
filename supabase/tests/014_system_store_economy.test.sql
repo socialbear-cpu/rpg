@@ -43,7 +43,9 @@ INSERT INTO store_products(id,game_system_id,product_id,price) VALUES ('96000000
 SET LOCAL ROLE authenticated;
 SELECT set_config('request.jwt.claim.sub','91000000-0000-4000-8000-000000000001',true);
 SELECT lives_ok($$UPDATE game_systems SET currency_name='Gold' WHERE id='92000000-0000-4000-8000-000000000001'$$,'owner configures currency');
-SELECT lives_ok($$UPDATE store_products SET price=10 WHERE id='96000000-0000-4000-8000-000000000001'$$,'owner configures offer');
+SELECT lives_ok($$UPDATE store_products SET price=12 WHERE id='96000000-0000-4000-8000-000000000001'$$,'owner configures offer');
+SELECT is((SELECT price FROM store_products WHERE id='96000000-0000-4000-8000-000000000001'),12::numeric,'owner offer price persists');
+UPDATE store_products SET price=10 WHERE id='96000000-0000-4000-8000-000000000001';
 SELECT is(set_daily_login_reward_schedule('92000000-0000-4000-8000-000000000001', (SELECT jsonb_agg(jsonb_build_object('weekday',d,'item_id','94000000-0000-4000-8000-000000000001','quantity',1,'currency_amount',-1)) FROM generate_series(1,7) d),true)->>'status','invalid_calendar','negative daily money rejected');
 SELECT is(set_daily_login_reward_schedule('92000000-0000-4000-8000-000000000001', (SELECT jsonb_agg(jsonb_build_object('weekday',d,'item_id','94000000-0000-4000-8000-000000000001','quantity',1)) FROM generate_series(1,7) d),true)->>'status','updated','old calendar payload remains supported');
 SELECT set_config('request.jwt.claim.sub','91000000-0000-4000-8000-000000000002',true);

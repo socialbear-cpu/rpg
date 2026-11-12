@@ -48,7 +48,7 @@ export function DailyLoginCard({ systems, loading, claimingSystemId, message, me
         <span className="label-muted">RECOMPENSA DE HOJE{today?.local_date ? ` · ${today.local_date.split('-').reverse().join('/')}` : ''}</span>
         <strong>{reward.item_name}</strong>
         <span>{reward.quantity} {reward.quantity === 1 ? 'unidade' : 'unidades'}</span>
-        {(reward.currency_amount ?? 0) > 0 && <span>+{reward.currency_amount?.toLocaleString('pt-BR')} moedas</span>}
+        {(reward.currency_amount ?? 0) > 0 && <span>+{reward.currency_amount?.toLocaleString('pt-BR')} {selected.system.currency_name ?? 'moedas'}</span>}
       </section>}
       {alreadyClaimed && <p className="daily-state" role="status">
         Recompensa resgatada hoje{today.claim ? ` para ${selected.characters.find((entry) => entry.id === today.claim?.character_id)?.character_name ?? 'seu personagem'}.` : '.'}

@@ -50,7 +50,7 @@ beforeEach(() => {
     }
     if (url.pathname === '/rest/v1/game_systems') {
       const system = {
-        id: systemId, name: 'System A', is_active: true,
+        id: systemId, name: 'System A', is_active: true, currency_name: 'Cristais',
         daily_login_timezone: 'UTC', daily_login_rewards_enabled: true,
       };
       if (url.searchParams.get('id') === `eq.${systemId}`) {
@@ -112,6 +112,13 @@ afterEach(() => {
 });
 
 describe('daily login popup', () => {
+  it('selects the configured currency name for daily reward previews', async () => {
+    const response = await request('GET', '/api/v1/me/daily-login/systems');
+    expect(response.json()[0].system.currency_name).toBe('Cristais');
+    const queries = requests.filter(({ url }) => url.pathname === '/rest/v1/game_systems');
+    expect(queries.length).toBeGreaterThan(0);
+    for (const { url } of queries) expect(url.searchParams.get('select')?.split(',')).toContain('currency_name');
+  });
   it('returns rewards only when the database allows the daily display', async () => {
     const first = await request('POST', `/api/v1/game-systems/${systemId}/daily-login/popup`, {});
     expect(first.statusCode).toBe(200);
