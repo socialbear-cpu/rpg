@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { CharacterSheetField, SystemCharacter } from '../../api';
+import type { CharacterExperienceSummary, CharacterSheetField, SystemCharacter } from '../../api';
 import { AppHeader } from '../shell/app-header';
 import './characters.css';
 
@@ -9,6 +9,7 @@ interface CharacterHomeProps {
   systemName: string;
   character: SystemCharacter | null;
   fields?: CharacterSheetField[];
+  experience?: CharacterExperienceSummary | null;
   onSwitch: () => void;
 }
 
@@ -18,14 +19,14 @@ const rooms = [
   { name: 'Procura-se grupo', topic: 'Combine horários e monte sua party' },
 ];
 
-export function CharacterHome({ systemName, character, onSwitch }: CharacterHomeProps) {
+export function CharacterHome({ systemName, character, fields = [], experience = null, onSwitch }: CharacterHomeProps) {
   const [activeRoom, setActiveRoom] = useState<string | null>(null);
 
   if (!character) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{systemName}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
 
   return (
     <main className="character-entry-page character-home-page">
-      <AppHeader activeItem="Meus Sistemas" />
+      <AppHeader activeItem="Meus Sistemas" characterSheet={{ systemName, character, fields, experience }} />
 
       <div className="lobby-layout">
         <div className="lobby-main">
