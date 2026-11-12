@@ -23,7 +23,7 @@ describe('daily login claim schema', () => {
 describe('daily login schedule schema', () => {
   it('accepts exactly seven unique weekdays with existing-item IDs and positive quantities', () => {
     expect(dailyLoginScheduleSchema.parse({ rewards: schedule, is_active: true }))
-      .toEqual({ rewards: schedule, is_active: true });
+      .toEqual({ rewards: schedule.map((r) => ({ ...r, currency_amount: 0 })), is_active: true });
   });
 
   it('rejects duplicate weekdays, invalid item IDs, and quantities outside the supported range', () => {
@@ -49,4 +49,13 @@ describe('daily login schedule schema', () => {
     expect(dailyLoginScheduleSchema.safeParse({ rewards: schedule, is_active: true, owner_user_id: '20000000-0000-4000-8000-000000000001' }).success)
       .toBe(false);
   });
+});
+
+it('defaults missing currency amounts to zero and accepts positive two-decimal amounts', () => {
+  const parsed = dailyLoginScheduleSchema.parse({ rewards: schedule, is_active: true });
+  expect(parsed.rewards.every((reward) => reward.currency_amount === 0)).toBe(true);
+  expect(dailyLoginScheduleSchema.safeParse({ rewards: schedule.map((r) => ({ ...r, currency_amount: 12.5 })), is_active: true }).success).toBe(true);
+});
+it.each([-1, 0.001, 10_000_000_000])('rejects unsupported daily currency %s', (currency_amount) => {
+  expect(dailyLoginScheduleSchema.safeParse({ rewards: schedule.map((r) => ({ ...r, currency_amount })), is_active: true }).success).toBe(false);
 });

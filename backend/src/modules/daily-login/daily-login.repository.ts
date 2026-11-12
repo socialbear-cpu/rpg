@@ -37,6 +37,8 @@ export interface DailyLoginClaimResult {
   local_claim_date?: string;
   timezone?: string;
   xp_awarded: number;
+  currency_awarded: number;
+  currency_name: string;
 }
 
 const systemColumns = 'id,name,is_active,daily_login_timezone,daily_login_rewards_enabled';
@@ -144,7 +146,7 @@ export async function readOwnerDailyLoginCalendar(
 
   const [itemsResult, rewardsResult] = await Promise.all([
     client.from('items').select('id,name').eq('game_system_id', systemId).order('name'),
-    client.from('daily_login_rewards').select('weekday,item_id,quantity')
+    client.from('daily_login_rewards').select('weekday,item_id,quantity,currency_amount')
       .eq('game_system_id', systemId).order('weekday'),
   ]);
   if (itemsResult.error) throw itemsResult.error;

@@ -27,6 +27,7 @@ const scheduleOpenApiBody = {
     rewards: { type: 'array', minItems: 7, maxItems: 7, items: {
       type: 'object', required: ['weekday', 'item_id', 'quantity'], additionalProperties: false,
       properties: {
+        currency_amount: { type: 'number', minimum: 0, maximum: 9999999999.99, multipleOf: 0.01, default: 0 },
         weekday: { type: 'integer', minimum: 1, maximum: 7 },
         item_id: { type: 'string', format: 'uuid' },
         quantity: { type: 'integer', minimum: 1, maximum: 1000000 },
@@ -103,13 +104,14 @@ export async function dailyLoginRoutes(app: FastifyInstance) {
       summary: 'Claim today’s daily login reward',
       response: {
         201: {
-          type: 'object', required: ['status', 'claim_id', 'game_system_id', 'character_id', 'item_id', 'item_name', 'quantity', 'weekday', 'local_claim_date', 'timezone', 'xp_awarded'],
+          type: 'object', required: ['status', 'claim_id', 'game_system_id', 'character_id', 'item_id', 'item_name', 'quantity', 'weekday', 'local_claim_date', 'timezone', 'xp_awarded', 'currency_awarded', 'currency_name'],
           additionalProperties: false,
           properties: {
             status: { const: 'claimed' }, claim_id: { type: 'string', format: 'uuid' },
             game_system_id: { type: 'string', format: 'uuid' }, character_id: { type: 'string', format: 'uuid' },
             item_id: { type: 'string', format: 'uuid' }, item_name: { type: 'string' }, quantity: { type: 'integer', minimum: 1 },
             weekday: { type: 'integer', minimum: 1, maximum: 7 }, local_claim_date: { type: 'string', format: 'date' },
+            currency_name: { type: 'string' }, currency_awarded: { type: 'number', minimum: 0 },
             timezone: { type: 'string' }, xp_awarded: { type: 'integer', minimum: 0 },
           },
         },

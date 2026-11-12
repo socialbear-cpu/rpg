@@ -1,10 +1,12 @@
 import { z } from 'zod';
+import { storeMoneySchema } from '../store/store.schema.js';
 
 export const dailyLoginClaimSchema = z.strictObject({
   character_id: z.uuid(),
 });
 
 export const dailyLoginRewardSchema = z.strictObject({
+  currency_amount: storeMoneySchema.default(0),
   weekday: z.number().int().min(1).max(7),
   item_id: z.uuid(),
   quantity: z.number().int().min(1).max(1_000_000),
@@ -36,6 +38,7 @@ export interface DailyLoginCharacter {
 }
 
 export interface DailyLoginReward {
+  currency_amount: number;
   weekday: number;
   item_id: string;
   item_name: string;

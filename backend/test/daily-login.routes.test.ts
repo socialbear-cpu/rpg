@@ -12,6 +12,7 @@ const authorization = 'Bearer accepted-token';
 let requests: { url: URL; method: string; headers: Headers; body: unknown }[];
 let claimStatus: string;
 let claimXpAwarded: number;
+let claimCurrencyAwarded: number;
 let scheduleStatus: string;
 let authenticatedUserId: string;
 let showPopup: boolean;
@@ -22,6 +23,7 @@ beforeEach(() => {
   requests = [];
   claimStatus = 'claimed';
   claimXpAwarded = 25;
+  claimCurrencyAwarded = 0;
   scheduleStatus = 'updated';
   authenticatedUserId = userId;
   showPopup = true;
@@ -90,6 +92,8 @@ beforeEach(() => {
         item_name: 'Daily Token',
         quantity: 3,
         xp_awarded: claimXpAwarded,
+        currency_awarded: claimCurrencyAwarded,
+        currency_name: 'Coins',
         weekday: 2,
         local_claim_date: '2026-11-10',
         timezone: 'America/Sao_Paulo',
@@ -247,9 +251,22 @@ describe('daily login API writes', () => {
     const rpc = requests.find(({ url }) => url.pathname.endsWith('/set_daily_login_reward_schedule'))!;
     expect(rpc.body).toEqual({
       p_game_system_id: systemId,
-      p_rewards: rewards,
+      p_rewards: rewards.map((r) => ({ ...r, currency_amount: 0 })),
       p_is_active: true,
     });
     expect(rpc.body).not.toHaveProperty('owner_user_id');
   });
+});
+
+it.each([0, 12.5])('preserves a successful daily claim currency award of %s', async (amount) => {
+  claimCurrencyAwarded = amount;
+  const response = await request('POST', `/api/v1/game-systems/${systemId}/daily-login/claims`, { character_id: characterId });
+  expect(response.statusCode).toBe(201);
+  expect(response.json()).toMatchObject({ currency_awarded: amount, currency_name: 'Coins', xp_awarded: 25 });
+});
+it('passes configured positive daily currency amounts to the schedule RPC', async () => {
+  const rewards = Array.from({ length: 7 }, (_, i) => ({ weekday: i + 1, item_id: itemId, quantity: 1, currency_amount: 10.5 }));
+  const response = await request('PUT', `/api/v1/owner/game-systems/${systemId}/daily-login/rewards`, { rewards, is_active: true });
+  expect(response.statusCode).toBe(200);
+  expect(requests.find(({ url }) => url.pathname.endsWith('/set_daily_login_reward_schedule'))?.body).toMatchObject({ p_rewards: rewards });
 });

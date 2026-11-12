@@ -1,3 +1,4 @@
+import { storeRoutes } from './modules/store/store.routes.js';
 import type { FastifyInstance } from 'fastify';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
@@ -31,6 +32,7 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
   }
 
   app.register(healthRoutes);
+  app.register(storeRoutes);
   app.register(profileRoutes);
   app.register(dailyLoginRoutes);
   app.register(systemMembershipRoutes);
