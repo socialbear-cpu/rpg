@@ -18,7 +18,9 @@ export function SystemsSection({ systems, loading, error, onCreate, onEnter }: S
           <h2 id="systems-title">Meus sistemas</h2>
           <p>Escolha um sistema para abrir sua aventura ou crie um novo.</p>
         </div>
-        <button type="button" className="primary-button" onClick={onCreate}>+ Criar sistema</button>
+        {(systems.length > 0 || loading || error) && (
+          <button type="button" className="primary-button" onClick={onCreate}>+ Criar sistema</button>
+        )}
       </div>
       {loading && <p role="status">Carregando sistemas...</p>}
       {error && <p className="systems-error" role="alert">{error}</p>}

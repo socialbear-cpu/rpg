@@ -22,7 +22,6 @@ type IconName =
   | 'settings'
   | 'bell'
   | 'user'
-  | 'plus'
   | 'search'
   | 'chevron'
   | 'menu'
@@ -55,7 +54,6 @@ function Icon({
     settings: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 2.94-.08-.02a1.7 1.7 0 0 0-1.77.35l-.06.05h-3.4l-.05-.07a1.7 1.7 0 0 0-1.78-.35l-.07.02-2.94-1.7.02-.08A1.7 1.7 0 0 0 7.6 16.3l-.05-.06v-3.4l.07-.05a1.7 1.7 0 0 0 .35-1.78l-.02-.07 1.7-2.94.08.02a1.7 1.7 0 0 0 1.77-.35l.06-.05h3.4l.05.07a1.7 1.7 0 0 0 1.78.35l.07-.02 2.94 1.7-.02.08A1.7 1.7 0 0 0 19.4 11.7l.05.06v3.4Z',
     bell: 'M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9 M10 21h4',
     user: 'M20 21a8 8 0 0 0-16 0 M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z',
-    plus: 'M12 5v14 M5 12h14',
     search: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z M21 21l-4.3-4.3',
     chevron: 'm9 18 6-6-6-6',
     menu: 'M4 6h16 M4 12h16 M4 18h16',
@@ -203,13 +201,6 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
               <p>{pageDescription[activePage]}</p>
             </div>
 
-            <button
-              className="primary-button"
-              onClick={() => router.push('/dashboard/systems/new')}
-            >
-              <Icon name="plus" size={18} />
-              Criar sistema
-            </button>
           </section>
 
           <SystemsSection systems={systems} loading={systemsLoading} error={systemsError}
