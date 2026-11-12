@@ -22,7 +22,9 @@ import { SystemStoreAdmin } from '../store/store-admin-card';
 import { ExperienceAdminCard } from '../experience/experience-admin-card';
 import { addCustomExperienceSource } from '../experience/experience-model';
 import { SystemMembershipCard } from '../system-membership/system-membership-card';
+import { SystemSheetEditor } from '../system-creation/system-sheet-editor';
 import './system-management-page.css';
+import '../system-creation/system-creation.css';
 
 type PageState = 'loading' | 'ready' | 'forbidden' | 'error';
 
@@ -171,6 +173,7 @@ export function SystemManagementPage() {
 
   const selectedManageable = manageableSystems.find((entry) => entry.system.id === systemId);
   const membershipsForSystem = access ? { ...access, memberships: access.memberships.filter((membership) => membership.game_system_id === systemId) } : null;
+  const canEditSheet = Boolean(access?.is_platform_admin || access?.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner'));
 
   return <main className="system-management-page">
     <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar aos sistemas" />
@@ -183,10 +186,10 @@ export function SystemManagementPage() {
           <span className="system-management-eyebrow">CENTRAL DO SISTEMA</span>
           <h1>{systemView.system.name}</h1>
           <p>Gerencie as regras e os recursos deste mundo.</p>
-          <div className="system-management-stats"><span><strong>2</strong> áreas disponíveis</span><span><strong>3</strong> ferramentas de gerenciamento</span></div>
+          <div className="system-management-stats"><span><strong>3</strong> áreas disponíveis</span><span><strong>4</strong> ferramentas de gerenciamento</span></div>
         </header>
         <nav className="system-management-nav" aria-label="Seções de gerenciamento">
-          <a href="#overview">Visão geral</a><a href="#people">Pessoas</a><a href="#game">Jogo</a><a href="#community">Comunidade</a><a href="#settings">Configurações</a>
+          <a href="#overview">Visão geral</a><a href="#people">Pessoas</a><a href="#game">Jogo</a><a href="#sheet">Ficha</a><a href="#community">Comunidade</a><a href="#settings">Configurações</a>
         </nav>
         <section className="system-management-section" id="overview"><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div><p className="system-management-section-copy">Ajuste quem ajuda a administrar este sistema e configure as regras que afetam os personagens.</p></section>
         <section className="system-management-section" id="people"><div className="system-management-section-heading"><span>02</span><div><p>ACESSO</p><h2>Pessoas</h2></div></div>
@@ -197,8 +200,11 @@ export function SystemManagementPage() {
           <ExperienceAdminCard systems={[systemView]} selectedSystemId={systemId} settings={experience} loading={experienceLoading} saving={experienceSaving} message={experienceMessage} messageIsError={experienceMessageIsError} onSystemChange={() => undefined} onXpPerLevelChange={(amount) => setExperience((current) => current ? { ...current, xp_per_level: amount } : current)} onSourceChange={(index, field, value) => setExperience((current) => current ? { ...current, sources: current.sources.map((source, sourceIndex) => sourceIndex === index ? { ...source, [field]: value } : source) } : current)} onAddCustomSource={() => setExperience((current) => current ? { ...current, sources: addCustomExperienceSource(current.sources) } : current)} onRemoveCustomSource={(index) => setExperience((current) => current ? { ...current, sources: current.sources.filter((_, sourceIndex) => sourceIndex !== index) } : current)} onSave={(event) => void saveExperience(event)} />
           <DailyLoginAdminCard systems={[systemView]} selectedSystemId={systemId} calendar={calendar} loading={calendarLoading} saving={calendarSaving} message={calendarMessage} messageIsError={calendarMessageIsError} onSystemChange={() => undefined} onRewardChange={changeReward} onActiveChange={(isActive) => setCalendar((current) => current ? { ...current, is_active: isActive } : current)} onSave={(event) => void saveCalendar(event)} />
         </section>
-        <section className="system-management-section system-management-future" id="community"><div className="system-management-section-heading"><span>04</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>
-        <section className="system-management-section system-management-future" id="settings"><div className="system-management-section-heading"><span>05</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div><p>As configurações gerais do sistema ainda não têm ferramentas de edição nesta central.</p></section>
+        <section className="system-management-section" id="sheet"><div className="system-management-section-heading"><span>04</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
+          <div className="system-management-sheet-editor">{canEditSheet ? <SystemSheetEditor systemId={systemId} systemName={systemView.system.name} /> : <p>Somente o Owner do sistema pode editar a ficha de personagem.</p>}</div>
+        </section>
+        <section className="system-management-section system-management-future" id="community"><div className="system-management-section-heading"><span>05</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>
+        <section className="system-management-section system-management-future" id="settings"><div className="system-management-section-heading"><span>06</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div><p>As configurações gerais do sistema ainda não têm ferramentas de edição nesta central.</p></section>
       </>}
     </div>
   </main>;

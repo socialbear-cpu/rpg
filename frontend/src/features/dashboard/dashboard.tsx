@@ -93,7 +93,6 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
             onCreate={() => router.push('/dashboard/systems/new')}
             isPlatformAdmin={isPlatformAdmin}
             onManage={(systemId) => router.push(`/dashboard/systems/${encodeURIComponent(systemId)}/manage`)}
-            onEditSheet={(systemId) => router.push(`/systems/${encodeURIComponent(systemId)}/sheet`)}
             onEnter={(systemId) => router.push(`/systems/${encodeURIComponent(systemId)}/characters`)} />
         </div>
       </main>

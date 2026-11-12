@@ -144,7 +144,7 @@ describe('character sheet builder', () => {
 });
 
 describe('system dashboard and creation', () => {
-  it('lists owned systems with an entry action and a create action', () => {
+  it('lists owned systems with entry and management actions plus a create action', () => {
     const html = renderToStaticMarkup(createElement(SystemsSection, {
       systems: [{ id: 'sys-1', slug: 'fantasia', name: 'Fantasia', description: null }],
       loading: false,
@@ -152,12 +152,13 @@ describe('system dashboard and creation', () => {
       onCreate: vi.fn(),
       onEnter: vi.fn(),
       ownerSystemIds: new Set(['sys-1']),
-      onEditSheet: vi.fn(),
+      onManage: vi.fn(),
     }));
     expect(html).toContain('Fantasia');
     expect(html).toContain('Entrar no sistema Fantasia');
     expect(html).toContain('Criar sistema');
-    expect(html).toContain('Editar ficha');
+    expect(html).toContain('Gerenciar Fantasia');
+    expect(html).not.toContain('Editar ficha');
   });
 
   it('builds a system with its sheet and routes to character selection', async () => {

@@ -152,6 +152,23 @@
   grid-column: 2;
 }
 
+.system-management-sheet-editor {
+  grid-column: 2;
+  min-width: 0;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid #292b37;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #191b26, #171922);
+}
+
+.system-management-sheet-editor h3 {
+  margin: 8px 0 0;
+  color: #f0eff7;
+  font: 600 21px 'Outfit', sans-serif;
+}
+
+.system-sheet-saved { color: #8ddbb2; font-size: 13px; }
+
 .system-management-future > p {
   grid-column: 2;
   margin: 0;
@@ -181,5 +198,6 @@
   .system-management-section > .card,
   .system-management-section > .daily-login-admin-card,
   .system-management-section > .experience-admin-card,
+  .system-management-sheet-editor,
   .system-management-future > p { grid-column: 1; }
 }
