@@ -1,6 +1,6 @@
 # API Fastify RPG
 
-Este workspace TypeScript executa a API Fastify como serviço `backend` do projeto Vercel Services. Rewrites da Vercel encaminham `/api/*` e `/healthz` diretamente a ele; todas as rotas privadas exigem bearer token validado pelo Supabase Auth. Senhas não são armazenadas nas tabelas da aplicação.
+Este workspace TypeScript executa a API Fastify como serviço `backend` do projeto Vercel Services. O entrypoint `src/vercel-app.ts` exporta a instância Fastify para a Vercel; `src/server.ts` inicia o listener para desenvolvimento local. Rewrites da Vercel encaminham `/api/*` e `/healthz` diretamente ao backend; todas as rotas privadas exigem bearer token validado pelo Supabase Auth. Senhas não são armazenadas nas tabelas da aplicação.
 
 ## Local configuration and development
 
