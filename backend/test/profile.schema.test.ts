@@ -13,6 +13,11 @@ describe('profile patch validation', () => {
       .toEqual({ display_name: 'x'.repeat(length) });
   });
 
+  it.each([3, 20])('normalizes and accepts a %i character nick', (length) => {
+    const username = 'A'.repeat(length);
+    expect(profilePatchSchema.parse({ username })).toEqual({ username: username.toLowerCase() });
+  });
+
   it('accepts nullable fields, empty bio and the maximum field lengths', () => {
     for (const body of [
       { bio: null, avatar_url: null }, { bio: '' }, { bio: 'b'.repeat(500) },

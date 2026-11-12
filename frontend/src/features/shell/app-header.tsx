@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getMyProfile, type CharacterExperienceSummary, type CharacterSheetField, type Profile, type SystemCharacter } from '../../api';
 import { signOut } from '../../supabase-auth';
@@ -37,9 +38,13 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
 
   useEffect(() => {
     let cancelled = false;
-    getMyProfile().then((result) => { if (!cancelled) setProfile(result); }).catch(() => undefined);
+    getMyProfile().then((result) => {
+      if (cancelled) return;
+      setProfile(result);
+      if (!result.username) router.replace('/dashboard');
+    }).catch(() => undefined);
     return () => { cancelled = true; };
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     function closeMenu(event: MouseEvent | KeyboardEvent) {
@@ -68,8 +73,8 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
     router.replace('/');
   }
 
-  const profileName = profile?.display_name || 'Jogador';
-  const avatarInitial = profileName.charAt(0).toUpperCase();
+  const profileName = profile?.username ? `@${profile.username}` : profile?.display_name || 'Jogador';
+  const avatarInitial = (profile?.username || profileName).charAt(0).toUpperCase();
   const requiredXp = characterSheet?.experience
     ? characterSheet.experience.xp_in_level + characterSheet.experience.xp_to_next_level
     : null;
@@ -80,22 +85,22 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
   return (
     <header className="app-header">
       <div className="app-header-leading">
-        <a className="app-header-brand" href="/dashboard" aria-label="Nexus RPG início">
+        <Link className="app-header-brand" href="/dashboard" aria-label="Nexus RPG início">
           <span className="app-header-mark" aria-hidden="true">✧</span>
           <span>NEXUS <em>RPG</em></span>
-        </a>
+        </Link>
       </div>
       <nav className="app-header-nav" aria-label="Navegação principal">
-        {navItems.map((item) => <a key={item.label} className={`app-header-nav-link ${activeItem === item.label ? 'active' : ''}`} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</a>)}
+        {navItems.map((item) => <Link key={item.label} className={`app-header-nav-link ${activeItem === item.label ? 'active' : ''}`} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</Link>)}
       </nav>
       <details className="app-header-mobile-menu">
         <summary aria-label="Abrir navegação">☰</summary>
         <nav aria-label="Navegação principal">
-          {navItems.map((item) => <a key={item.label} className={activeItem === item.label ? 'active' : ''} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</a>)}
+          {navItems.map((item) => <Link key={item.label} className={activeItem === item.label ? 'active' : ''} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined} onClick={onNavigate ? (event) => { event.preventDefault(); onNavigate(item.label); } : undefined}>{item.label}</Link>)}
         </nav>
       </details>
       <div className="app-header-actions">
-        {backHref && <a className="app-header-back" href={backHref}>← {backLabel}</a>}
+        {backHref && <Link className="app-header-back" href={backHref}>← {backLabel}</Link>}
         {children}
         <details className="app-header-profile" ref={profileMenu}>
           <summary className="app-header-profile-trigger" aria-label="Abrir perfil do jogador" title="Perfil do jogador">
@@ -107,7 +112,7 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
               <div><strong>{profileName}</strong><span>Aventureiro Nexus</span></div>
             </div>
             <nav className="app-header-profile-options" aria-label="Opções do perfil">
-              <a href="/">Meu perfil <span aria-hidden="true">↗</span></a>
+              <Link href="/">Meu perfil <span aria-hidden="true">↗</span></Link>
               <button type="button" disabled>Configurações <small>Em breve</small></button>
               <button type="button" className="app-header-logout" onClick={() => void logout()}>Sair da conta</button>
             </nav>

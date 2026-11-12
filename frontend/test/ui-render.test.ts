@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { AccountCard } from '../src/features/account/account-card.js';
 import { ProfileCard } from '../src/features/profile/profile-card.js';
+import { Dashboard } from '../src/features/dashboard/dashboard.js';
 import { RpgApp } from '../app/rpg-app.js';
 import { checkHealth } from '../src/api.js';
 
@@ -105,6 +106,12 @@ describe('initial application UI', () => {
     expect(html).toContain('role="tab" aria-selected="true" aria-controls="panel-auth"');
     expect(html).toContain('id="tab-signup" type="button" role="tab" aria-selected="false"');
     expect(html).not.toContain('id="profile-name"');
+  });
+
+  it('greets the dashboard player by their selected nick', () => {
+    const html = renderToStaticMarkup(createElement(Dashboard, { playerName: '@nexus42', onLogout: () => {} }));
+
+    expect(html).toContain('Olá, @nexus42!');
   });
 
   it('checks API health through the same-origin path', async () => {

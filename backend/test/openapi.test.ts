@@ -40,9 +40,11 @@ it('describes the public health and profile success payloads', async () => {
     const operation = document.paths['/api/v1/me/profile'][method];
     expect(operation.summary).toBeTruthy();
     expect(resolve(operation.responses['200'].content['application/json'].schema)).toMatchObject({
-      required: ['user_id', 'display_name', 'avatar_url', 'bio'], additionalProperties: false,
+      required: ['user_id', 'username', 'display_name', 'avatar_url', 'bio'], additionalProperties: false,
       properties: {
-        user_id: { type: 'string', format: 'uuid' }, display_name: { type: 'string' },
+        user_id: { type: 'string', format: 'uuid' },
+        username: { type: 'string', nullable: true, minLength: 3, maxLength: 20, pattern: '^[a-z0-9_]+$' },
+        display_name: { type: 'string' },
         avatar_url: { type: 'string', nullable: true }, bio: { type: 'string', nullable: true },
       },
     });
@@ -58,12 +60,13 @@ it('publishes a required strict PATCH body with editable field limits and cleari
     type: 'object', additionalProperties: false, minProperties: 1,
     properties: {
       display_name: { type: 'string', minLength: 1 },
+      username: { type: 'string', minLength: 3, maxLength: 20, pattern: '^[a-zA-Z0-9_]+$' },
       avatar_url: { type: 'string', nullable: true, maxLength: 2048, format: 'uri', pattern: expect.any(String) },
       bio: { type: 'string', nullable: true, maxLength: 500 },
     },
   });
   expect(Object.keys(resolve(body.content['application/json'].schema).properties)).toEqual([
-    'display_name', 'avatar_url', 'bio',
+    'display_name', 'username', 'avatar_url', 'bio',
   ]);
   expect(document.paths['/api/v1/me/profile'].get.requestBody).toBeUndefined();
 });
@@ -100,7 +103,7 @@ it('documents profile authentication, missing-row and database errors plus PATCH
   const { document, resolve } = await contract();
   for (const method of ['get', 'patch']) {
     const responses = document.paths['/api/v1/me/profile'][method].responses;
-    for (const code of ['401', '404', '500', ...(method === 'patch' ? ['400'] : [])]) {
+    for (const code of ['401', '404', '500', ...(method === 'patch' ? ['400', '409'] : [])]) {
       expect(responses[code].description).toBeTruthy();
       expect(resolve(responses[code].content['application/json'].schema)).toMatchObject({
         type: 'object', required: ['error'], properties: { error: { type: 'string' } },

@@ -2,12 +2,14 @@ import { currentAccessToken } from './supabase-auth';
 
 export interface Profile {
   user_id: string;
+  username: string | null;
   display_name: string;
   avatar_url: string | null;
   bio: string | null;
 }
 
 export interface ProfilePatch {
+  username?: string;
   display_name?: string;
   avatar_url?: string | null;
   bio?: string | null;

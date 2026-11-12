@@ -5,7 +5,7 @@ import { invalidPatches } from './fixtures/profile.js';
 const ownerId = 'a72adcaf-9d23-46cc-b312-5fbe7fb6214b';
 const otherId = 'eca3f0d5-b21d-4b7e-b5ea-ad8ed5f70c6b';
 const authorization = 'Bearer accepted-token';
-let rows: { user_id: string; display_name: string; avatar_url: string | null; bio: string | null }[];
+let rows: { user_id: string; username: string | null; display_name: string; avatar_url: string | null; bio: string | null }[];
 let requests: { url: URL; method: string; headers: Headers; body: unknown }[];
 let databaseFails: boolean;
 let authFails: boolean;
@@ -14,8 +14,8 @@ beforeEach(() => {
   vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
   vi.stubEnv('SUPABASE_PUBLISHABLE_KEY', 'sb_publishable_test');
   rows = [
-    { user_id: ownerId, display_name: 'Owner', avatar_url: null, bio: null },
-    { user_id: otherId, display_name: 'Other', avatar_url: null, bio: 'Private' },
+    { user_id: ownerId, username: null, display_name: 'Owner', avatar_url: null, bio: null },
+    { user_id: otherId, username: null, display_name: 'Other', avatar_url: null, bio: 'Private' },
   ];
   requests = [];
   databaseFails = false;
@@ -39,9 +39,16 @@ beforeEach(() => {
     if (databaseFails) return Response.json({ code: '42501', message: 'private database detail' }, { status: 403 });
     // Filter by the actual emitted query, without simulating RLS: this catches
     // accidental cross-user reads/writes but does not prove database policies.
-    const selected = rows.filter((row) => !url.searchParams.has('user_id') ||
-      url.searchParams.get('user_id') === `eq.${row.user_id}`);
-    if (method === 'PATCH') for (const row of selected) Object.assign(row, body);
+    const selected = rows.filter((row) =>
+      (!url.searchParams.has('user_id') || url.searchParams.get('user_id') === `eq.${row.user_id}`)
+      && (url.searchParams.get('username') !== 'is.null' || row.username === null));
+    if (method === 'PATCH') {
+      const username = (body as { username?: string }).username;
+      if (username && rows.some((row) => row.user_id !== ownerId && row.username === username)) {
+        return Response.json({ code: '23505', message: 'duplicate key' }, { status: 409 });
+      }
+      for (const row of selected) Object.assign(row, body);
+    }
     if (method === 'GET') return Response.json(selected);
     if (method === 'PATCH') return Response.json(selected[0] ?? null);
     throw new Error(`Unexpected method: ${method}`);
@@ -80,11 +87,11 @@ describe('profile API', () => {
   it('reads only the verified owner, ignoring caller-supplied identities', async () => {
     const response = await request('GET', undefined, true, `?user_id=${otherId}`);
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toEqual({ user_id: ownerId, display_name: 'Owner', avatar_url: null, bio: null });
+    expect(response.json()).toEqual({ user_id: ownerId, username: null, display_name: 'Owner', avatar_url: null, bio: null });
     const db = requests.filter(({ url }) => url.pathname.startsWith('/rest/'));
     expect(db).toHaveLength(1);
     expect(db[0]!.url.searchParams.get('user_id')).toBe(`eq.${ownerId}`);
-    expect(db[0]!.url.searchParams.get('select')).toBe('user_id,display_name,avatar_url,bio');
+    expect(db[0]!.url.searchParams.get('select')).toBe('user_id,username,display_name,avatar_url,bio');
     expect(db[0]!.headers.get('authorization')).toBe(authorization);
     expect(db[0]!.headers.get('apikey')).toBe('sb_publishable_test');
   });
@@ -94,14 +101,31 @@ describe('profile API', () => {
       display_name: ` ${'x'.repeat(length)} `, bio: 'b'.repeat(500), avatar_url: 'https://example.com/a.png',
     }, true, `?user_id=${otherId}`);
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toEqual({ user_id: ownerId, display_name: 'x'.repeat(length), bio: 'b'.repeat(500), avatar_url: 'https://example.com/a.png' });
+    expect(response.json()).toEqual({ user_id: ownerId, username: null, display_name: 'x'.repeat(length), bio: 'b'.repeat(500), avatar_url: 'https://example.com/a.png' });
     expect((await request('PATCH', { bio: null, avatar_url: null })).statusCode).toBe(200);
-    expect((await request('GET')).json()).toEqual({ user_id: ownerId, display_name: 'x'.repeat(length), bio: null, avatar_url: null });
-    expect(rows[1]).toEqual({ user_id: otherId, display_name: 'Other', avatar_url: null, bio: 'Private' });
+    expect((await request('GET')).json()).toEqual({ user_id: ownerId, username: null, display_name: 'x'.repeat(length), bio: null, avatar_url: null });
+    expect(rows[1]).toEqual({ user_id: otherId, username: null, display_name: 'Other', avatar_url: null, bio: 'Private' });
     for (const entry of requests.filter(({ url }) => url.pathname.startsWith('/rest/'))) {
       expect(entry.url.searchParams.get('user_id')).toBe(`eq.${ownerId}`);
       expect(entry.headers.get('authorization')).toBe(authorization);
     }
+  });
+
+  it('claims a normalized nick once and rejects a nick already used by another profile', async () => {
+    const claimed = await request('PATCH', { username: 'Nexus_42' });
+    expect(claimed.statusCode).toBe(200);
+    expect(claimed.json().username).toBe('nexus_42');
+
+    rows[1]!.username = 'already_used';
+    const duplicate = await request('PATCH', { username: 'ALREADY_USED' });
+    expect(duplicate.statusCode).toBe(409);
+    expect(duplicate.json()).toEqual({ error: 'Esse nick já está em uso.' });
+  });
+
+  it('does not allow a profile to claim a second nick', async () => {
+    rows[0]!.username = 'first_nick';
+    const response = await request('PATCH', { username: 'second_nick' });
+    expect(response.statusCode).toBe(409);
   });
 
   it.each(invalidPatches.map((body) => [body]))('rejects invalid patch %j without database writes', async (body) => {

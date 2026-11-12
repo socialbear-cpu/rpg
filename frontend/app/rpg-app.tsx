@@ -211,9 +211,11 @@ export function RpgApp() {
     try {
       if (mode === 'signup') {
         const result = await signUp({ email: email.trim(), password, displayName: displayName.trim() });
-        showNotice(result.access_token
-          ? 'Conta criada e sessão iniciada. Agora carregue seu perfil.'
-          : 'Cadastro recebido. Confirme seu e-mail para poder entrar.');
+        if (result.access_token) {
+          router.push('/dashboard');
+        } else {
+          showNotice('Cadastro recebido. Confirme seu e-mail para poder entrar.');
+        }
       } else {
         await signIn({ email: email.trim(), password });
         router.push('/dashboard');
