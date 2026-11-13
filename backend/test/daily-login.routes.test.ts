@@ -43,6 +43,9 @@ beforeEach(() => {
         created_at: '2026-01-01T00:00:00Z',
       });
     }
+    if (url.pathname === '/rest/v1/rpc/join_game_system_with_password') {
+      return Response.json({ status: 'ok' });
+    }
     if (url.pathname === '/rest/v1/characters') {
       return Response.json(authenticatedUserId === userId ? [{
         id: characterId, character_name: 'Player A', game_system_id: systemId,

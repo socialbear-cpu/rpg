@@ -36,6 +36,7 @@ beforeEach(() => {
   requests = [];
   databaseFails = false;
   rpcResults = {
+    join_game_system_with_password: { status: 'ok' },
     get_trade_characters: { status: 'ok', characters: [{ ...tradeCharacter, is_mine: true }] },
     get_trade_inventory: inventoryResult,
     get_trade_offers: { status: 'ok', offers: [offerResult], limit: 20, offset: 5 },

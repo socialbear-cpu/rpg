@@ -57,7 +57,7 @@ export function SystemDetailsEditor({ system, onSaved }: {
     </label>
     {!isPublic && <label className="daily-field">Senha do sistema
       <input type="password" autoComplete="new-password" minLength={8} maxLength={72} required={(system.is_public ?? true) && !password} value={password} onChange={(event) => setPassword(event.target.value)} placeholder={(system.is_public ?? true) ? 'Defina uma senha com pelo menos 8 caracteres' : 'Deixe em branco para manter a senha atual'} />
-      {(system.is_public ?? true) ? <small>Novos participantes precisarão desta senha para criar personagens.</small> : <small>Preencha para trocar a senha. Vazia, a senha atual será mantida.</small>}
+      {(system.is_public ?? true) ? <small>Jogadores precisarão desta senha antes de acessar o sistema.</small> : <small>Preencha para trocar a senha. Vazia, a senha atual será mantida.</small>}
     </label>}
     <div className="system-details-editor-actions">
       <button type="submit" className="primary-button" disabled={saving}>{saving ? 'Salvando...' : 'Salvar informações'}</button>

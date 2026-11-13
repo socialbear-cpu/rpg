@@ -17,6 +17,7 @@ beforeEach(() => {
     calls.push({ url, method, body, headers: new Headers(init?.headers) });
     if (url.pathname === '/auth/v1/user') return Response.json({ id: user, aud: 'authenticated', role: 'authenticated', email: 'test@example.com', app_metadata: {}, user_metadata: {}, created_at: '2026-01-01T00:00:00Z' });
     const table = url.pathname.split('/').at(-1);
+    if (table === 'join_game_system_with_password') return Response.json({ status: 'ok' });
     if (table === 'get_my_system_memberships') return Response.json({ is_platform_admin: admin, memberships: [{ game_system_id: system, game_system_name: 'A', role: owner ? 'owner' : 'user' }] });
     if (table === 'purchase_store_product') return Response.json(status === 'purchased' ? { status, balance: 12, purchase_id: listing, item_id: item, item_name: 'Potion', quantity: 2, amount_charged: 3, currency_name: 'Coins' } : { status });
     if (method !== 'GET') return Response.json(table === 'products' ? { id: product } : null);

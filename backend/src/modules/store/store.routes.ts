@@ -3,6 +3,8 @@ import type { FastifyInstance, FastifySchema } from 'fastify';
 import { authenticate } from '../../plugins/authenticate.js';
 import { canManageStore, createStoreItem, readStore, readStoreCharacter, replaceStore, purchaseStoreOffer } from './store.repository.js';
 import { storeCharacterQuerySchema, storeItemCreateSchema, storeParamsSchema, storePurchaseSchema, storeScheduleSchema } from './store.schema.js';
+import { authorizeSystemAccess } from '../game-systems/game-systems.repository.js';
+import { rejectSystemAccess } from '../game-systems/system-access.js';
 // Documentation-only input schemas preserve strict Zod validation before AJV can strip keys.
 function documentedInputs(body?: z.ZodType, querystring?: z.ZodType) {
   return { swaggerTransform: ({ schema, url }: { schema: FastifySchema; url: string }) => ({
@@ -20,6 +22,8 @@ export async function storeRoutes(app: FastifyInstance) {
     if (!params.success || !query.success) return reply.code(400).send({ error: 'Choose a valid system and character.' });
     try {
       const { systemId } = params.data;
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, systemId));
+      if (accessError) return accessError;
       const { character_id } = query.data;
       if (!await readStoreCharacter(request.supabase!, request.userId!, systemId, character_id)) return reply.code(400).send({ error: 'Choose an active character you own in this system.' });
       const store = await readStore(request.supabase!, systemId, character_id);
@@ -31,6 +35,8 @@ export async function storeRoutes(app: FastifyInstance) {
     const input = storePurchaseSchema.safeParse(request.body);
     if (!params.success || !input.success) return reply.code(400).send({ error: 'Invalid store purchase' });
     try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, params.data.systemId));
+      if (accessError) return accessError;
       if (!await readStoreCharacter(request.supabase!, request.userId!, params.data.systemId, input.data.character_id)) return reply.code(400).send({ error: 'Choose an active character you own in this system.' });
       const result = await purchaseStoreOffer(request.supabase!, input.data);
       switch (result.status) {
@@ -46,6 +52,8 @@ export async function storeRoutes(app: FastifyInstance) {
     const params = storeParamsSchema.safeParse(request.params);
     if (!params.success) return reply.code(400).send({ error: 'Invalid game system ID' });
     try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, params.data.systemId));
+      if (accessError) return accessError;
       if (!await canManageStore(request.supabase!, params.data.systemId)) return reply.code(404).send({ error: 'Owned store not found' });
       const store = await readStore(request.supabase!, params.data.systemId);
       return store ? reply.send(store) : reply.code(404).send({ error: 'Owned store not found' });
@@ -56,6 +64,8 @@ export async function storeRoutes(app: FastifyInstance) {
     const input = storeItemCreateSchema.safeParse(request.body);
     if (!params.success || !input.success) return reply.code(400).send({ error: 'Informe um nome, tipo e descrição válidos para o item.' });
     try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, params.data.systemId));
+      if (accessError) return accessError;
       if (!await canManageStore(request.supabase!, params.data.systemId)) return reply.code(403).send({ error: 'Only the system owner or Admin can manage its store.' });
       const item = await createStoreItem(request.supabase!, params.data.systemId, input.data);
       return reply.code(201).send({ item });
@@ -66,6 +76,8 @@ export async function storeRoutes(app: FastifyInstance) {
     const input = storeScheduleSchema.safeParse(request.body);
     if (!params.success || !input.success) return reply.code(400).send({ error: 'Invalid store configuration' });
     try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, params.data.systemId));
+      if (accessError) return accessError;
       if (!await canManageStore(request.supabase!, params.data.systemId)) return reply.code(403).send({ error: 'Only the system owner or Admin can manage its store.' });
       if (!await readStore(request.supabase!, params.data.systemId)) return reply.code(404).send({ error: 'Owned store not found' });
       if (!await replaceStore(request.supabase!, params.data.systemId, input.data)) return reply.code(400).send({ error: 'Choose items and offers from this system.' });

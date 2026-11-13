@@ -25,6 +25,7 @@ Apply the numbered files in `migrations/` in order to a new Supabase project (Po
 Migration 014 adds an optional, case-insensitive unique profile nick. Each account must claim one before using the dashboard; the database does not permit changing a claimed nick.
 
 Migration 015 versions character sheets into ordered steps and components. Migration 016 adds validated, positioned text and image elements to each step and is required before creating or saving sheets that use those elements.
+Migration 020 adds public/private system access with bcrypt password hashes. Migration 021 requires access for protected system content, stores the password hash outside authenticated column access, and clears it when protection is removed. The equivalent Supabase CLI migrations are `20261113220000_game_system_visibility_password.sql` and `20261113221000_system_password_access_enforcement.sql`.
 
 Migration 005 adds an optional owner-managed seven-day reward calendar to each RPG system. Weekdays use ISO numbering (Monday=1 through Sunday=7), and each system uses its configured IANA timezone (default `America/Sao_Paulo`) to decide the current reward and claim date. Missed days do not accumulate. Each account can claim once per system and local date, choosing an active character they own in that system. The claim RPC records the claim and increments that character's existing inventory in one transaction. The item and quantity are snapshotted in the claim history.
 

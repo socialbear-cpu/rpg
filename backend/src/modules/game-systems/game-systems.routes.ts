@@ -9,15 +9,15 @@ import {
 } from './game-systems.schema.js';
 import {
   createGameSystem,
-  authorizeSystemCharacterCreation,
+  authorizeSystemAccess,
   createSystemCharacter,
   listActiveGameSystems,
   listSystemCharacters,
-  readActiveGameSystem,
   readGameSystemCharacterSheet,
   updateGameSystem,
 } from './game-systems.repository.js';
 import { characterSheetDefinitionSchema } from './game-systems.schema.js';
+import { rejectSystemAccess } from './system-access.js';
 
 const errorSchema = {
   type: 'object', required: ['error'], additionalProperties: false,
@@ -28,6 +28,7 @@ const authOptions = {
   schema: { security: [{ bearerAuth: [] }] },
 };
 const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
+const systemAccessInputSchema = z.strictObject({ system_password: z.string().max(72).optional() });
 const systemJsonSchema = {
   type: 'object', required: ['id', 'slug', 'name', 'description', 'is_public'], additionalProperties: false,
   properties: {
@@ -195,6 +196,37 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
     }
   });
 
+  app.post('/api/v1/game-systems/:systemId/access', {
+    ...authOptions,
+    schema: {
+      ...authOptions.schema,
+      summary: 'Join or verify access to a game system',
+      response: {
+        200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'authorized' } } },
+        400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 429: errorSchema, 500: errorSchema,
+      },
+    },
+    config: {
+      swaggerTransform: ({ schema, url }) => ({ url, schema: {
+        ...schema,
+        body: { type: 'object', additionalProperties: false, properties: { system_password: { type: 'string', maxLength: 72 } } },
+      } }),
+    },
+  }, async (request, reply) => {
+    const systemId = systemIdFromParams(request.params);
+    if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
+    const input = systemAccessInputSchema.safeParse(request.body ?? {});
+    if (!input.success) return reply.code(400).send({ error: 'Invalid system password' });
+    try {
+      const status = await authorizeSystemAccess(request.supabase!, systemId, input.data.system_password);
+      const accessError = rejectSystemAccess(reply, status);
+      if (accessError) return accessError;
+      return reply.send({ status: 'authorized' });
+    } catch {
+      return databaseError(reply);
+    }
+  });
+
   app.get('/api/v1/game-systems/:systemId/character-sheet', {
     ...authOptions,
     schema: {
@@ -209,7 +241,9 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
     const systemId = systemIdFromParams(request.params);
     if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
     try {
-      if (!await readActiveGameSystem(request.supabase!, systemId)) return reply.code(404).send({ error: 'Game system not found' });
+      const accessStatus = await authorizeSystemAccess(request.supabase!, systemId);
+      const accessError = rejectSystemAccess(reply, accessStatus);
+      if (accessError) return accessError;
       const sheet = await readGameSystemCharacterSheet(request.supabase!, systemId);
       if (!sheet) return reply.code(404).send({ error: 'Game system character sheet not found' });
       return reply.send(sheet);
@@ -258,7 +292,9 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
     const systemId = systemIdFromParams(request.params);
     if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
     try {
-      if (!await readActiveGameSystem(request.supabase!, systemId)) return reply.code(404).send({ error: 'Game system not found' });
+      const accessStatus = await authorizeSystemAccess(request.supabase!, systemId);
+      const accessError = rejectSystemAccess(reply, accessStatus);
+      if (accessError) return accessError;
       return reply.send(await listSystemCharacters(request.supabase!, request.userId!, systemId));
     } catch {
       return databaseError(reply);
@@ -291,12 +327,9 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
     if (!input.success) return reply.code(400).send({ error: 'Invalid character' });
 
     try {
-      if (!await readActiveGameSystem(request.supabase!, systemId)) return reply.code(404).send({ error: 'Game system not found' });
-      const accessStatus = await authorizeSystemCharacterCreation(request.supabase!, systemId, input.data.system_password);
-      if (accessStatus === 'unauthorized') return reply.code(401).send({ error: 'Unauthorized' });
-      if (accessStatus === 'not_found') return reply.code(404).send({ error: 'Game system not found' });
-      if (accessStatus === 'rate_limited') return reply.code(429).send({ error: 'Too many incorrect passwords. Try again in one hour.' });
-      if (accessStatus === 'password_required' || accessStatus === 'invalid_password') return reply.code(403).send({ error: accessStatus === 'password_required' ? 'A password is required to join this private system' : 'The system password is incorrect' });
+      const accessStatus = await authorizeSystemAccess(request.supabase!, systemId, input.data.system_password);
+      const accessError = rejectSystemAccess(reply, accessStatus);
+      if (accessError) return accessError;
       const sheet = await readGameSystemCharacterSheet(request.supabase!, systemId);
       if (!sheet) return reply.code(404).send({ error: 'Game system character sheet not found' });
       const attributes = characterAttributesSchemaFor(sheet.definition).safeParse(input.data.attributes);

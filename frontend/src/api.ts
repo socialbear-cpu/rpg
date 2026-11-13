@@ -463,6 +463,13 @@ export function getSystemCharacters(systemId: string) {
   );
 }
 
+export function requestSystemAccess(systemId: string, password: string) {
+  return authenticatedRequest<{ status: 'authorized' }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/access`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ system_password: password }) },
+  );
+}
+
 export function createSystemCharacter(systemId: string, input: CreateCharacterInput) {
   return authenticatedRequest<{ character: SystemCharacter }>(
     `/api/v1/game-systems/${encodeURIComponent(systemId)}/characters`,

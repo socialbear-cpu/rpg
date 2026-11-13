@@ -8,6 +8,8 @@ import {
   saveOwnerDailyLoginCalendar,
 } from './daily-login.repository.js';
 import { dailyLoginClaimSchema, dailyLoginScheduleSchema } from './daily-login.schema.js';
+import { authorizeSystemAccess } from '../game-systems/game-systems.repository.js';
+import { rejectSystemAccess } from '../game-systems/system-access.js';
 
 const errorSchema = {
   type: 'object', required: ['error'], additionalProperties: false,
@@ -53,6 +55,8 @@ export async function dailyLoginRoutes(app: FastifyInstance) {
     const systemId = getSystemId(request.params);
     if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
     try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, systemId));
+      if (accessError) return accessError;
       const system = await readPlayerDailyLoginSystem(request.supabase!, request.userId!, systemId);
       if (!system || system.today?.status !== 'available') return reply.send({ show: false, systems: [] });
       const { data, error } = await request.supabase!.rpc('take_daily_login_popup', { p_game_system_id: systemId });
@@ -89,6 +93,8 @@ export async function dailyLoginRoutes(app: FastifyInstance) {
     const systemId = getSystemId(request.params);
     if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
     try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, systemId));
+      if (accessError) return accessError;
       const result = await readPlayerDailyLoginSystem(request.supabase!, request.userId!, systemId);
       if (!result) return reply.code(404).send({ error: 'Daily login system not found' });
       return reply.send(result);
@@ -129,6 +135,8 @@ export async function dailyLoginRoutes(app: FastifyInstance) {
     const parsed = dailyLoginClaimSchema.safeParse(request.body);
     if (!parsed.success) return reply.code(400).send({ error: 'Invalid daily login claim' });
     try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, systemId));
+      if (accessError) return accessError;
       const result = await claimDailyLoginReward(request.supabase!, systemId, parsed.data);
       switch (result.status) {
         case 'claimed': return reply.code(201).send(result);

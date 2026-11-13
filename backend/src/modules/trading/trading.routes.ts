@@ -1,6 +1,8 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { z } from 'zod';
 import { authenticate } from '../../plugins/authenticate.js';
+import { authorizeSystemAccess } from '../game-systems/game-systems.repository.js';
+import { rejectSystemAccess } from '../game-systems/system-access.js';
 import {
   cancelTradeOffer,
   counterTradeOffer,
@@ -93,6 +95,8 @@ export async function tradingRoutes(app: FastifyInstance) {
     const params = uuidParam(systemParamsSchema, request.params);
     if (!params.success) return reply.code(400).send({ error: 'Invalid game system ID' });
     try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, params.data.systemId!));
+      if (accessError) return accessError;
       const result = await readTradeCharacters(request.supabase!, params.data.systemId!);
       if (result.status !== 'ok') return mutationReply(reply, result);
       return reply.send({ characters: result.characters });
@@ -105,6 +109,8 @@ export async function tradingRoutes(app: FastifyInstance) {
     const params = uuidParam(characterParamsSchema, request.params);
     if (!params.success) return reply.code(400).send({ error: 'Invalid game system or character ID' });
     try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, params.data.systemId!));
+      if (accessError) return accessError;
       const result = await readTradeInventory(request.supabase!, params.data.systemId!, params.data.characterId!);
       if (result.status !== 'ok') return mutationReply(reply, result);
       return reply.send({ character: result.character, stacks: result.stacks });

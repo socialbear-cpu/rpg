@@ -73,6 +73,25 @@ describe('character entry', () => {
     expect(html).toContain('title="Retrato de Ayla"');
   });
 
+  it('keeps canvas positions and exposes an expand control during creation', () => {
+    const canvasStep: CharacterSheetDefinition['steps'][number] = {
+      key: 'choices', label: 'Escolhas', position: 0,
+      components: [{
+        key: 'origin', label: 'Origem', type: 'single_select', presentation: 'canvas',
+        required: true, position: 0, width: 'full', show_on_card: false,
+        options: [{ label: 'Floresta', x: 12, y: 18, width: 30, height: 40, rotation: -7 }],
+      }],
+      elements: [{ key: 'landscape', type: 'image', image_url: 'https://cdn.example/landscape.jpg', x: 5, y: 6, width: 45, height: 50, rotation: 9 }],
+    };
+    const html = renderToStaticMarkup(createElement(CharacterSheetStepRenderer, {
+      step: canvasStep, values: {}, onValueChange: vi.fn(), mode: 'entry',
+    }));
+    expect(html).toContain('Ampliar composição');
+    expect(html).toContain('left:12%;top:18%;width:30%;height:40%;transform:rotate(-7deg)');
+    expect(html).toContain('left:5%;top:6%;width:45%;height:50%;transform:rotate(9deg)');
+    expect(html).toContain('aria-checked="false"');
+  });
+
   it('shows only the active character summary and a switch action', () => {
     const html = renderToStaticMarkup(createElement(CharacterHome, {
       systemName: 'Crônicas', character, fields, onSwitch: vi.fn(),

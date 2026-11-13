@@ -55,7 +55,7 @@ export async function updateGameSystem(client: SupabaseClient, systemId: string,
   return { status: 'updated', system: system.data } as const;
 }
 
-export async function authorizeSystemCharacterCreation(client: SupabaseClient, systemId: string, password?: string) {
+export async function authorizeSystemAccess(client: SupabaseClient, systemId: string, password?: string) {
   const { data, error } = await client.rpc('join_game_system_with_password', {
     p_system_id: systemId,
     p_password: password ?? null,
