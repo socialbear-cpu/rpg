@@ -1237,7 +1237,7 @@
   }
 
   .system-grid { grid-template-columns: 1fr; gap: 15px; }
-git}
+}
 
 @media (max-width: 430px) {
   .sidebar {
