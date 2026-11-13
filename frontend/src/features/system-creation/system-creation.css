@@ -196,7 +196,7 @@
   background: #110e18;
 }
 .system-creation-page > * { max-width: 860px; margin-right: auto; margin-left: auto; }
-.system-creation-page > .app-header { width: calc(100% + 48px); max-width: none; margin: 0 -24px 30px; }
+.system-creation-page > .app-header { width: calc(100% + 48px); max-width: none; margin: 0 -24px 32px; }
 .system-creation-back { display: inline-block; margin-bottom: 30px; color: #c4b5df; text-decoration: none; }
 .system-creation-progress { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; color: #a99bbf; font-size: 12px; }
 .system-creation-panel { padding: 34px; border: 1px solid #342c42; border-radius: 18px; background: #191521; }
@@ -213,7 +213,7 @@
 .system-creation-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
 .systems-error { color: #ffaaa8; }
 
-@media (max-width: 600px) { .system-creation-page { padding: 0 14px 48px; } .system-creation-page > .app-header { width: calc(100% + 28px); margin: 0 -14px 24px; } .system-creation-panel { padding: 22px 17px; } }
+@media (max-width: 600px) { .system-creation-page { padding: 0 14px 48px; } .system-creation-page > .app-header { width: calc(100% + 28px); margin: 0 -14px 28px; } .system-creation-panel { padding: 22px 17px; } }
 
 @media (max-width: 620px) {
   .sheet-field-topline {

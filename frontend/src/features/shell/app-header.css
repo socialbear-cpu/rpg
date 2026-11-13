@@ -13,6 +13,8 @@
   font-family: 'DM Sans', sans-serif;
 }
 
+.shell > .app-header { width: 100vw; margin: 0 0 32px calc((100% - 100vw) / 2); }
+
 .app-header-brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 10px; color: #f4f3fa; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 750; letter-spacing: .06em; }
 .app-header-leading { position: relative; display: flex; flex: 0 0 auto; align-items: center; gap: 14px; }
 .app-header-brand em { color: #a78bfa; font-style: normal; }
@@ -78,6 +80,10 @@
   .app-header-mobile-menu nav a { padding: 12px; border-radius: 7px; color: #c5c2ce; text-decoration: none; font-size: 13px; }
   .app-header-mobile-menu nav a:hover, .app-header-mobile-menu nav a.active { color: #f3efff; background: #302844; }
   .app-header-actions { gap: 8px; }
+}
+
+@media (max-width: 600px) {
+  .shell > .app-header { margin-bottom: 28px; }
 }
 
 @media (max-width: 520px) {

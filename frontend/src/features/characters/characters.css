@@ -97,11 +97,11 @@
 .lobby-room-status { margin-top: 16px; padding: 14px 16px; border: 1px solid #55406f; border-radius: 10px; color: #e5dcf0; background: #231a30; }
 @media (max-width: 900px) { .lobby-room-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lobby-room-card:last-child { grid-column: 1 / -1; } }
 @media (max-width: 700px) { .lobby-matchmaking { align-items: flex-start; flex-direction: column; } .lobby-search-button { width: 100%; justify-content: center; } }
-@media (max-width: 600px) { .character-entry-page { padding: 0 15px 48px; } .character-entry-page > .app-header { width: calc(100% + 30px); margin: 0 -15px 27px; } .character-card, .character-empty-state, .character-home-card, .character-unavailable, .character-form { padding: 20px; } .character-form-actions { flex-direction: column-reverse; } .character-form-actions button { width: 100%; } .lobby-room-grid { grid-template-columns: 1fr; } .lobby-room-card:last-child { grid-column: auto; } }
+@media (max-width: 600px) { .character-entry-page { padding: 0 15px 48px; } .character-entry-page > .app-header { width: calc(100% + 30px); margin: 0 -15px 28px; } .character-card, .character-empty-state, .character-home-card, .character-unavailable, .character-form { padding: 20px; } .character-form-actions { flex-direction: column-reverse; } .character-form-actions button { width: 100%; } .lobby-room-grid { grid-template-columns: 1fr; } .lobby-room-card:last-child { grid-column: auto; } }
 
 /* Character lobby: shared app navigation above the character and room dashboard. */
 .character-home-page { min-height: 100vh; padding: 0 clamp(20px, 4vw, 80px) 56px; background: radial-gradient(ellipse at 18% 64%, #242038 0, #171521 34%, #11121a 75%); }
-.character-home-page > .app-header { width: calc(100% + clamp(40px, 8vw, 160px)); margin: 0 calc(-1 * clamp(20px, 4vw, 80px)) 42px; }
+.character-home-page > .app-header { width: calc(100% + clamp(40px, 8vw, 160px)); margin: 0 calc(-1 * clamp(20px, 4vw, 80px)) 32px; }
 .character-home-page > * { max-width: none; }
 .lobby-main { width: min(100%, 1200px); min-width: 0; margin-inline: auto; padding-top: 0; }
 .lobby-welcome { margin: 0 0 12px; text-align: center; }
