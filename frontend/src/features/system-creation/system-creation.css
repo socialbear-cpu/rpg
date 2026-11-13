@@ -303,15 +303,17 @@
 .sheet-condition-rule label, .visual-sheet-options fieldset > label { display: grid; gap: 5px; min-width: 0; color: #d9d0e4; font-size: 12px; }
 .sheet-condition-rule input, .sheet-condition-rule select, .visual-sheet-options fieldset > label input { width: 100%; min-width: 0; min-height: 38px; padding: 7px 8px; border: 1px solid #40364f; border-radius: 7px; color: #f5f1fb; background: #110e18; font: inherit; }
 .sheet-condition-rule > button { min-height: 38px; }
-.sheet-option-position-controls { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
-.sheet-option-position-controls label { display: grid; gap: 4px; color: #afa6ba; font-size: 11px; }
-.sheet-option-position-controls input { width: 100%; min-width: 0; }
+.sheet-option-transform-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.sheet-option-transform-controls label { display: grid; gap: 4px; min-width: 0; color: #afa6ba; font-size: 11px; }
+.sheet-option-transform-controls input { width: 100%; min-width: 0; }
 .sheet-option-canvas-item { position: absolute; display: grid; place-items: end center; overflow: hidden; border: 2px solid #8e75b2; border-radius: 7px; color: #fff; background: #30243d; cursor: move; user-select: none; }
+.sheet-option-canvas-item.selected { z-index: 2; border-color: #d0b4ff; box-shadow: 0 0 0 3px #a78bfa66; }
+.sheet-option-visual-controls > .sheet-condition-editor { grid-column: 1 / -1; }
 .sheet-option-canvas-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .sheet-option-canvas-item strong { z-index: 1; width: 100%; overflow: hidden; padding: 5px; background: #100d18cc; text-align: center; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
 @media(max-width:620px) {
   .sheet-condition-rule { grid-template-columns: 1fr; }
-  .sheet-option-position-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sheet-option-transform-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* Owner sheet editor: group configuration controls into calmer, branded panels. */
@@ -373,7 +375,7 @@
 }
 .visual-sheet-options fieldset > legend { grid-column: 1 / -1; }
 .visual-sheet-options fieldset > label { min-width: 0; }
-.visual-sheet-options fieldset > .sheet-option-position-controls,
+.visual-sheet-options fieldset > .sheet-option-transform-controls,
 .visual-sheet-options fieldset > .sheet-condition-editor,
 .visual-sheet-options fieldset > button { grid-column: 1 / -1; }
 .visual-sheet-options fieldset > button {
@@ -387,10 +389,10 @@
   cursor: pointer;
 }
 .visual-sheet-options fieldset > button:focus-visible { outline: 2px solid #9872d1; outline-offset: 2px; }
-.sheet-option-position-controls label { min-width: 0; }
+.sheet-option-transform-controls label { min-width: 0; }
 
 @media (max-width: 760px) {
   .visual-sheet-options fieldset { grid-template-columns: minmax(0, 1fr); }
-  .sheet-option-position-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sheet-option-transform-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sheet-condition-rule { grid-template-columns: minmax(0, 1fr); }
 }
