@@ -29,11 +29,13 @@ import './system-management-page.css';
 import '../system-creation/system-creation.css';
 
 type PageState = 'loading' | 'ready' | 'forbidden' | 'error';
+type ManagementCategory = 'overview' | 'people' | 'game' | 'sheet' | 'community' | 'settings';
 
 export function SystemManagementPage() {
   const { systemId } = useParams<{ systemId: string }>();
   const router = useRouter();
   const [pageState, setPageState] = useState<PageState>('loading');
+  const [activeCategory, setActiveCategory] = useState<ManagementCategory>('overview');
   const [pageError, setPageError] = useState('');
   const [systemView, setSystemView] = useState<DailyLoginSystemView | null>(null);
   const [manageableSystems, setManageableSystems] = useState<DailyLoginSystemView[]>([]);
@@ -197,30 +199,35 @@ export function SystemManagementPage() {
           <p>Gerencie as regras e os recursos deste mundo.</p>
           <div className="system-management-stats"><span><strong>3</strong> áreas disponíveis</span><span><strong>4</strong> ferramentas de gerenciamento</span></div>
         </header>
-        <nav className="system-management-nav" aria-label="Seções de gerenciamento">
-          <a href="#overview">Visão geral</a><a href="#people">Pessoas</a><a href="#game">Jogo</a><a href="#sheet">Ficha</a><a href="#community">Comunidade</a><a href="#settings">Configurações</a>
+        <nav className="system-management-nav" aria-label="Seções de gerenciamento" role="tablist">
+          <button type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => setActiveCategory('overview')}>Visão geral</button>
+          <button type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => setActiveCategory('people')}>Pessoas</button>
+          <button type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => setActiveCategory('game')}>Jogo</button>
+          <button type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => setActiveCategory('sheet')}>Ficha</button>
+          <button type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => setActiveCategory('community')}>Comunidade</button>
+          <button type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => setActiveCategory('settings')}>Configurações</button>
         </nav>
-        <section className="system-management-section" id="overview"><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div><p className="system-management-section-copy">Ajuste quem ajuda a administrar este sistema e configure as regras que afetam os personagens.</p></section>
-        <section className="system-management-section" id="people"><div className="system-management-section-heading"><span>02</span><div><p>ACESSO</p><h2>Pessoas</h2></div></div>
+        {activeCategory === 'overview' && <section className="system-management-section" id="overview" role="tabpanel" aria-labelledby="management-tab-overview"><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div><p className="system-management-section-copy">Ajuste quem ajuda a administrar este sistema e configure as regras que afetam os personagens.</p></section>}
+        {activeCategory === 'people' && <section className="system-management-section" id="people" role="tabpanel" aria-labelledby="management-tab-people"><div className="system-management-section-heading"><span>02</span><div><p>ACESSO</p><h2>Pessoas</h2></div></div>
           {membershipsForSystem && <SystemMembershipCard access={membershipsForSystem} manageableSystems={selectedManageable ? [{ game_system_id: systemId, game_system_name: selectedManageable.system.name }] : []} busy={membershipBusy} message={membershipMessage} messageIsError={membershipMessageIsError} onAssign={(targetId, userId, isModerator) => void assignModerator(targetId, userId, isModerator)} />}
-        </section>
-        <section className="system-management-section" id="game"><div className="system-management-section-heading"><span>03</span><div><p>REGRAS</p><h2>Jogo</h2></div></div>
+        </section>}
+        {activeCategory === 'game' && <section className="system-management-section" id="game" role="tabpanel" aria-labelledby="management-tab-game"><div className="system-management-section-heading"><span>03</span><div><p>REGRAS</p><h2>Jogo</h2></div></div>
           <SystemStoreAdmin key={systemId} systemId={systemId} />
           <ExperienceAdminCard systems={[systemView]} selectedSystemId={systemId} settings={experience} loading={experienceLoading} saving={experienceSaving} message={experienceMessage} messageIsError={experienceMessageIsError} onSystemChange={() => undefined} onXpPerLevelChange={(amount) => setExperience((current) => current ? { ...current, xp_per_level: amount } : current)} onSourceChange={(index, field, value) => setExperience((current) => current ? { ...current, sources: current.sources.map((source, sourceIndex) => sourceIndex === index ? { ...source, [field]: value } : source) } : current)} onAddCustomSource={() => setExperience((current) => current ? { ...current, sources: addCustomExperienceSource(current.sources) } : current)} onRemoveCustomSource={(index) => setExperience((current) => current ? { ...current, sources: current.sources.filter((_, sourceIndex) => sourceIndex !== index) } : current)} onSave={(event) => void saveExperience(event)} />
           <DailyLoginAdminCard systems={[systemView]} selectedSystemId={systemId} calendar={calendar} loading={calendarLoading} saving={calendarSaving} message={calendarMessage} messageIsError={calendarMessageIsError} onSystemChange={() => undefined} onRewardChange={changeReward} onActiveChange={(isActive) => setCalendar((current) => current ? { ...current, is_active: isActive } : current)} onSave={(event) => void saveCalendar(event)} />
-        </section>
-        <section className="system-management-section" id="sheet"><div className="system-management-section-heading"><span>04</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
+        </section>}
+        {activeCategory === 'sheet' && <section className="system-management-section" id="sheet" role="tabpanel" aria-labelledby="management-tab-sheet"><div className="system-management-section-heading"><span>04</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
           <div className="system-management-sheet-editor">{canEditOwnerSettings ? <SystemSheetEditor systemId={systemId} systemName={systemView.system.name} /> : <p>Somente o Owner do sistema pode editar a ficha de personagem.</p>}</div>
-        </section>
-        <section className="system-management-section system-management-future" id="community"><div className="system-management-section-heading"><span>05</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>
-        <section className="system-management-section" id="settings"><div className="system-management-section-heading"><span>06</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
+        </section>}
+        {activeCategory === 'community' && <section className="system-management-section system-management-future" id="community" role="tabpanel" aria-labelledby="management-tab-community"><div className="system-management-section-heading"><span>05</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>}
+        {activeCategory === 'settings' && <section className="system-management-section" id="settings" role="tabpanel" aria-labelledby="management-tab-settings"><div className="system-management-section-heading"><span>06</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
           <div className="system-management-sheet-editor">
             <div><h3>Informações básicas</h3><p>Atualize o nome e a descrição do sistema.</p></div>
             {canEditOwnerSettings
               ? <SystemDetailsEditor key={systemId} system={{ id: systemId, name: systemView.system.name, description: systemView.system.description ?? null }} onSaved={updateSystemDetails} />
               : <p>Somente o Owner do sistema pode editar estas informações.</p>}
           </div>
-        </section>
+        </section>}
       </>}
     </div>
   </main>;

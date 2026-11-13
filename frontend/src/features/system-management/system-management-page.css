@@ -82,17 +82,20 @@
   backdrop-filter: blur(12px);
 }
 
-.system-management-nav a {
+.system-management-nav button {
   flex: 0 0 auto;
   padding: 9px 13px;
+  border: 0;
   border-radius: 8px;
   color: #b7b6c4;
+  background: transparent;
   font-size: 12px;
-  text-decoration: none;
+  cursor: pointer;
 }
 
-.system-management-nav a:hover,
-.system-management-nav a:focus-visible {
+.system-management-nav button:hover,
+.system-management-nav button:focus-visible,
+.system-management-nav button[aria-selected="true"] {
   outline: none;
   color: #eee8ff;
   background: #292437;
