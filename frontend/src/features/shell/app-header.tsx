@@ -25,9 +25,9 @@ interface AppHeaderProps {
 }
 
 const navItems = [
-  { label: 'Meus Sistemas', href: '/dashboard' },
-  { label: 'Trocas', href: '/trading' },
-  { label: 'Criar sistema', href: '/dashboard/systems/new' },
+  { label: 'MEUS SISTEMAS', href: '/dashboard' },
+  { label: 'TROCAS', href: '/trading' },
+  { label: 'CRIAR SISTEMA', href: '/dashboard/systems/new' },
 ];
 
 export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 'Voltar', onLogout, characterSheet, children }: AppHeaderProps) {
