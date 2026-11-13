@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
+  getGameSystems,
   getMyDailyLoginSystems,
   getMySystemMemberships,
   getOwnerDailyLoginCalendar,
@@ -29,7 +30,7 @@ import './system-management-page.css';
 import '../system-creation/system-creation.css';
 
 type PageState = 'loading' | 'ready' | 'forbidden' | 'error';
-type ManagementCategory = 'overview' | 'people' | 'game' | 'sheet' | 'community' | 'settings';
+type ManagementCategory = 'overview' | 'people' | 'game' | 'store' | 'sheet' | 'community' | 'settings';
 
 export function SystemManagementPage() {
   const { systemId } = useParams<{ systemId: string }>();
@@ -38,6 +39,7 @@ export function SystemManagementPage() {
   const [activeCategory, setActiveCategory] = useState<ManagementCategory>('overview');
   const [pageError, setPageError] = useState('');
   const [systemView, setSystemView] = useState<DailyLoginSystemView | null>(null);
+  const [systemIsPublic, setSystemIsPublic] = useState(true);
   const [manageableSystems, setManageableSystems] = useState<DailyLoginSystemView[]>([]);
   const [access, setAccess] = useState<SystemMemberships | null>(null);
   const [calendar, setCalendar] = useState<DailyLoginOwnerCalendar | null>(null);
@@ -69,7 +71,7 @@ export function SystemManagementPage() {
 
     async function load() {
       try {
-        const [systems, memberships] = await Promise.all([getMyDailyLoginSystems(), getMySystemMemberships()]);
+        const [systems, memberships, allSystems] = await Promise.all([getMyDailyLoginSystems(), getMySystemMemberships(), getGameSystems()]);
         if (!active) return;
         const view = systems.find((entry) => entry.system.id === systemId);
         setManageableSystems(systems.filter((entry) => entry.can_manage));
@@ -81,6 +83,7 @@ export function SystemManagementPage() {
         }
 
         setSystemView(view);
+        setSystemIsPublic(allSystems.systems.find((entry) => entry.id === systemId)?.is_public ?? true);
         setPageState('ready');
         setCalendarLoading(true);
         setExperienceLoading(true);
@@ -180,6 +183,7 @@ export function SystemManagementPage() {
   const canEditOwnerSettings = Boolean(access?.is_platform_admin || access?.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner'));
 
   function updateSystemDetails(updated: GameSystem) {
+    setSystemIsPublic(updated.is_public ?? true);
     setSystemView((current) => current ? { ...current, system: { ...current.system, name: updated.name, description: updated.description } } : current);
     setManageableSystems((current) => current.map((entry) => entry.system.id === updated.id
       ? { ...entry, system: { ...entry.system, name: updated.name, description: updated.description } }
@@ -197,12 +201,13 @@ export function SystemManagementPage() {
           <span className="system-management-eyebrow">CENTRAL DO SISTEMA</span>
           <h1>{systemView.system.name}</h1>
           <p>Gerencie as regras e os recursos deste mundo.</p>
-          <div className="system-management-stats"><span><strong>3</strong> áreas disponíveis</span><span><strong>4</strong> ferramentas de gerenciamento</span></div>
+          <div className="system-management-stats"><span><strong>7</strong> categorias</span><span><strong>6</strong> ferramentas de gerenciamento</span></div>
         </header>
         <nav className="system-management-nav" aria-label="Seções de gerenciamento" role="tablist">
           <button type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => setActiveCategory('overview')}>Visão geral</button>
           <button type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => setActiveCategory('people')}>Pessoas</button>
           <button type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => setActiveCategory('game')}>Jogo</button>
+          <button type="button" role="tab" id="management-tab-store" aria-selected={activeCategory === 'store'} aria-controls="store" onClick={() => setActiveCategory('store')}>Loja</button>
           <button type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => setActiveCategory('sheet')}>Ficha</button>
           <button type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => setActiveCategory('community')}>Comunidade</button>
           <button type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => setActiveCategory('settings')}>Configurações</button>
@@ -212,19 +217,21 @@ export function SystemManagementPage() {
           {membershipsForSystem && <SystemMembershipCard access={membershipsForSystem} manageableSystems={selectedManageable ? [{ game_system_id: systemId, game_system_name: selectedManageable.system.name }] : []} busy={membershipBusy} message={membershipMessage} messageIsError={membershipMessageIsError} onAssign={(targetId, userId, isModerator) => void assignModerator(targetId, userId, isModerator)} />}
         </section>}
         {activeCategory === 'game' && <section className="system-management-section" id="game" role="tabpanel" aria-labelledby="management-tab-game"><div className="system-management-section-heading"><span>03</span><div><p>REGRAS</p><h2>Jogo</h2></div></div>
-          <SystemStoreAdmin key={systemId} systemId={systemId} />
           <ExperienceAdminCard systems={[systemView]} selectedSystemId={systemId} settings={experience} loading={experienceLoading} saving={experienceSaving} message={experienceMessage} messageIsError={experienceMessageIsError} onSystemChange={() => undefined} onXpPerLevelChange={(amount) => setExperience((current) => current ? { ...current, xp_per_level: amount } : current)} onSourceChange={(index, field, value) => setExperience((current) => current ? { ...current, sources: current.sources.map((source, sourceIndex) => sourceIndex === index ? { ...source, [field]: value } : source) } : current)} onAddCustomSource={() => setExperience((current) => current ? { ...current, sources: addCustomExperienceSource(current.sources) } : current)} onRemoveCustomSource={(index) => setExperience((current) => current ? { ...current, sources: current.sources.filter((_, sourceIndex) => sourceIndex !== index) } : current)} onSave={(event) => void saveExperience(event)} />
           <DailyLoginAdminCard systems={[systemView]} selectedSystemId={systemId} calendar={calendar} loading={calendarLoading} saving={calendarSaving} message={calendarMessage} messageIsError={calendarMessageIsError} onSystemChange={() => undefined} onRewardChange={changeReward} onActiveChange={(isActive) => setCalendar((current) => current ? { ...current, is_active: isActive } : current)} onSave={(event) => void saveCalendar(event)} />
         </section>}
-        {activeCategory === 'sheet' && <section className="system-management-section" id="sheet" role="tabpanel" aria-labelledby="management-tab-sheet"><div className="system-management-section-heading"><span>04</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
+        {activeCategory === 'store' && <section className="system-management-section" id="store" role="tabpanel" aria-labelledby="management-tab-store"><div className="system-management-section-heading"><span>04</span><div><p>COMÉRCIO</p><h2>Loja</h2></div></div>
+          <SystemStoreAdmin key={systemId} systemId={systemId} />
+        </section>}
+        {activeCategory === 'sheet' && <section className="system-management-section" id="sheet" role="tabpanel" aria-labelledby="management-tab-sheet"><div className="system-management-section-heading"><span>05</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
           <div className="system-management-sheet-editor">{canEditOwnerSettings ? <SystemSheetEditor systemId={systemId} systemName={systemView.system.name} /> : <p>Somente o Owner do sistema pode editar a ficha de personagem.</p>}</div>
         </section>}
-        {activeCategory === 'community' && <section className="system-management-section system-management-future" id="community" role="tabpanel" aria-labelledby="management-tab-community"><div className="system-management-section-heading"><span>05</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>}
-        {activeCategory === 'settings' && <section className="system-management-section" id="settings" role="tabpanel" aria-labelledby="management-tab-settings"><div className="system-management-section-heading"><span>06</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
+        {activeCategory === 'community' && <section className="system-management-section system-management-future" id="community" role="tabpanel" aria-labelledby="management-tab-community"><div className="system-management-section-heading"><span>06</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>}
+        {activeCategory === 'settings' && <section className="system-management-section" id="settings" role="tabpanel" aria-labelledby="management-tab-settings"><div className="system-management-section-heading"><span>07</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
           <div className="system-management-sheet-editor">
             <div><h3>Informações básicas</h3><p>Atualize o nome e a descrição do sistema.</p></div>
             {canEditOwnerSettings
-              ? <SystemDetailsEditor key={systemId} system={{ id: systemId, name: systemView.system.name, description: systemView.system.description ?? null }} onSaved={updateSystemDetails} />
+              ? <SystemDetailsEditor key={systemId} system={{ id: systemId, name: systemView.system.name, description: systemView.system.description ?? null, is_public: systemIsPublic }} onSaved={updateSystemDetails} />
               : <p>Somente o Owner do sistema pode editar estas informações.</p>}
           </div>
         </section>}

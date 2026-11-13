@@ -1,9 +1,12 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { authenticate } from '../../plugins/authenticate.js';
-import { readMySystemMemberships, setSystemModerator } from './system-membership.repository.js';
+import { readMySystemMemberships, searchSystemMembersByCharacterName, setSystemModerator } from './system-membership.repository.js';
 import {
+  memberSearchParamsSchema,
+  memberSearchQuerySchema,
   membershipParamsSchema,
   moderatorAssignmentSchema,
+  systemMemberSearchResponseSchema,
   systemMembershipsResponseSchema,
 } from './system-membership.schema.js';
 
@@ -21,6 +24,37 @@ function databaseError(reply: FastifyReply) {
 }
 
 export async function systemMembershipRoutes(app: FastifyInstance) {
+  app.get('/api/v1/owner/game-systems/:systemId/members/search', {
+    ...authOptions,
+    schema: {
+      ...authOptions.schema,
+      summary: 'Search system members by active character name',
+      response: {
+        200: { type: 'object', required: ['status', 'results'], additionalProperties: false, properties: {
+          status: { const: 'ok' },
+          results: { type: 'array', items: { type: 'object', required: ['user_id', 'character_name', 'display_name'], additionalProperties: false, properties: {
+            user_id: { type: 'string', format: 'uuid' }, character_name: { type: 'string' }, display_name: { type: 'string' },
+          } } },
+        } },
+        400: errorSchema, 401: errorSchema, 403: errorSchema, 500: errorSchema,
+      },
+    },
+  }, async (request, reply) => {
+    const params = memberSearchParamsSchema.safeParse(request.params);
+    if (!params.success) return reply.code(400).send({ error: 'Invalid system ID' });
+    const query = memberSearchQuerySchema.safeParse(request.query);
+    if (!query.success) return reply.code(400).send({ error: 'Search with at least two characters' });
+    try {
+      const result = systemMemberSearchResponseSchema.safeParse(await searchSystemMembersByCharacterName(request.supabase!, params.data.systemId, query.data.query));
+      if (!result.success) return databaseError(reply);
+      if (result.data.status === 'unauthorized') return reply.code(401).send({ error: 'Unauthorized' });
+      if (result.data.status === 'not_owner') return reply.code(403).send({ error: 'Only this system’s owner or a platform admin can search its members.' });
+      return reply.send({ status: 'ok', results: result.data.results });
+    } catch {
+      return databaseError(reply);
+    }
+  });
+
   app.get('/api/v1/me/system-memberships', {
     ...authOptions,
     schema: {

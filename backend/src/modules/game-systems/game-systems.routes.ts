@@ -9,6 +9,7 @@ import {
 } from './game-systems.schema.js';
 import {
   createGameSystem,
+  authorizeSystemCharacterCreation,
   createSystemCharacter,
   listActiveGameSystems,
   listSystemCharacters,
@@ -28,10 +29,11 @@ const authOptions = {
 };
 const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
 const systemJsonSchema = {
-  type: 'object', required: ['id', 'slug', 'name', 'description'], additionalProperties: false,
+  type: 'object', required: ['id', 'slug', 'name', 'description', 'is_public'], additionalProperties: false,
   properties: {
     id: { type: 'string', format: 'uuid' }, slug: { type: 'string' }, name: { type: 'string' },
     description: { type: ['string', 'null'] },
+    is_public: { type: 'boolean' },
   },
 } as const;
 const fieldJsonSchema = {
@@ -165,13 +167,13 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
 
   app.put('/api/v1/game-systems/:systemId', {
     ...authOptions,
-    schema: { ...authOptions.schema, summary: 'Update an owned game system name and description', response: {
+    schema: { ...authOptions.schema, summary: 'Update an owned game system settings', response: {
       200: { type: 'object', required: ['system'], additionalProperties: false, properties: { system: systemJsonSchema } },
       400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 500: errorSchema,
     } },
     config: { swaggerTransform: ({ schema, url }) => ({ url, schema: { ...schema, body: {
-      type: 'object', required: ['name', 'description'], additionalProperties: false,
-      properties: { name: { type: 'string', minLength: 1, maxLength: 80 }, description: { type: ['string', 'null'], maxLength: 500 } },
+      type: 'object', required: ['name', 'description', 'is_public'], additionalProperties: false,
+      properties: { name: { type: 'string', minLength: 1, maxLength: 80 }, description: { type: ['string', 'null'], maxLength: 500 }, is_public: { type: 'boolean' }, password: { type: 'string', minLength: 8, maxLength: 72 } },
     } } }) },
   }, async (request, reply) => {
     const systemId = systemIdFromParams(request.params);
@@ -179,9 +181,14 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
     const input = updateGameSystemInputSchema.safeParse(request.body);
     if (!input.success) return reply.code(400).send({ error: 'Invalid game system details' });
     try {
-      const system = await updateGameSystem(request.supabase!, systemId, input.data);
-      if (!system) return reply.code(404).send({ error: 'Game system not found' });
-      return reply.send({ system });
+      const result = await updateGameSystem(request.supabase!, systemId, input.data);
+      if (result.status === 'not_found') return reply.code(404).send({ error: 'Game system not found' });
+      if (result.status === 'not_owner') return reply.code(403).send({ error: 'Only the system owner can update its details' });
+      if (result.status === 'password_required') return reply.code(400).send({ error: 'A password is required to make this system private' });
+      if (result.status === 'password_too_short') return reply.code(400).send({ error: 'The password must contain at least eight characters' });
+      if (result.status === 'password_too_long') return reply.code(400).send({ error: 'The password cannot exceed 72 characters' });
+      if (!result.system) return databaseError(reply);
+      return reply.send({ system: result.system });
     } catch (error) {
       if (error && typeof error === 'object' && 'code' in error && error.code === '42501') return reply.code(403).send({ error: 'Only the system owner can update its details' });
       return databaseError(reply);
@@ -195,7 +202,7 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
       summary: 'Read the character sheet definition for an active game system',
       response: {
         200: { type: 'object', required: ['game_system_id', 'definition'], additionalProperties: false, properties: { game_system_id: { type: 'string', format: 'uuid' }, definition: definitionJsonSchema } },
-        400: errorSchema, 401: errorSchema, 404: errorSchema, 500: errorSchema,
+        400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 429: errorSchema, 500: errorSchema,
       },
     },
   }, async (request, reply) => {
@@ -265,7 +272,7 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
       summary: 'Create your character from the selected system sheet',
       response: {
         201: { type: 'object', required: ['character'], additionalProperties: false, properties: { character: characterJsonSchema } },
-        400: errorSchema, 401: errorSchema, 404: errorSchema, 500: errorSchema,
+        400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 429: errorSchema, 500: errorSchema,
       },
     },
     config: {
@@ -273,7 +280,7 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
         ...schema,
         body: {
           type: 'object', required: ['character_name', 'attributes'], additionalProperties: false,
-          properties: { character_name: { type: 'string', minLength: 1, maxLength: 80 }, attributes: { type: 'object', additionalProperties: true } },
+          properties: { character_name: { type: 'string', minLength: 1, maxLength: 80 }, attributes: { type: 'object', additionalProperties: true }, system_password: { type: 'string', maxLength: 72 } },
         },
       } }),
     },
@@ -285,6 +292,11 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
 
     try {
       if (!await readActiveGameSystem(request.supabase!, systemId)) return reply.code(404).send({ error: 'Game system not found' });
+      const accessStatus = await authorizeSystemCharacterCreation(request.supabase!, systemId, input.data.system_password);
+      if (accessStatus === 'unauthorized') return reply.code(401).send({ error: 'Unauthorized' });
+      if (accessStatus === 'not_found') return reply.code(404).send({ error: 'Game system not found' });
+      if (accessStatus === 'rate_limited') return reply.code(429).send({ error: 'Too many incorrect passwords. Try again in one hour.' });
+      if (accessStatus === 'password_required' || accessStatus === 'invalid_password') return reply.code(403).send({ error: accessStatus === 'password_required' ? 'A password is required to join this private system' : 'The system password is incorrect' });
       const sheet = await readGameSystemCharacterSheet(request.supabase!, systemId);
       if (!sheet) return reply.code(404).send({ error: 'Game system character sheet not found' });
       const attributes = characterAttributesSchemaFor(sheet.definition).safeParse(input.data.attributes);

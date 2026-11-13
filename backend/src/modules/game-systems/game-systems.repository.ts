@@ -5,13 +5,15 @@ import {
   createSystemCharacterResultSchema,
   gameSystemSchema,
   gameSystemsResponseSchema,
+  joinGameSystemResultSchema,
   systemCharactersResponseSchema,
+  updateGameSystemResultSchema,
   type CreateCharacterInput,
   type CreateSystemInput,
   type UpdateGameSystemInput,
 } from './game-systems.schema.js';
 
-const systemColumns = 'id,slug,name,description';
+const systemColumns = 'id,slug,name,description,is_public';
 const characterColumns = 'id,game_system_id,character_name,attributes,status';
 
 export async function listActiveGameSystems(client: SupabaseClient) {
@@ -36,16 +38,32 @@ export async function createGameSystem(client: SupabaseClient, input: CreateSyst
 }
 
 export async function updateGameSystem(client: SupabaseClient, systemId: string, input: UpdateGameSystemInput) {
-  const { data, error } = await client.from('game_systems')
-    .update({ name: input.name, description: input.description })
-    .eq('id', systemId)
-    .select(systemColumns)
-    .maybeSingle();
+  const { data, error } = await client.rpc('update_game_system_access_settings', {
+    p_system_id: systemId,
+    p_name: input.name,
+    p_description: input.description,
+    p_is_public: input.is_public,
+    p_password: input.password ?? null,
+  });
   if (error) throw error;
-  if (!data) return null;
-  const result = gameSystemSchema.safeParse(data);
+  const result = updateGameSystemResultSchema.safeParse(data);
   if (!result.success) throw new Error('Invalid updated game system response');
-  return result.data;
+  if (result.data.status !== 'updated') return { status: result.data.status, system: null } as const;
+  if (!result.data.system) throw new Error('Missing updated game system details');
+  const system = gameSystemSchema.safeParse(result.data.system);
+  if (!system.success) throw new Error('Invalid updated game system details');
+  return { status: 'updated', system: system.data } as const;
+}
+
+export async function authorizeSystemCharacterCreation(client: SupabaseClient, systemId: string, password?: string) {
+  const { data, error } = await client.rpc('join_game_system_with_password', {
+    p_system_id: systemId,
+    p_password: password ?? null,
+  });
+  if (error) throw error;
+  const result = joinGameSystemResultSchema.safeParse(data);
+  if (!result.success) throw new Error('Invalid system access response');
+  return result.data.status;
 }
 
 export async function readActiveGameSystem(client: SupabaseClient, systemId: string) {

@@ -105,9 +105,10 @@ export interface GameSystem {
   slug: string;
   name: string;
   description: string | null;
+  is_public?: boolean;
 }
 
-export type UpdateGameSystemInput = Pick<GameSystem, 'name' | 'description'>;
+export type UpdateGameSystemInput = Pick<GameSystem, 'name' | 'description' | 'is_public'> & { password?: string };
 
 export interface SystemCharacter {
   id: string;
@@ -126,6 +127,7 @@ export interface CreateGameSystemInput {
 export interface CreateCharacterInput {
   character_name: string;
   attributes: Record<string, unknown>;
+  system_password?: string;
 }
 
 export interface DailyLoginSystem {
@@ -350,6 +352,12 @@ export interface SystemMemberships {
   memberships: SystemMembership[];
 }
 
+export interface SystemMemberCharacterSearchResult {
+  user_id: string;
+  character_name: string;
+  display_name: string;
+}
+
 export type NotificationType = 'system_role_changed' | 'system_announcement' | (string & {});
 
 export interface NotificationItem {
@@ -375,6 +383,13 @@ export interface SystemAnnouncementInput {
 
 export async function getMySystemMemberships() {
   return authenticatedRequest<SystemMemberships>('/api/v1/me/system-memberships');
+}
+
+export function searchSystemMembersByCharacterName(gameSystemId: string, query: string) {
+  const params = new URLSearchParams({ query });
+  return authenticatedRequest<{ status: 'ok'; results: SystemMemberCharacterSearchResult[] }>(
+    `/api/v1/owner/game-systems/${encodeURIComponent(gameSystemId)}/members/search?${params.toString()}`,
+  );
 }
 
 export async function setSystemModerator(gameSystemId: string, userId: string, isModerator: boolean) {

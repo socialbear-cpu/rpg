@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, type FormEventHandler } from 'react';
-import type { SystemMemberships } from '../../api';
+import { useEffect, useState, type FormEventHandler } from 'react';
+import { searchSystemMembersByCharacterName, type SystemMemberCharacterSearchResult, type SystemMemberships } from '../../api';
 
 type Props = {
   access: SystemMemberships;
@@ -26,15 +26,38 @@ export function SystemMembershipCard({ access, manageableSystems = [], busy, mes
   const ownerSystems = access.memberships.filter((membership) => membership.role === 'owner');
   const availableSystems = access.is_platform_admin ? manageableSystems : ownerSystems;
   const [selectedSystemId, setSelectedSystemId] = useState(availableSystems[0]?.game_system_id ?? '');
-  const [targetUserId, setTargetUserId] = useState('');
+  const [memberQuery, setMemberQuery] = useState('');
+  const [memberResults, setMemberResults] = useState<SystemMemberCharacterSearchResult[]>([]);
+  const [selectedMember, setSelectedMember] = useState<SystemMemberCharacterSearchResult | null>(null);
+  const [memberSearchLoading, setMemberSearchLoading] = useState(false);
+  const [memberSearchError, setMemberSearchError] = useState('');
   const [isModerator, setIsModerator] = useState(true);
   const selectedSystem = availableSystems.find((membership) => membership.game_system_id === selectedSystemId) ?? availableSystems[0];
 
+  useEffect(() => {
+    const query = memberQuery.trim();
+    if (!selectedSystem || selectedMember || query.length < 2) {
+      setMemberResults([]);
+      setMemberSearchLoading(false);
+      setMemberSearchError('');
+      return;
+    }
+    let active = true;
+    const timeout = window.setTimeout(() => {
+      setMemberSearchLoading(true);
+      setMemberSearchError('');
+      void searchSystemMembersByCharacterName(selectedSystem.game_system_id, query)
+        .then((response) => { if (active) setMemberResults(response.results); })
+        .catch(() => { if (active) { setMemberResults([]); setMemberSearchError('Não foi possível pesquisar personagens.'); } })
+        .finally(() => { if (active) setMemberSearchLoading(false); });
+    }, 250);
+    return () => { active = false; window.clearTimeout(timeout); };
+  }, [memberQuery, selectedMember, selectedSystem?.game_system_id]);
+
   const submit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const userId = targetUserId.trim();
-    if (!selectedSystem || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(userId)) return;
-    onAssign(selectedSystem.game_system_id, userId, isModerator);
+    if (!selectedSystem || !selectedMember) return;
+    onAssign(selectedSystem.game_system_id, selectedMember.user_id, isModerator);
   };
 
   return <article className="card system-membership-card">
@@ -52,27 +75,38 @@ export function SystemMembershipCard({ access, manageableSystems = [], busy, mes
       {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status" aria-live="polite">{message}</p>}
       <form className="system-membership-form" onSubmit={submit}>
         <label className="daily-field" htmlFor="membership-system">Sistema de RPG
-          <select id="membership-system" value={selectedSystem?.game_system_id ?? ''} onChange={(event) => setSelectedSystemId(event.target.value)}>
+          <select id="membership-system" value={selectedSystem?.game_system_id ?? ''} onChange={(event) => { setSelectedSystemId(event.target.value); setSelectedMember(null); setMemberQuery(''); }}>
         {availableSystems.map((membership) => <option key={membership.game_system_id} value={membership.game_system_id}>{membership.game_system_name}</option>)}
           </select>
         </label>
-        <label className="daily-field" htmlFor="membership-user-id">UUID do usuário
+        <label className="daily-field system-member-search" htmlFor="membership-character-search">Personagem da pessoa
           <input
-            id="membership-user-id"
+            id="membership-character-search"
             type="text"
-            inputMode="text"
             autoComplete="off"
             required
-            pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"
-            value={targetUserId}
-            onChange={(event) => setTargetUserId(event.target.value)}
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded={!selectedMember && memberResults.length > 0}
+            aria-controls="membership-character-results"
+            placeholder="Digite o nome do personagem"
+            value={memberQuery}
+            onChange={(event) => { setMemberQuery(event.target.value); setSelectedMember(null); }}
           />
+          {!selectedMember && memberQuery.trim().length >= 2 && <div className="system-member-search-results" id="membership-character-results" role="listbox" aria-label="Personagens encontrados">
+            {memberSearchLoading && <span role="status">Pesquisando…</span>}
+            {!memberSearchLoading && memberSearchError && <span role="alert">{memberSearchError}</span>}
+            {!memberSearchLoading && !memberSearchError && memberResults.length === 0 && <span role="status">Nenhum personagem encontrado.</span>}
+            {!memberSearchLoading && memberResults.map((member) => <button key={`${member.user_id}:${member.character_name}`} type="button" role="option" aria-selected={false} onClick={() => { setSelectedMember(member); setMemberQuery(`${member.character_name} — ${member.display_name}`); }}><strong>{member.character_name}</strong><small>{member.display_name}</small></button>)}
+          </div>}
+          {selectedMember && <small className="system-member-search-selected">Selecionado: {selectedMember.character_name} · {selectedMember.display_name}</small>}
+          {memberQuery.trim().length < 2 && <small>Digite ao menos 2 letras para pesquisar.</small>}
         </label>
         <label className="daily-active-toggle">
           <input type="checkbox" checked={isModerator} onChange={(event) => setIsModerator(event.target.checked)} />
           Tornar moderador (desmarque para remover Mod)
         </label>
-        <div className="actions"><button className="button primary" type="submit" disabled={busy || !selectedSystem}>
+        <div className="actions"><button className="button primary" type="submit" disabled={busy || !selectedSystem || !selectedMember}>
           {busy ? 'Salvando…' : 'Salvar cargo'}
         </button></div>
       </form>

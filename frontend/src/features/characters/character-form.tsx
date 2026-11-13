@@ -13,7 +13,8 @@ interface CharacterFormProps {
   submitLabel?: string;
   error?: string | null;
   saving?: boolean;
-  onSubmit: (characterName: string, attributes: Record<string, unknown>) => void;
+  systemIsPublic?: boolean;
+  onSubmit: (characterName: string, attributes: Record<string, unknown>, systemPassword?: string) => void;
   onCancel: () => void;
 }
 
@@ -47,8 +48,9 @@ function validComponentValue(component: CharacterSheetComponent, value: unknown,
   return typeof value === 'string' && allowed.has(value);
 }
 
-export function CharacterForm({ definition, initialName = '', initialAttributes = {}, submitLabel = 'Criar personagem', error = null, saving = false, onSubmit, onCancel }: CharacterFormProps) {
+export function CharacterForm({ definition, initialName = '', initialAttributes = {}, submitLabel = 'Criar personagem', error = null, saving = false, systemIsPublic = true, onSubmit, onCancel }: CharacterFormProps) {
   const [name, setName] = useState(initialName);
+  const [systemPassword, setSystemPassword] = useState('');
   const [values, setValues] = useState<Record<string, unknown>>(() => ({ ...initialAttributes }));
   const [activePageKey, setActivePageKey] = useState<CreationPage['key']>('character_name');
   const [pageError, setPageError] = useState('');
@@ -103,7 +105,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
         return;
       }
       setPageError('');
-      onSubmit(name.trim(), attributesForSubmit());
+      onSubmit(name.trim(), attributesForSubmit(), systemPassword || undefined);
       return;
     }
 
@@ -128,7 +130,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
       return;
     }
     setPageError('');
-    onSubmit(name.trim(), attributesForSubmit());
+    onSubmit(name.trim(), attributesForSubmit(), systemPassword || undefined);
   }
 
   function updateValue(key: string, value: unknown) {
@@ -156,6 +158,8 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
         <h2>{step.label}</h2>
         <CharacterSheetStepRenderer step={step} values={values} conditionValues={conditionValues} onValueChange={updateValue} mode="entry" />
       </section>)}
+
+      {!systemIsPublic && <label className="character-form-field character-wizard-question"><span>Senha do sistema</span><input type="password" autoComplete="current-password" maxLength={72} value={systemPassword} onChange={(event) => setSystemPassword(event.target.value)} /><small>Necessária para novos participantes. Se você já participa deste sistema, deixe em branco.</small></label>}
 
       {pageError && <p role="alert" className="character-form-error">{pageError}</p>}
       {error && <p role="alert" className="character-form-error">{error}</p>}
@@ -185,6 +189,8 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
         {visibleComponents.map(({ component }) => <div key={component.key}><dt>{component.label}</dt><dd>{summaryValue(component, component.type === 'single_select' ? conditionValues[component.key] : values[component.key])}</dd></div>)}
       </dl>
     </section>}
+
+    {page.kind === 'summary' && !systemIsPublic && <label className="character-form-field character-wizard-question"><span>Senha do sistema</span><input type="password" autoComplete="current-password" maxLength={72} value={systemPassword} onChange={(event) => setSystemPassword(event.target.value)} /><small>Necessária para novos participantes. Se você já participa deste sistema, deixe em branco.</small></label>}
 
     {pageError && <p role="alert" className="character-form-error">{pageError}</p>}
     {error && <p role="alert" className="character-form-error">{error}</p>}

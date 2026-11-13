@@ -34,17 +34,17 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
     return () => { cancelled = true; };
   }, [systemId]);
 
-  async function createCharacter(characterName: string, attributes: Record<string, unknown>) {
+  async function createCharacter(characterName: string, attributes: Record<string, unknown>, systemPassword?: string) {
     setError(null);
     setSaving(true);
     try {
-      const { character } = await createSystemCharacter(systemId, { character_name: characterName, attributes });
+      const { character } = await createSystemCharacter(systemId, { character_name: characterName, attributes, system_password: systemPassword });
       setCharacters((current) => [...current, character]);
       setSelectedCharacterId(character.id);
       setCreating(false);
       setSaving(false);
-    } catch {
-      setError('Não foi possível criar o personagem. Confira os campos e tente novamente.');
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Não foi possível criar o personagem. Confira a senha do sistema e os campos da ficha.');
       setSaving(false);
     }
   }
@@ -52,6 +52,6 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
   if (loading) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando sistema...</p></main>;
   if (error && !system) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><p role="alert">{error}</p></main>;
   if (!system) return null;
-  if (creating) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas"><button className="app-header-back" type="button" onClick={() => setCreating(false)}>← Voltar aos personagens</button></AppHeader><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm definition={definition} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
+  if (creating) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas"><button className="app-header-back" type="button" onClick={() => setCreating(false)}>← Voltar aos personagens</button></AppHeader><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm definition={definition} systemIsPublic={system.is_public} error={error} saving={saving} onSubmit={(name, attributes, password) => void createCharacter(name, attributes, password)} onCancel={() => setCreating(false)} /></main>;
   return <CharacterGallery systemName={system.name} fields={definitionToLegacyFields(definition)} characters={characters} selectedCharacterId={selectedCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} />;
 }

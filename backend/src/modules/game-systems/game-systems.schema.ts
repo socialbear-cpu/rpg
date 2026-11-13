@@ -227,11 +227,14 @@ export const createSystemInputSchema = z.strictObject({
 export const updateGameSystemInputSchema = z.strictObject({
   name: z.string().trim().min(1).max(80),
   description: z.string().trim().max(500).nullable(),
+  is_public: z.boolean(),
+  password: z.string().min(8).max(72).optional(),
 });
 
 export const createCharacterInputSchema = z.strictObject({
   character_name: z.string().trim().min(1).max(80),
   attributes: z.record(z.string(), z.unknown()),
+  system_password: z.string().max(72).optional(),
 });
 
 export const gameSystemSchema = z.strictObject({
@@ -239,7 +242,15 @@ export const gameSystemSchema = z.strictObject({
   slug: z.string(),
   name: z.string(),
   description: z.string().nullable(),
+  is_public: z.boolean().default(true),
 });
+
+export const updateGameSystemResultSchema = z.strictObject({
+  status: z.enum(['updated', 'not_owner', 'not_found', 'password_required', 'password_too_short', 'password_too_long']),
+  system: gameSystemSchema.nullable(),
+});
+
+export const joinGameSystemResultSchema = z.strictObject({ status: z.enum(['ok', 'unauthorized', 'not_found', 'password_required', 'invalid_password', 'rate_limited']) });
 
 export const gameSystemsResponseSchema = z.strictObject({
   systems: z.array(gameSystemSchema),
