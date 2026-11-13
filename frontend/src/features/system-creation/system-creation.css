@@ -315,3 +315,55 @@
   .sheet-condition-rule { grid-template-columns: 1fr; }
   .sheet-option-position-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Owner sheet editor: group configuration controls into calmer, branded panels. */
+.sheet-builder { gap: 20px; }
+.sheet-builder-heading h2 {
+  color: #f4f1fa;
+  font: 700 clamp(23px, 3vw, 29px) 'Outfit', sans-serif;
+  letter-spacing: -.025em;
+}
+.sheet-builder-heading p { max-width: 620px; line-height: 1.6; }
+.sheet-layout-selector {
+  padding: 15px 16px;
+  border: 1px solid #40364f;
+  border-radius: 12px;
+  background: #17131f;
+}
+.sheet-layout-selector label { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .7fr); align-items: center; gap: 14px; color: #e4ddeb; font-size: 13px; font-weight: 600; }
+.sheet-layout-selector select {
+  width: 100%; min-height: 42px; padding: 9px 12px;
+  border: 1px solid #514560; border-radius: 9px; color: #f5f1fb; background: #110e18; font: inherit;
+}
+.sheet-layout-selector select:focus-visible,
+.sheet-field-card :is(input, select, textarea):focus-visible,
+.visual-sheet-step :is(input, select, textarea):focus-visible,
+.visual-sheet-options :is(input, select, textarea):focus-visible {
+  outline: 2px solid #9872d1; outline-offset: 2px;
+}
+.sheet-built-in-field,
+.sheet-field-card { border-color: #40364f; background: linear-gradient(145deg, #211b2b, #191521); }
+.sheet-field-card { gap: 17px; padding: 18px; box-shadow: 0 8px 24px #09070e20; }
+.visual-sheet-step { padding: clamp(14px, 2.2vw, 22px); background: #15121d; }
+.visual-sheet-step > header { align-items: end; padding-bottom: 15px; border-bottom: 1px solid #342c42; }
+.visual-sheet-step > header label { flex: 1; color: #cdb9eb; font-size: 12px; }
+.visual-sheet-step input, .visual-sheet-step select,
+.visual-sheet-components :is(input, select, textarea),
+.visual-sheet-options fieldset > label input,
+.sheet-condition-rule :is(input, select) { border-color: #514560; background: #110e18; }
+.visual-sheet-components { gap: 14px; }
+.visual-sheet-options fieldset,
+.sheet-condition-editor { border-color: #40364f; background: #17131f; }
+.visual-sheet-preview { padding: clamp(15px, 2.5vw, 22px); border: 1px solid #40364f; background: #1b1724; }
+.visual-sheet-preview h3 { color: #e9def8; font: 600 17px 'Outfit', sans-serif; }
+.sheet-step-navigation button { min-width: 165px; border-color: #40364f; border-radius: 11px; background: #17131f; }
+.sheet-step-navigation button.active { border-color: #9c78d0; background: linear-gradient(145deg, #332342, #251c30); box-shadow: inset 0 0 0 1px #9c78d022; }
+.sheet-step-navigation .sheet-add-page-button { border-style: dashed; }
+.system-creation-actions { align-items: center; padding-top: 17px; border-top: 1px solid #342c42; }
+
+@media (max-width: 620px) {
+  .sheet-layout-selector label { grid-template-columns: 1fr; gap: 8px; }
+  .sheet-field-card { padding: 14px; }
+  .system-creation-actions { align-items: stretch; flex-direction: column-reverse; }
+  .system-creation-actions > button { width: 100%; }
+}

@@ -152,3 +152,83 @@
   .lobby-search-button { gap: 8px; padding: 14px 12px; font-size: 16px; }
   .lobby-search-button small { font-size: 8px; }
 }
+
+/* Character creation: tighter rhythm and the shared dark-purple system identity. */
+.character-entry-page {
+  background: radial-gradient(ellipse at 18% 28%, #2a2038 0, #171521 34%, #110e18 76%);
+}
+.character-entry-heading { margin-bottom: 22px; }
+.character-entry-heading h1 {
+  color: #f4f1fa;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -.035em;
+}
+.character-wizard-form {
+  gap: 18px;
+  min-height: 0;
+  padding: clamp(20px, 3.5vw, 34px);
+  border-color: #40364f;
+  background: linear-gradient(145deg, #1d1927, #191521 72%);
+  box-shadow: 0 18px 50px #09070e55;
+}
+.character-step-progress {
+  gap: 8px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #342c42;
+}
+.character-step-progress > span {
+  color: #bca6ff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.character-step-progress strong {
+  font: 600 17px 'Outfit', sans-serif;
+}
+.character-step-progress progress { height: 5px; border-radius: 999px; }
+.character-wizard-question {
+  justify-items: stretch;
+  gap: 16px;
+  min-height: 0;
+  padding: clamp(18px, 3vw, 30px) 0;
+}
+.character-wizard-question > h2 {
+  max-width: none;
+  color: #e9def8;
+  font: 600 clamp(19px, 2.5vw, 24px) 'Outfit', sans-serif;
+  text-align: left;
+}
+.character-wizard-question > .character-form-field,
+.character-wizard-question > .character-form-field > span {
+  width: 100%;
+  font-size: 14px;
+  text-align: left;
+}
+.character-wizard-question > .character-form-field > span { color: #e4ddeb; }
+.character-wizard-question > .character-sheet-step-grid {
+  width: 100%;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.character-wizard-question .character-sheet-component {
+  grid-column: span 6;
+  width: auto;
+}
+.character-wizard-question .character-sheet-component.width-half { grid-column: span 3; }
+.character-wizard-question .character-sheet-component.width-third { grid-column: span 2; }
+.character-wizard-summary { padding: 18px; border: 1px solid #342c42; border-radius: 12px; background: #15121d; }
+.character-wizard-summary h2 { text-align: left; }
+.character-form-actions {
+  padding-top: 16px;
+  border-top: 1px solid #342c42;
+}
+.character-secondary-button { margin-top: 0; }
+.character-primary-button { box-shadow: 0 7px 20px #704aa633; }
+
+@media (max-width: 620px) {
+  .character-wizard-form { padding: 19px; }
+  .character-wizard-question .character-sheet-component.width-half,
+  .character-wizard-question .character-sheet-component.width-third { grid-column: 1 / -1; }
+  .character-form-actions { flex-direction: column-reverse; }
+  .character-form-actions button { width: 100%; }
+}
