@@ -22,6 +22,42 @@ function isSelected(value: unknown, optionValue: string): boolean {
   return Array.isArray(value) ? value.includes(optionValue) : value === optionValue;
 }
 
+function CanvasChoiceOptions({ component, values, conditionValues, onValueChange, mode }: {
+  component: Extract<CharacterSheetComponent, { type: 'single_select' }>;
+  values: Record<string, unknown>;
+  conditionValues: Record<string, unknown>;
+  onValueChange: (key: string, value: unknown) => void;
+  mode: 'preview' | 'entry';
+}) {
+  const options = getVisibleCharacterSheetOptions(component, conditionValues);
+  const multiple = component.selection_mode === 'multiple';
+  const currentValue = values[component.key];
+  const selectedValues = Array.isArray(currentValue)
+    ? currentValue.filter((item): item is string => typeof item === 'string')
+    : typeof currentValue === 'string' ? [currentValue] : [];
+
+  function selectOption(optionValue: string) {
+    if (!multiple) {
+      onValueChange(component.key, optionValue);
+      return;
+    }
+    onValueChange(component.key, selectedValues.includes(optionValue)
+      ? selectedValues.filter((item) => item !== optionValue)
+      : [...selectedValues, optionValue]);
+  }
+
+  return <div className="character-sheet-canvas-choice-group" role={multiple ? 'group' : 'radiogroup'} aria-label={component.label} aria-required={component.required}>
+    {options.map((option) => {
+      const optionValue = characterSheetOptionValue(option);
+      const selected = isSelected(values[component.key], optionValue);
+      return <button key={optionValue} type="button" className={`character-sheet-canvas-option ${selected ? 'selected' : ''}`} role={multiple ? 'checkbox' : 'radio'} aria-checked={selected} aria-label={`${component.label}: ${option.label}${option.description ? `: ${option.description}` : ''}`} title={option.description} style={optionLayout(component, component.options.indexOf(option))} disabled={mode === 'preview'} onClick={() => selectOption(optionValue)}>
+        {option.image_url ? <img src={option.image_url} alt="" draggable={false} /> : null}
+        <strong>{option.label}</strong>
+      </button>;
+    })}
+  </div>;
+}
+
 function CharacterSheetField({ component, values, conditionValues, onValueChange, mode }: {
   component: CharacterSheetComponent;
   values: Record<string, unknown>;
@@ -42,19 +78,6 @@ function CharacterSheetField({ component, values, conditionValues, onValueChange
       onValueChange(component.key, selectedValues.includes(optionValue)
         ? selectedValues.filter((item) => item !== optionValue)
         : [...selectedValues, optionValue]);
-    }
-
-    if (component.presentation === 'canvas') {
-      return <div className={`character-sheet-choice-canvas ${multiple ? 'multiple' : 'single'}`} role={multiple ? 'group' : 'radiogroup'} aria-label={component.label}>
-        {options.map((option, index) => {
-          const optionValue = characterSheetOptionValue(option);
-          const selected = isSelected(value, optionValue);
-          return <button key={optionValue} type="button" className={`character-sheet-canvas-option ${selected ? 'selected' : ''}`} role={multiple ? 'checkbox' : 'radio'} aria-checked={selected} aria-label={`${option.label}${option.description ? `: ${option.description}` : ''}`} title={option.description} style={optionLayout(component, component.options.indexOf(option))} disabled={mode === 'preview'} onClick={() => selectOption(optionValue)}>
-            {option.image_url ? <img src={option.image_url} alt="" draggable={false} /> : null}
-            <strong>{option.label}</strong>
-          </button>;
-        })}
-      </div>;
     }
 
     if (component.presentation === 'cards') {
@@ -85,11 +108,18 @@ export function CharacterSheetStepRenderer({ step, values, conditionValues = val
   mode: 'preview' | 'entry';
 }) {
   const elements = step.elements ?? [];
+  const canvasComponents = step.components.filter((component): component is Extract<CharacterSheetComponent, { type: 'single_select' }> => component.type === 'single_select' && component.presentation === 'canvas');
+  const regularComponents = step.components.filter((component) => !(component.type === 'single_select' && component.presentation === 'canvas'));
   return <>
-    {elements.length > 0 && <div className="character-sheet-visual-stage" aria-label="Elementos visuais da ficha">{elements.map((element) => <div key={element.key} className="character-sheet-visual-element" style={{ left: `${element.x}%`, top: `${element.y}%`, width: `${element.width}%`, height: `${element.height}%`, transform: `rotate(${element.rotation}deg)` }} title={element.type === 'image' ? element.description : undefined}>
+    {elements.length > 0 || canvasComponents.length > 0 ? <>
+      {canvasComponents.length > 0 && <div className="character-sheet-canvas-labels">{canvasComponents.map((component) => <span key={component.key}>{component.label}{component.required ? ' *' : ''}</span>)}</div>}
+      <div className="character-sheet-visual-stage" aria-label="Composição visual da ficha">{elements.map((element) => <div key={element.key} className="character-sheet-visual-element" style={{ left: `${element.x}%`, top: `${element.y}%`, width: `${element.width}%`, height: `${element.height}%`, transform: `rotate(${element.rotation}deg)` }} title={element.type === 'image' ? element.description : undefined}>
       {element.type === 'text' ? element.text : <img src={element.image_url} alt={element.description || 'Imagem da ficha'} title={element.description} />}
-    </div>)}</div>}
-    <div className="character-sheet-step-grid">{step.components.slice().sort((a, b) => a.position - b.position).map((component) => <fieldset className={`character-sheet-component width-${component.width}`} key={component.key}>
+      </div>)}
+        {canvasComponents.map((component) => <CanvasChoiceOptions key={component.key} component={component} values={values} conditionValues={conditionValues} onValueChange={onValueChange} mode={mode} />)}
+      </div>
+    </> : null}
+    <div className="character-sheet-step-grid">{regularComponents.slice().sort((a, b) => a.position - b.position).map((component) => <fieldset className={`character-sheet-component width-${component.width}`} key={component.key}>
       <legend>{component.label}{component.required ? ' *' : ''}</legend>
       <CharacterSheetField component={component} values={values} conditionValues={conditionValues} onValueChange={onValueChange} mode={mode} />
     </fieldset>)}</div>

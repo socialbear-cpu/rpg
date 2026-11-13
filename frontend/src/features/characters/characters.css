@@ -42,8 +42,12 @@
 .character-wizard-question > .character-form-field > span { color: #f0e9f8; font-size: clamp(21px, 3vw, 30px); text-align: center; }
 .character-wizard-question > .character-sheet-step-grid { grid-template-columns: minmax(0, 1fr); width: min(100%, 820px); }
 .character-wizard-question .character-sheet-component { grid-column: 1 / -1; width: 100%; }
-.character-sheet-choice-canvas { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 250px; overflow: hidden; border: 1px solid #514560; border-radius: 12px; background: radial-gradient(ellipse at center, #292135, #14121b); }
+.character-sheet-visual-stage { min-height: 220px; }
+.character-sheet-canvas-labels { display: flex; flex-wrap: wrap; gap: 7px; margin: 8px 0; }
+.character-sheet-canvas-labels span { padding: 5px 9px; border: 1px solid #514560; border-radius: 999px; color: #e9def8; background: #211b2b; font-size: 12px; }
+.character-sheet-canvas-choice-group { position: absolute; inset: 0; pointer-events: none; }
 .character-sheet-canvas-option { position: absolute; display: grid; place-items: end center; overflow: hidden; padding: 0; border: 2px solid #8e75b2; border-radius: 8px; color: #fff; background: #30243d; cursor: pointer; transition: border-color .15s, box-shadow .15s, filter .15s; }
+.character-sheet-canvas-option { pointer-events: auto; }
 .character-sheet-canvas-option img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .character-sheet-canvas-option strong { position: relative; z-index: 1; width: 100%; padding: 6px 8px; background: #100d18cc; font-size: clamp(11px, 1.4vw, 15px); text-align: center; }
 .character-sheet-canvas-option:hover, .character-sheet-canvas-option:focus-visible { z-index: 2; border-color: #e6d3ff; outline: 0; filter: brightness(1.13); }
@@ -56,7 +60,6 @@
 .character-wizard-summary dt { color: #a99fb3; }
 .character-wizard-summary dd { margin: 0; color: #eee8f5; text-align: right; overflow-wrap: anywhere; }
 @media(max-width:620px) {
-  .character-sheet-choice-canvas { min-height: 210px; }
   .character-wizard-summary dl > div { grid-template-columns: 1fr; gap: 5px; }
   .character-wizard-summary dd { text-align: left; }
 }

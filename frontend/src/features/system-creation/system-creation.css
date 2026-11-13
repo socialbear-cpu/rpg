@@ -284,7 +284,7 @@
 .sheet-visual-controls .sheet-remove-button { justify-self: start; min-height: 38px; padding: 0 10px; border: 1px solid #59353b; border-radius: 8px; color: #ffb8bd; background: #2c2025; }
 .sheet-page-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 20px; color: #afa6ba; font-size: 12px; }
 .visual-sheet-preview .character-sheet-visual-stage { margin-bottom: 14px; }
-.character-sheet-visual-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid #40364f; border-radius: 9px; background: linear-gradient(135deg, #201b2b, #12121a); }
+.character-sheet-visual-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 220px; overflow: hidden; border: 1px solid #40364f; border-radius: 9px; background: linear-gradient(135deg, #201b2b, #12121a); }
 .character-sheet-visual-element { position: absolute; display: grid; place-items: center; overflow: hidden; color: #fff; text-align: center; }
 .character-sheet-visual-element img { width: 100%; height: 100%; object-fit: cover; }
 .character-sheet-step-grid { width: 100%; }
@@ -306,9 +306,7 @@
 .sheet-option-position-controls { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
 .sheet-option-position-controls label { display: grid; gap: 4px; color: #afa6ba; font-size: 11px; }
 .sheet-option-position-controls input { width: 100%; min-width: 0; }
-.sheet-option-canvas-editor { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 220px; overflow: hidden; border: 1px dashed #6a587e; border-radius: 9px; background: linear-gradient(135deg, #201b2b, #12121a); touch-action: none; }
 .sheet-option-canvas-item { position: absolute; display: grid; place-items: end center; overflow: hidden; border: 2px solid #8e75b2; border-radius: 7px; color: #fff; background: #30243d; cursor: move; user-select: none; }
-.sheet-option-canvas-item.selected { z-index: 1; border-color: #d0b4ff; box-shadow: 0 0 0 2px #a78bfa55; }
 .sheet-option-canvas-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .sheet-option-canvas-item strong { z-index: 1; width: 100%; overflow: hidden; padding: 5px; background: #100d18cc; text-align: center; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
 @media(max-width:620px) {
