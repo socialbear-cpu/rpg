@@ -282,6 +282,14 @@
 .sheet-visual-controls input, .sheet-visual-controls textarea { width: 100%; min-width: 0; min-height: 38px; padding: 8px; border: 1px solid #40364f; border-radius: 7px; color: #f5f1fb; background: #110e18; font: inherit; }
 .sheet-visual-controls textarea { resize: vertical; }
 .sheet-visual-controls .sheet-remove-button { justify-self: start; min-height: 38px; padding: 0 10px; border: 1px solid #59353b; border-radius: 8px; color: #ffb8bd; background: #2c2025; }
+.sheet-option-visual-controls > .sheet-condition-editor { grid-column: 1 / -1; }
+.sheet-canvas-choice-group-editor { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 12px 0 0; padding: 14px; border: 1px solid #55436d; border-radius: 10px; background: #17131f; }
+.sheet-canvas-choice-group-editor legend { padding: 0 6px; color: #e8def3; font-weight: 700; }
+.sheet-canvas-choice-group-editor > label:not(.sheet-checkbox) { display: grid; gap: 5px; color: #d9d0e4; font-size: 12px; }
+.sheet-canvas-choice-group-editor input:not([type="checkbox"]), .sheet-canvas-choice-group-editor select { width: 100%; min-width: 0; min-height: 38px; padding: 8px; border: 1px solid #40364f; border-radius: 7px; color: #f5f1fb; background: #110e18; font: inherit; }
+.sheet-canvas-choice-group-editor > .sheet-condition-editor { grid-column: 1 / -1; }
+.sheet-canvas-choice-group-editor > button { justify-self: start; min-height: 36px; padding: 0 12px; border: 1px solid #58477a; border-radius: 8px; color: #e5dcf0; background: #282333; }
+.sheet-canvas-choice-group-editor > .sheet-remove-button { border-color: #59353b; color: #ffb8bd; background: #2c2025; }
 .sheet-page-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 20px; color: #afa6ba; font-size: 12px; }
 .visual-sheet-preview .character-sheet-visual-stage { margin-bottom: 14px; }
 .character-sheet-visual-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 220px; overflow: hidden; border: 1px solid #40364f; border-radius: 9px; background: linear-gradient(135deg, #201b2b, #12121a); }
@@ -291,6 +299,7 @@
 @media(max-width:620px) {
   .sheet-visual-editor-heading { align-items: flex-start; flex-direction: column; }
   .sheet-visual-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sheet-canvas-choice-group-editor { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sheet-page-actions { flex-wrap: wrap; }
   .sheet-page-actions span { order: -1; width: 100%; text-align: center; }
   .sheet-visual-canvas { min-height: 160px; }

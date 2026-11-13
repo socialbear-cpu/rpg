@@ -108,8 +108,8 @@ export function CharacterSheetStepRenderer({ step, values, conditionValues = val
   mode: 'preview' | 'entry';
 }) {
   const elements = step.elements ?? [];
-  const canvasComponents = step.components.filter((component): component is Extract<CharacterSheetComponent, { type: 'single_select' }> => component.type === 'single_select' && component.presentation === 'canvas');
-  const regularComponents = step.components.filter((component) => !(component.type === 'single_select' && component.presentation === 'canvas'));
+  const canvasComponents = step.components.filter((component): component is Extract<CharacterSheetComponent, { type: 'single_select' }> => component.type === 'single_select');
+  const regularComponents = step.components.filter((component) => component.type !== 'single_select');
   return <>
     {elements.length > 0 || canvasComponents.length > 0 ? <>
       {canvasComponents.length > 0 && <div className="character-sheet-canvas-labels">{canvasComponents.map((component) => <span key={component.key}>{component.label}{component.required ? ' *' : ''}</span>)}</div>}
