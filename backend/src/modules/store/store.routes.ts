@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import type { FastifyInstance, FastifySchema } from 'fastify';
 import { authenticate } from '../../plugins/authenticate.js';
-import { canManageStore, readStore, readStoreCharacter, replaceStore, purchaseStoreOffer } from './store.repository.js';
-import { storeCharacterQuerySchema, storeParamsSchema, storePurchaseSchema, storeScheduleSchema } from './store.schema.js';
+import { canManageStore, createStoreItem, readStore, readStoreCharacter, replaceStore, purchaseStoreOffer } from './store.repository.js';
+import { storeCharacterQuerySchema, storeItemCreateSchema, storeParamsSchema, storePurchaseSchema, storeScheduleSchema } from './store.schema.js';
 // Documentation-only input schemas preserve strict Zod validation before AJV can strip keys.
 function documentedInputs(body?: z.ZodType, querystring?: z.ZodType) {
   return { swaggerTransform: ({ schema, url }: { schema: FastifySchema; url: string }) => ({
@@ -50,6 +50,16 @@ export async function storeRoutes(app: FastifyInstance) {
       const store = await readStore(request.supabase!, params.data.systemId);
       return store ? reply.send(store) : reply.code(404).send({ error: 'Owned store not found' });
     } catch { return reply.code(500).send({ error: 'Unable to access store' }); }
+  });
+  app.post('/api/v1/owner/game-systems/:systemId/items', { ...auth, config: documentedInputs(storeItemCreateSchema) }, async (request, reply) => {
+    const params = storeParamsSchema.safeParse(request.params);
+    const input = storeItemCreateSchema.safeParse(request.body);
+    if (!params.success || !input.success) return reply.code(400).send({ error: 'Informe um nome, tipo e descrição válidos para o item.' });
+    try {
+      if (!await canManageStore(request.supabase!, params.data.systemId)) return reply.code(403).send({ error: 'Only the system owner or Admin can manage its store.' });
+      const item = await createStoreItem(request.supabase!, params.data.systemId, input.data);
+      return reply.code(201).send({ item });
+    } catch { return reply.code(500).send({ error: 'Não foi possível adicionar o item à loja.' }); }
   });
   app.put('/api/v1/owner/game-systems/:systemId/store', { ...auth, config: documentedInputs(storeScheduleSchema) }, async (request, reply) => {
     const params = storeParamsSchema.safeParse(request.params);

@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { readMySystemMemberships } from '../system-membership/system-membership.repository.js';
-import { storePurchaseResultSchema, type StoreSchedule, type StorePurchase } from './store.schema.js';
+import { storeItemSchema, storePurchaseResultSchema, type StoreItemCreate, type StoreSchedule, type StorePurchase } from './store.schema.js';
 
 async function result<T>(query: PromiseLike<{ data: T; error: unknown }>): Promise<T> {
   const { data, error } = await query;
@@ -11,6 +11,19 @@ export async function canManageStore(client: SupabaseClient, systemId: string) {
   const access = await readMySystemMemberships(client);
   return access.is_platform_admin || access.memberships.some((m) => m.game_system_id === systemId && m.role === 'owner');
 }
+export async function createStoreItem(client: SupabaseClient, systemId: string, input: StoreItemCreate) {
+  const normalized = input.name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 52) || 'item';
+  const slug = `${normalized}-${globalThis.crypto.randomUUID().slice(0, 8)}`;
+  const data = await result(client.from('items').insert({
+    game_system_id: systemId,
+    slug,
+    name: input.name,
+    description: input.description || null,
+    item_type: input.item_type,
+    rules_data: {},
+  }).select('id,name,description,item_type').single());
+  return storeItemSchema.parse(data);
+}
 export async function readStoreCharacter(client: SupabaseClient, userId: string, systemId: string, characterId: string) {
   return result(client.from('characters').select('id,game_system_id').eq('id', characterId)
     .eq('user_id', userId).eq('game_system_id', systemId).eq('status', 'active').maybeSingle());
@@ -19,7 +32,7 @@ async function readCatalog(client: SupabaseClient, systemId: string) {
   const [products, listings, items] = await Promise.all([
     result(client.from('products').select('id,item_id,ability_id').eq('game_system_id', systemId).not('item_id', 'is', null)),
     result(client.from('store_products').select('id,product_id,price,is_available').eq('game_system_id', systemId).order('created_at')),
-    result(client.from('items').select('id,name').eq('game_system_id', systemId).order('name')),
+    result(client.from('items').select('id,name,description,item_type').eq('game_system_id', systemId).order('name')),
   ]);
   const itemMap = new Map((items ?? []).map((item) => [item.id, item.name]));
   const itemProducts = (products ?? []).filter((p) => p.item_id && !p.ability_id && itemMap.has(p.item_id));

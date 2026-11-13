@@ -597,8 +597,14 @@ export interface StoreOffer {
 }
 export interface OwnerStore {
   currency_name: string;
-  items: { id: string; name: string }[];
+  items: StoreItem[];
   offers: StoreOffer[];
+}
+export interface StoreItem {
+  id: string;
+  name: string;
+  description?: string | null;
+  item_type?: 'consumable' | 'equipment' | 'misc' | string;
 }
 export interface CharacterStore {
   currency_name: string;
@@ -610,12 +616,22 @@ export interface StoreSettingsInput {
   currency_name: string;
   offers: { store_product_id?: string; item_id: string; price: number; is_available: boolean }[];
 }
+export interface CreateStoreItemInput {
+  name: string;
+  description?: string | null;
+  item_type: 'consumable' | 'equipment' | 'misc';
+}
 export interface StorePurchaseResult {
   status: 'purchased'; balance: number; purchase_id: string; item_id: string;
   item_name: string; quantity: number; amount_charged: number; currency_name: string;
 }
 export function getOwnerStore(systemId: string) {
   return authenticatedRequest<OwnerStore>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store`);
+}
+export function createOwnerStoreItem(systemId: string, input: CreateStoreItemInput) {
+  return authenticatedRequest<{ item: StoreItem }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/items`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  });
 }
 export function saveOwnerStore(systemId: string, input: StoreSettingsInput) {
   return authenticatedRequest<OwnerStore>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store`, {

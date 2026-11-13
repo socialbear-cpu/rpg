@@ -1,15 +1,35 @@
 'use client';
 
-import { useEffect, useState, type FormEventHandler } from 'react';
-import { getOwnerStore, saveOwnerStore, type OwnerStore } from '../../api';
+import { useEffect, useState, type FormEvent, type FormEventHandler } from 'react';
+import { createOwnerStoreItem, getOwnerStore, saveOwnerStore, type CreateStoreItemInput, type OwnerStore } from '../../api';
 import './store.css';
 
-export function StoreAdminCard({ store, saving, message, onChange, onSave }: {
+export function StoreAdminCard({ store, saving, message, onChange, onSave, creatingItem = false, onCreateItem = async () => false }: {
   store: OwnerStore; saving: boolean; message: string | null;
   onChange: (store: OwnerStore) => void; onSave: FormEventHandler<HTMLFormElement>;
+  creatingItem?: boolean; onCreateItem?: (input: CreateStoreItemInput) => Promise<boolean>;
 }) {
+  const [itemName, setItemName] = useState('');
+  const [itemDescription, setItemDescription] = useState('');
+  const [itemType, setItemType] = useState<CreateStoreItemInput['item_type']>('misc');
+  async function submitItem(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const created = await onCreateItem({ name: itemName.trim(), description: itemDescription.trim() || null, item_type: itemType });
+    if (created) { setItemName(''); setItemDescription(''); setItemType('misc'); }
+  }
+  const itemTypeLabels: Record<string, string> = { consumable: 'Consumível', equipment: 'Equipamento', misc: 'Outro' };
   return <article className="card store-admin-card"><h2>Gerenciar loja</h2>
     {message && <p role="status" aria-live="polite">{message}</p>}
+    <section className="store-admin-items" aria-labelledby="store-admin-items-title">
+      <div><h3 id="store-admin-items-title">Itens do sistema</h3><p>Cadastre os itens que poderão ser oferecidos na loja.</p></div>
+      <form className="store-admin-item-form" onSubmit={(event) => void submitItem(event)}>
+        <label>Nome do item<input required maxLength={80} value={itemName} onChange={(event) => setItemName(event.target.value)} /></label>
+        <label>Tipo<select value={itemType} onChange={(event) => setItemType(event.target.value as CreateStoreItemInput['item_type'])}><option value="consumable">Consumível</option><option value="equipment">Equipamento</option><option value="misc">Outro</option></select></label>
+        <label className="store-admin-item-description">Descrição<textarea maxLength={500} value={itemDescription} onChange={(event) => setItemDescription(event.target.value)} /></label>
+        <button className="button secondary" type="submit" disabled={saving || creatingItem}>{creatingItem ? 'Adicionando…' : 'Adicionar item'}</button>
+      </form>
+      {store.items.length > 0 && <ul className="store-admin-item-list">{store.items.map((item) => <li key={item.id}><strong>{item.name}</strong><span>{itemTypeLabels[item.item_type ?? 'misc'] ?? item.item_type}</span>{item.description && <p>{item.description}</p>}</li>)}</ul>}
+    </section>
     <form className="store-admin-form" onSubmit={onSave}><fieldset disabled={saving}>
       <label>Nome da moeda<input required maxLength={80} value={store.currency_name} onChange={(event) => onChange({ ...store, currency_name: event.target.value })} /></label>
       {store.items.length === 0 && <p>Cadastre itens neste sistema antes de criar ofertas.</p>}
@@ -30,6 +50,7 @@ export function StoreAdminCard({ store, saving, message, onChange, onSave }: {
 export function SystemStoreAdmin({ systemId }: { systemId: string }) {
   const [store, setStore] = useState<OwnerStore | null>(null);
   const [saving, setSaving] = useState(false);
+  const [creatingItem, setCreatingItem] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [reload, setReload] = useState(0);
   useEffect(() => {
@@ -50,6 +71,19 @@ export function SystemStoreAdmin({ systemId }: { systemId: string }) {
     } catch (error) { setMessage(error instanceof Error ? error.message : 'Não foi possível salvar a loja.'); }
     finally { setSaving(false); }
   }
+  async function addItem(input: CreateStoreItemInput) {
+    if (creatingItem) return false;
+    setCreatingItem(true); setMessage(null);
+    try {
+      const { item } = await createOwnerStoreItem(systemId, input);
+      setStore((current) => current ? { ...current, items: [...current.items, item].sort((a, b) => a.name.localeCompare(b.name)) } : current);
+      setMessage('Item adicionado. Agora ele pode ser incluído em uma oferta.');
+      return true;
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Não foi possível adicionar o item.');
+      return false;
+    } finally { setCreatingItem(false); }
+  }
   if (!store) return <article className="card store-admin-card"><h2>Gerenciar loja</h2><p role="status">{message ?? 'Carregando loja…'}</p>{message && <button type="button" className="button secondary" onClick={() => setReload((value) => value + 1)}>Tentar novamente</button>}</article>;
-  return <StoreAdminCard store={store} saving={saving} message={message} onChange={setStore} onSave={(event) => { event.preventDefault(); void save(); }} />;
+  return <StoreAdminCard store={store} saving={saving} creatingItem={creatingItem} message={message} onChange={setStore} onCreateItem={addItem} onSave={(event) => { event.preventDefault(); void save(); }} />;
 }
