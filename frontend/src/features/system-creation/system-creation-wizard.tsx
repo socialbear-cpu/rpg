@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import type { CharacterSheetDefinition, CreateGameSystemInput, GameSystem } from '../../api';
 import { CharacterSheetBuilder } from './character-sheet-builder';
+import { SystemDetailsFields } from './system-details-fields';
 import { AppHeader } from '../shell/app-header';
 import { createDefaultCharacterSheetDefinition, isCharacterSheetDefinitionValid } from './sheet-model';
 import './system-creation.css';
@@ -51,12 +52,7 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
           <span className="sheet-builder-eyebrow">NOVO SISTEMA</span>
           <h1>Crie um mundo para jogar</h1>
           <p>Defina o nome do sistema e, em seguida, os campos da ficha de personagem.</p>
-          <label className="system-creation-label">Nome do sistema
-            <input autoFocus required maxLength={80} value={name} onChange={(event) => setName(event.target.value)} placeholder="Ex.: Crônicas de Aether" />
-          </label>
-          <label className="system-creation-label">Descrição <span>(opcional)</span>
-            <textarea maxLength={500} value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Conte um pouco sobre este universo" rows={4} />
-          </label>
+          <SystemDetailsFields name={name} description={description} autoFocus onNameChange={setName} onDescriptionChange={setDescription} />
           <button type="submit" className="primary-button" disabled={!name.trim()}>Continuar para ficha →</button>
         </form>
       ) : (

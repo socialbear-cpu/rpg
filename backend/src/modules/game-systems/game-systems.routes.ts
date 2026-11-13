@@ -5,6 +5,7 @@ import {
   characterAttributesSchemaFor,
   createCharacterInputSchema,
   createSystemInputSchema,
+  updateGameSystemInputSchema,
 } from './game-systems.schema.js';
 import {
   createGameSystem,
@@ -13,6 +14,7 @@ import {
   listSystemCharacters,
   readActiveGameSystem,
   readGameSystemCharacterSheet,
+  updateGameSystem,
 } from './game-systems.repository.js';
 import { characterSheetDefinitionSchema } from './game-systems.schema.js';
 
@@ -157,6 +159,31 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
     try {
       return reply.code(201).send(await createGameSystem(request.supabase!, input.data));
     } catch {
+      return databaseError(reply);
+    }
+  });
+
+  app.put('/api/v1/game-systems/:systemId', {
+    ...authOptions,
+    schema: { ...authOptions.schema, summary: 'Update an owned game system name and description', response: {
+      200: { type: 'object', required: ['system'], additionalProperties: false, properties: { system: systemJsonSchema } },
+      400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 500: errorSchema,
+    } },
+    config: { swaggerTransform: ({ schema, url }) => ({ url, schema: { ...schema, body: {
+      type: 'object', required: ['name', 'description'], additionalProperties: false,
+      properties: { name: { type: 'string', minLength: 1, maxLength: 80 }, description: { type: ['string', 'null'], maxLength: 500 } },
+    } } }) },
+  }, async (request, reply) => {
+    const systemId = systemIdFromParams(request.params);
+    if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
+    const input = updateGameSystemInputSchema.safeParse(request.body);
+    if (!input.success) return reply.code(400).send({ error: 'Invalid game system details' });
+    try {
+      const system = await updateGameSystem(request.supabase!, systemId, input.data);
+      if (!system) return reply.code(404).send({ error: 'Game system not found' });
+      return reply.send({ system });
+    } catch (error) {
+      if (error && typeof error === 'object' && 'code' in error && error.code === '42501') return reply.code(403).send({ error: 'Only the system owner can update its details' });
       return databaseError(reply);
     }
   });

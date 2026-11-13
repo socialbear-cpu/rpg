@@ -41,7 +41,7 @@ export interface DailyLoginClaimResult {
   currency_name: string;
 }
 
-const systemColumns = 'id,name,is_active,daily_login_timezone,daily_login_rewards_enabled,currency_name';
+const systemColumns = 'id,name,description,is_active,daily_login_timezone,daily_login_rewards_enabled,currency_name';
 const characterColumns = 'id,character_name,game_system_id';
 
 async function readActiveCharacters(client: SupabaseClient, userId: string, systemId?: string) {

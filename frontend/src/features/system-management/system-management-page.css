@@ -169,9 +169,12 @@
 }
 
 .system-sheet-saved { color: #8ddbb2; font-size: 13px; }
+.system-management-sheet-editor > div > p { margin: 8px 0 0; color: #a4a5b4; font-size: 13px; line-height: 1.55; }
+.system-details-editor-actions { display: flex; justify-content: flex-end; margin-top: 20px; }
 
 @media (max-width: 600px) {
   .system-management-sheet-editor { padding: 22px 17px; }
+  .system-details-editor-actions > button { width: 100%; }
 }
 
 .system-management-future > p {

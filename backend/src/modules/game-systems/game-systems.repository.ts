@@ -3,10 +3,12 @@ import {
   characterSheetResponseSchema,
   createGameSystemResultSchema,
   createSystemCharacterResultSchema,
+  gameSystemSchema,
   gameSystemsResponseSchema,
   systemCharactersResponseSchema,
   type CreateCharacterInput,
   type CreateSystemInput,
+  type UpdateGameSystemInput,
 } from './game-systems.schema.js';
 
 const systemColumns = 'id,slug,name,description';
@@ -31,6 +33,19 @@ export async function createGameSystem(client: SupabaseClient, input: CreateSyst
   const result = createGameSystemResultSchema.safeParse(data);
   if (!result.success) throw new Error('Invalid game system creation response');
   return { system: result.data.system, definition: result.data.definition };
+}
+
+export async function updateGameSystem(client: SupabaseClient, systemId: string, input: UpdateGameSystemInput) {
+  const { data, error } = await client.from('game_systems')
+    .update({ name: input.name, description: input.description })
+    .eq('id', systemId)
+    .select(systemColumns)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  const result = gameSystemSchema.safeParse(data);
+  if (!result.success) throw new Error('Invalid updated game system response');
+  return result.data;
 }
 
 export async function readActiveGameSystem(client: SupabaseClient, systemId: string) {

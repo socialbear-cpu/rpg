@@ -224,6 +224,11 @@ export const createSystemInputSchema = z.strictObject({
   definition: characterSheetDefinitionSchema,
 });
 
+export const updateGameSystemInputSchema = z.strictObject({
+  name: z.string().trim().min(1).max(80),
+  description: z.string().trim().max(500).nullable(),
+});
+
 export const createCharacterInputSchema = z.strictObject({
   character_name: z.string().trim().min(1).max(80),
   attributes: z.record(z.string(), z.unknown()),
@@ -381,6 +386,7 @@ export function characterAttributesSchemaFor(definition: CharacterSheetDefinitio
 }
 
 export type CreateSystemInput = z.infer<typeof createSystemInputSchema>;
+export type UpdateGameSystemInput = z.infer<typeof updateGameSystemInputSchema>;
 export type CreateCharacterInput = z.infer<typeof createCharacterInputSchema>;
 export type GameSystem = z.infer<typeof gameSystemSchema>;
 export type SystemCharacter = z.infer<typeof systemCharacterSchema>;

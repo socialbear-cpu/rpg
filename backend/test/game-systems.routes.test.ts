@@ -81,6 +81,12 @@ beforeEach(() => {
       if (updateResult === 'invalid') return Response.json({ message: 'Invalid definition', code: '22023' }, { status: 400 });
       return Response.json({ game_system_id: systemId, definition: body && typeof body === 'object' ? (body as { p_definition: unknown }).p_definition : definition });
     }
+    if (url.pathname === '/rest/v1/game_systems' && method === 'PATCH') {
+      if (updateResult === 'forbidden') return Response.json({ message: 'Only system owner', code: '42501' }, { status: 403 });
+      if (updateResult === 'not_found') return Response.json([]);
+      const payload = body as { name: string; description: string | null };
+      return Response.json([{ ...system, ...payload }]);
+    }
     if (url.pathname === '/rest/v1/game_systems' && method === 'GET') {
       return Response.json(missingSystem ? [] : [system]);
     }
@@ -129,6 +135,25 @@ describe('game system and character API', () => {
     expect(response.json()).toEqual({ system, definition });
     const rpc = requests.find(({ url }) => url.pathname.endsWith('/create_game_system_with_sheet'))!;
     expect(rpc.body).toEqual({ p_name: 'Forest System', p_description: null, p_fields: definition });
+  });
+
+  it('updates system name and description for its owner', async () => {
+    const response = await request('PUT', `/api/v1/game-systems/${systemId}`, { name: 'Updated System', description: 'Updated description' });
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({ system: { ...system, name: 'Updated System', description: 'Updated description' } });
+    const update = requests.find(({ url, method }) => url.pathname === '/rest/v1/game_systems' && method === 'PATCH')!;
+    expect(update.body).toEqual({ name: 'Updated System', description: 'Updated description' });
+    expect(update.url.searchParams.get('id')).toBe(`eq.${systemId}`);
+  });
+
+  it('rejects invalid, unauthorized, and missing system metadata updates', async () => {
+    const url = `/api/v1/game-systems/${systemId}`;
+    expect((await request('PUT', url, { name: ' ', description: null })).statusCode).toBe(400);
+    updateResult = 'forbidden';
+    expect((await request('PUT', url, { name: 'Updated System', description: null })).statusCode).toBe(403);
+    updateResult = 'not_found';
+    expect((await request('PUT', url, { name: 'Updated System', description: null })).statusCode).toBe(404);
+    expect((await request('PUT', url, { name: 'Updated System', description: null }, false)).statusCode).toBe(401);
   });
 
   it('creates and returns sheets with positioned visual elements', async () => {

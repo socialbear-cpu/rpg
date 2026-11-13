@@ -107,6 +107,8 @@ export interface GameSystem {
   description: string | null;
 }
 
+export type UpdateGameSystemInput = Pick<GameSystem, 'name' | 'description'>;
+
 export interface SystemCharacter {
   id: string;
   game_system_id: string;
@@ -129,6 +131,7 @@ export interface CreateCharacterInput {
 export interface DailyLoginSystem {
   id: string;
   name: string;
+  description?: string | null;
   currency_name?: string;
   is_active: boolean;
   daily_login_timezone: string;
@@ -417,6 +420,12 @@ export function getGameSystems() {
 export function createGameSystem(input: CreateGameSystemInput) {
   return authenticatedRequest<{ system: GameSystem; definition: CharacterSheetDefinition }>('/api/v1/game-systems', {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  });
+}
+
+export function updateGameSystem(systemId: string, input: UpdateGameSystemInput) {
+  return authenticatedRequest<{ system: GameSystem }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
   });
 }
 

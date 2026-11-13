@@ -13,6 +13,7 @@ import {
   type DailyLoginOwnerCalendar,
   type DailyLoginSystemView,
   type ExperienceSettingsInput,
+  type GameSystem,
   type SystemMemberships,
 } from '../../api';
 import { hasSession } from '../../supabase-auth';
@@ -23,6 +24,7 @@ import { ExperienceAdminCard } from '../experience/experience-admin-card';
 import { addCustomExperienceSource } from '../experience/experience-model';
 import { SystemMembershipCard } from '../system-membership/system-membership-card';
 import { SystemSheetEditor } from '../system-creation/system-sheet-editor';
+import { SystemDetailsEditor } from './system-details-editor';
 import './system-management-page.css';
 import '../system-creation/system-creation.css';
 
@@ -173,7 +175,14 @@ export function SystemManagementPage() {
 
   const selectedManageable = manageableSystems.find((entry) => entry.system.id === systemId);
   const membershipsForSystem = access ? { ...access, memberships: access.memberships.filter((membership) => membership.game_system_id === systemId) } : null;
-  const canEditSheet = Boolean(access?.is_platform_admin || access?.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner'));
+  const canEditOwnerSettings = Boolean(access?.is_platform_admin || access?.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner'));
+
+  function updateSystemDetails(updated: GameSystem) {
+    setSystemView((current) => current ? { ...current, system: { ...current.system, name: updated.name, description: updated.description } } : current);
+    setManageableSystems((current) => current.map((entry) => entry.system.id === updated.id
+      ? { ...entry, system: { ...entry.system, name: updated.name, description: updated.description } }
+      : entry));
+  }
 
   return <main className="system-management-page">
     <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar aos sistemas" />
@@ -201,10 +210,17 @@ export function SystemManagementPage() {
           <DailyLoginAdminCard systems={[systemView]} selectedSystemId={systemId} calendar={calendar} loading={calendarLoading} saving={calendarSaving} message={calendarMessage} messageIsError={calendarMessageIsError} onSystemChange={() => undefined} onRewardChange={changeReward} onActiveChange={(isActive) => setCalendar((current) => current ? { ...current, is_active: isActive } : current)} onSave={(event) => void saveCalendar(event)} />
         </section>
         <section className="system-management-section" id="sheet"><div className="system-management-section-heading"><span>04</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
-          <div className="system-management-sheet-editor">{canEditSheet ? <SystemSheetEditor systemId={systemId} systemName={systemView.system.name} /> : <p>Somente o Owner do sistema pode editar a ficha de personagem.</p>}</div>
+          <div className="system-management-sheet-editor">{canEditOwnerSettings ? <SystemSheetEditor systemId={systemId} systemName={systemView.system.name} /> : <p>Somente o Owner do sistema pode editar a ficha de personagem.</p>}</div>
         </section>
         <section className="system-management-section system-management-future" id="community"><div className="system-management-section-heading"><span>05</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>
-        <section className="system-management-section system-management-future" id="settings"><div className="system-management-section-heading"><span>06</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div><p>As configurações gerais do sistema ainda não têm ferramentas de edição nesta central.</p></section>
+        <section className="system-management-section" id="settings"><div className="system-management-section-heading"><span>06</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
+          <div className="system-management-sheet-editor">
+            <div><h3>Informações básicas</h3><p>Atualize o nome e a descrição do sistema.</p></div>
+            {canEditOwnerSettings
+              ? <SystemDetailsEditor key={systemId} system={{ id: systemId, name: systemView.system.name, description: systemView.system.description ?? null }} onSaved={updateSystemDetails} />
+              : <p>Somente o Owner do sistema pode editar estas informações.</p>}
+          </div>
+        </section>
       </>}
     </div>
   </main>;

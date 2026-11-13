@@ -23,6 +23,7 @@ import {
 import { CharacterSheetBuilder } from '../src/features/system-creation/character-sheet-builder.js';
 import { SystemsSection } from '../src/features/dashboard/systems-section.js';
 import { SystemCreationWizard } from '../src/features/system-creation/system-creation-wizard.js';
+import { SystemDetailsEditor } from '../src/features/system-management/system-details-editor.js';
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn(), forward: vi.fn(), refresh: vi.fn(), prefetch: vi.fn() }),
@@ -166,6 +167,19 @@ describe('system dashboard and creation', () => {
     const push = vi.fn();
     const html = renderToStaticMarkup(createElement(SystemCreationWizard, { createSystem, push }));
     expect(html).toContain('Nome do sistema');
+    expect(html).toContain('Descrição');
     expect(html).toContain('Continuar para ficha');
+  });
+
+  it('edits the same basic system fields used during creation', () => {
+    const html = renderToStaticMarkup(createElement(SystemDetailsEditor, {
+      system: { id: 'sys-1', name: 'Meu Sistema', description: 'Uma descrição' },
+      onSaved: vi.fn(),
+    }));
+    expect(html).toContain('Nome do sistema');
+    expect(html).toContain('Descrição');
+    expect(html).toContain('value="Meu Sistema"');
+    expect(html).toContain('Uma descrição');
+    expect(html).toContain('Salvar informações');
   });
 });

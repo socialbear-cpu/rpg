@@ -26,6 +26,7 @@ export type DailyLoginScheduleInput = z.infer<typeof dailyLoginScheduleSchema>;
 export interface DailyLoginSystem {
   id: string;
   name: string;
+  description?: string | null;
   currency_name: string;
   is_active: boolean;
   daily_login_timezone: string;
