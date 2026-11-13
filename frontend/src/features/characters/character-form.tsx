@@ -52,7 +52,15 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
   const [values, setValues] = useState<Record<string, unknown>>(() => ({ ...initialAttributes }));
   const [activePageKey, setActivePageKey] = useState<CreationPage['key']>('character_name');
   const [pageError, setPageError] = useState('');
+  const layoutMode = definition.layout_mode ?? 'step_by_step';
   const { components: visibleComponents, conditionValues } = resolveVisibleCharacterSheetComponents(definition, values);
+  const visibleSteps = [...definition.steps].sort((a, b) => a.position - b.position)
+    .map((step) => ({
+      ...step,
+      components: [...step.components].sort((a, b) => a.position - b.position)
+        .filter((component) => visibleComponents.some((item) => item.component.key === component.key && item.step.key === step.key)),
+    }))
+    .filter((step) => step.components.length > 0);
   const pages: CreationPage[] = [
     { key: 'character_name', kind: 'name' },
     ...visibleComponents.map(({ step, component }) => ({ key: `component:${component.key}`, kind: 'component' as const, step, component })),
@@ -84,6 +92,21 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (layoutMode === 'single_page') {
+      if (!name.trim()) {
+        setPageError('Informe o nome do personagem.');
+        return;
+      }
+      const missing = visibleComponents.find(({ component }) => !validComponentValue(component, conditionValues[component.key], conditionValues));
+      if (missing) {
+        setPageError(`Preencha a informação obrigatória: ${missing.component.label}.`);
+        return;
+      }
+      setPageError('');
+      onSubmit(name.trim(), attributesForSubmit());
+      return;
+    }
+
     if (page.kind !== 'summary') {
       const missing = page.kind === 'name'
         ? !name.trim()
@@ -117,6 +140,30 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
   if (page.kind === 'component' && page.component.type === 'single_select') {
     if (Object.hasOwn(conditionValues, page.component.key)) pageValues[page.component.key] = conditionValues[page.component.key];
     else delete pageValues[page.component.key];
+  }
+
+  if (layoutMode === 'single_page') {
+    return <form className="character-form character-wizard-form" onSubmit={submit}>
+      <div className="character-step-progress" aria-live="polite">
+        <span>Ficha completa</span>
+        <strong>Dados do personagem</strong>
+        <progress value={1} max={1} />
+      </div>
+
+      <label className="character-form-field character-wizard-question"><span>Como seu personagem se chama?</span><input required aria-required="true" maxLength={80} autoFocus value={name} onChange={(event) => { setName(event.target.value); setPageError(''); }} /></label>
+
+      {visibleSteps.map((step) => <section key={step.key} className="character-wizard-question" aria-label={step.label}>
+        <h2>{step.label}</h2>
+        <CharacterSheetStepRenderer step={step} values={values} conditionValues={conditionValues} onValueChange={updateValue} mode="entry" />
+      </section>)}
+
+      {pageError && <p role="alert" className="character-form-error">{pageError}</p>}
+      {error && <p role="alert" className="character-form-error">{error}</p>}
+      <div className="character-form-actions">
+        <button type="button" className="character-secondary-button" onClick={onCancel}>Cancelar</button>
+        <button type="submit" className="character-primary-button" disabled={saving}>{saving ? 'Salvando...' : submitLabel}</button>
+      </div>
+    </form>;
   }
 
   return <form className="character-form character-wizard-form" onSubmit={submit}>

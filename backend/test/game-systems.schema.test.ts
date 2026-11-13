@@ -34,6 +34,12 @@ describe('versioned character-sheet definitions', () => {
     expect(characterSheetDefinitionSchema.safeParse(definition)).toEqual({ success: true, data: definition });
   });
 
+  it('accepts the sheet presentation mode without breaking legacy definitions', () => {
+    expect(characterSheetDefinitionSchema.safeParse({ ...definition, layout_mode: 'single_page' }).success).toBe(true);
+    expect(characterSheetDefinitionSchema.safeParse({ ...definition, layout_mode: 'step_by_step' }).success).toBe(true);
+    expect(characterSheetDefinitionSchema.safeParse({ ...definition, layout_mode: 'invalid' as never }).success).toBe(false);
+  });
+
   it('rejects duplicate component keys and step positions', () => {
     const duplicateKey = structuredClone(definition);
     duplicateKey.steps[1]!.components[0]!.key = 'origin';

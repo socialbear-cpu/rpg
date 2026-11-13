@@ -92,8 +92,11 @@ export interface CharacterSheetStep {
   condition?: CharacterSheetConditionGroup;
 }
 
+export type CharacterSheetLayoutMode = 'single_page' | 'step_by_step';
+
 export interface CharacterSheetDefinition {
   version: 1;
+  layout_mode?: CharacterSheetLayoutMode;
   steps: CharacterSheetStep[];
 }
 

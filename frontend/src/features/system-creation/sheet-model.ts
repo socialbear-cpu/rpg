@@ -261,7 +261,7 @@ function validCondition(condition: CharacterSheetConditionGroup | undefined, pre
 
 export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefinition | CharacterSheetField[]): boolean {
   if (Array.isArray(definition)) return isLegacyCharacterSheetDefinitionValid(definition);
-  if (definition.version !== 1 || definition.steps.length < 1 || definition.steps.length > 20) return false;
+  if (definition.version !== 1 || !['single_page', 'step_by_step'].includes(definition.layout_mode ?? 'step_by_step') || definition.steps.length < 1 || definition.steps.length > 20) return false;
 
   const stepKeys = new Set<string>();
   const stepPositions = new Set<number>();

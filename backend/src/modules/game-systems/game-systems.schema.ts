@@ -89,6 +89,7 @@ export const characterSheetStepSchema = z.strictObject({
 
 export const characterSheetDefinitionSchema = z.strictObject({
   version: z.literal(1),
+  layout_mode: z.enum(['single_page', 'step_by_step']).optional(),
   steps: z.array(characterSheetStepSchema).min(1).max(20),
 }).superRefine((definition, context) => {
   const stepKeys = new Set<string>();

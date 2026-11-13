@@ -236,6 +236,7 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
 
   return <section className="sheet-builder" aria-labelledby="sheet-builder-title">
     <div className="sheet-builder-heading"><div><span className="sheet-builder-eyebrow">FICHA DO PERSONAGEM</span><h2 id="sheet-builder-title">Monte a experiência de criação</h2><p>Edite cada etapa como uma página e organize os campos e elementos visuais.</p></div></div>
+    <div className="sheet-layout-selector"><label>Formato de criação<select value={definition.layout_mode ?? 'step_by_step'} onChange={(event) => onChange({ ...definition, layout_mode: event.target.value as 'single_page' | 'step_by_step' })}><option value="single_page">Todas as perguntas em uma única tela</option><option value="step_by_step">Uma pergunta por tela</option></select></label></div>
     <div className="sheet-built-in-field"><span className="sheet-field-number">01</span><div><strong>Nome do personagem</strong><span>Campo obrigatório incluído automaticamente</span></div><span className="sheet-required-badge">Obrigatório</span></div>
 
     <nav className="sheet-step-navigation" aria-label="Páginas da ficha">

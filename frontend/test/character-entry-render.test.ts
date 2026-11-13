@@ -43,6 +43,19 @@ describe('character entry', () => {
     expect(html).not.toContain('História');
   });
 
+  it('supports rendering all fields together in a single-page layout', () => {
+    const html = renderToStaticMarkup(createElement(CharacterForm, {
+      definition: { ...definition, layout_mode: 'single_page' },
+      onSubmit: vi.fn(),
+      onCancel: vi.fn(),
+    }));
+    expect(html).toContain('Ficha completa');
+    expect(html).toContain('Dados do personagem');
+    expect(html).toContain('Classe');
+    expect(html).toContain('História');
+    expect(html).not.toContain('Página 1 de 4');
+  });
+
   it('renders image descriptions as hover text in the sheet step renderer', () => {
     const twoStepDefinition: CharacterSheetDefinition = {
       ...definition,
