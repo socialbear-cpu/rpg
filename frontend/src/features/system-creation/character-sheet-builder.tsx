@@ -286,7 +286,7 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
               <label>Rotação<input type="number" min={-360} max={360} value={option.rotation ?? 0} onChange={(event) => patchOption(component.key, optionIndex, { rotation: Number(event.target.value) })} /></label>
             </div>}
             <SheetConditionEditor label="Disponível quando" condition={option.condition} availableComponents={previousComponents(definition, step.key, component.key)} onChange={(condition) => patchOption(component.key, optionIndex, { condition })} />
-            <button type="button" onClick={() => removeOption(component.key, optionIndex)}>Remover opção</button>
+            <button type="button" className="sheet-remove-button" onClick={() => removeOption(component.key, optionIndex)}>Remover opção</button>
           </fieldset>)}
           <button type="button" onClick={() => addOption(component.key)}>Adicionar opção</button>
         </div>

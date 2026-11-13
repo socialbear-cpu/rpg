@@ -367,3 +367,32 @@
   .system-creation-actions { align-items: stretch; flex-direction: column-reverse; }
   .system-creation-actions > button { width: 100%; }
 }
+
+/* Keep option controls inside their cards at the owner editor's narrow widths. */
+.visual-sheet-options fieldset {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+.visual-sheet-options fieldset > legend { grid-column: 1 / -1; }
+.visual-sheet-options fieldset > label { min-width: 0; }
+.visual-sheet-options fieldset > .sheet-option-position-controls,
+.visual-sheet-options fieldset > .sheet-condition-editor,
+.visual-sheet-options fieldset > button { grid-column: 1 / -1; }
+.visual-sheet-options fieldset > button {
+  justify-self: start;
+  min-height: 36px;
+  padding: 0 11px;
+  border: 1px solid #59353b;
+  border-radius: 8px;
+  color: #ffb8bd;
+  background: #2c2025;
+  cursor: pointer;
+}
+.visual-sheet-options fieldset > button:focus-visible { outline: 2px solid #9872d1; outline-offset: 2px; }
+.sheet-option-position-controls label { min-width: 0; }
+
+@media (max-width: 760px) {
+  .visual-sheet-options fieldset { grid-template-columns: minmax(0, 1fr); }
+  .sheet-option-position-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sheet-condition-rule { grid-template-columns: minmax(0, 1fr); }
+}
