@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import type { CharacterSheetDefinition, CharacterSheetField, SystemCharacter } from '../src/api.js';
+import type { CharacterSheetDefinition, CharacterSheetField, GameSystem, SystemCharacter } from '../src/api.js';
 import { CharacterGallery } from '../src/features/characters/character-gallery.js';
 import { CharacterForm } from '../src/features/characters/character-form.js';
 import { CharacterHome } from '../src/features/characters/character-home.js';
@@ -21,6 +21,11 @@ const definition: CharacterSheetDefinition = { version: 1, steps: [{ key: 'ident
 ] }] };
 const character: SystemCharacter = {
   id: 'char-1', game_system_id: 'sys-1', character_name: 'Ayla', attributes: { class: 'Mago', notes: 'Uma história longa' }, status: 'active',
+};
+const system: GameSystem = {
+  id: 'sys-1', slug: 'cronicas', name: 'Crônicas', description: 'Uma aventura sombria.',
+  cover_image_path: '37000000-0000-4000-8000-000000000001/47000000-0000-4000-8000-000000000001.webp',
+  cover_focus_x: 25, cover_focus_y: 65,
 };
 
 describe('character entry', () => {
@@ -106,7 +111,7 @@ describe('character entry', () => {
 
   it('shows only the active character summary and a switch action', () => {
     const html = renderToStaticMarkup(createElement(CharacterHome, {
-      systemName: 'Crônicas', character, fields, onSwitch: vi.fn(), sheetDefinition: definition,
+      system, character, fields, onSwitch: vi.fn(), sheetDefinition: definition,
       inventory: null, recordLoading: false, sheetError: null, inventoryError: null, onRefreshRecord: vi.fn(),
     }));
     expect(html).toContain('Crônicas');
@@ -120,9 +125,31 @@ describe('character entry', () => {
     expect(html).toContain('<dialog');
   });
 
+  it('personalizes the system lobby with its configured cover and description', () => {
+    const html = renderToStaticMarkup(createElement(CharacterHome, {
+      system, character, fields, onSwitch: vi.fn(), sheetDefinition: definition,
+      inventory: null, recordLoading: false, sheetError: null, inventoryError: null, onRefreshRecord: vi.fn(),
+    }));
+
+    expect(html).toContain('aria-label="Apresentação de Crônicas"');
+    expect(html).toContain('alt="Capa de Crônicas"');
+    expect(html).toContain('Uma aventura sombria.');
+  });
+
+  it('provides accessible fallbacks when system cover or description is missing', () => {
+    const html = renderToStaticMarkup(createElement(CharacterHome, {
+      system: { ...system, description: null, cover_image_path: null },
+      character, fields, onSwitch: vi.fn(), sheetDefinition: definition,
+      inventory: null, recordLoading: false, sheetError: null, inventoryError: null, onRefreshRecord: vi.fn(),
+    }));
+
+    expect(html).toContain('aria-label="Capa padrão de Crônicas"');
+    expect(html).toContain('Este sistema ainda não tem uma descrição.');
+  });
+
   it('renders a safe unavailable state when the selected character is missing', () => {
     const html = renderToStaticMarkup(createElement(CharacterHome, {
-      systemName: 'Crônicas', character: null, fields, onSwitch: vi.fn(), sheetDefinition: definition,
+      system, character: null, fields, onSwitch: vi.fn(), sheetDefinition: definition,
       inventory: null, recordLoading: false, sheetError: null, inventoryError: null, onRefreshRecord: vi.fn(),
     }));
     expect(html).toContain('Personagem indisponível');
@@ -148,12 +175,19 @@ describe('character entry', () => {
     expect(html).toContain('Classe');
     expect(html).toContain('Mago');
     expect(html).toContain('aria-selected="true"');
+    expect(html).toContain('id="character-record-tab-sheet" type="button" role="tab" aria-selected="true" aria-controls="character-record-panel" tabindex="0"');
+    expect(html).toContain('id="character-record-tab-inventory" type="button" role="tab" aria-selected="false" aria-controls="character-record-panel" tabindex="-1"');
+    expect(html).toContain('id="character-record-panel" role="tabpanel" aria-labelledby="character-record-tab-sheet" class="character-record-panel" tabindex="0"');
     expect(html).toContain('class="nexus-tab"');
 
     const inventoryHtml = renderToStaticMarkup(createElement(CharacterRecord, {
       character, definition, experience: null, inventory, activeTab: 'inventory', onTabChange: vi.fn(),
       loading: false, sheetError: null, inventoryError: null, onRefresh: vi.fn(), onClose: vi.fn(),
     }));
+    expect(inventoryHtml).toContain('id="character-record-tab-sheet" type="button" role="tab" aria-selected="false" aria-controls="character-record-panel" tabindex="-1"');
+    expect(inventoryHtml).toContain('id="character-record-tab-inventory" type="button" role="tab" aria-selected="true" aria-controls="character-record-panel" tabindex="0"');
+    expect(inventoryHtml).toMatch(/id="character-record-panel"[^>]*class="character-record-panel"[^>]*>/);
+    expect(inventoryHtml.match(/<div id="character-record-panel"[^>]*>/)?.[0]).not.toContain('tabindex="0"');
     expect(inventoryHtml).toContain('Poção lunar');
     expect(inventoryHtml).toContain('Quantidade: 3');
     expect(inventoryHtml).toContain('Consumíveis');

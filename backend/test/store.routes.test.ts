@@ -6,11 +6,11 @@ const item = '40000000-0000-4000-8000-000000000001';
 const listing = '60000000-0000-4000-8000-000000000001';
 const product = '70000000-0000-4000-8000-000000000001';
 const user = '20000000-0000-4000-8000-000000000002';
-let owner: boolean, admin: boolean, validCharacter: boolean, status: string;
+let owner: boolean, admin: boolean, validCharacter: boolean, status: string, updateStatus: string;
 let calls: { url: URL; method: string; body: any; headers: Headers }[];
 beforeEach(() => {
   vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co'); vi.stubEnv('SUPABASE_PUBLISHABLE_KEY', 'test');
-  owner = false; admin = false; validCharacter = true; status = 'purchased'; calls = [];
+  owner = false; admin = false; validCharacter = true; status = 'purchased'; updateStatus = 'updated'; calls = [];
   vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input)); const method = init?.method ?? 'GET';
     const body = init?.body ? JSON.parse(String(init.body)) : null;
@@ -20,6 +20,7 @@ beforeEach(() => {
     if (table === 'join_game_system_with_password') return Response.json({ status: 'ok' });
     if (table === 'get_my_system_memberships') return Response.json({ is_platform_admin: admin, memberships: [{ game_system_id: system, game_system_name: 'A', role: owner ? 'owner' : 'user' }] });
     if (table === 'purchase_store_product') return Response.json(status === 'purchased' ? { status, balance: 12, purchase_id: listing, item_id: item, item_name: 'Potion', quantity: 2, amount_charged: 3, currency_name: 'Coins' } : { status });
+    if (table === 'replace_game_system_store') return Response.json({ status: updateStatus });
     if (method !== 'GET') return Response.json(table === 'products' ? { id: product } : null);
     if (table === 'characters') return Response.json(validCharacter ? { id: character, game_system_id: system } : null);
     if (table === 'game_systems') return Response.json({ id: system, currency_name: 'Coins', is_active: true });
@@ -59,17 +60,20 @@ describe('store routes', () => {
    expect((await request('PUT', ownerPath, { currency_name: 'Coins', offers: [] })).statusCode).toBe(403);
    expect(calls.some((c) => ['PATCH','POST','DELETE'].includes(c.method) && !c.url.pathname.includes('/rpc/'))).toBe(false);
  });
- it.each(['owner','admin'])('allows %s and deactivates removed offers without deleting history', async (role) => {
+ it.each(['owner','admin'])('allows %s to replace the schedule with one RPC while preserving history', async (role) => {
    owner = role === 'owner'; admin = role === 'admin';
    expect((await request('PUT', ownerPath, { currency_name: 'Gold', offers: [] })).statusCode).toBe(200);
-   expect(calls.some((c) => c.method === 'PATCH' && c.url.pathname.endsWith('/store_products') && c.body.is_available === false)).toBe(true);
-   expect(calls.some((c) => c.method === 'DELETE')).toBe(false);
+   const writes = calls.filter((c) => c.url.pathname.endsWith('/replace_game_system_store'));
+   expect(writes).toHaveLength(1);
+   expect(writes[0]!.url.pathname).toBe('/rest/v1/rpc/replace_game_system_store');
+   expect(calls.some((c) => c.method !== 'GET' && /\/rest\/v1\/(game_systems|store_products|products)$/.test(c.url.pathname))).toBe(false);
+   expect(writes[0]!.body).toEqual({ p_game_system_id: system, p_currency_name: 'Gold', p_offers: [] });
  });
  it('rejects unknown item or listing IDs before mutations', async () => {
-   owner = true;
+   owner = true; updateStatus = 'invalid_offers';
    const res = await request('PUT', ownerPath, { currency_name: 'Coins', offers: [{ item_id: character, price: 1, is_available: true }] });
    expect(res.statusCode).toBe(400);
-   expect(calls.some((c) => c.method === 'PATCH')).toBe(false);
+   expect(calls.some((c) => c.method !== 'GET' && /\/rest\/v1\/(game_systems|store_products|products)$/.test(c.url.pathname))).toBe(false);
  });
  it('purchases through the fixed RPC and exposes balance and snapshots', async () => {
    const res = await request('POST', `${playerPath}/purchases`, purchase);
@@ -105,14 +109,19 @@ it('reads owner item catalog but hides it from a player', async () => {
   expect(response.json()).toMatchObject({ items: [{ id: item, name: 'Potion' }], offers: [{ store_product_id: listing, item_id: item }] });
   expect(response.json().offers).toHaveLength(1);
 });
-it('updates existing offers and creates new offers from system items', async () => {
+it('replaces existing and new offers through one RPC', async () => {
   owner = true;
   const response = await request('PUT', ownerPath, { currency_name: 'Gold', offers: [
     { store_product_id: listing, item_id: item, price: 3, is_available: false },
     { item_id: item, price: 2, is_available: true },
   ] });
   expect(response.statusCode).toBe(200);
-  expect(calls.find((c) => c.method === 'PATCH' && c.url.pathname.endsWith('/store_products'))?.body).toEqual({ price: 3, is_available: false });
-  expect(calls.find((c) => c.method === 'POST' && c.url.pathname.endsWith('/store_products'))?.body).toEqual({ game_system_id: system, product_id: product, price: 2, is_available: true });
-  expect(calls.filter((c) => c.method === 'PATCH' && c.url.pathname.endsWith('/store_products')).every((c) => c.url.searchParams.get('id') === `eq.${listing}`)).toBe(true);
+  const writes = calls.filter((c) => c.url.pathname.endsWith('/replace_game_system_store'));
+  expect(writes).toHaveLength(1);
+  expect(writes[0]!.url.pathname).toBe('/rest/v1/rpc/replace_game_system_store');
+  expect(calls.some((c) => c.method !== 'GET' && /\/rest\/v1\/(game_systems|store_products|products)$/.test(c.url.pathname))).toBe(false);
+  expect(writes[0]!.body).toEqual({ p_game_system_id: system, p_currency_name: 'Gold', p_offers: [
+    { store_product_id: listing, item_id: item, price: 3, is_available: false },
+    { item_id: item, price: 2, is_available: true },
+  ] });
 });

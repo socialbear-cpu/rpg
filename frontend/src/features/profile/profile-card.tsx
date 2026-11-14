@@ -3,6 +3,7 @@
 import type { FormEventHandler } from 'react';
 
 export type ProfileFields = {
+  username: string | null;
   displayName: string;
   avatarUrl: string;
   bio: string;
@@ -30,6 +31,7 @@ export function ProfileCard({
       <div className="section-heading"><div><p className="eyebrow">PERFIL DO JOGADOR</p><h2>Meu perfil</h2></div></div>
       <p className="card-copy">Atualize seu nome, avatar e uma breve apresentação.</p>
       <form className="form" autoComplete="off" onSubmit={onSaveProfile}>
+        <label>Nick<output id="profile-username">{profile.username ? `@${profile.username}` : 'Ainda não escolhido'}</output><span className="field-hint">O nick não poderá ser alterado depois.</span></label>
         <label>Nome de exibição<input id="profile-name" value={profile.displayName} onChange={(event) => onProfileChange('displayName', event.target.value)} name="display_name" type="text" maxLength={80} placeholder="Seu nome público" disabled={!authenticated} /></label>
         <label>URL do avatar<input id="profile-avatar" value={profile.avatarUrl} onChange={(event) => onProfileChange('avatarUrl', event.target.value)} name="avatar_url" type="url" maxLength={2048} placeholder="https://… ou vazio" disabled={!authenticated} /></label>
         <label>Bio<textarea id="profile-bio" value={profile.bio} onChange={(event) => onProfileChange('bio', event.target.value)} name="bio" maxLength={500} rows={4} placeholder="Conte um pouco sobre você" disabled={!authenticated} /><span className="field-hint">Até 500 caracteres</span></label>

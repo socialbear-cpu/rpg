@@ -193,6 +193,7 @@ describe('character trading API', () => {
     });
     expect(duplicate.statusCode).toBe(400);
     expect((await request('GET', '/api/v1/me/trade-offers?box=all')).statusCode).toBe(400);
+    expect((await request('GET', '/api/v1/me/trade-offers?box=history&offset=2147483648')).statusCode).toBe(400);
     expect(requests.some(({ url }) => url.pathname.endsWith('/create_trade_offer') || url.pathname.endsWith('/get_trade_offers'))).toBe(false);
   });
 

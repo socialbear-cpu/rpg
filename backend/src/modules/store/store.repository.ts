@@ -55,31 +55,15 @@ export async function readStore(client: SupabaseClient, systemId: string, charac
   return { currency_name: system.currency_name, character_id: characterId, balance: Number(wallet.balance), offers: catalog.offers.filter((offer) => offer.is_available) };
 }
 export async function replaceStore(client: SupabaseClient, systemId: string, input: StoreSchedule) {
-  const catalog = await readCatalog(client, systemId);
-  // Validate all references before writing. Removed listings remain for purchase history.
-  if (input.offers.some((offer) => !catalog.items.some((item) => item.id === offer.item_id)
-    || (offer.store_product_id && !catalog.offers.some((old) => old.store_product_id === offer.store_product_id && old.item_id === offer.item_id)))) return false;
-  await result(client.from('game_systems').update({ currency_name: input.currency_name }).eq('id', systemId));
-  for (const old of catalog.offers) {
-    if (!input.offers.some((offer) => offer.store_product_id === old.store_product_id)) {
-      await result(client.from('store_products').update({ is_available: false }).eq('id', old.store_product_id).eq('game_system_id', systemId));
-    }
-  }
-  for (const offer of input.offers) {
-    if (offer.store_product_id) {
-      await result(client.from('store_products').update({ price: offer.price, is_available: offer.is_available }).eq('id', offer.store_product_id).eq('game_system_id', systemId));
-    } else {
-      let productId = catalog.itemProducts.find((p) => p.item_id === offer.item_id)?.id;
-      if (!productId) {
-        const product = await result(client.from('products').insert({ game_system_id: systemId, item_id: offer.item_id }).select('id').single());
-        if (!product) throw new Error('Product insert failed');
-        productId = product.id;
-        catalog.itemProducts.push({ id: productId, item_id: offer.item_id, ability_id: null });
-      }
-      await result(client.from('store_products').insert({ game_system_id: systemId, product_id: productId, price: offer.price, is_available: offer.is_available }));
-    }
-  }
-  return true;
+  const response = await result(client.rpc('replace_game_system_store', {
+    p_game_system_id: systemId,
+    p_currency_name: input.currency_name,
+    p_offers: input.offers,
+  }));
+  const data = response as { status?: string } | null;
+  if (data?.status === 'updated') return true;
+  if (data?.status === 'invalid_store' || data?.status === 'invalid_offers') return false;
+  throw new Error(`Store replacement failed: ${data?.status ?? 'unexpected response'}`);
 }
 export async function purchaseStoreOffer(client: SupabaseClient, input: StorePurchase) {
   const data = await result(client.rpc('purchase_store_product', { p_character_id: input.character_id, p_store_product_id: input.store_product_id, p_quantity: input.quantity }));

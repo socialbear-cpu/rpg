@@ -23,6 +23,7 @@ import { AppHeader } from '../shell/app-header';
 import { DailyLoginAdminCard } from '../daily-login/daily-login-admin-card';
 import { SystemStoreAdmin } from '../store/store-admin-card';
 import { ExperienceAdminCard } from '../experience/experience-admin-card';
+import { SystemEventsCard } from '../system-events/system-events-card';
 import { addCustomExperienceSource } from '../experience/experience-model';
 import { SystemMembershipCard } from '../system-membership/system-membership-card';
 import { SystemSheetEditor } from '../system-creation/system-sheet-editor';
@@ -33,7 +34,7 @@ import '../system-creation/system-creation.css';
 import './system-management-codex.css';
 
 type PageState = 'loading' | 'ready' | 'forbidden' | 'error';
-type ManagementCategory = 'overview' | 'people' | 'game' | 'store' | 'sheet' | 'community' | 'settings';
+type ManagementCategory = 'overview' | 'people' | 'game' | 'store' | 'sheet' | 'events' | 'community' | 'settings';
 
 export function SystemManagementPage() {
   const { systemId } = useParams<{ systemId: string }>();
@@ -293,6 +294,7 @@ export function SystemManagementPage() {
             <button className="nexus-tab" type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => selectCategory('game')}>Jogo</button>
             <button className="nexus-tab" type="button" role="tab" id="management-tab-store" aria-selected={activeCategory === 'store'} aria-controls="store" onClick={() => selectCategory('store')}>Loja</button>
             <button className="nexus-tab" type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => selectCategory('sheet')}>Ficha</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-events" aria-selected={activeCategory === 'events'} aria-controls="events" onClick={() => selectCategory('events')}>Eventos</button>
             <button className="nexus-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => selectCategory('community')}>Comunidade</button>
             <button className="nexus-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => selectCategory('settings')}>Configurações</button>
           </nav>
@@ -319,6 +321,7 @@ export function SystemManagementPage() {
         {isVisibleCategory('sheet') && <BookCategory className={categoryPageClass()} id="sheet" role="tabpanel" aria-labelledby="management-tab-sheet"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO V · PERSONAGENS</p><h2>Ficha</h2></div></div>
           <div className="system-management-sheet-editor">{canEditOwnerSettings ? <SystemSheetEditor systemId={systemId} systemName={systemView.system.name} /> : <p>Somente o Owner do sistema pode editar a ficha de personagem.</p>}</div>
         </BookCategory>}
+        {isVisibleCategory('events') && <BookCategory className={categoryPageClass()} id="events" role="tabpanel" aria-labelledby="management-tab-events"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO VI · AGENDA</p><h2>Eventos</h2></div></div><SystemEventsCard systemId={systemId} canManage={canEditOwnerSettings} /></BookCategory>}
         {isVisibleCategory('community') && <BookCategory className={`${categoryPageClass()} system-management-future`} id="community" role="tabpanel" aria-labelledby="management-tab-community"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO VI · GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></BookCategory>}
         {isVisibleCategory('settings') && <BookCategory className={categoryPageClass()} id="settings" role="tabpanel" aria-labelledby="management-tab-settings"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO VII · SISTEMA</p><h2>Configurações</h2></div></div>
           <div className="system-management-sheet-editor">

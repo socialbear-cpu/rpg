@@ -66,7 +66,7 @@ describe('account card', () => {
 describe('profile card', () => {
   it('renders profile fields and actions disabled while signed out', () => {
     const html = renderToStaticMarkup(createElement(ProfileCard, {
-      profile: { displayName: '', avatarUrl: '', bio: '' },
+      profile: { username: 'rpg_player', displayName: '', avatarUrl: '', bio: '' },
       authenticated: false,
       profileBusy: false,
       onProfileChange: () => {},
@@ -77,6 +77,9 @@ describe('profile card', () => {
     expect(html).toContain('id="profile-name"');
     expect(html).toContain('id="profile-avatar"');
     expect(html).toContain('id="profile-bio"');
+    expect(html).toContain('@rpg_player');
+    expect(html).toContain('O nick não poderá ser alterado depois.');
+    expect(html).not.toContain('name="username"');
     expect(html).toContain('id="load-profile"');
     expect(html).toContain('id="save-profile"');
     expect(html).toMatch(/id="profile-name"[^>]*disabled/);
@@ -87,7 +90,7 @@ describe('profile card', () => {
 
   it('enables profile inputs and keeps save disabled while busy', () => {
     const html = renderToStaticMarkup(createElement(ProfileCard, {
-      profile: { displayName: 'RPG Player', avatarUrl: '', bio: '' },
+      profile: { username: 'rpg_player', displayName: 'RPG Player', avatarUrl: '', bio: '' },
       authenticated: true,
       profileBusy: true,
       onProfileChange: () => {},

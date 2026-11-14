@@ -111,7 +111,7 @@ export const tradeInventoryRpcSchema = z.discriminatedUnion('status', [
 export const tradeOffersQuerySchema = z.strictObject({
   box: z.enum(['incoming', 'sent', 'history']),
   limit: z.coerce.number().int().min(1).max(100).default(50),
-  offset: z.coerce.number().int().min(0).default(0),
+  offset: z.coerce.number().int().min(0).max(2_147_483_647).default(0),
 });
 
 export const tradeOffersResponseSchema = z.strictObject({

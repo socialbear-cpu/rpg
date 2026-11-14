@@ -115,6 +115,39 @@ export interface GameSystem {
   play_mode?: 'text' | 'voice';
 }
 
+export interface SystemEvent {
+  id: string;
+  game_system_id: string;
+  title: string;
+  description: string | null;
+  starts_at: string;
+  ends_at: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type SystemEventInput = Pick<SystemEvent, 'title' | 'description' | 'starts_at' | 'ends_at'>;
+
+export function getSystemEvents(systemId: string) {
+  return authenticatedRequest<{ events: SystemEvent[] }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/events`);
+}
+
+export function createSystemEvent(systemId: string, event: SystemEventInput) {
+  return authenticatedRequest<{ event: SystemEvent }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/events`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(event),
+  });
+}
+
+export function updateSystemEvent(systemId: string, eventId: string, event: SystemEventInput) {
+  return authenticatedRequest<{ event: SystemEvent }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/events/${encodeURIComponent(eventId)}`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(event),
+  });
+}
+
+export function deleteSystemEvent(systemId: string, eventId: string) {
+  return authenticatedRequest<void>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/events/${encodeURIComponent(eventId)}`, { method: 'DELETE' });
+}
+
 export interface SystemTagOption {
   slug: string;
   label: string;
@@ -137,6 +170,42 @@ export interface SystemCharacter {
   character_name: string;
   attributes: Record<string, unknown>;
   status: 'active';
+}
+
+export interface CampaignChatRoom {
+  id: string;
+  campaign_id: string;
+  campaign_name: string;
+  name: string;
+  created_at: string;
+}
+
+export interface CampaignChatMessage {
+  id: string;
+  room_id: string;
+  campaign_id: string;
+  character_id: string;
+  content: string;
+  created_at: string;
+}
+
+export function getCharacterChatRooms(characterId: string) {
+  return authenticatedRequest<{ rooms: CampaignChatRoom[] }>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/chat-rooms`,
+  );
+}
+
+export function getCharacterChatMessages(characterId: string, roomId: string) {
+  return authenticatedRequest<{ messages: CampaignChatMessage[] }>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/chat-rooms/${encodeURIComponent(roomId)}/messages`,
+  );
+}
+
+export function sendCharacterChatMessage(characterId: string, roomId: string, content: string) {
+  return authenticatedRequest<{ message: CampaignChatMessage }>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/chat-rooms/${encodeURIComponent(roomId)}/messages`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) },
+  );
 }
 
 export interface CreateGameSystemInput {

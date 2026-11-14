@@ -10,6 +10,8 @@ import { notificationsRoutes } from './modules/notifications/notifications.route
 import { experienceRoutes } from './modules/experience/experience.routes.js';
 import { tradingRoutes } from './modules/trading/trading.routes.js';
 import { gameSystemsRoutes } from './modules/game-systems/game-systems.routes.js';
+import { systemEventsRoutes } from './modules/system-events/system-events.routes.js';
+import { campaignChatRoutes } from './modules/campaign-chat/campaign-chat.routes.js';
 import type { Config } from './config.js';
 
 export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
@@ -40,4 +42,6 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
   app.register(experienceRoutes);
   app.register(tradingRoutes);
   app.register(gameSystemsRoutes);
+  app.register(systemEventsRoutes);
+  app.register(campaignChatRoutes);
 }

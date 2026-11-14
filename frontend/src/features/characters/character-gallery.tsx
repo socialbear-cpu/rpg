@@ -3,6 +3,7 @@
 import { getGameSystemCoverUrl, type CharacterSheetField, type GameSystem, type SystemCharacter } from '../../api';
 import { formatCharacterSheetValue } from '../character-sheet/format-value';
 import { AppHeader } from '../shell/app-header';
+import { SystemEventsCard } from '../system-events/system-events-card';
 import './characters.css';
 
 interface CharacterGalleryProps {
@@ -31,6 +32,7 @@ export function CharacterGallery({ systemName, system, fields, characters, selec
           {(system.tags?.length ?? 0) > 0 && <div className="character-system-tags">{system.tags?.map(({ slug, label }) => <span key={slug}>{label}</span>)}</div>}
         </div>
       </section>}
+      {system && <SystemEventsCard systemId={system.id} />}
       {characters.length === 0 ? (
         <section className="character-empty-state"><span aria-hidden="true" className="character-empty-die">✦</span><h2>Este mundo ainda está sem personagens</h2><p>Crie seu primeiro personagem usando a ficha de {systemName}.</p><button className="character-primary-button" type="button" onClick={onCreate}>Criar personagem</button></section>
       ) : (

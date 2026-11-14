@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import type { CharacterInventory, CharacterSheetDefinition, SystemCharacter } from '../../api';
 import { characterSheetOptionValue, getVisibleCharacterSheetOptions, isConditionGroupMet, resolveVisibleCharacterSheetComponents } from '../character-sheet/conditions';
 import type { CharacterSheetComponent, CharacterSheetStep } from '../../api';
@@ -181,6 +181,18 @@ export function CharacterRecord({ character, definition, experience, inventory, 
   onClose: () => void;
 }) {
   const [selectedStackId, setSelectedStackId] = useState<string | null>(null);
+  const tabButtons = useRef<Partial<Record<'sheet' | 'inventory', HTMLButtonElement>>>({});
+  const tabPanelNeedsTabStop = activeTab === 'sheet' || inventoryError !== null || (inventory?.stacks.length ?? 0) === 0;
+  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    const nextTab = event.key === 'ArrowRight' ? (activeTab === 'sheet' ? 'inventory' : 'sheet')
+      : event.key === 'ArrowLeft' ? (activeTab === 'sheet' ? 'inventory' : 'sheet')
+        : event.key === 'Home' ? 'sheet'
+          : event.key === 'End' ? 'inventory' : null;
+    if (!nextTab) return;
+    event.preventDefault();
+    onTabChange(nextTab);
+    tabButtons.current[nextTab]?.focus();
+  }
   return <section className="character-record-page" aria-labelledby="character-record-title">
     <div className="character-record-topline">
       <button type="button" className="character-record-back" onClick={onClose}>← Voltar à aventura</button>
@@ -192,10 +204,10 @@ export function CharacterRecord({ character, definition, experience, inventory, 
       <p>Ficha e inventário deste personagem.</p>
     </header>
     <div className="character-record-tabs nexus-tab-list--segment" role="tablist" aria-label="Dados do personagem">
-      <button id="character-record-tab-sheet" type="button" role="tab" aria-selected={activeTab === 'sheet'} aria-controls="character-record-panel" className="nexus-tab" onClick={() => onTabChange('sheet')}>Ficha</button>
-      <button id="character-record-tab-inventory" type="button" role="tab" aria-selected={activeTab === 'inventory'} aria-controls="character-record-panel" className="nexus-tab" onClick={() => onTabChange('inventory')}>Inventário <span>{inventory?.stacks.length ?? 0}</span></button>
+      <button ref={(element) => { tabButtons.current.sheet = element ?? undefined; }} id="character-record-tab-sheet" type="button" role="tab" aria-selected={activeTab === 'sheet'} aria-controls="character-record-panel" tabIndex={activeTab === 'sheet' ? 0 : -1} className="nexus-tab" onKeyDown={handleTabKeyDown} onClick={() => onTabChange('sheet')}>Ficha</button>
+      <button ref={(element) => { tabButtons.current.inventory = element ?? undefined; }} id="character-record-tab-inventory" type="button" role="tab" aria-selected={activeTab === 'inventory'} aria-controls="character-record-panel" tabIndex={activeTab === 'inventory' ? 0 : -1} className="nexus-tab" onKeyDown={handleTabKeyDown} onClick={() => onTabChange('inventory')}>Inventário <span>{inventory?.stacks.length ?? 0}</span></button>
     </div>
-    <div id="character-record-panel" role="tabpanel" aria-labelledby={activeTab === 'sheet' ? 'character-record-tab-sheet' : 'character-record-tab-inventory'} className="character-record-panel">
+    <div id="character-record-panel" role="tabpanel" aria-labelledby={activeTab === 'sheet' ? 'character-record-tab-sheet' : 'character-record-tab-inventory'} className="character-record-panel" tabIndex={tabPanelNeedsTabStop ? 0 : undefined}>
       {activeTab === 'sheet'
         ? <CharacterSheetView character={character} definition={definition} experience={experience} error={sheetError} />
         : inventoryError

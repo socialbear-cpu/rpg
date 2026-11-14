@@ -6,6 +6,27 @@ import { CharacterHome } from './character-home';
 import { AppHeader } from '../shell/app-header';
 import { definitionToLegacyFields } from '../system-creation/sheet-model';
 
+export async function loadCharacterHomePageData(systemId: string, characterId: string) {
+  const [systemsResult, charactersResult, sheetResult, experienceResult] = await Promise.allSettled([
+    getGameSystems(), getSystemCharacters(systemId), getCharacterSheet(systemId), getCharacterExperience(characterId),
+  ]);
+  if (systemsResult.status === 'rejected') throw systemsResult.reason;
+  if (charactersResult.status === 'rejected') throw charactersResult.reason;
+
+  const system = systemsResult.value.systems.find((item) => item.id === systemId) ?? null;
+  const character = charactersResult.value.characters.find((item) =>
+    item.id === characterId && item.game_system_id === systemId && item.status === 'active') ?? null;
+  const sheet = sheetResult.status === 'fulfilled' ? sheetResult.value.definition : null;
+  return {
+    system,
+    character,
+    sheetDefinition: sheet,
+    fields: sheet ? definitionToLegacyFields(sheet) : [],
+    experience: experienceResult.status === 'fulfilled' ? experienceResult.value : null,
+    sheetError: sheetResult.status === 'rejected' ? 'Não foi possível carregar a ficha deste personagem. Tente novamente.' : null,
+  };
+}
+
 export function CharacterHomePage({ systemId, characterId, push }: { systemId: string; characterId: string; push: (path: string) => void }) {
   const [system, setSystem] = useState<GameSystem | null>(null);
   const [character, setCharacter] = useState<SystemCharacter | null>(null);
@@ -16,7 +37,9 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
   const [recordLoading, setRecordLoading] = useState(false);
   const [sheetError, setSheetError] = useState<string | null>(null);
   const [inventoryError, setInventoryError] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [dailyRewardVersion, setDailyRewardVersion] = useState(0);
   const recordRequestId = useRef(0);
 
@@ -30,23 +53,24 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
     setRecordLoading(false);
     setSheetError(null);
     setInventoryError(null);
-    Promise.all([getGameSystems(), getSystemCharacters(systemId), getCharacterSheet(systemId), getCharacterExperience(characterId).catch(() => null)])
-      .then(([systemsResult, characterResult, sheet, experienceResult]) => {
+    setLoadError(null);
+    loadCharacterHomePageData(systemId, characterId)
+      .then((result) => {
         if (cancelled) return;
-        setSystem(systemsResult.systems.find((item) => item.id === systemId) ?? null);
-        const selected = characterResult.characters.find((item) => item.id === characterId && item.game_system_id === systemId && item.status === 'active') ?? null;
-        setCharacter(selected);
-        setSheetDefinition(sheet.definition);
-        setFields(definitionToLegacyFields(sheet.definition));
-        setExperience(experienceResult);
+        setSystem(result.system);
+        setCharacter(result.character);
+        setSheetDefinition(result.sheetDefinition);
+        setFields(result.fields);
+        setExperience(result.experience);
+        setSheetError(result.sheetError);
       })
-      .catch(() => { if (!cancelled) { setSystem(null); setCharacter(null); } })
+      .catch(() => { if (!cancelled) { setSystem(null); setCharacter(null); setLoadError('Não foi possível carregar a tela do sistema. Tente novamente.'); } })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => {
       cancelled = true;
       recordRequestId.current += 1;
     };
-  }, [systemId, characterId]);
+  }, [systemId, characterId, loadAttempt]);
 
   async function refreshCharacterRecord() {
     if (!character) return;
@@ -86,9 +110,10 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
   }
 
   if (loading) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando personagem...</p></main>;
+  if (loadError) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><section aria-labelledby="character-home-load-error"><h1 id="character-home-load-error">Não foi possível abrir o sistema</h1><p role="alert">{loadError}</p><button className="character-primary-button" type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</button></section></main>;
   if (!system) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><h1>Sistema indisponível</h1></main>;
   return <CharacterHome
-    systemName={system.name}
+    system={system}
     character={character}
     sheetDefinition={sheetDefinition}
     inventory={inventory}

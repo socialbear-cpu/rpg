@@ -8,7 +8,12 @@ import { AppHeader } from '../shell/app-header';
 import { ProfileCard, type ProfileFields } from './profile-card';
 
 function profileFields(profile: Profile): ProfileFields {
-  return { displayName: profile.display_name, avatarUrl: profile.avatar_url ?? '', bio: profile.bio ?? '' };
+  return {
+    username: profile.username,
+    displayName: profile.display_name,
+    avatarUrl: profile.avatar_url ?? '',
+    bio: profile.bio ?? '',
+  };
 }
 
 export function ProfilePage() {
