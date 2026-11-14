@@ -96,7 +96,12 @@ SELECT is(
 RESET ROLE;
 SET LOCAL ROLE authenticated;
 SELECT set_config('request.jwt.claim.sub', 'c1000000-0000-4000-8000-000000000002', true);
-SELECT set_config('request.jwt.claims', '{"role":"authenticated","sub":"c1000000-0000-4000-8000-000000000002"}', true);
+SELECT set_config('request.jwt.claims', jsonb_build_object(
+    'role', 'authenticated',
+    'sub', 'c1000000-0000-4000-8000-000000000002',
+    'email', 'lifecycle-player@example.test',
+    'amr', jsonb_build_array(jsonb_build_object('method', 'magiclink', 'timestamp', floor(extract(epoch FROM now()))::bigint))
+)::text, true);
 SELECT is(
     public.manage_game_system_lifecycle('c2000000-0000-4000-8000-000000000001', 'delete')->>'status',
     'not_owner',
@@ -106,7 +111,12 @@ SELECT is(
 RESET ROLE;
 SET LOCAL ROLE authenticated;
 SELECT set_config('request.jwt.claim.sub', 'c1000000-0000-4000-8000-000000000001', true);
-SELECT set_config('request.jwt.claims', '{"role":"authenticated","sub":"c1000000-0000-4000-8000-000000000001"}', true);
+SELECT set_config('request.jwt.claims', jsonb_build_object(
+    'role', 'authenticated',
+    'sub', 'c1000000-0000-4000-8000-000000000001',
+    'email', 'lifecycle-owner@example.test',
+    'amr', jsonb_build_array(jsonb_build_object('method', 'magiclink', 'timestamp', floor(extract(epoch FROM now()))::bigint))
+)::text, true);
 SELECT is(
     public.manage_game_system_lifecycle('c2000000-0000-4000-8000-000000000001', 'delete')->>'status',
     'deleted',

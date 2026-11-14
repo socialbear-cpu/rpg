@@ -11,8 +11,6 @@ import {
   saveOwnerDailyLoginCalendar,
   saveOwnerExperienceSettings,
   setSystemModerator,
-  deleteGameSystem,
-  deleteGameSystemCover,
   updateGameSystemLifecycle,
   type DailyLoginOwnerCalendar,
   type DailyLoginSystemView,
@@ -20,7 +18,7 @@ import {
   type GameSystem,
   type SystemMemberships,
 } from '../../api';
-import { hasSession } from '../../supabase-auth';
+import { hasSession, sendDeletionEmailLink } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
 import { DailyLoginAdminCard } from '../daily-login/daily-login-admin-card';
 import { SystemStoreAdmin } from '../store/store-admin-card';
@@ -63,6 +61,7 @@ export function SystemManagementPage() {
   const [lifecycleMessage, setLifecycleMessage] = useState<string | null>(null);
   const [lifecycleMessageIsError, setLifecycleMessageIsError] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState('');
+  const [deleteEmailLinkSent, setDeleteEmailLinkSent] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
@@ -213,24 +212,17 @@ export function SystemManagementPage() {
 
   async function permanentlyDeleteSystem(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!systemView || !canEditOwnerSettings || deleteConfirmation.trim() !== systemView.system.name) return;
+    if (!systemView || !canEditOwnerSettings) return;
+    if (deleteConfirmation.trim() !== systemView.system.name) return;
     setLifecycleBusy(true);
     setLifecycleMessage(null);
-    let coverRemoved = false;
     try {
-      if (gameSystem?.cover_image_path) {
-        await deleteGameSystemCover(gameSystem.cover_image_path);
-        coverRemoved = true;
-      }
-      await deleteGameSystem(systemId);
-      router.replace('/dashboard');
+      await sendDeletionEmailLink(systemId, systemView.system.name);
+      setDeleteEmailLinkSent(true);
+      setLifecycleMessage('Enviamos um link de confirmação para o e-mail da sua conta. Abra-o no mesmo navegador para concluir a exclusão.');
+      setLifecycleMessageIsError(false);
     } catch (error) {
-      if (coverRemoved) {
-        setGameSystem((current) => current ? { ...current, cover_image_path: null } : current);
-        setLifecycleMessage('A imagem de capa foi removida, mas o sistema não foi excluído. Você pode tentar novamente ou enviar outra capa.');
-      } else {
-        setLifecycleMessage(error instanceof Error ? error.message : 'Não foi possível excluir o sistema.');
-      }
+      setLifecycleMessage(error instanceof Error ? error.message : 'Não foi possível enviar o link de confirmação.');
       setLifecycleMessageIsError(true);
     } finally {
       setLifecycleBusy(false);
@@ -284,7 +276,15 @@ export function SystemManagementPage() {
           <button className="nexus-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => setActiveCategory('community')}>Comunidade</button>
           <button className="nexus-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => setActiveCategory('settings')}>Configurações</button>
         </nav>
-        {activeCategory === 'overview' && <section className="system-management-section" id="overview" role="tabpanel" aria-labelledby="management-tab-overview"><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div><p className="system-management-section-copy">Ajuste quem ajuda a administrar este sistema e configure as regras que afetam os personagens.</p></section>}
+        {activeCategory === 'overview' && <section className="system-management-section" id="overview" role="tabpanel" aria-labelledby="management-tab-overview"><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div>
+          <p className="system-management-section-copy">Edite as informações e a apresentação principal do sistema.</p>
+          <div className="system-management-sheet-editor">
+            <div><h3>Informações básicas</h3><p>Atualize o nome, a descrição, a modalidade e as etiquetas do sistema.</p></div>
+            {canEditOwnerSettings
+              ? editorSystem && <SystemDetailsEditor key={`${systemId}-${editorSystem.cover_image_path ?? 'no-cover'}-overview`} system={editorSystem} section="overview" onSaved={updateSystemDetails} />
+              : <p>Somente o Owner do sistema pode editar estas informações.</p>}
+          </div>
+        </section>}
         {activeCategory === 'people' && <section className="system-management-section" id="people" role="tabpanel" aria-labelledby="management-tab-people"><div className="system-management-section-heading"><span>02</span><div><p>ACESSO</p><h2>Pessoas</h2></div></div>
           {membershipsForSystem && <SystemMembershipCard access={membershipsForSystem} manageableSystems={selectedManageable ? [{ game_system_id: systemId, game_system_name: selectedManageable.system.name }] : []} busy={membershipBusy} message={membershipMessage} messageIsError={membershipMessageIsError} onAssign={(targetId, userId, isModerator) => void assignModerator(targetId, userId, isModerator)} />}
         </section>}
@@ -301,9 +301,9 @@ export function SystemManagementPage() {
         {activeCategory === 'community' && <section className="system-management-section system-management-future" id="community" role="tabpanel" aria-labelledby="management-tab-community"><div className="system-management-section-heading"><span>06</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>}
         {activeCategory === 'settings' && <section className="system-management-section" id="settings" role="tabpanel" aria-labelledby="management-tab-settings"><div className="system-management-section-heading"><span>07</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
           <div className="system-management-sheet-editor">
-            <div><h3>Informações básicas</h3><p>Atualize o nome e a descrição do sistema.</p></div>
+            <div><h3>Imagem e acesso</h3><p>Atualize a imagem, a visibilidade e a senha do sistema.</p></div>
             {canEditOwnerSettings
-              ? editorSystem && <SystemDetailsEditor key={`${systemId}-${editorSystem.cover_image_path ?? 'no-cover'}`} system={editorSystem} onSaved={updateSystemDetails} />
+              ? editorSystem && <SystemDetailsEditor key={`${systemId}-${editorSystem.cover_image_path ?? 'no-cover'}-settings`} system={editorSystem} section="settings" onSaved={updateSystemDetails} />
               : <p>Somente o Owner do sistema pode editar estas informações.</p>}
           </div>
           <section className="system-management-lifecycle" aria-label="Disponibilidade do sistema">
@@ -325,13 +325,15 @@ export function SystemManagementPage() {
               <p>Apaga permanentemente este sistema, suas campanhas, personagens, inventários, itens, compras e históricos relacionados. Essa ação não pode ser desfeita.</p>
             </div>
             {canEditOwnerSettings
-              ? <form onSubmit={(event) => void permanentlyDeleteSystem(event)}>
-                <label htmlFor="delete-system-confirmation">Digite <strong>{systemView.system.name}</strong> para confirmar</label>
-                <input id="delete-system-confirmation" value={deleteConfirmation} onChange={(event) => setDeleteConfirmation(event.target.value)} autoComplete="off" required disabled={lifecycleBusy} />
-                <button className="system-management-delete-button" type="submit" disabled={lifecycleBusy || deleteConfirmation.trim() !== systemView.system.name}>
-                  {lifecycleBusy ? 'Excluindo...' : 'Excluir sistema definitivamente'}
-                </button>
-              </form>
+              ? deleteEmailLinkSent
+                ? <p role="status">O link foi enviado. Conclua a confirmação pelo e-mail para excluir o sistema.</p>
+                : <form onSubmit={(event) => void permanentlyDeleteSystem(event)}>
+                  <label htmlFor="delete-system-confirmation">Digite <strong>{systemView.system.name}</strong> para enviar um link de confirmação por e-mail</label>
+                  <input id="delete-system-confirmation" value={deleteConfirmation} onChange={(event) => setDeleteConfirmation(event.target.value)} autoComplete="off" required disabled={lifecycleBusy} />
+                  <button className="system-management-delete-button" type="submit" disabled={lifecycleBusy || deleteConfirmation.trim() !== systemView.system.name}>
+                    {lifecycleBusy ? 'Enviando...' : 'Enviar link de confirmação'}
+                  </button>
+                </form>
               : <p>Somente o Owner do sistema ou um Admin global pode excluir este sistema.</p>}
           </section>
           {lifecycleMessage && <p className={lifecycleMessageIsError ? 'system-management-lifecycle-error' : 'system-management-lifecycle-success'} role={lifecycleMessageIsError ? 'alert' : 'status'}>{lifecycleMessage}</p>}

@@ -169,6 +169,19 @@
 .auth-form-wrap { width: min(100%, 460px); margin: auto; }
 .auth-landing .notice { margin-bottom: 18px; }
 
+.system-deletion-confirm-button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #a34a59;
+  border-radius: 8px;
+  color: #ffe9ec;
+  background: #6b2735;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.system-deletion-confirm-button:disabled { opacity: .5; cursor: not-allowed; }
+
 .auth-landing .auth-card {
   padding: clamp(25px, 3.2vw, 38px);
   background: linear-gradient(155deg, #1b1d28, #171922 70%);

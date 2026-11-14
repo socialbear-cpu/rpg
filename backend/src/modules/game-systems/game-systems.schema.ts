@@ -277,7 +277,7 @@ export const updateGameSystemResultSchema = z.strictObject({
 });
 
 export const gameSystemLifecycleResultSchema = z.strictObject({
-  status: z.enum(['archived', 'activated', 'deleted', 'not_owner', 'not_found', 'invalid_action', 'unauthorized']),
+  status: z.enum(['archived', 'activated', 'deleted', 'not_owner', 'not_found', 'invalid_action', 'unauthorized', 'email_confirmation_required']),
   is_active: z.boolean().optional(),
 });
 

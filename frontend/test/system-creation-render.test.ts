@@ -178,6 +178,7 @@ describe('system dashboard and creation', () => {
   it('edits the same basic system fields used during creation', () => {
     const html = renderToStaticMarkup(createElement(SystemDetailsEditor, {
       system: { id: 'sys-1', name: 'Meu Sistema', description: 'Uma descrição', play_mode: 'voice', tags: [{ slug: 'fantasia', label: 'Fantasia' }] },
+      section: 'overview',
       onSaved: vi.fn(),
     }));
     expect(html).toContain('Nome do sistema');
@@ -186,6 +187,6 @@ describe('system dashboard and creation', () => {
     expect(html).toContain('Uma descrição');
     expect(html).toContain('RPG');
     expect(html).toContain('Modalidade principal');
-    expect(html).toContain('Salvar informações');
+    expect(html).toContain('Salvar visão geral');
   });
 });

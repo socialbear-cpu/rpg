@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export const GET = handleFastifyRequest;
+export const DELETE = handleFastifyRequest;
 export const PATCH = handleFastifyRequest;
 export const POST = handleFastifyRequest;
 export const PUT = handleFastifyRequest;

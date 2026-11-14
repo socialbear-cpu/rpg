@@ -5,8 +5,9 @@ import { deleteGameSystemCover, getGameSystemCoverUrl, updateGameSystem, uploadG
 import { SystemDetailsFields } from '../system-creation/system-details-fields';
 import { SystemPresentationFields } from '../system-creation/system-presentation-fields';
 
-export function SystemDetailsEditor({ system, onSaved }: {
+export function SystemDetailsEditor({ system, section, onSaved }: {
   system: Pick<GameSystem, 'id' | 'name' | 'description' | 'is_public' | 'play_mode' | 'tags' | 'cover_image_path' | 'cover_focus_x' | 'cover_focus_y'>;
+  section: 'overview' | 'settings';
   onSaved: (system: GameSystem) => void;
 }) {
   const [name, setName] = useState(system.name);
@@ -105,7 +106,7 @@ export function SystemDetailsEditor({ system, onSaved }: {
   }
 
   return <form className="system-details-editor" onSubmit={(event) => void submit(event)}>
-    <SystemDetailsFields name={name} description={description} onNameChange={setName} onDescriptionChange={setDescription} />
+    {section === 'overview' && <SystemDetailsFields name={name} description={description} onNameChange={setName} onDescriptionChange={setDescription} />}
     <SystemPresentationFields
       playMode={playMode}
       tags={tags}
@@ -128,19 +129,21 @@ export function SystemDetailsEditor({ system, onSaved }: {
       onRemoveImage={() => { setCoverFile(null); setCoverImagePath(null); }}
       onFocusXChange={setCoverFocusX}
       onFocusYChange={setCoverFocusY}
+      showModeAndTags={section === 'overview'}
+      showCover={section === 'settings'}
     />
-    <label className="daily-field">Visibilidade do sistema
+    {section === 'settings' && <label className="daily-field">Visibilidade do sistema
       <select value={isPublic ? 'public' : 'private'} onChange={(event) => setIsPublic(event.target.value === 'public')}>
         <option value="public">Público — qualquer pessoa pode entrar</option>
         <option value="private">Privado — exige senha para novos participantes</option>
       </select>
-    </label>
-    {!isPublic && <label className="daily-field">Senha do sistema
+    </label>}
+    {section === 'settings' && !isPublic && <label className="daily-field">Senha do sistema
       <input type="password" autoComplete="new-password" minLength={8} maxLength={72} required={(system.is_public ?? true) && !password} value={password} onChange={(event) => setPassword(event.target.value)} placeholder={(system.is_public ?? true) ? 'Defina uma senha com pelo menos 8 caracteres' : 'Deixe em branco para manter a senha atual'} />
       {(system.is_public ?? true) ? <small>Jogadores precisarão desta senha antes de acessar o sistema.</small> : <small>Preencha para trocar a senha. Vazia, a senha atual será mantida.</small>}
     </label>}
     <div className="system-details-editor-actions">
-      <button type="submit" className="primary-button" disabled={saving}>{saving ? 'Salvando...' : 'Salvar informações'}</button>
+      <button type="submit" className="primary-button" disabled={saving}>{saving ? 'Salvando...' : section === 'overview' ? 'Salvar visão geral' : 'Salvar configurações'}</button>
     </div>
     {message && <p className={error ? 'systems-error' : 'system-sheet-saved'} role={error ? 'alert' : 'status'}>{message}</p>}
   </form>;

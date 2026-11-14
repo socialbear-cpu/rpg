@@ -7,6 +7,7 @@ describe('client auth state', () => {
   it('reads a recovery token from the URL fragment and signals history cleanup', () => {
     expect(readAuthCallback('#type=recovery&access_token=access-123&refresh_token=refresh-456')).toEqual({
       recovery: { accessToken: 'access-123', refreshToken: 'refresh-456' },
+      emailSignIn: null,
       error: null,
       shouldCleanUrl: true,
     });
@@ -15,13 +16,14 @@ describe('client auth state', () => {
   it('reads an expired recovery error from the URL fragment and signals history cleanup', () => {
     expect(readAuthCallback('#error=access_denied&error_code=otp_expired&error_description=Link+expired')).toEqual({
       recovery: null,
+      emailSignIn: null,
       error: 'Link expired',
       shouldCleanUrl: true,
     });
   });
 
   it('ignores unrelated URL fragments', () => {
-    expect(readAuthCallback('#tab=profile')).toEqual({ recovery: null, error: null, shouldCleanUrl: false });
+    expect(readAuthCallback('#tab=profile')).toEqual({ recovery: null, emailSignIn: null, error: null, shouldCleanUrl: false });
   });
 
   it('reports missing public Supabase settings without throwing', () => {

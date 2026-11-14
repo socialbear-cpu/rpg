@@ -222,6 +222,7 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
       const result = await manageGameSystemLifecycle(request.supabase!, systemId, 'delete');
       if (result.status === 'not_found') return reply.code(404).send({ error: 'Sistema de RPG não encontrado.' });
       if (result.status === 'not_owner') return reply.code(403).send({ error: 'Somente o Owner ou um Admin global pode excluir este sistema.' });
+      if (result.status === 'email_confirmation_required') return reply.code(403).send({ error: 'Confirme seu e-mail antes de excluir um sistema.' });
       if (result.status === 'unauthorized') return reply.code(401).send({ error: 'Unauthorized' });
       if (result.status !== 'deleted') return gameSystemLifecycleDatabaseError(reply, 'delete');
       return reply.send({ status: 'deleted' });

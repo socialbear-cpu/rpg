@@ -17,6 +17,8 @@ export function SystemPresentationFields({
   onRemoveImage,
   onFocusXChange,
   onFocusYChange,
+  showModeAndTags = true,
+  showCover = true,
 }: {
   playMode: GameSystemPlayMode | '';
   tags: string[];
@@ -29,18 +31,21 @@ export function SystemPresentationFields({
   onRemoveImage: () => void;
   onFocusXChange: (value: number) => void;
   onFocusYChange: (value: number) => void;
+  showModeAndTags?: boolean;
+  showCover?: boolean;
 }) {
   const [tagOptions, setTagOptions] = useState<SystemTagOption[]>([]);
   const [tagError, setTagError] = useState('');
   const fileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (!showModeAndTags) return;
     let active = true;
     getGameSystemTagOptions()
       .then(({ tags: options }) => { if (active) setTagOptions(options); })
       .catch(() => { if (active) setTagError('Não foi possível carregar as etiquetas disponíveis.'); });
     return () => { active = false; };
-  }, []);
+  }, [showModeAndTags]);
 
   function toggleTag(slug: string) {
     if (tags.includes(slug)) {
@@ -56,16 +61,16 @@ export function SystemPresentationFields({
   }
 
   return <section className="system-presentation-fields" aria-label="Apresentação do sistema">
-    <fieldset className="system-presentation-mode">
+    {showModeAndTags && <fieldset className="system-presentation-mode">
       <legend>Modalidade principal</legend>
       <p>Indique como as sessões deste RPG acontecem principalmente.</p>
       <div>
         <label><input type="radio" name="game-system-play-mode" value="text" checked={playMode === 'text'} onChange={() => onPlayModeChange('text')} /> Texto</label>
         <label><input type="radio" name="game-system-play-mode" value="voice" checked={playMode === 'voice'} onChange={() => onPlayModeChange('voice')} /> Voz</label>
       </div>
-    </fieldset>
+    </fieldset>}
 
-    <fieldset className="system-presentation-tags">
+    {showModeAndTags && <fieldset className="system-presentation-tags">
       <legend>Etiquetas <span>(até {maximumTags})</span></legend>
       <p>Escolha os temas e estilos que descrevem seu RPG.</p>
       {tagError ? <p className="systems-error" role="alert">{tagError}</p> : tagOptions.length === 0
@@ -79,9 +84,9 @@ export function SystemPresentationFields({
           })}
         </div>}
       <small>{tags.length}/{maximumTags} selecionadas</small>
-    </fieldset>
+    </fieldset>}
 
-    <div className="system-presentation-cover">
+    {showCover && <div className="system-presentation-cover">
       <label className="system-creation-label">Imagem do sistema <span>(opcional, até 5 MB)</span>
         <input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={(event) => onImageChange(event.target.files?.[0] ?? null)} />
       </label>
@@ -97,6 +102,6 @@ export function SystemPresentationFields({
           </label>
         </div>
         : <p className="system-cover-empty">Nenhuma imagem escolhida. Será usada a arte padrão da plataforma.</p>}
-    </div>
+    </div>}
   </section>;
 }

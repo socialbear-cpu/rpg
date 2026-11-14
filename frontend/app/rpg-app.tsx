@@ -1,17 +1,22 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { AccountCard, type AccountMode } from '../src/features/account/account-card';
 import { missingSupabaseConfig } from '../src/config';
+import { deleteGameSystem, deleteGameSystemCover, getGameSystems } from '../src/api';
 import {
+  clearPendingSystemDeletion,
   consumeAuthCallback,
+  getCurrentAuthUser,
   hasSession,
+  readPendingSystemDeletion,
   requestPasswordReset,
   signIn,
   signOut,
   signUp,
   updatePassword,
+  type PendingSystemDeletion,
 } from '../src/supabase-auth';
 import './account-page.css';
 
@@ -19,6 +24,7 @@ type Notice = { message: string; error: boolean } | null;
 
 export function RpgApp() {
   const router = useRouter();
+  const authCallbackHandled = useRef(false);
   const [mode, setMode] = useState<AccountMode>('login');
   const [notice, setNotice] = useState<Notice>(null);
   const [authenticated, setAuthenticated] = useState(false);
@@ -29,17 +35,40 @@ export function RpgApp() {
   const [newPassword, setNewPassword] = useState('');
   const [authBusy, setAuthBusy] = useState(false);
   const [recoveryBusy, setRecoveryBusy] = useState(false);
+  const [pendingSystemDeletion, setPendingSystemDeletion] = useState<PendingSystemDeletion | null>(null);
+  const [systemDeletionChecking, setSystemDeletionChecking] = useState(false);
+  const [systemDeletionBusy, setSystemDeletionBusy] = useState(false);
+  const [systemDeletionMessage, setSystemDeletionMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    if (authCallbackHandled.current) return;
+    authCallbackHandled.current = true;
     const missing = missingSupabaseConfig();
     if (missing.length) setNotice({ message: `Configure as variáveis NEXT_PUBLIC_SUPABASE_URL e NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY para habilitar cadastro e login. (${missing.join(' e ')})`, error: true });
 
     const callback = consumeAuthCallback();
     if (callback.recovery) setRecovery(true);
     else if (callback.error) setNotice({ message: `${callback.error} Informe seu e-mail e solicite outro link.`, error: true });
+    const pendingDeletion = callback.emailSignIn ? readPendingSystemDeletion() : null;
+    if (pendingDeletion) {
+      setSystemDeletionChecking(true);
+      void getCurrentAuthUser().then((user) => {
+        if (user.id !== pendingDeletion.userId) {
+          clearPendingSystemDeletion();
+          setNotice({ message: 'Este link foi aberto em uma conta diferente da que iniciou a exclusão.', error: true });
+          router.replace('/dashboard');
+          return;
+        }
+        setPendingSystemDeletion(pendingDeletion);
+      }).catch((error) => {
+        clearPendingSystemDeletion();
+        setNotice({ message: error instanceof Error ? error.message : 'Não foi possível confirmar a conta.', error: true });
+        router.replace('/dashboard');
+      }).finally(() => setSystemDeletionChecking(false));
+    }
     const sessionExists = hasSession();
     setAuthenticated(sessionExists);
-    if (sessionExists && !callback.recovery) router.replace('/dashboard');
+    if (sessionExists && !callback.recovery && !pendingDeletion) router.replace('/dashboard');
   }, [router]);
 
   const showNotice = (message: string, error = false) => setNotice({ message, error });
@@ -111,6 +140,31 @@ export function RpgApp() {
     }
   }
 
+  async function confirmSystemDeletion() {
+    if (!pendingSystemDeletion) return;
+    setSystemDeletionBusy(true);
+    setSystemDeletionMessage(null);
+    let coverRemoved = false;
+    try {
+      const { systems } = await getGameSystems({ includeArchived: true });
+      const system = systems.find((entry) => entry.id === pendingSystemDeletion.systemId);
+      if (!system) throw new Error('O sistema não foi encontrado ou você não tem permissão para excluí-lo.');
+      if (system.cover_image_path) {
+        await deleteGameSystemCover(system.cover_image_path);
+        coverRemoved = true;
+      }
+      await deleteGameSystem(system.id);
+      clearPendingSystemDeletion();
+      router.replace('/dashboard');
+    } catch (error) {
+      setSystemDeletionMessage(coverRemoved
+        ? 'A imagem de capa foi removida, mas o sistema não foi excluído. Você pode solicitar outro link e tentar novamente.'
+        : error instanceof Error ? error.message : 'Não foi possível excluir o sistema.');
+    } finally {
+      setSystemDeletionBusy(false);
+    }
+  }
+
   const accountCard = <AccountCard
     mode={mode}
     recovery={recovery}
@@ -131,6 +185,23 @@ export function RpgApp() {
     onResetPassword={() => void resetPassword()}
     onLogout={() => void logout()}
   />;
+
+  if (systemDeletionChecking) return <main className="shell"><p role="status">Verificando confirmação por e-mail…</p></main>;
+
+  if (pendingSystemDeletion) return <main className="auth-landing">
+    <section className="auth-form-panel">
+      <div className="auth-form-wrap">
+        <div className="auth-card">
+          <div className="account-card-heading"><p className="eyebrow">CONFIRMAÇÃO POR E-MAIL</p><h2>Excluir sistema</h2></div>
+          <p>Você confirmou seu e-mail. Confirme a exclusão permanente de <strong>{pendingSystemDeletion.systemName}</strong> e dos dados relacionados.</p>
+          {systemDeletionMessage && <div className="notice error" role="alert">{systemDeletionMessage}</div>}
+          <button className="system-deletion-confirm-button" type="button" disabled={systemDeletionBusy} onClick={() => void confirmSystemDeletion()}>
+            {systemDeletionBusy ? 'Excluindo...' : 'Confirmar exclusão permanente'}
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>;
 
   if (authenticated && !recovery) return <main className="shell"><p role="status">Abrindo seus sistemas…</p></main>;
 
