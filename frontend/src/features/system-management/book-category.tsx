@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState, type ComponentProps } from 'react';
+import { Children, useEffect, useRef, useState, type ComponentProps } from 'react';
 
 /** Keeps the form mounted while its content flows across fixed-size book pages. */
 export function BookCategory({ children, inert, ...props }: ComponentProps<'section'>) {
+  const [heading, ...content] = Children.toArray(children);
   const viewport = useRef<HTMLDivElement>(null);
   const flow = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState(0);
@@ -51,11 +52,12 @@ export function BookCategory({ children, inert, ...props }: ComponentProps<'sect
   }
 
   return <section {...props}>
+    <header className="system-book-chapter">{heading}</header>
     <div className="system-book-viewport" ref={viewport} onScroll={() => {
       const frame = viewport.current;
       if (frame) setPage(Math.round(frame.scrollLeft / (frame.clientWidth + 40)));
     }}>
-      <div className="system-book-flow" ref={flow} inert={inert}>{children}</div>
+      <div className="system-book-flow" ref={flow} inert={inert}>{content}</div>
     </div>
     <nav className="system-book-pagination" aria-label={`Páginas de ${props.id}`}>
       <button type="button" disabled={page === 0} onClick={() => turnPage(page - 1)} aria-label="Página anterior">← Anterior</button>

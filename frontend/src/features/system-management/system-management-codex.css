@@ -1,0 +1,205 @@
+/* A shared page treatment for every chapter, scoped away from the app header. */
+.system-management-book {
+  isolation: isolate;
+  overflow: visible;
+  padding: 12px 16px 20px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  filter: drop-shadow(0 18px 24px #0004);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.system-management-book-binding {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.system-management-book .system-management-nav {
+  margin: 0 18px;
+  padding: 10px 14px 0;
+  border-bottom-color: #a88aba30;
+  background: transparent;
+}
+
+.system-management-book .system-management-book-identity,
+.system-management-book .system-management-book-page,
+.system-management-book .system-management-book-previous-page,
+.system-management-book .system-management-book-current-page {
+  padding: 34px clamp(24px, 3.2vw, 56px) 26px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.system-management-book .system-management-book-identity { padding-bottom: 0; }
+.system-management-book .system-management-book-page > .system-management-section { padding: 0; }
+.system-management-book .system-management-book-page::before { content: none; }
+.system-management-book .system-management-book-art { margin-top: 18px; }
+.system-management-book .system-management-book-identity > .system-management-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+  font-size: 11px;
+}
+.system-management-book .system-management-book-identity > .system-management-eyebrow::after {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, #b493dc66, transparent);
+  content: '';
+}
+
+.system-management-book .system-management-section {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 22px;
+}
+
+.system-book-chapter {
+  position: relative;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #b493dc40;
+}
+.system-book-chapter::after {
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+  color: #b493dc;
+  background: #211b2b;
+  content: '✧';
+  font-size: 12px;
+}
+.system-management-book .system-management-section-heading { gap: 16px; }
+.system-management-book .system-management-section-heading > span {
+  width: 30px;
+  height: auto;
+  font-size: 32px;
+  font-weight: 400;
+}
+.system-management-book .system-management-section-heading h2 {
+  font: 600 clamp(25px, 2.3vw, 36px)/1.15 'Outfit', sans-serif;
+  letter-spacing: -.025em;
+}
+.system-management-book .system-management-section-heading p {
+  margin: 0 0 9px;
+  color: #bba5fa;
+  font-size: 10px;
+  letter-spacing: .16em;
+}
+
+.system-management-book .system-book-flow {
+  color: #ece6f2;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.system-management-book .system-book-flow > .system-management-section-copy { margin: 0 0 24px; }
+.system-management-book .system-book-flow :is(h2, h3) {
+  margin: 0 0 8px;
+  color: #f0eff7;
+  font: 600 21px/1.25 'Outfit', sans-serif;
+  letter-spacing: -.015em;
+}
+.system-management-book .system-book-flow p {
+  margin: 8px 0 18px;
+  color: #aaa2b6;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.system-management-book .system-book-flow :is(.card, .system-management-sheet-editor, .store-admin-items, .sheet-built-in-field, .sheet-field-card, .visual-sheet-step) {
+  display: block;
+  margin: 0 0 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  background: transparent;
+  box-shadow: none;
+}
+.system-management-book .system-book-flow .section-heading { margin: 0 0 12px; }
+.system-management-book .system-book-flow .section-heading :is(.step, .eyebrow) { display: none; }
+.system-management-book .system-book-flow :is(form, .experience-source-list, .store-admin-form fieldset, .store-admin-item-list) {
+  display: block;
+  min-width: 0;
+  margin-top: 20px;
+}
+.system-management-book .system-book-flow :is(.daily-week-row, .experience-source-row, .store-admin-offer, .store-admin-item-list li) {
+  display: block;
+  margin: 0 0 24px;
+  padding: 18px 0 0;
+  border: 0;
+  border-top: 1px solid #b493dc30;
+  border-radius: 0;
+  background: transparent;
+}
+.system-management-book .system-book-flow label {
+  min-width: 0;
+  margin: 16px 0;
+  color: #ded5e8;
+  font: 500 13px/1.5 'DM Sans', sans-serif;
+}
+.system-management-book .system-book-flow :is(input:not([type='checkbox']):not([type='radio']):not([type='range']), select, textarea) {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  padding: 10px 2px;
+  border: 0;
+  border-bottom: 1px solid #b493dc66;
+  border-radius: 0;
+  color: #eee8f5;
+  background: #16121e30;
+  font: 400 13px/1.5 'DM Sans', sans-serif;
+}
+.system-management-book .system-book-flow :is(input, select, textarea):focus-visible {
+  outline: 2px solid #bba5fa;
+  outline-offset: 2px;
+  box-shadow: none;
+}
+.system-management-book .system-book-flow option { background: #211b2b; }
+.system-management-book .system-book-flow input:is([type='checkbox'], [type='radio'], [type='range']) { accent-color: #b493dc; }
+.system-management-book .system-book-flow :is(small, .field-hint) { color: #a69aaf; font-size: 11px; }
+.system-management-book .system-book-flow :is(.actions, .system-details-editor-actions, .system-creation-actions) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 24px 0 8px;
+}
+.system-management-book .system-book-flow button:is(.primary, .primary-button) {
+  min-height: 40px;
+  padding: 10px 20px;
+  border: 1px solid #9d77bb;
+  border-radius: 7px;
+  color: #f8efff;
+  background: linear-gradient(135deg, #775191, #553965);
+  font: 600 12px 'DM Sans', sans-serif;
+}
+.system-management-book .system-book-flow button:is(.secondary, .secondary-button, .sheet-add-button) {
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px solid #b493dc40;
+  border-radius: 5px;
+  color: #d4bcea;
+  background: transparent;
+  font: 500 12px 'DM Sans', sans-serif;
+}
+.system-management-book .system-book-flow button:disabled { opacity: .45; }
+.system-management-book .system-book-flow .system-management-danger-zone { display: block; }
+.system-management-book .system-book-flow .system-management-danger-zone form { margin-top: 18px; }
+.system-management-book .system-book-flow :is(.system-sheet-saved, .system-management-lifecycle-success) { color: #8ddbb2; }
+.system-management-book .system-book-flow :is(.systems-error, .system-management-lifecycle-error, .notice.error) { color: #f4a2b1; }
+.system-management-book .system-book-pagination { border-top-color: #b493dc40; }
+
+@media (max-width: 900px) {
+  .system-management-book { padding: 8px 8px 18px; }
+  .system-management-book-binding { opacity: .8; }
+  .system-management-book .system-management-nav { margin: 0 8px; }
+  .system-management-book .system-management-book-identity,
+  .system-management-book .system-management-book-page,
+  .system-management-book .system-management-book-previous-page,
+  .system-management-book .system-management-book-current-page { padding: 24px; }
+}
