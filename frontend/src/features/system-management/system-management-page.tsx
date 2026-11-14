@@ -39,6 +39,7 @@ export function SystemManagementPage() {
   const router = useRouter();
   const [pageState, setPageState] = useState<PageState>('loading');
   const [activeCategory, setActiveCategory] = useState<ManagementCategory>('overview');
+  const [previousCategory, setPreviousCategory] = useState<ManagementCategory | null>(null);
   const [pageError, setPageError] = useState('');
   const [systemView, setSystemView] = useState<DailyLoginSystemView | null>(null);
   const [systemIsPublic, setSystemIsPublic] = useState(true);
@@ -72,6 +73,8 @@ export function SystemManagementPage() {
     }
 
     let active = true;
+    setActiveCategory('overview');
+    setPreviousCategory(null);
     setPageState('loading');
     setPageError('');
     setCalendar(null);
@@ -256,6 +259,20 @@ export function SystemManagementPage() {
       : entry));
   }
 
+  function selectCategory(category: ManagementCategory) {
+    if (category === activeCategory) return;
+    setPreviousCategory(activeCategory);
+    setActiveCategory(category);
+  }
+
+  function isVisibleCategory(category: ManagementCategory) {
+    return category === activeCategory || category === previousCategory;
+  }
+
+  function categoryPageClass(category: ManagementCategory) {
+    return `system-management-section ${category === previousCategory ? 'system-management-book-previous-page' : 'system-management-book-current-page'}`;
+  }
+
   return <main className="system-management-page">
     <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar aos sistemas" />
     <div className="system-management-content">
@@ -263,17 +280,17 @@ export function SystemManagementPage() {
       {pageState === 'error' && <section className="system-management-state"><h1>Não foi possível abrir o gerenciamento</h1><p role="alert">{pageError}</p><button className="button secondary" type="button" onClick={() => setReloadKey((key) => key + 1)}>Tentar novamente</button></section>}
       {pageState === 'forbidden' && <section className="system-management-state"><span className="system-management-eyebrow">ACESSO RESTRITO</span><h1>Você não pode gerenciar este sistema</h1><p>Somente o Owner do sistema ou um Admin global pode acessar estas configurações.</p><button className="button secondary" type="button" onClick={() => router.push('/dashboard')}>Voltar aos sistemas</button></section>}
       {pageState === 'ready' && systemView && <>
-        <div className="system-management-book">
+        <div className={`system-management-book ${previousCategory ? 'system-management-book-open' : ''}`}>
           <nav className="system-management-nav" aria-label="Seções de gerenciamento" role="tablist">
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => setActiveCategory('overview')}>Visão geral</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => setActiveCategory('people')}>Pessoas</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => setActiveCategory('game')}>Jogo</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-store" aria-selected={activeCategory === 'store'} aria-controls="store" onClick={() => setActiveCategory('store')}>Loja</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => setActiveCategory('sheet')}>Ficha</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => setActiveCategory('community')}>Comunidade</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => setActiveCategory('settings')}>Configurações</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => selectCategory('overview')}>Visão geral</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => selectCategory('people')}>Pessoas</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => selectCategory('game')}>Jogo</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-store" aria-selected={activeCategory === 'store'} aria-controls="store" onClick={() => selectCategory('store')}>Loja</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => selectCategory('sheet')}>Ficha</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => selectCategory('community')}>Comunidade</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => selectCategory('settings')}>Configurações</button>
           </nav>
-          <aside className="system-management-book-identity" aria-label={`Sobre ${systemView.system.name}`}>
+          {!previousCategory && <aside className="system-management-book-identity" aria-label={`Sobre ${systemView.system.name}`}>
             <span className="system-management-eyebrow">CÓDEX DO SISTEMA</span>
             <h1>{systemView.system.name}</h1>
             {(gameSystem?.description ?? systemView.system.description) && <p>{gameSystem?.description ?? systemView.system.description}</p>}
@@ -299,9 +316,9 @@ export function SystemManagementPage() {
                   <path d="m352 110 8 20 20 8-20 8-8 20-8-20-20-8 20-8Z" fill="#d7b7ff" fillOpacity=".72" />
                 </svg>}
             </div>
-          </aside>
+          </aside>}
           <div className="system-management-book-page">
-        {activeCategory === 'overview' && <section className="system-management-section" id="overview" role="tabpanel" aria-labelledby="management-tab-overview"><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div>
+        {isVisibleCategory('overview') && <section className={categoryPageClass('overview')} id="overview" role="tabpanel" aria-labelledby="management-tab-overview" aria-label={previousCategory === 'overview' ? 'Visão geral, página anterior somente para consulta' : undefined} inert={previousCategory === 'overview'}><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div>
           <p className="system-management-section-copy">Edite as informações e a apresentação principal do sistema.</p>
           <div className="system-management-sheet-editor">
             <div><h3>Informações básicas</h3><p>Atualize o nome, a descrição, a modalidade, as etiquetas e a capa do sistema.</p></div>
@@ -310,21 +327,21 @@ export function SystemManagementPage() {
               : <p>Somente o Owner do sistema pode editar estas informações.</p>}
           </div>
         </section>}
-        {activeCategory === 'people' && <section className="system-management-section" id="people" role="tabpanel" aria-labelledby="management-tab-people"><div className="system-management-section-heading"><span>02</span><div><p>ACESSO</p><h2>Pessoas</h2></div></div>
+        {isVisibleCategory('people') && <section className={categoryPageClass('people')} id="people" role="tabpanel" aria-labelledby="management-tab-people" aria-label={previousCategory === 'people' ? 'Pessoas, página anterior somente para consulta' : undefined} inert={previousCategory === 'people'}><div className="system-management-section-heading"><span>02</span><div><p>ACESSO</p><h2>Pessoas</h2></div></div>
           {membershipsForSystem && <SystemMembershipCard access={membershipsForSystem} manageableSystems={selectedManageable ? [{ game_system_id: systemId, game_system_name: selectedManageable.system.name }] : []} busy={membershipBusy} message={membershipMessage} messageIsError={membershipMessageIsError} onAssign={(targetId, userId, isModerator) => void assignModerator(targetId, userId, isModerator)} />}
         </section>}
-        {activeCategory === 'game' && <section className="system-management-section" id="game" role="tabpanel" aria-labelledby="management-tab-game"><div className="system-management-section-heading"><span>03</span><div><p>REGRAS</p><h2>Jogo</h2></div></div>
+        {isVisibleCategory('game') && <section className={categoryPageClass('game')} id="game" role="tabpanel" aria-labelledby="management-tab-game" aria-label={previousCategory === 'game' ? 'Jogo, página anterior somente para consulta' : undefined} inert={previousCategory === 'game'}><div className="system-management-section-heading"><span>03</span><div><p>REGRAS</p><h2>Jogo</h2></div></div>
           <ExperienceAdminCard systems={[systemView]} selectedSystemId={systemId} settings={experience} loading={experienceLoading} saving={experienceSaving} message={experienceMessage} messageIsError={experienceMessageIsError} onSystemChange={() => undefined} onXpPerLevelChange={(amount) => setExperience((current) => current ? { ...current, xp_per_level: amount } : current)} onSourceChange={(index, field, value) => setExperience((current) => current ? { ...current, sources: current.sources.map((source, sourceIndex) => sourceIndex === index ? { ...source, [field]: value } : source) } : current)} onAddCustomSource={() => setExperience((current) => current ? { ...current, sources: addCustomExperienceSource(current.sources) } : current)} onRemoveCustomSource={(index) => setExperience((current) => current ? { ...current, sources: current.sources.filter((_, sourceIndex) => sourceIndex !== index) } : current)} onSave={(event) => void saveExperience(event)} />
           <DailyLoginAdminCard systems={[systemView]} selectedSystemId={systemId} calendar={calendar} loading={calendarLoading} saving={calendarSaving} message={calendarMessage} messageIsError={calendarMessageIsError} onSystemChange={() => undefined} onRewardChange={changeReward} onActiveChange={(isActive) => setCalendar((current) => current ? { ...current, is_active: isActive } : current)} onSave={(event) => void saveCalendar(event)} />
         </section>}
-        {activeCategory === 'store' && <section className="system-management-section" id="store" role="tabpanel" aria-labelledby="management-tab-store"><div className="system-management-section-heading"><span>04</span><div><p>COMÉRCIO</p><h2>Loja</h2></div></div>
+        {isVisibleCategory('store') && <section className={categoryPageClass('store')} id="store" role="tabpanel" aria-labelledby="management-tab-store" aria-label={previousCategory === 'store' ? 'Loja, página anterior somente para consulta' : undefined} inert={previousCategory === 'store'}><div className="system-management-section-heading"><span>04</span><div><p>COMÉRCIO</p><h2>Loja</h2></div></div>
           <SystemStoreAdmin key={systemId} systemId={systemId} />
         </section>}
-        {activeCategory === 'sheet' && <section className="system-management-section" id="sheet" role="tabpanel" aria-labelledby="management-tab-sheet"><div className="system-management-section-heading"><span>05</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
+        {isVisibleCategory('sheet') && <section className={categoryPageClass('sheet')} id="sheet" role="tabpanel" aria-labelledby="management-tab-sheet" aria-label={previousCategory === 'sheet' ? 'Ficha, página anterior somente para consulta' : undefined} inert={previousCategory === 'sheet'}><div className="system-management-section-heading"><span>05</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
           <div className="system-management-sheet-editor">{canEditOwnerSettings ? <SystemSheetEditor systemId={systemId} systemName={systemView.system.name} /> : <p>Somente o Owner do sistema pode editar a ficha de personagem.</p>}</div>
         </section>}
-        {activeCategory === 'community' && <section className="system-management-section system-management-future" id="community" role="tabpanel" aria-labelledby="management-tab-community"><div className="system-management-section-heading"><span>06</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>}
-        {activeCategory === 'settings' && <section className="system-management-section" id="settings" role="tabpanel" aria-labelledby="management-tab-settings"><div className="system-management-section-heading"><span>07</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
+        {isVisibleCategory('community') && <section className={`${categoryPageClass('community')} system-management-future`} id="community" role="tabpanel" aria-labelledby="management-tab-community" aria-label={previousCategory === 'community' ? 'Comunidade, página anterior somente para consulta' : undefined} inert={previousCategory === 'community'}><div className="system-management-section-heading"><span>06</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>}
+        {isVisibleCategory('settings') && <section className={categoryPageClass('settings')} id="settings" role="tabpanel" aria-labelledby="management-tab-settings" aria-label={previousCategory === 'settings' ? 'Configurações, página anterior somente para consulta' : undefined} inert={previousCategory === 'settings'}><div className="system-management-section-heading"><span>07</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
           <div className="system-management-sheet-editor">
             <div><h3>Acesso do sistema</h3><p>Defina a visibilidade e a senha de acesso.</p></div>
             {canEditOwnerSettings
