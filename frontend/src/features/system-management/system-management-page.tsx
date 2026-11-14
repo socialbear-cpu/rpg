@@ -29,6 +29,7 @@ import { SystemMembershipCard } from '../system-membership/system-membership-car
 import { SystemSheetEditor } from '../system-creation/system-sheet-editor';
 import { SystemDetailsEditor } from './system-details-editor';
 import { BookCategory } from './book-category';
+import { turnBookSheet } from './book-transition';
 import './system-management-page.css';
 import '../system-creation/system-creation.css';
 import './system-management-codex.css';
@@ -260,7 +261,7 @@ export function SystemManagementPage() {
   }
 
   function selectCategory(category: ManagementCategory) {
-    setActiveCategory(category);
+    if (category !== activeCategory) turnBookSheet(() => setActiveCategory(category));
   }
 
   function isVisibleCategory(category: ManagementCategory) {

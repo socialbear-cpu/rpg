@@ -1,6 +1,7 @@
 'use client';
 
 import { Children, useEffect, useRef, useState, type ComponentProps } from 'react';
+import { turnBookSheet } from './book-transition';
 
 /** Keeps the form mounted while its content flows across fixed-size book pages. */
 export function BookCategory({ children, inert, ...props }: ComponentProps<'section'>) {
@@ -47,8 +48,10 @@ export function BookCategory({ children, inert, ...props }: ComponentProps<'sect
   function turnPage(next: number) {
     const frame = viewport.current;
     if (!frame) return;
-    frame.scrollLeft = next * (frame.clientWidth + 40);
-    setPage(next);
+    turnBookSheet(() => {
+      frame.scrollLeft = next * (frame.clientWidth + 40);
+      setPage(next);
+    });
   }
 
   return <section {...props}>
