@@ -68,6 +68,14 @@
 }
 
 .system-management-nav {
+  --nexus-tab-text: #a4a5b4;
+  --nexus-tab-text-hover: #f0eff7;
+  --nexus-tab-text-selected: #f0eff7;
+  --nexus-tab-hover: #292437;
+  --nexus-tab-selected: #352c42;
+  --nexus-tab-selected-hover: #413052;
+  --nexus-tab-border-selected: #8765a9;
+  --nexus-tab-focus: #c4b5fd;
   position: sticky;
   top: 0;
   z-index: 3;
@@ -83,8 +91,9 @@
 }
 
 .system-management-nav button {
-  flex: 0 0 auto;
-  padding: 9px 13px;
+  flex: 1 0 112px;
+  min-height: 42px;
+  padding: 9px 10px;
   font-size: 12px;
 }
 
@@ -304,6 +313,7 @@
   .system-management-content { width: min(100% - 32px, 600px); padding-top: 20px; }
   .system-management-hero { padding: 26px 22px; }
   .system-management-nav { margin: 14px 0 22px; }
+  .system-management-nav button { flex: 0 0 120px; }
   .system-management-section { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 22px 0; }
   .system-management-section > .card,
   .system-management-section > .daily-login-admin-card,
