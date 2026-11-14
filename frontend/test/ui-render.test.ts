@@ -37,6 +37,7 @@ describe('account card', () => {
   it('renders login, signup, recovery, and signed-out session controls', () => {
     const html = renderToStaticMarkup(createElement(AccountCard, accountCardProps));
 
+    expect(html).toContain('class="tab nexus-tab"');
     expect(html).toContain('id="tab-login"');
     expect(html).toContain('id="tab-signup"');
     expect(html).toContain('Esqueci minha senha');
@@ -49,6 +50,7 @@ describe('account card', () => {
     const html = renderToStaticMarkup(createElement(AccountCard, { ...accountCardProps, mode: 'signup' }));
 
     expect(html).toContain('Nome de exibição');
+    expect(html).toContain('class="tab nexus-tab"');
     expect(html).toContain('id="tab-signup" type="button" role="tab" aria-selected="true"');
   });
 

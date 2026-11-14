@@ -142,6 +142,7 @@ describe('character entry', () => {
     expect(html).toContain('Classe');
     expect(html).toContain('Mago');
     expect(html).toContain('aria-selected="true"');
+    expect(html).toContain('class="nexus-tab"');
 
     const inventoryHtml = renderToStaticMarkup(createElement(CharacterRecord, {
       character, definition, experience: null, inventory, activeTab: 'inventory', onTabChange: vi.fn(),

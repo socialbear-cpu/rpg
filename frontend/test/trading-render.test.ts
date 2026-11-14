@@ -60,6 +60,8 @@ describe('trading card', () => {
   it('shows both trade sides and keeps different item characteristics in separate stacks', () => {
     const html = renderView();
     expect(html).toContain('Criar oferta de troca');
+    expect(html).toContain('class="nexus-tab"');
+    expect(html).toContain('role="tab" aria-selected="true"');
     expect(html).toContain('Você oferece');
     expect(html).toContain('Você pede em troca');
     expect(html).toContain('encantamento: fogo');

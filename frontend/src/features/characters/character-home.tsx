@@ -25,9 +25,9 @@ interface CharacterHomeProps {
 }
 
 const rooms = [
-  { name: 'Taverna do Dragão', topic: 'Conversa livre e ideias para aventuras' },
-  { name: 'sistema de iniciantes', topic: 'Aprenda e encontre companhia para jogar' },
-  { name: 'Procura-se grupo', topic: 'Combine horários e monte sua party' },
+  { key: 'tavern', name: 'Taverna do Dragão', topic: 'Conversa livre e ideias para aventuras' },
+  { key: 'beginners', name: 'sistema de iniciantes', topic: 'Aprenda e encontre companhia para jogar' },
+  { key: 'group', name: 'Procura-se grupo', topic: 'Combine horários e monte sua party' },
 ];
 
 export function CharacterHome({ systemName, character, sheetDefinition, inventory, recordLoading, sheetError, inventoryError, onRefreshRecord, fields = [], experience = null, onSwitch, dailyRewardVersion = 0, onDailyClaimed }: CharacterHomeProps) {
@@ -71,7 +71,7 @@ export function CharacterHome({ systemName, character, sheetDefinition, inventor
 
           <section className="lobby-rooms"><div className="lobby-section-heading"><div><span className="character-entry-eyebrow">PONTO DE ENCONTRO</span><h2>Salas de bate-papo</h2></div></div>
             <div className="lobby-room-grid">
-              {rooms.map((room) => <article className="lobby-room-card" key={room.name}><div className="lobby-room-icon" aria-hidden="true">＋</div><div className="lobby-room-content"><h3>{room.name}</h3><p>{room.topic}</p><span className="lobby-room-people">Sala da comunidade</span></div><button className="character-secondary-button" type="button" onClick={() => setActiveRoom(activeRoom === room.name ? null : room.name)}>{activeRoom === room.name ? 'Sair da sala' : 'Entrar na sala'} <span aria-hidden="true">→</span></button></article>)}
+              {rooms.map((room) => <article className={`lobby-room-card lobby-room-card-${room.key}`} key={room.name}><div className="lobby-room-icon" aria-hidden="true">＋</div><div className="lobby-room-content"><h3>{room.name}</h3><p>{room.topic}</p><span className="lobby-room-people">Sala da comunidade</span></div><button className="character-secondary-button" type="button" onClick={() => setActiveRoom(activeRoom === room.name ? null : room.name)}>{activeRoom === room.name ? 'Sair da sala' : 'Entrar na sala'} <span aria-hidden="true">→</span></button></article>)}
               <article className="lobby-room-card lobby-character-record-card">
                 <div className="lobby-room-icon" aria-hidden="true">♙</div>
                 <div className="lobby-room-content"><h3>Minha Ficha</h3><p>Consulte as informações do seu personagem e gerencie seu inventário.</p><span className="lobby-room-people">Acesso privado do personagem</span></div>

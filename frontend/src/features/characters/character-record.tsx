@@ -191,9 +191,9 @@ export function CharacterRecord({ character, definition, experience, inventory, 
       <h1 id="character-record-title">{character.character_name}</h1>
       <p>Ficha e inventário deste personagem.</p>
     </header>
-    <div className="character-record-tabs" role="tablist" aria-label="Dados do personagem">
-      <button id="character-record-tab-sheet" type="button" role="tab" aria-selected={activeTab === 'sheet'} aria-controls="character-record-panel" className={activeTab === 'sheet' ? 'is-active' : ''} onClick={() => onTabChange('sheet')}>Ficha</button>
-      <button id="character-record-tab-inventory" type="button" role="tab" aria-selected={activeTab === 'inventory'} aria-controls="character-record-panel" className={activeTab === 'inventory' ? 'is-active' : ''} onClick={() => onTabChange('inventory')}>Inventário <span>{inventory?.stacks.length ?? 0}</span></button>
+    <div className="character-record-tabs nexus-tab-list--segment" role="tablist" aria-label="Dados do personagem">
+      <button id="character-record-tab-sheet" type="button" role="tab" aria-selected={activeTab === 'sheet'} aria-controls="character-record-panel" className="nexus-tab" onClick={() => onTabChange('sheet')}>Ficha</button>
+      <button id="character-record-tab-inventory" type="button" role="tab" aria-selected={activeTab === 'inventory'} aria-controls="character-record-panel" className="nexus-tab" onClick={() => onTabChange('inventory')}>Inventário <span>{inventory?.stacks.length ?? 0}</span></button>
     </div>
     <div id="character-record-panel" role="tabpanel" aria-labelledby={activeTab === 'sheet' ? 'character-record-tab-sheet' : 'character-record-tab-inventory'} className="character-record-panel">
       {activeTab === 'sheet'

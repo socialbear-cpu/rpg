@@ -48,9 +48,9 @@ export function AccountCard({
   return (
     <article className="card auth-card">
       <div className="section-heading account-card-heading"><div><p className="eyebrow">{recovery ? 'RECUPERAÇÃO DE ACESSO' : mode === 'signup' ? 'COMECE SUA JORNADA' : 'BEM-VINDO DE VOLTA'}</p><h2>{recovery ? 'Nova senha' : mode === 'signup' ? 'Crie sua conta' : 'Entre no seu mundo'}</h2><p className="account-card-description">{recovery ? 'Escolha uma nova senha para sua conta.' : mode === 'signup' ? 'Crie sua conta e prepare sua próxima aventura.' : 'Acesse seus sistemas e continue de onde a aventura parou.'}</p></div>{authenticated && <span className="step">01</span>}</div>
-      {!recovery && <div className="tabs" role="tablist" aria-label="Acesso à conta">
-        <button className={`tab${mode === 'login' ? ' active' : ''}`} id="tab-login" type="button" role="tab" aria-selected={mode === 'login'} aria-controls="panel-auth" onClick={() => onModeChange('login')}>Entrar</button>
-        <button className={`tab${mode === 'signup' ? ' active' : ''}`} id="tab-signup" type="button" role="tab" aria-selected={mode === 'signup'} aria-controls="panel-auth" onClick={() => onModeChange('signup')}>Criar conta</button>
+      {!recovery && <div className="tabs nexus-tab-list--segment" role="tablist" aria-label="Acesso à conta">
+        <button className="tab nexus-tab" id="tab-login" type="button" role="tab" aria-selected={mode === 'login'} aria-controls="panel-auth" onClick={() => onModeChange('login')}>Entrar</button>
+        <button className="tab nexus-tab" id="tab-signup" type="button" role="tab" aria-selected={mode === 'signup'} aria-controls="panel-auth" onClick={() => onModeChange('signup')}>Criar conta</button>
       </div>}
       <div id="panel-auth">
         {recovery ? <form className="form" autoComplete="off" onSubmit={onSubmitRecovery}>

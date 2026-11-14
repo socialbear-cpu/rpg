@@ -200,10 +200,10 @@ export function TradingCardView({
       </form>
 
       <section className="trade-offer-section" aria-label="Ofertas de troca">
-        <div className="trade-box-tabs" role="tablist" aria-label="Caixas de ofertas">
+        <div className="trade-box-tabs nexus-tab-list--segment" role="tablist" aria-label="Caixas de ofertas">
           {(['incoming', 'sent', 'history'] as const).map((value) => <button
             key={value} type="button" role="tab" aria-selected={box === value}
-            className={`button ${box === value ? 'primary' : 'secondary'}`}
+            className="nexus-tab"
             onClick={() => onBoxChange(value)}
           >{value === 'incoming' ? 'Recebidas' : value === 'sent' ? 'Enviadas' : 'Histórico'}</button>)}
         </div>
