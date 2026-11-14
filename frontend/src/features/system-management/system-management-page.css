@@ -171,7 +171,8 @@
 
 .system-management-book-open {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto minmax(620px, 1fr);
+  grid-template-rows: auto auto;
+  align-items: stretch;
 }
 
 .system-management-book-open .system-management-book-page {
@@ -182,9 +183,16 @@
 .system-management-book-current-page {
   grid-row: 2;
   min-width: 0;
-  min-height: 620px;
+  min-height: 0;
   align-content: start;
-  padding: clamp(26px, 3.1vw, 46px);
+  padding: clamp(24px, 3vw, 40px);
+  overflow-wrap: anywhere;
+}
+
+.system-management-book-previous-page > *,
+.system-management-book-current-page > * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .system-management-book-previous-page {
@@ -207,14 +215,29 @@
 .system-management-book-current-page {
   grid-column: 2;
   background: linear-gradient(90deg, #0d0c1299, #18151f44 20px, transparent 72px);
+  box-shadow: inset 10px 0 16px -18px #050509;
 }
 
 .system-management-section {
   display: grid;
+  min-width: 0;
   grid-template-columns: minmax(0, 1fr);
   gap: 18px;
   scroll-margin-top: 24px;
   padding: 0;
+}
+
+.system-management-section > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.system-management-book-open .system-management-section :is(p, label, small, span, h2, h3, a, button) {
+  overflow-wrap: anywhere;
+}
+
+.system-management-book-open .system-management-section :is(input, select, textarea) {
+  max-width: 100%;
 }
 
 .system-management-section-heading {
@@ -234,6 +257,7 @@
 }
 
 .system-management-section-heading h2 {
+  min-width: 0;
   margin: 0;
   color: #f0eff7;
   font: 600 clamp(22px, 2.5vw, 30px) 'Outfit', sans-serif;
@@ -252,6 +276,7 @@
 .system-management-section > .experience-admin-card {
   grid-column: 1;
   min-width: 0;
+  max-width: 100%;
   margin: 0;
   color: #f0eff7;
 }
