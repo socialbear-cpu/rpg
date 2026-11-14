@@ -10,6 +10,7 @@ const system = {
   slug: 'forest-system-a1b2c3d4',
   name: 'Forest System',
   description: null,
+  is_active: true,
   is_public: true,
   cover_image_path: null,
   cover_focus_x: 50,
@@ -17,6 +18,7 @@ const system = {
   tags: [],
   play_mode: 'text' as const,
 };
+const archivedSystem = { ...system, name: 'Archived Forest System', is_active: false };
 const definition = {
   version: 1 as const,
   steps: [{ key: 'identity', label: 'Identidade', position: 0, components: [
@@ -61,6 +63,8 @@ let databaseFails: boolean;
 let missingSystem: boolean;
 let updateResult: 'ok' | 'forbidden' | 'not_found' | 'invalid';
 let accessStatus: 'ok' | 'unauthorized' | 'not_found' | 'password_required' | 'invalid_password' | 'rate_limited';
+let membershipsResult: { is_platform_admin: boolean; memberships: { game_system_id: string; game_system_name: string; role: 'owner' | 'mod' | 'user' }[] };
+let lifecycleResult: { status: string; is_active?: boolean };
 
 beforeEach(() => {
   vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
@@ -70,6 +74,8 @@ beforeEach(() => {
   missingSystem = false;
   updateResult = 'ok';
   accessStatus = 'ok';
+  membershipsResult = { is_platform_admin: false, memberships: [] };
+  lifecycleResult = { status: 'archived', is_active: false };
   vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input));
     const method = init?.method ?? 'GET';
@@ -90,6 +96,12 @@ beforeEach(() => {
     }
     if (url.pathname === '/rest/v1/rpc/join_game_system_with_password') {
       return Response.json({ status: missingSystem ? 'not_found' : accessStatus });
+    }
+    if (url.pathname === '/rest/v1/rpc/get_my_system_memberships') {
+      return Response.json(membershipsResult);
+    }
+    if (url.pathname === '/rest/v1/rpc/manage_game_system_lifecycle') {
+      return Response.json(lifecycleResult);
     }
     if (url.pathname === '/rest/v1/rpc/update_game_system_profile') {
       if (updateResult === 'forbidden') return Response.json({ status: 'not_owner', system: null });
@@ -115,7 +127,8 @@ beforeEach(() => {
       return Response.json({ game_system_id: systemId, definition: body && typeof body === 'object' ? (body as { p_definition: unknown }).p_definition : definition });
     }
     if (url.pathname === '/rest/v1/game_systems' && method === 'GET') {
-      return Response.json(missingSystem ? [] : [system]);
+      if (missingSystem) return Response.json([]);
+      return Response.json(url.searchParams.get('is_active') === 'eq.false' ? [archivedSystem] : [system]);
     }
     if (url.pathname === '/rest/v1/game_system_tag_catalog') {
       return Response.json(url.searchParams.has('is_active') ? [] : [{ slug: 'fantasia', label: 'Fantasia' }]);
@@ -137,13 +150,13 @@ afterEach(() => {
   vi.unstubAllEnvs();
 });
 
-async function request(method: 'GET' | 'POST' | 'PUT', url: string, payload?: unknown, authorized = true) {
+async function request(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', url: string, payload?: unknown, authorized = true) {
   const app = buildApp({ nodeEnv: 'test' });
   try {
     return await app.inject({
       method,
       url,
-      headers: { ...(authorized ? { authorization } : {}), 'content-type': 'application/json' },
+      headers: { ...(authorized ? { authorization } : {}), ...(payload === undefined ? {} : { 'content-type': 'application/json' }) },
       ...(payload === undefined ? {} : { payload: JSON.stringify(payload) }),
     });
   } finally {
@@ -168,6 +181,60 @@ describe('game system and character API', () => {
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual({ systems: [system] });
     expect(requests.find(({ url }) => url.pathname === '/rest/v1/game_systems')?.url.searchParams.get('is_active')).toBe('eq.true');
+  });
+
+  it('includes archived systems only for their owners', async () => {
+    membershipsResult.memberships = [{ game_system_id: systemId, game_system_name: system.name, role: 'owner' }];
+    const response = await request('GET', '/api/v1/game-systems?include_archived=true');
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({ systems: [system, archivedSystem] });
+    expect(requests.find(({ url }) => url.pathname === '/rest/v1/game_systems' && url.searchParams.get('is_active') === 'eq.false')?.url.searchParams.get('id')).toBe(`in.(${systemId})`);
+  });
+
+  it('does not request archived systems for players without owner access', async () => {
+    membershipsResult.memberships = [{ game_system_id: systemId, game_system_name: system.name, role: 'user' }];
+    const response = await request('GET', '/api/v1/game-systems?include_archived=true');
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({ systems: [system] });
+    expect(requests.some(({ url }) => url.pathname === '/rest/v1/game_systems' && url.searchParams.get('is_active') === 'eq.false')).toBe(false);
+  });
+
+  it('rejects unknown system list options', async () => {
+    const response = await request('GET', '/api/v1/game-systems?include_archived=invalid');
+    expect(response.statusCode).toBe(400);
+    expect(requests.some(({ url }) => url.pathname.startsWith('/rest/'))).toBe(false);
+  });
+
+  it('allows only owners to deactivate or reactivate a system', async () => {
+    const url = `/api/v1/game-systems/${systemId}/lifecycle`;
+    lifecycleResult = { status: 'archived', is_active: false };
+    const archived = await request('PATCH', url, { action: 'archive' });
+    expect(archived.statusCode).toBe(200);
+    expect(archived.json()).toEqual({ status: 'archived', is_active: false });
+    expect(requests.find(({ url: requestUrl }) => requestUrl.pathname.endsWith('/manage_game_system_lifecycle'))?.body)
+      .toEqual({ p_system_id: systemId, p_action: 'archive' });
+
+    lifecycleResult = { status: 'not_owner' };
+    expect((await request('PATCH', url, { action: 'activate' })).statusCode).toBe(403);
+    lifecycleResult = { status: 'not_found' };
+    expect((await request('PATCH', url, { action: 'archive' })).statusCode).toBe(404);
+    expect((await request('PATCH', url, { action: 'invalid' })).statusCode).toBe(400);
+    expect((await request('PATCH', url, { action: 'archive' }, false)).statusCode).toBe(401);
+  });
+
+  it('permanently deletes a system through the lifecycle RPC', async () => {
+    lifecycleResult = { status: 'deleted' };
+    const response = await request('DELETE', `/api/v1/game-systems/${systemId}`);
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({ status: 'deleted' });
+    expect(requests.find(({ url }) => url.pathname.endsWith('/manage_game_system_lifecycle'))?.body)
+      .toEqual({ p_system_id: systemId, p_action: 'delete' });
+
+    lifecycleResult = { status: 'not_owner' };
+    expect((await request('DELETE', `/api/v1/game-systems/${systemId}`)).statusCode).toBe(403);
+    lifecycleResult = { status: 'not_found' };
+    expect((await request('DELETE', `/api/v1/game-systems/${systemId}`)).statusCode).toBe(404);
+    expect((await request('DELETE', `/api/v1/game-systems/${systemId}`, undefined, false)).statusCode).toBe(401);
   });
 
   it('lists the platform tag options', async () => {

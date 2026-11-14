@@ -584,6 +584,23 @@
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.system-card-archived {
+  border-style: dashed;
+  opacity: .78;
+}
+
+.system-card-disabled {
+  display: block;
+  margin-top: 17px;
+  padding: 12px 13px;
+  border: 1px solid #363340;
+  border-radius: 9px;
+  color: #a4a1ad;
+  background: #1b1b22;
+  font-size: 11px;
+  text-align: center;
+}
+
 .system-card:hover {
   border-color: #51436e;
   box-shadow: 0 15px 32px rgba(0, 0, 0, 0.2);

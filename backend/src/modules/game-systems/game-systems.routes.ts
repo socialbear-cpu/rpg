@@ -11,9 +11,10 @@ import {
   createGameSystem,
   authorizeSystemAccess,
   createSystemCharacter,
-  listActiveGameSystems,
+  listAccessibleGameSystems,
   listSystemTagOptions,
   listSystemCharacters,
+  manageGameSystemLifecycle,
   readGameSystemCharacterSheet,
   updateGameSystem,
 } from './game-systems.repository.js';
@@ -30,11 +31,14 @@ const authOptions = {
 };
 const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
 const systemAccessInputSchema = z.strictObject({ system_password: z.string().max(72).optional() });
+const systemLifecycleInputSchema = z.strictObject({ action: z.enum(['archive', 'activate']) });
+const systemListQuerySchema = z.strictObject({ include_archived: z.enum(['true', 'false']).optional() });
 const systemJsonSchema = {
   type: 'object', required: ['id', 'slug', 'name', 'description', 'is_public', 'cover_image_path', 'cover_focus_x', 'cover_focus_y', 'tags', 'play_mode'], additionalProperties: false,
   properties: {
     id: { type: 'string', format: 'uuid' }, slug: { type: 'string' }, name: { type: 'string' },
     description: { type: ['string', 'null'] },
+    is_active: { type: 'boolean' },
     is_public: { type: 'boolean' },
     cover_image_path: { type: ['string', 'null'] },
     cover_focus_x: { type: 'integer', minimum: 0, maximum: 100 },
@@ -115,6 +119,14 @@ function databaseError(reply: FastifyReply) {
   return reply.code(500).send({ error: 'Unable to access game systems or characters' });
 }
 
+function gameSystemLifecycleDatabaseError(reply: FastifyReply, action: 'update' | 'delete') {
+  return reply.code(500).send({
+    error: action === 'delete'
+      ? 'Não foi possível excluir o sistema.'
+      : 'Não foi possível alterar a disponibilidade do sistema.',
+  });
+}
+
 function systemIdFromParams(params: unknown) {
   const result = systemParamsSchema.safeParse(params);
   return result.success ? result.data.systemId : null;
@@ -143,17 +155,79 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
     ...authOptions,
     schema: {
       ...authOptions.schema,
-      summary: 'List active game systems available to the authenticated user',
+      summary: 'List active game systems, optionally including inactive systems the caller can manage',
+      querystring: {
+        type: 'object',
+        properties: { include_archived: { type: 'string', enum: ['true', 'false'] } },
+        additionalProperties: false,
+      },
       response: {
         200: { type: 'object', required: ['systems'], additionalProperties: false, properties: { systems: { type: 'array', items: systemJsonSchema } } },
-        401: errorSchema, 500: errorSchema,
+        400: errorSchema, 401: errorSchema, 500: errorSchema,
       },
     },
   }, async (request, reply) => {
+    const query = systemListQuerySchema.safeParse(request.query);
+    if (!query.success) return reply.code(400).send({ error: 'Invalid system list options' });
     try {
-      return reply.send(await listActiveGameSystems(request.supabase!));
+      return reply.send(await listAccessibleGameSystems(request.supabase!, query.data.include_archived === 'true'));
     } catch (error) {
       throw error;
+    }
+  });
+
+  app.patch('/api/v1/game-systems/:systemId/lifecycle', {
+    ...authOptions,
+    schema: {
+      ...authOptions.schema,
+      summary: 'Deactivate or reactivate an owned game system',
+      response: {
+        200: { type: 'object', required: ['status', 'is_active'], additionalProperties: false, properties: { status: { type: 'string', enum: ['archived', 'activated'] }, is_active: { type: 'boolean' } } },
+        400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 500: errorSchema,
+      },
+    },
+  }, async (request, reply) => {
+    const systemId = systemIdFromParams(request.params);
+    if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
+    const input = systemLifecycleInputSchema.safeParse(request.body);
+    if (!input.success) return reply.code(400).send({ error: 'Invalid game system lifecycle action' });
+    try {
+      const result = await manageGameSystemLifecycle(request.supabase!, systemId, input.data.action);
+      if (result.status === 'not_found') return reply.code(404).send({ error: 'Sistema de RPG não encontrado.' });
+      if (result.status === 'not_owner') return reply.code(403).send({ error: 'Somente o Owner ou um Admin global pode alterar a disponibilidade.' });
+      if (result.status === 'unauthorized') return reply.code(401).send({ error: 'Unauthorized' });
+      if (result.status !== 'archived' && result.status !== 'activated') return gameSystemLifecycleDatabaseError(reply, 'update');
+      if (result.is_active === undefined) return gameSystemLifecycleDatabaseError(reply, 'update');
+      return reply.send({ status: result.status, is_active: result.is_active });
+    } catch (error) {
+      request.log.error(error);
+      return gameSystemLifecycleDatabaseError(reply, 'update');
+    }
+  });
+
+  app.delete('/api/v1/game-systems/:systemId', {
+    ...authOptions,
+    schema: {
+      ...authOptions.schema,
+      summary: 'Permanently delete an owned game system and its data',
+      response: {
+        200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'deleted' } } },
+        400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 500: errorSchema,
+      },
+    },
+  }, async (request, reply) => {
+    const systemId = systemIdFromParams(request.params);
+    if (!systemId) return reply.code(400).send({ error: 'Invalid game system ID' });
+    try {
+      const result = await manageGameSystemLifecycle(request.supabase!, systemId, 'delete');
+      if (result.status === 'not_found') return reply.code(404).send({ error: 'Sistema de RPG não encontrado.' });
+      if (result.status === 'not_owner') return reply.code(403).send({ error: 'Somente o Owner ou um Admin global pode excluir este sistema.' });
+      if (result.status === 'unauthorized') return reply.code(401).send({ error: 'Unauthorized' });
+      if (result.status !== 'deleted') return gameSystemLifecycleDatabaseError(reply, 'delete');
+      return reply.send({ status: 'deleted' });
+    } catch (error) {
+      request.log.error(error);
+      return gameSystemLifecycleDatabaseError(reply, 'delete');
     }
   });
 

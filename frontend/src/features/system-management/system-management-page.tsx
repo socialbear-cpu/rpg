@@ -11,6 +11,9 @@ import {
   saveOwnerDailyLoginCalendar,
   saveOwnerExperienceSettings,
   setSystemModerator,
+  deleteGameSystem,
+  deleteGameSystemCover,
+  updateGameSystemLifecycle,
   type DailyLoginOwnerCalendar,
   type DailyLoginSystemView,
   type ExperienceSettingsInput,
@@ -56,6 +59,10 @@ export function SystemManagementPage() {
   const [membershipBusy, setMembershipBusy] = useState(false);
   const [membershipMessage, setMembershipMessage] = useState<string | null>(null);
   const [membershipMessageIsError, setMembershipMessageIsError] = useState(false);
+  const [lifecycleBusy, setLifecycleBusy] = useState(false);
+  const [lifecycleMessage, setLifecycleMessage] = useState<string | null>(null);
+  const [lifecycleMessageIsError, setLifecycleMessageIsError] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState('');
   const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
@@ -72,7 +79,7 @@ export function SystemManagementPage() {
 
     async function load() {
       try {
-        const [systems, memberships, allSystems] = await Promise.all([getMyDailyLoginSystems(), getMySystemMemberships(), getGameSystems()]);
+        const [systems, memberships, allSystems] = await Promise.all([getMyDailyLoginSystems(), getMySystemMemberships(), getGameSystems({ includeArchived: true })]);
         if (!active) return;
         const view = systems.find((entry) => entry.system.id === systemId);
         setManageableSystems(systems.filter((entry) => entry.can_manage));
@@ -181,6 +188,55 @@ export function SystemManagementPage() {
     } finally { setMembershipBusy(false); }
   }
 
+  async function changeSystemAvailability() {
+    if (!systemView || !canEditOwnerSettings) return;
+    const action = systemView.system.is_active ? 'archive' : 'activate';
+    if (action === 'archive' && !window.confirm(`Desativar "${systemView.system.name}"? Os dados serão preservados e o sistema poderá ser reativado depois.`)) return;
+    setLifecycleBusy(true);
+    setLifecycleMessage(null);
+    try {
+      const result = await updateGameSystemLifecycle(systemId, action);
+      setSystemView((current) => current ? { ...current, system: { ...current.system, is_active: result.is_active } } : current);
+      setManageableSystems((current) => current.map((entry) => entry.system.id === systemId
+        ? { ...entry, system: { ...entry.system, is_active: result.is_active } }
+        : entry));
+      setGameSystem((current) => current ? { ...current, is_active: result.is_active } : current);
+      setLifecycleMessage(result.is_active ? 'Sistema reativado; ele voltou a ficar disponível para os jogadores.' : 'Sistema desativado. Os dados foram preservados.');
+      setLifecycleMessageIsError(false);
+    } catch (error) {
+      setLifecycleMessage(error instanceof Error ? error.message : 'Não foi possível alterar a disponibilidade do sistema.');
+      setLifecycleMessageIsError(true);
+    } finally {
+      setLifecycleBusy(false);
+    }
+  }
+
+  async function permanentlyDeleteSystem(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!systemView || !canEditOwnerSettings || deleteConfirmation.trim() !== systemView.system.name) return;
+    setLifecycleBusy(true);
+    setLifecycleMessage(null);
+    let coverRemoved = false;
+    try {
+      if (gameSystem?.cover_image_path) {
+        await deleteGameSystemCover(gameSystem.cover_image_path);
+        coverRemoved = true;
+      }
+      await deleteGameSystem(systemId);
+      router.replace('/dashboard');
+    } catch (error) {
+      if (coverRemoved) {
+        setGameSystem((current) => current ? { ...current, cover_image_path: null } : current);
+        setLifecycleMessage('A imagem de capa foi removida, mas o sistema não foi excluído. Você pode tentar novamente ou enviar outra capa.');
+      } else {
+        setLifecycleMessage(error instanceof Error ? error.message : 'Não foi possível excluir o sistema.');
+      }
+      setLifecycleMessageIsError(true);
+    } finally {
+      setLifecycleBusy(false);
+    }
+  }
+
   const selectedManageable = manageableSystems.find((entry) => entry.system.id === systemId);
   const membershipsForSystem = access ? { ...access, memberships: access.memberships.filter((membership) => membership.game_system_id === systemId) } : null;
   const canEditOwnerSettings = Boolean(access?.is_platform_admin || access?.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner'));
@@ -247,9 +303,38 @@ export function SystemManagementPage() {
           <div className="system-management-sheet-editor">
             <div><h3>Informações básicas</h3><p>Atualize o nome e a descrição do sistema.</p></div>
             {canEditOwnerSettings
-              ? editorSystem && <SystemDetailsEditor key={systemId} system={editorSystem} onSaved={updateSystemDetails} />
+              ? editorSystem && <SystemDetailsEditor key={`${systemId}-${editorSystem.cover_image_path ?? 'no-cover'}`} system={editorSystem} onSaved={updateSystemDetails} />
               : <p>Somente o Owner do sistema pode editar estas informações.</p>}
           </div>
+          <section className="system-management-lifecycle" aria-label="Disponibilidade do sistema">
+            <div>
+              <span className="system-management-eyebrow">ACESSO DOS JOGADORES</span>
+              <h3>{systemView.system.is_active ? 'Sistema ativo' : 'Sistema desativado'}</h3>
+              <p>{systemView.system.is_active
+                ? 'Desativar oculta o sistema para novos jogadores, sem apagar campanhas, personagens ou configurações.'
+                : 'O sistema está oculto para os jogadores. Reative-o para permitir novos acessos.'}</p>
+            </div>
+            {canEditOwnerSettings && <button className="button secondary" type="button" disabled={lifecycleBusy} onClick={() => void changeSystemAvailability()}>
+              {lifecycleBusy ? 'Salvando...' : systemView.system.is_active ? 'Desativar sistema' : 'Reativar sistema'}
+            </button>}
+          </section>
+          <section className="system-management-danger-zone" aria-label="Excluir sistema permanentemente">
+            <div>
+              <span className="system-management-eyebrow">AÇÃO IRREVERSÍVEL</span>
+              <h3>Excluir sistema e dados</h3>
+              <p>Apaga permanentemente este sistema, suas campanhas, personagens, inventários, itens, compras e históricos relacionados. Essa ação não pode ser desfeita.</p>
+            </div>
+            {canEditOwnerSettings
+              ? <form onSubmit={(event) => void permanentlyDeleteSystem(event)}>
+                <label htmlFor="delete-system-confirmation">Digite <strong>{systemView.system.name}</strong> para confirmar</label>
+                <input id="delete-system-confirmation" value={deleteConfirmation} onChange={(event) => setDeleteConfirmation(event.target.value)} autoComplete="off" required disabled={lifecycleBusy} />
+                <button className="system-management-delete-button" type="submit" disabled={lifecycleBusy || deleteConfirmation.trim() !== systemView.system.name}>
+                  {lifecycleBusy ? 'Excluindo...' : 'Excluir sistema definitivamente'}
+                </button>
+              </form>
+              : <p>Somente o Owner do sistema ou um Admin global pode excluir este sistema.</p>}
+          </section>
+          {lifecycleMessage && <p className={lifecycleMessageIsError ? 'system-management-lifecycle-error' : 'system-management-lifecycle-success'} role={lifecycleMessageIsError ? 'alert' : 'status'}>{lifecycleMessage}</p>}
         </section>}
       </>}
     </div>

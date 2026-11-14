@@ -24,7 +24,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const [isPlatformAdmin, setIsPlatformAdmin] = useState(false);
 
   useEffect(() => {
-    getGameSystems()
+    getGameSystems({ includeArchived: true })
       .then(({ systems: loadedSystems }) => setSystems(loadedSystems))
       .catch(() => setSystemsError('Não foi possível carregar seus sistemas.'))
       .finally(() => setSystemsLoading(false));

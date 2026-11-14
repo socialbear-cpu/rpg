@@ -106,6 +106,7 @@ export interface GameSystem {
   slug: string;
   name: string;
   description: string | null;
+  is_active?: boolean;
   is_public?: boolean;
   cover_image_path?: string | null;
   cover_focus_x?: number;
@@ -466,8 +467,9 @@ export function getMyProfile() {
   return profileRequest('/api/v1/me/profile') as Promise<Profile>;
 }
 
-export function getGameSystems() {
-  return authenticatedRequest<{ systems: GameSystem[] }>('/api/v1/game-systems');
+export function getGameSystems(options: { includeArchived?: boolean } = {}) {
+  const query = options.includeArchived ? '?include_archived=true' : '';
+  return authenticatedRequest<{ systems: GameSystem[] }>(`/api/v1/game-systems${query}`);
 }
 
 export function createGameSystem(input: CreateGameSystemInput) {
@@ -483,6 +485,19 @@ export function getGameSystemTagOptions() {
 export function updateGameSystem(systemId: string, input: UpdateGameSystemInput) {
   return authenticatedRequest<{ system: GameSystem }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}`, {
     method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  });
+}
+
+export function updateGameSystemLifecycle(systemId: string, action: 'archive' | 'activate') {
+  return authenticatedRequest<{ status: 'archived' | 'activated'; is_active: boolean }>(
+    `/api/v1/game-systems/${encodeURIComponent(systemId)}/lifecycle`,
+    { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action }) },
+  );
+}
+
+export function deleteGameSystem(systemId: string) {
+  return authenticatedRequest<{ status: 'deleted' }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}`, {
+    method: 'DELETE',
   });
 }
 

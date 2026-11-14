@@ -159,6 +159,105 @@
   background: #191521;
 }
 
+.system-management-lifecycle,
+.system-management-danger-zone {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #343040;
+  border-radius: 14px;
+  background: #171922;
+}
+
+.system-management-lifecycle h3,
+.system-management-danger-zone h3 {
+  margin: 0;
+  color: #f0eff7;
+  font: 600 18px 'Outfit', sans-serif;
+}
+
+.system-management-lifecycle p,
+.system-management-danger-zone p {
+  margin: 8px 0 0;
+  color: #a4a5b4;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.system-management-lifecycle .system-management-eyebrow,
+.system-management-danger-zone .system-management-eyebrow {
+  display: block;
+}
+
+.system-management-danger-zone {
+  align-items: flex-start;
+  border-color: #59343e;
+  background: linear-gradient(145deg, #21181d, #171922);
+}
+
+.system-management-danger-zone > div {
+  max-width: 470px;
+}
+
+.system-management-danger-zone form {
+  display: grid;
+  flex: 0 1 330px;
+  gap: 10px;
+}
+
+.system-management-danger-zone label {
+  color: #d3ced9;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.system-management-danger-zone input {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #494052;
+  border-radius: 8px;
+  color: #f0eff7;
+  background: #11121b;
+}
+
+.system-management-danger-zone input:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+}
+
+.system-management-delete-button {
+  min-height: 42px;
+  padding: 9px 13px;
+  border: 1px solid #a34a59;
+  border-radius: 8px;
+  color: #ffe9ec;
+  background: #6b2735;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.system-management-delete-button:hover:not(:disabled) {
+  background: #843044;
+}
+
+.system-management-delete-button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.system-management-lifecycle-error,
+.system-management-lifecycle-success {
+  grid-column: 2;
+}
+
+.system-management-lifecycle-error { color: #ff9aab !important; }
+.system-management-lifecycle-success { color: #8ddbb2 !important; }
+
 .system-management-sheet-editor h3 {
   margin: 8px 0 0;
   color: #f4f1fa;
@@ -171,7 +270,12 @@
 .system-details-editor-actions { display: flex; justify-content: flex-end; margin-top: 20px; }
 
 @media (max-width: 600px) {
-  .system-management-sheet-editor { padding: 22px 17px; }
+  .system-management-sheet-editor,
+  .system-management-lifecycle,
+  .system-management-danger-zone { padding: 22px 17px; }
+  .system-management-lifecycle,
+  .system-management-danger-zone { align-items: stretch; flex-direction: column; }
+  .system-management-danger-zone form { flex-basis: auto; }
   .system-details-editor-actions > button { width: 100%; }
 }
 
@@ -205,5 +309,9 @@
   .system-management-section > .daily-login-admin-card,
   .system-management-section > .experience-admin-card,
   .system-management-sheet-editor,
+  .system-management-lifecycle,
+  .system-management-danger-zone,
+  .system-management-lifecycle-error,
+  .system-management-lifecycle-success,
   .system-management-future > p { grid-column: 1; }
 }

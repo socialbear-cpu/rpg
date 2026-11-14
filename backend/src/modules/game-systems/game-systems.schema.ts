@@ -257,6 +257,7 @@ export const storedGameSystemSchema = z.strictObject({
   slug: z.string(),
   name: z.string(),
   description: z.string().nullable(),
+  is_active: z.boolean().optional(),
   is_public: z.boolean().default(true),
   cover_image_path: z.string().nullable().default(null),
   cover_focus_x: z.number().int().min(0).max(100).default(50),
@@ -273,6 +274,11 @@ export const gameSystemSchema = z.strictObject({
 export const updateGameSystemResultSchema = z.strictObject({
   status: z.enum(['updated', 'not_owner', 'not_found', 'password_required', 'password_too_short', 'password_too_long', 'invalid_details']),
   system: storedGameSystemSchema.nullable(),
+});
+
+export const gameSystemLifecycleResultSchema = z.strictObject({
+  status: z.enum(['archived', 'activated', 'deleted', 'not_owner', 'not_found', 'invalid_action', 'unauthorized']),
+  is_active: z.boolean().optional(),
 });
 
 export const joinGameSystemResultSchema = z.strictObject({ status: z.enum(['ok', 'unauthorized', 'not_found', 'password_required', 'invalid_password', 'rate_limited']) });

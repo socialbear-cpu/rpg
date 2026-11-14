@@ -4,6 +4,7 @@ import {
   createGameSystemResultSchema,
   createSystemCharacterResultSchema,
   gameSystemSchema,
+  gameSystemLifecycleResultSchema,
   gameSystemsResponseSchema,
   joinGameSystemResultSchema,
   storedGameSystemSchema,
@@ -14,8 +15,9 @@ import {
   type CreateSystemInput,
   type UpdateGameSystemInput,
 } from './game-systems.schema.js';
+import { readMySystemMemberships } from '../system-membership/system-membership.repository.js';
 
-const systemColumns = 'id,slug,name,description,is_public,cover_image_path,cover_focus_x,cover_focus_y,tags,play_mode';
+const systemColumns = 'id,slug,name,description,is_active,is_public,cover_image_path,cover_focus_x,cover_focus_y,tags,play_mode';
 const characterColumns = 'id,game_system_id,character_name,attributes,status';
 
 async function getTagOptions(client: SupabaseClient, activeOnly = false) {
@@ -46,13 +48,43 @@ async function parseGameSystem(client: SupabaseClient, value: unknown) {
   return result.data;
 }
 
-export async function listActiveGameSystems(client: SupabaseClient) {
-  const { data, error } = await client.from('game_systems')
+export async function manageGameSystemLifecycle(
+  client: SupabaseClient,
+  systemId: string,
+  action: 'archive' | 'activate' | 'delete',
+) {
+  const { data, error } = await client.rpc('manage_game_system_lifecycle', {
+    p_system_id: systemId,
+    p_action: action,
+  });
+  if (error) throw error;
+  const result = gameSystemLifecycleResultSchema.safeParse(data);
+  if (!result.success) throw new Error('Invalid game system lifecycle response');
+  return result.data;
+}
+
+export async function listAccessibleGameSystems(client: SupabaseClient, includeArchived = false) {
+  const { data: activeSystems, error } = await client.from('game_systems')
     .select(systemColumns).eq('is_active', true).order('name');
   if (error) throw error;
+  let archivedSystems: typeof activeSystems = [];
+  if (includeArchived) {
+    const access = await readMySystemMemberships(client);
+    const ownerSystemIds = access.memberships
+      .filter((membership) => membership.role === 'owner')
+      .map((membership) => membership.game_system_id);
+    if (access.is_platform_admin || ownerSystemIds.length > 0) {
+      let archivedQuery = client.from('game_systems')
+        .select(systemColumns).eq('is_active', false);
+      if (!access.is_platform_admin) archivedQuery = archivedQuery.in('id', ownerSystemIds);
+      const result = await archivedQuery.order('name');
+      if (result.error) throw result.error;
+      archivedSystems = result.data ?? [];
+    }
+  }
   const options = await getTagOptions(client);
   const labels = new Map(options.map(({ slug, label }) => [slug, label]));
-  const systems = (data ?? []).map((value) => {
+  const systems = [...(activeSystems ?? []), ...archivedSystems].map((value) => {
     const stored = storedGameSystemSchema.safeParse(value);
     if (!stored.success) throw new Error('Invalid game system response');
     return {
