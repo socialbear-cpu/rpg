@@ -206,6 +206,25 @@
 .system-creation-label > span { color: #988da4; font-weight: 400; }
 .system-creation-label input, .system-creation-label textarea { width: 100%; padding: 13px 14px; border: 1px solid #40364f; border-radius: 9px; color: #f5f1fb; background: #110e18; font: inherit; resize: vertical; }
 .system-creation-label input:focus, .system-creation-label textarea:focus { outline: 2px solid #9872d1; outline-offset: 1px; }
+.system-presentation-fields { display: grid; gap: 20px; margin-top: 24px; }
+.system-presentation-fields fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.system-presentation-fields legend { color: #e4ddeb; font-size: 14px; font-weight: 600; }
+.system-presentation-fields legend span { color: #988da4; font-weight: 400; }
+.system-presentation-fields fieldset > p { margin: 6px 0 12px; color: #a9a0b4; font-size: 12px; }
+.system-presentation-mode > div { display: flex; flex-wrap: wrap; gap: 10px; }
+.system-presentation-mode label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 13px; border: 1px solid #40364f; border-radius: 9px; color: #e6deef; background: #17131f; cursor: pointer; }
+.system-presentation-mode input { accent-color: #a27adb; }
+.system-tag-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.system-tag-option { padding: 7px 10px; border: 1px solid #40364f; border-radius: 999px; color: #c8bdD5; background: #17131f; font: inherit; font-size: 12px; cursor: pointer; }
+.system-tag-option.is-selected { border-color: #9c79c7; color: #f3eaff; background: #352647; }
+.system-tag-option:disabled { opacity: .45; cursor: not-allowed; }
+.system-presentation-tags > small { display: block; margin-top: 8px; color: #a9a0b4; font-size: 11px; }
+.system-cover-preview { display: grid; gap: 10px; margin-top: 12px; }
+.system-cover-preview > img { width: min(100%, 520px); aspect-ratio: 16 / 9; border: 1px solid #40364f; border-radius: 10px; object-fit: cover; background: #17131f; }
+.system-cover-preview > button { justify-self: start; }
+.system-cover-focus { display: grid; gap: 4px; max-width: 520px; color: #c8bdD5; font-size: 12px; }
+.system-cover-focus input { accent-color: #a27adb; }
+.system-cover-empty { margin: 8px 0 0; color: #a9a0b4; font-size: 12px; }
 .system-creation-panel > .primary-button { margin-top: 26px; }
 .secondary-button { padding: 11px 17px; border: 1px solid #544865; border-radius: 9px; color: #e5dcf0; background: transparent; cursor: pointer; }
 .system-creation-sheet-panel { max-width: 1000px; }

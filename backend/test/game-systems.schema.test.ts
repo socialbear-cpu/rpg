@@ -160,9 +160,11 @@ describe('versioned character-sheet definitions', () => {
 
 describe('system and character input schemas', () => {
   it('trims and bounds system and character names while accepting an optional description', () => {
-    expect(createSystemInputSchema.safeParse({ name: '  Meu Sistema  ', definition }).success).toBe(true);
-    expect(createSystemInputSchema.safeParse({ name: '  ', definition }).success).toBe(false);
-    expect(createSystemInputSchema.safeParse({ name: 'A'.repeat(81), definition }).success).toBe(false);
+    const presentation = { play_mode: 'text', tags: [] };
+    expect(createSystemInputSchema.safeParse({ name: '  Meu Sistema  ', definition, ...presentation }).success).toBe(true);
+    expect(createSystemInputSchema.safeParse({ name: '  Meu Sistema  ', definition, tags: [] }).success).toBe(false);
+    expect(createSystemInputSchema.safeParse({ name: '  ', definition, ...presentation }).success).toBe(false);
+    expect(createSystemInputSchema.safeParse({ name: 'A'.repeat(81), definition, ...presentation }).success).toBe(false);
     expect(createCharacterInputSchema.safeParse({ character_name: '  Liora  ', attributes: {} }).success).toBe(true);
     expect(createCharacterInputSchema.safeParse({ character_name: '  ', attributes: {} }).success).toBe(false);
   });

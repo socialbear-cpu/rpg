@@ -147,7 +147,7 @@ describe('character sheet builder', () => {
 describe('system dashboard and creation', () => {
   it('lists owned systems with entry and management actions plus a create action', () => {
     const html = renderToStaticMarkup(createElement(SystemsSection, {
-      systems: [{ id: 'sys-1', slug: 'fantasia', name: 'Fantasia', description: null }],
+      systems: [{ id: 'sys-1', slug: 'fantasia', name: 'Fantasia', description: null, play_mode: 'voice', tags: [{ slug: 'terror', label: 'Terror' }] }],
       loading: false,
       error: null,
       onCreate: vi.fn(),
@@ -156,6 +156,8 @@ describe('system dashboard and creation', () => {
       onManage: vi.fn(),
     }));
     expect(html).toContain('Fantasia');
+    expect(html).toContain('◉ Voz');
+    expect(html).toContain('Terror');
     expect(html).toContain('Entrar no sistema Fantasia');
     expect(html).toContain('Criar sistema');
     expect(html).toContain('Gerenciar Fantasia');
@@ -168,18 +170,22 @@ describe('system dashboard and creation', () => {
     const html = renderToStaticMarkup(createElement(SystemCreationWizard, { createSystem, push }));
     expect(html).toContain('Nome do sistema');
     expect(html).toContain('Descrição');
+    expect(html).toContain('Modalidade principal');
+    expect(html).toContain('Etiquetas');
     expect(html).toContain('Continuar para ficha');
   });
 
   it('edits the same basic system fields used during creation', () => {
     const html = renderToStaticMarkup(createElement(SystemDetailsEditor, {
-      system: { id: 'sys-1', name: 'Meu Sistema', description: 'Uma descrição' },
+      system: { id: 'sys-1', name: 'Meu Sistema', description: 'Uma descrição', play_mode: 'voice', tags: [{ slug: 'fantasia', label: 'Fantasia' }] },
       onSaved: vi.fn(),
     }));
     expect(html).toContain('Nome do sistema');
     expect(html).toContain('Descrição');
     expect(html).toContain('value="Meu Sistema"');
     expect(html).toContain('Uma descrição');
+    expect(html).toContain('RPG');
+    expect(html).toContain('Modalidade principal');
     expect(html).toContain('Salvar informações');
   });
 });

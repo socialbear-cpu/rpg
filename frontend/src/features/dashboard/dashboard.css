@@ -671,6 +671,9 @@
   background-size: cover;
 }
 
+.system-card-art.has-cover { background: #17131f; }
+.system-card-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
 .system-card-settings {
   position: absolute;
   top: 12px;
@@ -764,6 +767,11 @@
 .system-card-content {
   padding: 18px 20px 19px;
 }
+
+.system-card-metadata { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; }
+.system-card-mode,
+.system-card-tag { width: fit-content; padding: 4px 8px; border: 1px solid #494052; border-radius: 999px; color: #d8c9ec; background: #211b2b; font-size: 10px; line-height: 1.3; }
+.system-card-mode { color: #eee3fb; border-color: #655180; }
 
 .system-card-eyebrow {
   color: var(--purple-light);

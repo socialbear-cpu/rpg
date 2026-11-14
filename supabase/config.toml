@@ -7,6 +7,9 @@ schemas = ["public", "graphql_public"]
 extra_search_path = ["public", "extensions"]
 max_rows = 1000
 
+[storage]
+enabled = true
+
 [db]
 port = 54322
 shadow_port = 54320

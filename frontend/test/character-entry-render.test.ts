@@ -24,7 +24,9 @@ const character: SystemCharacter = {
 describe('character entry', () => {
   it('shows the system gallery, card fields, and character actions', () => {
     const html = renderToStaticMarkup(createElement(CharacterGallery, {
-      systemName: 'Crônicas', fields, characters: [character], selectedCharacterId: character.id, onCreate: vi.fn(), onEnter: vi.fn(),
+      systemName: 'Crônicas',
+      system: { id: 'sys-1', slug: 'cronicas', name: 'Crônicas', description: 'Uma aventura sombria.', play_mode: 'voice', tags: [{ slug: 'terror', label: 'Terror' }] },
+      fields, characters: [character], selectedCharacterId: character.id, onCreate: vi.fn(), onEnter: vi.fn(),
     }));
     expect(html).toContain('Crônicas');
     expect(html).toContain('Ayla');
@@ -32,6 +34,9 @@ describe('character entry', () => {
     expect(html).toContain('PERSONAGEM CRIADO');
     expect(html).toContain('Entrar com Ayla');
     expect(html).toContain('Criar personagem');
+    expect(html).toContain('RPG por voz');
+    expect(html).toContain('Uma aventura sombria.');
+    expect(html).toContain('Terror');
   });
 
   it('starts the wizard with the required character-name page', () => {

@@ -6,6 +6,8 @@ import {
   gameSystemSchema,
   gameSystemsResponseSchema,
   joinGameSystemResultSchema,
+  storedGameSystemSchema,
+  systemTagOptionsResponseSchema,
   systemCharactersResponseSchema,
   updateGameSystemResultSchema,
   type CreateCharacterInput,
@@ -13,46 +15,97 @@ import {
   type UpdateGameSystemInput,
 } from './game-systems.schema.js';
 
-const systemColumns = 'id,slug,name,description,is_public';
+const systemColumns = 'id,slug,name,description,is_public,cover_image_path,cover_focus_x,cover_focus_y,tags,play_mode';
 const characterColumns = 'id,game_system_id,character_name,attributes,status';
+
+async function getTagOptions(client: SupabaseClient, activeOnly = false) {
+  let query = client.from('game_system_tag_catalog').select('slug,label');
+  if (activeOnly) query = query.eq('is_active', true);
+  const { data, error } = await query.order('sort_order');
+  if (error) throw error;
+  const result = systemTagOptionsResponseSchema.safeParse({ tags: data ?? [] });
+  if (!result.success) throw new Error('Invalid system tag options response');
+  return result.data.tags;
+}
+
+async function parseGameSystem(client: SupabaseClient, value: unknown) {
+  const stored = storedGameSystemSchema.safeParse(value);
+  if (!stored.success) throw new Error('Invalid game system response');
+  const options = await getTagOptions(client);
+  const labels = new Map(options.map(({ slug, label }) => [slug, label]));
+  const mapped = {
+    ...stored.data,
+    tags: stored.data.tags.map((slug) => {
+      const label = labels.get(slug);
+      if (!label) throw new Error('Unknown system tag in database');
+      return { slug, label };
+    }),
+  };
+  const result = gameSystemSchema.safeParse(mapped);
+  if (!result.success) throw new Error('Invalid game system response');
+  return result.data;
+}
 
 export async function listActiveGameSystems(client: SupabaseClient) {
   const { data, error } = await client.from('game_systems')
     .select(systemColumns).eq('is_active', true).order('name');
   if (error) throw error;
-  const result = gameSystemsResponseSchema.safeParse({ systems: data ?? [] });
+  const options = await getTagOptions(client);
+  const labels = new Map(options.map(({ slug, label }) => [slug, label]));
+  const systems = (data ?? []).map((value) => {
+    const stored = storedGameSystemSchema.safeParse(value);
+    if (!stored.success) throw new Error('Invalid game system response');
+    return {
+      ...stored.data,
+      tags: stored.data.tags.map((slug) => {
+        const label = labels.get(slug);
+        if (!label) throw new Error('Unknown system tag in database');
+        return { slug, label };
+      }),
+    };
+  });
+  const result = gameSystemsResponseSchema.safeParse({ systems });
   if (!result.success) throw new Error('Invalid game systems response');
   return result.data;
 }
 
+export async function listSystemTagOptions(client: SupabaseClient) {
+  return { tags: await getTagOptions(client, true) };
+}
+
 export async function createGameSystem(client: SupabaseClient, input: CreateSystemInput) {
-  const { data, error } = await client.rpc('create_game_system_with_sheet', {
+  const { data, error } = await client.rpc('create_game_system_with_metadata', {
     p_name: input.name,
     p_description: input.description ?? null,
     p_fields: input.definition,
+    p_play_mode: input.play_mode,
+    p_tags: input.tags,
   });
   if (error) throw error;
   const result = createGameSystemResultSchema.safeParse(data);
   if (!result.success) throw new Error('Invalid game system creation response');
-  return { system: result.data.system, definition: result.data.definition };
+  return { system: await parseGameSystem(client, result.data.system), definition: result.data.definition };
 }
 
 export async function updateGameSystem(client: SupabaseClient, systemId: string, input: UpdateGameSystemInput) {
-  const { data, error } = await client.rpc('update_game_system_access_settings', {
+  const { data, error } = await client.rpc('update_game_system_profile', {
     p_system_id: systemId,
     p_name: input.name,
     p_description: input.description,
     p_is_public: input.is_public,
     p_password: input.password ?? null,
+    p_play_mode: input.play_mode,
+    p_tags: input.tags,
+    p_cover_image_path: input.cover_image_path,
+    p_cover_focus_x: input.cover_focus_x,
+    p_cover_focus_y: input.cover_focus_y,
   });
   if (error) throw error;
   const result = updateGameSystemResultSchema.safeParse(data);
   if (!result.success) throw new Error('Invalid updated game system response');
   if (result.data.status !== 'updated') return { status: result.data.status, system: null } as const;
   if (!result.data.system) throw new Error('Missing updated game system details');
-  const system = gameSystemSchema.safeParse(result.data.system);
-  if (!system.success) throw new Error('Invalid updated game system details');
-  return { status: 'updated', system: system.data } as const;
+  return { status: 'updated', system: await parseGameSystem(client, result.data.system) } as const;
 }
 
 export async function authorizeSystemAccess(client: SupabaseClient, systemId: string, password?: string) {

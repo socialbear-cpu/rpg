@@ -26,10 +26,12 @@ SELECT ok(
 );
 
 SELECT is(
-  public.create_game_system_with_sheet(
+  public.create_game_system_with_metadata(
     'Visual Sheet Test',
     NULL,
-    '{"version":1,"steps":[{"key":"identity","label":"Identidade","position":0,"components":[],"elements":[{"key":"portrait","type":"image","image_url":"https://cdn.example/portrait.jpg","description":"Retrato","x":60,"y":5,"width":30,"height":40,"rotation":0}]}]}'::jsonb
+    '{"version":1,"steps":[{"key":"identity","label":"Identidade","position":0,"components":[],"elements":[{"key":"portrait","type":"image","image_url":"https://cdn.example/portrait.jpg","description":"Retrato","x":60,"y":5,"width":30,"height":40,"rotation":0}]}]}'::jsonb,
+    'text',
+    ARRAY[]::TEXT[]
   )->>'status',
   'created',
   'creates a system whose sheet contains positioned visual elements'

@@ -5,7 +5,18 @@ const userId = '27000000-0000-4000-8000-000000000001';
 const systemId = '37000000-0000-4000-8000-000000000001';
 const characterId = '57000000-0000-4000-8000-000000000001';
 const authorization = 'Bearer accepted-token';
-const system = { id: systemId, slug: 'forest-system-a1b2c3d4', name: 'Forest System', description: null, is_public: true };
+const system = {
+  id: systemId,
+  slug: 'forest-system-a1b2c3d4',
+  name: 'Forest System',
+  description: null,
+  is_public: true,
+  cover_image_path: null,
+  cover_focus_x: 50,
+  cover_focus_y: 50,
+  tags: [],
+  play_mode: 'text' as const,
+};
 const definition = {
   version: 1 as const,
   steps: [{ key: 'identity', label: 'Identidade', position: 0, components: [
@@ -74,17 +85,28 @@ beforeEach(() => {
     }
     if (databaseFails) return Response.json({ message: 'private database detail', code: 'XX000' }, { status: 500 });
 
-    if (url.pathname === '/rest/v1/rpc/create_game_system_with_sheet') {
+    if (url.pathname === '/rest/v1/rpc/create_game_system_with_metadata') {
       return Response.json({ status: 'created', system, definition: (body as { p_fields?: unknown } | null)?.p_fields ?? definition });
     }
     if (url.pathname === '/rest/v1/rpc/join_game_system_with_password') {
       return Response.json({ status: missingSystem ? 'not_found' : accessStatus });
     }
-    if (url.pathname === '/rest/v1/rpc/update_game_system_access_settings') {
+    if (url.pathname === '/rest/v1/rpc/update_game_system_profile') {
       if (updateResult === 'forbidden') return Response.json({ status: 'not_owner', system: null });
       if (updateResult === 'not_found') return Response.json({ status: 'not_found', system: null });
-      const payload = body as { p_name: string; p_description: string | null; p_is_public: boolean };
-      return Response.json({ status: 'updated', system: { ...system, name: payload.p_name, description: payload.p_description, is_public: payload.p_is_public } });
+      if (updateResult === 'invalid') return Response.json({ status: 'invalid_details', system: null });
+      const payload = body as { p_name: string; p_description: string | null; p_is_public: boolean; p_play_mode: 'text' | 'voice'; p_tags: string[]; p_cover_image_path: string | null; p_cover_focus_x: number; p_cover_focus_y: number };
+      return Response.json({ status: 'updated', system: {
+        ...system,
+        name: payload.p_name,
+        description: payload.p_description,
+        is_public: payload.p_is_public,
+        play_mode: payload.p_play_mode,
+        tags: payload.p_tags,
+        cover_image_path: payload.p_cover_image_path,
+        cover_focus_x: payload.p_cover_focus_x,
+        cover_focus_y: payload.p_cover_focus_y,
+      } });
     }
     if (url.pathname === '/rest/v1/rpc/update_game_system_character_sheet') {
       if (updateResult === 'forbidden') return Response.json({ message: 'Only system owner', code: '42501' }, { status: 403 });
@@ -94,6 +116,9 @@ beforeEach(() => {
     }
     if (url.pathname === '/rest/v1/game_systems' && method === 'GET') {
       return Response.json(missingSystem ? [] : [system]);
+    }
+    if (url.pathname === '/rest/v1/game_system_tag_catalog') {
+      return Response.json(url.searchParams.has('is_active') ? [] : [{ slug: 'fantasia', label: 'Fantasia' }]);
     }
     if (url.pathname === '/rest/v1/game_system_character_sheets') {
       if (missingSystem) {
@@ -127,6 +152,17 @@ async function request(method: 'GET' | 'POST' | 'PUT', url: string, payload?: un
 }
 
 describe('game system and character API', () => {
+  const systemSettings = {
+    name: 'Updated System',
+    description: 'Updated description',
+    is_public: true,
+    play_mode: 'voice' as const,
+    tags: ['fantasia'],
+    cover_image_path: null,
+    cover_focus_x: 50,
+    cover_focus_y: 50,
+  };
+
   it('lists active systems visible to the caller', async () => {
     const response = await request('GET', '/api/v1/game-systems');
     expect(response.statusCode).toBe(200);
@@ -134,40 +170,65 @@ describe('game system and character API', () => {
     expect(requests.find(({ url }) => url.pathname === '/rest/v1/game_systems')?.url.searchParams.get('is_active')).toBe('eq.true');
   });
 
-  it('creates a system and its sheet through one RPC', async () => {
-    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', description: null, definition });
-    expect(response.statusCode).toBe(201);
-    expect(response.json()).toEqual({ system, definition });
-    const rpc = requests.find(({ url }) => url.pathname.endsWith('/create_game_system_with_sheet'))!;
-    expect(rpc.body).toEqual({ p_name: 'Forest System', p_description: null, p_fields: definition });
+  it('lists the platform tag options', async () => {
+    const response = await request('GET', '/api/v1/game-system-tags');
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({ tags: [] });
   });
 
-  it('updates system name and description for its owner', async () => {
-    const response = await request('PUT', `/api/v1/game-systems/${systemId}`, { name: 'Updated System', description: 'Updated description', is_public: true });
+  it('creates a system and its sheet through one metadata RPC', async () => {
+    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', description: null, definition, play_mode: 'text', tags: [] });
+    expect(response.statusCode).toBe(201);
+    expect(response.json()).toEqual({ system, definition });
+    const rpc = requests.find(({ url }) => url.pathname.endsWith('/create_game_system_with_metadata'))!;
+    expect(rpc.body).toEqual({ p_name: 'Forest System', p_description: null, p_fields: definition, p_play_mode: 'text', p_tags: [] });
+  });
+
+  it('updates system metadata for its owner', async () => {
+    const response = await request('PUT', `/api/v1/game-systems/${systemId}`, systemSettings);
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toEqual({ system: { ...system, name: 'Updated System', description: 'Updated description' } });
-    const update = requests.find(({ url }) => url.pathname.endsWith('/update_game_system_access_settings'))!;
-    expect(update.body).toEqual({ p_system_id: systemId, p_name: 'Updated System', p_description: 'Updated description', p_is_public: true, p_password: null });
+    expect(response.json()).toEqual({ system: { ...system, ...systemSettings, tags: [{ slug: 'fantasia', label: 'Fantasia' }] } });
+    const update = requests.find(({ url }) => url.pathname.endsWith('/update_game_system_profile'))!;
+    expect(update.body).toEqual({
+      p_system_id: systemId,
+      p_name: 'Updated System',
+      p_description: 'Updated description',
+      p_is_public: true,
+      p_password: null,
+      p_play_mode: 'voice',
+      p_tags: ['fantasia'],
+      p_cover_image_path: null,
+      p_cover_focus_x: 50,
+      p_cover_focus_y: 50,
+    });
   });
 
   it('rejects invalid, unauthorized, and missing system metadata updates', async () => {
     const url = `/api/v1/game-systems/${systemId}`;
     expect((await request('PUT', url, { name: ' ', description: null })).statusCode).toBe(400);
     updateResult = 'forbidden';
-    expect((await request('PUT', url, { name: 'Updated System', description: null, is_public: true })).statusCode).toBe(403);
+    expect((await request('PUT', url, systemSettings)).statusCode).toBe(403);
     updateResult = 'not_found';
-    expect((await request('PUT', url, { name: 'Updated System', description: null, is_public: true })).statusCode).toBe(404);
-    expect((await request('PUT', url, { name: 'Updated System', description: null, is_public: true }, false)).statusCode).toBe(401);
+    expect((await request('PUT', url, systemSettings)).statusCode).toBe(404);
+    updateResult = 'invalid';
+    expect((await request('PUT', url, systemSettings)).statusCode).toBe(400);
+    expect((await request('PUT', url, systemSettings, false)).statusCode).toBe(401);
+  });
+
+  it('requires a valid play mode and caps the selected tags', async () => {
+    expect((await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition, tags: [] })).statusCode).toBe(400);
+    expect((await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition, play_mode: 'text', tags: ['a', 'b', 'c', 'd', 'e', 'f'] })).statusCode).toBe(400);
+    expect((await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition, play_mode: 'text', tags: ['fantasia', 'fantasia'] })).statusCode).toBe(400);
   });
 
   it('creates and returns sheets with positioned visual elements', async () => {
-    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: visualDefinition });
+    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: visualDefinition, play_mode: 'text', tags: [] });
     expect(response.statusCode).toBe(201);
     expect(response.json()).toEqual({ system, definition: visualDefinition });
   });
 
   it('creates and updates sheets with conditional image-choice configuration', async () => {
-    const created = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: interactiveDefinition });
+    const created = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: interactiveDefinition, play_mode: 'text', tags: [] });
     expect(created.statusCode).toBe(201);
     expect(created.json()).toEqual({ system, definition: interactiveDefinition });
 

@@ -12,6 +12,7 @@ import {
   authorizeSystemAccess,
   createSystemCharacter,
   listActiveGameSystems,
+  listSystemTagOptions,
   listSystemCharacters,
   readGameSystemCharacterSheet,
   updateGameSystem,
@@ -30,11 +31,16 @@ const authOptions = {
 const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
 const systemAccessInputSchema = z.strictObject({ system_password: z.string().max(72).optional() });
 const systemJsonSchema = {
-  type: 'object', required: ['id', 'slug', 'name', 'description', 'is_public'], additionalProperties: false,
+  type: 'object', required: ['id', 'slug', 'name', 'description', 'is_public', 'cover_image_path', 'cover_focus_x', 'cover_focus_y', 'tags', 'play_mode'], additionalProperties: false,
   properties: {
     id: { type: 'string', format: 'uuid' }, slug: { type: 'string' }, name: { type: 'string' },
     description: { type: ['string', 'null'] },
     is_public: { type: 'boolean' },
+    cover_image_path: { type: ['string', 'null'] },
+    cover_focus_x: { type: 'integer', minimum: 0, maximum: 100 },
+    cover_focus_y: { type: 'integer', minimum: 0, maximum: 100 },
+    tags: { type: 'array', items: { type: 'object', required: ['slug', 'label'], additionalProperties: false, properties: { slug: { type: 'string' }, label: { type: 'string' } } } },
+    play_mode: { type: 'string', enum: ['text', 'voice'] },
   },
 } as const;
 const fieldJsonSchema = {
@@ -115,6 +121,24 @@ function systemIdFromParams(params: unknown) {
 }
 
 export async function gameSystemsRoutes(app: FastifyInstance) {
+  app.get('/api/v1/game-system-tags', {
+    ...authOptions,
+    schema: {
+      ...authOptions.schema,
+      summary: 'List available game system tags',
+      response: {
+        200: { type: 'object', required: ['tags'], additionalProperties: false, properties: { tags: { type: 'array', items: { type: 'object', required: ['slug', 'label'], additionalProperties: false, properties: { slug: { type: 'string' }, label: { type: 'string' } } } } } },
+        401: errorSchema, 500: errorSchema,
+      },
+    },
+  }, async (request, reply) => {
+    try {
+      return reply.send(await listSystemTagOptions(request.supabase!));
+    } catch {
+      return databaseError(reply);
+    }
+  });
+
   app.get('/api/v1/game-systems', {
     ...authOptions,
     schema: {
@@ -147,11 +171,13 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
       swaggerTransform: ({ schema, url }) => ({ url, schema: {
         ...schema,
         body: {
-          type: 'object', required: ['name', 'definition'], additionalProperties: false,
+          type: 'object', required: ['name', 'definition', 'play_mode', 'tags'], additionalProperties: false,
           properties: {
             name: { type: 'string', minLength: 1, maxLength: 80 },
             description: { type: ['string', 'null'], maxLength: 500 },
             definition: definitionJsonSchema,
+            play_mode: { type: 'string', enum: ['text', 'voice'] },
+            tags: { type: 'array', maxItems: 5, items: { type: 'string' } },
           },
         },
       } }),
@@ -161,7 +187,10 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
     if (!input.success) return reply.code(400).send({ error: 'Invalid game system or character sheet' });
     try {
       return reply.code(201).send(await createGameSystem(request.supabase!, input.data));
-    } catch {
+    } catch (error) {
+      if (error && typeof error === 'object' && 'code' in error && error.code === '22023') {
+        return reply.code(400).send({ error: 'Invalid game system or character sheet' });
+      }
       return databaseError(reply);
     }
   });
@@ -173,8 +202,18 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
       400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 500: errorSchema,
     } },
     config: { swaggerTransform: ({ schema, url }) => ({ url, schema: { ...schema, body: {
-      type: 'object', required: ['name', 'description', 'is_public'], additionalProperties: false,
-      properties: { name: { type: 'string', minLength: 1, maxLength: 80 }, description: { type: ['string', 'null'], maxLength: 500 }, is_public: { type: 'boolean' }, password: { type: 'string', minLength: 8, maxLength: 72 } },
+      type: 'object', required: ['name', 'description', 'is_public', 'play_mode', 'tags', 'cover_image_path', 'cover_focus_x', 'cover_focus_y'], additionalProperties: false,
+      properties: {
+        name: { type: 'string', minLength: 1, maxLength: 80 },
+        description: { type: ['string', 'null'], maxLength: 500 },
+        is_public: { type: 'boolean' },
+        password: { type: 'string', minLength: 8, maxLength: 72 },
+        play_mode: { type: 'string', enum: ['text', 'voice'] },
+        tags: { type: 'array', maxItems: 5, items: { type: 'string' } },
+        cover_image_path: { type: ['string', 'null'] },
+        cover_focus_x: { type: 'integer', minimum: 0, maximum: 100 },
+        cover_focus_y: { type: 'integer', minimum: 0, maximum: 100 },
+      },
     } } }) },
   }, async (request, reply) => {
     const systemId = systemIdFromParams(request.params);
@@ -188,6 +227,7 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
       if (result.status === 'password_required') return reply.code(400).send({ error: 'A password is required to make this system private' });
       if (result.status === 'password_too_short') return reply.code(400).send({ error: 'The password must contain at least eight characters' });
       if (result.status === 'password_too_long') return reply.code(400).send({ error: 'The password cannot exceed 72 characters' });
+      if (result.status === 'invalid_details') return reply.code(400).send({ error: 'Invalid system tags, modality, or image settings' });
       if (!result.system) return databaseError(reply);
       return reply.send({ system: result.system });
     } catch (error) {

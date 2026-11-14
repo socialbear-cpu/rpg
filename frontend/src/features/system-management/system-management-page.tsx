@@ -40,6 +40,7 @@ export function SystemManagementPage() {
   const [pageError, setPageError] = useState('');
   const [systemView, setSystemView] = useState<DailyLoginSystemView | null>(null);
   const [systemIsPublic, setSystemIsPublic] = useState(true);
+  const [gameSystem, setGameSystem] = useState<GameSystem | null>(null);
   const [manageableSystems, setManageableSystems] = useState<DailyLoginSystemView[]>([]);
   const [access, setAccess] = useState<SystemMemberships | null>(null);
   const [calendar, setCalendar] = useState<DailyLoginOwnerCalendar | null>(null);
@@ -83,7 +84,9 @@ export function SystemManagementPage() {
         }
 
         setSystemView(view);
-        setSystemIsPublic(allSystems.systems.find((entry) => entry.id === systemId)?.is_public ?? true);
+        const selectedSystem = allSystems.systems.find((entry) => entry.id === systemId) ?? null;
+        setGameSystem(selectedSystem);
+        setSystemIsPublic(selectedSystem?.is_public ?? true);
         setPageState('ready');
         setCalendarLoading(true);
         setExperienceLoading(true);
@@ -181,9 +184,22 @@ export function SystemManagementPage() {
   const selectedManageable = manageableSystems.find((entry) => entry.system.id === systemId);
   const membershipsForSystem = access ? { ...access, memberships: access.memberships.filter((membership) => membership.game_system_id === systemId) } : null;
   const canEditOwnerSettings = Boolean(access?.is_platform_admin || access?.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner'));
+  const editorSystem: GameSystem | null = gameSystem ?? (systemView ? {
+    id: systemId,
+    slug: '',
+    name: systemView.system.name,
+    description: systemView.system.description ?? null,
+    is_public: systemIsPublic,
+    cover_image_path: null,
+    cover_focus_x: 50,
+    cover_focus_y: 50,
+    tags: [],
+    play_mode: 'text',
+  } : null);
 
   function updateSystemDetails(updated: GameSystem) {
     setSystemIsPublic(updated.is_public ?? true);
+    setGameSystem(updated);
     setSystemView((current) => current ? { ...current, system: { ...current.system, name: updated.name, description: updated.description } } : current);
     setManageableSystems((current) => current.map((entry) => entry.system.id === updated.id
       ? { ...entry, system: { ...entry.system, name: updated.name, description: updated.description } }
@@ -231,7 +247,7 @@ export function SystemManagementPage() {
           <div className="system-management-sheet-editor">
             <div><h3>Informações básicas</h3><p>Atualize o nome e a descrição do sistema.</p></div>
             {canEditOwnerSettings
-              ? <SystemDetailsEditor key={systemId} system={{ id: systemId, name: systemView.system.name, description: systemView.system.description ?? null, is_public: systemIsPublic }} onSaved={updateSystemDetails} />
+              ? editorSystem && <SystemDetailsEditor key={systemId} system={editorSystem} onSaved={updateSystemDetails} />
               : <p>Somente o Owner do sistema pode editar estas informações.</p>}
           </div>
         </section>}

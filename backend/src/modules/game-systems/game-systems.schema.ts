@@ -2,6 +2,9 @@ import { z } from 'zod';
 
 const keySchema = z.string().regex(/^[a-z][a-z0-9_]{0,39}$/);
 const labelSchema = z.string().trim().min(1).max(80);
+const systemTagSlugsSchema = z.array(z.string().regex(/^[a-z][a-z0-9-]{0,39}$/))
+  .max(5)
+  .refine((tags) => new Set(tags).size === tags.length);
 const conditionRuleSchema = z.discriminatedUnion('operator', [
   z.strictObject({ component_key: keySchema, operator: z.literal('equals'), value: z.string().trim().min(1).max(80) }),
   z.strictObject({ component_key: keySchema, operator: z.literal('not_equals'), value: z.string().trim().min(1).max(80) }),
@@ -222,6 +225,8 @@ export const createSystemInputSchema = z.strictObject({
   name: z.string().trim().min(1).max(80),
   description: z.string().trim().max(500).nullable().optional(),
   definition: characterSheetDefinitionSchema,
+  play_mode: z.enum(['text', 'voice']),
+  tags: systemTagSlugsSchema,
 });
 
 export const updateGameSystemInputSchema = z.strictObject({
@@ -229,6 +234,11 @@ export const updateGameSystemInputSchema = z.strictObject({
   description: z.string().trim().max(500).nullable(),
   is_public: z.boolean(),
   password: z.string().min(8).max(72).optional(),
+  play_mode: z.enum(['text', 'voice']),
+  tags: systemTagSlugsSchema,
+  cover_image_path: z.string().regex(/^[0-9a-f-]{36}\/[0-9a-f-]{36}\.(jpg|png|webp|avif)$/i).nullable(),
+  cover_focus_x: z.number().int().min(0).max(100),
+  cover_focus_y: z.number().int().min(0).max(100),
 });
 
 export const createCharacterInputSchema = z.strictObject({
@@ -237,17 +247,32 @@ export const createCharacterInputSchema = z.strictObject({
   system_password: z.string().max(72).optional(),
 });
 
-export const gameSystemSchema = z.strictObject({
+export const systemTagOptionSchema = z.strictObject({
+  slug: z.string().regex(/^[a-z][a-z0-9-]{0,39}$/),
+  label: z.string().trim().min(1).max(50),
+});
+
+export const storedGameSystemSchema = z.strictObject({
   id: z.uuid(),
   slug: z.string(),
   name: z.string(),
   description: z.string().nullable(),
   is_public: z.boolean().default(true),
+  cover_image_path: z.string().nullable().default(null),
+  cover_focus_x: z.number().int().min(0).max(100).default(50),
+  cover_focus_y: z.number().int().min(0).max(100).default(50),
+  tags: z.array(z.string()).default([]),
+  play_mode: z.enum(['text', 'voice']).default('text'),
+});
+
+export const gameSystemSchema = z.strictObject({
+  ...storedGameSystemSchema.shape,
+  tags: z.array(systemTagOptionSchema),
 });
 
 export const updateGameSystemResultSchema = z.strictObject({
-  status: z.enum(['updated', 'not_owner', 'not_found', 'password_required', 'password_too_short', 'password_too_long']),
-  system: gameSystemSchema.nullable(),
+  status: z.enum(['updated', 'not_owner', 'not_found', 'password_required', 'password_too_short', 'password_too_long', 'invalid_details']),
+  system: storedGameSystemSchema.nullable(),
 });
 
 export const joinGameSystemResultSchema = z.strictObject({ status: z.enum(['ok', 'unauthorized', 'not_found', 'password_required', 'invalid_password', 'rate_limited']) });
@@ -256,9 +281,13 @@ export const gameSystemsResponseSchema = z.strictObject({
   systems: z.array(gameSystemSchema),
 });
 
+export const systemTagOptionsResponseSchema = z.strictObject({
+  tags: z.array(systemTagOptionSchema),
+});
+
 export const createGameSystemResultSchema = z.strictObject({
   status: z.literal('created'),
-  system: gameSystemSchema,
+  system: storedGameSystemSchema,
   definition: characterSheetDefinitionSchema,
 });
 

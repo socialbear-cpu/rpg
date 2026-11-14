@@ -1,4 +1,5 @@
 import { currentAccessToken } from './supabase-auth';
+import { config } from './config';
 
 export interface Profile {
   user_id: string;
@@ -106,9 +107,28 @@ export interface GameSystem {
   name: string;
   description: string | null;
   is_public?: boolean;
+  cover_image_path?: string | null;
+  cover_focus_x?: number;
+  cover_focus_y?: number;
+  tags?: SystemTagOption[];
+  play_mode?: 'text' | 'voice';
 }
 
-export type UpdateGameSystemInput = Pick<GameSystem, 'name' | 'description' | 'is_public'> & { password?: string };
+export interface SystemTagOption {
+  slug: string;
+  label: string;
+}
+
+export type GameSystemPlayMode = 'text' | 'voice';
+
+export type UpdateGameSystemInput = Pick<GameSystem, 'name' | 'description' | 'is_public'> & {
+  password?: string;
+  play_mode: GameSystemPlayMode;
+  tags: string[];
+  cover_image_path: string | null;
+  cover_focus_x: number;
+  cover_focus_y: number;
+};
 
 export interface SystemCharacter {
   id: string;
@@ -122,6 +142,8 @@ export interface CreateGameSystemInput {
   name: string;
   description?: string | null;
   definition: CharacterSheetDefinition;
+  play_mode: GameSystemPlayMode;
+  tags: string[];
 }
 
 export interface CreateCharacterInput {
@@ -438,10 +460,69 @@ export function createGameSystem(input: CreateGameSystemInput) {
   });
 }
 
+export function getGameSystemTagOptions() {
+  return authenticatedRequest<{ tags: SystemTagOption[] }>('/api/v1/game-system-tags');
+}
+
 export function updateGameSystem(systemId: string, input: UpdateGameSystemInput) {
   return authenticatedRequest<{ system: GameSystem }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}`, {
     method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
   });
+}
+
+export function getGameSystemCoverUrl(path: string | null | undefined) {
+  if (!path) return null;
+  const encodedPath = path.split('/').map((segment) => encodeURIComponent(segment)).join('/');
+  return `${config.supabaseUrl.replace(/\/$/, '')}/storage/v1/object/public/game-system-covers/${encodedPath}`;
+}
+
+export async function uploadGameSystemCover(systemId: string, file: File) {
+  const token = currentAccessToken();
+  if (!token) throw new Error('Entre na sua conta antes de continuar.');
+  const extensions: Record<string, string> = {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp',
+    'image/avif': 'avif',
+  };
+  const extension = extensions[file.type];
+  if (!extension) throw new Error('Use uma imagem JPEG, PNG, WebP ou AVIF.');
+  if (file.size === 0 || file.size > 5 * 1024 * 1024) throw new Error('A imagem deve ter no máximo 5 MB.');
+  const path = `${systemId}/${globalThis.crypto.randomUUID()}.${extension}`;
+  const response = await fetch(`${config.supabaseUrl.replace(/\/$/, '')}/storage/v1/object/game-system-covers/${path.split('/').map(encodeURIComponent).join('/')}`, {
+    method: 'POST',
+    headers: {
+      apikey: config.supabasePublishableKey,
+      Authorization: `Bearer ${token}`,
+      'Content-Type': file.type,
+      'x-upsert': 'false',
+    },
+    body: file,
+  });
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({})) as { message?: string; error?: string };
+    throw new Error(data.message || data.error || `Não foi possível enviar a imagem (HTTP ${response.status}).`);
+  }
+  return path;
+}
+
+export async function deleteGameSystemCover(path: string) {
+  const token = currentAccessToken();
+  if (!token) throw new Error('Entre na sua conta antes de continuar.');
+  if (!/^[0-9a-f-]{36}\/[0-9a-f-]{36}\.(jpg|png|webp|avif)$/i.test(path)) throw new Error('Caminho de imagem inválido.');
+  const response = await fetch(`${config.supabaseUrl.replace(/\/$/, '')}/storage/v1/object/game-system-covers`, {
+    method: 'DELETE',
+    headers: {
+      apikey: config.supabasePublishableKey,
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ prefixes: [path] }),
+  });
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({})) as { message?: string; error?: string };
+    throw new Error(data.message || data.error || `Não foi possível remover a imagem (HTTP ${response.status}).`);
+  }
 }
 
 export function getCharacterSheet(systemId: string) {

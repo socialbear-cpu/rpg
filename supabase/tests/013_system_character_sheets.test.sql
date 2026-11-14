@@ -5,7 +5,7 @@ SET LOCAL search_path = public, extensions;
 SELECT no_plan();
 
 SELECT has_table('public', 'game_system_character_sheets', 'stores one character sheet definition per system');
-SELECT has_function('public', 'create_game_system_with_sheet', ARRAY['text', 'text', 'jsonb'], 'creates a system and its sheet atomically');
+SELECT has_function('public', 'create_game_system_with_metadata', ARRAY['text', 'text', 'jsonb', 'text', 'text[]'], 'creates a system and its sheet with required discovery metadata');
 SELECT ok(
   NOT EXISTS (
     SELECT 1
@@ -24,17 +24,19 @@ SELECT set_config('request.jwt.claim.sub', '27000000-0000-4000-8000-000000000001
 SELECT set_config('request.jwt.claims', '{"role":"authenticated","sub":"27000000-0000-4000-8000-000000000001"}', true);
 
 SELECT is(
-  public.create_game_system_with_sheet(
+  public.create_game_system_with_metadata(
     'Sheet Test System',
     'System created from the character sheet flow',
-    '[{"key":"origin","label":"Origem","type":"short_text","required":true,"position":0,"show_on_card":true}]'::jsonb
+    '{"version":1,"steps":[{"key":"step_1","label":"Etapa 1","position":0,"components":[{"key":"origin","label":"Origem","type":"short_text","required":true,"position":0,"width":"full","show_on_card":true}]}]}'::jsonb,
+    'text',
+    ARRAY[]::TEXT[]
   ) ->> 'status',
   'created',
   'creates a system with its ordered sheet and Owner membership'
 );
 
 SELECT is(
-  (SELECT sheet.fields #>> '{0,key}'
+  (SELECT sheet.definition #>> '{steps,0,components,0,key}'
    FROM public.game_system_character_sheets AS sheet
    JOIN public.game_systems AS system ON system.id = sheet.game_system_id
    WHERE system.name = 'Sheet Test System'),
@@ -53,28 +55,40 @@ SELECT is(
 );
 
 SELECT throws_ok(
-  $$SELECT public.create_game_system_with_sheet(
+  $$SELECT public.create_game_system_with_metadata(
       'Invalid Sheet System', NULL,
-      '[{"key":"class","label":"Classe","type":"single_select","required":true,"position":0,"show_on_card":true,"options":[]}]'::jsonb
+      '{"version":1,"steps":[{"key":"step_1","label":"Etapa 1","position":0,"components":[{"key":"class","label":"Classe","type":"single_select","required":true,"position":0,"width":"full","show_on_card":true,"presentation":"select","options":[] }]}]}'::jsonb,
+      'text', ARRAY[]::TEXT[]
     )$$,
   '22023', 'Invalid game system or character sheet',
   'rejects malformed sheet definitions through the RPC'
 );
 
 SELECT throws_ok(
-  $$SELECT public.create_game_system_with_sheet(
+  $$SELECT public.create_game_system_with_metadata(
       'Duplicate Normalized Options', NULL,
-      '[{"key":"class","label":"Classe","type":"single_select","required":true,"position":0,"show_on_card":true,"options":["Mago"," Mago "]}]'::jsonb
+      '{"version":1,"steps":[{"key":"step_1","label":"Etapa 1","position":0,"components":[{"key":"class","label":"Classe","type":"single_select","required":true,"position":0,"width":"full","show_on_card":true,"presentation":"select","options":[{"label":"Mago"},{"label":" Mago "}]}]}]}'::jsonb,
+      'text', ARRAY[]::TEXT[]
     )$$,
   '22023', 'Invalid game system or character sheet',
   'rejects select options that collide after trimming'
 );
 
 SELECT throws_ok(
-  $$INSERT INTO public.game_system_character_sheets (game_system_id, fields)
+  $$INSERT INTO public.game_system_character_sheets (game_system_id, definition)
     SELECT id, '[]'::jsonb FROM public.game_systems WHERE name = 'Sheet Test System'$$,
   '42501', NULL,
   'denies direct authenticated sheet writes'
+);
+
+SELECT throws_ok(
+  $$SELECT public.create_game_system_with_sheet(
+      'Missing Metadata System',
+      NULL,
+      '{"version":1,"steps":[{"key":"step_1","label":"Etapa 1","position":0,"components":[]}]}'::jsonb
+    )$$,
+  '42501', NULL,
+  'denies legacy system creation that bypasses required metadata'
 );
 
 RESET ROLE;
@@ -82,7 +96,7 @@ SET LOCAL ROLE anon;
 SELECT set_config('request.jwt.claim.sub', '', true);
 SELECT set_config('request.jwt.claims', '{"role":"anon"}', true);
 SELECT throws_ok(
-  $$SELECT public.create_game_system_with_sheet('Unauthenticated', NULL, '[]'::jsonb)$$,
+  $$SELECT public.create_game_system_with_metadata('Unauthenticated', NULL, '{"version":1,"steps":[{"key":"step_1","label":"Etapa 1","position":0,"components":[]}]}'::jsonb, 'text', ARRAY[]::TEXT[])$$,
   '42501', NULL,
   'rejects unauthenticated system creation'
 );

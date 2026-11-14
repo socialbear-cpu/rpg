@@ -36,10 +36,12 @@ SELECT ok(
 );
 
 SELECT is(
-  public.create_game_system_with_sheet(
+  public.create_game_system_with_metadata(
     'Conditional Sheet Test',
     NULL,
-    '{"version":1,"steps":[{"key":"origin","label":"Origem","position":0,"components":[{"key":"origin","label":"Origem","type":"short_text","required":true,"position":0,"width":"full","show_on_card":false}]},{"key":"choices","label":"Escolhas","position":1,"condition":{"logic":"all","rules":[{"component_key":"origin","operator":"is_filled"}]},"components":[{"key":"interests","label":"Interesses","type":"single_select","required":true,"position":0,"width":"full","show_on_card":false,"presentation":"canvas","selection_mode":"multiple","options":[{"label":"Mapas","value":"maps","x":5,"y":5,"width":40,"height":40,"rotation":0}]}]}]}'::jsonb
+    '{"version":1,"steps":[{"key":"origin","label":"Origem","position":0,"components":[{"key":"origin","label":"Origem","type":"short_text","required":true,"position":0,"width":"full","show_on_card":false}]},{"key":"choices","label":"Escolhas","position":1,"condition":{"logic":"all","rules":[{"component_key":"origin","operator":"is_filled"}]},"components":[{"key":"interests","label":"Interesses","type":"single_select","required":true,"position":0,"width":"full","show_on_card":false,"presentation":"canvas","selection_mode":"multiple","options":[{"label":"Mapas","value":"maps","x":5,"y":5,"width":40,"height":40,"rotation":0}]}]}]}'::jsonb,
+    'text',
+    ARRAY[]::TEXT[]
   )->>'status',
   'created',
   'creates a system with conditional multi-select options'
