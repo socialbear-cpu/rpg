@@ -28,6 +28,7 @@ import { addCustomExperienceSource } from '../experience/experience-model';
 import { SystemMembershipCard } from '../system-membership/system-membership-card';
 import { SystemSheetEditor } from '../system-creation/system-sheet-editor';
 import { SystemDetailsEditor } from './system-details-editor';
+import { BookCategory } from './book-category';
 import './system-management-page.css';
 import '../system-creation/system-creation.css';
 
@@ -318,7 +319,7 @@ export function SystemManagementPage() {
             </div>
           </aside>}
           <div className="system-management-book-page">
-        {isVisibleCategory('overview') && <section className={categoryPageClass('overview')} id="overview" role="tabpanel" aria-labelledby="management-tab-overview" aria-label={previousCategory === 'overview' ? 'Visão geral, página anterior somente para consulta' : undefined} inert={previousCategory === 'overview'}><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div>
+        {isVisibleCategory('overview') && <BookCategory className={categoryPageClass('overview')} id="overview" role="tabpanel" aria-labelledby="management-tab-overview" aria-label={previousCategory === 'overview' ? 'Visão geral, página anterior somente para consulta' : undefined} inert={previousCategory === 'overview'}><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div>
           <p className="system-management-section-copy">Edite as informações e a apresentação principal do sistema.</p>
           <div className="system-management-sheet-editor">
             <div><h3>Informações básicas</h3><p>Atualize o nome, a descrição, a modalidade, as etiquetas e a capa do sistema.</p></div>
@@ -326,22 +327,22 @@ export function SystemManagementPage() {
               ? editorSystem && <SystemDetailsEditor key={`${systemId}-${editorSystem.cover_image_path ?? 'no-cover'}-overview`} system={editorSystem} section="overview" onSaved={updateSystemDetails} />
               : <p>Somente o Owner do sistema pode editar estas informações.</p>}
           </div>
-        </section>}
-        {isVisibleCategory('people') && <section className={categoryPageClass('people')} id="people" role="tabpanel" aria-labelledby="management-tab-people" aria-label={previousCategory === 'people' ? 'Pessoas, página anterior somente para consulta' : undefined} inert={previousCategory === 'people'}><div className="system-management-section-heading"><span>02</span><div><p>ACESSO</p><h2>Pessoas</h2></div></div>
+        </BookCategory>}
+        {isVisibleCategory('people') && <BookCategory className={categoryPageClass('people')} id="people" role="tabpanel" aria-labelledby="management-tab-people" aria-label={previousCategory === 'people' ? 'Pessoas, página anterior somente para consulta' : undefined} inert={previousCategory === 'people'}><div className="system-management-section-heading"><span>02</span><div><p>ACESSO</p><h2>Pessoas</h2></div></div>
           {membershipsForSystem && <SystemMembershipCard access={membershipsForSystem} manageableSystems={selectedManageable ? [{ game_system_id: systemId, game_system_name: selectedManageable.system.name }] : []} busy={membershipBusy} message={membershipMessage} messageIsError={membershipMessageIsError} onAssign={(targetId, userId, isModerator) => void assignModerator(targetId, userId, isModerator)} />}
-        </section>}
-        {isVisibleCategory('game') && <section className={categoryPageClass('game')} id="game" role="tabpanel" aria-labelledby="management-tab-game" aria-label={previousCategory === 'game' ? 'Jogo, página anterior somente para consulta' : undefined} inert={previousCategory === 'game'}><div className="system-management-section-heading"><span>03</span><div><p>REGRAS</p><h2>Jogo</h2></div></div>
+        </BookCategory>}
+        {isVisibleCategory('game') && <BookCategory className={categoryPageClass('game')} id="game" role="tabpanel" aria-labelledby="management-tab-game" aria-label={previousCategory === 'game' ? 'Jogo, página anterior somente para consulta' : undefined} inert={previousCategory === 'game'}><div className="system-management-section-heading"><span>03</span><div><p>REGRAS</p><h2>Jogo</h2></div></div>
           <ExperienceAdminCard systems={[systemView]} selectedSystemId={systemId} settings={experience} loading={experienceLoading} saving={experienceSaving} message={experienceMessage} messageIsError={experienceMessageIsError} onSystemChange={() => undefined} onXpPerLevelChange={(amount) => setExperience((current) => current ? { ...current, xp_per_level: amount } : current)} onSourceChange={(index, field, value) => setExperience((current) => current ? { ...current, sources: current.sources.map((source, sourceIndex) => sourceIndex === index ? { ...source, [field]: value } : source) } : current)} onAddCustomSource={() => setExperience((current) => current ? { ...current, sources: addCustomExperienceSource(current.sources) } : current)} onRemoveCustomSource={(index) => setExperience((current) => current ? { ...current, sources: current.sources.filter((_, sourceIndex) => sourceIndex !== index) } : current)} onSave={(event) => void saveExperience(event)} />
           <DailyLoginAdminCard systems={[systemView]} selectedSystemId={systemId} calendar={calendar} loading={calendarLoading} saving={calendarSaving} message={calendarMessage} messageIsError={calendarMessageIsError} onSystemChange={() => undefined} onRewardChange={changeReward} onActiveChange={(isActive) => setCalendar((current) => current ? { ...current, is_active: isActive } : current)} onSave={(event) => void saveCalendar(event)} />
-        </section>}
-        {isVisibleCategory('store') && <section className={categoryPageClass('store')} id="store" role="tabpanel" aria-labelledby="management-tab-store" aria-label={previousCategory === 'store' ? 'Loja, página anterior somente para consulta' : undefined} inert={previousCategory === 'store'}><div className="system-management-section-heading"><span>04</span><div><p>COMÉRCIO</p><h2>Loja</h2></div></div>
+        </BookCategory>}
+        {isVisibleCategory('store') && <BookCategory className={categoryPageClass('store')} id="store" role="tabpanel" aria-labelledby="management-tab-store" aria-label={previousCategory === 'store' ? 'Loja, página anterior somente para consulta' : undefined} inert={previousCategory === 'store'}><div className="system-management-section-heading"><span>04</span><div><p>COMÉRCIO</p><h2>Loja</h2></div></div>
           <SystemStoreAdmin key={systemId} systemId={systemId} />
-        </section>}
-        {isVisibleCategory('sheet') && <section className={categoryPageClass('sheet')} id="sheet" role="tabpanel" aria-labelledby="management-tab-sheet" aria-label={previousCategory === 'sheet' ? 'Ficha, página anterior somente para consulta' : undefined} inert={previousCategory === 'sheet'}><div className="system-management-section-heading"><span>05</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
+        </BookCategory>}
+        {isVisibleCategory('sheet') && <BookCategory className={categoryPageClass('sheet')} id="sheet" role="tabpanel" aria-labelledby="management-tab-sheet" aria-label={previousCategory === 'sheet' ? 'Ficha, página anterior somente para consulta' : undefined} inert={previousCategory === 'sheet'}><div className="system-management-section-heading"><span>05</span><div><p>PERSONAGENS</p><h2>Ficha</h2></div></div>
           <div className="system-management-sheet-editor">{canEditOwnerSettings ? <SystemSheetEditor systemId={systemId} systemName={systemView.system.name} /> : <p>Somente o Owner do sistema pode editar a ficha de personagem.</p>}</div>
-        </section>}
-        {isVisibleCategory('community') && <section className={`${categoryPageClass('community')} system-management-future`} id="community" role="tabpanel" aria-labelledby="management-tab-community" aria-label={previousCategory === 'community' ? 'Comunidade, página anterior somente para consulta' : undefined} inert={previousCategory === 'community'}><div className="system-management-section-heading"><span>06</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>}
-        {isVisibleCategory('settings') && <section className={categoryPageClass('settings')} id="settings" role="tabpanel" aria-labelledby="management-tab-settings" aria-label={previousCategory === 'settings' ? 'Configurações, página anterior somente para consulta' : undefined} inert={previousCategory === 'settings'}><div className="system-management-section-heading"><span>07</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
+        </BookCategory>}
+        {isVisibleCategory('community') && <BookCategory className={`${categoryPageClass('community')} system-management-future`} id="community" role="tabpanel" aria-labelledby="management-tab-community" aria-label={previousCategory === 'community' ? 'Comunidade, página anterior somente para consulta' : undefined} inert={previousCategory === 'community'}><div className="system-management-section-heading"><span>06</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></BookCategory>}
+        {isVisibleCategory('settings') && <BookCategory className={categoryPageClass('settings')} id="settings" role="tabpanel" aria-labelledby="management-tab-settings" aria-label={previousCategory === 'settings' ? 'Configurações, página anterior somente para consulta' : undefined} inert={previousCategory === 'settings'}><div className="system-management-section-heading"><span>07</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
           <div className="system-management-sheet-editor">
             <div><h3>Acesso do sistema</h3><p>Defina a visibilidade e a senha de acesso.</p></div>
             {canEditOwnerSettings
@@ -379,7 +380,7 @@ export function SystemManagementPage() {
               : <p>Somente o Owner do sistema ou um Admin global pode excluir este sistema.</p>}
           </section>
           {lifecycleMessage && <p className={lifecycleMessageIsError ? 'system-management-lifecycle-error' : 'system-management-lifecycle-success'} role={lifecycleMessageIsError ? 'alert' : 'status'}>{lifecycleMessage}</p>}
-        </section>}
+        </BookCategory>}
           </div>
         </div>
       </>}
