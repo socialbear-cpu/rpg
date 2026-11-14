@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
+  getGameSystemCoverUrl,
   getGameSystems,
   getMyDailyLoginSystems,
   getMySystemMemberships,
@@ -232,6 +233,7 @@ export function SystemManagementPage() {
   const selectedManageable = manageableSystems.find((entry) => entry.system.id === systemId);
   const membershipsForSystem = access ? { ...access, memberships: access.memberships.filter((membership) => membership.game_system_id === systemId) } : null;
   const canEditOwnerSettings = Boolean(access?.is_platform_admin || access?.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner'));
+  const systemCoverUrl = getGameSystemCoverUrl(gameSystem?.cover_image_path);
   const editorSystem: GameSystem | null = gameSystem ?? (systemView ? {
     id: systemId,
     slug: '',
@@ -261,25 +263,31 @@ export function SystemManagementPage() {
       {pageState === 'error' && <section className="system-management-state"><h1>Não foi possível abrir o gerenciamento</h1><p role="alert">{pageError}</p><button className="button secondary" type="button" onClick={() => setReloadKey((key) => key + 1)}>Tentar novamente</button></section>}
       {pageState === 'forbidden' && <section className="system-management-state"><span className="system-management-eyebrow">ACESSO RESTRITO</span><h1>Você não pode gerenciar este sistema</h1><p>Somente o Owner do sistema ou um Admin global pode acessar estas configurações.</p><button className="button secondary" type="button" onClick={() => router.push('/dashboard')}>Voltar aos sistemas</button></section>}
       {pageState === 'ready' && systemView && <>
-        <header className="system-management-hero">
-          <span className="system-management-eyebrow">CENTRAL DO SISTEMA</span>
-          <h1>{systemView.system.name}</h1>
-          <p>Gerencie as regras e os recursos deste mundo.</p>
-          <div className="system-management-stats"><span><strong>7</strong> categorias</span><span><strong>6</strong> ferramentas de gerenciamento</span></div>
-        </header>
-        <nav className="system-management-nav" aria-label="Seções de gerenciamento" role="tablist">
-          <button className="nexus-tab" type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => setActiveCategory('overview')}>Visão geral</button>
-          <button className="nexus-tab" type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => setActiveCategory('people')}>Pessoas</button>
-          <button className="nexus-tab" type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => setActiveCategory('game')}>Jogo</button>
-          <button className="nexus-tab" type="button" role="tab" id="management-tab-store" aria-selected={activeCategory === 'store'} aria-controls="store" onClick={() => setActiveCategory('store')}>Loja</button>
-          <button className="nexus-tab" type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => setActiveCategory('sheet')}>Ficha</button>
-          <button className="nexus-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => setActiveCategory('community')}>Comunidade</button>
-          <button className="nexus-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => setActiveCategory('settings')}>Configurações</button>
-        </nav>
+        <div className="system-management-book">
+          <nav className="system-management-nav" aria-label="Seções de gerenciamento" role="tablist">
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => setActiveCategory('overview')}>Visão geral</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => setActiveCategory('people')}>Pessoas</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => setActiveCategory('game')}>Jogo</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-store" aria-selected={activeCategory === 'store'} aria-controls="store" onClick={() => setActiveCategory('store')}>Loja</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => setActiveCategory('sheet')}>Ficha</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => setActiveCategory('community')}>Comunidade</button>
+            <button className="nexus-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => setActiveCategory('settings')}>Configurações</button>
+          </nav>
+          <aside className="system-management-book-identity" aria-label={`Sobre ${systemView.system.name}`}>
+            <span className="system-management-eyebrow">CÓDEX DO SISTEMA</span>
+            <h1>{systemView.system.name}</h1>
+            {(gameSystem?.description ?? systemView.system.description) && <p>{gameSystem?.description ?? systemView.system.description}</p>}
+            <div className="system-management-book-art" aria-hidden="true">
+              {systemCoverUrl
+                ? <img src={systemCoverUrl} alt="" style={{ objectPosition: `${gameSystem?.cover_focus_x ?? 50}% ${gameSystem?.cover_focus_y ?? 50}%` }} />
+                : <span>✧</span>}
+            </div>
+          </aside>
+          <div className="system-management-book-page">
         {activeCategory === 'overview' && <section className="system-management-section" id="overview" role="tabpanel" aria-labelledby="management-tab-overview"><div className="system-management-section-heading"><span>01</span><div><p>PAINEL</p><h2>Visão geral</h2></div></div>
           <p className="system-management-section-copy">Edite as informações e a apresentação principal do sistema.</p>
           <div className="system-management-sheet-editor">
-            <div><h3>Informações básicas</h3><p>Atualize o nome, a descrição, a modalidade e as etiquetas do sistema.</p></div>
+            <div><h3>Informações básicas</h3><p>Atualize o nome, a descrição, a modalidade, as etiquetas e a capa do sistema.</p></div>
             {canEditOwnerSettings
               ? editorSystem && <SystemDetailsEditor key={`${systemId}-${editorSystem.cover_image_path ?? 'no-cover'}-overview`} system={editorSystem} section="overview" onSaved={updateSystemDetails} />
               : <p>Somente o Owner do sistema pode editar estas informações.</p>}
@@ -301,7 +309,7 @@ export function SystemManagementPage() {
         {activeCategory === 'community' && <section className="system-management-section system-management-future" id="community" role="tabpanel" aria-labelledby="management-tab-community"><div className="system-management-section-heading"><span>06</span><div><p>GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>}
         {activeCategory === 'settings' && <section className="system-management-section" id="settings" role="tabpanel" aria-labelledby="management-tab-settings"><div className="system-management-section-heading"><span>07</span><div><p>SISTEMA</p><h2>Configurações</h2></div></div>
           <div className="system-management-sheet-editor">
-            <div><h3>Imagem e acesso</h3><p>Atualize a imagem, a visibilidade e a senha do sistema.</p></div>
+            <div><h3>Acesso do sistema</h3><p>Defina a visibilidade e a senha de acesso.</p></div>
             {canEditOwnerSettings
               ? editorSystem && <SystemDetailsEditor key={`${systemId}-${editorSystem.cover_image_path ?? 'no-cover'}-settings`} system={editorSystem} section="settings" onSaved={updateSystemDetails} />
               : <p>Somente o Owner do sistema pode editar estas informações.</p>}
@@ -338,6 +346,8 @@ export function SystemManagementPage() {
           </section>
           {lifecycleMessage && <p className={lifecycleMessageIsError ? 'system-management-lifecycle-error' : 'system-management-lifecycle-success'} role={lifecycleMessageIsError ? 'alert' : 'status'}>{lifecycleMessage}</p>}
         </section>}
+          </div>
+        </div>
       </>}
     </div>
   </main>;

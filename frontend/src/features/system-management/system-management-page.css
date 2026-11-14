@@ -5,16 +5,80 @@
 }
 
 .system-management-content {
-  width: min(1120px, calc(100% - 48px));
+  width: min(1440px, calc(100% - 48px));
   margin: 0 auto;
-  padding: 32px 0 72px;
+  padding: 28px 0 56px;
 }
 
-.system-management-hero {
-  padding: 34px clamp(22px, 5vw, 54px);
-  border: 1px solid #343040;
-  border-radius: 22px;
-  background: radial-gradient(ellipse at 86% 15%, #785db533, transparent 38%), linear-gradient(130deg, #1b1a26, #171922 72%);
+.system-management-book {
+  display: grid;
+  grid-template-columns: minmax(270px, .62fr) minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid #302c3a;
+  border-radius: 24px;
+  background: radial-gradient(ellipse at 36% 42%, #241c2d 0, transparent 48%), linear-gradient(125deg, #191721, #15151d 58%, #17151f);
+  box-shadow: 0 24px 70px #05050935, inset 0 1px #ffffff08;
+}
+
+.system-management-nav {
+  --nexus-tab-text: #aaa5b4;
+  --nexus-tab-text-hover: #f0eff7;
+  --nexus-tab-text-selected: #f4eaff;
+  --nexus-tab-hover: #241f2b;
+  --nexus-tab-selected: transparent;
+  --nexus-tab-selected-hover: transparent;
+  --nexus-tab-border-selected: transparent;
+  --nexus-tab-focus: #c4b5fd;
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px clamp(14px, 3vw, 38px) 0;
+  overflow-x: auto;
+  border-bottom: 1px solid #393342;
+  background: #12121a35;
+}
+
+.system-management-nav button.nexus-tab {
+  position: relative;
+  flex: 0 0 auto;
+  min-height: 52px;
+  padding: 12px clamp(7px, 1.1vw, 16px);
+  border: 0;
+  border-radius: 0;
+  font-size: 12px;
+}
+
+.system-management-nav button.nexus-tab[aria-selected="true"] {
+  border: 0;
+  color: #f2e9ff;
+  background: transparent;
+}
+
+.system-management-nav button.nexus-tab[aria-selected="true"]::after {
+  position: absolute;
+  right: 12px;
+  bottom: 0;
+  left: 12px;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: #b493dc;
+  content: '';
+}
+
+.system-management-book-identity {
+  display: flex;
+  min-width: 0;
+  min-height: 620px;
+  flex-direction: column;
+  padding: clamp(26px, 3vw, 48px) clamp(22px, 3vw, 42px) 0;
+  overflow: hidden;
+  border-right: 1px solid #393342;
+  background: linear-gradient(110deg, #211c29a6, #19172140);
 }
 
 .system-management-eyebrow,
@@ -26,14 +90,14 @@
   letter-spacing: .15em;
 }
 
-.system-management-hero h1,
+.system-management-book-identity h1,
 .system-management-state h1 {
   margin: 0;
-  font: 700 clamp(30px, 5vw, 48px)/1.1 'Outfit', sans-serif;
+  font: 700 clamp(34px, 4vw, 52px)/1.08 'Outfit', sans-serif;
   letter-spacing: -.04em;
 }
 
-.system-management-hero > p,
+.system-management-book-identity > p,
 .system-management-section-copy,
 .system-management-future > p,
 .system-management-state > p {
@@ -43,112 +107,109 @@
   line-height: 1.65;
 }
 
-.system-management-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 24px;
+.system-management-book-identity > p {
+  margin: 12px 0 0;
 }
 
-.system-management-stats span {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 13px;
-  border: 1px solid #343040;
-  border-radius: 10px;
-  background: #11121b99;
-  color: #b4b3c1;
-  font-size: 12px;
+.system-management-book-art {
+  position: relative;
+  display: grid;
+  min-height: 250px;
+  flex: 1 1 auto;
+  place-items: center;
+  margin: auto calc(clamp(22px, 3vw, 42px) * -1) 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 62%, #8260a533, transparent 54%), linear-gradient(180deg, transparent, #211a2c88);
+  mask-image: linear-gradient(180deg, transparent 0, #000 23%);
 }
 
-.system-management-stats strong {
-  color: #d8caff;
-  font: 700 18px 'Outfit', sans-serif;
+.system-management-book-art::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 42%, #17151f99 100%);
+  content: '';
+  pointer-events: none;
 }
 
-.system-management-nav {
-  --nexus-tab-text: #a4a5b4;
-  --nexus-tab-text-hover: #f0eff7;
-  --nexus-tab-text-selected: #f0eff7;
-  --nexus-tab-hover: #292437;
-  --nexus-tab-selected: #352c42;
-  --nexus-tab-selected-hover: #413052;
-  --nexus-tab-border-selected: #8765a9;
-  --nexus-tab-focus: #c4b5fd;
-  position: sticky;
-  top: 0;
-  z-index: 3;
-  display: flex;
-  gap: 7px;
-  overflow-x: auto;
-  margin: 18px 0 30px;
-  padding: 10px;
-  border: 1px solid #292b37;
-  border-radius: 13px;
-  background: #151720ed;
-  backdrop-filter: blur(12px);
+.system-management-book-art img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  opacity: .76;
 }
 
-.system-management-nav button {
-  flex: 1 0 112px;
-  min-height: 42px;
-  padding: 9px 10px;
-  font-size: 12px;
+.system-management-book-art > span {
+  color: #b99ae4;
+  font-size: 100px;
+  text-shadow: 0 0 46px #a678d766;
+}
+
+.system-management-book-page {
+  min-width: 0;
+  padding: clamp(26px, 3.1vw, 46px);
+  box-shadow: inset 1px 0 #ffffff08;
 }
 
 .system-management-section {
   display: grid;
-  grid-template-columns: minmax(180px, .32fr) minmax(0, 1fr);
-  gap: 8px 30px;
-  scroll-margin-top: 84px;
-  padding: 26px 0;
-  border-bottom: 1px solid #292b37;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  scroll-margin-top: 24px;
+  padding: 0;
 }
 
 .system-management-section-heading {
   display: flex;
-  align-items: flex-start;
-  gap: 13px;
+  align-items: center;
+  gap: 14px;
 }
 
 .system-management-section-heading > span {
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   flex: 0 0 auto;
   place-items: center;
-  border: 1px solid #48405c;
-  border-radius: 10px;
   color: #c4b5fd;
-  background: #292437;
   font: 600 12px 'Outfit', sans-serif;
 }
 
 .system-management-section-heading h2 {
   margin: 0;
   color: #f0eff7;
-  font: 600 23px 'Outfit', sans-serif;
+  font: 600 clamp(22px, 2.5vw, 30px) 'Outfit', sans-serif;
+}
+
+.system-management-section-heading > div > p {
+  margin-bottom: 4px;
 }
 
 .system-management-section > .system-management-section-copy {
-  margin: 0;
+  margin: -12px 0 2px 44px;
 }
 
 .system-management-section > .card,
 .system-management-section > .daily-login-admin-card,
 .system-management-section > .experience-admin-card {
-  grid-column: 2;
+  grid-column: 1;
   min-width: 0;
   margin: 0;
-  border-color: #292b37;
-  border-radius: 15px;
-  background: linear-gradient(145deg, #191b26, #171922);
   color: #f0eff7;
 }
 
 .system-management-section > .system-membership-card {
-  grid-column: 2;
+  grid-column: 1;
+}
+
+.system-management-sheet-editor {
+  grid-column: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .system-member-search { position: relative; }
@@ -159,27 +220,19 @@
 .system-member-search-results button small, .system-member-search > small { color: #a4a5b4; font-size: 11px; }
 .system-member-search-selected { color: #c8b8e4 !important; }
 
-.system-management-sheet-editor {
-  grid-column: 2;
-  min-width: 0;
-  padding: 34px;
-  border: 1px solid #342c42;
-  border-radius: 18px;
-  background: #191521;
-}
-
 .system-management-lifecycle,
 .system-management-danger-zone {
-  grid-column: 2;
+  grid-column: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   min-width: 0;
-  padding: 22px;
-  border: 1px solid #343040;
-  border-radius: 14px;
-  background: #171922;
+  padding: 22px 0;
+  border: 0;
+  border-top: 1px solid #343040;
+  border-radius: 0;
+  background: transparent;
 }
 
 .system-management-lifecycle h3,
@@ -204,8 +257,7 @@
 
 .system-management-danger-zone {
   align-items: flex-start;
-  border-color: #59343e;
-  background: linear-gradient(145deg, #21181d, #171922);
+  border-top-color: #59343e;
 }
 
 .system-management-danger-zone > div {
@@ -261,7 +313,7 @@
 
 .system-management-lifecycle-error,
 .system-management-lifecycle-success {
-  grid-column: 2;
+  grid-column: 1;
 }
 
 .system-management-lifecycle-error { color: #ff9aab !important; }
@@ -279,9 +331,6 @@
 .system-details-editor-actions { display: flex; justify-content: flex-end; margin-top: 20px; }
 
 @media (max-width: 600px) {
-  .system-management-sheet-editor,
-  .system-management-lifecycle,
-  .system-management-danger-zone { padding: 22px 17px; }
   .system-management-lifecycle,
   .system-management-danger-zone { align-items: stretch; flex-direction: column; }
   .system-management-danger-zone form { flex-basis: auto; }
@@ -289,12 +338,9 @@
 }
 
 .system-management-future > p {
-  grid-column: 2;
+  grid-column: 1;
   margin: 0;
-  padding: 16px 18px;
-  border: 1px dashed #343040;
-  border-radius: 12px;
-  background: #171922;
+  padding: 8px 0;
 }
 
 .system-management-state {
@@ -309,16 +355,20 @@
 .system-management-state .system-management-eyebrow { display: block; }
 .system-management-state .button { margin-top: 12px; }
 
-@media (max-width: 700px) {
-  .system-management-content { width: min(100% - 32px, 600px); padding-top: 20px; }
-  .system-management-hero { padding: 26px 22px; }
-  .system-management-nav { margin: 14px 0 22px; }
-  .system-management-nav button { flex: 0 0 120px; }
-  .system-management-section { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 22px 0; }
+@media (max-width: 900px) {
+  .system-management-content { width: min(100% - 32px, 860px); padding-top: 20px; }
+  .system-management-book { grid-template-columns: minmax(0, 1fr); }
+  .system-management-nav { justify-content: flex-start; gap: 14px; padding-right: 18px; padding-left: 18px; }
+  .system-management-nav button.nexus-tab { min-height: 48px; }
+  .system-management-book-identity { min-height: 0; padding: 28px 24px 0; border-right: 0; border-bottom: 1px solid #393342; }
+  .system-management-book-identity h1 { font-size: clamp(32px, 8vw, 44px); }
+  .system-management-book-art { min-height: 190px; margin-right: -24px; margin-left: -24px; }
+  .system-management-book-page { padding: 28px 24px 36px; }
+  .system-management-section { gap: 14px; }
+  .system-management-section > .system-management-section-copy { margin: -8px 0 0 44px; }
   .system-management-section > .card,
   .system-management-section > .daily-login-admin-card,
   .system-management-section > .experience-admin-card,
-  .system-management-sheet-editor,
   .system-management-lifecycle,
   .system-management-danger-zone,
   .system-management-lifecycle-error,

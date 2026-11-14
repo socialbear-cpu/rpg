@@ -130,7 +130,7 @@ export function SystemDetailsEditor({ system, section, onSaved }: {
       onFocusXChange={setCoverFocusX}
       onFocusYChange={setCoverFocusY}
       showModeAndTags={section === 'overview'}
-      showCover={section === 'settings'}
+      showCover={section === 'overview'}
     />
     {section === 'settings' && <label className="daily-field">Visibilidade do sistema
       <select value={isPublic ? 'public' : 'private'} onChange={(event) => setIsPublic(event.target.value === 'public')}>
