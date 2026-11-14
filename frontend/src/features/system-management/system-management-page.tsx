@@ -3,7 +3,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
-  getGameSystemCoverUrl,
   getGameSystems,
   getMyDailyLoginSystems,
   getMySystemMemberships,
@@ -29,7 +28,6 @@ import { SystemMembershipCard } from '../system-membership/system-membership-car
 import { SystemSheetEditor } from '../system-creation/system-sheet-editor';
 import { SystemDetailsEditor } from './system-details-editor';
 import { BookCategory } from './book-category';
-import { turnBookSheet } from './book-transition';
 import './system-management-page.css';
 import '../system-creation/system-creation.css';
 import './system-management-codex.css';
@@ -237,7 +235,6 @@ export function SystemManagementPage() {
   const selectedManageable = manageableSystems.find((entry) => entry.system.id === systemId);
   const membershipsForSystem = access ? { ...access, memberships: access.memberships.filter((membership) => membership.game_system_id === systemId) } : null;
   const canEditOwnerSettings = Boolean(access?.is_platform_admin || access?.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner'));
-  const systemCoverUrl = getGameSystemCoverUrl(gameSystem?.cover_image_path);
   const editorSystem: GameSystem | null = gameSystem ?? (systemView ? {
     id: systemId,
     slug: '',
@@ -261,7 +258,7 @@ export function SystemManagementPage() {
   }
 
   function selectCategory(category: ManagementCategory) {
-    if (category !== activeCategory) turnBookSheet(() => setActiveCategory(category));
+    setActiveCategory(category);
   }
 
   function isVisibleCategory(category: ManagementCategory) {
@@ -299,16 +296,6 @@ export function SystemManagementPage() {
             <button className="nexus-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => selectCategory('community')}>Comunidade</button>
             <button className="nexus-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => selectCategory('settings')}>Configurações</button>
           </nav>
-          <aside className="system-management-book-identity" aria-label={`Sobre ${systemView.system.name}`}>
-            <span className="system-management-eyebrow">CÓDEX DO SISTEMA</span>
-            <h1>{systemView.system.name}</h1>
-            {(gameSystem?.description ?? systemView.system.description) && <p>{gameSystem?.description ?? systemView.system.description}</p>}
-            <div className="system-management-book-art" aria-hidden="true">
-              {systemCoverUrl
-                ? <img src={systemCoverUrl} alt="" style={{ objectPosition: `${gameSystem?.cover_focus_x ?? 50}% ${gameSystem?.cover_focus_y ?? 50}%` }} />
-                : <img src="/images/codex-landscape.png" alt="" />}
-            </div>
-          </aside>
           <div className="system-management-book-page">
         {isVisibleCategory('overview') && <BookCategory className={categoryPageClass()} id="overview" role="tabpanel" aria-labelledby="management-tab-overview"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO I · PAINEL</p><h2>Visão geral</h2></div></div>
           <p className="system-management-section-copy">Edite as informações e a apresentação principal do sistema.</p>
