@@ -280,7 +280,24 @@ export function SystemManagementPage() {
             <div className="system-management-book-art" aria-hidden="true">
               {systemCoverUrl
                 ? <img src={systemCoverUrl} alt="" style={{ objectPosition: `${gameSystem?.cover_focus_x ?? 50}% ${gameSystem?.cover_focus_y ?? 50}%` }} />
-                : <span>✧</span>}
+                : <svg className="system-management-book-landscape" viewBox="0 0 760 440" preserveAspectRatio="xMidYMax slice" focusable="false">
+                  <defs>
+                    <linearGradient id="codex-sky" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#262033" /><stop offset="1" stopColor="#76578e" /></linearGradient>
+                    <radialGradient id="codex-moon"><stop stopColor="#d7b7ff" stopOpacity=".8" /><stop offset="1" stopColor="#b18ae5" stopOpacity="0" /></radialGradient>
+                    <linearGradient id="codex-mist" x1="0" y1="0" x2="1" y2="0"><stop stopColor="#c6a0ed" stopOpacity="0" /><stop offset=".5" stopColor="#c6a0ed" stopOpacity=".28" /><stop offset="1" stopColor="#c6a0ed" stopOpacity="0" /></linearGradient>
+                  </defs>
+                  <rect width="760" height="440" fill="url(#codex-sky)" />
+                  <circle cx="548" cy="142" r="112" fill="url(#codex-moon)" />
+                  <circle cx="548" cy="142" r="35" fill="#d9c4ed" fillOpacity=".38" />
+                  <path d="M0 278 90 225 167 250 257 198 337 247 422 204 500 247 605 195 760 250V440H0Z" fill="#40334f" />
+                  <path d="M0 310 96 266 185 297 302 244 398 291 513 237 628 285 760 245V440H0Z" fill="#342a43" />
+                  <path d="M0 340 114 292 230 337 337 280 445 326 558 277 682 327 760 302V440H0Z" fill="#292336" />
+                  <path d="M0 348c142-34 235-17 359 11s240 31 401-4v85H0Z" fill="url(#codex-mist)" />
+                  <path d="M446 292h14v-52l13-17 13 17v52h9v-69l20-25 20 25v69h12v-51l12-17 12 17v51h15v18H446Z" fill="#17141f" />
+                  <path d="M0 440V325c34-11 61-33 83-68 19 39 40 53 68 64v119ZM75 336c-24-15-42-43-47-71 22 11 42 16 65 14-5 24-11 41-18 57Zm37-20c8-28 27-53 54-67-1 24 4 43 17 62-25 8-46 10-71 5Z" fill="#201a2a" />
+                  <path d="M0 379c118-22 198-6 305 19s249 20 455-26v68H0Z" fill="#17141f" fillOpacity=".7" />
+                  <path d="m352 110 8 20 20 8-20 8-8 20-8-20-20-8 20-8Z" fill="#d7b7ff" fillOpacity=".72" />
+                </svg>}
             </div>
           </aside>
           <div className="system-management-book-page">
