@@ -7,6 +7,12 @@ const senderCharacterId = '53000000-0000-4000-8000-000000000001';
 const recipientCharacterId = '53000000-0000-4000-8000-000000000002';
 const stackId = '63000000-0000-4000-8000-000000000001';
 const itemId = '43000000-0000-4000-8000-000000000001';
+const ownInventoryCharacter = { id: senderCharacterId, game_system_id: systemId, character_name: 'Sender' };
+const ownInventoryRows = [{ id: stackId, item_id: itemId, quantity: 2, metadata: { enchantment: 'ember' } }];
+const ownInventoryItems = [{
+  id: itemId, name: 'Ember Sword', description: 'A warm blade.', item_type: 'equipment',
+  rules_data: { image_url: 'https://cdn.example/sword.png' },
+}];
 const offerId = '73000000-0000-4000-8000-000000000001';
 const authorization = 'Bearer trade-token';
 const senderLines = [{ stack_id: stackId, quantity: 1 }];
@@ -62,6 +68,9 @@ beforeEach(() => {
       const name = url.pathname.slice('/rest/v1/rpc/'.length);
       return Response.json(rpcResults[name]);
     }
+    if (url.pathname === '/rest/v1/characters') return Response.json(ownInventoryCharacter);
+    if (url.pathname === '/rest/v1/character_inventory') return Response.json(ownInventoryRows);
+    if (url.pathname === '/rest/v1/items') return Response.json(ownInventoryItems);
     throw new Error(`Unexpected request: ${url}`);
   });
 });
@@ -98,6 +107,46 @@ describe('character trading API', () => {
     expect(response.json()).toEqual({ character: inventoryResult.character, stacks: inventoryResult.stacks });
     const rpc = requests.find(({ url }) => url.pathname.endsWith('/get_trade_inventory'))!;
     expect(rpc.body).toEqual({ p_game_system_id: systemId, p_character_id: recipientCharacterId });
+  });
+
+  it('reads the signed-in character inventory with item details and ownership filters', async () => {
+    const response = await request('GET', `/api/v1/me/characters/${senderCharacterId}/inventory`);
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({
+      character: ownInventoryCharacter,
+      stacks: [{
+        stack_id: stackId, item_id: itemId, item_name: 'Ember Sword',
+        description: 'A warm blade.', item_type: 'equipment',
+        rules_data: { image_url: 'https://cdn.example/sword.png' },
+        quantity: 2, metadata: { enchantment: 'ember' },
+      }],
+    });
+    const characterQuery = requests.find(({ url }) => url.pathname === '/rest/v1/characters')!;
+    expect(characterQuery.url.searchParams.get('user_id')).toBe(`eq.${userId}`);
+    expect(characterQuery.url.searchParams.get('id')).toBe(`eq.${senderCharacterId}`);
+    expect(requests.some(({ url }) => url.pathname === '/rest/v1/character_inventory')).toBe(true);
+    expect(requests.some(({ url }) => url.pathname === '/rest/v1/items')).toBe(true);
+  });
+
+  it('does not read inventory when the character is not owned by the signed-in user', async () => {
+    vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = new URL(String(input));
+      const method = init?.method ?? 'GET';
+      const headers = new Headers(init?.headers);
+      const body: unknown = init?.body ? JSON.parse(String(init.body)) : null;
+      requests.push({ url, method, headers, body });
+      if (url.pathname === '/auth/v1/user') {
+        return Response.json({
+          id: userId, aud: 'authenticated', role: 'authenticated', email: 'trade@example.test',
+          app_metadata: {}, user_metadata: {}, created_at: '2026-01-01T00:00:00Z',
+        });
+      }
+      if (url.pathname === '/rest/v1/characters') return Response.json(null);
+      throw new Error(`Unexpected request: ${url}`);
+    });
+    const response = await request('GET', `/api/v1/me/characters/${recipientCharacterId}/inventory`);
+    expect(response.statusCode).toBe(404);
+    expect(requests.some(({ url }) => url.pathname === '/rest/v1/character_inventory')).toBe(false);
   });
 
   it('lists incoming offers with bounded pagination', async () => {
@@ -188,6 +237,7 @@ describe('character trading API', () => {
     expect((await request('POST', '/api/v1/me/trade-offers/not-a-uuid/cancel', {}, false)).statusCode).toBe(401);
     expect((await request('GET', '/api/v1/game-systems/not-a-uuid/trading/characters')).statusCode).toBe(400);
     expect((await request('GET', `/api/v1/game-systems/${systemId}/trading/characters/not-a-uuid/inventory`)).statusCode).toBe(400);
+    expect((await request('GET', '/api/v1/me/characters/not-a-uuid/inventory')).statusCode).toBe(400);
     databaseFails = true;
     const response = await request('GET', `/api/v1/game-systems/${systemId}/trading/characters`);
     expect(response.statusCode).toBe(500);

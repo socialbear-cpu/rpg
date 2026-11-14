@@ -4,6 +4,8 @@ import {
   tradeInventoryRpcSchema,
   tradeMutationResponseSchema,
   tradeOffersRpcSchema,
+  ownedCharacterInventorySchema,
+  ownedInventoryCharacterSchema,
   type CounterTradeOfferInput,
   type CreateTradeOfferInput,
   type TradeOfferResponseInput,
@@ -33,6 +35,59 @@ export async function readTradeInventory(client: SupabaseClient, gameSystemId: s
     p_game_system_id: gameSystemId,
     p_character_id: characterId,
   }));
+}
+
+export async function readOwnedInventoryCharacter(client: SupabaseClient, userId: string, characterId: string) {
+  const { data, error } = await client.from('characters')
+    .select('id,game_system_id,character_name')
+    .eq('id', characterId)
+    .eq('user_id', userId)
+    .eq('status', 'active')
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  const result = ownedInventoryCharacterSchema.safeParse(data);
+  if (!result.success) throw new Error('Invalid owned inventory character response');
+  return result.data;
+}
+
+export async function readOwnedCharacterInventory(
+  client: SupabaseClient,
+  character: { id: string; game_system_id: string; character_name: string },
+) {
+  const { data: inventory, error: inventoryError } = await client.from('character_inventory')
+    .select('id,item_id,quantity,metadata')
+    .eq('character_id', character.id)
+    .order('acquired_at');
+  if (inventoryError) throw inventoryError;
+
+  const itemIds = [...new Set((inventory ?? []).map(({ item_id }) => item_id))];
+  if (itemIds.length === 0) return { character, stacks: [] };
+
+  const { data: items, error: itemsError } = await client.from('items')
+    .select('id,name,description,item_type,rules_data')
+    .eq('game_system_id', character.game_system_id)
+    .in('id', itemIds);
+  if (itemsError) throw itemsError;
+
+  const itemById = new Map((items ?? []).map((item) => [item.id, item]));
+  const stacks = (inventory ?? []).map((stack) => {
+    const item = itemById.get(stack.item_id);
+    if (!item) throw new Error('Character inventory references an unavailable item');
+    return {
+      stack_id: stack.id,
+      item_id: stack.item_id,
+      item_name: item.name,
+      description: item.description,
+      item_type: item.item_type,
+      rules_data: item.rules_data,
+      quantity: stack.quantity,
+      metadata: stack.metadata,
+    };
+  });
+  const result = ownedCharacterInventorySchema.safeParse({ character, stacks });
+  if (!result.success) throw new Error('Invalid owned character inventory response');
+  return result.data;
 }
 
 export async function readTradeOffers(client: SupabaseClient, query: TradeOffersQuery) {

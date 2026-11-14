@@ -5,6 +5,7 @@ import type { CharacterSheetDefinition, CharacterSheetField, SystemCharacter } f
 import { CharacterGallery } from '../src/features/characters/character-gallery.js';
 import { CharacterForm } from '../src/features/characters/character-form.js';
 import { CharacterHome } from '../src/features/characters/character-home.js';
+import { CharacterRecord } from '../src/features/characters/character-record.js';
 import { CharacterSheetStepRenderer } from '../src/features/character-sheet/character-sheet-step-renderer.js';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }) }));
@@ -99,23 +100,55 @@ describe('character entry', () => {
 
   it('shows only the active character summary and a switch action', () => {
     const html = renderToStaticMarkup(createElement(CharacterHome, {
-      systemName: 'Crônicas', character, fields, onSwitch: vi.fn(),
+      systemName: 'Crônicas', character, fields, onSwitch: vi.fn(), sheetDefinition: definition,
+      inventory: null, recordLoading: false, sheetError: null, inventoryError: null, onRefreshRecord: vi.fn(),
     }));
     expect(html).toContain('Crônicas');
     expect(html).toContain('Ayla');
     expect(html).toContain('Mago');
     expect(html).not.toContain('Uma história longa');
     expect(html).toContain('Salas de bate-papo');
+    expect(html).toContain('Minha Ficha');
+    expect(html).toContain('Consulte as informações do seu personagem e gerencie seu inventário.');
     expect(html).toContain('>Recompensa diária</button>');
     expect(html).toContain('<dialog');
   });
 
   it('renders a safe unavailable state when the selected character is missing', () => {
     const html = renderToStaticMarkup(createElement(CharacterHome, {
-      systemName: 'Crônicas', character: null, fields, onSwitch: vi.fn(),
+      systemName: 'Crônicas', character: null, fields, onSwitch: vi.fn(), sheetDefinition: definition,
+      inventory: null, recordLoading: false, sheetError: null, inventoryError: null, onRefreshRecord: vi.fn(),
     }));
     expect(html).toContain('Personagem indisponível');
     expect(html).not.toContain('Ayla');
     expect(html).not.toContain('<dialog');
+  });
+
+  it('renders configured character fields and persisted inventory item details', () => {
+    const inventory = {
+      character: { id: character.id, game_system_id: character.game_system_id, character_name: character.character_name },
+      stacks: [{
+        stack_id: 'stack-1', item_id: 'item-1', item_name: 'Poção lunar',
+        description: 'Recupera energia.', item_type: 'consumable',
+        rules_data: { image_url: 'https://cdn.example/potion.png', rarity: 'rara' },
+        quantity: 3, metadata: { condition: 'lacrada' },
+      }],
+    };
+    const html = renderToStaticMarkup(createElement(CharacterRecord, {
+      character, definition, experience: null, inventory, activeTab: 'sheet', onTabChange: vi.fn(),
+      loading: false, sheetError: null, inventoryError: null, onRefresh: vi.fn(), onClose: vi.fn(),
+    }));
+    expect(html).toContain('Ayla');
+    expect(html).toContain('Classe');
+    expect(html).toContain('Mago');
+    expect(html).toContain('aria-selected="true"');
+
+    const inventoryHtml = renderToStaticMarkup(createElement(CharacterRecord, {
+      character, definition, experience: null, inventory, activeTab: 'inventory', onTabChange: vi.fn(),
+      loading: false, sheetError: null, inventoryError: null, onRefresh: vi.fn(), onClose: vi.fn(),
+    }));
+    expect(inventoryHtml).toContain('Poção lunar');
+    expect(inventoryHtml).toContain('Quantidade: 3');
+    expect(inventoryHtml).toContain('Consumíveis');
   });
 });

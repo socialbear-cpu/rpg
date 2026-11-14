@@ -190,6 +190,22 @@ export interface TradeInventoryCharacter {
   is_mine: boolean;
 }
 
+export interface CharacterInventoryStack {
+  stack_id: string;
+  item_id: string;
+  item_name: string;
+  description: string | null;
+  item_type: string;
+  rules_data: Record<string, unknown>;
+  quantity: number;
+  metadata: Record<string, unknown>;
+}
+
+export interface CharacterInventory {
+  character: Pick<SystemCharacter, 'id' | 'game_system_id' | 'character_name'>;
+  stacks: CharacterInventoryStack[];
+}
+
 export interface TradeOfferCharacter {
   id: string;
   character_name: string;
@@ -579,6 +595,12 @@ export function getTradeCharacters(systemId: string) {
 export function getTradeCharacterInventory(systemId: string, characterId: string) {
   return authenticatedRequest<{ character: TradeInventoryCharacter; stacks: TradeInventoryStack[] }>(
     `/api/v1/game-systems/${encodeURIComponent(systemId)}/trading/characters/${encodeURIComponent(characterId)}/inventory`,
+  );
+}
+
+export function getMyCharacterInventory(characterId: string) {
+  return authenticatedRequest<CharacterInventory>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/inventory`,
   );
 }
 

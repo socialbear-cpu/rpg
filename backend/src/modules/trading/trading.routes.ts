@@ -7,6 +7,8 @@ import {
   cancelTradeOffer,
   counterTradeOffer,
   createTradeOffer,
+  readOwnedCharacterInventory,
+  readOwnedInventoryCharacter,
   readTradeCharacters,
   readTradeInventory,
   readTradeOffers,
@@ -29,10 +31,15 @@ const authOptions = {
 };
 const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
 const characterParamsSchema = z.strictObject({ systemId: z.uuid(), characterId: z.uuid() });
+const myCharacterParamsSchema = z.strictObject({ characterId: z.uuid() });
 const offerParamsSchema = z.strictObject({ offerId: z.uuid() });
 
 function databaseError(reply: FastifyReply) {
   return reply.code(500).send({ error: 'Unable to access character trading' });
+}
+
+function inventoryDatabaseError(reply: FastifyReply) {
+  return reply.code(500).send({ error: 'Unable to access character inventory' });
 }
 
 function mutationReply(reply: FastifyReply, result: { status: string; [key: string]: unknown }) {
@@ -116,6 +123,20 @@ export async function tradingRoutes(app: FastifyInstance) {
       return reply.send({ character: result.character, stacks: result.stacks });
     } catch {
       return databaseError(reply);
+    }
+  });
+
+  app.get('/api/v1/me/characters/:characterId/inventory', authOptions, async (request, reply) => {
+    const params = uuidParam(myCharacterParamsSchema, request.params);
+    if (!params.success) return reply.code(400).send({ error: 'Invalid character ID' });
+    try {
+      const character = await readOwnedInventoryCharacter(request.supabase!, request.userId!, params.data.characterId!);
+      if (!character) return reply.code(404).send({ error: 'Character inventory not found' });
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, character.game_system_id));
+      if (accessError) return accessError;
+      return reply.send(await readOwnedCharacterInventory(request.supabase!, character));
+    } catch {
+      return inventoryDatabaseError(reply);
     }
   });
 

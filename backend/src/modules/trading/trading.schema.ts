@@ -81,6 +81,28 @@ export const tradeCharactersRpcSchema = z.discriminatedUnion('status', [
 
 export const tradeInventoryResponseSchema = tradeInventorySchema;
 
+export const ownedInventoryCharacterSchema = z.strictObject({
+  id: z.uuid(),
+  game_system_id: z.uuid(),
+  character_name: z.string(),
+});
+
+export const ownedInventoryStackSchema = z.strictObject({
+  stack_id: z.uuid(),
+  item_id: z.uuid(),
+  item_name: z.string(),
+  description: z.string().nullable(),
+  item_type: z.string(),
+  rules_data: metadataSchema,
+  quantity: z.number().int().min(1).max(2_147_483_647),
+  metadata: metadataSchema,
+});
+
+export const ownedCharacterInventorySchema = z.strictObject({
+  character: ownedInventoryCharacterSchema,
+  stacks: z.array(ownedInventoryStackSchema),
+});
+
 export const tradeInventoryRpcSchema = z.discriminatedUnion('status', [
   z.strictObject({ status: z.literal('ok'), character: tradeInventoryCharacterSchema, stacks: z.array(tradeInventoryStackSchema) }),
   z.strictObject({ status: z.enum(['unauthorized', 'no_active_character', 'character_not_found']) }),

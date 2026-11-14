@@ -175,6 +175,84 @@
   .lobby-search-button small { font-size: 8px; }
 }
 
+.lobby-character-record-card { border-color: #5a4575; background: linear-gradient(145deg, #211a2d, #171720); }
+.lobby-character-record-card .lobby-room-icon { border-color: #715398; background: #352448; }
+.character-record-page { width: min(100%, 1120px); margin: 0 auto; }
+.character-record-topline { display: flex; justify-content: space-between; gap: 14px; }
+.character-record-back, .character-record-refresh { min-height: 40px; padding: 9px 13px; border: 1px solid #494052; border-radius: 9px; color: #e7deef; background: #191521; font: inherit; cursor: pointer; }
+.character-record-back:hover, .character-record-refresh:hover { border-color: #8058b8; background: #251d31; }
+.character-record-refresh:disabled { opacity: .65; cursor: wait; }
+.character-record-heading { margin: 28px 0 24px; }
+.character-record-heading h1 { margin: 6px 0; color: #f4f1fa; font: 700 clamp(30px, 4vw, 46px) 'Outfit', sans-serif; letter-spacing: -.035em; }
+.character-record-heading p { margin: 0; color: #aaa3b5; }
+.character-record-tabs { display: flex; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid #393244; }
+.character-record-tabs > button { display: inline-flex; min-height: 42px; align-items: center; gap: 9px; padding: 9px 16px; border: 1px solid transparent; border-radius: 9px; color: #bcb4c7; background: transparent; font: 600 14px 'DM Sans', sans-serif; cursor: pointer; }
+.character-record-tabs > button:hover { color: #f0e8fa; background: #211b2b; }
+.character-record-tabs > button.is-active { border-color: #75579a; color: #f2eaff; background: #30223f; box-shadow: inset 0 -2px #a77bd5; }
+.character-record-tabs > button span { min-width: 22px; padding: 2px 6px; border-radius: 99px; color: #d7c3ec; background: #ffffff19; font-size: 11px; text-align: center; }
+.character-record-panel { padding-top: 21px; }
+.character-record-experience { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+.character-record-experience > div { display: grid; gap: 5px; padding: 14px 16px; border: 1px solid #393244; border-radius: 12px; background: #191521; }
+.character-record-experience span { color: #aaa2b4; font-size: 12px; }
+.character-record-experience strong { color: #f0e9fa; font: 650 18px 'Outfit', sans-serif; }
+.character-record-sheet-section { margin-bottom: 16px; padding: clamp(17px, 2.8vw, 26px); border: 1px solid #393244; border-radius: 15px; background: linear-gradient(145deg, #1d1927, #17151e 75%); }
+.character-record-sheet-section > header > span, .character-record-inventory-category > header > span { color: #a88bd1; font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+.character-record-sheet-section > header h2, .character-record-inventory-category > header h2 { margin: 5px 0 16px; color: #f0eaf7; font: 650 21px 'Outfit', sans-serif; }
+.character-record-sheet-art { position: relative; width: min(100%, 780px); aspect-ratio: 16 / 9; margin: 0 auto 18px; overflow: hidden; border: 1px solid #42384f; border-radius: 11px; background: radial-gradient(ellipse at center, #342740, #17151e 75%); }
+.character-record-sheet-art-element { position: absolute; display: grid; place-items: center; overflow: hidden; color: #f5efff; font-size: clamp(11px, 1.8vw, 18px); text-align: center; }
+.character-record-sheet-art-element img { width: 100%; height: 100%; object-fit: cover; }
+.character-record-fields { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 11px; }
+.character-record-field { min-width: 0; padding: 14px; border: 1px solid #342e3c; border-radius: 10px; background: #14121a; }
+.character-record-field.width-full { grid-column: 1 / -1; }
+.character-record-field.width-half { grid-column: span 3; }
+.character-record-field.width-third { grid-column: span 2; }
+.character-record-field h3 { margin: 0 0 8px; color: #a9a0b4; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.character-record-value { margin: 0; color: #f1ebf7; font-size: 15px; overflow-wrap: anywhere; }
+.character-record-value.is-long { white-space: pre-wrap; line-height: 1.65; }
+.character-record-selected-options { display: grid; gap: 9px; }
+.character-record-selected-option { display: flex; align-items: flex-start; gap: 10px; color: #f1ebf7; }
+.character-record-selected-option img { width: 42px; height: 42px; flex: 0 0 auto; border: 1px solid #4d3e61; border-radius: 8px; object-fit: cover; }
+.character-record-selected-option p { margin: 4px 0 0; color: #a9a0b4; font-size: 12px; line-height: 1.45; }
+.character-record-notice { padding: 18px; border: 1px solid #40364f; border-radius: 11px; color: #ccc2d7; background: #191521; }
+.character-record-inventory-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 310px); align-items: start; gap: 18px; }
+.character-record-inventory-categories { display: grid; gap: 17px; min-width: 0; }
+.character-record-inventory-category { padding: 17px; border: 1px solid #393244; border-radius: 14px; background: #191521; }
+.character-record-inventory-category > header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.character-record-inventory-category > header h2 { margin-bottom: 13px; }
+.character-record-inventory-category > header span { color: #aaa2b4; font-size: 11px; letter-spacing: normal; }
+.character-record-inventory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
+.character-record-item { position: relative; display: grid; justify-items: center; gap: 7px; min-width: 0; padding: 9px; border: 1px solid #393244; border-radius: 11px; color: #eee8f5; background: linear-gradient(145deg, #201b29, #17151d); font: inherit; text-align: center; cursor: pointer; }
+.character-record-item:hover, .character-record-item:focus-visible { border-color: #8762af; outline: 0; background: #292035; }
+.character-record-item.is-selected { border-color: #a67bd1; box-shadow: 0 0 0 2px #9469bf44; }
+.character-record-item-art { display: grid; width: 62px; height: 62px; place-items: center; overflow: hidden; border: 1px solid #514363; border-radius: 9px; color: #d2b7f1; background: #30243d; font-size: 25px; }
+.character-record-item-art img { width: 100%; height: 100%; object-fit: cover; }
+.character-record-item-name { width: 100%; font-size: 12px; line-height: 1.35; overflow-wrap: anywhere; }
+.character-record-item-quantity { position: absolute; top: 5px; right: 5px; min-width: 24px; padding: 3px 5px; border: 1px solid #655080; border-radius: 99px; color: #fff; background: #21182dcc; font-size: 10px; font-weight: 700; }
+.character-record-item-detail { position: sticky; top: 18px; padding: 18px; border: 1px solid #514064; border-radius: 14px; background: linear-gradient(150deg, #211a2d, #17151e); }
+.character-record-item-detail h2 { margin: 8px 0 4px; color: #f5effb; font: 650 22px 'Outfit', sans-serif; overflow-wrap: anywhere; }
+.character-record-item-detail > p { color: #b9b0c3; font-size: 13px; line-height: 1.55; }
+.character-record-item-detail .character-record-item-category-label { margin: 0; color: #ba9de0; font-size: 11px; }
+.character-record-item-detail dl { display: grid; gap: 9px; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid #3c3348; }
+.character-record-item-detail dl > div { display: flex; justify-content: space-between; gap: 12px; color: #aaa2b4; font-size: 12px; }
+.character-record-item-detail dt { flex: 0 0 auto; }
+.character-record-item-detail dd { margin: 0; color: #ece5f3; text-align: right; overflow-wrap: anywhere; }
+.character-record-item-detail dl > .character-record-item-metadata { display: grid; justify-content: stretch; }
+.character-record-item-metadata dd { display: grid; gap: 5px; text-align: left; }
+.character-record-item-metadata dd span { overflow-wrap: anywhere; }
+
+@media (max-width: 760px) {
+  .character-record-inventory-layout { grid-template-columns: minmax(0, 1fr); }
+  .character-record-item-detail { position: static; }
+}
+@media (max-width: 620px) {
+  .character-record-experience { grid-template-columns: 1fr; }
+  .character-record-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .character-record-field.width-full, .character-record-field.width-half, .character-record-field.width-third { grid-column: 1 / -1; }
+  .character-record-topline { align-items: flex-start; }
+  .character-record-back, .character-record-refresh { padding-inline: 9px; font-size: 12px; }
+  .character-record-inventory-grid { grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); }
+}
+
 /* Character creation: tighter rhythm and the shared dark-purple system identity. */
 .character-entry-page {
   background: radial-gradient(ellipse at 18% 28%, #2a2038 0, #171521 34%, #110e18 76%);
