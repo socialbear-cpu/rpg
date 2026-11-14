@@ -2,13 +2,17 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildApp } from '../src/create-app.js';
 
 const userId = '21000000-0000-4000-8000-000000000001';
+const campaignOwnerId = '21000000-0000-4000-8000-000000000002';
 const characterId = '51000000-0000-4000-8000-000000000001';
 const otherCharacterId = '51000000-0000-4000-8000-000000000002';
 const campaignId = '61000000-0000-4000-8000-000000000001';
+const systemId = '31000000-0000-4000-8000-000000000001';
 const roomId = '71000000-0000-4000-8000-000000000001';
 const startsAt = '2026-11-14T12:00:00.000Z';
 let characterRows: Record<string, unknown>[];
 let campaignMemberships: Record<string, unknown>[];
+let availableCampaigns: Record<string, unknown>[];
+let systemMemberships: { is_platform_admin: boolean; memberships: { game_system_id: string; game_system_name: string; role: 'owner' | 'mod' | 'user' }[] };
 let rooms: Record<string, unknown>[];
 let messages: Record<string, unknown>[];
 let requests: { url: URL; method: string; body: unknown }[];
@@ -18,6 +22,8 @@ beforeEach(() => {
   vi.stubEnv('SUPABASE_PUBLISHABLE_KEY', 'sb_publishable_test');
   characterRows = [{ id: characterId, user_id: userId, status: 'active', game_system_id: '31000000-0000-4000-8000-000000000001', character_name: 'Liora' }];
   campaignMemberships = [{ campaign_id: campaignId, game_system_id: '31000000-0000-4000-8000-000000000001', role: 'player' }];
+  availableCampaigns = [{ id: campaignId, game_system_id: systemId, owner_user_id: campaignOwnerId, name: 'A Floresta' }];
+  systemMemberships = { is_platform_admin: false, memberships: [] };
   rooms = [{ id: roomId, campaign_id: campaignId, name: 'Taverna', created_at: startsAt }];
   messages = [{ id: '81000000-0000-4000-8000-000000000001', room_id: roomId, campaign_id: campaignId, character_id: otherCharacterId, content: 'A missão começa!', created_at: startsAt }];
   requests = [];
@@ -29,7 +35,8 @@ beforeEach(() => {
     if (url.pathname === '/auth/v1/user') return Response.json({ id: userId, aud: 'authenticated', role: 'authenticated', email: 'player@example.test', app_metadata: {}, user_metadata: {}, created_at: startsAt });
     if (url.pathname === '/rest/v1/characters') return Response.json(characterRows);
     if (url.pathname === '/rest/v1/campaign_members') return Response.json(campaignMemberships);
-    if (url.pathname === '/rest/v1/campaigns') return Response.json([{ id: campaignId, name: 'A Floresta' }]);
+    if (url.pathname === '/rest/v1/campaigns') return Response.json(availableCampaigns);
+    if (url.pathname === '/rest/v1/rpc/get_my_system_memberships') return Response.json(systemMemberships);
     if (url.pathname === '/rest/v1/chat_rooms') {
       if (method === 'GET') return Response.json(rooms);
       return Response.json({ ...body as object, id: roomId, created_at: startsAt });
@@ -52,6 +59,7 @@ async function request(method: 'GET' | 'POST', path: string, payload?: unknown) 
 }
 
 const roomsPath = `/api/v1/me/characters/${characterId}/chat-rooms`;
+const campaignsPath = `/api/v1/me/characters/${characterId}/campaigns`;
 
 describe('campaign chat API', () => {
   it('lists only rooms from campaigns joined by the selected owned character', async () => {
@@ -120,5 +128,64 @@ describe('campaign chat API', () => {
     const response = await request('POST', `${roomsPath}/${roomId}/messages`, { content: 'a'.repeat(2001) });
     expect(response.statusCode).toBe(400);
     expect(requests.some(({ url, method }) => url.pathname === '/rest/v1/messages' && method === 'POST')).toBe(false);
+  });
+
+  it('lists a campaign even before it has rooms and reports whether the selected character can create one', async () => {
+    rooms = [];
+    const response = await request('GET', campaignsPath);
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({ campaigns: [{ id: campaignId, name: 'A Floresta', game_system_id: systemId, can_create_room: false }] });
+    expect(requests.some(({ url }) => url.pathname === '/rest/v1/chat_rooms')).toBe(false);
+  });
+
+  it('lets the campaign owner create a trimmed room for a visible campaign', async () => {
+    availableCampaigns = [{ ...availableCampaigns[0]!, owner_user_id: userId }];
+    const response = await request('POST', `${campaignsPath}/${campaignId}/chat-rooms`, { name: '  Planejamento  ' });
+    expect(response.statusCode).toBe(201);
+    expect(response.json().room).toMatchObject({ campaign_id: campaignId, name: 'Planejamento' });
+    const insert = requests.find(({ url, method }) => url.pathname === '/rest/v1/chat_rooms' && method === 'POST')!;
+    expect(insert.body).toEqual({ campaign_id: campaignId, name: 'Planejamento' });
+  });
+
+  it('lets the selected campaign game master create a room', async () => {
+    campaignMemberships = [{ campaign_id: campaignId, game_system_id: systemId, role: 'game_master' }];
+    const response = await request('POST', `${campaignsPath}/${campaignId}/chat-rooms`, { name: 'Planejamento' });
+    expect(response.statusCode).toBe(201);
+  });
+
+  it('lets the Owner of the campaign system create a room', async () => {
+    systemMemberships = { is_platform_admin: false, memberships: [{ game_system_id: systemId, game_system_name: 'Sistema', role: 'owner' }] };
+    const response = await request('POST', `${campaignsPath}/${campaignId}/chat-rooms`, { name: 'Planejamento' });
+    expect(response.statusCode).toBe(201);
+  });
+
+  it('lets a platform Admin create a room and reports that permission in the campaign list', async () => {
+    systemMemberships = { is_platform_admin: true, memberships: [] };
+    const campaigns = await request('GET', campaignsPath);
+    expect(campaigns.statusCode).toBe(200);
+    expect(campaigns.json().campaigns[0].can_create_room).toBe(true);
+
+    const response = await request('POST', `${campaignsPath}/${campaignId}/chat-rooms`, { name: 'Planejamento' });
+    expect(response.statusCode).toBe(201);
+  });
+
+  it('blocks a regular player from creating a room', async () => {
+    const response = await request('POST', `${campaignsPath}/${campaignId}/chat-rooms`, { name: 'Planejamento' });
+    expect(response.statusCode).toBe(403);
+    expect(requests.some(({ url, method }) => url.pathname === '/rest/v1/chat_rooms' && method === 'POST')).toBe(false);
+  });
+
+  it('rejects room names outside the trimmed 1–80 character range before writing', async () => {
+    availableCampaigns = [{ ...availableCampaigns[0]!, owner_user_id: userId }];
+    expect((await request('POST', `${campaignsPath}/${campaignId}/chat-rooms`, { name: '   ' })).statusCode).toBe(400);
+    expect((await request('POST', `${campaignsPath}/${campaignId}/chat-rooms`, { name: 'R'.repeat(81) })).statusCode).toBe(400);
+    expect(requests.some(({ url, method }) => url.pathname === '/rest/v1/chat_rooms' && method === 'POST')).toBe(false);
+  });
+
+  it('does not create a room in a campaign outside the character system and visible RLS scope', async () => {
+    availableCampaigns = [];
+    const response = await request('POST', `${campaignsPath}/${campaignId}/chat-rooms`, { name: 'Planejamento' });
+    expect(response.statusCode).toBe(404);
+    expect(requests.some(({ url, method }) => url.pathname === '/rest/v1/chat_rooms' && method === 'POST')).toBe(false);
   });
 });

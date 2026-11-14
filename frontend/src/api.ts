@@ -180,6 +180,13 @@ export interface CampaignChatRoom {
   created_at: string;
 }
 
+export interface CampaignChatCampaign {
+  id: string;
+  game_system_id: string;
+  name: string;
+  can_create_room: boolean;
+}
+
 export interface CampaignChatMessage {
   id: string;
   room_id: string;
@@ -192,6 +199,19 @@ export interface CampaignChatMessage {
 export function getCharacterChatRooms(characterId: string) {
   return authenticatedRequest<{ rooms: CampaignChatRoom[] }>(
     `/api/v1/me/characters/${encodeURIComponent(characterId)}/chat-rooms`,
+  );
+}
+
+export function getCharacterChatCampaigns(characterId: string) {
+  return authenticatedRequest<{ campaigns: CampaignChatCampaign[] }>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/campaigns`,
+  );
+}
+
+export function createCharacterChatRoom(characterId: string, campaignId: string, name: string) {
+  return authenticatedRequest<{ room: Omit<CampaignChatRoom, 'campaign_name'> }>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/campaigns/${encodeURIComponent(campaignId)}/chat-rooms`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name }) },
   );
 }
 
