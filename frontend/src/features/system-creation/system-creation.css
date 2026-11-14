@@ -279,11 +279,10 @@
 @media(max-width:620px){.visual-sheet-step>header{align-items:flex-start;flex-direction:column}.visual-sheet-components{grid-template-columns:1fr}.visual-sheet-options fieldset{grid-template-columns:1fr}.character-sheet-component.width-half,.character-sheet-component.width-third{grid-column:span 6}}
 
 .sheet-step-navigation { display: flex; gap: 8px; overflow-x: auto; margin: 20px 0 12px; padding: 2px 2px 8px; }
-.sheet-step-navigation button { display: grid; min-width: 150px; gap: 4px; padding: 10px 12px; border: 1px solid #40364f; border-radius: 9px; color: #bfb4cf; background: #17141e; text-align: left; cursor: pointer; }
-.sheet-step-navigation button.active { border-color: #9c78d0; color: #f5f1fb; background: #2a2037; }
+.sheet-step-navigation .nexus-tab { display: grid; min-width: 165px; min-height: 56px; gap: 4px; padding: 10px 12px; border-radius: 11px; text-align: left; }
 .sheet-step-navigation button span { font-size: 10px; text-transform: uppercase; }
 .sheet-step-navigation button strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sheet-step-navigation .sheet-add-page-button { min-width: max-content; color: #d9caff; }
+.sheet-step-navigation .sheet-add-page-button { min-width: max-content; padding: 10px 12px; border: 1px dashed #58477a; border-radius: 11px; color: #d9caff; background: #17131f; text-align: left; cursor: pointer; }
 .sheet-visual-editor { display: grid; gap: 14px; margin-top: 24px; padding: 16px; border: 1px solid #40364f; border-radius: 12px; background: #191521; }
 .sheet-visual-editor-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
 .sheet-visual-editor-heading h3, .sheet-visual-editor-heading p { margin: 0; }
@@ -384,9 +383,6 @@
 .sheet-condition-editor { border-color: #40364f; background: #17131f; }
 .visual-sheet-preview { padding: clamp(15px, 2.5vw, 22px); border: 1px solid #40364f; background: #1b1724; }
 .visual-sheet-preview h3 { color: #e9def8; font: 600 17px 'Outfit', sans-serif; }
-.sheet-step-navigation button { min-width: 165px; border-color: #40364f; border-radius: 11px; background: #17131f; }
-.sheet-step-navigation button.active { border-color: #9c78d0; background: linear-gradient(145deg, #332342, #251c30); box-shadow: inset 0 0 0 1px #9c78d022; }
-.sheet-step-navigation .sheet-add-page-button { border-style: dashed; }
 .system-creation-actions { align-items: center; padding-top: 17px; border-top: 1px solid #342c42; }
 
 @media (max-width: 620px) {

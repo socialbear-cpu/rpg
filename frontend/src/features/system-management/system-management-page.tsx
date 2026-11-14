@@ -219,7 +219,7 @@ export function SystemManagementPage() {
           <p>Gerencie as regras e os recursos deste mundo.</p>
           <div className="system-management-stats"><span><strong>7</strong> categorias</span><span><strong>6</strong> ferramentas de gerenciamento</span></div>
         </header>
-        <nav className="system-management-nav nexus-tab-list--navigation" aria-label="Seções de gerenciamento" role="tablist">
+        <nav className="system-management-nav" aria-label="Seções de gerenciamento" role="tablist">
           <button className="nexus-tab" type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => setActiveCategory('overview')}>Visão geral</button>
           <button className="nexus-tab" type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => setActiveCategory('people')}>Pessoas</button>
           <button className="nexus-tab" type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => setActiveCategory('game')}>Jogo</button>

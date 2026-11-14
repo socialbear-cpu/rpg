@@ -306,7 +306,7 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
     <div className="sheet-built-in-field"><span className="sheet-field-number">01</span><div><strong>Nome do personagem</strong><span>Campo obrigatório incluído automaticamente</span></div><span className="sheet-required-badge">Obrigatório</span></div>
 
     <nav className="sheet-step-navigation" aria-label="Páginas da ficha">
-      {steps.map((item, index) => <button key={item.key} type="button" className={index === stepIndex ? 'active' : ''} aria-current={index === stepIndex ? 'step' : undefined} onClick={() => setActiveIndex(index)} onDragOver={(event) => event.preventDefault()} onDrop={(event) => handleStepDrop(event, item.key, index)}>
+      {steps.map((item, index) => <button key={item.key} type="button" className="nexus-tab" aria-current={index === stepIndex ? 'step' : undefined} onClick={() => setActiveIndex(index)} onDragOver={(event) => event.preventDefault()} onDrop={(event) => handleStepDrop(event, item.key, index)}>
         <span>Etapa {index + 1}</span><strong>{item.label}</strong>
       </button>)}
       <button type="button" className="sheet-add-page-button" onClick={() => { const updated = addSheetStep(definition); onChange(updated); setActiveIndex(updated.steps.length - 1); }}>+ Adicionar etapa</button>

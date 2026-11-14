@@ -80,6 +80,7 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
   const xpProgress = requiredXp && characterSheet?.experience
     ? Math.min(100, characterSheet.experience.xp_in_level / requiredXp * 100)
     : 0;
+  const normalizedActiveItem = activeItem.trim().toUpperCase();
 
   return (
     <header className="app-header">
@@ -90,12 +91,12 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
         </Link>
       </div>
       <nav className="app-header-nav" aria-label="Navegação principal">
-        {navItems.map((item) => <Link key={item.label} className={`app-header-nav-link ${activeItem === item.label ? 'active' : ''}`} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
+        {navItems.map((item) => <Link key={item.label} className="app-header-nav-link nexus-tab" href={item.href} aria-current={normalizedActiveItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
       </nav>
       <details className="app-header-mobile-menu">
         <summary aria-label="Abrir navegação">☰</summary>
         <nav aria-label="Navegação principal">
-          {navItems.map((item) => <Link key={item.label} className={activeItem === item.label ? 'active' : ''} href={item.href} aria-current={activeItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
+          {navItems.map((item) => <Link key={item.label} className="nexus-tab" href={item.href} aria-current={normalizedActiveItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
         </nav>
       </details>
       <div className="app-header-actions">

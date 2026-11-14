@@ -106,13 +106,14 @@ describe('initial application UI', () => {
     const html = renderToStaticMarkup(createElement(AppHeader, { activeItem: 'Trocas' }));
 
     expect(html).toContain('href="/dashboard"');
-    const tradeLinks = html.match(/<a\b[^>]*>Trocas<\/a>/g) ?? [];
+    const tradeLinks = html.match(/<a\b[^>]*>TROCAS<\/a>/g) ?? [];
     expect(tradeLinks).toHaveLength(2);
     for (const link of tradeLinks) {
       expect(link).toContain('href="/trading"');
       expect(link).toContain('aria-current="page"');
+      expect(link).toContain('nexus-tab');
     }
-    expect(html).toMatch(/href="\/dashboard\/systems\/new"[^>]*>Criar sistema/);
+    expect(html).toMatch(/href="\/dashboard\/systems\/new"[^>]*>CRIAR SISTEMA/);
     expect(html).toContain('href="/profile">Meu perfil');
     expect(html).not.toContain('Explorar sistemas');
     expect(html).not.toContain('Comunidade');

@@ -7,6 +7,7 @@ import { CharacterForm } from '../src/features/characters/character-form.js';
 import { CharacterHome } from '../src/features/characters/character-home.js';
 import { CharacterRecord } from '../src/features/characters/character-record.js';
 import { CharacterSheetStepRenderer } from '../src/features/character-sheet/character-sheet-step-renderer.js';
+import { CharacterSheetBuilder } from '../src/features/system-creation/character-sheet-builder.js';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }) }));
 
@@ -77,6 +78,11 @@ describe('character entry', () => {
       mode: 'preview',
     }));
     expect(html).toContain('title="Retrato de Ayla"');
+  });
+
+  it('uses the shared selected tab style in the sheet builder step navigation', () => {
+    const html = renderToStaticMarkup(createElement(CharacterSheetBuilder, { definition, onChange: vi.fn() }));
+    expect(html).toContain('class="nexus-tab" aria-current="step"');
   });
 
   it('keeps canvas positions and exposes an expand control during creation', () => {

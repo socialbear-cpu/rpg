@@ -47,35 +47,28 @@ h1, h2, h3, h4 {
   transition: color .16s ease, background-color .16s ease, border-color .16s ease, box-shadow .16s ease;
 }
 
-.nexus-tab:hover:not([aria-selected="true"]) {
+.nexus-tab:hover:not([aria-selected="true"]):not([aria-current="page"]):not([aria-current="step"]) {
   color: var(--nexus-tab-text-hover);
   background: var(--nexus-tab-hover);
 }
 
-.nexus-tab[aria-selected="true"] {
+.nexus-tab[aria-selected="true"],
+.nexus-tab[aria-current="page"],
+.nexus-tab[aria-current="step"] {
   border-color: var(--nexus-tab-border-selected);
   color: var(--nexus-tab-text-selected);
   background: var(--nexus-tab-selected);
 }
 
-.nexus-tab[aria-selected="true"]:hover {
+.nexus-tab[aria-selected="true"]:hover,
+.nexus-tab[aria-current="page"]:hover,
+.nexus-tab[aria-current="step"]:hover {
   background: var(--nexus-tab-selected-hover);
 }
 
 .nexus-tab:focus-visible {
   outline: 2px solid var(--nexus-tab-focus);
   outline-offset: 2px;
-}
-
-.nexus-tab-list--navigation .nexus-tab[aria-selected="true"] {
-  border-color: transparent;
-  border-radius: 7px 7px 0 0;
-  background: transparent;
-  box-shadow: inset 0 -2px var(--nexus-tab-indicator);
-}
-
-.nexus-tab-list--navigation .nexus-tab[aria-selected="true"]:hover {
-  background: var(--nexus-tab-hover);
 }
 
 .character-entry-page,
