@@ -60,7 +60,9 @@ export function CharacterGallery({ systemName, fields, characters, selectedChara
               </article>
             );
           })}
-          {pageCharacters.length < 3 && <div className="character-card character-card-placeholder" aria-hidden="true" />}
+          {Array.from({ length: pageSize - pageCharacters.length }, (_, index) => (
+            <div className="character-card character-card-placeholder" aria-hidden="true" key={`placeholder-${index}`} />
+          ))}
         </div>
         {currentPage < pageCount - 1 && <button className="character-carousel-control character-carousel-next" type="button" aria-label="Mostrar próximos personagens" aria-controls="character-gallery-cards" onClick={() => setCurrentPage((page) => page + 1)}>›</button>}
       </section>
