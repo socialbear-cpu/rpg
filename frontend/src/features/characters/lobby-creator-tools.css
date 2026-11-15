@@ -1,0 +1,22 @@
+.lobby-creator-tools { display: grid; gap: 1rem; padding: 1.25rem; border: 1px solid #6b5290; border-radius: 1rem; color: #f5f1fb; background: linear-gradient(145deg, #241b31, #191521); box-shadow: 0 12px 30px #09070e33; }
+.lobby-creator-tools > header h2 { margin: 0; font: 700 1.35rem 'Outfit', sans-serif; }
+.lobby-creator-tools > header p { margin: 0 0 .35rem; }
+.lobby-creator-campaign-form, .lobby-customization form { display: grid; gap: .75rem; }
+.lobby-creator-campaign-form h3 { margin: 0; }
+.lobby-creator-campaign-form label, .lobby-customization form > label { display: grid; gap: .35rem; }
+.lobby-creator-campaign-form input, .lobby-creator-campaign-form textarea, .lobby-customization form > label input:not([type="color"]), .lobby-customization form > label textarea { min-height: 2.6rem; padding: .6rem; border: 1px solid #5a496e; border-radius: .5rem; color: #f5f1fb; background: #120f18; font: inherit; }
+.lobby-creator-campaign-form textarea, .lobby-customization form > label textarea { min-height: 4rem; resize: vertical; }
+.lobby-creator-campaign-form button, .lobby-customization form > button, .lobby-customization-row button { min-height: 2.5rem; padding: .5rem .8rem; border: 1px solid #76589e; border-radius: .5rem; color: #f5f1fb; background: #39294c; font: inherit; cursor: pointer; }
+.lobby-creator-campaign-form button:disabled, .lobby-customization button:disabled { opacity: .55; cursor: not-allowed; }
+.lobby-creator-chat-link { width: fit-content; color: #d7b5ff; }
+.lobby-customization { border-top: 1px solid #40364e; padding-top: 1rem; }
+.lobby-customization > summary, .lobby-cover-editor > summary { margin-bottom: .75rem; color: #e6d9f4; font-weight: 650; cursor: pointer; }
+.lobby-customization fieldset { display: grid; gap: .5rem; border: 1px solid #40364e; border-radius: .6rem; }
+.lobby-customization legend { padding: 0 .35rem; color: #c8bdd5; }
+.lobby-customization-row { display: flex; align-items: center; gap: .4rem; }
+.lobby-customization-row label { display: flex; align-items: center; gap: .5rem; flex: 1; }
+.lobby-customization-row button { min-width: 2.4rem; }
+.lobby-cover-editor { padding: .75rem; border: 1px solid #40364e; border-radius: .6rem; }
+.lobby-character-home-section { min-width: 0; }
+.lobby-character-home-section[hidden] { display: none; }
+@media (max-width: 600px) { .lobby-creator-tools { padding: 1rem; } .lobby-customization-row { flex-wrap: wrap; } }

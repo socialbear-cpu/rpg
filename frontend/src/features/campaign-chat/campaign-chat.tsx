@@ -78,7 +78,7 @@ export function CampaignChatPanel({ rooms, campaigns, selectedRoomId, messages, 
   </section>;
 }
 
-export function CampaignChat({ characterId }: { characterId: string }) {
+export function CampaignChat({ characterId, reloadToken = 0 }: { characterId: string; reloadToken?: number }) {
   const [rooms, setRooms] = useState<CampaignChatRoom[]>([]);
   const [roomsCharacterId, setRoomsCharacterId] = useState<string | null>(null);
   const [campaigns, setCampaigns] = useState<CampaignChatCampaign[]>([]);
@@ -122,7 +122,7 @@ export function CampaignChat({ characterId }: { characterId: string }) {
       }
     }).finally(() => { if (active) { setLoadingRooms(false); setLoadingCampaigns(false); } });
     return () => { active = false; };
-  }, [characterId, reload]);
+  }, [characterId, reload, reloadToken]);
 
   useEffect(() => {
     if (!visibleRoomId) { setMessages([]); return; }

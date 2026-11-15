@@ -23,4 +23,5 @@
 .system-events-error { color: #ffaaa8; }
 .system-events-empty { color: #afa6ba; }
 .system-events-empty { margin: 1rem 0 0; }
+.system-event-started { width: fit-content; padding: .25rem .55rem; border: 1px solid var(--lobby-accent, #76589e); border-radius: 999px; color: #e7d7ff; background: #38284d; font-size: .78rem; font-weight: 650; }
 @media (max-width: 600px) { .system-event { flex-direction: column; } .system-events-dates { grid-template-columns: 1fr; } }

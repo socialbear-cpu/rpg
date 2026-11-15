@@ -23,4 +23,5 @@
 .campaign-chat-create-room input, .campaign-chat-create-room select { min-height: 2.6rem; padding: .5rem; border: 1px solid #76618a; border-radius: .5rem; color: inherit; background: #1b1424; }
 .campaign-chat-create-room button { min-height: 2.6rem; padding: .65rem .9rem; border: 1px solid #a98bc6; border-radius: .5rem; color: inherit; background: #443354; cursor: pointer; }
 .campaign-chat-create-room button:disabled { opacity: .5; cursor: not-allowed; }
+.campaign-chat-rooms button[aria-pressed="true"] { outline-color: var(--lobby-accent, #bba2d4); }
 @media (max-width: 650px) { .campaign-chat-layout { grid-template-columns: 1fr; } .campaign-chat-composer { align-items: stretch; flex-direction: column; } }

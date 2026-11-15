@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { getCharacterExperience, getCharacterSheet, getGameSystems, getMyCharacterInventory, getSystemCharacters, type CharacterExperienceSummary, type CharacterInventory, type CharacterSheetDefinition, type CharacterSheetField, type GameSystem, type SystemCharacter } from '../../api';
+import { defaultSystemLobbySettings, getCharacterExperience, getCharacterSheet, getGameSystems, getMyCharacterInventory, getMySystemMemberships, getSystemLobbySettings, getSystemCharacters, type CharacterExperienceSummary, type CharacterInventory, type CharacterSheetDefinition, type CharacterSheetField, type GameSystem, type SystemCharacter, type SystemLobbySettings } from '../../api';
 import { CharacterHome } from './character-home';
 import { AppHeader } from '../shell/app-header';
 import { definitionToLegacyFields } from '../system-creation/sheet-model';
@@ -41,6 +41,8 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
   const [loading, setLoading] = useState(true);
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [dailyRewardVersion, setDailyRewardVersion] = useState(0);
+  const [isCreator, setIsCreator] = useState(false);
+  const [lobbySettings, setLobbySettings] = useState<SystemLobbySettings>(defaultSystemLobbySettings);
   const recordRequestId = useRef(0);
 
   useEffect(() => {
@@ -54,6 +56,8 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
     setSheetError(null);
     setInventoryError(null);
     setLoadError(null);
+    setIsCreator(false);
+    setLobbySettings(defaultSystemLobbySettings);
     loadCharacterHomePageData(systemId, characterId)
       .then((result) => {
         if (cancelled) return;
@@ -63,6 +67,11 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
         setFields(result.fields);
         setExperience(result.experience);
         setSheetError(result.sheetError);
+        void Promise.allSettled([getMySystemMemberships(), getSystemLobbySettings(systemId)]).then(([accessResult, settingsResult]) => {
+          if (cancelled) return;
+          setIsCreator(accessResult.status === 'fulfilled' && (accessResult.value.is_platform_admin || accessResult.value.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner')));
+          setLobbySettings(settingsResult.status === 'fulfilled' ? settingsResult.value.settings : defaultSystemLobbySettings);
+        });
       })
       .catch(() => { if (!cancelled) { setSystem(null); setCharacter(null); setLoadError('Não foi possível carregar a tela do sistema. Tente novamente.'); } })
       .finally(() => { if (!cancelled) setLoading(false); });
@@ -124,6 +133,10 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
     fields={fields}
     experience={experience}
     dailyRewardVersion={dailyRewardVersion}
+    isCreator={isCreator}
+    lobbySettings={lobbySettings}
+    onLobbySettingsSaved={setLobbySettings}
+    onSystemSaved={setSystem}
     onDailyClaimed={() => setDailyRewardVersion((version) => version + 1)}
     onSwitch={() => push(`/systems/${encodeURIComponent(systemId)}/characters`)}
   />;

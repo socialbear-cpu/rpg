@@ -2,7 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { readMySystemMemberships } from '../system-membership/system-membership.repository.js';
 import { systemEventSchema, systemEventsResponseSchema, type SystemEvent, type SystemEventInput } from './system-events.schema.js';
 
-const eventColumns = 'id,game_system_id,title,description,starts_at,ends_at,created_at,updated_at';
+const eventColumns = 'id,game_system_id,title,description,starts_at,ends_at,started_at,created_at,updated_at';
 
 export async function canManageSystemEvents(client: SupabaseClient, systemId: string) {
   const access = await readMySystemMemberships(client);
@@ -53,4 +53,21 @@ export async function deleteSystemEvent(client: SupabaseClient, systemId: string
     .eq('id', eventId).eq('game_system_id', systemId).select('id').maybeSingle();
   if (error) throw error;
   return Boolean(data);
+}
+
+export async function startSystemEvent(client: SupabaseClient, systemId: string, eventId: string) {
+  const startedAt = new Date().toISOString();
+  const { data, error } = await client.from('game_system_events').update({ started_at: startedAt, updated_at: startedAt })
+    .eq('id', eventId).eq('game_system_id', systemId).is('started_at', null).select(eventColumns).maybeSingle();
+  if (error) throw error;
+  if (data) {
+    const parsed = systemEventSchema.safeParse(data);
+    if (!parsed.success) throw new Error('Invalid system event response');
+    return { status: 'started', event: parsed.data } as const;
+  }
+  const { data: existing, error: readError } = await client.from('game_system_events')
+    .select('id,started_at').eq('id', eventId).eq('game_system_id', systemId).maybeSingle();
+  if (readError) throw readError;
+  if (!existing) return { status: 'not_found' } as const;
+  return { status: 'already_started' } as const;
 }

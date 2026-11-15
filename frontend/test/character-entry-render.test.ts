@@ -120,7 +120,7 @@ describe('character entry', () => {
     expect(html).not.toContain('Uma história longa');
     expect(html).toContain('Salas de bate-papo');
     expect(html).toContain('Minha Ficha');
-    expect(html).toContain('Consulte as informações do seu personagem e gerencie seu inventário.');
+    expect(html).toContain('Consultar dados e inventário');
     expect(html).toContain('>Recompensa diária</button>');
     expect(html).toContain('<dialog');
   });

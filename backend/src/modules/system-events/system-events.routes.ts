@@ -8,6 +8,7 @@ import {
   createSystemEvent,
   deleteSystemEvent,
   listSystemEvents,
+  startSystemEvent,
   updateSystemEvent,
 } from './system-events.repository.js';
 import { systemEventInputSchema } from './system-events.schema.js';
@@ -41,6 +42,23 @@ function documentedBody() {
 }
 
 export async function systemEventsRoutes(app: FastifyInstance) {
+  app.post('/api/v1/owner/game-systems/:systemId/events/:eventId/start', {
+    ...auth,
+    schema: { ...auth.schema, summary: 'Start a scheduled system event', response: { 200: { type: 'object', additionalProperties: true }, 400: errorSchema, 403: errorSchema, 404: errorSchema, 409: errorSchema, 500: errorSchema } },
+  }, async (request, reply) => {
+    const params = eventParamsSchema.safeParse(request.params);
+    if (!params.success) return reply.code(400).send({ error: 'Invalid system event ID' });
+    try {
+      const access = await checkEventAccess(request.supabase!, reply, params.data.systemId);
+      if (access.error) return access.error;
+      if (!access.canManage) return reply.code(403).send({ error: 'Only the system owner or Admin can start events.' });
+      const result = await startSystemEvent(request.supabase!, params.data.systemId, params.data.eventId);
+      if (result.status === 'not_found') return reply.code(404).send({ error: 'System event not found' });
+      if (result.status === 'already_started') return reply.code(409).send({ error: 'System event has already started' });
+      return reply.send({ event: result.event });
+    } catch { return reply.code(500).send({ error: 'Unable to start system event' }); }
+  });
+
   app.get('/api/v1/game-systems/:systemId/events', auth, async (request, reply) => {
     const params = systemParamsSchema.safeParse(request.params);
     if (!params.success) return reply.code(400).send({ error: 'Invalid game system ID' });

@@ -19,7 +19,7 @@ beforeEach(() => {
   isAdmin = false;
   accessStatus = 'ok';
   requests = [];
-  events = [{ id: eventId, game_system_id: systemId, title: 'Sessão zero', description: null, starts_at: startsAt, ends_at: endsAt, created_at: startsAt, updated_at: startsAt }];
+  events = [{ id: eventId, game_system_id: systemId, title: 'Sessão zero', description: null, starts_at: startsAt, ends_at: endsAt, started_at: null, created_at: startsAt, updated_at: startsAt }];
   vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input));
     const method = init?.method ?? 'GET';
@@ -29,9 +29,14 @@ beforeEach(() => {
     if (url.pathname === '/rest/v1/rpc/join_game_system_with_password') return Response.json({ status: accessStatus });
     if (url.pathname === '/rest/v1/rpc/get_my_system_memberships') return Response.json({ is_platform_admin: isAdmin, memberships: [{ game_system_id: systemId, game_system_name: 'Sistema', role }] });
     if (url.pathname === '/rest/v1/game_system_events') {
-      if (method === 'GET') return Response.json(events);
+      if (method === 'GET') return Response.json(url.searchParams.has('id') ? events.filter((event) => event.id === url.searchParams.get('id')?.slice(3)) : events);
       if (method === 'POST') return Response.json({ ...(body as object), id: eventId, created_at: startsAt, updated_at: startsAt });
-      if (method === 'PATCH') return Response.json({ ...(events[0] ?? {}), ...(body as object) });
+      if (method === 'PATCH') {
+        const event = events.find((item) => item.id === url.searchParams.get('id')?.slice(3) && item.game_system_id === url.searchParams.get('game_system_id')?.slice(3));
+        if (!event || (url.searchParams.get('started_at') === 'is.null' && event.started_at !== null)) return Response.json([]);
+        Object.assign(event, body);
+        return Response.json(event);
+      }
       if (method === 'DELETE') return Response.json({ id: eventId });
     }
     throw new Error(`Unexpected request: ${url}`);
@@ -94,6 +99,47 @@ describe('system events API', () => {
     const response = await request('POST', ownerPath, input);
     expect(response.statusCode).toBe(403);
     expect(requests.some(({ method, url }) => method !== 'GET' && url.pathname === '/rest/v1/game_system_events')).toBe(false);
+  });
+
+  it.each(['owner', 'admin'])('lets a system %s start an event once and returns the persisted timestamp', async (who) => {
+    if (who === 'owner') role = 'owner';
+    else isAdmin = true;
+    const response = await request('POST', `${ownerPath}/${eventId}/start`);
+    expect(response.statusCode).toBe(200);
+    expect(response.json().event.started_at).toEqual(expect.any(String));
+    const update = requests.find(({ method, url }) => method === 'PATCH' && url.pathname === '/rest/v1/game_system_events');
+    expect(update?.body).toMatchObject({ started_at: expect.any(String) });
+    expect(update?.url.searchParams.get('id')).toBe(`eq.${eventId}`);
+    expect(update?.url.searchParams.get('started_at')).toBe('is.null');
+  });
+
+  it('blocks a non-owner from starting an event before writing', async () => {
+    role = 'user';
+    const response = await request('POST', `${ownerPath}/${eventId}/start`);
+    expect(response.statusCode).toBe(403);
+    expect(requests.some(({ method }) => method === 'PATCH')).toBe(false);
+  });
+
+  it('does not overwrite or restart an event that already started', async () => {
+    role = 'owner';
+    events[0]!.started_at = startsAt;
+    const response = await request('POST', `${ownerPath}/${eventId}/start`);
+    expect(response.statusCode).toBe(409);
+    const attemptedStart = requests.find(({ method, url }) => method === 'PATCH' && url.pathname === '/rest/v1/game_system_events');
+    expect(attemptedStart?.url.searchParams.get('started_at')).toBe('is.null');
+    expect(events[0]!.started_at).toBe(startsAt);
+  });
+
+  it('returns not found when asked to start an event outside the selected system', async () => {
+    role = 'owner';
+    events = [];
+    const response = await request('POST', `${ownerPath}/${eventId}/start`);
+    expect(response.statusCode).toBe(404);
+    expect(response.json()).toEqual({ error: 'System event not found' });
+    expect(requests.some(({ method, url }) => method === 'PATCH' && url.pathname === '/rest/v1/game_system_events'
+      && url.searchParams.get('id') === `eq.${eventId}`
+      && url.searchParams.get('game_system_id') === `eq.${systemId}`
+      && url.searchParams.get('started_at') === 'is.null')).toBe(true);
   });
 
   it('updates and deletes only events in the selected system', async () => {

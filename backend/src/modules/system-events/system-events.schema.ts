@@ -18,6 +18,7 @@ export const systemEventSchema = z.strictObject({
   description: z.string().nullable(),
   starts_at: eventDateSchema,
   ends_at: eventDateSchema,
+  started_at: eventDateSchema.nullable().default(null),
   created_at: eventDateSchema,
   updated_at: eventDateSchema,
 });

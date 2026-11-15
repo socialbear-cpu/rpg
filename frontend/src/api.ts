@@ -122,11 +122,45 @@ export interface SystemEvent {
   description: string | null;
   starts_at: string;
   ends_at: string;
+  started_at: string | null;
   created_at: string;
   updated_at: string;
 }
 
 export type SystemEventInput = Pick<SystemEvent, 'title' | 'description' | 'starts_at' | 'ends_at'>;
+
+export const lobbySectionIds = ['system-presentation', 'matchmaking', 'store', 'campaign-chat', 'events', 'character-sheet'] as const;
+export type LobbySectionId = typeof lobbySectionIds[number];
+
+export interface SystemLobbySettings {
+  section_order: LobbySectionId[];
+  hidden_sections: LobbySectionId[];
+  welcome_title: string;
+  welcome_message: string;
+  accent_color: string;
+}
+
+export const defaultSystemLobbySettings: SystemLobbySettings = {
+  section_order: [...lobbySectionIds],
+  hidden_sections: [],
+  welcome_title: 'Bem-vindo à aventura',
+  welcome_message: 'Escolha onde sua próxima história começa.',
+  accent_color: '#8B5CF6',
+};
+
+export function getSystemLobbySettings(systemId: string) {
+  return authenticatedRequest<{ settings: SystemLobbySettings }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/lobby-settings`);
+}
+
+export function updateSystemLobbySettings(systemId: string, settings: SystemLobbySettings) {
+  return authenticatedRequest<{ settings: SystemLobbySettings }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/lobby-settings`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings),
+  });
+}
+
+export function startSystemEvent(systemId: string, eventId: string) {
+  return authenticatedRequest<{ event: SystemEvent }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/events/${encodeURIComponent(eventId)}/start`, { method: 'POST' });
+}
 
 export function getSystemEvents(systemId: string) {
   return authenticatedRequest<{ events: SystemEvent[] }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/events`);
@@ -185,6 +219,13 @@ export interface CampaignChatCampaign {
   game_system_id: string;
   name: string;
   can_create_room: boolean;
+}
+
+export function createSystemCampaign(systemId: string, input: { character_id: string; name: string; description?: string | null }) {
+  return authenticatedRequest<{ campaign: { id: string; game_system_id: string; name: string; description: string | null; status: string; created_at: string }; character_id: string }>(
+    `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/campaigns`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) },
+  );
 }
 
 export interface CampaignChatMessage {

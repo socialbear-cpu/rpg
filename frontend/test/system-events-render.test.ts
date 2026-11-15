@@ -8,6 +8,7 @@ const events = [{
   game_system_id: '30000000-0000-4000-8000-000000000001',
   title: 'Sessão zero', description: 'Criar personagens e alinhar o tom.',
   starts_at: '2026-12-12T18:00:00.000Z', ends_at: '2026-12-12T20:00:00.000Z',
+  started_at: null,
   created_at: '2026-11-14T12:00:00.000Z', updated_at: '2026-11-14T12:00:00.000Z',
 }];
 

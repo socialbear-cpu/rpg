@@ -14,6 +14,8 @@ describe('character home campaign rooms', () => {
     }));
     expect(html).toContain('Salas de bate-papo');
     expect(html).toContain('CAMPANHAS DO PERSONAGEM');
+    expect(html).toContain('lobby-character-record-action');
+    expect(html).not.toContain('lobby-room-grid');
     expect(html).not.toContain('Taverna do Dragão');
     expect(html).not.toContain('O chat será conectado quando o serviço de salas estiver disponível.');
   });

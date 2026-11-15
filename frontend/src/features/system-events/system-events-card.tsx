@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
-import { createSystemEvent, deleteSystemEvent, getSystemEvents, updateSystemEvent, type SystemEvent, type SystemEventInput } from '../../api';
+import { createSystemEvent, deleteSystemEvent, getSystemEvents, startSystemEvent, updateSystemEvent, type SystemEvent, type SystemEventInput } from '../../api';
 import './system-events-card.css';
 
 interface SystemEventsListProps {
@@ -9,20 +9,22 @@ interface SystemEventsListProps {
   canManage: boolean;
   onEdit: (event: SystemEvent) => void;
   onDelete: (event: SystemEvent) => void;
+  onStart?: (event: SystemEvent) => void;
 }
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
 }
 
-export function SystemEventsList({ events, canManage, onEdit, onDelete }: SystemEventsListProps) {
+export function SystemEventsList({ events, canManage, onEdit, onDelete, onStart }: SystemEventsListProps) {
   if (events.length === 0) return <p className="system-events-empty">Nenhum evento foi marcado para este sistema.</p>;
   return <ol className="system-events-list">{events.map((event) => <li key={event.id}>
     <article className="system-event">
       <div className="system-event-copy"><h3>{event.title}</h3>{event.description && <p>{event.description}</p>}
+        {event.started_at && <p className="system-event-started" role="status">Evento iniciado</p>}
         <dl><div><dt>Início</dt><dd>{formatDate(event.starts_at)}</dd></div><div><dt>Término</dt><dd>{formatDate(event.ends_at)}</dd></div></dl>
       </div>
-      {canManage && <div className="system-event-actions"><button type="button" aria-label={`Editar evento ${event.title}`} onClick={() => onEdit(event)}>Editar</button><button type="button" aria-label={`Excluir evento ${event.title}`} onClick={() => onDelete(event)}>Excluir</button></div>}
+      {canManage && <div className="system-event-actions">{!event.started_at && onStart && <button type="button" aria-label={`Iniciar evento ${event.title}`} onClick={() => onStart(event)}>Iniciar evento</button>}<button type="button" aria-label={`Editar evento ${event.title}`} onClick={() => onEdit(event)}>Editar</button><button type="button" aria-label={`Excluir evento ${event.title}`} onClick={() => onDelete(event)}>Excluir</button></div>}
     </article>
   </li>)}</ol>;
 }
@@ -38,6 +40,7 @@ export function SystemEventsCard({ systemId, canManage = false }: { systemId: st
   const [events, setEvents] = useState<SystemEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
+  const [startingEventId, setStartingEventId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [editing, setEditing] = useState<SystemEvent | null>(null);
   const [title, setTitle] = useState('');
@@ -83,6 +86,13 @@ export function SystemEventsCard({ systemId, canManage = false }: { systemId: st
     finally { setBusy(false); }
   }
 
+  async function start(event: SystemEvent) {
+    setStartingEventId(event.id); setError(null);
+    try { await startSystemEvent(systemId, event.id); await refresh(); }
+    catch (reason) { setError(reason instanceof Error ? reason.message : 'Não foi possível iniciar o evento.'); }
+    finally { setStartingEventId(null); }
+  }
+
   return <section className="system-events-card" aria-labelledby="system-events-heading">
     <header><div><p className="system-events-eyebrow">AGENDA DO SISTEMA</p><h2 id="system-events-heading">Eventos</h2></div></header>
     {canManage && <form className="system-events-form" onSubmit={(event) => void save(event)}>
@@ -93,6 +103,6 @@ export function SystemEventsCard({ systemId, canManage = false }: { systemId: st
       <div className="system-events-form-actions"><button type="submit" disabled={busy || !startsAt || !endsAt}>{busy ? 'Salvando…' : editing ? 'Salvar evento' : 'Criar evento'}</button>{editing && <button type="button" disabled={busy} onClick={resetForm}>Cancelar edição</button>}</div>
     </form>}
     {error && <p role="alert" className="system-events-error">{error}</p>}
-    {loading ? <p role="status">Carregando eventos…</p> : <SystemEventsList events={events} canManage={canManage} onEdit={startEditing} onDelete={(event) => void remove(event)} />}
+    {loading ? <p role="status">Carregando eventos…</p> : <SystemEventsList events={events} canManage={canManage} onEdit={startEditing} onDelete={(event) => void remove(event)} onStart={(event) => { if (startingEventId !== event.id) void start(event); }} />}
   </section>;
 }
