@@ -65,8 +65,10 @@ export function CharacterGallery({ systemName, fields, characters, selectedChara
         {currentPage < pageCount - 1 && <button className="character-carousel-control character-carousel-next" type="button" aria-label="Mostrar próximos personagens" aria-controls="character-gallery-cards" onClick={() => setCurrentPage((page) => page + 1)}>›</button>}
       </section>
       <footer className="character-gallery-footer">
-        <button className="character-gallery-create" type="button" onClick={onCreate}><span aria-hidden="true">＋</span> Criar novo personagem</button>
-        <p>᛫ &nbsp; Cada jornada começa com uma escolha &nbsp; ᛫</p>
+        <div className="character-gallery-footer-content">
+          <button className="character-gallery-create" type="button" onClick={onCreate}><span aria-hidden="true">＋</span> Criar novo personagem</button>
+          <p>᛫ &nbsp; Cada jornada começa com uma escolha &nbsp; ᛫</p>
+        </div>
       </footer>
     </main>
   );
