@@ -25,7 +25,8 @@ export function StoreAdminCard({ store, saving, message, onChange, onSave, creat
   function resetItemForm() {
     setItemName(''); setItemDescription(''); setItemType('misc'); setItemImageUrl(''); setItemError(null);
   }
-  const slotCount = Math.max(27, (Math.floor(store.items.length / 9) + 1) * 9);
+  const extraRows = store.items.length < 27 ? 0 : Math.floor((store.items.length - 27) / 7) + 1;
+  const slotCount = 27 + extraRows * 7;
   const itemTypeLabels: Record<string, string> = { consumable: 'Consumível', equipment: 'Equipamento', misc: 'Outro' };
   return <article className="card store-admin-card"><h2>Gerenciar loja</h2>
     {message && <p role="status" aria-live="polite">{message}</p>}
