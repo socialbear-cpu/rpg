@@ -3,6 +3,8 @@
 .character-entry-page > .app-header { width: calc(100% + 48px); max-width: none; margin: 0 -24px 32px; }
 .character-back-link { display: inline-block; margin-bottom: 36px; color: #c4b5df; text-decoration: none; }
 .character-entry-heading { margin-bottom: 30px; }
+.character-gallery-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.character-management-button { flex-shrink: 0; }
 .character-entry-eyebrow, .character-card-system { color: #ab8be0; font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 .character-entry-heading h1 { margin: 8px 0; font-size: clamp(28px, 4vw, 42px); }
 .character-entry-heading p { color: #afa6ba; }
@@ -158,6 +160,7 @@
   .lobby-search-decoration-right { right: 4%; top: 34%; font-size: 19px; }
 }
 @media (max-width: 520px) {
+  .character-gallery-heading { align-items: flex-start; flex-direction: column; }
   .character-home-page .character-system-presentation { grid-template-columns: minmax(0, 1fr); }
   .character-home-page .character-system-presentation { gap: 13px; padding: 14px; }
   .character-home-page .character-system-cover { max-height: 200px; }

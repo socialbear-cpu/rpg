@@ -14,14 +14,18 @@ interface CharacterGalleryProps {
   selectedCharacterId?: string | null;
   onCreate: () => void;
   onEnter: (characterId: string) => void;
+  onManage?: () => void;
 }
 
-export function CharacterGallery({ systemName, system, fields, characters, selectedCharacterId = null, onCreate, onEnter }: CharacterGalleryProps) {
+export function CharacterGallery({ systemName, system, fields, characters, selectedCharacterId = null, onCreate, onEnter, onManage }: CharacterGalleryProps) {
   const cardFields = [...fields].filter((field) => field.show_on_card).sort((a, b) => a.position - b.position);
   return (
     <main className="character-entry-page">
       <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" />
-      <header className="character-entry-heading"><span className="character-entry-eyebrow">{systemName}</span><h1>Quem vai entrar na aventura?</h1><p>Escolha um dos seus personagens ou crie um novo.</p></header>
+      <header className="character-entry-heading character-gallery-heading">
+        <div><span className="character-entry-eyebrow">{systemName}</span><h1>Quem vai entrar na aventura?</h1><p>Escolha um dos seus personagens ou crie um novo.</p></div>
+        {onManage && <button className="character-secondary-button character-management-button" type="button" onClick={onManage}>Gerenciar sistema</button>}
+      </header>
       {system && <section className="character-system-presentation" aria-label={`Sobre ${system.name}`}>
         {system.cover_image_path
           ? <img className="character-system-cover" src={getGameSystemCoverUrl(system.cover_image_path) ?? undefined} alt={`Capa de ${system.name}`} style={{ objectPosition: `${system.cover_focus_x ?? 50}% ${system.cover_focus_y ?? 50}%` }} />

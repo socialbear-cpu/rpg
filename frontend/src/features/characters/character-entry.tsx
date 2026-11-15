@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
-import { createSystemCharacter, getCharacterSheet, getGameSystems, getMySystemMemberships, getSystemCharacters, requestSystemAccess, type CharacterSheetDefinition, type GameSystem, type SystemCharacter } from '../../api';
+import { createSystemCharacter, getCharacterSheet, getGameSystems, getMySystemMemberships, getSystemCharacters, requestSystemAccess, type CharacterSheetDefinition, type GameSystem, type SystemCharacter, type SystemMemberships } from '../../api';
 import { CharacterForm } from './character-form';
 import { CharacterGallery } from './character-gallery';
 import { AppHeader } from '../shell/app-header';
@@ -16,6 +16,7 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [canManageSystem, setCanManageSystem] = useState(false);
   const [accessRequired, setAccessRequired] = useState(false);
   const [accessPassword, setAccessPassword] = useState('');
   const [accessSaving, setAccessSaving] = useState(false);
@@ -31,13 +32,17 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
         const activeSystem = systemsResult.systems.find((item) => item.id === systemId);
         if (!activeSystem) throw new Error('SYSTEM_UNAVAILABLE');
         setSystem(activeSystem);
-        if (!activeSystem.is_public) {
-          const memberships = await getMySystemMemberships();
-          if (cancelled) return;
-          if (!memberships.is_platform_admin && !memberships.memberships.some((membership) => membership.game_system_id === systemId)) {
-            setAccessRequired(true);
-            return;
-          }
+        let memberships: SystemMemberships | null = null;
+        try {
+          memberships = await getMySystemMemberships();
+        } catch (membershipError) {
+          if (!activeSystem.is_public) throw membershipError;
+        }
+        if (cancelled) return;
+        setCanManageSystem(Boolean(memberships?.is_platform_admin || memberships?.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner')));
+        if (!activeSystem.is_public && !memberships?.is_platform_admin && !memberships?.memberships.some((membership) => membership.game_system_id === systemId)) {
+          setAccessRequired(true);
+          return;
         }
         await loadSystemContent(() => cancelled);
       } catch {
@@ -113,5 +118,5 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
     </section>
   </main>;
   if (creating) return <main className="character-entry-page character-creation-page"><AppHeader activeItem="Meus Sistemas"><button className="app-header-back" type="button" onClick={() => setCreating(false)}>← Voltar aos personagens</button></AppHeader><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm definition={definition} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
-  return <CharacterGallery systemName={system.name} system={system} fields={definitionToLegacyFields(definition)} characters={characters} selectedCharacterId={selectedCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} />;
+  return <CharacterGallery systemName={system.name} system={system} fields={definitionToLegacyFields(definition)} characters={characters} selectedCharacterId={selectedCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} onManage={canManageSystem ? () => push(`/dashboard/systems/${encodeURIComponent(systemId)}/manage`) : undefined} />;
 }

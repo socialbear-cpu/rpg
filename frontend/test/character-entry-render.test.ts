@@ -46,6 +46,21 @@ describe('character entry', () => {
     expect(html).toContain('Terror');
   });
 
+  it('shows the system management action only when the owner provides it', () => {
+    const props = {
+      systemName: 'Crônicas',
+      fields,
+      characters: [character],
+      onCreate: vi.fn(),
+      onEnter: vi.fn(),
+    };
+    const ownerHtml = renderToStaticMarkup(createElement(CharacterGallery, { ...props, onManage: vi.fn() }));
+    const playerHtml = renderToStaticMarkup(createElement(CharacterGallery, props));
+
+    expect(ownerHtml).toContain('Gerenciar sistema');
+    expect(playerHtml).not.toContain('Gerenciar sistema');
+  });
+
   it('starts the wizard with the required character-name page', () => {
     const html = renderToStaticMarkup(createElement(CharacterForm, { definition, onSubmit: vi.fn(), onCancel: vi.fn() }));
     expect(html).toContain('Nome do personagem');
