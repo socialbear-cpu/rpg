@@ -4,7 +4,7 @@ import { useState, type FormEvent } from 'react';
 import { createSystemChat, type GameSystem, type SystemLobbySettings } from '../../api';
 import './lobby-creator-tools.css';
 
-export function LobbyCreatorTools({ system, characterId, settings, onSettingsSaved, onChatCreated, onSystemSaved }: {
+export function LobbyCreatorTools({ system, characterId, settings, onChatCreated }: {
   system: GameSystem;
   characterId: string;
   settings: SystemLobbySettings;

@@ -14,12 +14,12 @@ describe('system store', () => {
   expect(html).toMatch(/<button[^>]*disabled=""[^>]*>Comprar/); expect(html).toContain('Selecione um personagem');
  });
  it('lets owners edit currency, price and availability', () => {
-  const html = renderToStaticMarkup(createElement(StoreAdminCard, { store: { currency_name: 'Cristais', items: [{ id: 'item', name: 'Poção' }], offers: [offer] }, saving: false, message: null, onChange: vi.fn(), onSave: vi.fn() }));
+  const html = renderToStaticMarkup(createElement(StoreAdminCard, { store: { currency_name: 'Cristais', items: [{ id: 'item', name: 'Poção' }], offers: [offer] }, message: null, onSaveCurrencyField: vi.fn(async () => {}), onSaveOfferField: vi.fn(async () => {}) }));
   expect(html).toContain('Nome da moeda'); expect(html).toContain('value="Cristais"'); expect(html).toContain('Preço'); expect(html).toContain('value="12.5"'); expect(html).toContain('Disponível'); expect(html).toContain('Adicionar oferta');
   expect(html).toContain('Desativar oferta'); expect(html).not.toContain('Remover oferta');
  });
  it('keeps removal wording for unsaved offers', () => {
-  const html = renderToStaticMarkup(createElement(StoreAdminCard, { store: { currency_name: 'Cristais', items: [], offers: [{ ...offer, store_product_id: undefined }] }, saving: false, message: null, onChange: vi.fn(), onSave: vi.fn() }));
+  const html = renderToStaticMarkup(createElement(StoreAdminCard, { store: { currency_name: 'Cristais', items: [], offers: [{ ...offer, store_product_id: undefined }] }, message: null, onSaveCurrencyField: vi.fn(async () => {}), onSaveOfferField: vi.fn(async () => {}) }));
   expect(html).toContain('Remover oferta');
  });
 });
