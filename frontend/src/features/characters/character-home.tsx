@@ -8,7 +8,6 @@ import { DailyLoginPopup } from '../daily-login/daily-login-popup';
 import { CharacterRecord } from './character-record';
 import { Chats } from '../chats/chats';
 import { SystemEventsCard } from '../system-events/system-events-card';
-import { LobbyCreatorTools } from './lobby-creator-tools';
 import './characters.css';
 
 interface CharacterHomeProps {
@@ -25,15 +24,12 @@ interface CharacterHomeProps {
   onSwitch: () => void;
   dailyRewardVersion?: number;
   onDailyClaimed?: () => void;
-  isCreator?: boolean;
   lobbySettings?: SystemLobbySettings;
 }
 
-export function CharacterHome({ system, character, sheetDefinition, inventory, recordLoading, sheetError, inventoryError, onRefreshRecord, fields = [], experience = null, onSwitch, dailyRewardVersion = 0, onDailyClaimed, isCreator = false, lobbySettings = defaultSystemLobbySettings }: CharacterHomeProps) {
+export function CharacterHome({ system, character, sheetDefinition, inventory, recordLoading, sheetError, inventoryError, onRefreshRecord, fields = [], experience = null, onSwitch, dailyRewardVersion = 0, onDailyClaimed, lobbySettings = defaultSystemLobbySettings }: CharacterHomeProps) {
   const [showCharacterRecord, setShowCharacterRecord] = useState(false);
   const [activeRecordTab, setActiveRecordTab] = useState<'sheet' | 'inventory'>('sheet');
-  const [chatReload, setChatReload] = useState(0);
-  const [preferredChatId, setPreferredChatId] = useState<string | null>(null);
 
   if (!character) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{system.name}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
 
@@ -51,8 +47,8 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
       <span className="lobby-matchmaking-caption">Encontre uma sistema para a sua próxima aventura</span>
     </section>,
     store: <section className="lobby-character-home-section" aria-label="Loja do sistema"><SystemStore key={`${character.id}-${dailyRewardVersion}`} systemId={character.game_system_id} characterId={character.id} characterName={character.character_name} /></section>,
-    chat: <div className="lobby-character-home-section" id="chat"><Chats characterId={character.id} reloadToken={chatReload} preferredChatId={preferredChatId} /></div>,
-    events: <div className="lobby-character-home-section" id="system-events"><SystemEventsCard systemId={character.game_system_id} canManage={isCreator} /></div>,
+    chat: <div className="lobby-character-home-section" id="chat"><Chats characterId={character.id} /></div>,
+    events: <div className="lobby-character-home-section" id="system-events"><SystemEventsCard systemId={character.game_system_id} /></div>,
     'character-sheet': <button className="lobby-character-record-action lobby-character-home-section" type="button" onClick={() => { setShowCharacterRecord(true); onRefreshRecord(); }}>
       <span className="lobby-character-record-icon" aria-hidden="true">♙</span><span className="lobby-character-record-copy"><strong>Minha Ficha</strong><small>Consultar dados e inventário</small></span><span className="lobby-character-record-arrow" aria-hidden="true">→</span>
     </button>,
@@ -77,9 +73,6 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
       /> : <div className="lobby-layout">
         <div className="lobby-main" style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>
           <header className="lobby-welcome"><span className="character-entry-eyebrow">{system.name} · SAGUÃO</span><h1>{lobbySettings.welcome_title}</h1><p>{lobbySettings.welcome_message}</p></header>
-          {isCreator && <LobbyCreatorTools system={system} characterId={character.id} settings={lobbySettings}
-            onChatCreated={(chatId) => { setPreferredChatId(chatId); setChatReload((version) => version + 1); }}
-          />}
           <DailyLoginPopup systemId={character.game_system_id} onClaimed={onDailyClaimed} />
           <section className="lobby-rooms">{lobbySettings.section_order.map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</section>
         </div>

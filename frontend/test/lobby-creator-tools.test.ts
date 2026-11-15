@@ -5,7 +5,8 @@ import type { SystemLobbySettings } from '../src/api.js';
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }) }));
 import { CharacterHome } from '../src/features/characters/character-home.js';
 import { LobbyCustomizationForm } from '../src/features/characters/lobby-customization-form.js';
-import { SystemEventsList } from '../src/features/system-events/system-events-card.js';
+import { LobbyCreatorTools } from '../src/features/characters/lobby-creator-tools.js';
+import { SystemEventsCard, SystemEventsList } from '../src/features/system-events/system-events-card.js';
 
 const system = { id: '31000000-0000-4000-8000-000000000001', slug: 'forest', name: 'Floresta', description: null };
 const character = { id: '51000000-0000-4000-8000-000000000001', game_system_id: system.id, character_name: 'Liora', attributes: {}, status: 'active' as const };
@@ -17,7 +18,7 @@ const defaultSettings: SystemLobbySettings = {
   accent_color: '#8B5CF6',
 };
 
-function renderLobby(isCreator: boolean, lobbySettings = defaultSettings) {
+function renderLobby(lobbySettings = defaultSettings) {
   return renderToStaticMarkup(createElement(CharacterHome, {
     system,
     character,
@@ -28,7 +29,6 @@ function renderLobby(isCreator: boolean, lobbySettings = defaultSettings) {
     inventoryError: null,
     onRefreshRecord: () => undefined,
     onSwitch: () => undefined,
-    isCreator,
     lobbySettings,
   } as never));
 }
@@ -48,19 +48,16 @@ const event = {
 };
 
 describe('lobby creator tools', () => {
-  it('shows chat and event creator controls only to an Owner/Admin', () => {
-    const ownerHtml = renderLobby(true);
-    const memberHtml = renderLobby(false);
-    expect(ownerHtml).toContain('Ferramentas do criador');
-    expect(ownerHtml).toContain('Criar chat');
-    expect(ownerHtml).not.toContain('Personalizar saguão');
-    expect(memberHtml).not.toContain('Ferramentas do criador');
-    expect(memberHtml).not.toContain('Criar chat');
-    expect(memberHtml).toContain('Chats');
+  it('does not show chat creation or event management tools in the character view', () => {
+    const html = renderLobby();
+    expect(html).not.toContain('Ferramentas do criador');
+    expect(html).not.toContain('Criar chat');
+    expect(html).not.toContain('Novo evento');
+    expect(html).toContain('Chats');
   });
 
   it('applies saved section order, hides selected sections and displays saved text/color for members', () => {
-    const html = renderLobby(false, {
+    const html = renderLobby({
       section_order: ['chat', 'events', 'system-presentation', 'store', 'matchmaking', 'character-sheet'],
       hidden_sections: ['store', 'matchmaking'],
       welcome_title: 'Bem-vindos à Floresta',
@@ -75,11 +72,16 @@ describe('lobby creator tools', () => {
     expect(html).not.toContain('Procurar partida');
   });
 
-  it('shows the quick chat link only when chat is visible', () => {
-    const visibleHtml = renderLobby(true, defaultSettings);
-    const hiddenHtml = renderLobby(true, { ...defaultSettings, hidden_sections: ['chat'] });
-    expect(visibleHtml).toContain('Ver chats');
-    expect(hiddenHtml).not.toContain('Ver chats');
+  it('renders chat creation in the owner lobby tools with a character selector', () => {
+    const html = renderToStaticMarkup(createElement(LobbyCreatorTools, {
+      system,
+      characters: [character],
+      characterLoadError: null,
+    }));
+
+    expect(html).toContain('Criar chat');
+    expect(html).toContain('Personagem responsável pelo chat');
+    expect(html).toContain('Liora');
   });
 });
 
@@ -108,6 +110,15 @@ describe('lobby event start action', () => {
     } as never));
     expect(html).toContain('Iniciar evento Sessão zero');
     expect(html).not.toContain('Evento iniciado');
+  });
+
+  it('shows event creation controls when rendered for the owner settings page', () => {
+    const html = renderToStaticMarkup(createElement(SystemEventsCard, {
+      systemId: system.id,
+      canManage: true,
+    }));
+    expect(html).toContain('Novo evento');
+    expect(html).toContain('Criar evento');
   });
 
   it('shows the started state and removes the action after an event was started', () => {

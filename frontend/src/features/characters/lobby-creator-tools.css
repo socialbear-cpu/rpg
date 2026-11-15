@@ -4,11 +4,10 @@
 .lobby-creator-chat-form, .lobby-customization form { display: grid; gap: .75rem; }
 .lobby-creator-chat-form h3 { margin: 0; }
 .lobby-creator-chat-form label, .lobby-customization form > label { display: grid; gap: .35rem; }
-.lobby-creator-chat-form input, .lobby-creator-chat-form textarea, .lobby-customization form > label input:not([type="color"]), .lobby-customization form > label textarea { min-height: 2.6rem; padding: .6rem; border: 1px solid #5a496e; border-radius: .5rem; color: #f5f1fb; background: #120f18; font: inherit; }
+.lobby-creator-chat-form input, .lobby-creator-chat-form select, .lobby-creator-chat-form textarea, .lobby-customization form > label input:not([type="color"]), .lobby-customization form > label textarea { min-height: 2.6rem; padding: .6rem; border: 1px solid #5a496e; border-radius: .5rem; color: #f5f1fb; background: #120f18; font: inherit; }
 .lobby-creator-chat-form textarea, .lobby-customization form > label textarea { min-height: 4rem; resize: vertical; }
 .lobby-creator-chat-form button, .lobby-customization form > button, .lobby-customization-row button { min-height: 2.5rem; padding: .5rem .8rem; border: 1px solid #76589e; border-radius: .5rem; color: #f5f1fb; background: #39294c; font: inherit; cursor: pointer; }
 .lobby-creator-chat-form button:disabled, .lobby-customization button:disabled { opacity: .55; cursor: not-allowed; }
-.lobby-creator-chat-link { width: fit-content; color: #d7b5ff; }
 .lobby-customization { border-top: 1px solid #40364e; padding-top: 1rem; }
 .lobby-customization > summary, .lobby-cover-editor > summary { margin-bottom: .75rem; color: #e6d9f4; font-weight: 650; cursor: pointer; }
 .lobby-customization fieldset { display: grid; gap: .5rem; border: 1px solid #40364e; border-radius: .6rem; }

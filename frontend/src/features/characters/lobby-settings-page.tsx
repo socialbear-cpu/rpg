@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getGameSystems, getMySystemMemberships, getSystemLobbySettings, type GameSystem, type SystemLobbySettings } from '../../api';
+import { getGameSystems, getMySystemMemberships, getSystemCharacters, getSystemLobbySettings, type GameSystem, type SystemCharacter, type SystemLobbySettings } from '../../api';
 import { AppHeader } from '../shell/app-header';
 import { LobbyCustomizationForm } from './lobby-customization-form';
+import { LobbyCreatorTools } from './lobby-creator-tools';
+import { SystemEventsCard } from '../system-events/system-events-card';
 import './characters.css';
 import './lobby-creator-tools.css';
 
@@ -13,6 +15,8 @@ export function LobbySettingsPage({ systemId }: { systemId: string }) {
   const [pageState, setPageState] = useState<PageState>('loading');
   const [system, setSystem] = useState<GameSystem | null>(null);
   const [settings, setSettings] = useState<SystemLobbySettings | null>(null);
+  const [characters, setCharacters] = useState<SystemCharacter[]>([]);
+  const [characterLoadError, setCharacterLoadError] = useState<string | null>(null);
   const [pageError, setPageError] = useState('');
   const [loadAttempt, setLoadAttempt] = useState(0);
 
@@ -35,10 +39,21 @@ export function LobbySettingsPage({ systemId }: { systemId: string }) {
           return;
         }
 
-        const lobby = await getSystemLobbySettings(systemId);
+        const [lobbyResult, charactersResult] = await Promise.allSettled([
+          getSystemLobbySettings(systemId),
+          getSystemCharacters(systemId),
+        ]);
         if (!active) return;
+        if (lobbyResult.status === 'rejected') throw lobbyResult.reason;
         setSystem(loadedSystem);
-        setSettings(lobby.settings);
+        setSettings(lobbyResult.value.settings);
+        if (charactersResult.status === 'fulfilled') {
+          setCharacters(charactersResult.value.characters);
+          setCharacterLoadError(null);
+        } else {
+          setCharacters([]);
+          setCharacterLoadError(charactersResult.reason instanceof Error ? charactersResult.reason.message : 'Não foi possível carregar os personagens do sistema.');
+        }
         setPageState('ready');
       } catch (reason) {
         if (!active) return;
@@ -67,5 +82,7 @@ export function LobbySettingsPage({ systemId }: { systemId: string }) {
     <section className="lobby-creator-tools lobby-settings-card" aria-label="Personalização do saguão">
       <div className="lobby-customization"><LobbyCustomizationForm system={system} settings={settings} onSettingsSaved={setSettings} onSystemSaved={setSystem} /></div>
     </section>
+    <LobbyCreatorTools system={system} characters={characters} characterLoadError={characterLoadError} />
+    <SystemEventsCard systemId={system.id} canManage />
   </main>;
 }
