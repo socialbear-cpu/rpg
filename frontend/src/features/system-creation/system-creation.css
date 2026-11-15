@@ -417,6 +417,13 @@
 
 /* Minimal list layout for the character sheet builder. */
 .sheet-builder { gap: 16px; }
+.system-creation-sheet-panel {
+  max-width: 1100px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
 .sheet-layout-selector {
   padding: 0 0 14px;
   border: 0;
@@ -440,15 +447,15 @@
 .visual-sheet-components { grid-template-columns: minmax(0, 1fr); gap: 0; }
 .sheet-field-card { gap: 12px; padding: 14px 0; }
 .visual-sheet-components .sheet-field-topline {
-  grid-template-columns: 24px minmax(0, 1.2fr) minmax(170px, .8fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(170px, .8fr);
   gap: 10px;
 }
 .sheet-field-topline input,
 .sheet-field-topline select,
 .sheet-field-options textarea { min-height: 36px; padding: 8px 10px; border-radius: 7px; }
-.sheet-field-topline .sheet-field-number { width: 24px; height: 24px; flex-basis: 24px; }
 .sheet-field-card > .sheet-field-type-control { width: min(100%, 260px); }
 .sheet-condition-editor { padding: 10px 0; border: 0; border-top: 1px solid #302b36; border-radius: 0; background: transparent; }
+.sheet-condition-editor > .sheet-checkbox { justify-self: start; width: max-content; }
 .sheet-field-settings { gap: 12px; }
 .sheet-field-actions button { min-height: 30px; padding: 0 8px; }
 .sheet-add-button { min-height: 36px; padding: 0 12px; }
@@ -467,14 +474,14 @@
 .sheet-step-navigation .bifrost-tab[aria-current="step"] { border-bottom-color: #b493dc; background: transparent; }
 .sheet-step-navigation .sheet-add-page-button { padding: 6px 0 10px; border: 0; background: transparent; }
 .sheet-visual-editor { gap: 12px; margin-top: 18px; padding: 18px 0 0; border: 0; border-top: 1px solid #302b36; border-radius: 0; background: transparent; }
+.visual-sheet-step { margin: 18px 0; padding: 0; border: 0; border-radius: 0; background: transparent; }
 .sheet-visual-add-actions button,
 .sheet-canvas-choice-group-editor > button { min-height: 32px; padding: 0 10px; }
 .sheet-canvas-choice-group-editor { padding: 12px 0; border: 0; border-top: 1px solid #302b36; border-radius: 0; background: transparent; }
 .system-creation-actions > button { min-height: 38px; padding: 0 14px; border-radius: 8px; }
 
 @media (max-width: 620px) {
-  .visual-sheet-components .sheet-field-topline { grid-template-columns: 24px minmax(0, 1fr); }
-  .sheet-field-topline .sheet-field-type-control { grid-column: 2; }
+  .visual-sheet-components .sheet-field-topline { grid-template-columns: minmax(0, 1fr); }
   .sheet-field-card > .sheet-field-type-control { width: 100%; }
   .sheet-step-navigation { gap: 18px; }
 }
