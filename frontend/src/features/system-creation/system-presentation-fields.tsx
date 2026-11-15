@@ -71,7 +71,6 @@ export function SystemPresentationFields({
 
     {showModeAndTags && <fieldset className="system-presentation-tags">
       <legend>Etiquetas <span>(até {maximumTags})</span></legend>
-      <p>Escolha os temas e estilos que descrevem seu RPG.</p>
       {tagError ? <p className="systems-error" role="alert">{tagError}</p> : tagOptions.length === 0
         ? <p role="status">Carregando etiquetas…</p>
         : <div className="system-tag-options">
