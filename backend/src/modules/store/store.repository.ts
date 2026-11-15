@@ -20,8 +20,9 @@ export async function createStoreItem(client: SupabaseClient, systemId: string, 
     name: input.name,
     description: input.description || null,
     item_type: input.item_type,
+    image_url: input.image_url || null,
     rules_data: {},
-  }).select('id,name,description,item_type').single());
+  }).select('id,name,description,item_type,image_url').single());
   return storeItemSchema.parse(data);
 }
 export async function readStoreCharacter(client: SupabaseClient, userId: string, systemId: string, characterId: string) {
@@ -32,7 +33,7 @@ async function readCatalog(client: SupabaseClient, systemId: string) {
   const [products, listings, items] = await Promise.all([
     result(client.from('products').select('id,item_id,ability_id').eq('game_system_id', systemId).not('item_id', 'is', null)),
     result(client.from('store_products').select('id,product_id,price,is_available').eq('game_system_id', systemId).order('created_at')),
-    result(client.from('items').select('id,name,description,item_type').eq('game_system_id', systemId).order('name')),
+    result(client.from('items').select('id,name,description,item_type,image_url').eq('game_system_id', systemId).order('name')),
   ]);
   const itemMap = new Map((items ?? []).map((item) => [item.id, item.name]));
   const itemProducts = (products ?? []).filter((p) => p.item_id && !p.ability_id && itemMap.has(p.item_id));
