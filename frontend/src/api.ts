@@ -859,6 +859,7 @@ export interface StoreItem {
   id: string;
   name: string;
   description?: string | null;
+  image_url?: string | null;
   item_type?: 'consumable' | 'equipment' | 'misc' | string;
 }
 export interface CharacterStore {
@@ -875,6 +876,7 @@ export interface CreateStoreItemInput {
   name: string;
   description?: string | null;
   item_type: 'consumable' | 'equipment' | 'misc';
+  image_url?: string | null;
 }
 export interface StorePurchaseResult {
   status: 'purchased'; balance: number; purchase_id: string; item_id: string;

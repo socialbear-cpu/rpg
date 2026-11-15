@@ -17,9 +17,12 @@ export const storeItemCreateSchema = z.strictObject({
   name: z.string().trim().min(1).max(80),
   description: z.string().trim().max(500).nullable().optional(),
   item_type: z.enum(['consumable', 'equipment', 'misc']),
+  image_url: z.string().trim().min(1).max(2048).url().refine((value) => {
+    try { return new URL(value).protocol === 'https:'; } catch { return false; }
+  }, 'Image URL must use HTTPS').nullable().optional(),
 });
 export const storeItemSchema = z.strictObject({
-  id: z.uuid(), name: z.string(), description: z.string().nullable(), item_type: z.string(),
+  id: z.uuid(), name: z.string(), description: z.string().nullable(), item_type: z.string(), image_url: z.string().nullable(),
 });
 export const storePurchaseSchema = z.strictObject({
   character_id: z.uuid(), store_product_id: z.uuid(), quantity: z.number().int().min(1).max(1_000_000),

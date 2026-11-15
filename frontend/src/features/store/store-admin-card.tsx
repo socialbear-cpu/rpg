@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FormEvent, type FormEventHandler } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type FormEventHandler } from 'react';
 import { createOwnerStoreItem, getOwnerStore, saveOwnerStore, type CreateStoreItemInput, type OwnerStore } from '../../api';
 import './store.css';
 
@@ -12,23 +12,45 @@ export function StoreAdminCard({ store, saving, message, onChange, onSave, creat
   const [itemName, setItemName] = useState('');
   const [itemDescription, setItemDescription] = useState('');
   const [itemType, setItemType] = useState<CreateStoreItemInput['item_type']>('misc');
+  const [itemImageUrl, setItemImageUrl] = useState('');
+  const [itemError, setItemError] = useState<string | null>(null);
+  const itemDialog = useRef<HTMLDialogElement>(null);
   async function submitItem(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const created = await onCreateItem({ name: itemName.trim(), description: itemDescription.trim() || null, item_type: itemType });
-    if (created) { setItemName(''); setItemDescription(''); setItemType('misc'); }
+    setItemError(null);
+    const created = await onCreateItem({ name: itemName.trim(), description: itemDescription.trim() || null, item_type: itemType, image_url: itemImageUrl.trim() || null });
+    if (created) itemDialog.current?.close();
+    else setItemError('Não foi possível adicionar o item. Confira os dados e tente novamente.');
   }
+  function resetItemForm() {
+    setItemName(''); setItemDescription(''); setItemType('misc'); setItemImageUrl(''); setItemError(null);
+  }
+  const slotCount = Math.max(27, (Math.floor(store.items.length / 9) + 1) * 9);
   const itemTypeLabels: Record<string, string> = { consumable: 'Consumível', equipment: 'Equipamento', misc: 'Outro' };
   return <article className="card store-admin-card"><h2>Gerenciar loja</h2>
     {message && <p role="status" aria-live="polite">{message}</p>}
     <section className="store-admin-items" aria-labelledby="store-admin-items-title">
-      <div><h3 id="store-admin-items-title">Itens do sistema</h3><p>Cadastre os itens que poderão ser oferecidos na loja.</p></div>
-      <form className="store-admin-item-form" onSubmit={(event) => void submitItem(event)}>
-        <label>Nome do item<input required maxLength={80} value={itemName} onChange={(event) => setItemName(event.target.value)} /></label>
-        <label>Tipo<select value={itemType} onChange={(event) => setItemType(event.target.value as CreateStoreItemInput['item_type'])}><option value="consumable">Consumível</option><option value="equipment">Equipamento</option><option value="misc">Outro</option></select></label>
-        <label className="store-admin-item-description">Descrição<textarea maxLength={500} value={itemDescription} onChange={(event) => setItemDescription(event.target.value)} /></label>
-        <button className="button secondary" type="submit" disabled={saving || creatingItem}>{creatingItem ? 'Adicionando…' : 'Adicionar item'}</button>
-      </form>
-      {store.items.length > 0 && <ul className="store-admin-item-list">{store.items.map((item) => <li key={item.id}><strong>{item.name}</strong><span>{itemTypeLabels[item.item_type ?? 'misc'] ?? item.item_type}</span>{item.description && <p>{item.description}</p>}</li>)}</ul>}
+      <div><h3 id="store-admin-items-title">Itens do sistema</h3><p>Selecione um espaço vazio para cadastrar um item para a loja.</p></div>
+      <div className="store-admin-slot-grid" aria-label="Slots de itens da loja">
+        {Array.from({ length: slotCount }, (_, index) => {
+          const item = store.items[index];
+          return item ? <div className="store-admin-slot is-filled" key={item.id} role="img" title={`${item.name} · ${itemTypeLabels[item.item_type ?? 'misc'] ?? item.item_type}`} aria-label={`${item.name}, ${itemTypeLabels[item.item_type ?? 'misc'] ?? item.item_type}`}>
+            {item.image_url ? <img src={item.image_url} alt="" loading="lazy" /> : <span className="store-admin-slot-placeholder" aria-hidden="true">✧</span>}
+            <span className="store-admin-slot-name">{item.name}</span>
+          </div> : <button className="store-admin-slot is-empty" type="button" key={`empty-${index}`} aria-label={`Criar item no espaço ${index + 1}`} onClick={() => { setItemError(null); itemDialog.current?.showModal(); }}><span aria-hidden="true">+</span></button>;
+        })}
+      </div>
+      <dialog className="store-admin-item-dialog" ref={itemDialog} aria-labelledby="store-admin-item-dialog-title" onClose={resetItemForm}>
+        <form className="store-admin-item-form" onSubmit={(event) => void submitItem(event)}>
+          <h3 id="store-admin-item-dialog-title">Adicionar item</h3>
+          {itemError && <p role="alert">{itemError}</p>}
+          <label>Nome do item<input required maxLength={80} value={itemName} onChange={(event) => setItemName(event.target.value)} /></label>
+          <label>Tipo<select value={itemType} onChange={(event) => setItemType(event.target.value as CreateStoreItemInput['item_type'])}><option value="consumable">Consumível</option><option value="equipment">Equipamento</option><option value="misc">Outro</option></select></label>
+          <label className="store-admin-item-description">Descrição<textarea maxLength={500} value={itemDescription} onChange={(event) => setItemDescription(event.target.value)} /></label>
+          <label className="store-admin-item-description">Endereço da imagem<input type="url" pattern="https://.*" maxLength={2048} placeholder="https://…" value={itemImageUrl} onChange={(event) => setItemImageUrl(event.target.value)} /><span>Opcional · use um endereço HTTPS.</span></label>
+          <div className="store-admin-item-dialog-actions"><button className="button secondary" type="button" disabled={creatingItem} onClick={() => itemDialog.current?.close()}>Cancelar</button><button className="button primary" type="submit" disabled={saving || creatingItem}>{creatingItem ? 'Adicionando…' : 'Adicionar item'}</button></div>
+        </form>
+      </dialog>
     </section>
     <form className="store-admin-form" onSubmit={onSave}><fieldset disabled={saving}>
       <label>Nome da moeda<input required maxLength={80} value={store.currency_name} onChange={(event) => onChange({ ...store, currency_name: event.target.value })} /></label>
@@ -80,7 +102,8 @@ export function SystemStoreAdmin({ systemId }: { systemId: string }) {
       setMessage('Item adicionado. Agora ele pode ser incluído em uma oferta.');
       return true;
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Não foi possível adicionar o item.');
+      const failureMessage = error instanceof Error ? error.message : 'Não foi possível adicionar o item.';
+      setMessage(failureMessage);
       return false;
     } finally { setCreatingItem(false); }
   }
