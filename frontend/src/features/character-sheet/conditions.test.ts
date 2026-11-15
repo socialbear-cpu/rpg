@@ -51,6 +51,7 @@ const definition: CharacterSheetDefinition = {
         position: 0,
         width: 'full',
         show_on_card: false,
+        condition: { logic: 'all', rules: [{ component_key: 'district', operator: 'is_filled' }] },
       }],
     },
     {
@@ -72,13 +73,12 @@ const definition: CharacterSheetDefinition = {
 };
 
 describe('visible character-sheet components', () => {
-  it('does not let stale answers from hidden conditional fields activate later pages', () => {
+  it('shows legacy stage fields together while preserving component conditions', () => {
     const state = resolveVisibleCharacterSheetComponents(definition, {
       path: 'forest',
-      district: 'center',
     });
 
-    expect(state.components.map(({ component }) => component.key)).toEqual(['path', 'forest_name']);
+    expect(state.components.map(({ component }) => component.key)).toEqual(['path', 'district', 'forest_name']);
     expect(state.conditionValues).toEqual({ path: 'forest' });
   });
 
@@ -88,7 +88,7 @@ describe('visible character-sheet components', () => {
       district: 'center',
     });
 
-    expect(state.components.map(({ component }) => component.key)).toEqual(['path', 'district', 'market']);
+    expect(state.components.map(({ component }) => component.key)).toEqual(['path', 'district', 'market', 'forest_name']);
     expect(state.conditionValues).toEqual({ path: 'city', district: 'center' });
   });
 });

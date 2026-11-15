@@ -354,7 +354,6 @@ export function characterAttributesSchemaFor(definition: CharacterSheetDefinitio
 
     const conditionValues: Record<string, unknown> = {};
     for (const step of orderedSteps) {
-      if (!conditionMatches(step.condition, conditionValues)) continue;
       for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
         if (!conditionMatches(component.condition, conditionValues)) continue;
         const options = component.type === 'single_select'
@@ -405,7 +404,6 @@ export function characterAttributesSchemaFor(definition: CharacterSheetDefinitio
   }).transform((attributes) => {
     const normalized: Record<string, unknown> = {};
     for (const step of orderedSteps) {
-      if (!conditionMatches(step.condition, normalized)) continue;
       for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
         if (!conditionMatches(component.condition, normalized)) continue;
         const options = component.type === 'single_select'

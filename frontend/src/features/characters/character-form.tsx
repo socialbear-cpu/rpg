@@ -52,7 +52,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
   const [values, setValues] = useState<Record<string, unknown>>(() => ({ ...initialAttributes }));
   const [activePageKey, setActivePageKey] = useState<CreationPage['key']>('character_name');
   const [pageError, setPageError] = useState('');
-  const layoutMode = definition.layout_mode ?? 'step_by_step';
+  const layoutMode = 'single_page';
   const { components: visibleComponents, conditionValues } = resolveVisibleCharacterSheetComponents(definition, values);
   const visibleSteps = [...definition.steps].sort((a, b) => a.position - b.position)
     .map((step) => ({
@@ -152,10 +152,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
 
       <label className="character-form-field character-wizard-question"><span>Como seu personagem se chama?</span><input required aria-required="true" maxLength={80} autoFocus value={name} onChange={(event) => { setName(event.target.value); setPageError(''); }} /></label>
 
-      {visibleSteps.map((step) => <section key={step.key} className="character-wizard-question" aria-label={step.label}>
-        <h2>{step.label}</h2>
-        <CharacterSheetStepRenderer step={step} values={values} conditionValues={conditionValues} onValueChange={updateValue} mode="entry" />
-      </section>)}
+      {visibleSteps.map((step) => <CharacterSheetStepRenderer key={step.key} step={step} values={values} conditionValues={conditionValues} onValueChange={updateValue} mode="entry" />)}
 
       {pageError && <p role="alert" className="character-form-error">{pageError}</p>}
       {error && <p role="alert" className="character-form-error">{error}</p>}

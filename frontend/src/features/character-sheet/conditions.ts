@@ -40,7 +40,6 @@ export function resolveVisibleCharacterSheetComponents(definition: CharacterShee
   const visible: { step: CharacterSheetStep; component: CharacterSheetComponent }[] = [];
   const conditionValues: Record<string, unknown> = {};
   for (const step of [...definition.steps].sort((a, b) => a.position - b.position)) {
-    if (!isConditionGroupMet(step.condition, conditionValues)) continue;
     for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
       if (!isConditionGroupMet(component.condition, conditionValues)) continue;
       const options = getVisibleCharacterSheetOptions(component, conditionValues);

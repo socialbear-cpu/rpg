@@ -252,9 +252,8 @@ describe('character attributes against a system sheet', () => {
     });
     expect(schema.safeParse({ path: 'city', city_name: 'Metro', interests: ['maps', 'maps'], trait: 'Curioso' }).success).toBe(false);
     expect(schema.safeParse({ path: 'city', city_name: 'Metro', interests: ['unknown'], trait: 'Curioso' }).success).toBe(false);
-    expect(schema.parse({ path: 'forest', city_name: 'valor obsoleto', interests: ['maps'], trait: 'Livre' })).toEqual({
-      path: 'forest', trait: 'Livre',
-    });
+    expect(schema.safeParse({ path: 'forest', city_name: 'valor obsoleto', interests: ['maps'], trait: 'Livre' }).success).toBe(false);
+    expect(schema.safeParse({ path: 'forest', trait: 'Livre' }).success).toBe(false);
     expect(schema.safeParse({ path: 'city', interests: ['guilds'], trait: 'Curioso' }).success).toBe(false);
   });
 });

@@ -64,13 +64,14 @@ describe('character entry', () => {
     expect(playerHtml).not.toContain('Personalizar saguão');
   });
 
-  it('starts the wizard with the required character-name page', () => {
+  it('shows the name and all configured fields on one page', () => {
     const html = renderToStaticMarkup(createElement(CharacterForm, { definition, onSubmit: vi.fn(), onCancel: vi.fn() }));
-    expect(html).toContain('Nome do personagem');
+    expect(html).toContain('Como seu personagem se chama?');
     expect(html).toContain('aria-required="true"');
-    expect(html).toContain('Página 1 de 4');
-    expect(html).not.toContain('Classe');
-    expect(html).not.toContain('História');
+    expect(html).toContain('Ficha completa');
+    expect(html).toContain('Classe');
+    expect(html).toContain('História');
+    expect(html).not.toContain('Página 1 de 4');
   });
 
   it('supports rendering all fields together in a single-page layout', () => {
@@ -103,9 +104,13 @@ describe('character entry', () => {
     expect(html).toContain('title="Retrato de Ayla"');
   });
 
-  it('uses the shared selected tab style in the sheet builder step navigation', () => {
+  it('renders fields from every legacy stage without stage controls', () => {
     const html = renderToStaticMarkup(createElement(CharacterSheetBuilder, { definition, onChange: vi.fn() }));
-    expect(html).toContain('class="bifrost-tab" aria-current="step"');
+    expect(html).toContain('História');
+    expect(html).toContain('Classe');
+    expect(html).not.toContain('sheet-step-navigation');
+    expect(html).not.toContain('Mostrar esta etapa quando');
+    expect(html).not.toContain('Adicionar etapa');
   });
 
   it('keeps canvas positions and exposes an expand control during creation', () => {

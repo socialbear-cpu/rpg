@@ -78,7 +78,7 @@ function createEmptySheetComponent(components: CharacterSheetComponent[]): Chara
 }
 
 export function createDefaultCharacterSheetDefinition(): CharacterSheetDefinition {
-  return { version: 1, steps: [{ key: 'step_1', label: 'Etapa 1', position: 0, components: [], elements: [] }] };
+  return { version: 1, layout_mode: 'single_page', steps: [{ key: 'step_1', label: 'Ficha', position: 0, components: [], elements: [] }] };
 }
 
 export function legacyFieldsToDefinition(fields: CharacterSheetField[]): CharacterSheetDefinition {

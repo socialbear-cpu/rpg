@@ -2,7 +2,7 @@
 
 import { useRef, useState, type KeyboardEvent } from 'react';
 import type { CharacterInventory, CharacterSheetDefinition, SystemCharacter } from '../../api';
-import { characterSheetOptionValue, getVisibleCharacterSheetOptions, isConditionGroupMet, resolveVisibleCharacterSheetComponents } from '../character-sheet/conditions';
+import { characterSheetOptionValue, getVisibleCharacterSheetOptions, resolveVisibleCharacterSheetComponents } from '../character-sheet/conditions';
 import type { CharacterSheetComponent, CharacterSheetStep } from '../../api';
 
 function displayValue(value: unknown): string {
@@ -79,8 +79,7 @@ function CharacterSheetView({ character, definition, experience, error }: {
   }
   const visibleSteps = [...definition.steps]
     .sort((a, b) => a.position - b.position)
-    .filter((step) => isConditionGroupMet(step.condition, resolved.conditionValues)
-      && ((componentsByStep.get(step.key)?.length ?? 0) > 0 || (step.elements?.length ?? 0) > 0));
+      .filter((step) => (componentsByStep.get(step.key)?.length ?? 0) > 0 || (step.elements?.length ?? 0) > 0);
 
   return <>
     {experience && <section className="character-record-experience" aria-label="Experiência do personagem">
@@ -91,7 +90,6 @@ function CharacterSheetView({ character, definition, experience, error }: {
     {visibleSteps.length === 0
       ? <p className="character-record-notice">Esta ficha ainda não possui campos preenchidos ou visíveis.</p>
       : visibleSteps.map((step) => <section className="character-record-sheet-section" key={step.key}>
-        <header><span>FICHA DO PERSONAGEM</span><h2>{step.label}</h2></header>
         <SheetArt step={step} />
         <div className="character-record-fields">
           {(componentsByStep.get(step.key) ?? []).map(({ component }) => <article className={`character-record-field width-${component.width}`} key={component.key}>

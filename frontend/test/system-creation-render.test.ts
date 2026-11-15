@@ -136,10 +136,10 @@ describe('character sheet builder', () => {
     expect(html).toContain('Mover campo Origem para cima');
     expect(html).toContain('Mover campo Origem para baixo');
     expect(html).toContain('Remover</button>');
-    expect(html).toContain('Adicionar etapa');
-    expect(html).toContain('Prévia para jogadores');
-    expect(html).toContain('Imagens e textos livres');
-    expect(html).toContain('tamanho e rotação');
+    expect(html).not.toContain('Adicionar etapa');
+    expect(html).toContain('Prévia completa para jogadores');
+    expect(html).toContain('Composição visual da ficha');
+    expect(html).toContain('Arraste os itens para posicioná-los');
     expect(html).toContain('+ Imagem');
   });
 });

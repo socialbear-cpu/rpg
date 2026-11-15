@@ -29,8 +29,13 @@ export function SystemSheetEditor({ systemId, systemName, onCancel, onSaved }: S
   }, [systemId]);
 
   async function save() {
-    if (!definition || !isCharacterSheetDefinitionValid(definition)) {
-      setError('Revise as etapas, campos e opções antes de salvar.');
+    const singlePageDefinition = definition && {
+      ...definition,
+      layout_mode: 'single_page' as const,
+      steps: definition.steps.map(({ condition: _stepCondition, ...step }) => step),
+    };
+    if (!singlePageDefinition || !isCharacterSheetDefinitionValid(singlePageDefinition)) {
+      setError('Revise os campos e opções antes de salvar.');
       setSaved(false);
       return;
     }
@@ -38,7 +43,7 @@ export function SystemSheetEditor({ systemId, systemName, onCancel, onSaved }: S
     setError('');
     setSaved(false);
     try {
-      await updateGameSystemCharacterSheet(systemId, definition);
+      await updateGameSystemCharacterSheet(systemId, singlePageDefinition);
       setSaved(true);
       onSaved?.();
     } catch {
