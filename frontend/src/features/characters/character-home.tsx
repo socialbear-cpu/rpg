@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { defaultSystemLobbySettings, getGameSystemCoverUrl, type CharacterExperienceSummary, type CharacterInventory, type CharacterSheetDefinition, type CharacterSheetField, type GameSystem, type LobbySectionId, type SystemCharacter, type SystemLobbySettings } from '../../api';
 import { SystemStore } from '../store/store-card';
 import { AppHeader } from '../shell/app-header';
@@ -27,26 +27,22 @@ interface CharacterHomeProps {
   onDailyClaimed?: () => void;
   isCreator?: boolean;
   lobbySettings?: SystemLobbySettings;
-  onLobbySettingsSaved?: (settings: SystemLobbySettings) => void;
-  onSystemSaved?: (system: GameSystem) => void;
 }
 
-export function CharacterHome({ system, character, sheetDefinition, inventory, recordLoading, sheetError, inventoryError, onRefreshRecord, fields = [], experience = null, onSwitch, dailyRewardVersion = 0, onDailyClaimed, isCreator = false, lobbySettings = defaultSystemLobbySettings, onLobbySettingsSaved, onSystemSaved }: CharacterHomeProps) {
+export function CharacterHome({ system, character, sheetDefinition, inventory, recordLoading, sheetError, inventoryError, onRefreshRecord, fields = [], experience = null, onSwitch, dailyRewardVersion = 0, onDailyClaimed, isCreator = false, lobbySettings = defaultSystemLobbySettings }: CharacterHomeProps) {
   const [showCharacterRecord, setShowCharacterRecord] = useState(false);
   const [activeRecordTab, setActiveRecordTab] = useState<'sheet' | 'inventory'>('sheet');
-  const [lobbySystem, setLobbySystem] = useState(system);
   const [campaignReload, setCampaignReload] = useState(0);
-  useEffect(() => setLobbySystem(system), [system]);
 
   if (!character) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{system.name}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
 
   const visibleFields = fields.filter((field) => field.show_on_card && Object.hasOwn(character.attributes, field.key));
   const sections: Record<LobbySectionId, React.ReactNode> = {
-    'system-presentation': <section className="character-system-presentation lobby-character-home-section" aria-label={`Apresentação de ${lobbySystem.name}`}>
-      {lobbySystem.cover_image_path
-        ? <img className="character-system-cover" src={getGameSystemCoverUrl(lobbySystem.cover_image_path) ?? undefined} alt={`Capa de ${lobbySystem.name}`} style={{ objectPosition: `${lobbySystem.cover_focus_x ?? 50}% ${lobbySystem.cover_focus_y ?? 50}%` }} />
-        : <div className="character-system-cover character-system-cover-default" role="img" aria-label={`Capa padrão de ${lobbySystem.name}`}>✧</div>}
-      <div className="character-system-details"><p>{lobbySystem.description?.trim() || 'Este sistema ainda não tem uma descrição.'}</p></div>
+    'system-presentation': <section className="character-system-presentation lobby-character-home-section" aria-label={`Apresentação de ${system.name}`}>
+      {system.cover_image_path
+        ? <img className="character-system-cover" src={getGameSystemCoverUrl(system.cover_image_path) ?? undefined} alt={`Capa de ${system.name}`} style={{ objectPosition: `${system.cover_focus_x ?? 50}% ${system.cover_focus_y ?? 50}%` }} />
+        : <div className="character-system-cover character-system-cover-default" role="img" aria-label={`Capa padrão de ${system.name}`}>✧</div>}
+      <div className="character-system-details"><p>{system.description?.trim() || 'Este sistema ainda não tem uma descrição.'}</p></div>
     </section>,
     matchmaking: <section className="lobby-matchmaking lobby-character-home-section" aria-label="Procurar partida">
       <div className="lobby-search-decoration lobby-search-decoration-top" aria-hidden="true">✧</div><div className="lobby-search-decoration lobby-search-decoration-left" aria-hidden="true">✧</div><div className="lobby-search-decoration lobby-search-decoration-right" aria-hidden="true">✧</div>
@@ -79,11 +75,9 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
         onClose={() => setShowCharacterRecord(false)}
       /> : <div className="lobby-layout">
         <div className="lobby-main" style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>
-          <header className="lobby-welcome"><span className="character-entry-eyebrow">{lobbySystem.name} · SAGUÃO</span><h1>{lobbySettings.welcome_title}</h1><p>{lobbySettings.welcome_message}</p></header>
-          {isCreator && <LobbyCreatorTools system={lobbySystem} characterId={character.id} settings={lobbySettings}
-            onSettingsSaved={(settings) => onLobbySettingsSaved?.(settings)}
-            onCampaignCreated={() => setCampaignReload((version) => version + 1)}
-            onSystemSaved={(updatedSystem) => { setLobbySystem(updatedSystem); onSystemSaved?.(updatedSystem); }} />}
+          <header className="lobby-welcome"><span className="character-entry-eyebrow">{system.name} · SAGUÃO</span><h1>{lobbySettings.welcome_title}</h1><p>{lobbySettings.welcome_message}</p></header>
+          {isCreator && <LobbyCreatorTools system={system} characterId={character.id} settings={lobbySettings}
+            onCampaignCreated={() => setCampaignReload((version) => version + 1)} />}
           <DailyLoginPopup systemId={character.game_system_id} onClaimed={onDailyClaimed} />
           <section className="lobby-rooms">{lobbySettings.section_order.map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</section>
         </div>

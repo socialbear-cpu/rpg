@@ -33,7 +33,10 @@ export async function lobbySettingsRoutes(app: FastifyInstance) {
       const accessError = await checkMemberAccess(request.supabase!, reply, params.data.systemId);
       if (accessError) return accessError;
       return reply.send({ settings: await getSystemLobbySettings(request.supabase!, params.data.systemId) });
-    } catch { return reply.code(500).send({ error: 'Unable to read lobby settings' }); }
+    } catch (error) {
+      request.log.error({ err: error, systemId: params.data.systemId }, 'Unable to read lobby settings');
+      return reply.code(500).send({ error: 'Unable to read lobby settings' });
+    }
   });
 
   app.put('/api/v1/owner/game-systems/:systemId/lobby-settings', {
@@ -47,6 +50,9 @@ export async function lobbySettingsRoutes(app: FastifyInstance) {
     try {
       if (!await canManage(request.supabase!, params.data.systemId)) return reply.code(403).send({ error: 'Only the system Owner or Admin can update lobby settings.' });
       return reply.send({ settings: await saveSystemLobbySettings(request.supabase!, params.data.systemId, settings.data) });
-    } catch { return reply.code(500).send({ error: 'Unable to update lobby settings' }); }
+    } catch (error) {
+      request.log.error({ err: error, systemId: params.data.systemId }, 'Unable to update lobby settings');
+      return reply.code(500).send({ error: 'Unable to update lobby settings' });
+    }
   });
 }

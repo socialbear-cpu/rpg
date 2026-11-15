@@ -135,8 +135,6 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
     dailyRewardVersion={dailyRewardVersion}
     isCreator={isCreator}
     lobbySettings={lobbySettings}
-    onLobbySettingsSaved={setLobbySettings}
-    onSystemSaved={setSystem}
     onDailyClaimed={() => setDailyRewardVersion((version) => version + 1)}
     onSwitch={() => push(`/systems/${encodeURIComponent(systemId)}/characters`)}
   />;

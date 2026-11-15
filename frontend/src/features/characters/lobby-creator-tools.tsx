@@ -2,16 +2,13 @@
 
 import { useState, type FormEvent } from 'react';
 import { createSystemCampaign, type GameSystem, type SystemLobbySettings } from '../../api';
-import { LobbyCustomizationForm } from './lobby-customization-form';
 import './lobby-creator-tools.css';
 
-export function LobbyCreatorTools({ system, characterId, settings, onSettingsSaved, onCampaignCreated, onSystemSaved }: {
+export function LobbyCreatorTools({ system, characterId, settings, onCampaignCreated }: {
   system: GameSystem;
   characterId: string;
   settings: SystemLobbySettings;
-  onSettingsSaved: (settings: SystemLobbySettings) => void;
   onCampaignCreated: () => void;
-  onSystemSaved: (system: GameSystem) => void;
 }) {
   const [campaignName, setCampaignName] = useState('');
   const [campaignDescription, setCampaignDescription] = useState('');
@@ -39,10 +36,6 @@ export function LobbyCreatorTools({ system, characterId, settings, onSettingsSav
       <button type="submit" disabled={savingCampaign || !campaignName.trim()}>{savingCampaign ? 'Criando…' : 'Criar campanha'}</button>
     </form>
     {!settings.hidden_sections.includes('campaign-chat') && <a className="lobby-creator-chat-link" href="#campaign-chat-heading">Criar uma sala de chat</a>}
-    <details className="lobby-customization">
-      <summary>Personalizar saguão</summary>
-      <LobbyCustomizationForm system={system} settings={settings} onSettingsSaved={onSettingsSaved} onSystemSaved={onSystemSaved} />
-    </details>
     {message && <p role="status">{message}</p>}{error && <p role="alert">{error}</p>}
   </section>;
 }

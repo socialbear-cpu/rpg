@@ -48,12 +48,12 @@ const event = {
 };
 
 describe('lobby creator tools', () => {
-  it('shows campaign, chat and event creator controls only to an Owner/Admin', () => {
+  it('shows campaign and chat creator controls only to an Owner/Admin', () => {
     const ownerHtml = renderLobby(true);
     const memberHtml = renderLobby(false);
     expect(ownerHtml).toContain('Ferramentas do criador');
     expect(ownerHtml).toContain('Criar campanha');
-    expect(ownerHtml).toContain('Personalizar saguão');
+    expect(ownerHtml).not.toContain('Personalizar saguão');
     expect(memberHtml).not.toContain('Ferramentas do criador');
     expect(memberHtml).not.toContain('Criar campanha');
     expect(memberHtml).toContain('Salas de bate-papo');
