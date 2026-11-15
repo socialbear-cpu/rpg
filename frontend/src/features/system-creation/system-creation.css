@@ -300,12 +300,10 @@
 .sheet-visual-controls input, .sheet-visual-controls textarea { width: 100%; min-width: 0; min-height: 38px; padding: 8px; border: 1px solid #40364f; border-radius: 7px; color: #f5f1fb; background: #110e18; font: inherit; }
 .sheet-visual-controls textarea { resize: vertical; }
 .sheet-visual-controls .sheet-remove-button { justify-self: start; min-height: 38px; padding: 0 10px; border: 1px solid #59353b; border-radius: 8px; color: #ffb8bd; background: #2c2025; }
-.sheet-option-visual-controls > .sheet-condition-editor { grid-column: 1 / -1; }
 .sheet-canvas-choice-group-editor { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 12px 0 0; padding: 14px; border: 1px solid #55436d; border-radius: 10px; background: #17131f; }
 .sheet-canvas-choice-group-editor legend { padding: 0 6px; color: #e8def3; font-weight: 700; }
 .sheet-canvas-choice-group-editor > label:not(.sheet-checkbox) { display: grid; gap: 5px; color: #d9d0e4; font-size: 12px; }
 .sheet-canvas-choice-group-editor input:not([type="checkbox"]), .sheet-canvas-choice-group-editor select { width: 100%; min-width: 0; min-height: 38px; padding: 8px; border: 1px solid #40364f; border-radius: 7px; color: #f5f1fb; background: #110e18; font: inherit; }
-.sheet-canvas-choice-group-editor > .sheet-condition-editor { grid-column: 1 / -1; }
 .sheet-canvas-choice-group-editor > button { justify-self: start; min-height: 36px; padding: 0 12px; border: 1px solid #58477a; border-radius: 8px; color: #e5dcf0; background: #282333; }
 .sheet-canvas-choice-group-editor > .sheet-remove-button { border-color: #59353b; color: #ffb8bd; background: #2c2025; }
 .sheet-page-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 20px; color: #afa6ba; font-size: 12px; }
@@ -322,24 +320,15 @@
   .sheet-page-actions span { order: -1; width: 100%; text-align: center; }
   .sheet-visual-canvas { min-height: 160px; }
 }
-.sheet-condition-editor { display: grid; gap: 10px; min-width: 0; padding: 12px; border: 1px solid #40364f; border-radius: 9px; background: #17141e; }
-.sheet-condition-editor legend { padding: 0 5px; color: #cbb8e5; font-size: 12px; }
-.sheet-condition-editor small { color: #afa6ba; }
 .sheet-editor-notice { margin: 0; color: #ffc96b; font-size: 13px; }
-.sheet-condition-rule { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; align-items: end; gap: 8px; }
-.sheet-condition-rule label, .visual-sheet-options fieldset > label { display: grid; gap: 5px; min-width: 0; color: #d9d0e4; font-size: 12px; }
-.sheet-condition-rule input, .sheet-condition-rule select, .visual-sheet-options fieldset > label input { width: 100%; min-width: 0; min-height: 38px; padding: 7px 8px; border: 1px solid #40364f; border-radius: 7px; color: #f5f1fb; background: #110e18; font: inherit; }
-.sheet-condition-rule > button { min-height: 38px; }
 .sheet-option-transform-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
 .sheet-option-transform-controls label { display: grid; gap: 4px; min-width: 0; color: #afa6ba; font-size: 11px; }
 .sheet-option-transform-controls input { width: 100%; min-width: 0; }
 .sheet-option-canvas-item { position: absolute; display: grid; place-items: end center; overflow: hidden; border: 2px solid #8e75b2; border-radius: 7px; color: #fff; background: #30243d; cursor: move; user-select: none; }
 .sheet-option-canvas-item.selected { z-index: 2; border-color: #d0b4ff; box-shadow: 0 0 0 3px #a78bfa66; }
-.sheet-option-visual-controls > .sheet-condition-editor { grid-column: 1 / -1; }
 .sheet-option-canvas-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .sheet-option-canvas-item strong { z-index: 1; width: 100%; overflow: hidden; padding: 5px; background: #100d18cc; text-align: center; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
 @media(max-width:620px) {
-  .sheet-condition-rule { grid-template-columns: 1fr; }
   .sheet-option-transform-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -377,10 +366,8 @@
 .visual-sheet-step input, .visual-sheet-step select,
 .visual-sheet-components :is(input, select, textarea),
 .visual-sheet-options fieldset > label input,
-.sheet-condition-rule :is(input, select) { border-color: #514560; background: #110e18; }
 .visual-sheet-components { gap: 14px; }
 .visual-sheet-options fieldset,
-.sheet-condition-editor { border-color: #40364f; background: #17131f; }
 .visual-sheet-preview { padding: clamp(15px, 2.5vw, 22px); border: 1px solid #40364f; background: #1b1724; }
 .visual-sheet-preview h3 { color: #e9def8; font: 600 17px 'Outfit', sans-serif; }
 .system-creation-actions { align-items: center; padding-top: 17px; border-top: 1px solid #342c42; }
@@ -400,7 +387,6 @@
 .visual-sheet-options fieldset > legend { grid-column: 1 / -1; }
 .visual-sheet-options fieldset > label { min-width: 0; }
 .visual-sheet-options fieldset > .sheet-option-transform-controls,
-.visual-sheet-options fieldset > .sheet-condition-editor,
 .visual-sheet-options fieldset > button { grid-column: 1 / -1; }
 .visual-sheet-options fieldset > button {
   justify-self: start;
@@ -454,8 +440,6 @@
 .sheet-field-topline select,
 .sheet-field-options textarea { min-height: 36px; padding: 8px 10px; border-radius: 7px; }
 .sheet-field-card > .sheet-field-type-control { width: min(100%, 260px); }
-.sheet-condition-editor { padding: 10px 0; border: 0; border-top: 1px solid #302b36; border-radius: 0; background: transparent; }
-.sheet-condition-editor > .sheet-checkbox { justify-self: start; width: max-content; }
 .sheet-field-settings { gap: 12px; }
 .sheet-field-actions button { min-height: 30px; padding: 0 8px; }
 .sheet-add-button { min-height: 36px; padding: 0 12px; }
@@ -489,5 +473,4 @@
 @media (max-width: 760px) {
   .visual-sheet-options fieldset { grid-template-columns: minmax(0, 1fr); }
   .sheet-option-transform-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .sheet-condition-rule { grid-template-columns: minmax(0, 1fr); }
 }

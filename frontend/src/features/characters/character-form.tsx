@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from 'react';
 import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetStep } from '../../api';
-import { characterSheetOptionValue, getVisibleCharacterSheetOptions, resolveVisibleCharacterSheetComponents } from '../character-sheet/conditions';
 import { CharacterSheetStepRenderer } from '../character-sheet/character-sheet-step-renderer';
 import './characters.css';
 
@@ -31,16 +30,16 @@ function summaryValue(component: CharacterSheetComponent, value: unknown): strin
   if (value === undefined || value === null || value === '') return '—';
   if (component.type === 'single_select') {
     const selected = Array.isArray(value) ? value : [value];
-    return selected.map((selectedValue) => component.options.find((option) => characterSheetOptionValue(option) === selectedValue)?.label ?? String(selectedValue)).join(', ');
+    return selected.map((selectedValue) => component.options.find((option) => (option.value ?? option.label) === selectedValue)?.label ?? String(selectedValue)).join(', ');
   }
   return String(value);
 }
 
-function validComponentValue(component: CharacterSheetComponent, value: unknown, values: Record<string, unknown>): boolean {
+function validComponentValue(component: CharacterSheetComponent, value: unknown): boolean {
   if (!isFilled(value)) return !component.required;
   if (component.type === 'number') return Number.isFinite(Number(value));
   if (component.type !== 'single_select') return typeof value === 'string' && value.trim().length > 0;
-  const allowed = new Set(getVisibleCharacterSheetOptions(component, values).map(characterSheetOptionValue));
+  const allowed = new Set(component.options.map((option) => option.value ?? option.label));
   if (component.selection_mode === 'multiple') {
     return Array.isArray(value) && value.length > 0 && value.every((item) => typeof item === 'string' && allowed.has(item)) && new Set(value).size === value.length;
   }
@@ -53,12 +52,12 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
   const [activePageKey, setActivePageKey] = useState<CreationPage['key']>('character_name');
   const [pageError, setPageError] = useState('');
   const layoutMode = 'single_page';
-  const { components: visibleComponents, conditionValues } = resolveVisibleCharacterSheetComponents(definition, values);
+  const visibleComponents = [...definition.steps].sort((a, b) => a.position - b.position)
+    .flatMap((step) => [...step.components].sort((a, b) => a.position - b.position).map((component) => ({ step, component })));
   const visibleSteps = [...definition.steps].sort((a, b) => a.position - b.position)
     .map((step) => ({
       ...step,
-      components: [...step.components].sort((a, b) => a.position - b.position)
-        .filter((component) => visibleComponents.some((item) => item.component.key === component.key && item.step.key === step.key)),
+      components: [...step.components].sort((a, b) => a.position - b.position),
     }))
     .filter((step) => step.components.length > 0);
   const pages: CreationPage[] = [
@@ -73,15 +72,15 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
   function attributesForSubmit(): Record<string, unknown> {
     const attributes: Record<string, unknown> = {};
     for (const { component } of visibleComponents) {
-      const value = component.type === 'single_select' ? conditionValues[component.key] : values[component.key];
+      const value = values[component.key];
       if (!isFilled(value)) continue;
       if (component.type === 'number') {
         attributes[component.key] = Number(value);
       } else if (component.type === 'single_select' && component.selection_mode === 'multiple' && Array.isArray(value)) {
-        const available = new Set(getVisibleCharacterSheetOptions(component, conditionValues).map(characterSheetOptionValue));
+        const available = new Set(component.options.map((option) => option.value ?? option.label));
         attributes[component.key] = value.filter((selected): selected is string => typeof selected === 'string' && available.has(selected));
       } else if (component.type === 'single_select') {
-        const available = new Set(getVisibleCharacterSheetOptions(component, conditionValues).map(characterSheetOptionValue));
+        const available = new Set(component.options.map((option) => option.value ?? option.label));
         if (typeof value === 'string' && available.has(value)) attributes[component.key] = value;
       } else {
         attributes[component.key] = typeof value === 'string' ? value.trim() : value;
@@ -97,7 +96,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
         setPageError('Informe o nome do personagem.');
         return;
       }
-      const missing = visibleComponents.find(({ component }) => !validComponentValue(component, conditionValues[component.key], conditionValues));
+      const missing = visibleComponents.find(({ component }) => !validComponentValue(component, values[component.key]));
       if (missing) {
         setPageError(`Preencha a informação obrigatória: ${missing.component.label}.`);
         return;
@@ -110,7 +109,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
     if (page.kind !== 'summary') {
       const missing = page.kind === 'name'
         ? !name.trim()
-        : !validComponentValue(page.component, conditionValues[page.component.key], conditionValues);
+        : !validComponentValue(page.component, values[page.component.key]);
       if (missing) {
         setPageError(page.kind === 'name' ? 'Informe o nome do personagem.' : `Preencha a informação obrigatória: ${page.component.label}.`);
         return;
@@ -120,7 +119,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
       return;
     }
 
-    const missing = visibleComponents.find(({ component }) => !validComponentValue(component, conditionValues[component.key], conditionValues));
+    const missing = visibleComponents.find(({ component }) => !validComponentValue(component, values[component.key]));
     if (missing) {
       const missingKey = `component:${missing.component.key}`;
       setActivePageKey(missingKey);
@@ -136,12 +135,6 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
     setPageError('');
   }
 
-  const pageValues = { ...values };
-  if (page.kind === 'component' && page.component.type === 'single_select') {
-    if (Object.hasOwn(conditionValues, page.component.key)) pageValues[page.component.key] = conditionValues[page.component.key];
-    else delete pageValues[page.component.key];
-  }
-
   if (layoutMode === 'single_page') {
     return <form className="character-form character-wizard-form" onSubmit={submit}>
       <div className="character-step-progress" aria-live="polite">
@@ -152,7 +145,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
 
       <label className="character-form-field character-wizard-question"><span>Como seu personagem se chama?</span><input required aria-required="true" maxLength={80} autoFocus value={name} onChange={(event) => { setName(event.target.value); setPageError(''); }} /></label>
 
-      {visibleSteps.map((step) => <CharacterSheetStepRenderer key={step.key} step={step} values={values} conditionValues={conditionValues} onValueChange={updateValue} mode="entry" />)}
+      {visibleSteps.map((step) => <CharacterSheetStepRenderer key={step.key} step={step} values={values} onValueChange={updateValue} mode="entry" />)}
 
       {pageError && <p role="alert" className="character-form-error">{pageError}</p>}
       {error && <p role="alert" className="character-form-error">{error}</p>}
@@ -173,13 +166,13 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
     {page.kind === 'name' && <label className="character-form-field character-wizard-question"><span>Como seu personagem se chama?</span><input required aria-required="true" maxLength={80} autoFocus value={name} onChange={(event) => { setName(event.target.value); setPageError(''); }} /></label>}
     {page.kind === 'component' && <section className="character-wizard-question" aria-label={page.component.label}>
       <h2>{page.component.label}{page.component.required ? ' *' : ''}</h2>
-      <CharacterSheetStepRenderer step={{ ...page.step, components: [page.component] }} values={pageValues} conditionValues={conditionValues} onValueChange={updateValue} mode="entry" />
+      <CharacterSheetStepRenderer step={{ ...page.step, components: [page.component] }} values={values} onValueChange={updateValue} mode="entry" />
     </section>}
     {page.kind === 'summary' && <section className="character-wizard-summary" aria-labelledby="character-summary-title">
       <h2 id="character-summary-title">Confira as informações antes de criar</h2>
       <dl>
         <div><dt>Nome do personagem</dt><dd>{name || '—'}</dd></div>
-        {visibleComponents.map(({ component }) => <div key={component.key}><dt>{component.label}</dt><dd>{summaryValue(component, component.type === 'single_select' ? conditionValues[component.key] : values[component.key])}</dd></div>)}
+        {visibleComponents.map(({ component }) => <div key={component.key}><dt>{component.label}</dt><dd>{summaryValue(component, values[component.key])}</dd></div>)}
       </dl>
     </section>}
 

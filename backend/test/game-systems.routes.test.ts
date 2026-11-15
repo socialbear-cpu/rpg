@@ -38,7 +38,7 @@ const interactiveDefinition = {
     { key: 'origin', label: 'Origem', position: 0, components: [
       { key: 'origin', label: 'Origem', type: 'short_text' as const, required: true, position: 0, width: 'full' as const, show_on_card: false },
     ] },
-    { key: 'choices', label: 'Escolhas', position: 1, condition: { logic: 'all' as const, rules: [{ component_key: 'origin', operator: 'is_filled' as const }] }, components: [
+    { key: 'choices', label: 'Escolhas', position: 1, components: [
       {
         key: 'interests', label: 'Interesses', type: 'single_select' as const, required: true, position: 0,
         width: 'full' as const, show_on_card: true, presentation: 'canvas' as const, selection_mode: 'multiple' as const,
@@ -294,7 +294,7 @@ describe('game system and character API', () => {
     expect(response.json()).toEqual({ system, definition: visualDefinition });
   });
 
-  it('creates and updates sheets with conditional image-choice configuration', async () => {
+  it('creates and updates sheets with image-choice configuration', async () => {
     const created = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: interactiveDefinition, play_mode: 'text', tags: [] });
     expect(created.statusCode).toBe(201);
     expect(created.json()).toEqual({ system, definition: interactiveDefinition });

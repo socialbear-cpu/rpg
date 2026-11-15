@@ -32,7 +32,6 @@ export function SystemSheetEditor({ systemId, systemName, onCancel, onSaved }: S
     const singlePageDefinition = definition && {
       ...definition,
       layout_mode: 'single_page' as const,
-      steps: definition.steps.map(({ condition: _stepCondition, ...step }) => step),
     };
     if (!singlePageDefinition || !isCharacterSheetDefinitionValid(singlePageDefinition)) {
       setError('Revise os campos e opções antes de salvar.');

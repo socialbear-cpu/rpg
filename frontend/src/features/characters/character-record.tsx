@@ -2,7 +2,6 @@
 
 import { useRef, useState, type KeyboardEvent } from 'react';
 import type { CharacterInventory, CharacterSheetDefinition, SystemCharacter } from '../../api';
-import { characterSheetOptionValue, getVisibleCharacterSheetOptions, resolveVisibleCharacterSheetComponents } from '../character-sheet/conditions';
 import type { CharacterSheetComponent, CharacterSheetStep } from '../../api';
 
 function displayValue(value: unknown): string {
@@ -21,25 +20,23 @@ function safeImageUrl(value: unknown): string | null {
   }
 }
 
-function selectedOptionLabels(component: Extract<CharacterSheetComponent, { type: 'single_select' }>, value: unknown, conditionValues: Record<string, unknown>) {
+function selectedOptionLabels(component: Extract<CharacterSheetComponent, { type: 'single_select' }>, value: unknown) {
   const selectedValues = Array.isArray(value)
     ? value.filter((item): item is string => typeof item === 'string')
     : typeof value === 'string' ? [value] : [];
-  const visibleOptions = getVisibleCharacterSheetOptions(component, conditionValues);
-  const matches = selectedValues.map((selected) => visibleOptions.find((option) => characterSheetOptionValue(option) === selected));
+  const matches = selectedValues.map((selected) => component.options.find((option) => (option.value ?? option.label) === selected));
   const rendered = matches.flatMap((option, index) => option
     ? [{ label: option.label, description: option.description, imageUrl: safeImageUrl(option.image_url) }]
     : selectedValues[index] ? [{ label: selectedValues[index]!, description: undefined, imageUrl: null }] : []);
   return rendered.length > 0 ? rendered : [{ label: 'Não preenchido', description: undefined, imageUrl: null }];
 }
 
-function CharacterSheetValue({ component, value, conditionValues }: {
+function CharacterSheetValue({ component, value }: {
   component: CharacterSheetComponent;
   value: unknown;
-  conditionValues: Record<string, unknown>;
 }) {
   if (component.type === 'single_select') {
-    return <div className="character-record-selected-options">{selectedOptionLabels(component, value, conditionValues).map((option, index) =>
+    return <div className="character-record-selected-options">{selectedOptionLabels(component, value).map((option, index) =>
       <div className="character-record-selected-option" key={`${option.label}-${index}`}>
         {option.imageUrl && <img src={option.imageUrl} alt="" />}
         <div><strong>{option.label}</strong>{option.description && <p>{option.description}</p>}</div>
@@ -70,13 +67,8 @@ function CharacterSheetView({ character, definition, experience, error }: {
   if (error) return <p role="alert" className="character-record-notice">{error}</p>;
   if (!definition) return <p role="status" className="character-record-notice">Carregando ficha...</p>;
 
-  const resolved = resolveVisibleCharacterSheetComponents(definition, character.attributes);
-  const componentsByStep = new Map<string, typeof resolved.components>();
-  for (const entry of resolved.components) {
-    const current = componentsByStep.get(entry.step.key) ?? [];
-    current.push(entry);
-    componentsByStep.set(entry.step.key, current);
-  }
+  const componentsByStep = new Map(definition.steps.map((step) => [step.key, [...step.components]
+    .sort((a, b) => a.position - b.position).map((component) => ({ step, component }))]));
   const visibleSteps = [...definition.steps]
     .sort((a, b) => a.position - b.position)
       .filter((step) => (componentsByStep.get(step.key)?.length ?? 0) > 0 || (step.elements?.length ?? 0) > 0);
@@ -94,7 +86,7 @@ function CharacterSheetView({ character, definition, experience, error }: {
         <div className="character-record-fields">
           {(componentsByStep.get(step.key) ?? []).map(({ component }) => <article className={`character-record-field width-${component.width}`} key={component.key}>
             <h3>{component.label}</h3>
-            <CharacterSheetValue component={component} value={character.attributes[component.key]} conditionValues={resolved.conditionValues} />
+            <CharacterSheetValue component={component} value={character.attributes[component.key]} />
           </article>)}
         </div>
       </section>)}

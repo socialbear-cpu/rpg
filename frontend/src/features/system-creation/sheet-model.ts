@@ -1,4 +1,4 @@
-import type { CharacterSheetComponent, CharacterSheetConditionGroup, CharacterSheetDefinition, CharacterSheetField, CharacterSheetVisualElement } from '../../api';
+import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetField, CharacterSheetVisualElement } from '../../api';
 
 const supportedTypes = new Set(['short_text', 'long_text', 'number', 'single_select']);
 
@@ -113,42 +113,6 @@ function reindexComponents(components: CharacterSheetComponent[]) {
   return components.map((component, position) => ({ ...component, position }));
 }
 
-function conditionsReferenceEarlierComponents(definition: CharacterSheetDefinition): boolean {
-  const priorKeys = new Set<string>();
-  const valid = (condition: CharacterSheetConditionGroup | undefined) => !condition || condition.rules.every((rule) => priorKeys.has(rule.component_key));
-  for (const step of orderedSteps(definition)) {
-    if (!valid(step.condition)) return false;
-    for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
-      if (!valid(component.condition)) return false;
-      if (component.type === 'single_select' && component.options.some((option) => !valid(option.condition))) return false;
-      priorKeys.add(component.key);
-    }
-  }
-  return true;
-}
-
-function removeConditionsReferencing(definition: CharacterSheetDefinition, componentKeys: Set<string>): CharacterSheetDefinition {
-  const withoutReferences = (condition: CharacterSheetConditionGroup | undefined) => {
-    if (!condition) return undefined;
-    const rules = condition.rules.filter((rule) => !componentKeys.has(rule.component_key));
-    return rules.length > 0 ? { ...condition, rules } : undefined;
-  };
-  return {
-    ...definition,
-    steps: definition.steps.map((step) => ({
-      ...step,
-      condition: withoutReferences(step.condition),
-      components: step.components.map((component) => component.type === 'single_select'
-        ? {
-          ...component,
-          condition: withoutReferences(component.condition),
-          options: component.options.map((option) => ({ ...option, condition: withoutReferences(option.condition) })),
-        }
-        : { ...component, condition: withoutReferences(component.condition) }),
-    })),
-  };
-}
-
 export function addSheetStep(definition: CharacterSheetDefinition): CharacterSheetDefinition {
   const steps = reindexSteps(orderedSteps(definition));
   const next = {
@@ -183,11 +147,9 @@ export function removeSheetVisualElement(definition: CharacterSheetDefinition, s
 }
 
 export function removeSheetStep(definition: CharacterSheetDefinition, stepKey: string): CharacterSheetDefinition {
-  const removed = definition.steps.find((step) => step.key === stepKey);
   const steps = orderedSteps(definition).filter((step) => step.key !== stepKey);
   if (steps.length === 0) return definition;
-  const next = { ...definition, steps: reindexSteps(steps) };
-  return removeConditionsReferencing(next, new Set(removed?.components.map((component) => component.key) ?? []));
+  return { ...definition, steps: reindexSteps(steps) };
 }
 
 export function moveSheetStep(definition: CharacterSheetDefinition, stepKey: string, direction: 'up' | 'down'): CharacterSheetDefinition {
@@ -197,7 +159,7 @@ export function moveSheetStep(definition: CharacterSheetDefinition, stepKey: str
   if (index < 0 || target < 0 || target >= steps.length) return { ...definition, steps: reindexSteps(steps) };
   [steps[index], steps[target]] = [steps[target]!, steps[index]!];
   const next = { ...definition, steps: reindexSteps(steps) };
-  return conditionsReferenceEarlierComponents(next) ? next : definition;
+  return next;
 }
 
 export function addSheetComponent(definition: CharacterSheetDefinition, stepKey: string): CharacterSheetDefinition {
@@ -216,7 +178,7 @@ export function removeSheetComponent(definition: CharacterSheetDefinition, stepK
       ? { ...step, components: reindexComponents(step.components.filter((component) => component.key !== componentKey)) }
       : step),
   };
-  return removeConditionsReferencing(next, new Set([componentKey]));
+  return next;
 }
 
 export function moveSheetComponent(definition: CharacterSheetDefinition, stepKey: string, componentKey: string, direction: 'up' | 'down'): CharacterSheetDefinition {
@@ -232,7 +194,7 @@ export function moveSheetComponent(definition: CharacterSheetDefinition, stepKey
       return { ...step, components: reindexComponents(components) };
     }),
   };
-  return conditionsReferenceEarlierComponents(next) ? next : definition;
+  return next;
 }
 
 export function moveSheetComponentToStep(definition: CharacterSheetDefinition, sourceStepKey: string, targetStepKey: string, componentKey: string, targetPosition?: number): CharacterSheetDefinition {
@@ -246,17 +208,7 @@ export function moveSheetComponentToStep(definition: CharacterSheetDefinition, s
   const position = Math.max(0, Math.min(targetPosition ?? targetComponents.length, targetComponents.length));
   targetComponents.splice(position, 0, { ...component, position });
   const next = { ...definition, steps: definition.steps.map((step) => step.key === sourceStepKey ? { ...step, components: sourceComponents } : step.key === targetStepKey ? { ...step, components: reindexComponents(targetComponents) } : step) };
-  return conditionsReferenceEarlierComponents(next) ? next : definition;
-}
-
-function validCondition(condition: CharacterSheetConditionGroup | undefined, previousKeys: Set<string>) {
-  if (!condition) return true;
-  if (!['all', 'any'].includes(condition.logic) || condition.rules.length < 1 || condition.rules.length > 20) return false;
-  return condition.rules.every((rule) => previousKeys.has(rule.component_key)
-    && ['equals', 'not_equals', 'contains', 'not_contains', 'is_filled', 'is_empty'].includes(rule.operator)
-    && (['is_filled', 'is_empty'].includes(rule.operator)
-      ? rule.value === undefined
-      : Boolean(rule.value?.trim()) && rule.value!.trim().length <= 80));
+  return next;
 }
 
 export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefinition | CharacterSheetField[]): boolean {
@@ -303,12 +255,10 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
           const hasLayout = layout.every((value) => value !== undefined);
           if ((component.presentation === 'canvas' && !hasLayout) || (layout.some((value) => value !== undefined) && !hasLayout)) return false;
           if (hasLayout && (!layout.every(Number.isFinite) || option.x! < 0 || option.y! < 0 || option.width! < 1 || option.height! < 1 || option.width! > 100 || option.height! > 100 || option.rotation! < -360 || option.rotation! > 360 || option.x! + option.width! > 100 || option.y! + option.height! > 100)) return false;
-          if (option.condition && (!['all', 'any'].includes(option.condition.logic) || option.condition.rules.length < 1 || option.condition.rules.length > 20)) return false;
           labels.add(option.label.trim());
           values.add(optionValue.trim());
         }
       }
-      if (component.condition && (!['all', 'any'].includes(component.condition.logic) || component.condition.rules.length < 1 || component.condition.rules.length > 20)) return false;
 
       componentKeys.add(component.key);
       componentPositions.add(component.position);
@@ -335,22 +285,9 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
       elementKeys.add(element.key);
       elementCount++;
     }
-    if (step.condition && (!['all', 'any'].includes(step.condition.logic) || step.condition.rules.length < 1 || step.condition.rules.length > 20)) return false;
 
     stepKeys.add(step.key);
     stepPositions.add(step.position);
-  }
-
-  const priorKeys = new Set<string>();
-  for (const step of [...definition.steps].sort((a, b) => a.position - b.position)) {
-    if (!validCondition(step.condition, priorKeys)) return false;
-    for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
-      if (!validCondition(component.condition, priorKeys)) return false;
-      if (component.type === 'single_select') {
-        for (const option of component.options) if (!validCondition(option.condition, priorKeys)) return false;
-      }
-      priorKeys.add(component.key);
-    }
   }
 
   return componentCount <= 50 && elementCount <= 50;

@@ -39,20 +39,6 @@ export interface CharacterSheetOption {
   width?: number;
   height?: number;
   rotation?: number;
-  condition?: CharacterSheetConditionGroup;
-}
-
-export type CharacterSheetConditionOperator = 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'is_filled' | 'is_empty';
-
-export interface CharacterSheetConditionRule {
-  component_key: string;
-  operator: CharacterSheetConditionOperator;
-  value?: string;
-}
-
-export interface CharacterSheetConditionGroup {
-  logic: 'all' | 'any';
-  rules: CharacterSheetConditionRule[];
 }
 
 export interface CharacterSheetVisualElementBase {
@@ -75,7 +61,6 @@ export interface CharacterSheetComponentBase {
   position: number;
   width: 'full' | 'half' | 'third';
   show_on_card: boolean;
-  condition?: CharacterSheetConditionGroup;
 }
 
 export type CharacterSheetComponent =
@@ -90,7 +75,6 @@ export interface CharacterSheetStep {
   position: number;
   components: CharacterSheetComponent[];
   elements?: CharacterSheetVisualElement[];
-  condition?: CharacterSheetConditionGroup;
 }
 
 export type CharacterSheetLayoutMode = 'single_page' | 'step_by_step';

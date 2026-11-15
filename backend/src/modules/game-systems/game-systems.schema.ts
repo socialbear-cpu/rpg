@@ -5,19 +5,6 @@ const labelSchema = z.string().trim().min(1).max(80);
 const systemTagSlugsSchema = z.array(z.string().regex(/^[a-z][a-z0-9-]{0,39}$/))
   .max(5)
   .refine((tags) => new Set(tags).size === tags.length);
-const conditionRuleSchema = z.discriminatedUnion('operator', [
-  z.strictObject({ component_key: keySchema, operator: z.literal('equals'), value: z.string().trim().min(1).max(80) }),
-  z.strictObject({ component_key: keySchema, operator: z.literal('not_equals'), value: z.string().trim().min(1).max(80) }),
-  z.strictObject({ component_key: keySchema, operator: z.literal('contains'), value: z.string().trim().min(1).max(80) }),
-  z.strictObject({ component_key: keySchema, operator: z.literal('not_contains'), value: z.string().trim().min(1).max(80) }),
-  z.strictObject({ component_key: keySchema, operator: z.literal('is_filled') }),
-  z.strictObject({ component_key: keySchema, operator: z.literal('is_empty') }),
-]);
-const conditionGroupSchema = z.strictObject({
-  logic: z.enum(['all', 'any']),
-  rules: z.array(conditionRuleSchema).min(1).max(20),
-});
-
 const componentBaseSchema = {
   key: keySchema,
   label: labelSchema,
@@ -25,7 +12,6 @@ const componentBaseSchema = {
   position: z.number().int().min(0).max(49),
   width: z.enum(['full', 'half', 'third']),
   show_on_card: z.boolean(),
-  condition: conditionGroupSchema.optional(),
 };
 
 const optionSchema = z.strictObject({
@@ -38,7 +24,6 @@ const optionSchema = z.strictObject({
   width: z.number().min(1).max(100).optional(),
   height: z.number().min(1).max(100).optional(),
   rotation: z.number().min(-360).max(360).optional(),
-  condition: conditionGroupSchema.optional(),
 });
 
 const selectOptionsSchema = z.array(optionSchema).min(1).max(50)
@@ -87,7 +72,6 @@ export const characterSheetStepSchema = z.strictObject({
   position: z.number().int().min(0).max(19),
   components: z.array(characterSheetComponentSchema).max(50),
   elements: z.array(visualElementSchema).max(50).optional(),
-  condition: conditionGroupSchema.optional(),
 });
 
 export const characterSheetDefinitionSchema = z.strictObject({
@@ -99,7 +83,6 @@ export const characterSheetDefinitionSchema = z.strictObject({
   const stepPositions = new Set<number>();
   const componentKeys = new Set<string>();
   const elementKeys = new Set<string>();
-  const stepsInOrder = [...definition.steps].sort((a, b) => a.position - b.position);
 
   definition.steps.forEach((step, stepIndex) => {
     if (stepKeys.has(step.key)) {
@@ -154,28 +137,6 @@ export const characterSheetDefinitionSchema = z.strictObject({
     context.addIssue({ code: 'custom', message: 'A character sheet cannot have more than 50 visual elements', path: ['steps'] });
   }
 
-  const priorComponentKeys = new Set<string>();
-  for (const step of stepsInOrder) {
-    const validateCondition = (condition: z.infer<typeof conditionGroupSchema> | undefined, path: (string | number)[]) => {
-      condition?.rules.forEach((rule, ruleIndex) => {
-        if (!priorComponentKeys.has(rule.component_key)) {
-          context.addIssue({ code: 'custom', message: 'Conditions must reference an earlier component', path: [...path, 'rules', ruleIndex, 'component_key'] });
-        }
-      });
-    };
-    const stepIndex = definition.steps.findIndex((item) => item.key === step.key);
-    validateCondition(step.condition, ['steps', stepIndex, 'condition']);
-    for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
-      const componentIndex = definition.steps[stepIndex]!.components.findIndex((item) => item.key === component.key);
-      validateCondition(component.condition, ['steps', stepIndex, 'components', componentIndex, 'condition']);
-      if (component.type === 'single_select') {
-        component.options.forEach((option, optionIndex) => {
-          validateCondition(option.condition, ['steps', stepIndex, 'components', componentIndex, 'options', optionIndex, 'condition']);
-        });
-      }
-      priorComponentKeys.add(component.key);
-    }
-  }
 });
 
 export type CharacterSheetStep = z.infer<typeof characterSheetStepSchema>;
@@ -325,23 +286,6 @@ function hasValue(value: unknown): boolean {
   return value !== undefined && value !== null;
 }
 
-function conditionMatches(condition: z.infer<typeof conditionGroupSchema> | undefined, values: Record<string, unknown>): boolean {
-  if (!condition) return true;
-  const matches = condition.rules.map((rule) => {
-    const actual = values[rule.component_key];
-    const expected = 'value' in rule ? rule.value ?? '' : '';
-    switch (rule.operator) {
-      case 'is_filled': return hasValue(actual);
-      case 'is_empty': return !hasValue(actual);
-      case 'equals': return !Array.isArray(actual) && actual !== undefined && String(actual).trim() === expected;
-      case 'not_equals': return Array.isArray(actual) || actual === undefined || String(actual).trim() !== expected;
-      case 'contains': return Array.isArray(actual) ? actual.includes(expected) : typeof actual === 'string' && actual.includes(expected);
-      case 'not_contains': return Array.isArray(actual) ? !actual.includes(expected) : typeof actual !== 'string' || !actual.includes(expected);
-    }
-  });
-  return condition.logic === 'all' ? matches.every(Boolean) : matches.some(Boolean);
-}
-
 export function characterAttributesSchemaFor(definition: CharacterSheetDefinition) {
   const orderedSteps = [...definition.steps].sort((a, b) => a.position - b.position);
   const components = orderedSteps.flatMap((step) => step.components);
@@ -352,15 +296,8 @@ export function characterAttributesSchemaFor(definition: CharacterSheetDefinitio
       if (!componentKeys.has(key)) context.addIssue({ code: 'custom', message: 'Unknown character attribute', path: [key] });
     });
 
-    const conditionValues: Record<string, unknown> = {};
     for (const step of orderedSteps) {
       for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
-        if (!conditionMatches(component.condition, conditionValues)) continue;
-        const options = component.type === 'single_select'
-          ? component.options.filter((option) => conditionMatches(option.condition, conditionValues))
-          : [];
-        if (component.type === 'single_select' && options.length === 0) continue;
-
         if (!Object.hasOwn(attributes, component.key)) {
           if (component.required) context.addIssue({ code: 'custom', message: 'Required character attribute is missing', path: [component.key] });
           continue;
@@ -372,8 +309,6 @@ export function characterAttributesSchemaFor(definition: CharacterSheetDefinitio
         if (component.type === 'short_text' || component.type === 'long_text') {
           if (typeof value !== 'string' || (component.required && value.trim().length === 0)) {
             context.addIssue({ code: 'custom', message: 'Character attribute must be nonblank text', path: [component.key] });
-          } else {
-            conditionValues[component.key] = value.trim();
           }
           continue;
         }
@@ -381,23 +316,17 @@ export function characterAttributesSchemaFor(definition: CharacterSheetDefinitio
         if (component.type === 'number') {
           if (typeof value !== 'number' || !Number.isFinite(value)) {
             context.addIssue({ code: 'custom', message: 'Character attribute must be a finite number', path: [component.key] });
-          } else {
-            conditionValues[component.key] = value;
           }
           continue;
         }
 
-        const allowedValues = new Set(options.map((option) => option.value ?? option.label));
+        const allowedValues = new Set(component.options.map((option) => option.value ?? option.label));
         if (component.selection_mode === 'multiple') {
           if (!Array.isArray(value) || value.some((selected) => typeof selected !== 'string' || !allowedValues.has(selected)) || new Set(value).size !== value.length || (component.required && value.length === 0)) {
             context.addIssue({ code: 'custom', message: 'Character attribute must match configured options', path: [component.key] });
-          } else if (value.length > 0) {
-            conditionValues[component.key] = value;
           }
         } else if (typeof value !== 'string' || !allowedValues.has(value)) {
           context.addIssue({ code: 'custom', message: 'Character attribute must match a configured option', path: [component.key] });
-        } else {
-          conditionValues[component.key] = value;
         }
       }
     }
@@ -405,11 +334,6 @@ export function characterAttributesSchemaFor(definition: CharacterSheetDefinitio
     const normalized: Record<string, unknown> = {};
     for (const step of orderedSteps) {
       for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
-        if (!conditionMatches(component.condition, normalized)) continue;
-        const options = component.type === 'single_select'
-          ? component.options.filter((option) => conditionMatches(option.condition, normalized))
-          : [];
-        if (component.type === 'single_select' && options.length === 0) continue;
         const value = attributes[component.key];
         if (value === undefined || value === null) continue;
         if (typeof value === 'string') {
@@ -417,7 +341,7 @@ export function characterAttributesSchemaFor(definition: CharacterSheetDefinitio
           if (!trimmed) continue;
           normalized[component.key] = trimmed;
         } else if (Array.isArray(value)) {
-          const allowedValues = new Set(options.map((option) => option.value ?? option.label));
+          const allowedValues = new Set(component.type === 'single_select' ? component.options.map((option) => option.value ?? option.label) : []);
           const selected = [...new Set(value.filter((item): item is string => typeof item === 'string' && item.trim().length > 0 && allowedValues.has(item)))];
           if (selected.length > 0) normalized[component.key] = selected;
         } else {

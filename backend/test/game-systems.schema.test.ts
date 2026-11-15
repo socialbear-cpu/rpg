@@ -85,7 +85,7 @@ describe('versioned character-sheet definitions', () => {
     expect(characterSheetDefinitionSchema.safeParse(outOfBounds).success).toBe(false);
   });
 
-  it('accepts positioned multi-select choices and conditions that reference earlier components', () => {
+  it('accepts positioned multi-select choices', () => {
     const interactive: CharacterSheetDefinition = {
       version: 1,
       steps: [
@@ -109,10 +109,7 @@ describe('versioned character-sheet definitions', () => {
           key: 'details',
           label: 'Detalhes',
           position: 1,
-          condition: { logic: 'any', rules: [
-            { component_key: 'origin', operator: 'equals', value: 'city' },
-            { component_key: 'origin', operator: 'equals', value: 'forest' },
-          ] },
+
           components: [{
             key: 'interests',
             label: 'Interesses',
@@ -124,7 +121,7 @@ describe('versioned character-sheet definitions', () => {
             presentation: 'canvas',
             selection_mode: 'multiple',
             options: [
-              { label: 'Explorar', value: 'explore', image_url: 'https://cdn.example/explore.jpg', x: 5, y: 5, width: 40, height: 45, rotation: -5, condition: { logic: 'all', rules: [{ component_key: 'origin', operator: 'is_filled' }] } },
+              { label: 'Explorar', value: 'explore', image_url: 'https://cdn.example/explore.jpg', x: 5, y: 5, width: 40, height: 45, rotation: -5 },
               { label: 'Estudar', value: 'study', image_url: 'https://cdn.example/study.jpg', x: 55, y: 5, width: 40, height: 45, rotation: 0 },
             ],
           }],
@@ -133,9 +130,6 @@ describe('versioned character-sheet definitions', () => {
     };
     expect(characterSheetDefinitionSchema.safeParse(interactive).success).toBe(true);
 
-    const futureReference = structuredClone(interactive);
-    futureReference.steps[0]!.condition = { logic: 'all', rules: [{ component_key: 'origin', operator: 'is_filled' }] };
-    expect(characterSheetDefinitionSchema.safeParse(futureReference).success).toBe(false);
 
     const partialLayout = structuredClone(interactive);
     const interests = partialLayout.steps[1]!.components[0]!;
@@ -190,70 +184,4 @@ describe('character attributes against a system sheet', () => {
     expect(schema.safeParse({ origin: 'Cidade', power: 12, class: 'Mago', village: 'Folha', extra: true }).success).toBe(false);
   });
 
-  it('validates conditional multi-select choices against only currently visible answers', () => {
-    const conditionalDefinition: CharacterSheetDefinition = {
-      version: 1,
-      steps: [
-        {
-          key: 'origin',
-          label: 'Origem',
-          position: 0,
-          components: [{
-            key: 'path',
-            label: 'Caminho',
-            type: 'single_select',
-            required: true,
-            position: 0,
-            width: 'full',
-            show_on_card: false,
-            presentation: 'select',
-            options: [{ label: 'Cidade', value: 'city' }, { label: 'Floresta', value: 'forest' }],
-          }],
-        },
-        {
-          key: 'city_details',
-          label: 'Cidade',
-          position: 1,
-          condition: { logic: 'all', rules: [{ component_key: 'path', operator: 'equals', value: 'city' }] },
-          components: [
-            { key: 'city_name', label: 'Cidade', type: 'short_text', required: true, position: 0, width: 'full', show_on_card: false },
-            {
-              key: 'interests',
-              label: 'Interesses',
-              type: 'single_select',
-              required: true,
-              position: 1,
-              width: 'full',
-              show_on_card: false,
-              presentation: 'cards',
-              selection_mode: 'multiple',
-              options: [
-                { label: 'Mapas', value: 'maps', condition: { logic: 'all', rules: [{ component_key: 'city_name', operator: 'equals', value: 'Metro' }] } },
-                { label: 'Guildas', value: 'guilds' },
-              ],
-            },
-          ],
-        },
-        {
-          key: 'outcome',
-          label: 'Resultado',
-          position: 2,
-          condition: { logic: 'any', rules: [
-            { component_key: 'city_name', operator: 'equals', value: 'Metro' },
-            { component_key: 'path', operator: 'equals', value: 'forest' },
-          ] },
-          components: [{ key: 'trait', label: 'Traço', type: 'short_text', required: true, position: 0, width: 'full', show_on_card: false }],
-        },
-      ],
-    };
-    const schema = characterAttributesSchemaFor(conditionalDefinition);
-    expect(schema.parse({ path: 'city', city_name: 'Metro', interests: ['maps', 'guilds'], trait: 'Curioso' })).toEqual({
-      path: 'city', city_name: 'Metro', interests: ['maps', 'guilds'], trait: 'Curioso',
-    });
-    expect(schema.safeParse({ path: 'city', city_name: 'Metro', interests: ['maps', 'maps'], trait: 'Curioso' }).success).toBe(false);
-    expect(schema.safeParse({ path: 'city', city_name: 'Metro', interests: ['unknown'], trait: 'Curioso' }).success).toBe(false);
-    expect(schema.safeParse({ path: 'forest', city_name: 'valor obsoleto', interests: ['maps'], trait: 'Livre' }).success).toBe(false);
-    expect(schema.safeParse({ path: 'forest', trait: 'Livre' }).success).toBe(false);
-    expect(schema.safeParse({ path: 'city', interests: ['guilds'], trait: 'Curioso' }).success).toBe(false);
-  });
 });

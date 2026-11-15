@@ -1,10 +1,9 @@
 'use client';
 
 import { useRef, useState, type CSSProperties, type PointerEvent } from 'react';
-import type { CharacterSheetComponent, CharacterSheetConditionGroup, CharacterSheetDefinition, CharacterSheetOption, CharacterSheetVisualElement } from '../../api';
+import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetOption, CharacterSheetVisualElement } from '../../api';
 import { addSheetComponent, addSheetVisualElement, moveSheetComponent, removeSheetComponent, removeSheetVisualElement } from './sheet-model';
 import { CharacterSheetStepRenderer } from '../character-sheet/character-sheet-step-renderer';
-import { SheetConditionEditor } from './sheet-condition-editor';
 import './system-creation.css';
 
 type VisualDrag = (
@@ -30,23 +29,6 @@ function optionPosition(option: CharacterSheetOption, index: number, count: numb
   };
 }
 
-function previousComponents(definition: CharacterSheetDefinition, stepKey: string, componentKey?: string) {
-  const result: CharacterSheetComponent[] = [];
-  for (const step of definition.steps.slice().sort((a, b) => a.position - b.position)) {
-    if (step.key === stepKey) {
-      if (componentKey) result.push(...step.components.filter((component) => component.position < (step.components.find((item) => item.key === componentKey)?.position ?? -1)));
-      break;
-    }
-    result.push(...step.components.slice().sort((a, b) => a.position - b.position));
-  }
-  return result;
-}
-
-function patchCondition(condition: CharacterSheetConditionGroup | undefined, sourceKey: string, oldValue: string, nextValue: string): CharacterSheetConditionGroup | undefined {
-  if (!condition) return condition;
-  return { ...condition, rules: condition.rules.map((rule) => rule.component_key === sourceKey && rule.value === oldValue ? { ...rule, value: nextValue } : rule) };
-}
-
 export function CharacterSheetBuilder({ definition, onChange }: { definition: CharacterSheetDefinition; onChange: (definition: CharacterSheetDefinition) => void }) {
   const [selectedElementKey, setSelectedElementKey] = useState<string | null>(null);
   const [selectedOptionKey, setSelectedOptionKey] = useState<{ componentKey: string; optionIndex: number } | null>(null);
@@ -59,10 +41,10 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
 
   function applyMove(updated: CharacterSheetDefinition) {
     if (updated === definition) {
-      setBuilderNotice('Não foi possível mover: ajuste as dependências ou verifique o limite de campos.');
+      setBuilderNotice('NÃ£o foi possÃ­vel mover: verifique o limite de campos.');
       return;
     }
-    setBuilderNotice('');
+      setBuilderNotice('NÃ£o foi possÃ­vel mover: verifique o limite de campos.');
     onChange(updated);
   }
 
@@ -85,9 +67,7 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
     if (!oldOption) return;
     const updatedOption = { ...oldOption, ...patch };
     if (patch.label !== undefined && oldOption.value === undefined && patch.value === undefined) updatedOption.value = oldOption.label;
-    const oldValue = oldOption.value ?? oldOption.label;
-    const nextValue = updatedOption.value ?? updatedOption.label;
-    let updatedDefinition: CharacterSheetDefinition = {
+    const updatedDefinition: CharacterSheetDefinition = {
       ...definition,
       steps: definition.steps.map((item) => ({
         ...item,
@@ -96,22 +76,6 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
           : field),
       })),
     };
-    if (oldValue !== nextValue) {
-      updatedDefinition = {
-        ...updatedDefinition,
-        steps: updatedDefinition.steps.map((item) => ({
-          ...item,
-          condition: patchCondition(item.condition, componentKey, oldValue, nextValue),
-          components: item.components.map((field) => field.type === 'single_select'
-            ? {
-              ...field,
-              condition: patchCondition(field.condition, componentKey, oldValue, nextValue),
-              options: field.options.map((option) => ({ ...option, condition: patchCondition(option.condition, componentKey, oldValue, nextValue) })),
-            }
-            : { ...field, condition: patchCondition(field.condition, componentKey, oldValue, nextValue) }),
-        })),
-      };
-    }
     onChange(updatedDefinition);
   }
 
@@ -156,34 +120,11 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
   function removeOption(componentKey: string, optionIndex: number) {
     const component = steps.flatMap((item) => item.components).find((item) => item.key === componentKey);
     if (!component || component.type !== 'single_select') return;
-    const removed = component.options[optionIndex];
-    if (!removed) return;
-    const removedValue = removed.value ?? removed.label;
-    const withoutRuleValue = (condition: CharacterSheetConditionGroup | undefined) => {
-      if (!condition) return undefined;
-      const rules = condition.rules.filter((rule) => rule.component_key !== componentKey || rule.value !== removedValue);
-      return rules.length ? { ...condition, rules } : undefined;
-    };
-    let updated: CharacterSheetDefinition = {
-      ...definition,
-      steps: definition.steps.map((item) => ({
-        ...item,
-        condition: withoutRuleValue(item.condition),
-        components: item.components.map((field) => field.type === 'single_select'
-          ? {
-            ...field,
-            condition: withoutRuleValue(field.condition),
-            options: field.options
-              .filter((_, index) => field.key !== componentKey || index !== optionIndex)
-              .map((option) => ({ ...option, condition: withoutRuleValue(option.condition) })),
-          }
-          : { ...field, condition: withoutRuleValue(field.condition) }),
-      })),
-    };
+    if (!component.options[optionIndex]) return;
     const ownerStepKey = steps.find((item) => item.components.some((field) => field.key === componentKey))?.key;
-    updated = {
-      ...updated,
-      steps: updated.steps.map((item) => item.key === ownerStepKey ? {
+    const updated: CharacterSheetDefinition = {
+      ...definition,
+      steps: definition.steps.map((item) => item.key === ownerStepKey ? {
         ...item,
         components: item.components.map((field) => field.key === componentKey && field.type === 'single_select'
           ? { ...field, options: field.options.filter((_, index) => index !== optionIndex) }
@@ -194,7 +135,7 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
   }
 
   function changeType(component: CharacterSheetComponent, type: CharacterSheetComponent['type']) {
-    const base = { key: component.key, label: component.label, required: component.required, position: component.position, width: component.width, show_on_card: component.show_on_card, condition: component.condition };
+    const base = { key: component.key, label: component.label, required: component.required, position: component.position, width: component.width, show_on_card: component.show_on_card };
     const replacement: CharacterSheetComponent = type === 'single_select' ? { ...base, type, presentation: 'cards', options: [{ label: 'Opção 1' }] } : { ...base, type } as CharacterSheetComponent;
     patchComponent(component.key, replacement);
   }
@@ -339,7 +280,6 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
             <label>Altura (%)<input type="number" min={1} max={100} value={selectedOption.height ?? 30} onChange={(event) => patchOption(selectedOptionComponent.key, selectedOptionKey!.optionIndex, { height: Number(event.target.value) })} /></label>
             <label>Rotação<input type="number" min={-360} max={360} value={selectedOption.rotation ?? 0} onChange={(event) => patchOption(selectedOptionComponent.key, selectedOptionKey!.optionIndex, { rotation: Number(event.target.value) })} /></label>
           </div>
-          <SheetConditionEditor label="Disponível quando" condition={selectedOption.condition} availableComponents={previousComponents(definition, step.key, selectedOptionComponent.key)} onChange={(condition) => patchOption(selectedOptionComponent.key, selectedOptionKey!.optionIndex, { condition })} />
           <button type="button" className="sheet-remove-button" disabled={selectedOptionComponent.options.length <= 1} onClick={() => { removeOption(selectedOptionComponent.key, selectedOptionKey!.optionIndex); setSelectedOptionKey(null); }}>Remover opção</button>
         </div> : selectedElement && <div className="sheet-visual-controls">
           <strong>{selectedElement.type === 'text' ? 'Editar texto' : 'Editar imagem'}</strong>
@@ -360,7 +300,6 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
           <label>Seleção<select value={component.selection_mode ?? 'single'} onChange={(event) => patchComponent(component.key, { selection_mode: event.target.value as 'single' | 'multiple' })}><option value="single">Uma opção</option><option value="multiple">Várias opções</option></select></label>
           <label className="sheet-checkbox"><input type="checkbox" checked={component.required} onChange={(event) => patchComponent(component.key, { required: event.target.checked })} /><span>Obrigatório</span></label>
           <label className="sheet-checkbox"><input type="checkbox" checked={component.show_on_card} onChange={(event) => patchComponent(component.key, { show_on_card: event.target.checked })} /><span>Exibir na galeria</span></label>
-          <SheetConditionEditor label="Exibir escolha quando" condition={component.condition} availableComponents={previousComponents(definition, step.key, component.key)} onChange={(condition) => patchComponent(component.key, { condition })} />
           <button type="button" onClick={() => addOption(component.key)}>+ Adicionar opção</button>
           <button type="button" className="sheet-remove-button" onClick={() => { onChange(removeSheetComponent(definition, step.key, component.key)); setSelectedOptionKey(null); }}>Remover escolha</button>
         </fieldset>)}
