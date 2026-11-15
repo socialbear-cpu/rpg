@@ -279,7 +279,7 @@
 @media(max-width:620px){.visual-sheet-step>header{align-items:flex-start;flex-direction:column}.visual-sheet-components{grid-template-columns:1fr}.visual-sheet-options fieldset{grid-template-columns:1fr}.character-sheet-component.width-half,.character-sheet-component.width-third{grid-column:span 6}}
 
 .sheet-step-navigation { display: flex; gap: 8px; overflow-x: auto; margin: 20px 0 12px; padding: 2px 2px 8px; }
-.sheet-step-navigation .nexus-tab { display: grid; min-width: 165px; min-height: 56px; gap: 4px; padding: 10px 12px; border-radius: 11px; text-align: left; }
+.sheet-step-navigation .bifrost-tab { display: grid; min-width: 165px; min-height: 56px; gap: 4px; padding: 10px 12px; border-radius: 11px; text-align: left; }
 .sheet-step-navigation button span { font-size: 10px; text-transform: uppercase; }
 .sheet-step-navigation button strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sheet-step-navigation .sheet-add-page-button { min-width: max-content; padding: 10px 12px; border: 1px dashed #58477a; border-radius: 11px; color: #d9caff; background: #17131f; text-align: left; cursor: pointer; }
@@ -414,6 +414,70 @@
 }
 .visual-sheet-options fieldset > button:focus-visible { outline: 2px solid #9872d1; outline-offset: 2px; }
 .sheet-option-transform-controls label { min-width: 0; }
+
+/* Minimal list layout for the character sheet builder. */
+.sheet-builder { gap: 16px; }
+.sheet-layout-selector {
+  padding: 0 0 14px;
+  border: 0;
+  border-bottom: 1px solid #302b36;
+  border-radius: 0;
+  background: transparent;
+}
+.sheet-built-in-field,
+.sheet-field-card {
+  border: 0;
+  border-bottom: 1px solid #302b36;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.sheet-built-in-field { padding: 10px 0; }
+.sheet-field-number {
+  border-color: transparent;
+  background: transparent;
+}
+.visual-sheet-components { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.sheet-field-card { gap: 12px; padding: 14px 0; }
+.visual-sheet-components .sheet-field-topline {
+  grid-template-columns: 24px minmax(0, 1.2fr) minmax(170px, .8fr);
+  gap: 10px;
+}
+.sheet-field-topline input,
+.sheet-field-topline select,
+.sheet-field-options textarea { min-height: 36px; padding: 8px 10px; border-radius: 7px; }
+.sheet-field-topline .sheet-field-number { width: 24px; height: 24px; flex-basis: 24px; }
+.sheet-field-card > .sheet-field-type-control { width: min(100%, 260px); }
+.sheet-condition-editor { padding: 10px 0; border: 0; border-top: 1px solid #302b36; border-radius: 0; background: transparent; }
+.sheet-field-settings { gap: 12px; }
+.sheet-field-actions button { min-height: 30px; padding: 0 8px; }
+.sheet-add-button { min-height: 36px; padding: 0 12px; }
+.sheet-step-navigation { gap: 24px; margin: 18px 0 24px; padding: 0 0 10px; border-bottom: 1px solid #302b36; }
+.sheet-step-navigation .bifrost-tab {
+  min-width: max-content;
+  min-height: 0;
+  gap: 4px;
+  padding: 5px 0 10px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+}
+.sheet-step-navigation .bifrost-tab[aria-current="step"] { border-bottom-color: #b493dc; background: transparent; }
+.sheet-step-navigation .sheet-add-page-button { padding: 6px 0 10px; border: 0; background: transparent; }
+.sheet-visual-editor { gap: 12px; margin-top: 18px; padding: 18px 0 0; border: 0; border-top: 1px solid #302b36; border-radius: 0; background: transparent; }
+.sheet-visual-add-actions button,
+.sheet-canvas-choice-group-editor > button { min-height: 32px; padding: 0 10px; }
+.sheet-canvas-choice-group-editor { padding: 12px 0; border: 0; border-top: 1px solid #302b36; border-radius: 0; background: transparent; }
+.system-creation-actions > button { min-height: 38px; padding: 0 14px; border-radius: 8px; }
+
+@media (max-width: 620px) {
+  .visual-sheet-components .sheet-field-topline { grid-template-columns: 24px minmax(0, 1fr); }
+  .sheet-field-topline .sheet-field-type-control { grid-column: 2; }
+  .sheet-field-card > .sheet-field-type-control { width: 100%; }
+  .sheet-step-navigation { gap: 18px; }
+}
 
 @media (max-width: 760px) {
   .visual-sheet-options fieldset { grid-template-columns: minmax(0, 1fr); }

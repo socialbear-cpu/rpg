@@ -62,7 +62,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
 
           </section>
 
-          <section className="dashboard-hero" aria-label="Destaques do Nexus RPG">
+          <section className="dashboard-hero" aria-label="Destaques do Bifrost RPG">
             <div className="dashboard-hero-copy" aria-live="polite">
               <span className="dashboard-hero-kicker">PORTAIS ABERTOS PARA NOVAS HISTÓRIAS</span>
               <h2>{slides[activeSlide].title}</h2>

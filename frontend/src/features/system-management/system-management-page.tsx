@@ -289,14 +289,14 @@ export function SystemManagementPage() {
             <path d="M22 760Q320 742 590 774M610 774Q880 742 1178 760M22 768Q320 750 590 782M610 782Q880 750 1178 768" fill="none" stroke="#9d80ad" strokeOpacity=".18" />
           </svg>
           <nav className="system-management-nav" aria-label="Seções de gerenciamento" role="tablist">
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => selectCategory('overview')}>Visão geral</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => selectCategory('people')}>Pessoas</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => selectCategory('game')}>Jogo</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-store" aria-selected={activeCategory === 'store'} aria-controls="store" onClick={() => selectCategory('store')}>Loja</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => selectCategory('sheet')}>Ficha</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-events" aria-selected={activeCategory === 'events'} aria-controls="events" onClick={() => selectCategory('events')}>Eventos</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => selectCategory('community')}>Comunidade</button>
-            <button className="nexus-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => selectCategory('settings')}>Configurações</button>
+            <button className="bifrost-tab" type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => selectCategory('overview')}>Visão geral</button>
+            <button className="bifrost-tab" type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => selectCategory('people')}>Pessoas</button>
+            <button className="bifrost-tab" type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => selectCategory('game')}>Jogo</button>
+            <button className="bifrost-tab" type="button" role="tab" id="management-tab-store" aria-selected={activeCategory === 'store'} aria-controls="store" onClick={() => selectCategory('store')}>Loja</button>
+            <button className="bifrost-tab" type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => selectCategory('sheet')}>Ficha</button>
+            <button className="bifrost-tab" type="button" role="tab" id="management-tab-events" aria-selected={activeCategory === 'events'} aria-controls="events" onClick={() => selectCategory('events')}>Eventos</button>
+            <button className="bifrost-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => selectCategory('community')}>Comunidade</button>
+            <button className="bifrost-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => selectCategory('settings')}>Configurações</button>
           </nav>
           <div className="system-management-book-page">
             {isVisibleCategory('overview') && <BookCategory className={categoryPageClass()} id="overview" role="tabpanel" aria-labelledby="management-tab-overview"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO I · PAINEL</p><h2>Visão geral</h2></div></div>

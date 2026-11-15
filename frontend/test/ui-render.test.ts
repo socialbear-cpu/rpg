@@ -37,7 +37,7 @@ describe('account card', () => {
   it('renders login, signup, recovery, and signed-out session controls', () => {
     const html = renderToStaticMarkup(createElement(AccountCard, accountCardProps));
 
-    expect(html).toContain('class="tab nexus-tab"');
+    expect(html).toContain('class="tab bifrost-tab"');
     expect(html).toContain('id="tab-login"');
     expect(html).toContain('id="tab-signup"');
     expect(html).toContain('Esqueci minha senha');
@@ -50,7 +50,7 @@ describe('account card', () => {
     const html = renderToStaticMarkup(createElement(AccountCard, { ...accountCardProps, mode: 'signup' }));
 
     expect(html).toContain('Nome de exibição');
-    expect(html).toContain('class="tab nexus-tab"');
+    expect(html).toContain('class="tab bifrost-tab"');
     expect(html).toContain('id="tab-signup" type="button" role="tab" aria-selected="true"');
   });
 
@@ -114,7 +114,7 @@ describe('initial application UI', () => {
     for (const link of tradeLinks) {
       expect(link).toContain('href="/trading"');
       expect(link).toContain('aria-current="page"');
-      expect(link).toContain('nexus-tab');
+      expect(link).toContain('bifrost-tab');
     }
     expect(html).toMatch(/href="\/dashboard\/systems\/new"[^>]*>CRIAR SISTEMA/);
     expect(html).toContain('href="/profile">Meu perfil');

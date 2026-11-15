@@ -123,14 +123,14 @@
 }
 
 .nav-item:hover {
-  color: var(--nexus-tab-text-hover);
-  background: var(--nexus-tab-hover);
+  color: var(--bifrost-tab-text-hover);
+  background: var(--bifrost-tab-hover);
 }
 
 .nav-item.active {
-  color: var(--nexus-tab-text-selected);
-  background: var(--nexus-tab-selected);
-  box-shadow: inset 3px 0 var(--nexus-tab-indicator);
+  color: var(--bifrost-tab-text-selected);
+  background: var(--bifrost-tab-selected);
+  box-shadow: inset 3px 0 var(--bifrost-tab-indicator);
 }
 
 .sidebar-nav .nav-item svg {
@@ -138,8 +138,8 @@
   flex: 0 0 20px;
   padding: 8px;
   border-radius: 10px;
-  color: var(--nexus-tab-text);
-  background: var(--nexus-tab-hover);
+  color: var(--bifrost-tab-text);
+  background: var(--bifrost-tab-hover);
   transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
@@ -148,12 +148,12 @@
 }
 
 .sidebar-nav .nav-item.active svg {
-  color: var(--nexus-tab-text-selected);
-  background: var(--nexus-tab-selected-hover);
+  color: var(--bifrost-tab-text-selected);
+  background: var(--bifrost-tab-selected-hover);
 }
 
 .sidebar-bottom .nav-item svg {
-  color: var(--nexus-tab-text);
+  color: var(--bifrost-tab-text);
 }
 
 .sidebar-bottom {
@@ -202,7 +202,7 @@
 }
 
 .sidebar-collapsed .nav-item.active {
-  box-shadow: inset 0 0 0 1px var(--nexus-tab-border-selected);
+  box-shadow: inset 0 0 0 1px var(--bifrost-tab-border-selected);
 }
 
 .main-area {
@@ -285,7 +285,7 @@
   overflow: hidden;
   margin: -5px 0 36px;
   padding: 30px 38px 42px;
-  background: linear-gradient(90deg, rgba(13, 11, 22, 0.98) 0%, rgba(17, 12, 29, 0.9) 38%, rgba(17, 12, 29, 0.12) 100%), url('/nexus-portal-hero.png') center 48% / cover;
+  background: linear-gradient(90deg, rgba(13, 11, 22, 0.98) 0%, rgba(17, 12, 29, 0.9) 38%, rgba(17, 12, 29, 0.12) 100%), url('/bifrost-portal-hero.png') center 48% / cover;
   border: 1px solid rgba(167, 139, 250, 0.28);
   border-radius: 18px;
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22), inset 0 0 38px rgba(151, 90, 255, 0.08);
@@ -310,7 +310,7 @@
 .dashboard-hero-controls > button { width: 28px; height: 28px; color: #eee5ff; background: rgba(19, 15, 29, .72); border: 1px solid rgba(196, 181, 253, .25); border-radius: 50%; font-size: 20px; line-height: 1; pointer-events: auto; }
 .dashboard-hero-controls > div { position: absolute; left: 50%; display: flex; gap: 7px; transform: translateX(-50%); pointer-events: auto; }
 .dashboard-hero-controls > div button { width: 7px; height: 7px; padding: 0; background: rgba(226, 213, 255, .38); border: 0; border-radius: 50%; }
-.dashboard-hero-controls > div button.active { width: 19px; background: var(--nexus-tab-indicator); border-radius: 5px; }
+.dashboard-hero-controls > div button.active { width: 19px; background: var(--bifrost-tab-indicator); border-radius: 5px; }
 
 .detail-close-button:focus-visible {
   outline: 2px solid var(--purple-light);
@@ -615,7 +615,7 @@
   justify-content: space-between;
   overflow: hidden;
   padding: 16px 18px;
-  background-image: linear-gradient(90deg, rgba(30, 17, 49, .45), rgba(37, 16, 63, .05)), url('/nexus-portal-hero.png');
+  background-image: linear-gradient(90deg, rgba(30, 17, 49, .45), rgba(37, 16, 63, .05)), url('/bifrost-portal-hero.png');
   background-position: center, 72% 54%;
   background-size: cover;
 }
@@ -673,15 +673,15 @@
 }
 
 .system-card-tone-1 .system-card-art {
-  background-image: linear-gradient(90deg, rgba(10, 61, 57, .65), rgba(0, 147, 129, .12)), url('/nexus-portal-hero.png');
+  background-image: linear-gradient(90deg, rgba(10, 61, 57, .65), rgba(0, 147, 129, .12)), url('/bifrost-portal-hero.png');
 }
 
 .system-card-tone-2 .system-card-art {
-  background-image: linear-gradient(90deg, rgba(82, 43, 28, .62), rgba(191, 105, 53, .12)), url('/nexus-portal-hero.png');
+  background-image: linear-gradient(90deg, rgba(82, 43, 28, .62), rgba(191, 105, 53, .12)), url('/bifrost-portal-hero.png');
 }
 
 .system-card-tone-3 .system-card-art {
-  background-image: linear-gradient(90deg, rgba(25, 53, 83, .65), rgba(82, 134, 184, .1)), url('/nexus-portal-hero.png');
+  background-image: linear-gradient(90deg, rgba(25, 53, 83, .65), rgba(82, 134, 184, .1)), url('/bifrost-portal-hero.png');
 }
 
 .system-card-art-brand,

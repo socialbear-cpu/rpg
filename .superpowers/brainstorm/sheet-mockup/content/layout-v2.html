@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mockup · Editor de ficha minimalista</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#111015;color:#eeeaf3;font:14px/1.5 'DM Sans',Inter,system-ui,sans-serif}
+  button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+  .app{max-width:1100px;margin:auto;padding:24px 34px 60px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;color:#928b9b;font-size:12px;padding-bottom:24px}
+  .brand{color:#e7dafa;font-weight:750;letter-spacing:.07em;font-size:13px}.crumb span{color:#c5b0e7}
+  .progress{display:flex;justify-content:space-between;color:#827a8c;font-size:10px;letter-spacing:.13em;margin-bottom:9px}
+  .progressline{height:2px;background:#2b2731;margin-bottom:34px}.progressline i{display:block;width:72%;height:100%;background:#a98bda}
+  .heading{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:25px}
+  .eyebrow{color:#a98bda;font-size:10px;letter-spacing:.15em;font-weight:700}h1{font-size:28px;line-height:1.2;letter-spacing:-.035em;margin:5px 0 5px;font-weight:650}
+  .intro{margin:0;color:#958e9e;font-size:13px}.quiet{border:0;background:transparent;color:#bca7d8;padding:7px 0;font-size:12px}.quiet:hover{color:#e7dafa}
+  .steps{display:flex;align-items:center;gap:25px;border-bottom:1px solid #302b36;padding:0 0 13px;margin-bottom:27px;overflow-x:auto;white-space:nowrap}
+  .step{color:#77717f;font-size:12px;padding-bottom:5px}.step b{font-weight:550}.step.active{color:#e5d6fa;border-bottom:2px solid #b397df;margin-bottom:-15px;padding-bottom:17px}.stepadd{color:#a98bda;font-size:12px}
+  .sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}.sectionhead h2{font-size:15px;font-weight:600;margin:0}.sectionhead small{display:block;color:#807989;font-size:11px;margin-top:2px}
+  .smallbtn{border:1px solid #4a4057;border-radius:7px;background:transparent;color:#d8cae9;padding:6px 10px;font-size:11px}.smallbtn:hover{background:#211c29}
+  .fieldlist{border-top:1px solid #302b36}
+  .field{display:grid;grid-template-columns:30px minmax(140px,1.1fr) minmax(170px,1.5fr) minmax(130px,.8fr) auto;align-items:center;gap:15px;padding:13px 0;border-bottom:1px solid #302b36}
+  .grip{color:#625c69;font-size:15px;text-align:center}.fieldtitle{min-width:0}.fieldtitle strong{display:block;font-size:12px;font-weight:550}.fieldtitle small{font-size:10px;color:#77717f}
+  label{display:grid;gap:3px;color:#827b89;font-size:10px}
+  input[type=text],select{width:100%;min-width:0;height:32px;padding:5px 8px;border:1px solid #393440;border-radius:6px;background:#17151b;color:#e8e3ee;font-size:12px;outline:none}
+  input:focus,select:focus{border-color:#977abb;box-shadow:0 0 0 2px #977abb20}
+  .fieldopts{display:flex;align-items:center;gap:10px;color:#aaa2b1;font-size:10px;white-space:nowrap}.check{display:flex;align-items:center;gap:4px}.check input{width:13px;height:13px;margin:0;accent-color:#aa8dd4}
+  .fieldactions{display:flex;gap:3px}.icon{width:25px;height:25px;border:0;border-radius:5px;background:transparent;color:#857c8f}.icon:hover{background:#27232e;color:#eeeaf3}
+  .addfield{margin:12px 0 35px}
+  .visual{padding-top:19px;border-top:1px solid #302b36}.visualhead{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}.visualhead strong{font-size:13px;font-weight:550}.visualhead p{margin:2px 0 0;color:#807989;font-size:11px}.visualactions{display:flex;gap:5px}
+  .canvas{height:165px;position:relative;overflow:hidden;border:1px dashed #50465b;border-radius:7px;background:#15131a}
+  .avatar{position:absolute;left:5%;top:15%;width:18%;height:70%;display:grid;place-items:center;border:1px solid #4a4055;border-radius:5px;color:#82798b;font-size:10px}
+  .namebox{position:absolute;left:27%;top:17%;width:67%;height:23%;border-bottom:1px solid #655677;color:#dcd2e7;padding:5px 2px;font-size:12px}
+  .stat{position:absolute;top:55%;width:19%;height:24%;border:1px solid #393440;border-radius:5px;display:grid;place-items:center;color:#a49aaa;font-size:10px}.s1{left:27%}.s2{left:51%}.s3{left:75%}
+  .bottom{display:flex;justify-content:space-between;align-items:center;margin-top:25px;padding-top:14px;border-top:1px solid #302b36}.bottom small{color:#77717f;font-size:10px}.primary{border:0;border-radius:7px;background:#b99ee6;color:#17131d;padding:8px 14px;font-size:12px;font-weight:650}.primary:hover{background:#cbb5f1}
+  @media(max-width:850px){.app{padding:18px 20px 40px}.field{grid-template-columns:24px minmax(120px,1fr) minmax(145px,1.4fr) minmax(115px,.8fr);gap:10px}.fieldopts{grid-column:2/4;grid-row:2}.fieldactions{grid-column:4;grid-row:2;justify-content:end}}
+  @media(max-width:600px){.app{padding:13px 15px 35px}.topbar{padding-bottom:18px}.crumb{display:none}h1{font-size:24px}.heading{align-items:flex-start;flex-direction:column;gap:6px}.steps{gap:18px}.field{grid-template-columns:22px 1fr 1fr;gap:8px 10px}.fieldtitle{grid-column:2/4}.field label{grid-row:2}.fieldopts{grid-column:2/3;grid-row:3;flex-wrap:wrap;white-space:normal}.fieldactions{grid-column:3;grid-row:3}.sectionhead{align-items:flex-start}.visualhead{align-items:flex-start;flex-direction:column}.bottom{align-items:stretch;flex-direction:column-reverse}.primary{width:100%}}
+</style>
+</head>
+<body><main class="app">
+  <header class="topbar"><div class="brand">✦ CRÔNICAS</div><div class="crumb">Dashboard　/　Novo sistema　/　<span>Ficha do personagem</span></div></header>
+  <div class="progress"><span>ETAPA 2 DE 2</span><span>CONFIGURAR FICHA</span></div><div class="progressline"><i></i></div>
+  <section class="heading"><div><span class="eyebrow">NOVO SISTEMA</span><h1>Ficha do personagem</h1><p class="intro">Organize os campos e etapas da ficha.</p></div><button class="quiet">← Voltar aos detalhes do sistema</button></section>
+  <nav class="steps"><div class="step active"><b>01　Identidade</b></div><div class="step"><b>02　Atributos</b></div><div class="step"><b>03　História</b></div><div class="stepadd">＋ Nova etapa</div></nav>
+  <section aria-label="Campos desta etapa"><div class="sectionhead"><div><h2>Identidade</h2><small>3 campos · arraste para reordenar</small></div><button class="smallbtn">＋ Campo</button></div>
+    <div class="fieldlist">
+      <div class="field"><span class="grip">⠿</span><div class="fieldtitle"><strong>Nome do personagem</strong><small>Texto curto</small></div><label>Rótulo<input type="text" value="Nome do personagem"></label><label>Tipo<select><option>Texto curto</option></select></label><div class="fieldopts"><span class="check"><input type="checkbox" checked> Obrigatório</span><span class="check"><input type="checkbox"> Galeria</span><div class="fieldactions"><button class="icon" aria-label="Mais opções">···</button></div></div></div>
+      <div class="field"><span class="grip">⠿</span><div class="fieldtitle"><strong>Pronome</strong><small>Texto curto</small></div><label>Rótulo<input type="text" value="Pronome"></label><label>Tipo<select><option>Texto curto</option></select></label><div class="fieldopts"><span class="check"><input type="checkbox"> Obrigatório</span><span class="check"><input type="checkbox"> Galeria</span><div class="fieldactions"><button class="icon" aria-label="Mais opções">···</button></div></div></div>
+      <div class="field"><span class="grip">⠿</span><div class="fieldtitle"><strong>Conceito</strong><small>Texto longo</small></div><label>Rótulo<input type="text" value="Conceito do personagem"></label><label>Tipo<select><option>Texto longo</option></select></label><div class="fieldopts"><span class="check"><input type="checkbox"> Obrigatório</span><span class="check"><input type="checkbox" checked> Galeria</span><div class="fieldactions"><button class="icon" aria-label="Mais opções">···</button></div></div></div>
+    </div><div class="addfield"><button class="smallbtn">＋ Adicionar campo</button></div>
+  </section>
+  <section class="visual"><div class="visualhead"><div><strong>Composição visual</strong><p>Posicione escolhas, imagens e textos na ficha.</p></div><div class="visualactions"><button class="smallbtn">＋ Escolha</button><button class="smallbtn">＋ Texto</button><button class="smallbtn">＋ Imagem</button></div></div><div class="canvas"><div class="avatar">RETRATO</div><div class="namebox">Nome do personagem</div><div class="stat s1">Pronome</div><div class="stat s2">Conceito</div><div class="stat s3">＋ Campo</div></div></section>
+  <footer class="bottom"><small>As alterações serão salvas ao criar o sistema.</small><button class="primary">Criar sistema</button></footer>
+</main></body></html>

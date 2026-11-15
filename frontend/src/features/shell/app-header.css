@@ -75,7 +75,7 @@
   .app-header-mobile-menu summary { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid #383746; border-radius: 9px; color: #e4e2ed; background: #1d202b; font-size: 17px; list-style: none; cursor: pointer; }
   .app-header-mobile-menu summary::-webkit-details-marker { display: none; }
   .app-header-mobile-menu nav { position: absolute; top: calc(100% + 10px); right: 0; z-index: 8; width: min(260px, calc(100vw - 36px)); display: grid; padding: 7px; border: 1px solid #383746; border-radius: 12px; background: #171922; box-shadow: 0 16px 40px #0008; }
-  .app-header-mobile-menu nav a.nexus-tab { width: 100%; justify-content: flex-start; text-decoration: none; }
+  .app-header-mobile-menu nav a.bifrost-tab { width: 100%; justify-content: flex-start; text-decoration: none; }
   .app-header-actions { gap: 8px; }
 }
 

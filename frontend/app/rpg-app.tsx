@@ -208,9 +208,9 @@ export function RpgApp() {
   return (
       <main className={`auth-landing ${mode === 'signup' ? 'auth-landing-signup' : ''}`}>
         <section className="auth-story-panel">
-          <a className="auth-brand" href="/" aria-label="Nexus RPG início">
+          <a className="auth-brand" href="/" aria-label="Bifrost RPG início">
             <span className="auth-brand-mark" aria-hidden="true">✧</span>
-            <span>NEXUS <em>RPG</em></span>
+            <span>BIFROST <em>RPG</em></span>
           </a>
           <div className="auth-story-copy">
             <p className="auth-story-eyebrow">SUA PRÓXIMA AVENTURA COMEÇA AQUI</p>
@@ -226,7 +226,7 @@ export function RpgApp() {
             {accountCard}
             <p className="auth-form-footnote">Seus sistemas, personagens e aventuras em um só lugar.</p>
           </div>
-          <footer className="auth-footer"><span>NEXUS RPG</span><span>Feito para as suas histórias</span></footer>
+          <footer className="auth-footer"><span>BIFROST RPG</span><span>Feito para as suas histórias</span></footer>
         </section>
       </main>
   );

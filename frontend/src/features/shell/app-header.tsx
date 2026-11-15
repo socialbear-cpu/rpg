@@ -85,18 +85,18 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
   return (
     <header className="app-header">
       <div className="app-header-leading">
-        <Link className="app-header-brand" href="/dashboard" aria-label="Nexus RPG início">
+        <Link className="app-header-brand" href="/dashboard" aria-label="Bifrost RPG início">
           <span className="app-header-mark" aria-hidden="true">✧</span>
-          <span>NEXUS <em>RPG</em></span>
+          <span>BIFROST <em>RPG</em></span>
         </Link>
       </div>
       <nav className="app-header-nav" aria-label="Navegação principal">
-        {navItems.map((item) => <Link key={item.label} className="app-header-nav-link nexus-tab" href={item.href} aria-current={normalizedActiveItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
+        {navItems.map((item) => <Link key={item.label} className="app-header-nav-link bifrost-tab" href={item.href} aria-current={normalizedActiveItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
       </nav>
       <details className="app-header-mobile-menu">
         <summary aria-label="Abrir navegação">☰</summary>
         <nav aria-label="Navegação principal">
-          {navItems.map((item) => <Link key={item.label} className="nexus-tab" href={item.href} aria-current={normalizedActiveItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
+          {navItems.map((item) => <Link key={item.label} className="bifrost-tab" href={item.href} aria-current={normalizedActiveItem === item.label ? 'page' : undefined}>{item.label}</Link>)}
         </nav>
       </details>
       <div className="app-header-actions">
@@ -109,7 +109,7 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
           <section className="app-header-profile-popover" aria-label="Perfil e ficha do personagem">
             <div className="app-header-profile-identity">
               <div className="app-header-profile-avatar">{profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : avatarInitial}</div>
-              <div><strong>{profileName}</strong><span>Aventureiro Nexus</span></div>
+              <div><strong>{profileName}</strong><span>Aventureiro Bifrost</span></div>
             </div>
             <nav className="app-header-profile-options" aria-label="Opções do perfil">
               <Link href="/profile">Meu perfil <span aria-hidden="true">↗</span></Link>

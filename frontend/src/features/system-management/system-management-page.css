@@ -23,14 +23,14 @@
 }
 
 .system-management-nav {
-  --nexus-tab-text: #aaa5b4;
-  --nexus-tab-text-hover: #f0eff7;
-  --nexus-tab-text-selected: #f4eaff;
-  --nexus-tab-hover: #241f2b;
-  --nexus-tab-selected: transparent;
-  --nexus-tab-selected-hover: transparent;
-  --nexus-tab-border-selected: transparent;
-  --nexus-tab-focus: #c4b5fd;
+  --bifrost-tab-text: #aaa5b4;
+  --bifrost-tab-text-hover: #f0eff7;
+  --bifrost-tab-text-selected: #f4eaff;
+  --bifrost-tab-hover: #241f2b;
+  --bifrost-tab-selected: transparent;
+  --bifrost-tab-selected-hover: transparent;
+  --bifrost-tab-border-selected: transparent;
+  --bifrost-tab-focus: #c4b5fd;
   position: relative;
   z-index: 1;
   grid-column: 1 / -1;
@@ -45,7 +45,7 @@
   background: #12121a35;
 }
 
-.system-management-nav button.nexus-tab {
+.system-management-nav button.bifrost-tab {
   position: relative;
   flex: 0 0 auto;
   min-height: 52px;
@@ -55,13 +55,13 @@
   font-size: 12px;
 }
 
-.system-management-nav button.nexus-tab[aria-selected="true"] {
+.system-management-nav button.bifrost-tab[aria-selected="true"] {
   border: 0;
   color: #f2e9ff;
   background: transparent;
 }
 
-.system-management-nav button.nexus-tab[aria-selected="true"]::after {
+.system-management-nav button.bifrost-tab[aria-selected="true"]::after {
   position: absolute;
   right: 12px;
   bottom: 0;
@@ -486,7 +486,7 @@
   .system-management-book-open .system-management-book-previous-page { grid-row: 2; border-right: 0; border-bottom: 1px solid #393342; box-shadow: inset 0 -10px 16px -18px #050509; }
   .system-management-book-open .system-management-book-current-page { grid-row: 3; }
   .system-management-nav { justify-content: flex-start; gap: 14px; padding-right: 18px; padding-left: 18px; }
-  .system-management-nav button.nexus-tab { min-height: 48px; }
+  .system-management-nav button.bifrost-tab { min-height: 48px; }
   .system-management-book-identity { min-height: 0; padding: 28px 24px 0; border-bottom: 1px solid #393342; box-shadow: none; }
   .system-management-book-identity h1 { font-size: clamp(32px, 8vw, 44px); }
   .system-management-book-art { min-height: 190px; margin-right: -24px; margin-left: -24px; }

@@ -203,9 +203,9 @@ export function CharacterRecord({ character, definition, experience, inventory, 
       <h1 id="character-record-title">{character.character_name}</h1>
       <p>Ficha e inventário deste personagem.</p>
     </header>
-    <div className="character-record-tabs nexus-tab-list--segment" role="tablist" aria-label="Dados do personagem">
-      <button ref={(element) => { tabButtons.current.sheet = element ?? undefined; }} id="character-record-tab-sheet" type="button" role="tab" aria-selected={activeTab === 'sheet'} aria-controls="character-record-panel" tabIndex={activeTab === 'sheet' ? 0 : -1} className="nexus-tab" onKeyDown={handleTabKeyDown} onClick={() => onTabChange('sheet')}>Ficha</button>
-      <button ref={(element) => { tabButtons.current.inventory = element ?? undefined; }} id="character-record-tab-inventory" type="button" role="tab" aria-selected={activeTab === 'inventory'} aria-controls="character-record-panel" tabIndex={activeTab === 'inventory' ? 0 : -1} className="nexus-tab" onKeyDown={handleTabKeyDown} onClick={() => onTabChange('inventory')}>Inventário <span>{inventory?.stacks.length ?? 0}</span></button>
+    <div className="character-record-tabs bifrost-tab-list--segment" role="tablist" aria-label="Dados do personagem">
+      <button ref={(element) => { tabButtons.current.sheet = element ?? undefined; }} id="character-record-tab-sheet" type="button" role="tab" aria-selected={activeTab === 'sheet'} aria-controls="character-record-panel" tabIndex={activeTab === 'sheet' ? 0 : -1} className="bifrost-tab" onKeyDown={handleTabKeyDown} onClick={() => onTabChange('sheet')}>Ficha</button>
+      <button ref={(element) => { tabButtons.current.inventory = element ?? undefined; }} id="character-record-tab-inventory" type="button" role="tab" aria-selected={activeTab === 'inventory'} aria-controls="character-record-panel" tabIndex={activeTab === 'inventory' ? 0 : -1} className="bifrost-tab" onKeyDown={handleTabKeyDown} onClick={() => onTabChange('inventory')}>Inventário <span>{inventory?.stacks.length ?? 0}</span></button>
     </div>
     <div id="character-record-panel" role="tabpanel" aria-labelledby={activeTab === 'sheet' ? 'character-record-tab-sheet' : 'character-record-tab-inventory'} className="character-record-panel" tabIndex={tabPanelNeedsTabStop ? 0 : undefined}>
       {activeTab === 'sheet'

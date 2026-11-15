@@ -51,7 +51,7 @@ export function SystemsSection({ systems, loading, error, onCreate, onEnter, own
                 {system.cover_image_path
                   ? <img className="system-card-cover" src={getGameSystemCoverUrl(system.cover_image_path) ?? undefined} alt="" style={{ objectPosition: `${system.cover_focus_x ?? 50}% ${system.cover_focus_y ?? 50}%` }} />
                   : <>
-                    <span className="system-card-art-brand">NEXUS RPG</span>
+                    <span className="system-card-art-brand">BIFROST RPG</span>
                     <span className="system-card-art-sigil">✧</span>
                     <span className="system-card-art-caption">UM MUNDO À SUA MANEIRA</span>
                   </>}

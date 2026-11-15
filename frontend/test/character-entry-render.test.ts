@@ -105,7 +105,7 @@ describe('character entry', () => {
 
   it('uses the shared selected tab style in the sheet builder step navigation', () => {
     const html = renderToStaticMarkup(createElement(CharacterSheetBuilder, { definition, onChange: vi.fn() }));
-    expect(html).toContain('class="nexus-tab" aria-current="step"');
+    expect(html).toContain('class="bifrost-tab" aria-current="step"');
   });
 
   it('keeps canvas positions and exposes an expand control during creation', () => {
@@ -196,7 +196,7 @@ describe('character entry', () => {
     expect(html).toContain('id="character-record-tab-sheet" type="button" role="tab" aria-selected="true" aria-controls="character-record-panel" tabindex="0"');
     expect(html).toContain('id="character-record-tab-inventory" type="button" role="tab" aria-selected="false" aria-controls="character-record-panel" tabindex="-1"');
     expect(html).toContain('id="character-record-panel" role="tabpanel" aria-labelledby="character-record-tab-sheet" class="character-record-panel" tabindex="0"');
-    expect(html).toContain('class="nexus-tab"');
+    expect(html).toContain('class="bifrost-tab"');
 
     const inventoryHtml = renderToStaticMarkup(createElement(CharacterRecord, {
       character, definition, experience: null, inventory, activeTab: 'inventory', onTabChange: vi.fn(),

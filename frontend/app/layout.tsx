@@ -8,7 +8,7 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Nexus RPG · Sua próxima aventura',
+  title: 'Bifrost RPG · Sua próxima aventura',
   description: 'Crie sistemas de RPG, personalize fichas e reúna seu grupo.',
   icons: { icon: '/favicon.svg' },
 };

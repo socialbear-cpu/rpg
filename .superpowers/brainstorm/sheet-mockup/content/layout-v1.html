@@ -1,0 +1,74 @@
+<style>
+  * { box-sizing: border-box; }
+  body { background:#100e16; color:#f5f1fb; font:14px/1.45 'DM Sans',Inter,system-ui,sans-serif; }
+  .screen { max-width:1100px; margin:0 auto; padding:18px 24px 50px; }
+  .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; color:#b9b0c8; font-size:12px; }
+  .brand { color:#e8ddfb; font-size:15px; font-weight:750; letter-spacing:.04em; }
+  .crumb { color:#a68ad0; }
+  .progress { margin:0 auto 12px; max-width:1040px; color:#a99bbf; display:flex; justify-content:space-between; font-size:11px; letter-spacing:.08em; }
+  .panel { border:1px solid #342c42; border-radius:18px; background:#191521; padding:28px; box-shadow:0 18px 60px #0003; }
+  .eyebrow { color:#bca6ff; font-size:10px; font-weight:800; letter-spacing:.14em; }
+  h1 { font-size:27px; line-height:1.15; margin:5px 0 5px; letter-spacing:-.03em; }
+  .intro { color:#aaa0b5; margin:0; font-size:13px; }
+  .topline { display:flex; justify-content:space-between; align-items:end; gap:20px; padding-bottom:20px; border-bottom:1px solid #342c42; }
+  .stepnav { display:flex; gap:7px; margin:18px 0; overflow:hidden; }
+  .step { min-width:112px; padding:9px 12px; border:1px solid #393144; border-radius:9px; background:#211b2b; color:#b9b0c8; font-size:12px; }
+  .step b { display:block; color:#e7def0; font-size:12px; }
+  .step.active { border-color:#a78bfa; background:#302640; box-shadow:inset 0 -2px #bca6ff; }
+  .stepadd { align-self:center; color:#c5b0e7; border:1px dashed #594675; border-radius:8px; padding:8px 11px; white-space:nowrap; }
+  .toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 12px; }
+  .toolbar h2 { margin:0; font-size:16px; }
+  .toolbar small { color:#968ca2; }
+  .button { border:1px solid #58477a; border-radius:8px; padding:8px 12px; color:#e6dcf5; background:#282333; font:600 12px inherit; cursor:pointer; }
+  .button.primary { background:#bba5fa; color:#171321; border-color:#bba5fa; }
+  .button.ghost { color:#cbb8e5; background:transparent; }
+  .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .field { min-width:0; display:grid; gap:11px; padding:14px; border:1px solid #40364f; border-radius:12px; background:linear-gradient(145deg,#211b2b,#191521); }
+  .fieldhead { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .fieldname { display:flex; align-items:center; gap:9px; min-width:0; }
+  .grip { color:#786b8a; font-size:17px; }
+  .number { display:grid; place-items:center; width:23px; height:23px; border-radius:7px; color:#c4b5fd; background:#302640; font-size:10px; font-weight:800; }
+  .fieldname strong { font-size:13px; }
+  .fieldtools { display:flex; gap:4px; }
+  .icon { width:28px; height:28px; border:1px solid #393344; border-radius:7px; background:#211d2a; color:#c4b5d0; }
+  label { display:grid; gap:5px; min-width:0; color:#b9b0c8; font-size:11px; font-weight:600; }
+  input,select { min-width:0; width:100%; height:36px; padding:7px 9px; border:1px solid #514560; border-radius:7px; color:#f5f1fb; background:#110e18; font:13px inherit; }
+  .row { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); gap:10px; }
+  .checks { display:flex; align-items:center; flex-wrap:wrap; gap:13px; padding-top:1px; }
+  .check { display:flex; align-items:center; gap:6px; color:#b9b0c8; font-size:11px; }
+  .check input { width:14px; height:14px; accent-color:#a78bfa; }
+  .addrow { padding:12px 0 17px; }
+  .visual { padding:17px; border:1px solid #40364f; border-radius:12px; background:#15121d; }
+  .visualhead { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
+  .visualhead strong { font-size:14px; }
+  .visualhead p { margin:3px 0 0; color:#9d93aa; font-size:11px; }
+  .visualbuttons { display:flex; gap:6px; }
+  .canvas { height:190px; position:relative; overflow:hidden; border:1px dashed #655379; border-radius:9px; background:linear-gradient(130deg,#201b2b,#12121a); }
+  .canvaslabel { position:absolute; color:#9887ad; font-size:10px; }
+  .avatar { left:6%; top:15%; width:21%; height:68%; border:1px solid #806b9c; border-radius:7px; background:linear-gradient(150deg,#4b3c59,#211b2b); display:grid; place-items:center; color:#c8b8d7; font-size:10px; }
+  .namebox { left:32%; top:16%; width:60%; height:24%; border:1px solid #806b9c; border-radius:7px; background:#30243d; padding:10px; color:#f3ecfa; font-weight:700; }
+  .stat { top:53%; width:17%; height:27%; border:1px solid #635271; border-radius:7px; background:#211b2b; display:grid; place-items:center; color:#dcd1e8; }
+  .s1 { left:32%; } .s2 { left:53%; } .s3 { left:74%; }
+  .footer { display:flex; justify-content:space-between; align-items:center; margin-top:19px; padding-top:16px; border-top:1px solid #342c42; }
+  .footer small { color:#8f849d; }
+  @media(max-width:760px){ .screen{padding:8px 12px 30px}.panel{padding:19px 15px}.topline{align-items:flex-start;flex-direction:column}.cards{grid-template-columns:1fr}.stepnav{overflow-x:auto}.visualhead{align-items:flex-start;flex-direction:column}.footer{gap:10px;align-items:stretch;flex-direction:column-reverse}.footer .button{width:100%}.progress{font-size:10px} }
+</style>
+<div class="screen">
+  <div class="top"><div class="brand">✦ CRÔNICAS</div><div>Dashboard　 /　 Novo sistema　 /　 <span class="crumb">Ficha do personagem</span></div></div>
+  <div class="progress"><span>ETAPA 2 DE 2</span><span>CONFIGURAR FICHA</span></div>
+  <main class="panel">
+    <div class="topline"><div><span class="eyebrow">SISTEMA · SOMBRAS DE ELDORIA</span><h1>Monte a ficha do personagem</h1><p class="intro">Organize os campos por etapa. Arraste para mudar a ordem.</p></div><button class="button ghost">← Voltar aos detalhes</button></div>
+    <nav class="stepnav"><div class="step active"><b>01 · Identidade</b>3 campos</div><div class="step"><b>02 · Atributos</b>4 campos</div><div class="step"><b>03 · História</b>2 campos</div><div class="stepadd">＋ Nova etapa</div></nav>
+    <div class="toolbar"><div><h2>Campos desta etapa</h2><small>3 campos · arraste ⠿ para reordenar</small></div><button class="button">＋ Adicionar campo</button></div>
+    <section class="cards">
+      <article class="field"><div class="fieldhead"><div class="fieldname"><span class="grip">⠿</span><span class="number">01</span><strong>Nome do personagem</strong></div><div class="fieldtools"><button class="icon" aria-label="Mover">↕</button><button class="icon" aria-label="Mais opções">···</button></div></div><div class="row"><label>Rótulo do campo<input value="Nome do personagem"></label><label>Tipo<select><option>Texto curto</option></select></label></div><div class="checks"><span class="check"><input checked type="checkbox">Obrigatório</span><span class="check"><input type="checkbox">Mostrar na galeria</span></div></article>
+      <article class="field"><div class="fieldhead"><div class="fieldname"><span class="grip">⠿</span><span class="number">02</span><strong>Pronome</strong></div><div class="fieldtools"><button class="icon" aria-label="Mover">↕</button><button class="icon" aria-label="Mais opções">···</button></div></div><div class="row"><label>Rótulo do campo<input value="Pronome"></label><label>Tipo<select><option>Texto curto</option></select></label></div><div class="checks"><span class="check"><input type="checkbox">Obrigatório</span><span class="check"><input type="checkbox">Mostrar na galeria</span></div></article>
+      <article class="field"><div class="fieldhead"><div class="fieldname"><span class="grip">⠿</span><span class="number">03</span><strong>Conceito</strong></div><div class="fieldtools"><button class="icon" aria-label="Mover">↕</button><button class="icon" aria-label="Mais opções">···</button></div></div><div class="row"><label>Rótulo do campo<input value="Conceito do personagem"></label><label>Tipo<select><option>Texto longo</option></select></label></div><div class="checks"><span class="check"><input type="checkbox">Obrigatório</span><span class="check"><input checked type="checkbox">Mostrar na galeria</span></div></article>
+    </section>
+    <div class="addrow"><button class="button ghost">＋ Adicionar outro campo</button></div>
+    <section class="visual"><div class="visualhead"><div><strong>Composição visual</strong><p>Uma área separada para posicionar escolhas, imagens e textos.</p></div><div class="visualbuttons"><button class="button">＋ Escolha</button><button class="button">＋ Texto</button><button class="button">＋ Imagem</button></div></div>
+      <div class="canvas"><div class="avatar">RETRATO</div><div class="namebox">Nome do personagem</div><div class="stat s1">Pronome</div><div class="stat s2">Conceito</div><div class="stat s3">＋ Campo</div></div>
+    </section>
+    <div class="footer"><small>Alterações salvas ao criar o sistema.</small><button class="button primary">Criar sistema</button></div>
+  </main>
+</div>

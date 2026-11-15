@@ -7,15 +7,15 @@
   --panel: #171922;
   --accent: #bba5fa;
   --blue: #9ecbfa;
-  --nexus-tab-text: #bcb4c7;
-  --nexus-tab-text-hover: #eee8f7;
-  --nexus-tab-text-selected: #f5efff;
-  --nexus-tab-hover: #25202f;
-  --nexus-tab-selected: #352541;
-  --nexus-tab-selected-hover: #413052;
-  --nexus-tab-border-selected: #8765a9;
-  --nexus-tab-indicator: #b493dc;
-  --nexus-tab-focus: #c1a8ff;
+  --bifrost-tab-text: #bcb4c7;
+  --bifrost-tab-text-hover: #eee8f7;
+  --bifrost-tab-text-selected: #f5efff;
+  --bifrost-tab-hover: #25202f;
+  --bifrost-tab-selected: #352541;
+  --bifrost-tab-selected-hover: #413052;
+  --bifrost-tab-border-selected: #8765a9;
+  --bifrost-tab-indicator: #b493dc;
+  --bifrost-tab-focus: #c1a8ff;
   font-family: 'DM Sans', sans-serif;
   color: #f0eff7;
   background: #101117;
@@ -31,7 +31,7 @@ h1, h2, h3, h4 {
   font-family: 'Outfit', sans-serif;
 }
 
-.nexus-tab {
+.bifrost-tab {
   display: inline-flex;
   min-height: 40px;
   align-items: center;
@@ -39,7 +39,7 @@ h1, h2, h3, h4 {
   padding: 9px 14px;
   border: 1px solid transparent;
   border-radius: 8px;
-  color: var(--nexus-tab-text);
+  color: var(--bifrost-tab-text);
   background: transparent;
   font: 600 13px 'DM Sans', sans-serif;
   white-space: nowrap;
@@ -47,27 +47,27 @@ h1, h2, h3, h4 {
   transition: color .16s ease, background-color .16s ease, border-color .16s ease, box-shadow .16s ease;
 }
 
-.nexus-tab:hover:not([aria-selected="true"]):not([aria-current="page"]):not([aria-current="step"]) {
-  color: var(--nexus-tab-text-hover);
-  background: var(--nexus-tab-hover);
+.bifrost-tab:hover:not([aria-selected="true"]):not([aria-current="page"]):not([aria-current="step"]) {
+  color: var(--bifrost-tab-text-hover);
+  background: var(--bifrost-tab-hover);
 }
 
-.nexus-tab[aria-selected="true"],
-.nexus-tab[aria-current="page"],
-.nexus-tab[aria-current="step"] {
-  border-color: var(--nexus-tab-border-selected);
-  color: var(--nexus-tab-text-selected);
-  background: var(--nexus-tab-selected);
+.bifrost-tab[aria-selected="true"],
+.bifrost-tab[aria-current="page"],
+.bifrost-tab[aria-current="step"] {
+  border-color: var(--bifrost-tab-border-selected);
+  color: var(--bifrost-tab-text-selected);
+  background: var(--bifrost-tab-selected);
 }
 
-.nexus-tab[aria-selected="true"]:hover,
-.nexus-tab[aria-current="page"]:hover,
-.nexus-tab[aria-current="step"]:hover {
-  background: var(--nexus-tab-selected-hover);
+.bifrost-tab[aria-selected="true"]:hover,
+.bifrost-tab[aria-current="page"]:hover,
+.bifrost-tab[aria-current="step"]:hover {
+  background: var(--bifrost-tab-selected-hover);
 }
 
-.nexus-tab:focus-visible {
-  outline: 2px solid var(--nexus-tab-focus);
+.bifrost-tab:focus-visible {
+  outline: 2px solid var(--bifrost-tab-focus);
   outline-offset: 2px;
 }
 
