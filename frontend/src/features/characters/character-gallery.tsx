@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import type { CharacterSheetField, SystemCharacter } from '../../api';
 import { formatCharacterSheetValue } from '../character-sheet/format-value';
 import { AppHeader } from '../shell/app-header';
@@ -25,6 +26,13 @@ function characterRune(characterId: string) {
 
 export function CharacterGallery({ systemName, fields, characters, selectedCharacterId = null, experienceByCharacterId = {}, onCreate, onEnter, onConfigureLobby }: CharacterGalleryProps) {
   const cardFields = [...fields].filter((field) => field.show_on_card).sort((a, b) => a.position - b.position);
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 5;
+  const pageCount = Math.ceil(characters.length / pageSize);
+  const pageCharacters = characters.slice(currentPage * pageSize, currentPage * pageSize + pageSize);
+
+  useEffect(() => setCurrentPage(0), [characters]);
+
   return (
     <main className="character-entry-page character-gallery-page">
       <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" />
@@ -32,9 +40,10 @@ export function CharacterGallery({ systemName, fields, characters, selectedChara
         <div><span className="character-entry-eyebrow">ᚷ &nbsp; {systemName} · O destino chama &nbsp; ᚷ</span><h1>Escolha seu aventureiro</h1><p>Quem seguirá para a próxima aventura?</p></div>
         {onConfigureLobby && <button className="character-gallery-owner-button" type="button" onClick={onConfigureLobby}><span aria-hidden="true">⚙</span> Personalizar saguão</button>}
       </header>
-      {characters.length > 0 && (
-        <div className="character-grid">
-          {characters.map((character) => {
+      <section className="character-carousel" aria-label="Personagens">
+        {currentPage > 0 && <button className="character-carousel-control character-carousel-previous" type="button" aria-label="Mostrar personagens anteriores" aria-controls="character-gallery-cards" onClick={() => setCurrentPage((page) => page - 1)}>‹</button>}
+        <div className="character-grid" id="character-gallery-cards" aria-live="polite">
+          {pageCharacters.map((character) => {
             const cardField = cardFields.find((field) => {
               const value = formatCharacterSheetValue(field, character.attributes[field.key]);
               return value !== '—' && value.trim() !== '';
@@ -51,8 +60,10 @@ export function CharacterGallery({ systemName, fields, characters, selectedChara
               </article>
             );
           })}
+          {pageCharacters.length < 3 && <div className="character-card character-card-placeholder" aria-hidden="true" />}
         </div>
-      )}
+        {currentPage < pageCount - 1 && <button className="character-carousel-control character-carousel-next" type="button" aria-label="Mostrar próximos personagens" aria-controls="character-gallery-cards" onClick={() => setCurrentPage((page) => page + 1)}>›</button>}
+      </section>
       <footer className="character-gallery-footer">
         <button className="character-gallery-create" type="button" onClick={onCreate}><span aria-hidden="true">＋</span> Criar novo personagem</button>
         <p>᛫ &nbsp; Cada jornada começa com uma escolha &nbsp; ᛫</p>
