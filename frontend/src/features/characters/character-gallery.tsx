@@ -1,14 +1,12 @@
 'use client';
 
-import { getGameSystemCoverUrl, type CharacterSheetField, type GameSystem, type SystemCharacter } from '../../api';
+import type { CharacterSheetField, SystemCharacter } from '../../api';
 import { formatCharacterSheetValue } from '../character-sheet/format-value';
 import { AppHeader } from '../shell/app-header';
-import { SystemEventsCard } from '../system-events/system-events-card';
 import './characters.css';
 
 interface CharacterGalleryProps {
   systemName: string;
-  system?: GameSystem;
   fields: CharacterSheetField[];
   characters: SystemCharacter[];
   selectedCharacterId?: string | null;
@@ -25,29 +23,16 @@ function characterRune(characterId: string) {
   return characterRunes[runeIndex];
 }
 
-export function CharacterGallery({ systemName, system, fields, characters, selectedCharacterId = null, experienceByCharacterId = {}, onCreate, onEnter, onConfigureLobby }: CharacterGalleryProps) {
+export function CharacterGallery({ systemName, fields, characters, selectedCharacterId = null, experienceByCharacterId = {}, onCreate, onEnter, onConfigureLobby }: CharacterGalleryProps) {
   const cardFields = [...fields].filter((field) => field.show_on_card).sort((a, b) => a.position - b.position);
   return (
     <main className="character-entry-page">
       <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" />
       <header className="character-entry-heading character-gallery-heading">
-        <div><span className="character-entry-eyebrow">{systemName}</span><h1>Quem vai entrar na aventura?</h1><p>Escolha um dos seus personagens ou crie um novo.</p></div>
-        {onConfigureLobby && <button className="character-secondary-button character-lobby-settings-button" type="button" onClick={onConfigureLobby}>Configurar saguão</button>}
+        <div><span className="character-entry-eyebrow">ᚷ &nbsp; {systemName} · O destino chama &nbsp; ᚷ</span><h1>Escolha seu aventureiro</h1><p>Quem seguirá para a próxima aventura?</p></div>
+        {onConfigureLobby && <button className="character-gallery-owner-button" type="button" onClick={onConfigureLobby}><span aria-hidden="true">⚙</span> Personalizar saguão</button>}
       </header>
-      {system && <section className="character-system-presentation" aria-label={`Sobre ${system.name}`}>
-        {system.cover_image_path
-          ? <img className="character-system-cover" src={getGameSystemCoverUrl(system.cover_image_path) ?? undefined} alt={`Capa de ${system.name}`} style={{ objectPosition: `${system.cover_focus_x ?? 50}% ${system.cover_focus_y ?? 50}%` }} />
-          : <div className="character-system-cover character-system-cover-default" aria-hidden="true">✧</div>}
-        <div className="character-system-details">
-          <span className="character-system-mode">{system.play_mode === 'voice' ? '◉ RPG por voz' : '▤ RPG de texto'}</span>
-          {system.description && <p>{system.description}</p>}
-          {(system.tags?.length ?? 0) > 0 && <div className="character-system-tags">{system.tags?.map(({ slug, label }) => <span key={slug}>{label}</span>)}</div>}
-        </div>
-      </section>}
-      {system && <SystemEventsCard systemId={system.id} />}
-      {characters.length === 0 ? (
-        <section className="character-empty-state"><span aria-hidden="true" className="character-empty-die">✦</span><h2>Este mundo ainda está sem personagens</h2><p>Crie seu primeiro personagem usando a ficha de {systemName}.</p><button className="character-primary-button" type="button" onClick={onCreate}>Criar personagem</button></section>
-      ) : (
+      {characters.length > 0 && (
         <div className="character-grid">
           {characters.map((character) => {
             const cardField = cardFields.find((field) => {
@@ -68,7 +53,10 @@ export function CharacterGallery({ systemName, system, fields, characters, selec
           })}
         </div>
       )}
-      <button className="character-secondary-button" type="button" onClick={onCreate}>+ Criar personagem</button>
+      <footer className="character-gallery-footer">
+        <button className="character-gallery-create" type="button" onClick={onCreate}><span aria-hidden="true">＋</span> Criar novo personagem</button>
+        <p>᛫ &nbsp; Cada jornada começa com uma escolha &nbsp; ᛫</p>
+      </footer>
     </main>
   );
 }

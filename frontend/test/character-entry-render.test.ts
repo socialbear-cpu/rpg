@@ -32,19 +32,21 @@ describe('character entry', () => {
   it('shows the system gallery, card fields, and character actions', () => {
     const html = renderToStaticMarkup(createElement(CharacterGallery, {
       systemName: 'Crônicas',
-      system: { id: 'sys-1', slug: 'cronicas', name: 'Crônicas', description: 'Uma aventura sombria.', play_mode: 'voice', tags: [{ slug: 'terror', label: 'Terror' }] },
       fields, characters: [character], selectedCharacterId: character.id, experienceByCharacterId: { [character.id]: 7 }, onCreate: vi.fn(), onEnter: vi.fn(),
     }));
     expect(html).toContain('Crônicas');
+    expect(html).toContain('Escolha seu aventureiro');
+    expect(html).toContain('O destino chama');
     expect(html).toContain('Ayla');
     expect(html).toContain('Mago');
     expect(html).toContain('Nível 7');
     expect(html).toContain('character-card-rune');
     expect(html).toContain('Entrar com Ayla');
-    expect(html).toContain('Criar personagem');
-    expect(html).toContain('RPG por voz');
-    expect(html).toContain('Uma aventura sombria.');
-    expect(html).toContain('Terror');
+    expect(html).toContain('Criar novo personagem');
+    expect(html).toContain('Cada jornada começa com uma escolha');
+    expect(html).not.toContain('RPG por voz');
+    expect(html).not.toContain('Uma aventura sombria.');
+    expect(html).not.toContain('Terror');
   });
 
   it('shows the lobby configuration action only when the owner provides it', () => {
@@ -58,8 +60,8 @@ describe('character entry', () => {
     const ownerHtml = renderToStaticMarkup(createElement(CharacterGallery, { ...props, onConfigureLobby: vi.fn() }));
     const playerHtml = renderToStaticMarkup(createElement(CharacterGallery, props));
 
-    expect(ownerHtml).toContain('Configurar saguão');
-    expect(playerHtml).not.toContain('Configurar saguão');
+    expect(ownerHtml).toContain('Personalizar saguão');
+    expect(playerHtml).not.toContain('Personalizar saguão');
   });
 
   it('starts the wizard with the required character-name page', () => {
