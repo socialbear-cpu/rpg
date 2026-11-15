@@ -15,6 +15,9 @@ export function StoreAdminCard({ store, saving, message, onChange, onSave, creat
   const [itemImageUrl, setItemImageUrl] = useState('');
   const [itemError, setItemError] = useState<string | null>(null);
   const itemDialog = useRef<HTMLDialogElement>(null);
+  const [offerItemId, setOfferItemId] = useState('');
+  const [offerPrice, setOfferPrice] = useState('');
+  const offerDialog = useRef<HTMLDialogElement>(null);
   async function submitItem(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setItemError(null);
@@ -25,19 +28,40 @@ export function StoreAdminCard({ store, saving, message, onChange, onSave, creat
   function resetItemForm() {
     setItemName(''); setItemDescription(''); setItemType('misc'); setItemImageUrl(''); setItemError(null);
   }
+  function openOfferForm(itemId: string) {
+    const currentOffer = store.offers.find((offer) => offer.item_id === itemId);
+    setOfferItemId(itemId);
+    setOfferPrice(currentOffer ? String(currentOffer.price) : '');
+    offerDialog.current?.showModal();
+  }
+  function submitOffer(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const item = store.items.find((entry) => entry.id === offerItemId);
+    const price = Number(offerPrice);
+    if (!item || !Number.isFinite(price) || price < 0 || price > 9999999999.99 || Math.abs(price * 100 - Math.round(price * 100)) > 0.0001) return;
+    const existingOffer = store.offers.find((offer) => offer.item_id === item.id);
+    const nextOffer = { ...(existingOffer?.store_product_id ? { store_product_id: existingOffer.store_product_id } : {}), item_id: item.id, item_name: item.name, price, is_available: existingOffer?.is_available ?? true };
+    onChange({ ...store, offers: existingOffer ? store.offers.map((offer) => offer.item_id === item.id ? nextOffer : offer) : [...store.offers, nextOffer] });
+    offerDialog.current?.close();
+  }
+  function resetOfferForm() {
+    setOfferItemId(''); setOfferPrice('');
+  }
+  const selectedOfferItem = store.items.find((item) => item.id === offerItemId);
+  const selectedItemHasOffer = store.offers.some((offer) => offer.item_id === offerItemId);
   const slotCount = Math.max(27, (Math.floor(store.items.length / 9) + 1) * 9);
   const itemTypeLabels: Record<string, string> = { consumable: 'Consumível', equipment: 'Equipamento', misc: 'Outro' };
   return <article className="card store-admin-card"><h2>Gerenciar loja</h2>
     {message && <p role="status" aria-live="polite">{message}</p>}
     <section className="store-admin-items" aria-labelledby="store-admin-items-title">
-      <div><h3 id="store-admin-items-title">Itens do sistema</h3><p>Selecione um espaço vazio para cadastrar um item para a loja.</p></div>
+      <div><h3 id="store-admin-items-title">Itens do sistema</h3><p>Selecione um espaço vazio para cadastrar um item ou um item existente para criar ou editar uma oferta.</p></div>
       <div className="store-admin-slot-grid" aria-label="Slots de itens da loja">
         {Array.from({ length: slotCount }, (_, index) => {
           const item = store.items[index];
-          return item ? <div className="store-admin-slot is-filled" key={item.id} role="img" title={`${item.name} · ${itemTypeLabels[item.item_type ?? 'misc'] ?? item.item_type}`} aria-label={`${item.name}, ${itemTypeLabels[item.item_type ?? 'misc'] ?? item.item_type}`}>
+          return item ? <button className="store-admin-slot is-filled" type="button" key={item.id} title={`${item.name} · ${itemTypeLabels[item.item_type ?? 'misc'] ?? item.item_type}`} aria-label={`Criar ou editar oferta para ${item.name}`} onClick={() => openOfferForm(item.id)}>
             {item.image_url ? <img src={item.image_url} alt="" loading="lazy" /> : <span className="store-admin-slot-placeholder" aria-hidden="true">✧</span>}
             <span className="store-admin-slot-name">{item.name}</span>
-          </div> : <button className="store-admin-slot is-empty" type="button" key={`empty-${index}`} aria-label={`Criar item no espaço ${index + 1}`} onClick={() => { setItemError(null); itemDialog.current?.showModal(); }}><span aria-hidden="true">+</span></button>;
+          </button> : <button className="store-admin-slot is-empty" type="button" key={`empty-${index}`} aria-label={`Criar item no espaço ${index + 1}`} onClick={() => { setItemError(null); itemDialog.current?.showModal(); }}><span aria-hidden="true">+</span></button>;
         })}
       </div>
       <dialog className="store-admin-item-dialog" ref={itemDialog} aria-labelledby="store-admin-item-dialog-title" onClose={resetItemForm}>
@@ -51,19 +75,25 @@ export function StoreAdminCard({ store, saving, message, onChange, onSave, creat
           <div className="store-admin-item-dialog-actions"><button className="button secondary" type="button" disabled={creatingItem} onClick={() => itemDialog.current?.close()}>Cancelar</button><button className="button primary" type="submit" disabled={saving || creatingItem}>{creatingItem ? 'Adicionando…' : 'Adicionar item'}</button></div>
         </form>
       </dialog>
+      <dialog className="store-admin-item-dialog" ref={offerDialog} aria-labelledby="store-admin-offer-dialog-title" onClose={resetOfferForm}>
+        <form className="store-admin-item-form" onSubmit={submitOffer}>
+          <h3 id="store-admin-offer-dialog-title">{selectedItemHasOffer ? 'Editar oferta' : 'Criar oferta'}</h3>
+          <label>Item<input readOnly value={selectedOfferItem?.name ?? ''} /></label>
+          <label>Preço<input required type="number" min={0} max={9999999999.99} step="0.01" value={offerPrice} onChange={(event) => setOfferPrice(event.target.value)} /></label>
+          <p className="store-admin-offer-save-note">A oferta será salva junto com as alterações da loja.</p>
+          <div className="store-admin-item-dialog-actions"><button className="button secondary" type="button" onClick={() => offerDialog.current?.close()}>Cancelar</button><button className="button primary" type="submit">{selectedItemHasOffer ? 'Atualizar oferta' : 'Adicionar oferta'}</button></div>
+        </form>
+      </dialog>
     </section>
     <form className="store-admin-form" onSubmit={onSave}><fieldset disabled={saving}>
       <label>Nome da moeda<input required maxLength={80} value={store.currency_name} onChange={(event) => onChange({ ...store, currency_name: event.target.value })} /></label>
       {store.items.length === 0 && <p>Cadastre itens neste sistema antes de criar ofertas.</p>}
       {store.offers.map((offer, index) => <div className="store-admin-offer" key={offer.store_product_id ?? index}>
-        <label>Item<select required value={offer.item_id} onChange={(event) => onChange({ ...store, offers: store.offers.map((entry, i) => i === index ? { ...entry, item_id: event.target.value, item_name: store.items.find((item) => item.id === event.target.value)?.name ?? '' } : entry) })} disabled={Boolean(offer.store_product_id)}>
-          <option value="">Selecione um item</option>{store.items.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}
-        </select></label>
+        <strong>{offer.item_name}</strong>
         <label>Preço<input required type="number" min={0} max={9999999999.99} step="0.01" value={offer.price} onChange={(event) => onChange({ ...store, offers: store.offers.map((entry, i) => i === index ? { ...entry, price: Number(event.target.value) } : entry) })} /></label>
         <label><input type="checkbox" checked={offer.is_available} onChange={(event) => onChange({ ...store, offers: store.offers.map((entry, i) => i === index ? { ...entry, is_available: event.target.checked } : entry) })} /> Disponível</label>
         <button className="button secondary" type="button" onClick={() => onChange({ ...store, offers: store.offers.filter((_, i) => i !== index) })}>{offer.store_product_id ? 'Desativar oferta' : 'Remover oferta'}</button>
       </div>)}
-      <button className="button secondary" type="button" disabled={store.items.length === 0} onClick={() => onChange({ ...store, offers: [...store.offers, { item_id: '', item_name: '', price: 0, is_available: true }] })}>Adicionar oferta</button>
       <button className="button primary" type="submit">{saving ? 'Salvando…' : 'Salvar loja'}</button>
     </fieldset></form>
   </article>;
@@ -99,7 +129,7 @@ export function SystemStoreAdmin({ systemId }: { systemId: string }) {
     try {
       const { item } = await createOwnerStoreItem(systemId, input);
       setStore((current) => current ? { ...current, items: [...current.items, item].sort((a, b) => a.name.localeCompare(b.name)) } : current);
-      setMessage('Item adicionado. Agora ele pode ser incluído em uma oferta.');
+      setMessage('Item adicionado. Clique no quadrado para criar uma oferta.');
       return true;
     } catch (error) {
       const failureMessage = error instanceof Error ? error.message : 'Não foi possível adicionar o item.';
