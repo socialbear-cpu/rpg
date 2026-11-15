@@ -1,4 +1,6 @@
 .character-entry-page { min-height: 100vh; padding: 0 24px 72px; color: #f5f1fb; background: #110e18; }
+.character-gallery-page { display: flex; flex-direction: column; }
+.character-gallery-page > :not(.app-header) { width: 100%; }
 .character-entry-page > * { max-width: 1000px; margin-right: auto; margin-left: auto; }
 .character-entry-page > .app-header { width: calc(100% + 48px); max-width: none; margin: 0 -24px 32px; }
 .character-back-link { display: inline-block; margin-bottom: 36px; color: #c4b5df; text-decoration: none; }
@@ -37,6 +39,7 @@
 .character-secondary-button { margin-top: 20px; border: 1px solid #544865; color: #e5dcf0; background: transparent; }
 .character-unavailable p { color: #afa6ba; }
 .character-gallery-footer { display: grid; justify-items: center; gap: 20px; margin-top: 28px; }
+.character-gallery-page > .character-gallery-footer { margin-top: auto; padding-top: 28px; }
 .character-gallery-create { padding: 10px 15px; border: 1px solid #383746; border-radius: 9px; color: #e4e2ed; background: #1d202b; font: 600 12px 'DM Sans', sans-serif; cursor: pointer; }
 .character-gallery-create span { margin-right: 7px; color: #bba5fa; }
 .character-gallery-footer p { margin: 0; color: #777384; font-size: 11px; letter-spacing: .04em; text-align: center; }

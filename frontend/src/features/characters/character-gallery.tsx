@@ -26,7 +26,7 @@ function characterRune(characterId: string) {
 export function CharacterGallery({ systemName, fields, characters, selectedCharacterId = null, experienceByCharacterId = {}, onCreate, onEnter, onConfigureLobby }: CharacterGalleryProps) {
   const cardFields = [...fields].filter((field) => field.show_on_card).sort((a, b) => a.position - b.position);
   return (
-    <main className="character-entry-page">
+    <main className="character-entry-page character-gallery-page">
       <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" />
       <header className="character-entry-heading character-gallery-heading">
         <div><span className="character-entry-eyebrow">ᚷ &nbsp; {systemName} · O destino chama &nbsp; ᚷ</span><h1>Escolha seu aventureiro</h1><p>Quem seguirá para a próxima aventura?</p></div>
