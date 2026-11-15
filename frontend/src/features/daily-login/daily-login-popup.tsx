@@ -53,8 +53,12 @@ export function DailyLoginPopup({ systemId, onClaimed }: { systemId: string; onC
       const result = await claimDailyLoginReward(systemId, characterId);
       setError(false);
       setMessage(formatDailyLoginClaimSuccess(result));
-      setSystems((current) => current.map((entry) => entry.system.id === systemId
-        ? { ...entry, today: { ...entry.today, status: 'already_claimed' } } : entry));
+      setSystems((current) => current.map((entry) => {
+        if (entry.system.id !== systemId) return entry;
+        const claimed = [...(entry.today?.claimed_character_ids ?? []), characterId];
+        return { ...entry, today: { ...entry.today, claimed_character_ids: claimed,
+          status: entry.characters.some((candidate) => !claimed.includes(candidate.id)) ? 'available' : 'already_claimed' } };
+      }));
       onClaimed?.();
     } catch (cause) {
       setError(true);

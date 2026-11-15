@@ -59,6 +59,7 @@ export interface DailyLoginClaim {
 }
 
 export interface DailyLoginTodayState {
+  claimed_character_ids?: string[];
   status: 'available' | 'already_claimed' | 'calendar_unavailable' | 'system_unavailable' | 'unauthorized';
   weekday?: number;
   local_date?: string;

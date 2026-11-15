@@ -99,7 +99,7 @@ Malformed JSON and invalid PATCH payloads return `400 { "error": "Invalid profil
 
 ## Daily login rewards
 
-All routes require the same Supabase bearer token. The database derives the account from that token, enforces one claim per system and local date, checks that the selected active character belongs to the account and system, and adds the configured item to inventory atomically.
+All routes require the same Supabase bearer token. The database derives the account from that token, enforces one claim per character, system and local date, checks that the selected active character belongs to the account and system, and adds the configured item to inventory atomically.
 
 | Operation | Purpose |
 | --- | --- |

@@ -17,7 +17,8 @@ export function DailyLoginCard({ systems, loading, claimingSystemId, message, me
   const [selectedSystemId, setSelectedSystemId] = useState(availableSystems[0]?.system.id ?? '');
   const [selectedCharacterId, setSelectedCharacterId] = useState('');
   const selected = availableSystems.find((entry) => entry.system.id === selectedSystemId) ?? availableSystems[0];
-  const character = selected?.characters.find((entry) => entry.id === selectedCharacterId) ?? selected?.characters[0];
+  const eligibleCharacters = selected?.characters.filter((entry) => !selected.today?.claimed_character_ids?.includes(entry.id)) ?? [];
+  const character = eligibleCharacters.find((entry) => entry.id === selectedCharacterId) ?? eligibleCharacters[0];
   const today = selected?.today;
   const reward = today?.reward;
   const alreadyClaimed = today?.status === 'already_claimed';
@@ -29,7 +30,7 @@ export function DailyLoginCard({ systems, loading, claimingSystemId, message, me
 
   return <article className="card daily-login-card">
     <div className="section-heading"><div><p className="eyebrow">PRESENÇA</p><h2>Login diário</h2></div><span className="step">01</span></div>
-    <p className="card-copy">Resgate o prêmio de hoje para um personagem do sistema escolhido.</p>
+    <p className="card-copy">Cada personagem pode resgatar uma recompensa por dia neste sistema.</p>
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status" aria-live="polite">{message}</p>}
     {loading && <p className="card-copy" role="status">Carregando sistemas…</p>}
     {!loading && availableSystems.length === 0 && <p className="card-copy">Nenhum sistema com personagem ativo disponível para resgate.</p>}
@@ -56,7 +57,7 @@ export function DailyLoginCard({ systems, loading, claimingSystemId, message, me
       {today?.status === 'available' && reward && <form className="form daily-claim-form" onSubmit={submitClaim}>
         <label className="daily-field" htmlFor="daily-login-character">Personagem que receberá o item
           <select id="daily-login-character" value={character?.id ?? ''} onChange={(event) => setSelectedCharacterId(event.target.value)} required>
-            {selected.characters.map((entry) => <option key={entry.id} value={entry.id}>{entry.character_name}</option>)}
+            {eligibleCharacters.map((entry) => <option key={entry.id} value={entry.id}>{entry.character_name}</option>)}
           </select>
         </label>
         <button className="button primary" type="submit" disabled={!character || claimingSystemId === selected.system.id}>

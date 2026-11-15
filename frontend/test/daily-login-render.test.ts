@@ -42,6 +42,17 @@ const ownerCalendar: DailyLoginOwnerCalendar = {
 };
 
 describe('daily login player card', () => {
+  it('keeps another character eligible after the first character claims', () => {
+    const html = renderToStaticMarkup(createElement(DailyLoginCard, {
+      systems: [{ ...systemView, characters: [...systemView.characters,
+        { id: '50000000-0000-4000-8000-000000000002', character_name: 'Novo personagem', game_system_id: systemId }],
+        today: { ...systemView.today!, claimed_character_ids: [characterId] } }],
+      loading: false, claimingSystemId: null, message: null, messageIsError: false, onClaim: vi.fn(),
+    }));
+    expect(html).toContain('Novo personagem');
+    expect(html).not.toContain('Aventureira');
+    expect(html).toContain('Resgatar recompensa');
+  });
   it('shows today’s system reward, eligible character, and claim action', () => {
     const html = renderToStaticMarkup(createElement(DailyLoginCard, {
       systems: [systemView],
