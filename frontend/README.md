@@ -29,7 +29,7 @@ Configure a URL do projeto Supabase e a chave publishable nos ambientes Producti
 
 Links de autenticação enviados por e-mail usam `NEXT_PUBLIC_APP_URL` quando configurada; no Vercel, o domínio de produção do projeto (`VERCEL_PROJECT_PRODUCTION_URL`) é usado automaticamente. Configure `NEXT_PUBLIC_APP_URL` com o domínio público permanente caso o domínio de produção não esteja disponível. A origem atual do navegador fica como fallback para desenvolvimento local.
 
-O link de confirmação para exclusão usa o modelo personalizado em `../supabase/templates/system-deletion-magic-link.html`. O `supabase/config.toml` aplica esse modelo no Supabase local. Para o projeto hospedado, copie o assunto e o HTML para **Authentication → Email Templates → Magic Link** no Dashboard do Supabase. Esse modelo é compartilhado por qualquer fluxo de magic link habilitado no projeto.
+Os e-mails de cadastro e de confirmação para exclusão têm modelos separados em `../supabase/templates/signup-confirmation.html` e `../supabase/templates/system-deletion-magic-link.html`. O `supabase/config.toml` aplica ambos no Supabase local. Para o projeto hospedado, copie o assunto e o HTML para **Authentication → Emails → Confirm sign up** e **Magic link**, respectivamente. O modelo Magic link é compartilhado por qualquer fluxo desse tipo habilitado no projeto.
 
 TypeScript está fixado em 5.9.3 no frontend.
 

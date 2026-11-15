@@ -30,3 +30,7 @@ enable_confirmations = true
 [auth.email.template.magic_link]
 subject = "Confirme sua identidade para excluir um sistema | Nexus RPG"
 content_path = "./supabase/templates/system-deletion-magic-link.html"
+
+[auth.email.template.confirmation]
+subject = "Confirme seu cadastro | Nexus RPG"
+content_path = "./supabase/templates/signup-confirmation.html"
