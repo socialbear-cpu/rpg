@@ -324,18 +324,14 @@ export function SystemManagementPage() {
             {isVisibleCategory('community') && <BookCategory className={`${categoryPageClass()} system-management-future`} id="community" role="tabpanel" aria-labelledby="management-tab-community"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO VI · GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></BookCategory>}
             {isVisibleCategory('settings') && <BookCategory className={categoryPageClass()} id="settings" role="tabpanel" aria-labelledby="management-tab-settings"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO VII · SISTEMA</p><h2>Configurações</h2></div></div>
               <div className="system-management-sheet-editor">
-                <div><h3>Acesso do sistema</h3><p>Defina a visibilidade e a senha de acesso.</p></div>
+                <div><h3>Acesso do sistema</h3></div>
                 {canEditOwnerSettings
                   ? editorSystem && <SystemDetailsEditor key={`${systemId}-${editorSystem.cover_image_path ?? 'no-cover'}-settings`} system={editorSystem} section="settings" onSaved={updateSystemDetails} />
                   : <p>Somente o Owner do sistema pode editar estas informações.</p>}
               </div>
               <section className="system-management-lifecycle" aria-label="Disponibilidade do sistema">
                 <div>
-                  <span className="system-management-eyebrow">ACESSO DOS JOGADORES</span>
                   <h3>{systemView.system.is_active ? 'Sistema ativo' : 'Sistema desativado'}</h3>
-                  <p>{systemView.system.is_active
-                    ? 'Desativar oculta o sistema para novos jogadores, sem apagar campanhas, personagens ou configurações.'
-                    : 'O sistema está oculto para os jogadores. Reative-o para permitir novos acessos.'}</p>
                 </div>
                 {canEditOwnerSettings && <button className="button secondary" type="button" disabled={lifecycleBusy} onClick={() => void changeSystemAvailability()}>
                   {lifecycleBusy ? 'Salvando...' : systemView.system.is_active ? 'Desativar sistema' : 'Reativar sistema'}
@@ -343,9 +339,7 @@ export function SystemManagementPage() {
               </section>
               <section className="system-management-danger-zone" aria-label="Excluir sistema permanentemente">
                 <div>
-                  <span className="system-management-eyebrow">AÇÃO IRREVERSÍVEL</span>
                   <h3>Excluir sistema e dados</h3>
-                  <p>Apaga permanentemente este sistema, suas campanhas, personagens, inventários, itens, compras e históricos relacionados. Essa ação não pode ser desfeita.</p>
                 </div>
                 {canEditOwnerSettings
                   ? deleteEmailLinkSent

@@ -94,7 +94,7 @@ export function SystemEventsCard({ systemId, canManage = false }: { systemId: st
   }
 
   return <section className="system-events-card" aria-labelledby="system-events-heading">
-    <header><div><p className="system-events-eyebrow">AGENDA DO SISTEMA</p><h2 id="system-events-heading">Eventos</h2></div></header>
+    <header><div><h2 id="system-events-heading">Eventos</h2></div></header>
     {canManage && <form className="system-events-form" onSubmit={(event) => void save(event)}>
       <h3>{editing ? 'Editar evento' : 'Novo evento'}</h3>
       <label>Título<input required minLength={1} maxLength={120} value={title} onChange={(event) => setTitle(event.target.value)} /></label>
