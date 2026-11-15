@@ -129,7 +129,7 @@ export interface SystemEvent {
 
 export type SystemEventInput = Pick<SystemEvent, 'title' | 'description' | 'starts_at' | 'ends_at'>;
 
-export const lobbySectionIds = ['system-presentation', 'matchmaking', 'store', 'campaign-chat', 'events', 'character-sheet'] as const;
+export const lobbySectionIds = ['system-presentation', 'matchmaking', 'store', 'chat', 'events', 'character-sheet'] as const;
 export type LobbySectionId = typeof lobbySectionIds[number];
 
 export interface SystemLobbySettings {
@@ -206,65 +206,45 @@ export interface SystemCharacter {
   status: 'active';
 }
 
-export interface CampaignChatRoom {
-  id: string;
-  campaign_id: string;
-  campaign_name: string;
-  name: string;
-  created_at: string;
-}
-
-export interface CampaignChatCampaign {
+export interface Chat {
   id: string;
   game_system_id: string;
   name: string;
-  can_create_room: boolean;
+  description: string | null;
+  status: string;
+  created_at: string;
 }
 
-export function createSystemCampaign(systemId: string, input: { character_id: string; name: string; description?: string | null }) {
-  return authenticatedRequest<{ campaign: { id: string; game_system_id: string; name: string; description: string | null; status: string; created_at: string }; character_id: string }>(
-    `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/campaigns`,
+export function createSystemChat(systemId: string, input: { character_id: string; name: string; description?: string | null }) {
+  return authenticatedRequest<{ chat: Chat; character_id: string }>(
+    `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/chats`,
     { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) },
   );
 }
 
-export interface CampaignChatMessage {
+export interface ChatMessage {
   id: string;
-  room_id: string;
-  campaign_id: string;
+  chat_id: string;
   character_id: string;
   content: string;
   created_at: string;
 }
 
-export function getCharacterChatRooms(characterId: string) {
-  return authenticatedRequest<{ rooms: CampaignChatRoom[] }>(
-    `/api/v1/me/characters/${encodeURIComponent(characterId)}/chat-rooms`,
+export function getCharacterChats(characterId: string) {
+  return authenticatedRequest<{ chats: Chat[] }>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/chats`,
   );
 }
 
-export function getCharacterChatCampaigns(characterId: string) {
-  return authenticatedRequest<{ campaigns: CampaignChatCampaign[] }>(
-    `/api/v1/me/characters/${encodeURIComponent(characterId)}/campaigns`,
+export function getCharacterChatMessages(characterId: string, chatId: string) {
+  return authenticatedRequest<{ messages: ChatMessage[] }>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/chats/${encodeURIComponent(chatId)}/messages`,
   );
 }
 
-export function createCharacterChatRoom(characterId: string, campaignId: string, name: string) {
-  return authenticatedRequest<{ room: Omit<CampaignChatRoom, 'campaign_name'> }>(
-    `/api/v1/me/characters/${encodeURIComponent(characterId)}/campaigns/${encodeURIComponent(campaignId)}/chat-rooms`,
-    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name }) },
-  );
-}
-
-export function getCharacterChatMessages(characterId: string, roomId: string) {
-  return authenticatedRequest<{ messages: CampaignChatMessage[] }>(
-    `/api/v1/me/characters/${encodeURIComponent(characterId)}/chat-rooms/${encodeURIComponent(roomId)}/messages`,
-  );
-}
-
-export function sendCharacterChatMessage(characterId: string, roomId: string, content: string) {
-  return authenticatedRequest<{ message: CampaignChatMessage }>(
-    `/api/v1/me/characters/${encodeURIComponent(characterId)}/chat-rooms/${encodeURIComponent(roomId)}/messages`,
+export function sendCharacterChatMessage(characterId: string, chatId: string, content: string) {
+  return authenticatedRequest<{ message: ChatMessage }>(
+    `/api/v1/me/characters/${encodeURIComponent(characterId)}/chats/${encodeURIComponent(chatId)}/messages`,
     { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) },
   );
 }
@@ -852,9 +832,12 @@ export interface StoreOffer {
 }
 export interface OwnerStore {
   currency_name: string;
+  currency_image_url?: string | null;
   items: StoreItem[];
   offers: StoreOffer[];
 }
+export type StoreCurrencyFieldUpdate = { currency_name: string } | { currency_image_url: string | null };
+export type StoreOfferFieldUpdate = { price: number } | { is_available: boolean };
 export interface StoreItem {
   id: string;
   name: string;
@@ -893,6 +876,16 @@ export function createOwnerStoreItem(systemId: string, input: CreateStoreItemInp
 export function saveOwnerStore(systemId: string, input: StoreSettingsInput) {
   return authenticatedRequest<OwnerStore>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store`, {
     method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  });
+}
+export function updateOwnerStoreCurrencyField(systemId: string, input: StoreCurrencyFieldUpdate) {
+  return authenticatedRequest<{ currency_name: string; currency_image_url: string | null }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store/currency`, {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
+  });
+}
+export function updateOwnerStoreOfferField(systemId: string, itemId: string, input: StoreOfferFieldUpdate) {
+  return authenticatedRequest<{ offer: StoreOffer }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store/items/${encodeURIComponent(itemId)}/offer`, {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
   });
 }
 export function getCharacterStore(systemId: string, characterId: string) {

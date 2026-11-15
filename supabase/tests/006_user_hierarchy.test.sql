@@ -23,10 +23,10 @@ INSERT INTO public.game_systems (id, slug, name, owner_user_id)
 VALUES ('36000000-0000-4000-8000-000000000003', 'hierarchy-other-system', 'Other Hierarchy System',
         '26000000-0000-4000-8000-000000000002');
 
-INSERT INTO public.campaigns (id, game_system_id, owner_user_id, name)
+INSERT INTO public.chats (id, game_system_id, owner_user_id, name)
 VALUES ('46000000-0000-4000-8000-000000000001',
         '36000000-0000-4000-8000-000000000001',
-        '26000000-0000-4000-8000-000000000004', 'Hierarchy Campaign');
+        '26000000-0000-4000-8000-000000000004', 'Hierarchy Chat');
 INSERT INTO public.game_system_memberships (user_id, game_system_id, role)
 VALUES ('26000000-0000-4000-8000-000000000002',
         '36000000-0000-4000-8000-000000000001', 'user');
@@ -93,9 +93,6 @@ VALUES ('76000000-0000-4000-8000-000000000002',
 INSERT INTO public.store_products (id, game_system_id, product_id, price)
 VALUES ('76000000-0000-4000-8000-000000000003',
         '36000000-0000-4000-8000-000000000001', '76000000-0000-4000-8000-000000000002', 10);
-INSERT INTO public.chat_rooms (id, campaign_id, name)
-VALUES ('86000000-0000-4000-8000-000000000001',
-        '46000000-0000-4000-8000-000000000001', 'Hierarchy Room');
 SELECT is(
   public.set_system_moderator(
     '36000000-0000-4000-8000-000000000001',
@@ -176,9 +173,9 @@ SELECT throws_ok(
   'a basic system User cannot create system content'
 );
 SELECT is(
-  (SELECT count(*) FROM public.chat_rooms WHERE id = '86000000-0000-4000-8000-000000000001'),
+  (SELECT count(*) FROM public.chats WHERE id = '46000000-0000-4000-8000-000000000001'),
   0::bigint,
-  'a user outside the campaign cannot read its chat room'
+  'a user outside the chat cannot read it'
 );
 RESET ROLE;
 

@@ -55,7 +55,7 @@ A migração `003_supabase_auth.sql` já implementa a ligação entre `auth.user
 
 - Nunca armazenar senha em `public.users`, `user_profiles`, logs ou metadados.
 - Nunca expor a chave `service_role` no navegador. Operações administrativas ficam no servidor.
-- Aplicar RLS às tabelas acessíveis pelo cliente. O README do banco registra que as políticas para personagens, campanhas, loja e chat ainda não foram definidas.
+- Aplicar RLS às tabelas acessíveis pelo cliente. Chats, participantes e mensagens devem permanecer limitados por participação no chat e papel do sistema.
 - Não confiar em campos enviados pelo formulário para definir `user_id`, papel, saldo ou permissões; obter a identidade da sessão validada.
 - Aplicar limitação de tentativas e usar mensagens neutras para reduzir abuso e enumeração de contas.
 

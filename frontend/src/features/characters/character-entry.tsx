@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
-import { createSystemCharacter, getCharacterSheet, getGameSystems, getMySystemMemberships, getSystemCharacters, requestSystemAccess, type CharacterSheetDefinition, type GameSystem, type SystemCharacter, type SystemMemberships } from '../../api';
+import { createSystemCharacter, getCharacterExperience, getCharacterSheet, getGameSystems, getMySystemMemberships, getSystemCharacters, requestSystemAccess, type CharacterSheetDefinition, type GameSystem, type SystemCharacter, type SystemMemberships } from '../../api';
 import { CharacterForm } from './character-form';
 import { CharacterGallery } from './character-gallery';
 import { AppHeader } from '../shell/app-header';
@@ -12,6 +12,7 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
   const [system, setSystem] = useState<GameSystem | null>(null);
   const [definition, setDefinition] = useState<CharacterSheetDefinition>({version:1,steps:[{key:'step_1',label:'Etapa 1',position:0,components:[]}]});
   const [characters, setCharacters] = useState<SystemCharacter[]>([]);
+  const [experienceByCharacterId, setExperienceByCharacterId] = useState<Record<string, number>>({});
   const [selectedCharacterId, setSelectedCharacterId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
@@ -32,6 +33,7 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
         const activeSystem = systemsResult.systems.find((item) => item.id === systemId);
         if (!activeSystem) throw new Error('SYSTEM_UNAVAILABLE');
         setSystem(activeSystem);
+        setExperienceByCharacterId({});
         let memberships: SystemMemberships | null = null;
         try {
           memberships = await getMySystemMemberships();
@@ -61,8 +63,17 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
       getSystemCharacters(systemId),
     ]);
     if (!isCancelled()) {
-        setDefinition(sheet.definition);
-        setCharacters(characterResult.characters.filter((character) => character.status === 'active' && character.game_system_id === systemId));
+      const activeCharacters = characterResult.characters.filter((character) => character.status === 'active' && character.game_system_id === systemId);
+      setDefinition(sheet.definition);
+      setCharacters(activeCharacters);
+      setExperienceByCharacterId({});
+      void Promise.allSettled(activeCharacters.map((character) => getCharacterExperience(character.id))).then((results) => {
+        if (isCancelled()) return;
+        const levels = results.flatMap((result, index) => result.status === 'fulfilled'
+          ? [[activeCharacters[index]!.id, result.value.level] as const]
+          : []);
+        setExperienceByCharacterId(Object.fromEntries(levels));
+      });
     }
   }
 
@@ -91,6 +102,9 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
       const { character } = await createSystemCharacter(systemId, { character_name: characterName, attributes });
       setCharacters((current) => [...current, character]);
       setSelectedCharacterId(character.id);
+      void getCharacterExperience(character.id).then(({ level }) => {
+        setExperienceByCharacterId((current) => ({ ...current, [character.id]: level }));
+      }).catch(() => undefined);
       setCreating(false);
       setSaving(false);
     } catch (error) {
@@ -118,5 +132,5 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
     </section>
   </main>;
   if (creating) return <main className="character-entry-page character-creation-page"><AppHeader activeItem="Meus Sistemas"><button className="app-header-back" type="button" onClick={() => setCreating(false)}>← Voltar aos personagens</button></AppHeader><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm definition={definition} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
-  return <CharacterGallery systemName={system.name} system={system} fields={definitionToLegacyFields(definition)} characters={characters} selectedCharacterId={selectedCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} onConfigureLobby={canConfigureLobby ? () => push(`/systems/${encodeURIComponent(systemId)}/lobby-settings`) : undefined} />;
+  return <CharacterGallery systemName={system.name} system={system} fields={definitionToLegacyFields(definition)} characters={characters} selectedCharacterId={selectedCharacterId} experienceByCharacterId={experienceByCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} onConfigureLobby={canConfigureLobby ? () => push(`/systems/${encodeURIComponent(systemId)}/lobby-settings`) : undefined} />;
 }

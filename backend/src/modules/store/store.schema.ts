@@ -13,6 +13,20 @@ export const storeScheduleSchema = z.strictObject({
     return new Set(ids).size === ids.length;
   }, 'Listing IDs must be unique'),
 });
+export const storeCurrencyFieldSchema = z.union([
+  z.strictObject({ currency_name: z.string().trim().min(1).max(80) }),
+  z.strictObject({ currency_image_url: z.string().trim().min(1).max(2048).url().refine((value) => {
+    try { return new URL(value).protocol === 'https:'; } catch { return false; }
+  }, 'Currency image URL must use HTTPS').nullable() }),
+]);
+export const storeOfferFieldSchema = z.union([
+  z.strictObject({ price: storeMoneySchema }),
+  z.strictObject({ is_available: z.boolean() }),
+]);
+export const storeOfferFieldResultSchema = z.discriminatedUnion('status', [
+  z.strictObject({ status: z.literal('updated'), store_product_id: z.uuid(), item_id: z.uuid(), item_name: z.string(), price: storeMoneySchema, is_available: z.boolean() }),
+  z.strictObject({ status: z.enum(['unauthorized', 'invalid_store', 'not_owner', 'invalid_field', 'invalid_value', 'invalid_item', 'offer_not_found']) }),
+]);
 export const storeItemCreateSchema = z.strictObject({
   name: z.string().trim().min(1).max(80),
   description: z.string().trim().max(500).nullable().optional(),
@@ -29,7 +43,10 @@ export const storePurchaseSchema = z.strictObject({
 });
 export const storeCharacterQuerySchema = z.strictObject({ character_id: z.uuid() });
 export const storeParamsSchema = z.strictObject({ systemId: z.uuid() });
+export const storeOfferParamsSchema = z.strictObject({ systemId: z.uuid(), itemId: z.uuid() });
 export type StoreSchedule = z.infer<typeof storeScheduleSchema>;
+export type StoreCurrencyField = z.infer<typeof storeCurrencyFieldSchema>;
+export type StoreOfferField = z.infer<typeof storeOfferFieldSchema>;
 export type StoreItemCreate = z.infer<typeof storeItemCreateSchema>;
 export type StorePurchase = z.infer<typeof storePurchaseSchema>;
 const failureStatus = z.enum(['unauthorized', 'invalid_quantity', 'invalid_character', 'system_unavailable', 'offer_unavailable', 'system_mismatch', 'insufficient_funds']);

@@ -11,8 +11,7 @@ import { experienceRoutes } from './modules/experience/experience.routes.js';
 import { tradingRoutes } from './modules/trading/trading.routes.js';
 import { gameSystemsRoutes } from './modules/game-systems/game-systems.routes.js';
 import { systemEventsRoutes } from './modules/system-events/system-events.routes.js';
-import { campaignChatRoutes } from './modules/campaign-chat/campaign-chat.routes.js';
-import { campaignsRoutes } from './modules/campaigns/campaigns.routes.js';
+import { chatsRoutes } from './modules/chats/chats.routes.js';
 import { lobbySettingsRoutes } from './modules/lobby-settings/lobby-settings.routes.js';
 import type { Config } from './config.js';
 
@@ -45,7 +44,6 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
   app.register(tradingRoutes);
   app.register(gameSystemsRoutes);
   app.register(systemEventsRoutes);
-  app.register(campaignChatRoutes);
-  app.register(campaignsRoutes);
+  app.register(chatsRoutes);
   app.register(lobbySettingsRoutes);
 }

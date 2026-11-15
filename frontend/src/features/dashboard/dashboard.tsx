@@ -38,7 +38,7 @@ export function Dashboard({ playerName, onLogout }: DashboardProps) {
   const firstName = safePlayerName ? safePlayerName.split(' ')[0] : 'Jogador';
 
   const slides = [
-    { title: <>Crie e conduza suas <span>aventuras</span></>, description: 'Gerencie grupos, histórias e campanhas em um só lugar.', action: 'Criar sistema', run: () => router.push('/dashboard/systems/new') },
+    { title: <>Crie e conduza suas <span>aventuras</span></>, description: 'Gerencie grupos, histórias e chats em um só lugar.', action: 'Criar sistema', run: () => router.push('/dashboard/systems/new') },
     { title: <>Seu próximo mundo começa <span>aqui</span></>, description: 'Dê forma às suas ideias e convide seu grupo para jogar.', action: 'Começar aventura', run: () => router.push('/dashboard/systems/new') },
     { title: <>Reúna seu grupo e <span>jogue</span></>, description: 'Abra um dos seus sistemas e continue de onde a história parou.', action: systems[0] ? 'Abrir sistema' : 'Criar sistema', run: () => systems[0] ? router.push(`/systems/${encodeURIComponent(systems[0].id)}/characters`) : router.push('/dashboard/systems/new') },
   ];

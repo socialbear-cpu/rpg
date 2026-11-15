@@ -4,16 +4,16 @@ import { describe, expect, it, vi } from 'vitest';
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }) }));
 import { CharacterHome } from '../src/features/characters/character-home.js';
 
-describe('character home campaign rooms', () => {
-  it('uses campaign chat for the active character instead of placeholder community rooms', () => {
+describe('character home chats', () => {
+  it('uses the chat space for the active character instead of placeholder community rooms', () => {
     const html = renderToStaticMarkup(createElement(CharacterHome, {
       system: { id: '31000000-0000-4000-8000-000000000001', slug: 'forest', name: 'Floresta', description: null },
       character: { id: '51000000-0000-4000-8000-000000000001', game_system_id: '31000000-0000-4000-8000-000000000001', character_name: 'Liora', attributes: {}, status: 'active' },
       sheetDefinition: null, inventory: null, recordLoading: false, sheetError: null, inventoryError: null,
       onRefreshRecord: () => undefined, onSwitch: () => undefined,
     }));
-    expect(html).toContain('Salas de bate-papo');
-    expect(html).toContain('CAMPANHAS DO PERSONAGEM');
+    expect(html).toContain('Chats');
+    expect(html).toContain('CHATS DO PERSONAGEM');
     expect(html).toContain('lobby-character-record-action');
     expect(html).not.toContain('lobby-room-grid');
     expect(html).not.toContain('Taverna do Dragão');

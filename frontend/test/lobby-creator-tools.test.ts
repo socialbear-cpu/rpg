@@ -10,7 +10,7 @@ import { SystemEventsList } from '../src/features/system-events/system-events-ca
 const system = { id: '31000000-0000-4000-8000-000000000001', slug: 'forest', name: 'Floresta', description: null };
 const character = { id: '51000000-0000-4000-8000-000000000001', game_system_id: system.id, character_name: 'Liora', attributes: {}, status: 'active' as const };
 const defaultSettings: SystemLobbySettings = {
-  section_order: ['system-presentation', 'matchmaking', 'store', 'campaign-chat', 'events', 'character-sheet'],
+  section_order: ['system-presentation', 'matchmaking', 'store', 'chat', 'events', 'character-sheet'],
   hidden_sections: [],
   welcome_title: 'Bem-vindo à aventura',
   welcome_message: 'Escolha onde sua próxima história começa.',
@@ -48,20 +48,20 @@ const event = {
 };
 
 describe('lobby creator tools', () => {
-  it('shows campaign and chat creator controls only to an Owner/Admin', () => {
+  it('shows chat and event creator controls only to an Owner/Admin', () => {
     const ownerHtml = renderLobby(true);
     const memberHtml = renderLobby(false);
     expect(ownerHtml).toContain('Ferramentas do criador');
-    expect(ownerHtml).toContain('Criar campanha');
+    expect(ownerHtml).toContain('Criar chat');
     expect(ownerHtml).not.toContain('Personalizar saguão');
     expect(memberHtml).not.toContain('Ferramentas do criador');
-    expect(memberHtml).not.toContain('Criar campanha');
-    expect(memberHtml).toContain('Salas de bate-papo');
+    expect(memberHtml).not.toContain('Criar chat');
+    expect(memberHtml).toContain('Chats');
   });
 
   it('applies saved section order, hides selected sections and displays saved text/color for members', () => {
     const html = renderLobby(false, {
-      section_order: ['campaign-chat', 'events', 'system-presentation', 'store', 'matchmaking', 'character-sheet'],
+      section_order: ['chat', 'events', 'system-presentation', 'store', 'matchmaking', 'character-sheet'],
       hidden_sections: ['store', 'matchmaking'],
       welcome_title: 'Bem-vindos à Floresta',
       welcome_message: 'Preparem seus personagens.',
@@ -70,16 +70,16 @@ describe('lobby creator tools', () => {
     expect(html).toContain('Bem-vindos à Floresta');
     expect(html).toContain('Preparem seus personagens.');
     expect(html).toContain('--lobby-accent:#D946EF');
-    expect(html.indexOf('Salas de bate-papo')).toBeLessThan(html.indexOf('Eventos'));
+    expect(html.indexOf('Chats')).toBeLessThan(html.indexOf('Eventos'));
     expect(html).not.toContain('Loja do sistema');
     expect(html).not.toContain('Procurar partida');
   });
 
-  it('shows the quick chat creation link only when campaign chat is visible', () => {
+  it('shows the quick chat link only when chat is visible', () => {
     const visibleHtml = renderLobby(true, defaultSettings);
-    const hiddenHtml = renderLobby(true, { ...defaultSettings, hidden_sections: ['campaign-chat'] });
-    expect(visibleHtml).toContain('Criar uma sala de chat');
-    expect(hiddenHtml).not.toContain('Criar uma sala de chat');
+    const hiddenHtml = renderLobby(true, { ...defaultSettings, hidden_sections: ['chat'] });
+    expect(visibleHtml).toContain('Ver chats');
+    expect(hiddenHtml).not.toContain('Ver chats');
   });
 });
 

@@ -1,14 +1,14 @@
 import { z } from 'zod';
 import type { FastifyInstance, FastifySchema } from 'fastify';
 import { authenticate } from '../../plugins/authenticate.js';
-import { canManageStore, createStoreItem, readStore, readStoreCharacter, replaceStore, purchaseStoreOffer } from './store.repository.js';
-import { storeCharacterQuerySchema, storeItemCreateSchema, storeParamsSchema, storePurchaseSchema, storeScheduleSchema } from './store.schema.js';
+import { canManageStore, createStoreItem, readStore, readStoreCharacter, replaceStore, purchaseStoreOffer, updateStoreCurrencyField, updateStoreOfferField } from './store.repository.js';
+import { storeCharacterQuerySchema, storeCurrencyFieldSchema, storeItemCreateSchema, storeOfferFieldSchema, storeOfferParamsSchema, storeParamsSchema, storePurchaseSchema, storeScheduleSchema } from './store.schema.js';
 import { authorizeSystemAccess } from '../game-systems/game-systems.repository.js';
 import { rejectSystemAccess } from '../game-systems/system-access.js';
 // Documentation-only input schemas preserve strict Zod validation before AJV can strip keys.
-function documentedInputs(body?: z.ZodType, querystring?: z.ZodType) {
+function documentedInputs(body?: z.ZodType, querystring?: z.ZodType, paramsSchema: z.ZodType = storeParamsSchema) {
   return { swaggerTransform: ({ schema, url }: { schema: FastifySchema; url: string }) => ({
-    url, schema: { ...schema, params: z.toJSONSchema(storeParamsSchema),
+    url, schema: { ...schema, params: z.toJSONSchema(paramsSchema),
       ...(body ? { body: z.toJSONSchema(body) } : {}),
       ...(querystring ? { querystring: z.toJSONSchema(querystring) } : {}),
     },
@@ -83,5 +83,35 @@ export async function storeRoutes(app: FastifyInstance) {
       if (!await replaceStore(request.supabase!, params.data.systemId, input.data)) return reply.code(400).send({ error: 'Choose items and offers from this system.' });
       return reply.send(await readStore(request.supabase!, params.data.systemId));
     } catch { return reply.code(500).send({ error: 'Unable to update store' }); }
+  });
+  app.patch('/api/v1/owner/game-systems/:systemId/store/currency', { ...auth, config: documentedInputs(storeCurrencyFieldSchema) }, async (request, reply) => {
+    const params = storeParamsSchema.safeParse(request.params);
+    const input = storeCurrencyFieldSchema.safeParse(request.body);
+    if (!params.success || !input.success) return reply.code(400).send({ error: 'Informe um nome ou endereço de imagem válido para a moeda.' });
+    try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, params.data.systemId));
+      if (accessError) return accessError;
+      if (!await canManageStore(request.supabase!, params.data.systemId)) return reply.code(403).send({ error: 'Only the system owner or Admin can manage its store.' });
+      return reply.send(await updateStoreCurrencyField(request.supabase!, params.data.systemId, input.data));
+    } catch { return reply.code(500).send({ error: 'Não foi possível salvar o campo da moeda.' }); }
+  });
+  app.patch('/api/v1/owner/game-systems/:systemId/store/items/:itemId/offer', { ...auth, config: documentedInputs(storeOfferFieldSchema, undefined, storeOfferParamsSchema) }, async (request, reply) => {
+    const params = storeOfferParamsSchema.safeParse(request.params);
+    const input = storeOfferFieldSchema.safeParse(request.body);
+    if (!params.success || !input.success) return reply.code(400).send({ error: 'Informe um preço ou estado válido para a oferta.' });
+    try {
+      const accessError = rejectSystemAccess(reply, await authorizeSystemAccess(request.supabase!, params.data.systemId));
+      if (accessError) return accessError;
+      if (!await canManageStore(request.supabase!, params.data.systemId)) return reply.code(403).send({ error: 'Only the system owner or Admin can manage its store.' });
+      const result = await updateStoreOfferField(request.supabase!, params.data.systemId, params.data.itemId, input.data);
+      switch (result.status) {
+        case 'updated': return reply.send({ offer: result });
+        case 'unauthorized': return reply.code(401).send({ error: 'Unauthorized' });
+        case 'not_owner': return reply.code(403).send({ error: 'Only the system owner or Admin can manage its store.' });
+        case 'invalid_store': return reply.code(404).send({ error: 'Store not found' });
+        case 'invalid_item': case 'offer_not_found': return reply.code(404).send({ error: 'Store item or offer not found' });
+        case 'invalid_field': case 'invalid_value': return reply.code(400).send({ error: 'Informe um preço ou estado válido para a oferta.' });
+      }
+    } catch { return reply.code(500).send({ error: 'Não foi possível salvar o campo da oferta.' }); }
   });
 }

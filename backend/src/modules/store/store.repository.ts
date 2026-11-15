@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { readMySystemMemberships } from '../system-membership/system-membership.repository.js';
-import { storeItemSchema, storePurchaseResultSchema, type StoreItemCreate, type StoreSchedule, type StorePurchase } from './store.schema.js';
+import { storeItemSchema, storeOfferFieldResultSchema, storePurchaseResultSchema, type StoreCurrencyField, type StoreItemCreate, type StoreOfferField, type StoreSchedule, type StorePurchase } from './store.schema.js';
 
 async function result<T>(query: PromiseLike<{ data: T; error: unknown }>): Promise<T> {
   const { data, error } = await query;
@@ -45,15 +45,30 @@ async function readCatalog(client: SupabaseClient, systemId: string) {
   return { items: items ?? [], offers, itemProducts };
 }
 export async function readStore(client: SupabaseClient, systemId: string, characterId?: string) {
-  let query = client.from('game_systems').select('id,currency_name,is_active').eq('id', systemId);
+  let query = client.from('game_systems').select('id,currency_name,currency_image_url,is_active').eq('id', systemId);
   if (characterId) query = query.eq('is_active', true);
   const system = await result(query.maybeSingle());
   if (!system) return null;
   const catalog = await readCatalog(client, systemId);
-  if (!characterId) return { currency_name: system.currency_name, items: catalog.items, offers: catalog.offers };
+  if (!characterId) return { currency_name: system.currency_name, currency_image_url: system.currency_image_url, items: catalog.items, offers: catalog.offers };
   const wallet = await result(client.from('character_wallets').select('balance').eq('character_id', characterId).eq('game_system_id', systemId).maybeSingle());
   if (!wallet) throw new Error('Character wallet missing');
   return { currency_name: system.currency_name, character_id: characterId, balance: Number(wallet.balance), offers: catalog.offers.filter((offer) => offer.is_available) };
+}
+export async function updateStoreCurrencyField(client: SupabaseClient, systemId: string, input: StoreCurrencyField) {
+  const { data, error } = await client.from('game_systems').update(input)
+    .eq('id', systemId).select('currency_name,currency_image_url').single();
+  if (error) throw error;
+  return data;
+}
+export async function updateStoreOfferField(client: SupabaseClient, systemId: string, itemId: string, input: StoreOfferField) {
+  const isPrice = 'price' in input;
+  const field = isPrice ? 'price' : 'is_available';
+  const value = isPrice ? input.price : input.is_available;
+  const response = await result(client.rpc('set_game_system_store_offer_field', {
+    p_game_system_id: systemId, p_item_id: itemId, p_field: field, p_value: value,
+  }));
+  return storeOfferFieldResultSchema.parse(response);
 }
 export async function replaceStore(client: SupabaseClient, systemId: string, input: StoreSchedule) {
   const response = await result(client.rpc('replace_game_system_store', {

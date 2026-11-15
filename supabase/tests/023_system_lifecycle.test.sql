@@ -14,8 +14,8 @@ INSERT INTO public.characters (id, user_id, game_system_id, character_name)
 VALUES
     ('c3000000-0000-4000-8000-000000000001', 'c1000000-0000-4000-8000-000000000002', 'c2000000-0000-4000-8000-000000000001', 'Test Character'),
     ('c3000000-0000-4000-8000-000000000002', 'c1000000-0000-4000-8000-000000000001', 'c2000000-0000-4000-8000-000000000001', 'Owner Character');
-INSERT INTO public.campaigns (id, game_system_id, owner_user_id, name)
-VALUES ('c4000000-0000-4000-8000-000000000001', 'c2000000-0000-4000-8000-000000000001', 'c1000000-0000-4000-8000-000000000001', 'Test Campaign');
+INSERT INTO public.chats (id, game_system_id, owner_user_id, name)
+VALUES ('c4000000-0000-4000-8000-000000000001', 'c2000000-0000-4000-8000-000000000001', 'c1000000-0000-4000-8000-000000000001', 'Test Chat');
 INSERT INTO public.abilities (id, game_system_id, slug, name)
 VALUES ('c5000000-0000-4000-8000-000000000001', 'c2000000-0000-4000-8000-000000000001', 'test-ability', 'Test Ability');
 INSERT INTO public.items (id, game_system_id, slug, name, grants_ability_id)
@@ -120,13 +120,13 @@ SELECT set_config('request.jwt.claims', jsonb_build_object(
 SELECT is(
     public.manage_game_system_lifecycle('c2000000-0000-4000-8000-000000000001', 'delete')->>'status',
     'deleted',
-    'Owner can permanently delete a system with dependent characters and campaigns'
+    'Owner can permanently delete a system with dependent characters and chats'
 );
 RESET ROLE;
 SELECT ok(
     NOT EXISTS (SELECT 1 FROM public.game_systems WHERE id = 'c2000000-0000-4000-8000-000000000001')
     AND NOT EXISTS (SELECT 1 FROM public.characters WHERE game_system_id = 'c2000000-0000-4000-8000-000000000001')
-    AND NOT EXISTS (SELECT 1 FROM public.campaigns WHERE game_system_id = 'c2000000-0000-4000-8000-000000000001')
+    AND NOT EXISTS (SELECT 1 FROM public.chats WHERE game_system_id = 'c2000000-0000-4000-8000-000000000001')
     AND NOT EXISTS (SELECT 1 FROM public.daily_login_claims WHERE game_system_id = 'c2000000-0000-4000-8000-000000000001')
     AND NOT EXISTS (SELECT 1 FROM public.daily_login_rewards WHERE game_system_id = 'c2000000-0000-4000-8000-000000000001')
     AND NOT EXISTS (SELECT 1 FROM public.trade_offers WHERE game_system_id = 'c2000000-0000-4000-8000-000000000001')

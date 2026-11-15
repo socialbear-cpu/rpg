@@ -9,7 +9,7 @@ const sectionLabels: Record<LobbySectionId, string> = {
   'system-presentation': 'Apresentação do sistema',
   matchmaking: 'Procurar partida',
   store: 'Loja',
-  'campaign-chat': 'Campanhas e chat',
+  chat: 'Chats',
   events: 'Eventos',
   'character-sheet': 'Minha ficha',
 };

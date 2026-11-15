@@ -1,0 +1,23 @@
+.chat { margin-top: 1.5rem; }
+.chat-layout { display: grid; grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 2fr); gap: 1rem; }
+.chat-list { display: grid; align-content: start; gap: .5rem; }
+.chat-list button { display: grid; gap: .25rem; padding: .85rem; text-align: left; border: 1px solid #55406f; border-radius: .75rem; color: inherit; background: #231a30; cursor: pointer; }
+.chat-list button[aria-pressed="true"] { outline: 2px solid #bba2d4; }
+.chat-list button span { font-size: .72rem; opacity: .75; }
+.chat-conversation { min-width: 0; padding: 1rem; border: 1px solid #55406f; border-radius: .75rem; background: #231a30; }
+.chat-conversation h3 { margin-top: 0; }
+.chat-messages { display: grid; align-content: start; gap: .75rem; max-height: 26rem; min-height: 8rem; overflow: auto; margin: 0; padding: 0; list-style: none; }
+.chat-messages li { max-width: 85%; padding: .7rem .85rem; border: 1px solid #55406f; border-radius: .75rem; background: #30233f; }
+.chat-messages li.chat-message-own { justify-self: end; background: #443354; }
+.chat-messages li span { font-size: .72rem; opacity: .76; }
+.chat-messages li p { margin: .35rem 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.chat-composer { display: flex; align-items: end; gap: .5rem; margin-top: 1rem; }
+.chat-composer textarea { flex: 1; min-height: 3rem; max-height: 10rem; resize: vertical; padding: .7rem; border: 1px solid #76618a; border-radius: .5rem; color: inherit; background: #1b1424; }
+.chat-composer button, .chat-error button { padding: .65rem .9rem; border: 1px solid #a98bc6; border-radius: .5rem; color: inherit; background: #443354; cursor: pointer; }
+.chat-composer button:disabled { opacity: .5; cursor: not-allowed; }
+.chat-error { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; color: #ffcaca; }
+.chat-empty { padding: 1rem; border: 1px dashed #76618a; border-radius: .75rem; }
+.chat-list button[aria-pressed="true"] { outline-color: var(--lobby-accent, #bba2d4); }
+@media (max-width: 650px) { .chat-layout { grid-template-columns: 1fr; } .chat-composer { align-items: stretch; flex-direction: column; } }
+
+

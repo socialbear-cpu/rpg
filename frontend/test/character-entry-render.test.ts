@@ -33,12 +33,13 @@ describe('character entry', () => {
     const html = renderToStaticMarkup(createElement(CharacterGallery, {
       systemName: 'Crônicas',
       system: { id: 'sys-1', slug: 'cronicas', name: 'Crônicas', description: 'Uma aventura sombria.', play_mode: 'voice', tags: [{ slug: 'terror', label: 'Terror' }] },
-      fields, characters: [character], selectedCharacterId: character.id, onCreate: vi.fn(), onEnter: vi.fn(),
+      fields, characters: [character], selectedCharacterId: character.id, experienceByCharacterId: { [character.id]: 7 }, onCreate: vi.fn(), onEnter: vi.fn(),
     }));
     expect(html).toContain('Crônicas');
     expect(html).toContain('Ayla');
     expect(html).toContain('Mago');
-    expect(html).toContain('PERSONAGEM CRIADO');
+    expect(html).toContain('Nível 7');
+    expect(html).toContain('character-card-rune');
     expect(html).toContain('Entrar com Ayla');
     expect(html).toContain('Criar personagem');
     expect(html).toContain('RPG por voz');
@@ -133,7 +134,7 @@ describe('character entry', () => {
     expect(html).toContain('Ayla');
     expect(html).toContain('Mago');
     expect(html).not.toContain('Uma história longa');
-    expect(html).toContain('Salas de bate-papo');
+    expect(html).toContain('Chats');
     expect(html).toContain('Minha Ficha');
     expect(html).toContain('Consultar dados e inventário');
     expect(html).toContain('>Recompensa diária</button>');

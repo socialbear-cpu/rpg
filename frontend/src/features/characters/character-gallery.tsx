@@ -12,12 +12,20 @@ interface CharacterGalleryProps {
   fields: CharacterSheetField[];
   characters: SystemCharacter[];
   selectedCharacterId?: string | null;
+  experienceByCharacterId?: Record<string, number>;
   onCreate: () => void;
   onEnter: (characterId: string) => void;
   onConfigureLobby?: () => void;
 }
 
-export function CharacterGallery({ systemName, system, fields, characters, selectedCharacterId = null, onCreate, onEnter, onConfigureLobby }: CharacterGalleryProps) {
+const characterRunes = ['ᚨ', 'ᛉ', 'ᚱ', 'ᚠ', 'ᛟ', 'ᛞ', 'ᛃ', 'ᛇ'] as const;
+
+function characterRune(characterId: string) {
+  const runeIndex = [...characterId].reduce((sum, character) => sum + character.charCodeAt(0), 0) % characterRunes.length;
+  return characterRunes[runeIndex];
+}
+
+export function CharacterGallery({ systemName, system, fields, characters, selectedCharacterId = null, experienceByCharacterId = {}, onCreate, onEnter, onConfigureLobby }: CharacterGalleryProps) {
   const cardFields = [...fields].filter((field) => field.show_on_card).sort((a, b) => a.position - b.position);
   return (
     <main className="character-entry-page">
@@ -41,15 +49,23 @@ export function CharacterGallery({ systemName, system, fields, characters, selec
         <section className="character-empty-state"><span aria-hidden="true" className="character-empty-die">✦</span><h2>Este mundo ainda está sem personagens</h2><p>Crie seu primeiro personagem usando a ficha de {systemName}.</p><button className="character-primary-button" type="button" onClick={onCreate}>Criar personagem</button></section>
       ) : (
         <div className="character-grid">
-          {characters.map((character) => (
-            <article className={`character-card ${selectedCharacterId === character.id ? 'character-card-selected' : ''}`} key={character.id}>
-              <div className="character-card-avatar" aria-hidden="true">{character.character_name.slice(0, 1).toUpperCase()}</div>
-              <div className="character-card-content"><span className="character-card-system">{selectedCharacterId === character.id ? 'PERSONAGEM CRIADO' : 'PERSONAGEM'}</span><h2>{character.character_name}</h2>
-                {cardFields.length > 0 && <dl>{cardFields.map((field) => <div key={field.key}><dt>{field.label}</dt><dd>{formatCharacterSheetValue(field, character.attributes[field.key])}</dd></div>)}</dl>}
-              </div>
-              <button className="character-primary-button" type="button" aria-label={`Entrar com ${character.character_name}`} onClick={() => onEnter(character.id)}>Entrar na aventura <span aria-hidden="true">→</span></button>
-            </article>
-          ))}
+          {characters.map((character) => {
+            const cardField = cardFields.find((field) => {
+              const value = formatCharacterSheetValue(field, character.attributes[field.key]);
+              return value !== '—' && value.trim() !== '';
+            });
+            return (
+              <article className={`character-card ${selectedCharacterId === character.id ? 'character-card-selected' : ''}`} key={character.id}>
+                <span className="character-card-rune" aria-hidden="true">{characterRune(character.id)}</span>
+                {cardField && <p className="character-card-detail"><span className="character-card-detail-label">{cardField.label}</span><span className="character-card-detail-value">{formatCharacterSheetValue(cardField, character.attributes[cardField.key])}</span></p>}
+                <h2>{character.character_name}</h2>
+                {experienceByCharacterId[character.id] !== undefined && <span className="character-card-level">Nível {experienceByCharacterId[character.id]}</span>}
+                <button className="character-portal-button" type="button" aria-label={`Entrar com ${character.character_name}`} onClick={() => onEnter(character.id)}>
+                  <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" /><ellipse cx="16" cy="16" rx="7" ry="10" /><path d="M16 1.5v3M16 27.5v3M1.5 16h3M27.5 16h3M2.8 5.8l2.1 2.1M27.2 5.8l-2.1 2.1M2.8 26.2l2.1-2.1M27.2 26.2l-2.1-2.1M5 16h11m0 0-3-3m3 3-3 3" /></svg>
+                </button>
+              </article>
+            );
+          })}
         </div>
       )}
       <button className="character-secondary-button" type="button" onClick={onCreate}>+ Criar personagem</button>

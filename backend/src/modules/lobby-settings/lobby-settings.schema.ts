@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const lobbySectionIds = ['system-presentation', 'matchmaking', 'store', 'campaign-chat', 'events', 'character-sheet'] as const;
+export const lobbySectionIds = ['system-presentation', 'matchmaking', 'store', 'chat', 'events', 'character-sheet'] as const;
 const lobbySectionIdSchema = z.enum(lobbySectionIds);
 
 export const lobbySettingsSchema = z.strictObject({

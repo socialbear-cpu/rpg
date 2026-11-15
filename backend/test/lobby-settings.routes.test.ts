@@ -47,7 +47,7 @@ async function request(method: 'GET' | 'PUT', path: string, payload?: unknown) {
 const memberPath = `/api/v1/game-systems/${systemId}/lobby-settings`;
 const ownerPath = `/api/v1/owner/game-systems/${systemId}/lobby-settings`;
 const settings = {
-  section_order: ['system-presentation', 'campaign-chat', 'store', 'events', 'matchmaking', 'character-sheet'],
+  section_order: ['system-presentation', 'chat', 'store', 'events', 'matchmaking', 'character-sheet'],
   hidden_sections: ['matchmaking'],
   welcome_title: 'Bem-vindos à Floresta',
   welcome_message: 'Preparem seus personagens.',
@@ -59,7 +59,7 @@ describe('lobby settings API', () => {
     const response = await request('GET', memberPath);
     expect(response.statusCode).toBe(200);
     expect(response.json().settings).toEqual({
-      section_order: ['system-presentation', 'matchmaking', 'store', 'campaign-chat', 'events', 'character-sheet'],
+      section_order: ['system-presentation', 'matchmaking', 'store', 'chat', 'events', 'character-sheet'],
       hidden_sections: [],
       welcome_title: 'Bem-vindo à aventura',
       welcome_message: 'Escolha onde sua próxima história começa.',
