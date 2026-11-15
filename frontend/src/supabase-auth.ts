@@ -7,6 +7,10 @@ type RpgSessionRuntime = typeof globalThis & { __rpgAccessToken?: string | null 
 const sessionRuntime = globalThis as RpgSessionRuntime;
 const pendingDeletionStorageKey = 'rpg.pending-system-deletion';
 
+function authRedirectUrl() {
+  return config.appUrl || window.location.origin;
+}
+
 export interface PendingSystemDeletion {
   systemId: string;
   systemName: string;
@@ -54,7 +58,7 @@ export async function sendDeletionEmailLink(systemId: string, systemName: string
   const pending: PendingSystemDeletion = { systemId, systemName, userId: user.id };
   localStorage.setItem(pendingDeletionStorageKey, JSON.stringify(pending));
   try {
-    const redirectTo = encodeURIComponent(window.location.origin);
+    const redirectTo = encodeURIComponent(authRedirectUrl());
     await authRequest(`/otp?redirect_to=${redirectTo}`, { email: user.email, create_user: false });
   } catch (error) {
     localStorage.removeItem(pendingDeletionStorageKey);
@@ -87,7 +91,7 @@ export async function getCurrentAuthUser() {
 }
 
 export async function signUp({ email, password, displayName }: { email: string; password: string; displayName: string }) {
-  const redirectTo = encodeURIComponent(window.location.origin);
+  const redirectTo = encodeURIComponent(authRedirectUrl());
   const data = await authRequest(`/signup?redirect_to=${redirectTo}`, { email, password, data: { display_name: displayName } });
   setSession(data);
   return data;
@@ -109,7 +113,7 @@ export async function signOut() {
 }
 
 export async function requestPasswordReset(email: string) {
-  const redirectTo = encodeURIComponent(window.location.origin);
+  const redirectTo = encodeURIComponent(authRedirectUrl());
   return authRequest(`/recover?redirect_to=${redirectTo}`, { email });
 }
 

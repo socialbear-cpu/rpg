@@ -26,3 +26,7 @@ enable_signup = true
 enable_signup = true
 double_confirm_changes = true
 enable_confirmations = true
+
+[auth.email.template.magic_link]
+subject = "Confirme sua identidade para excluir um sistema | Nexus RPG"
+content_path = "./supabase/templates/system-deletion-magic-link.html"

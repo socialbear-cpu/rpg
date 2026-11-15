@@ -27,6 +27,10 @@ O arquivo `../vercel.json` define um único serviço `frontend`, com framework N
 
 Configure a URL do projeto Supabase e a chave publishable nos ambientes Production, Preview e Development do projeto Vercel. São aceitos os nomes `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` e os nomes existentes `SUPABASE_URL` / `SUPABASE_PUBLISHABLE_KEY`. O domínio de produção e os domínios Preview usados nos fluxos de confirmação e recuperação também precisam estar permitidos no Supabase Auth.
 
+Links de autenticação enviados por e-mail usam `NEXT_PUBLIC_APP_URL` quando configurada; no Vercel, o domínio de produção do projeto (`VERCEL_PROJECT_PRODUCTION_URL`) é usado automaticamente. Configure `NEXT_PUBLIC_APP_URL` com o domínio público permanente caso o domínio de produção não esteja disponível. A origem atual do navegador fica como fallback para desenvolvimento local.
+
+O link de confirmação para exclusão usa o modelo personalizado em `../supabase/templates/system-deletion-magic-link.html`. O `supabase/config.toml` aplica esse modelo no Supabase local. Para o projeto hospedado, copie o assunto e o HTML para **Authentication → Email Templates → Magic Link** no Dashboard do Supabase. Esse modelo é compartilhado por qualquer fluxo de magic link habilitado no projeto.
+
 TypeScript está fixado em 5.9.3 no frontend.
 
 ## Login diário
