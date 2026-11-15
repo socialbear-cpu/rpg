@@ -4,7 +4,7 @@
 .character-back-link { display: inline-block; margin-bottom: 36px; color: #c4b5df; text-decoration: none; }
 .character-entry-heading { margin-bottom: 30px; }
 .character-gallery-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.character-management-button { flex-shrink: 0; }
+.character-lobby-settings-button { flex-shrink: 0; }
 .character-entry-eyebrow, .character-card-system { color: #ab8be0; font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 .character-entry-heading h1 { margin: 8px 0; font-size: clamp(28px, 4vw, 42px); }
 .character-entry-heading p { color: #afa6ba; }

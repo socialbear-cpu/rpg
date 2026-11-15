@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import type { SystemLobbySettings } from '../src/api.js';
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }) }));
 import { CharacterHome } from '../src/features/characters/character-home.js';
+import { LobbyCustomizationForm } from '../src/features/characters/lobby-customization-form.js';
 import { SystemEventsList } from '../src/features/system-events/system-events-card.js';
 
 const system = { id: '31000000-0000-4000-8000-000000000001', slug: 'forest', name: 'Floresta', description: null };
@@ -69,7 +70,7 @@ describe('lobby creator tools', () => {
     expect(html).toContain('Bem-vindos à Floresta');
     expect(html).toContain('Preparem seus personagens.');
     expect(html).toContain('--lobby-accent:#D946EF');
-    expect(html.indexOf('Salas de bate-papo')).toBeLessThan(html.indexOf('AGENDA DO SISTEMA'));
+    expect(html.indexOf('Salas de bate-papo')).toBeLessThan(html.indexOf('Eventos'));
     expect(html).not.toContain('Loja do sistema');
     expect(html).not.toContain('Procurar partida');
   });
@@ -79,6 +80,21 @@ describe('lobby creator tools', () => {
     const hiddenHtml = renderLobby(true, { ...defaultSettings, hidden_sections: ['campaign-chat'] });
     expect(visibleHtml).toContain('Criar uma sala de chat');
     expect(hiddenHtml).not.toContain('Criar uma sala de chat');
+  });
+});
+
+describe('lobby customization form', () => {
+  it('renders the standalone settings without requiring a character', () => {
+    const html = renderToStaticMarkup(createElement(LobbyCustomizationForm, {
+      system: { ...system, is_public: true, play_mode: 'text', tags: [] },
+      settings: defaultSettings,
+      onSettingsSaved: vi.fn(),
+      onSystemSaved: vi.fn(),
+    }));
+
+    expect(html).toContain('Título de boas-vindas');
+    expect(html).toContain('Seções do saguão');
+    expect(html).toContain('Salvar personalização');
   });
 });
 

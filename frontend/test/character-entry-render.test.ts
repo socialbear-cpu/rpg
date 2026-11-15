@@ -46,7 +46,7 @@ describe('character entry', () => {
     expect(html).toContain('Terror');
   });
 
-  it('shows the system management action only when the owner provides it', () => {
+  it('shows the lobby configuration action only when the owner provides it', () => {
     const props = {
       systemName: 'Crônicas',
       fields,
@@ -54,11 +54,11 @@ describe('character entry', () => {
       onCreate: vi.fn(),
       onEnter: vi.fn(),
     };
-    const ownerHtml = renderToStaticMarkup(createElement(CharacterGallery, { ...props, onManage: vi.fn() }));
+    const ownerHtml = renderToStaticMarkup(createElement(CharacterGallery, { ...props, onConfigureLobby: vi.fn() }));
     const playerHtml = renderToStaticMarkup(createElement(CharacterGallery, props));
 
-    expect(ownerHtml).toContain('Gerenciar sistema');
-    expect(playerHtml).not.toContain('Gerenciar sistema');
+    expect(ownerHtml).toContain('Configurar saguão');
+    expect(playerHtml).not.toContain('Configurar saguão');
   });
 
   it('starts the wizard with the required character-name page', () => {
