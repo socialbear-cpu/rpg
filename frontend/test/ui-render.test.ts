@@ -66,9 +66,11 @@ describe('account card', () => {
 describe('profile card', () => {
   it('renders profile fields and actions disabled while signed out', () => {
     const html = renderToStaticMarkup(createElement(ProfileCard, {
-      profile: { username: 'rpg_player', displayName: '', avatarUrl: '', bio: '' },
+      profile: { username: 'rpg_player', displayName: '', avatarUrl: '', bannerUrl: '', bio: '', status: '', interests: '' },
       authenticated: false,
       profileBusy: false,
+      previewing: false,
+      onTogglePreview: () => {},
       onProfileChange: () => {},
       onLoadProfile: () => {},
       onSaveProfile: () => {},
@@ -90,9 +92,11 @@ describe('profile card', () => {
 
   it('enables profile inputs and keeps save disabled while busy', () => {
     const html = renderToStaticMarkup(createElement(ProfileCard, {
-      profile: { username: 'rpg_player', displayName: 'RPG Player', avatarUrl: '', bio: '' },
+      profile: { username: 'rpg_player', displayName: 'RPG Player', avatarUrl: '', bannerUrl: '', bio: '', status: '', interests: '' },
       authenticated: true,
       profileBusy: true,
+      previewing: false,
+      onTogglePreview: () => {},
       onProfileChange: () => {},
       onLoadProfile: () => {},
       onSaveProfile: () => {},

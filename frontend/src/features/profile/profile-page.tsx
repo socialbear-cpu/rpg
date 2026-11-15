@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { getMyProfile, updateMyProfile, type Profile } from '../../api';
+import { getMyProfile, updateMyProfile, type Profile, type ProfilePatch } from '../../api';
 import { hasSession } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
 import { ProfileCard, type ProfileFields } from './profile-card';
@@ -12,7 +12,10 @@ function profileFields(profile: Profile): ProfileFields {
     username: profile.username,
     displayName: profile.display_name,
     avatarUrl: profile.avatar_url ?? '',
+    bannerUrl: profile.banner_url ?? '',
     bio: profile.bio ?? '',
+    status: profile.status ?? '',
+    interests: profile.interests.join(', '),
   };
 }
 
@@ -25,6 +28,7 @@ export function ProfilePage() {
   const [message, setMessage] = useState<string | null>(null);
   const [messageIsError, setMessageIsError] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
+  const [previewing, setPreviewing] = useState(false);
 
   useEffect(() => {
     if (!hasSession()) {
@@ -52,11 +56,15 @@ export function ProfilePage() {
     setSaving(true);
     setMessage(null);
     try {
-      const updated = await updateMyProfile({
+      const patch: ProfilePatch = {
         display_name: profile.displayName,
         avatar_url: profile.avatarUrl.trim() || null,
+        banner_url: profile.bannerUrl.trim() || null,
         bio: profile.bio || null,
-      });
+        status: profile.status.trim() || null,
+        interests: profile.interests.split(',').map((interest) => interest.trim()).filter(Boolean),
+      };
+      const updated = await updateMyProfile(patch);
       setProfile(profileFields(updated));
       setMessage('Perfil atualizado.');
       setMessageIsError(false);
@@ -73,6 +81,7 @@ export function ProfilePage() {
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status">{message}</p>}
     {loading ? <p role="status">Carregando perfil…</p> : profile ? <ProfileCard
       profile={profile} authenticated profileBusy={saving}
+      previewing={previewing} onTogglePreview={() => setPreviewing((value) => !value)}
       onProfileChange={(field, value) => setProfile((current) => current ? { ...current, [field]: value } : current)}
       onLoadProfile={() => setReloadKey((key) => key + 1)}
       onSaveProfile={(event) => { void saveProfile(event); }}

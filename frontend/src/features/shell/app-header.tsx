@@ -113,7 +113,7 @@ export function AppHeader({ activeItem = 'Meus Sistemas', backHref, backLabel = 
             </div>
             <nav className="app-header-profile-options" aria-label="Opções do perfil">
               <Link href="/profile">Meu perfil <span aria-hidden="true">↗</span></Link>
-              <button type="button" disabled>Configurações <small>Em breve</small></button>
+              <Link href="/account-settings">Configurações <span aria-hidden="true">↗</span></Link>
               <button type="button" className="app-header-logout" onClick={() => void logout()}>Sair da conta</button>
             </nav>
             <section className="app-header-character-sheet" aria-label="Ficha completa do personagem">

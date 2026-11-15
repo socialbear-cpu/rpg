@@ -6,6 +6,7 @@ import { config } from './config';
 type RpgSessionRuntime = typeof globalThis & { __rpgAccessToken?: string | null };
 const sessionRuntime = globalThis as RpgSessionRuntime;
 const pendingDeletionStorageKey = 'rpg.pending-system-deletion';
+const pendingAccountActionStorageKey = 'rpg.pending-account-action';
 
 function authRedirectUrl() {
   return config.appUrl || window.location.origin;
@@ -16,6 +17,16 @@ export interface PendingSystemDeletion {
   systemName: string;
   userId: string;
 }
+
+export type PendingAccountAction =
+  | { kind: 'profile-update'; userId: string; patch: { display_name?: string; avatar_url?: string | null; banner_url?: string | null; bio?: string | null; status?: string | null; interests?: string[]; phone?: string | null } }
+  | { kind: 'password-change' | 'deactivate' | 'reactivate' | 'delete'; userId: string }
+  | { kind: 'request-transfer'; userId: string; systemId: string; targetUserId: string }
+  | { kind: 'cancel-transfer'; userId: string; transferId: string }
+  | { kind: 'accept-transfer'; userId: string; transferId: string };
+export type PendingAccountActionInput = PendingAccountAction extends infer Action
+  ? Action extends { userId: string } ? Omit<Action, 'userId'> : never
+  : never;
 
 type AuthResponse = {
   access_token?: string;
@@ -80,6 +91,75 @@ export function readPendingSystemDeletion(): PendingSystemDeletion | null {
 
 export function clearPendingSystemDeletion() {
   localStorage.removeItem(pendingDeletionStorageKey);
+}
+
+export async function sendAccountConfirmationEmail(
+  action: PendingAccountActionInput,
+) {
+  const user = await getCurrentAuthUser();
+  if (!user.email) throw new Error('Sua conta não tem um e-mail disponível para confirmação.');
+  const pending = { ...action, userId: user.id } as PendingAccountAction;
+  localStorage.setItem(pendingAccountActionStorageKey, JSON.stringify(pending));
+  try {
+    const redirectTo = encodeURIComponent(`${authRedirectUrl().replace(/\/$/, '')}/account-settings`);
+    await authRequest(`/otp?redirect_to=${redirectTo}`, { email: user.email, create_user: false });
+  } catch (error) {
+    localStorage.removeItem(pendingAccountActionStorageKey);
+    throw error;
+  }
+}
+
+export function readPendingAccountAction(): PendingAccountAction | null {
+  const raw = localStorage.getItem(pendingAccountActionStorageKey);
+  if (!raw) return null;
+  try {
+    const value = JSON.parse(raw) as Record<string, unknown>;
+    if (typeof value.userId !== 'string') return null;
+    if (value.kind === 'profile-update' && typeof value.patch === 'object' && value.patch !== null) {
+      const patch = value.patch as Record<string, unknown>;
+      const keys = Object.keys(patch);
+      if (keys.length === 0 || keys.some((key) => !['display_name', 'avatar_url', 'banner_url', 'bio', 'status', 'interests', 'phone'].includes(key))) return null;
+      if (('display_name' in patch && typeof patch.display_name !== 'string')
+        || ('avatar_url' in patch && patch.avatar_url !== null && typeof patch.avatar_url !== 'string')
+        || ('banner_url' in patch && patch.banner_url !== null && typeof patch.banner_url !== 'string')
+        || ('bio' in patch && patch.bio !== null && typeof patch.bio !== 'string')
+        || ('status' in patch && patch.status !== null && typeof patch.status !== 'string')
+        || ('interests' in patch && (!Array.isArray(patch.interests) || patch.interests.some((interest) => typeof interest !== 'string')))
+        || ('phone' in patch && patch.phone !== null && typeof patch.phone !== 'string')) return null;
+      return {
+        kind: value.kind,
+        userId: value.userId,
+        patch: {
+          ...('display_name' in patch ? { display_name: patch.display_name as string } : {}),
+          ...('avatar_url' in patch ? { avatar_url: patch.avatar_url as string | null } : {}),
+          ...('banner_url' in patch ? { banner_url: patch.banner_url as string | null } : {}),
+          ...('bio' in patch ? { bio: patch.bio as string | null } : {}),
+          ...('status' in patch ? { status: patch.status as string | null } : {}),
+          ...('interests' in patch ? { interests: patch.interests as string[] } : {}),
+          ...('phone' in patch ? { phone: patch.phone as string | null } : {}),
+        },
+      };
+    }
+    if (['password-change', 'deactivate', 'reactivate', 'delete'].includes(String(value.kind))) {
+      return { kind: value.kind as 'password-change' | 'deactivate' | 'reactivate' | 'delete', userId: value.userId };
+    }
+    if (value.kind === 'request-transfer' && typeof value.systemId === 'string' && typeof value.targetUserId === 'string') {
+      return { kind: value.kind, userId: value.userId, systemId: value.systemId, targetUserId: value.targetUserId };
+    }
+    if (value.kind === 'accept-transfer' && typeof value.transferId === 'string') {
+      return { kind: value.kind, userId: value.userId, transferId: value.transferId };
+    }
+    if (value.kind === 'cancel-transfer' && typeof value.transferId === 'string') {
+      return { kind: value.kind, userId: value.userId, transferId: value.transferId };
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export function clearPendingAccountAction() {
+  localStorage.removeItem(pendingAccountActionStorageKey);
 }
 
 export async function getCurrentAuthUser() {

@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Profile, ProfilePatch } from './profile.schema.js';
 
-const columns = 'user_id,username,display_name,avatar_url,bio';
+const columns = 'user_id,username,display_name,avatar_url,banner_url,bio,status,interests,phone';
 
 // The caller supplies the verified identity and its bearer-scoped client.
 // Explicit ownership filters supplement (and do not replace) database RLS.
@@ -14,11 +14,10 @@ export async function readProfile(client: SupabaseClient, userId: string): Promi
 
 export async function updateProfile(
   client: SupabaseClient, userId: string, patch: ProfilePatch,
-): Promise<Profile | null> {
-  const { data, error } = await client.from('user_profiles')
-    .update(patch).eq('user_id', userId).select(columns).maybeSingle<Profile>();
+): Promise<{ status: string; profile?: Profile }> {
+  const { data, error } = await client.rpc('update_my_account_profile', { p_patch: patch });
   if (error) throw error;
-  return data;
+  return data as { status: string; profile?: Profile };
 }
 
 export async function claimUsername(

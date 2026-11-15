@@ -62,6 +62,7 @@ export async function profileRoutes(app: FastifyInstance) {
       response: {
         ...options.schema.response,
         400: { ...errorSchema, description: 'Invalid profile patch: supply at least one supported field within its limits.' },
+        403: { ...errorSchema, description: 'Recent email confirmation is required to update the profile.' },
         409: { ...errorSchema, description: 'The nick is already in use or the profile already chose one.' },
       },
     },
@@ -76,7 +77,11 @@ export async function profileRoutes(app: FastifyInstance) {
             display_name: { type: 'string', minLength: 1, description: 'Trimmed before checking the 1–80 character limit; whitespace-only names are invalid.' },
             username: { type: 'string', minLength: 3, maxLength: 20, pattern: '^[a-zA-Z0-9_]+$', description: 'A unique nick; letters are case-insensitive and the selected value cannot be changed.' },
             avatar_url: { type: ['string', 'null'], maxLength: 2048, format: 'uri', pattern: '^[hH][tT][tT][pP][sS]?://', description: 'HTTP(S) URL, or null to clear.' },
+            banner_url: { type: ['string', 'null'], maxLength: 2048, format: 'uri', pattern: '^[hH][tT][tT][pP][sS]?://', description: 'HTTP(S) URL, or null to clear.' },
             bio: { type: ['string', 'null'], maxLength: 500, description: 'Profile bio, or null to clear.' },
+            status: { type: ['string', 'null'], maxLength: 120, description: 'Short public profile status.' },
+            interests: { type: 'array', maxItems: 12, items: { type: 'string', minLength: 1, maxLength: 40 } },
+            phone: { type: ['string', 'null'], maxLength: 32, description: 'Optional phone number, or null to clear.' },
           },
         },
       } }),
@@ -92,6 +97,14 @@ export async function profileRoutes(app: FastifyInstance) {
         () => readProfile(request.supabase!, request.userId!),
       );
     }
-    return respondWithProfile(reply, () => updateProfile(request.supabase!, request.userId!, parsed.data));
+    try {
+      const result = await updateProfile(request.supabase!, request.userId!, parsed.data);
+      if (result.status === 'email_confirmation_required') return reply.code(403).send({ error: 'Confirme sua identidade pelo link enviado ao e-mail antes de alterar o perfil.' });
+      if (result.status === 'not_found') return reply.code(404).send({ error: 'Profile not found' });
+      if (result.status !== 'updated' || !result.profile) return reply.code(500).send({ error: 'Unable to access profile' });
+      return reply.send(result.profile);
+    } catch {
+      return reply.code(500).send({ error: 'Unable to access profile' });
+    }
   });
 }

@@ -6,14 +6,74 @@ export interface Profile {
   username: string | null;
   display_name: string;
   avatar_url: string | null;
+  banner_url: string | null;
   bio: string | null;
+  status: string | null;
+  interests: string[];
+  phone: string | null;
 }
 
 export interface ProfilePatch {
   username?: string;
   display_name?: string;
   avatar_url?: string | null;
+  banner_url?: string | null;
   bio?: string | null;
+  status?: string | null;
+  interests?: string[];
+  phone?: string | null;
+}
+
+export interface MyAccountSettings {
+  user_id: string;
+  email: string | null;
+  is_active: boolean;
+  profile: Pick<Profile, 'username' | 'display_name' | 'phone'>;
+  owned_systems: {
+    id: string;
+    name: string;
+    pending_transfer_id: string | null;
+    pending_target_user_id: string | null;
+    pending_target_display_name: string | null;
+    candidates: { user_id: string; display_name: string }[];
+  }[];
+  incoming_transfers: {
+    id: string;
+    system_id: string;
+    system_name: string;
+    from_display_name: string;
+  }[];
+}
+
+export function getMyAccountSettings() {
+  return authenticatedRequest<MyAccountSettings>('/api/v1/me/account');
+}
+
+export function deactivateMyAccount() {
+  return authenticatedRequest<{ status: 'deactivated' }>('/api/v1/me/account/deactivate', { method: 'POST' });
+}
+
+export function reactivateMyAccount() {
+  return authenticatedRequest<{ status: 'activated' }>('/api/v1/me/account/reactivate', { method: 'POST' });
+}
+
+export function deleteMyAccount() {
+  return authenticatedRequest<{ status: 'deleted' }>('/api/v1/me/account', { method: 'DELETE' });
+}
+
+export function requestSystemOwnerTransfer(systemId: string, targetUserId: string) {
+  return authenticatedRequest<{ status: 'created'; transfer_id: string }>('/api/v1/me/account/owner-transfers', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system_id: systemId, target_user_id: targetUserId }),
+  });
+}
+
+export function acceptSystemOwnerTransfer(transferId: string) {
+  return authenticatedRequest<{ status: 'accepted' }>(`/api/v1/me/account/owner-transfers/${encodeURIComponent(transferId)}/accept`, { method: 'POST' });
+}
+
+export function cancelSystemOwnerTransfer(transferId: string) {
+  return authenticatedRequest<{ status: 'cancelled' }>(`/api/v1/me/account/owner-transfers/${encodeURIComponent(transferId)}/cancel`, { method: 'POST' });
 }
 
 export type CharacterSheetFieldType = 'short_text' | 'long_text' | 'number' | 'single_select';
