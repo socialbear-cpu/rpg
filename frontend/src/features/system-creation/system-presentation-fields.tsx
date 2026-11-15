@@ -63,7 +63,6 @@ export function SystemPresentationFields({
   return <section className="system-presentation-fields" aria-label="Apresentação do sistema">
     {showModeAndTags && <fieldset className="system-presentation-mode">
       <legend>Modalidade principal</legend>
-      <p>Indique como as sessões deste RPG acontecem principalmente.</p>
       <div>
         <label><input type="radio" name="game-system-play-mode" value="text" checked={playMode === 'text'} onChange={() => onPlayModeChange('text')} /> Texto</label>
         <label><input type="radio" name="game-system-play-mode" value="voice" checked={playMode === 'voice'} onChange={() => onPlayModeChange('voice')} /> Voz</label>

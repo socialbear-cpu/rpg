@@ -49,7 +49,6 @@ export function SystemSheetEditor({ systemId, systemName, onCancel, onSaved }: S
   }
 
   return <div className="system-sheet-editor">
-    <span className="sheet-builder-eyebrow">{systemName}</span>
     <h3>Editar ficha de personagem</h3>
     {definition ? <>
       <CharacterSheetBuilder definition={definition} onChange={(next) => { setDefinition(next); setSaved(false); }} />
