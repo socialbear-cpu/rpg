@@ -80,7 +80,7 @@ describe('profile card', () => {
     expect(html).toContain('id="profile-avatar"');
     expect(html).toContain('id="profile-bio"');
     expect(html).toContain('@rpg_player');
-    expect(html).toContain('O nick não poderá ser alterado depois.');
+    expect(html).toContain('Depois de escolher, você poderá trocar seu @ uma única vez.');
     expect(html).not.toContain('name="username"');
     expect(html).toContain('id="load-profile"');
     expect(html).toContain('id="save-profile"');

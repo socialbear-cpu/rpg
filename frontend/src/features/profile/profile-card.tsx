@@ -62,7 +62,7 @@ export function ProfileCard({
       </section> : <>
       <p className="card-copy">Atualize seu nome, avatar e uma breve apresentação.</p>
       <form className="form" autoComplete="off" onSubmit={onSaveProfile}>
-        <label>Nick<output id="profile-username">{profile.username ? `@${profile.username}` : 'Ainda não escolhido'}</output><span className="field-hint">O nick não poderá ser alterado depois.</span></label>
+        <label>Nick<output id="profile-username">{profile.username ? `@${profile.username}` : 'Ainda não escolhido'}</output><span className="field-hint">Depois de escolher, você poderá trocar seu @ uma única vez.</span></label>
         <label>Nome de exibição<input id="profile-name" value={profile.displayName} onChange={(event) => onProfileChange('displayName', event.target.value)} name="display_name" type="text" maxLength={80} placeholder="Seu nome público" disabled={!authenticated} /></label>
         <label>URL do avatar<input id="profile-avatar" value={profile.avatarUrl} onChange={(event) => onProfileChange('avatarUrl', event.target.value)} name="avatar_url" type="url" maxLength={2048} placeholder="https://… ou vazio" disabled={!authenticated} /></label>
         <label>URL do banner<input id="profile-banner" value={profile.bannerUrl} onChange={(event) => onProfileChange('bannerUrl', event.target.value)} name="banner_url" type="url" maxLength={2048} placeholder="Imagem de capa pública (opcional)" disabled={!authenticated} /></label>

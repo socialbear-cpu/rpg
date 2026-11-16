@@ -10,7 +10,7 @@ describe('first-access username setup', () => {
     expect(html).toContain('PRIMEIRO ACESSO');
     expect(html).toContain('id="username-setup-input"');
     expect(html).toContain('aria-hidden="true">@</span>');
-    expect(html).toContain('O nick não poderá ser alterado depois.');
+    expect(html).toContain('Depois de escolher, você poderá trocar seu @ uma única vez.');
     expect(html).toContain('disabled="">Continuar</button>');
   });
 });

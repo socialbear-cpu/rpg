@@ -18,6 +18,7 @@ export type ProfilePatch = z.infer<typeof profilePatchSchema>;
 export interface Profile {
   user_id: string;
   username: string | null;
+  username_change_used: boolean;
   display_name: string;
   avatar_url: string | null;
   banner_url: string | null;
@@ -29,11 +30,12 @@ export interface Profile {
 
 export const profileResponseSchema = {
   type: 'object',
-  required: ['user_id', 'username', 'display_name', 'avatar_url', 'banner_url', 'bio', 'status', 'interests', 'phone'],
+  required: ['user_id', 'username', 'username_change_used', 'display_name', 'avatar_url', 'banner_url', 'bio', 'status', 'interests', 'phone'],
   additionalProperties: false,
   properties: {
     user_id: { type: 'string', format: 'uuid' },
     username: { type: ['string', 'null'], minLength: 3, maxLength: 20, pattern: '^[a-z0-9_]+$' },
+    username_change_used: { type: 'boolean' },
     display_name: { type: 'string' },
     avatar_url: { type: ['string', 'null'] },
     banner_url: { type: ['string', 'null'] },

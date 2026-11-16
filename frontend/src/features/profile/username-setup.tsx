@@ -53,7 +53,7 @@ export function UsernameSetup({ onSubmit }: UsernameSetupProps) {
             />
           </div>
           <p id="username-setup-hint" className="username-setup-hint">
-            Use de 3 a 20 letras, números ou _. O nick não poderá ser alterado depois.
+            Use de 3 a 20 letras, números ou _. Depois de escolher, você poderá trocar seu @ uma única vez.
           </p>
           {error && <p className="username-setup-error" role="alert">{error}</p>}
           <button type="submit" disabled={!validUsername || saving}>

@@ -4,6 +4,7 @@ import { config } from './config';
 export interface Profile {
   user_id: string;
   username: string | null;
+  username_change_used: boolean;
   display_name: string;
   avatar_url: string | null;
   banner_url: string | null;
@@ -22,7 +23,7 @@ export interface SocialInvitationItem {
   username: string; display_name: string; created_at: string; status: string; inviter_user_id?: string; invitee_user_id?: string;
 }
 export interface SocialInvitationList { owner_approvals: SocialInvitationItem[]; recipient_invitations: SocialInvitationItem[]; }
-export interface PublicPlayerProfile extends Omit<Profile, 'phone' | 'username'> { username: string; }
+export interface PublicPlayerProfile extends Omit<Profile, 'phone' | 'username' | 'username_change_used'> { username: string; }
 export interface PublicPlayerSystem { id: string; name: string; description: string | null; }
 export interface ProfileComment { id: string; content: string; created_at: string; author_user_id: string; author_username: string; author_display_name: string; author_avatar_url: string | null; }
 export interface DirectMessage { id: string; sender_user_id: string; recipient_user_id: string; content: string; created_at: string; }

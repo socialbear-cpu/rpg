@@ -5,7 +5,7 @@ import { invalidPatches } from './fixtures/profile.js';
 const ownerId = 'a72adcaf-9d23-46cc-b312-5fbe7fb6214b';
 const otherId = 'eca3f0d5-b21d-4b7e-b5ea-ad8ed5f70c6b';
 const authorization = 'Bearer accepted-token';
-let rows: { user_id: string; username: string | null; display_name: string; avatar_url: string | null; bio: string | null }[];
+let rows: { user_id: string; username: string | null; username_change_used: boolean; display_name: string; avatar_url: string | null; banner_url: string | null; bio: string | null; status: string | null; interests: string[]; phone: string | null }[];
 let requests: { url: URL; method: string; headers: Headers; body: unknown }[];
 let databaseFails: boolean;
 let authFails: boolean;
@@ -14,8 +14,8 @@ beforeEach(() => {
   vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
   vi.stubEnv('SUPABASE_PUBLISHABLE_KEY', 'sb_publishable_test');
   rows = [
-    { user_id: ownerId, username: null, display_name: 'Owner', avatar_url: null, bio: null },
-    { user_id: otherId, username: null, display_name: 'Other', avatar_url: null, bio: 'Private' },
+    { user_id: ownerId, username: null, username_change_used: false, display_name: 'Owner', avatar_url: null, banner_url: null, bio: null, status: null, interests: [], phone: null },
+    { user_id: otherId, username: null, username_change_used: false, display_name: 'Other', avatar_url: null, banner_url: null, bio: 'Private', status: null, interests: [], phone: null },
   ];
   requests = [];
   databaseFails = false;
@@ -35,6 +35,14 @@ beforeEach(() => {
         created_at: '2026-01-01T00:00:00Z',
       });
     }
+    if (url.pathname === '/rest/v1/rpc/get_my_account_status') return Response.json(true);
+    if (url.pathname === '/rest/v1/rpc/update_my_account_profile') {
+      if (databaseFails) return Response.json({ code: '42501', message: 'private database detail' }, { status: 403 });
+      const owner = rows.find((row) => row.user_id === ownerId);
+      if (!owner) return Response.json({ status: 'not_found' });
+      Object.assign(owner, (body as { p_patch: object }).p_patch);
+      return Response.json({ status: 'updated' });
+    }
     if (url.pathname !== '/rest/v1/user_profiles') throw new Error(`Unexpected request: ${url}`);
     if (databaseFails) return Response.json({ code: '42501', message: 'private database detail' }, { status: 403 });
     // Filter by the actual emitted query, without simulating RLS: this catches
@@ -46,6 +54,12 @@ beforeEach(() => {
       const username = (body as { username?: string }).username;
       if (username && rows.some((row) => row.user_id !== ownerId && row.username === username)) {
         return Response.json({ code: '23505', message: 'duplicate key' }, { status: 409 });
+      }
+      if (username && selected.some((row) => row.username !== username && row.username !== null && row.username_change_used)) {
+        return Response.json({ code: '23514', message: 'Profile nick can only be changed once' }, { status: 409 });
+      }
+      if (username) for (const row of selected) {
+        if (row.username !== username && row.username !== null) row.username_change_used = true;
       }
       for (const row of selected) Object.assign(row, body);
     }
@@ -81,17 +95,17 @@ describe('profile API', () => {
   it.each(['GET', 'PATCH'] as const)('rejects an invalid token for %s before database access', async (method) => {
     authFails = true;
     expect((await request(method, { bio: 'Edit' })).statusCode).toBe(401);
-    expect(requests.filter(({ url }) => url.pathname.startsWith('/rest/'))).toHaveLength(0);
+    expect(requests.filter(({ url }) => url.pathname === '/rest/v1/user_profiles')).toHaveLength(0);
   });
 
   it('reads only the verified owner, ignoring caller-supplied identities', async () => {
     const response = await request('GET', undefined, true, `?user_id=${otherId}`);
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toEqual({ user_id: ownerId, username: null, display_name: 'Owner', avatar_url: null, bio: null });
-    const db = requests.filter(({ url }) => url.pathname.startsWith('/rest/'));
+    expect(response.json()).toEqual(rows[0]);
+    const db = requests.filter(({ url }) => url.pathname === '/rest/v1/user_profiles');
     expect(db).toHaveLength(1);
     expect(db[0]!.url.searchParams.get('user_id')).toBe(`eq.${ownerId}`);
-    expect(db[0]!.url.searchParams.get('select')).toBe('user_id,username,display_name,avatar_url,bio');
+    expect(db[0]!.url.searchParams.get('select')).toBe('user_id,username,username_change_used,display_name,avatar_url,banner_url,bio,status,interests,phone');
     expect(db[0]!.headers.get('authorization')).toBe(authorization);
     expect(db[0]!.headers.get('apikey')).toBe('sb_publishable_test');
   });
@@ -101,11 +115,11 @@ describe('profile API', () => {
       display_name: ` ${'x'.repeat(length)} `, bio: 'b'.repeat(500), avatar_url: 'https://example.com/a.png',
     }, true, `?user_id=${otherId}`);
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toEqual({ user_id: ownerId, username: null, display_name: 'x'.repeat(length), bio: 'b'.repeat(500), avatar_url: 'https://example.com/a.png' });
+    expect(response.json()).toEqual({ ...rows[0], display_name: 'x'.repeat(length), bio: 'b'.repeat(500), avatar_url: 'https://example.com/a.png' });
     expect((await request('PATCH', { bio: null, avatar_url: null })).statusCode).toBe(200);
-    expect((await request('GET')).json()).toEqual({ user_id: ownerId, username: null, display_name: 'x'.repeat(length), bio: null, avatar_url: null });
-    expect(rows[1]).toEqual({ user_id: otherId, username: null, display_name: 'Other', avatar_url: null, bio: 'Private' });
-    for (const entry of requests.filter(({ url }) => url.pathname.startsWith('/rest/'))) {
+    expect((await request('GET')).json()).toEqual({ ...rows[0], display_name: 'x'.repeat(length), bio: null, avatar_url: null });
+    expect(rows[1]).toEqual({ user_id: otherId, username: null, username_change_used: false, display_name: 'Other', avatar_url: null, banner_url: null, bio: 'Private', status: null, interests: [], phone: null });
+    for (const entry of requests.filter(({ url }) => url.pathname === '/rest/v1/user_profiles')) {
       expect(entry.url.searchParams.get('user_id')).toBe(`eq.${ownerId}`);
       expect(entry.headers.get('authorization')).toBe(authorization);
     }
@@ -122,16 +136,21 @@ describe('profile API', () => {
     expect(duplicate.json()).toEqual({ error: 'Esse nick já está em uso.' });
   });
 
-  it('does not allow a profile to claim a second nick', async () => {
+  it('allows one nick change and rejects any later change', async () => {
     rows[0]!.username = 'first_nick';
-    const response = await request('PATCH', { username: 'second_nick' });
-    expect(response.statusCode).toBe(409);
+    const changed = await request('PATCH', { username: 'second_nick' });
+    expect(changed.statusCode).toBe(200);
+    expect(changed.json().username).toBe('second_nick');
+
+    rows[0]!.username = 'second_nick';
+    const repeated = await request('PATCH', { username: 'third_nick' });
+    expect(repeated.statusCode).toBe(409);
   });
 
   it.each(invalidPatches.map((body) => [body]))('rejects invalid patch %j without database writes', async (body) => {
     const response = await request('PATCH', body);
     expect(response.statusCode).toBe(400);
-    expect(requests.filter(({ url }) => url.pathname.startsWith('/rest/'))).toHaveLength(0);
+    expect(requests.filter(({ url }) => url.pathname === '/rest/v1/user_profiles')).toHaveLength(0);
     expect(rows[0]!.display_name).toBe('Owner');
   });
 
@@ -141,7 +160,7 @@ describe('profile API', () => {
     expect(response.statusCode).toBe(404);
     expect(response.json()).toEqual({ error: 'Profile not found' });
     expect(rows).toHaveLength(1);
-    expect(requests.some(({ method }) => method === 'POST')).toBe(false);
+    expect(requests.some(({ method, url }) => method === 'POST' && url.pathname === '/rest/v1/user_profiles')).toBe(false);
   });
 
   it.each(['GET', 'PATCH'] as const)('handles database failures on %s without leaking details', async (method) => {

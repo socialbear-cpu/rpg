@@ -76,7 +76,7 @@ export function ProfilePage() {
   }
 
   if (!authenticated) return null;
-  if (profile?.username) return <PublicProfilePage username={profile.username} isOwnProfile />;
+  if (profile?.username) return <PublicProfilePage key={profile.username} username={profile.username} isOwnProfile onUsernameChanged={(username) => setProfile((current) => current ? { ...current, username } : current)} />;
   return <main className="shell">
     <AppHeader activeItem="" backHref="/dashboard" backLabel="Voltar aos sistemas" />
     <section className="intro"><p className="eyebrow">SUA CONTA</p><h1>Meu perfil</h1><p>Personalize como você aparece para os outros jogadores.</p></section>
