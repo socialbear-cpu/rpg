@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { defaultSystemLobbySettings, getGameSystemCoverUrl, type CharacterExperienceSummary, type CharacterInventory, type CharacterSheetDefinition, type CharacterSheetField, type GameSystem, type LobbySectionId, type SystemCharacter, type SystemLobbySettings } from '../../api';
 import { SystemStore } from '../store/store-card';
@@ -35,10 +36,17 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
   const [activeRecordTab, setActiveRecordTab] = useState<'sheet' | 'inventory'>('sheet');
   const [chatReload, setChatReload] = useState(0);
   const [preferredChatId, setPreferredChatId] = useState<string | null>(initialPreferredChatId);
+  const [chatPopupOpen, setChatPopupOpen] = useState(false);
 
   if (!character) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{system.name}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
 
   const visibleFields = fields.filter((field) => field.show_on_card && Object.hasOwn(character.attributes, field.key));
+  function openCharacterRecord(tab: 'sheet' | 'inventory') {
+    setActiveRecordTab(tab);
+    setShowCharacterRecord(true);
+    onRefreshRecord();
+  }
+
   const sections: Record<LobbySectionId, React.ReactNode> = {
     'system-presentation': <section className="character-system-presentation lobby-character-home-section" aria-label={`Apresentação de ${system.name}`}>
       {system.cover_image_path
@@ -54,14 +62,21 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
     store: <section className="lobby-character-home-section" aria-label="Loja do sistema"><SystemStore key={`${character.id}-${dailyRewardVersion}`} systemId={character.game_system_id} characterId={character.id} characterName={character.character_name} /></section>,
     chat: <div className="lobby-character-home-section" id="chat"><Chats characterId={character.id} reloadToken={chatReload} preferredChatId={preferredChatId} /></div>,
     events: <div className="lobby-character-home-section" id="system-events"><SystemEventsCard systemId={character.game_system_id} canManage={isCreator} /></div>,
-    'character-sheet': <button className="lobby-character-record-action lobby-character-home-section" type="button" onClick={() => { setShowCharacterRecord(true); onRefreshRecord(); }}>
-      <span className="lobby-character-record-icon" aria-hidden="true">♙</span><span className="lobby-character-record-copy"><strong>Minha Ficha</strong><small>Consultar dados e inventário</small></span><span className="lobby-character-record-arrow" aria-hidden="true">→</span>
-    </button>,
+    'character-sheet': <div className="lobby-character-record-grid lobby-character-home-section" aria-label="Ficha e inventário do personagem">
+      <button className="lobby-character-record-action" type="button" onClick={() => openCharacterRecord('sheet')}>
+        <span className="lobby-character-record-icon" aria-hidden="true">♙</span><span className="lobby-character-record-copy"><strong>Ficha</strong><small>Consultar atributos e progresso</small></span><span className="lobby-character-record-arrow" aria-hidden="true">→</span>
+      </button>
+      <button className="lobby-character-record-action" type="button" onClick={() => openCharacterRecord('inventory')}>
+        <span className="lobby-character-record-icon" aria-hidden="true">▦</span><span className="lobby-character-record-copy"><strong>Inventário</strong><small>Consultar itens do personagem</small></span><span className="lobby-character-record-arrow" aria-hidden="true">→</span>
+      </button>
+    </div>,
   };
 
   return (
     <main className="character-entry-page character-home-page">
-      <AppHeader activeItem="Meus Sistemas" characterSheet={{ systemName: system.name, character, fields: visibleFields, experience }} />
+      <AppHeader activeItem="Meus Sistemas" characterSheet={{ systemName: system.name, character, fields: visibleFields, experience }}>
+        {isCreator && <Link className="app-header-back lobby-settings-link" href={`/systems/${encodeURIComponent(system.id)}/lobby-settings`}>⚙ Ajustes</Link>}
+      </AppHeader>
 
       {showCharacterRecord ? <CharacterRecord
         character={character}
@@ -77,14 +92,23 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
         onClose={() => setShowCharacterRecord(false)}
       /> : <div className="lobby-layout">
         <div className="lobby-main" style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>
-          <header className="lobby-welcome"><span className="character-entry-eyebrow">{system.name} · SAGUÃO</span><h1>{lobbySettings.welcome_title}</h1><p>{lobbySettings.welcome_message}</p></header>
-          {isCreator && <LobbyCreatorTools system={system} characters={[character]} characterLoadError={null}
+          <header className="lobby-welcome">
+            <div className="lobby-welcome-copy"><span className="character-entry-eyebrow">{system.name} · SAGUÃO</span><h1>{lobbySettings.welcome_title}</h1><p>{lobbySettings.welcome_message}</p></div>
+            <div className="lobby-welcome-actions"><DailyLoginPopup systemId={character.game_system_id} onClaimed={onDailyClaimed} /></div>
+          </header>
+          <section className="lobby-rooms" aria-label="Seções do saguão">{lobbySettings.section_order.map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div className={`lobby-section-slot lobby-section-slot-${section}`} data-section={section} key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</section>
+          {isCreator && <div className="lobby-owner-tools"><LobbyCreatorTools system={system} characters={[character]} characterLoadError={null}
             onChatCreated={(chatId) => { setPreferredChatId(chatId); setChatReload((version) => version + 1); }}
-          />}
-          <DailyLoginPopup systemId={character.game_system_id} onClaimed={onDailyClaimed} />
-          <section className="lobby-rooms">{lobbySettings.section_order.map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</section>
+          /></div>}
         </div>
       </div>}
+      {chatPopupOpen && <dialog className="chat-float-popup" open aria-labelledby="chat-float-heading" onCancel={(event) => { event.preventDefault(); setChatPopupOpen(false); }}>
+        <header className="chat-float-heading"><h2 id="chat-float-heading">Conversas</h2><button type="button" aria-label="Fechar conversa" onClick={() => setChatPopupOpen(false)}>×</button></header>
+        <Chats characterId={character.id} reloadToken={chatReload} preferredChatId={preferredChatId} />
+      </dialog>}
+      <button className="chat-float-button" type="button" aria-label={chatPopupOpen ? 'Fechar conversa' : 'Abrir conversa'} aria-expanded={chatPopupOpen} onClick={() => setChatPopupOpen((open) => !open)}>
+        <span aria-hidden="true">{chatPopupOpen ? '×' : '✉'}</span><span className="chat-float-button-label">{chatPopupOpen ? 'Fechar conversa' : 'Conversar'}</span>
+      </button>
     </main>
   );
 }

@@ -44,6 +44,12 @@
   gap: 14px;
 }
 
+.account-username-form {
+  margin-bottom: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #292c38;
+}
+
 .account-settings-form label,
 .account-settings-transfer label,
 .account-settings-delete-check {

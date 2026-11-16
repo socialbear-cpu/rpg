@@ -10,9 +10,11 @@ export function StoreCard({ characterId, characterName, store, busy, message, on
   message: string | null; onPurchase: (offerId: string) => void;
 }) {
   return <article className="card store-card">
-    <h2>Loja do sistema</h2>
+    <header className="store-card-header">
+      <h2>Loja do sistema</h2>
+      {characterId && store && <p className="store-card-balance"><span>Saldo de {characterName}</span><strong>{money(store.balance)} {store.currency_name}</strong></p>}
+    </header>
     {!characterId && <p>Selecione um personagem para comprar.</p>}
-    {characterId && store && <p>Saldo de {characterName}: <strong>{money(store.balance)} {store.currency_name}</strong></p>}
     {message && <p role="status" aria-live="polite">{message}</p>}
     {store?.offers.length === 0 && <p>Nenhuma oferta disponível.</p>}
     <div className="store-offers">{store?.offers.map((offer, index) => <section className="store-offer" key={offer.store_product_id ?? index}>

@@ -8,6 +8,7 @@ import {
   deactivateMyAccount,
   deleteMyAccount,
   getMyAccountSettings,
+  getMyProfile,
   reactivateMyAccount,
   requestSystemOwnerTransfer,
   updateMyProfile,
@@ -27,6 +28,7 @@ import {
   type PendingAccountAction,
 } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
+import { UsernameSettingsField } from './username-settings-field';
 import './account-settings-page.css';
 
 type ProfileDraft = { displayName: string; phone: string };
@@ -44,6 +46,8 @@ export function AccountSettingsPage() {
   const router = useRouter();
   const [account, setAccount] = useState<MyAccountSettings | null>(null);
   const [draft, setDraft] = useState<ProfileDraft | null>(null);
+  const [usernameDraft, setUsernameDraft] = useState('');
+  const [usernameChangeUsed, setUsernameChangeUsed] = useState<boolean | null>(null);
   const [pendingAction, setPendingAction] = useState<PendingAccountAction | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -82,10 +86,12 @@ export function AccountSettingsPage() {
             }
           }
         }
-        const value = await getMyAccountSettings();
+        const [value, profile] = await Promise.all([getMyAccountSettings(), getMyProfile()]);
         if (active) {
           setAccount(value);
           setDraft(draftFrom(value));
+          setUsernameDraft(profile.username ?? '');
+          setUsernameChangeUsed(profile.username_change_used);
         }
       } catch (error) {
         if (active) {
@@ -126,6 +132,30 @@ export function AccountSettingsPage() {
       phone: draft.phone.trim() || null,
     };
     await sendAction({ kind: 'profile-update', patch });
+  }
+
+  async function saveUsername(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!account || usernameChangeUsed !== false || busy) return;
+    const username = usernameDraft.trim().toLowerCase();
+    if (username === account.profile.username) {
+      showMessage('Este já é o seu @.');
+      return;
+    }
+    setBusy(true);
+    showMessage('');
+    try {
+      const updated = await updateMyProfile({ username });
+      if (!updated.username) throw new Error('Não foi possível atualizar o @ do perfil.');
+      setAccount((current) => current ? { ...current, profile: { ...current.profile, username: updated.username! } } : current);
+      setUsernameDraft(updated.username);
+      setUsernameChangeUsed(updated.username_change_used);
+      showMessage('Seu @ foi alterado.');
+    } catch (error) {
+      showMessage(error instanceof Error ? error.message : 'Não foi possível alterar o @.', true);
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function requestTransfer(systemId: string) {
@@ -230,9 +260,16 @@ export function AccountSettingsPage() {
 
       <section className="account-settings-card" aria-labelledby="account-info-heading">
         <div className="account-settings-heading"><div><p className="eyebrow">DADOS PESSOAIS</p><h2 id="account-info-heading">Informações da conta</h2></div></div>
+        <UsernameSettingsField
+          username={account.profile.username}
+          draft={usernameDraft}
+          changeUsed={usernameChangeUsed}
+          busy={busy}
+          enabled={account.is_active}
+          onDraftChange={setUsernameDraft}
+          onSave={(event) => { void saveUsername(event); }}
+        />
         <form className="account-settings-form" onSubmit={(event) => void saveProfile(event)}>
-          <label>Nome de usuário<input value={account.profile.username ? `@${account.profile.username}` : 'Ainda não escolhido'} readOnly /></label>
-          <p className="account-settings-hint">O nome de usuário não pode ser alterado depois de escolhido.</p>
           <label>E-mail<input type="email" value={account.email ?? ''} readOnly /></label>
           <label>Nome de exibição<input value={draft.displayName} maxLength={80} onChange={(event) => setDraft({ ...draft, displayName: event.target.value })} disabled={!account.is_active} required /></label>
           <label>Telefone<input type="tel" value={draft.phone} maxLength={32} onChange={(event) => setDraft({ ...draft, phone: event.target.value })} disabled={!account.is_active} placeholder="Opcional" /></label>

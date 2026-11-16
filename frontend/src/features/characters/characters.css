@@ -1,4 +1,13 @@
 .character-entry-page { min-height: 100vh; padding: 0 24px 72px; color: #f5f1fb; background: #110e18; }
+.chat-float-button { position: fixed; z-index: 20; right: 24px; bottom: 24px; display: flex; align-items: center; gap: 9px; padding: 14px 18px; border: 1px solid #c5a6e8; border-radius: 999px; color: #fff; background: #68469a; box-shadow: 0 8px 28px #0008; font: inherit; font-weight: 700; cursor: pointer; }
+.chat-float-button:hover { background: #7955aa; }
+.chat-float-button > span:first-child { font-size: 1.2rem; }
+.chat-float-popup { position: fixed; z-index: 19; right: 24px; bottom: 88px; width: min(560px, calc(100vw - 32px)); max-width: none; max-height: min(72vh, 680px); overflow: auto; margin: 0; padding: 18px; border: 1px solid #55406f; border-radius: 16px; color: #f5f1fb; background: #17121f; box-shadow: 0 16px 48px #000a; }
+.chat-float-popup .chat { margin-top: 0; }
+.chat-float-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.chat-float-heading h2 { margin: 0; font-size: 1.15rem; }
+.chat-float-heading > button { width: 36px; height: 36px; border: 1px solid #55406f; border-radius: 50%; color: inherit; background: #231a30; font-size: 1.4rem; cursor: pointer; }
+.chat-float-popup .chat-layout { grid-template-columns: 1fr; }
 .character-gallery-page { display: flex; flex-direction: column; }
 .character-gallery-page > :not(.app-header) { width: 100%; max-width: 1100px; }
 .character-entry-page > * { max-width: 1000px; margin-right: auto; margin-left: auto; }
@@ -446,4 +455,38 @@
   .character-sheet-visual-experience.is-expanded .character-sheet-visual-stage { width: min(100%, max(280px, calc((100dvh - 100px) * 16 / 9))); }
   .character-creation-page .character-sheet-visual-toolbar { align-items: flex-start; }
   .character-creation-page .character-sheet-visual-toolbar .character-sheet-canvas-labels { max-width: 65%; }
+}
+
+/* Compact, configurable member lobby dashboard. */
+.character-home-page .lobby-main { gap: clamp(14px, 2vw, 22px); }
+.character-home-page .lobby-welcome { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 2px 16px; border-bottom: 1px solid #393244; text-align: left; }
+.lobby-welcome-copy { min-width: 0; }
+.character-home-page .lobby-welcome h1 { margin: 5px 0 4px; font-size: clamp(24px, 2.8vw, 34px); }
+.character-home-page .lobby-welcome p { max-width: 70ch; font-size: 13px; line-height: 1.5; }
+.lobby-welcome-actions { display: flex; flex: 0 0 auto; align-items: center; }
+.lobby-welcome-actions .character-secondary-button { min-height: 40px; margin: 0; border-color: #6b5790; border-radius: 9px; color: #eee5ff; background: #2a2434; white-space: nowrap; }
+.lobby-welcome-actions .character-secondary-button:hover { border-color: var(--lobby-accent, #a78bfa); background: #342943; }
+.lobby-settings-link { display: inline-flex; min-height: 38px; align-items: center; padding: 0 12px; border: 1px solid #514363; border-radius: 9px; color: #e7dcf6; background: #211b2a; text-decoration: none; white-space: nowrap; }
+.lobby-settings-link:hover { border-color: #8067bc; color: #fff; background: #2a2235; }
+.lobby-rooms { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 16px; }
+.lobby-section-slot { min-width: 0; }
+.lobby-section-slot[data-section='chat'] { grid-column: 1 / -1; }
+.lobby-section-slot[data-section='system-presentation'] .character-system-presentation { margin: 0; }
+.lobby-section-slot[data-section='store'] .store-card { width: 100%; margin: 0; }
+.lobby-section-slot[data-section='chat'] .chat { margin-top: 0; }
+.lobby-section-slot[data-section='events'] .system-events-card { max-width: none; margin: 0; height: 100%; }
+.lobby-character-record-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.lobby-main .lobby-character-record-action { justify-self: stretch; width: 100%; min-height: 62px; }
+.lobby-owner-tools { min-width: 0; }
+.lobby-owner-tools .lobby-creator-tools { margin: 0; }
+
+@media (max-width: 760px) {
+  .character-home-page .lobby-welcome { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .lobby-welcome-actions { width: 100%; }
+  .lobby-rooms { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .lobby-section-slot[data-section='chat'] { grid-column: auto; }
+}
+@media (max-width: 520px) {
+  .lobby-character-record-grid { grid-template-columns: minmax(0, 1fr); }
+  .lobby-settings-link { min-height: 36px; padding-inline: 9px; font-size: 11px; }
 }
