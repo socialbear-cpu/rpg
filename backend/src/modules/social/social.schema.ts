@@ -9,7 +9,7 @@ const publicProfileSchema = z.strictObject({
 });
 
 const friendProfileSchema = publicProfileSchema.extend({
-  since: z.iso.datetime(),
+  since: z.iso.datetime({ offset: true }),
 });
 
 const friendRequestItemSchema = z.strictObject({
@@ -19,7 +19,7 @@ const friendRequestItemSchema = z.strictObject({
   display_name: z.string(),
   avatar_url: z.url({ protocol: /^https?$/ }).nullable(),
   bio: z.string().nullable(),
-  created_at: z.iso.datetime(),
+  created_at: z.iso.datetime({ offset: true }),
 });
 
 export const socialSearchQuerySchema = z.strictObject({
@@ -63,8 +63,8 @@ export const socialInvitationDecisionSchema = z.strictObject({
   character_id: z.uuid().optional(),
 });
 const invitationItemSchema = z.union([
-  z.strictObject({ id: z.uuid(), game_system_id: z.uuid(), chat_id: z.uuid().nullable(), system_name: z.string(), chat_name: z.string().nullable(), created_at: z.iso.datetime(), status: z.string(), invitee_user_id: z.uuid(), username: z.string(), display_name: z.string() }),
-  z.strictObject({ id: z.uuid(), game_system_id: z.uuid(), chat_id: z.uuid().nullable(), system_name: z.string(), chat_name: z.string().nullable(), created_at: z.iso.datetime(), status: z.string(), inviter_user_id: z.uuid(), username: z.string(), display_name: z.string() }),
+  z.strictObject({ id: z.uuid(), game_system_id: z.uuid(), chat_id: z.uuid().nullable(), system_name: z.string(), chat_name: z.string().nullable(), created_at: z.iso.datetime({ offset: true }), status: z.string(), invitee_user_id: z.uuid(), username: z.string(), display_name: z.string() }),
+  z.strictObject({ id: z.uuid(), game_system_id: z.uuid(), chat_id: z.uuid().nullable(), system_name: z.string(), chat_name: z.string().nullable(), created_at: z.iso.datetime({ offset: true }), status: z.string(), inviter_user_id: z.uuid(), username: z.string(), display_name: z.string() }),
 ]);
 export const socialInvitationListResponseSchema = z.strictObject({
   status: z.literal('ok'),

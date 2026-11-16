@@ -22,11 +22,14 @@ export function FriendsPage() {
   const load = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
     setError(null);
-    try {
-      const [graph, inbox] = await Promise.all([getMyFriends(), getSocialInvitations()]);
-      setFriends(graph); setInvitations(inbox);
-    } catch (reason) { setError(reason instanceof Error ? reason.message : 'Não foi possível carregar a área de amigos.'); }
-    finally { setLoading(false); }
+    const [graph, inbox] = await Promise.allSettled([getMyFriends(), getSocialInvitations()]);
+    const failures: string[] = [];
+    if (graph.status === 'fulfilled') setFriends(graph.value);
+    else failures.push('Não foi possível carregar amigos e pedidos.');
+    if (inbox.status === 'fulfilled') setInvitations(inbox.value);
+    else failures.push('Não foi possível carregar os convites para jogos.');
+    setError(failures.length ? failures.join(' ') : null);
+    setLoading(false);
   }, []);
   useEffect(() => {
     if (!hasSession()) { router.replace('/'); return; }

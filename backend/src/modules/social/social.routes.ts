@@ -183,7 +183,10 @@ export async function socialRoutes(app: FastifyInstance) {
     } }, 401: errorSchema, 500: errorSchema } },
   }, async (request, reply) => {
     try { const result = await listMySocialInvitations(request.supabase!); return reply.send({ owner_approvals: result.owner_approvals, recipient_invitations: result.recipient_invitations }); }
-    catch { return databaseError(reply); }
+    catch (error) {
+      request.log.error({ err: error }, 'Unable to list social invitations');
+      return databaseError(reply);
+    }
   });
 
   app.post('/api/v1/social-invitations/:invitationId/respond', {
@@ -247,7 +250,8 @@ export async function socialRoutes(app: FastifyInstance) {
         incoming_requests: result.incoming_requests,
         outgoing_requests: result.outgoing_requests,
       });
-    } catch {
+    } catch (error) {
+      request.log.error({ err: error }, 'Unable to list friendships');
       return databaseError(reply);
     }
   });
