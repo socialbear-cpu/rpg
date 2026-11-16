@@ -4,10 +4,11 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { createSystemChat, type GameSystem, type SystemCharacter } from '../../api';
 import './lobby-creator-tools.css';
 
-export function LobbyCreatorTools({ system, characters, characterLoadError }: {
+export function LobbyCreatorTools({ system, characters, characterLoadError, onChatCreated }: {
   system: GameSystem;
   characters: SystemCharacter[];
   characterLoadError: string | null;
+  onChatCreated?: (chatId: string) => void;
 }) {
   const [characterId, setCharacterId] = useState('');
   const [chatName, setChatName] = useState('');
@@ -25,7 +26,8 @@ export function LobbyCreatorTools({ system, characters, characterLoadError }: {
     if (!characterId) return;
     setSavingChat(true); setMessage(''); setError('');
     try {
-      await createSystemChat(system.id, { character_id: characterId, name: chatName, description: chatDescription || null });
+      const { chat } = await createSystemChat(system.id, { character_id: characterId, name: chatName, description: chatDescription || null });
+      onChatCreated?.(chat.id);
       setChatName(''); setChatDescription(''); setMessage('Chat criado. A conversa está pronta para começar.');
     } catch (reason) { setError(reason instanceof Error ? reason.message : 'Não foi possível criar o chat.'); }
     finally { setSavingChat(false); }

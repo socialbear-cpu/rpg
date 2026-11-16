@@ -78,7 +78,7 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
       /> : <div className="lobby-layout">
         <div className="lobby-main" style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>
           <header className="lobby-welcome"><span className="character-entry-eyebrow">{system.name} · SAGUÃO</span><h1>{lobbySettings.welcome_title}</h1><p>{lobbySettings.welcome_message}</p></header>
-          {isCreator && <LobbyCreatorTools system={system} characterId={character.id} settings={lobbySettings}
+          {isCreator && <LobbyCreatorTools system={system} characters={[character]} characterLoadError={null}
             onChatCreated={(chatId) => { setPreferredChatId(chatId); setChatReload((version) => version + 1); }}
           />}
           <DailyLoginPopup systemId={character.game_system_id} onClaimed={onDailyClaimed} />
