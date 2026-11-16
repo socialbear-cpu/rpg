@@ -15,6 +15,8 @@ import { systemEventsRoutes } from './modules/system-events/system-events.routes
 import { chatsRoutes } from './modules/chats/chats.routes.js';
 import { lobbySettingsRoutes } from './modules/lobby-settings/lobby-settings.routes.js';
 import { socialRoutes } from './modules/social/social.routes.js';
+import { publicProfileRoutes } from './modules/social/public-profile.routes.js';
+import { directMessagesRoutes } from './modules/direct-messages/direct-messages.routes.js';
 import type { Config } from './config.js';
 
 export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
@@ -41,6 +43,8 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
   app.register(profileRoutes);
   app.register(accountRoutes);
   app.register(socialRoutes);
+  app.register(publicProfileRoutes);
+  app.register(directMessagesRoutes);
   app.register(dailyLoginRoutes);
   app.register(systemMembershipRoutes);
   app.register(notificationsRoutes);

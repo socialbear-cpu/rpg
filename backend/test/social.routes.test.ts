@@ -19,6 +19,7 @@ beforeEach(() => {
   vi.stubEnv('SUPABASE_PUBLISHABLE_KEY', 'sb_publishable_test');
   requests = [];
   rpcResponses = {
+    get_my_account_status: true,
     search_social_profiles: { status: 'ok', results: [publicProfile] },
     list_my_friendships: { status: 'ok', friends: [], incoming_requests: [], outgoing_requests: [] },
     create_friend_request: { status: 'created', request_id: requestId },
@@ -85,7 +86,7 @@ describe('friendship API', () => {
 
   it.each(['/api/v1/social/search?q=a', '/api/v1/social/search?q=bad%20nick', '/api/v1/social/search?q=art&email=private'])('rejects invalid search query %s before database access', async (url) => {
     expect((await request('GET', url)).statusCode).toBe(400);
-    expect(requests.filter(({ url: value }) => value.pathname.startsWith('/rest/'))).toHaveLength(0);
+    expect(requests.filter(({ url: value }) => value.pathname.startsWith('/rest/') && !value.pathname.endsWith('/get_my_account_status'))).toHaveLength(0);
   });
 
   it('loads the authenticated friend graph', async () => {

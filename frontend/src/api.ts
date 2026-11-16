@@ -22,6 +22,16 @@ export interface SocialInvitationItem {
   username: string; display_name: string; created_at: string; status: string; inviter_user_id?: string; invitee_user_id?: string;
 }
 export interface SocialInvitationList { owner_approvals: SocialInvitationItem[]; recipient_invitations: SocialInvitationItem[]; }
+export interface PublicPlayerProfile extends Omit<Profile, 'phone' | 'username'> { username: string; }
+export interface PublicPlayerSystem { id: string; name: string; description: string | null; }
+export interface ProfileComment { id: string; content: string; created_at: string; author_user_id: string; author_username: string; author_display_name: string; author_avatar_url: string | null; }
+export interface DirectMessage { id: string; sender_user_id: string; recipient_user_id: string; content: string; created_at: string; }
+export function getPublicPlayerProfile(username: string) { return authenticatedRequest<{ profile: PublicPlayerProfile; systems: PublicPlayerSystem[] }>(`/api/v1/social/profiles/${encodeURIComponent(username)}`); }
+export function getProfileComments(username: string) { return authenticatedRequest<{ comments: ProfileComment[] }>(`/api/v1/social/profiles/${encodeURIComponent(username)}/comments`); }
+export function postProfileComment(username: string, content: string) { return authenticatedRequest<{ status: string; id: string }>(`/api/v1/social/profiles/${encodeURIComponent(username)}/comments`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) }); }
+export function deleteProfileComment(id: string) { return authenticatedRequest<{ status: string }>(`/api/v1/social/comments/${encodeURIComponent(id)}`, { method: 'DELETE' }); }
+export function getDirectMessages(userId: string) { return authenticatedRequest<{ messages: DirectMessage[] }>(`/api/v1/direct-messages/${encodeURIComponent(userId)}`); }
+export function sendDirectMessage(userId: string, content: string) { return authenticatedRequest<{ status: string; id: string }>(`/api/v1/direct-messages/${encodeURIComponent(userId)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) }); }
 export function searchSocialProfiles(query: string) { return authenticatedRequest<{ results: SocialProfile[] }>(`/api/v1/social/search?q=${encodeURIComponent(query)}`); }
 export function getMyFriends() { return authenticatedRequest<FriendshipList>('/api/v1/me/friends'); }
 export function getSocialInvitations() { return authenticatedRequest<SocialInvitationList>('/api/v1/me/social-invitations'); }

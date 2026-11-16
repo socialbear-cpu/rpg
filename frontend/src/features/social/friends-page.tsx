@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { getMyFriends, getSocialInvitations, removeMyFriend, respondToFriendRequest, respondToSocialInvitation, searchSocialProfiles, sendFriendRequest, type FriendshipList, type SocialInvitationList, type SocialProfile } from '../../api';
 import { hasSession } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
@@ -55,5 +56,5 @@ export function FriendsPage() {
 }
 
 function ProfileLine({ profile }: { profile: SocialProfile }) {
-  return <div className="friends-profile">{profile.avatar_url ? <img src={profile.avatar_url} alt="" /> : <span className="friends-avatar">{profile.username.slice(0, 1).toUpperCase()}</span>}<div><strong>@{profile.username}</strong><span>{profile.display_name}</span></div></div>;
+  return <Link className="friends-profile" href={`/players/${encodeURIComponent(profile.username)}`}>{profile.avatar_url ? <img src={profile.avatar_url} alt="" /> : <span className="friends-avatar">{profile.username.slice(0, 1).toUpperCase()}</span>}<div><strong>@{profile.username}</strong><span>{profile.display_name}</span></div></Link>;
 }

@@ -17,6 +17,8 @@
 .friends-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid #30283a; }
 .friends-list li > div:last-child { display: flex; gap: 8px; }
 .friends-profile { display: flex; align-items: center; gap: 11px; }
+.friends-profile { color: inherit; text-decoration: none; border-radius: 6px; }
+.friends-profile:focus-visible { outline: 2px solid #ab8be0; outline-offset: 3px; }
 .friends-profile img, .friends-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 .friends-avatar { display: grid; place-items: center; color: #f5edff; background: #604983; font-weight: 700; }
 .friends-profile div, .friends-list li > div:first-child:not(.friends-profile) { display: grid; gap: 3px; }
