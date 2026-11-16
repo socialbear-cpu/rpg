@@ -11,6 +11,7 @@ export function PublicProfilePage({ username }: { username: string }) {
   const router = useRouter();
   const [profile, setProfile] = useState<PublicPlayerProfile | null>(null);
   const [systems, setSystems] = useState<PublicPlayerSystem[]>([]);
+  const [profileLoading, setProfileLoading] = useState(true);
   const [comments, setComments] = useState<ProfileComment[]>([]);
   const [myId, setMyId] = useState('');
   const [isFriend, setIsFriend] = useState(false);
@@ -26,13 +27,36 @@ export function PublicProfilePage({ username }: { username: string }) {
   const [busy, setBusy] = useState(false);
 
   const loadComments = useCallback(async () => setComments((await getProfileComments(username)).comments), [username]);
+  const loadProfile = useCallback(async () => {
+    setProfileLoading(true);
+    try {
+      const detail = await getPublicPlayerProfile(username);
+      setProfile(detail.profile);
+      setSystems(detail.systems);
+      return detail.profile;
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'Não foi possível carregar o perfil.');
+      return null;
+    } finally {
+      setProfileLoading(false);
+    }
+  }, [username]);
+
   useEffect(() => {
     if (!hasSession()) { router.replace('/'); return; }
-    Promise.all([getPublicPlayerProfile(username), getProfileComments(username), getMyProfile(), getMyFriends()]).then(([detail, wall, me, graph]) => {
-      setProfile(detail.profile); setSystems(detail.systems); setComments(wall.comments); setMyId(me.user_id);
-      setIsFriend(graph.friends.some((friend) => friend.user_id === detail.profile.user_id));
-    }).catch((reason) => setError(reason instanceof Error ? reason.message : 'Não foi possível carregar o perfil.'));
-  }, [username, router]);
+    let current = true;
+    void loadProfile().then(async (loadedProfile) => {
+      if (!loadedProfile || !current) return;
+      const [wallResult, friendsResult] = await Promise.allSettled([getProfileComments(username), getMyFriends()]);
+      if (!current) return;
+      if (wallResult.status === 'fulfilled') setComments(wallResult.value.comments);
+      else setError(wallResult.reason instanceof Error ? wallResult.reason.message : 'Não foi possível carregar o mural.');
+      if (friendsResult.status === 'fulfilled') setIsFriend(friendsResult.value.friends.some((friend) => friend.user_id === loadedProfile.user_id));
+    });
+    void getMyProfile().then((me) => { if (current) setMyId(me.user_id); })
+      .catch((reason) => { if (current) setError(reason instanceof Error ? reason.message : 'Não foi possível carregar sua conta.'); });
+    return () => { current = false; };
+  }, [username, router, loadProfile]);
 
   async function submitComment(event: FormEvent) { event.preventDefault(); setBusy(true); setError(''); try { await postProfileComment(username, comment); setComment(''); await loadComments(); } catch (e) { setError(e instanceof Error ? e.message : 'Não foi possível publicar.'); } finally { setBusy(false); } }
   async function openMessages() { setModal('message'); setError(''); try { setMessages((await getDirectMessages(profile!.user_id)).messages); } catch (e) { setError(e instanceof Error ? e.message : 'Não foi possível carregar a conversa.'); } }
@@ -42,7 +66,7 @@ export function PublicProfilePage({ username }: { username: string }) {
 
   return <main className="public-profile"><AppHeader activeItem="Amigos" /><div className="public-profile-content">
     {error && <p role="alert" className="public-alert">{error}</p>}{notice && <p role="status" className="public-notice">{notice}</p>}
-    {!profile ? <p role="status">Carregando perfil…</p> : <>
+    {!profile ? profileLoading ? <p role="status">Carregando perfil…</p> : <section className="profile-load-error"><p role="status">Não foi possível exibir este perfil.</p><button onClick={() => void loadProfile()}>Tentar novamente</button></section> : <>
       <section className="player-hero" style={profile.banner_url ? { backgroundImage: `linear-gradient(90deg,rgba(17,14,24,.92),rgba(17,14,24,.16)),url("${profile.banner_url}")` } : undefined}>
         <div className="player-identity"><span className="player-avatar">{profile.avatar_url ? <img src={profile.avatar_url} alt="" /> : profile.username[0].toUpperCase()}</span><div><span className="player-kicker">PERFIL DE JOGADOR</span><h1>{profile.display_name}</h1><p>@{profile.username}</p></div></div>
         <div className="player-status-actions"><span className="player-status"><i />{profile.status || 'Entre aventuras'}</span><div className="player-actions"><button title={isFriend ? 'Convidar para uma mesa' : 'Adicione como amigo para convidar'} aria-label="Convidar para uma mesa" disabled={!isFriend} onClick={() => void showInvite()}>♜</button><button title="Enviar mensagem" aria-label="Enviar mensagem" disabled={myId === profile.user_id} onClick={() => void openMessages()}>✉</button></div></div>
