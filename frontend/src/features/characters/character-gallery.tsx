@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import type { CharacterSheetField, SystemCharacter } from '../../api';
 import { formatCharacterSheetValue } from '../character-sheet/format-value';
 import { AppHeader } from '../shell/app-header';
@@ -15,6 +15,7 @@ interface CharacterGalleryProps {
   onCreate: () => void;
   onEnter: (characterId: string) => void;
   onConfigureLobby?: () => void;
+  headerAction?: ReactNode;
 }
 
 const characterRunes = ['ᚨ', 'ᛉ', 'ᚱ', 'ᚠ', 'ᛟ', 'ᛞ', 'ᛃ', 'ᛇ'] as const;
@@ -24,7 +25,7 @@ function characterRune(characterId: string) {
   return characterRunes[runeIndex];
 }
 
-export function CharacterGallery({ systemName, fields, characters, selectedCharacterId = null, experienceByCharacterId = {}, onCreate, onEnter, onConfigureLobby }: CharacterGalleryProps) {
+export function CharacterGallery({ systemName, fields, characters, selectedCharacterId = null, experienceByCharacterId = {}, onCreate, onEnter, onConfigureLobby, headerAction }: CharacterGalleryProps) {
   const cardFields = [...fields].filter((field) => field.show_on_card).sort((a, b) => a.position - b.position);
   const [currentPage, setCurrentPage] = useState(0);
   const pageSize = 5;
@@ -35,7 +36,7 @@ export function CharacterGallery({ systemName, fields, characters, selectedChara
 
   return (
     <main className="character-entry-page character-gallery-page">
-      <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" />
+      <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas">{headerAction}</AppHeader>
       <header className="character-entry-heading character-gallery-heading">
         <div><span className="character-entry-eyebrow">ᚷ &nbsp; {systemName} · O destino chama &nbsp; ᚷ</span><h1>Escolha seu aventureiro</h1><p>Quem seguirá para a próxima aventura?</p></div>
         {onConfigureLobby && <button className="character-gallery-owner-button" type="button" onClick={onConfigureLobby}><span aria-hidden="true">⚙</span> Personalizar saguão</button>}

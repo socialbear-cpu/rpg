@@ -14,6 +14,7 @@ import { gameSystemsRoutes } from './modules/game-systems/game-systems.routes.js
 import { systemEventsRoutes } from './modules/system-events/system-events.routes.js';
 import { chatsRoutes } from './modules/chats/chats.routes.js';
 import { lobbySettingsRoutes } from './modules/lobby-settings/lobby-settings.routes.js';
+import { socialRoutes } from './modules/social/social.routes.js';
 import type { Config } from './config.js';
 
 export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
@@ -39,6 +40,7 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
   app.register(storeRoutes);
   app.register(profileRoutes);
   app.register(accountRoutes);
+  app.register(socialRoutes);
   app.register(dailyLoginRoutes);
   app.register(systemMembershipRoutes);
   app.register(notificationsRoutes);

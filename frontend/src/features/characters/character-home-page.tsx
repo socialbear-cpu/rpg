@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { defaultSystemLobbySettings, getCharacterExperience, getCharacterSheet, getGameSystems, getMyCharacterInventory, getSystemLobbySettings, getSystemCharacters, type CharacterExperienceSummary, type CharacterInventory, type CharacterSheetDefinition, type CharacterSheetField, type GameSystem, type SystemCharacter, type SystemLobbySettings } from '../../api';
+import { defaultSystemLobbySettings, getCharacterExperience, getCharacterSheet, getGameSystems, getMyCharacterInventory, getMySystemMemberships, getSystemLobbySettings, getSystemCharacters, type CharacterExperienceSummary, type CharacterInventory, type CharacterSheetDefinition, type CharacterSheetField, type GameSystem, type SystemCharacter, type SystemLobbySettings } from '../../api';
 import { CharacterHome } from './character-home';
 import { AppHeader } from '../shell/app-header';
 import { definitionToLegacyFields } from '../system-creation/sheet-model';
@@ -27,7 +27,7 @@ export async function loadCharacterHomePageData(systemId: string, characterId: s
   };
 }
 
-export function CharacterHomePage({ systemId, characterId, push }: { systemId: string; characterId: string; push: (path: string) => void }) {
+export function CharacterHomePage({ systemId, characterId, preferredChatId = null, push }: { systemId: string; characterId: string; preferredChatId?: string | null; push: (path: string) => void }) {
   const [system, setSystem] = useState<GameSystem | null>(null);
   const [character, setCharacter] = useState<SystemCharacter | null>(null);
   const [fields, setFields] = useState<CharacterSheetField[]>([]);
@@ -41,6 +41,7 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
   const [loading, setLoading] = useState(true);
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [dailyRewardVersion, setDailyRewardVersion] = useState(0);
+  const [isCreator, setIsCreator] = useState(false);
   const [lobbySettings, setLobbySettings] = useState<SystemLobbySettings>(defaultSystemLobbySettings);
   const recordRequestId = useRef(0);
 
@@ -55,6 +56,7 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
     setSheetError(null);
     setInventoryError(null);
     setLoadError(null);
+    setIsCreator(false);
     setLobbySettings(defaultSystemLobbySettings);
     loadCharacterHomePageData(systemId, characterId)
       .then((result) => {
@@ -65,10 +67,11 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
         setFields(result.fields);
         setExperience(result.experience);
         setSheetError(result.sheetError);
-        void getSystemLobbySettings(systemId).then((settingsResult) => {
+        void Promise.allSettled([getMySystemMemberships(), getSystemLobbySettings(systemId)]).then(([accessResult, settingsResult]) => {
           if (cancelled) return;
-          setLobbySettings(settingsResult.settings);
-        }).catch(() => { if (!cancelled) setLobbySettings(defaultSystemLobbySettings); });
+          setIsCreator(accessResult.status === 'fulfilled' && (accessResult.value.is_platform_admin || accessResult.value.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner')));
+          setLobbySettings(settingsResult.status === 'fulfilled' ? settingsResult.value.settings : defaultSystemLobbySettings);
+        });
       })
       .catch(() => { if (!cancelled) { setSystem(null); setCharacter(null); setLoadError('Não foi possível carregar a tela do sistema. Tente novamente.'); } })
       .finally(() => { if (!cancelled) setLoading(false); });
@@ -130,7 +133,9 @@ export function CharacterHomePage({ systemId, characterId, push }: { systemId: s
     fields={fields}
     experience={experience}
     dailyRewardVersion={dailyRewardVersion}
+    isCreator={isCreator}
     lobbySettings={lobbySettings}
+    preferredChatId={preferredChatId}
     onDailyClaimed={() => setDailyRewardVersion((version) => version + 1)}
     onSwitch={() => push(`/systems/${encodeURIComponent(systemId)}/characters`)}
   />;

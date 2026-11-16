@@ -1,0 +1,104 @@
+<style>
+  .astra-mockup { --ink:#171321; --plum:#34214f; --violet:#9b5de5; --gold:#e6b86a; --paper:#f4effa; --muted:#aaa2b6; --line:#393044; --panel:#1c1825; --panel2:#241e30; display:flex; min-height:760px; overflow:hidden; border:1px solid #453955; border-radius:20px; color:var(--paper); background:#111017; font:14px Inter,system-ui,sans-serif; box-shadow:0 25px 80px #08070d88; }
+  .astra-mockup * { box-sizing:border-box; }
+  .astra-side { width:225px; flex:0 0 225px; display:flex; flex-direction:column; padding:24px 15px 18px; border-right:1px solid #2d2835; background:#15131b; }
+  .astra-brand { display:flex; align-items:center; gap:11px; padding:0 9px 26px; color:#f4eff9; font-size:15px; font-weight:800; letter-spacing:.12em; }
+  .astra-brand em { color:#c4a3ef; font-style:normal; }
+  .astra-mark { display:grid; width:34px; height:34px; place-items:center; border:1px solid #8c6baf; border-radius:11px; color:#f9e6bd; background:linear-gradient(145deg,#70499b,#39264e); font-size:21px; }
+  .astra-nav-label { padding:12px 10px 7px; color:#777080; font-size:9px; font-weight:800; letter-spacing:.16em; }
+  .astra-nav { display:grid; gap:5px; }
+  .astra-nav a { display:flex; align-items:center; gap:12px; min-height:42px; padding:0 12px; border-radius:9px; color:#b4acbd; text-decoration:none; font-size:12px; }
+  .astra-nav a span { width:18px; color:#a38bbd; font-size:16px; text-align:center; }
+  .astra-nav a.active { border:1px solid #4c3962; color:#f5edfc; background:#2b2137; box-shadow:inset 3px 0 #b493dc; }
+  .astra-side-bottom { margin-top:auto; padding:15px 10px 0; border-top:1px solid #302a37; color:#958c9e; font-size:10px; line-height:1.5; }
+  .astra-main { min-width:0; flex:1; }
+  .astra-top { height:66px; display:flex; align-items:center; justify-content:space-between; padding:0 34px; border-bottom:1px solid #292530; background:#17151d; }
+  .astra-crumb { color:#82798d; font-size:11px; }.astra-crumb b { color:#e9e1f1; font-weight:600; }
+  .astra-top-actions { display:flex; align-items:center; gap:17px; color:#bdb4c9; }
+  .astra-icon { position:relative; font-size:17px; }.astra-alert { position:absolute; top:-2px; right:-4px; width:6px; height:6px; border-radius:50%; background:#e6b86a; box-shadow:0 0 8px #e6b86a99; }
+  .astra-avatar { width:32px; height:32px; display:grid; place-items:center; border:1px solid #8466a2; border-radius:50%; color:#f7eaff; background:linear-gradient(145deg,#9b6ec6,#47345e); font-size:11px; font-weight:700; }
+  .astra-content { max-width:1300px; margin:auto; padding:32px 34px 42px; }
+  .astra-welcome { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:20px; }
+  .astra-kicker { color:#d4b58a; font-size:9px; font-weight:800; letter-spacing:.2em; }
+  .astra-welcome h1 { margin:7px 0 4px; color:#f7f2fb; font:600 clamp(24px,3vw,32px) Georgia,serif; letter-spacing:-.035em; }
+  .astra-welcome p { margin:0; color:#aaa2b6; font-size:12px; }
+  .astra-count { padding:8px 11px; border:1px solid #41374c; border-radius:9px; color:#cbc0d5; background:#1b1822; font-size:10px; white-space:nowrap; }
+  .astra-hero { position:relative; min-height:255px; display:flex; align-items:center; overflow:hidden; margin-bottom:27px; padding:30px 34px; border:1px solid #59466d; border-radius:17px; background:radial-gradient(ellipse at 83% 60%,#603b7955,transparent 36%),radial-gradient(ellipse at 95% 5%,#bd8bff17,transparent 44%),linear-gradient(115deg,#22182e 0%,#191522 57%,#21182b 100%); }
+  .astra-hero:before { position:absolute; inset:0; pointer-events:none; content:""; opacity:.35; background-image:radial-gradient(#c8a5ec 1px,transparent 1px); background-size:40px 40px; mask-image:linear-gradient(90deg,transparent 35%,black); }
+  .astra-copy { position:relative; z-index:1; width:58%; max-width:500px; }
+  .astra-overline { display:inline-flex; align-items:center; gap:7px; color:#d4b58a; font-size:9px; font-weight:800; letter-spacing:.18em; }.astra-overline i { color:#e6b86a; font-style:normal; }
+  .astra-copy h2 { margin:11px 0 8px; color:#f5effa; font:600 clamp(25px,3vw,36px) Georgia,serif; line-height:1.08; letter-spacing:-.035em; }.astra-copy h2 span { color:#c19aeb; font-style:italic; }
+  .astra-copy p { max-width:365px; margin:0; color:#c0b7ca; font-size:12px; line-height:1.65; }
+  .astra-cta { display:inline-flex; align-items:center; gap:12px; margin-top:19px; padding:10px 14px; border:1px solid #bb94d7; border-radius:8px; color:#fff8ef; background:linear-gradient(120deg,#704a91,#52386d); box-shadow:0 8px 22px #120b1d66; font-size:11px; font-weight:700; }
+  .astra-cta b { color:#f0c978; font-size:15px; }
+  .astra-art { position:absolute; right:7%; bottom:-30px; width:230px; height:270px; filter:drop-shadow(0 14px 28px #08060d88); }
+  .astra-speech { position:absolute; z-index:2; right:24px; top:23px; max-width:175px; padding:10px 12px; border:1px solid #68537c; border-radius:12px 12px 3px 12px; color:#e8def0; background:#251d30eF; font-size:10px; line-height:1.45; }
+  .astra-speech strong { color:#eac77f; font-weight:700; }
+  .astra-slider { position:absolute; right:31px; bottom:17px; display:flex; align-items:center; gap:6px; color:#aea3bb; font-size:9px; }
+  .astra-slider i { width:6px; height:6px; border-radius:99px; background:#78678a; }.astra-slider i:first-child { width:17px; background:#d5b2ee; }
+  .astra-section-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:13px; }
+  .astra-section-head h3 { margin:0; color:#f1ebf6; font:600 18px Georgia,serif; }.astra-section-head p { margin:4px 0 0; color:#8f879b; font-size:10px; }
+  .astra-new { padding:8px 11px; border:1px solid #725b88; border-radius:8px; color:#eee2f7; background:#2d2338; font-size:10px; font-weight:700; white-space:nowrap; }
+  .astra-systems { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; }
+  .astra-system { min-width:0; overflow:hidden; border:1px solid #393241; border-radius:13px; background:linear-gradient(145deg,#211c28,#191720); }
+  .astra-cover { position:relative; height:103px; display:flex; align-items:flex-end; padding:12px; background:radial-gradient(ellipse at 65% 70%,#bc90cf55,transparent 34%),linear-gradient(140deg,#382747,#201d2b 54%,#4a354e); }
+  .astra-cover:after { position:absolute; inset:0; content:""; opacity:.28; background:linear-gradient(160deg,transparent 42%,#100e15),repeating-linear-gradient(130deg,transparent 0 24px,#dfc6ff0c 25px 26px); }
+  .astra-cover-badge { position:relative; z-index:1; padding:5px 7px; border:1px solid #ffffff2c; border-radius:99px; color:#f0e8f7; background:#17121caa; font-size:8px; letter-spacing:.08em; text-transform:uppercase; }
+  .astra-system-info { padding:12px 13px 13px; }.astra-system-info h4 { overflow:hidden; margin:0; color:#f0eaf5; font:600 14px Georgia,serif; text-overflow:ellipsis; white-space:nowrap; }.astra-system-info p { margin:5px 0 12px; color:#938a9e; font-size:9px; }
+  .astra-system-foot { display:flex; align-items:center; justify-content:space-between; gap:7px; color:#a99eb1; font-size:9px; }.astra-go { color:#d6b6ed; font-size:10px; font-weight:700; }
+  .astra-note { display:flex; align-items:center; gap:9px; margin-top:16px; padding:10px 12px; border:1px solid #37303e; border-radius:10px; color:#9c92a7; background:#191720; font-size:10px; }.astra-note b { color:#d0b1e8; font-size:14px; }
+  @media(max-width:850px) { .astra-side{width:72px;flex-basis:72px;padding:20px 9px}.astra-brand{justify-content:center;padding:0 0 22px}.astra-brand-text,.astra-nav-label,.astra-nav a:not(.active)::after{display:none}.astra-nav a{justify-content:center;padding:0}.astra-nav a span{font-size:17px}.astra-side-bottom{display:none}.astra-content{padding:25px 22px}.astra-top{padding:0 22px}.astra-systems{grid-template-columns:repeat(2,minmax(0,1fr))}.astra-art{right:1%;width:200px}.astra-speech{right:15px;top:14px} }
+  @media(max-width:570px) { .astra-mockup{min-height:760px;border-radius:14px}.astra-side{display:none}.astra-top{height:56px;padding:0 16px}.astra-content{padding:23px 16px 28px}.astra-welcome{align-items:flex-start}.astra-count{display:none}.astra-hero{min-height:345px;align-items:flex-start;padding:25px 21px}.astra-copy{width:100%;max-width:340px}.astra-copy h2{max-width:300px;font-size:29px}.astra-copy p{max-width:260px}.astra-art{right:-4px;bottom:-54px;width:177px;height:213px;opacity:.88}.astra-speech{top:auto;right:14px;bottom:91px;max-width:145px;font-size:9px}.astra-slider{right:17px;bottom:15px}.astra-systems{grid-template-columns:1fr}.astra-system:nth-child(n+3){display:none}.astra-cover{height:85px}.astra-section-head h3{font-size:16px} }
+</style>
+
+<div class="astra-mockup">
+  <aside class="astra-side">
+    <div class="astra-brand"><span class="astra-mark">✦</span><span class="astra-brand-text">BIFROST <em>RPG</em></span></div>
+    <div class="astra-nav-label">AVENTURAS</div>
+    <nav class="astra-nav">
+      <a class="active"><span>⌂</span> Meus Sistemas</a>
+      <a><span>♧</span> Personagens</a>
+      <a><span>◈</span> Conversas</a>
+      <a><span>✧</span> Loja</a>
+    </nav>
+    <div class="astra-nav-label">SUA JORNADA</div>
+    <nav class="astra-nav">
+      <a><span>◷</span> Recompensas</a>
+      <a><span>⚙</span> Perfil e conta</a>
+    </nav>
+    <div class="astra-side-bottom">✦ &nbsp; A magia começa<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quando o grupo se reúne.</div>
+  </aside>
+  <main class="astra-main">
+    <header class="astra-top"><div class="astra-crumb">Portal <span> / </span> <b>Meus Sistemas</b></div><div class="astra-top-actions"><span class="astra-icon">♧<i class="astra-alert"></i></span><span class="astra-avatar">BE</span></div></header>
+    <div class="astra-content">
+      <section class="astra-welcome"><div><div class="astra-kicker">SUA PRÓXIMA AVENTURA COMEÇA AQUI</div><h1>Bem-vindo de volta, Beru.</h1><p>Seus mundos e sua mesa estão a um portal de distância.</p></div><div class="astra-count">✦ &nbsp; 3 sistemas</div></section>
+      <section class="astra-hero">
+        <div class="astra-copy"><div class="astra-overline"><i>✦</i> UM RECADO DA GUARDIÃ</div><h2>Pronto para escrever<br>uma nova <span>lenda?</span></h2><p>Reúna seu grupo, dê vida ao seu mundo e deixe que a próxima história comece.</p><div class="astra-cta">Criar um sistema <b>↗</b></div></div>
+        <div class="astra-speech"><strong>Astra</strong> &nbsp; Os portais estão abertos. Qual mundo vamos explorar hoje?</div>
+        <svg class="astra-art" viewBox="0 0 250 290" role="img" aria-label="Astra, guardiã de capuz roxo com cabelo prateado e uma estrela dourada">
+          <defs><linearGradient id="cloak" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b61b2"/><stop offset=".55" stop-color="#53356e"/><stop offset="1" stop-color="#291c3a"/></linearGradient><linearGradient id="hair" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fff5ff"/><stop offset=".6" stop-color="#c9b9dc"/><stop offset="1" stop-color="#9683b5"/></linearGradient></defs>
+          <ellipse cx="128" cy="273" rx="70" ry="10" fill="#0b0910" opacity=".55"/>
+          <path d="M30 284 Q37 207 79 175 L93 162 Q68 132 74 75 Q77 24 126 15 Q178 21 185 76 Q190 124 166 162 L183 177 Q222 203 230 284Z" fill="url(#cloak)" stroke="#b08bd0" stroke-width="2"/>
+          <path d="M67 103 Q48 59 78 27 Q94 5 129 5 Q171 7 190 42 L174 47 Q184 75 171 111 L158 76 Q136 58 119 42 Q103 67 78 82Z" fill="#39254f" stroke="#a77dc4" stroke-width="3"/>
+          <path d="M119 20 L127 1 L136 19 L156 22 L141 34 L145 53 L128 42 L111 52 L116 34 L101 23Z" fill="#e6b86a" stroke="#ffdda0" stroke-width="2"/>
+          <path d="M78 75 Q83 43 107 39 Q131 35 151 47 Q173 60 173 100 Q174 134 150 158 Q129 177 105 159 Q77 139 78 75Z" fill="url(#hair)" stroke="#e4d7f1" stroke-width="2"/>
+          <path d="M86 74 Q88 52 111 49 Q132 46 148 61 Q132 59 123 70 Q108 86 95 93Z" fill="#d9cce8"/><path d="M151 61 Q172 81 160 120 Q155 143 141 154 Q146 121 140 100Z" fill="#b8a6cf"/>
+          <path d="M92 100 Q104 91 117 101" fill="none" stroke="#65517b" stroke-width="3" stroke-linecap="round"/><path d="M136 101 Q149 92 160 100" fill="none" stroke="#65517b" stroke-width="3" stroke-linecap="round"/>
+          <ellipse cx="107" cy="112" rx="8" ry="11" fill="#9b5de5"/><ellipse cx="148" cy="112" rx="8" ry="11" fill="#9b5de5"/><circle cx="109" cy="109" r="2.5" fill="#fff"/><circle cx="150" cy="109" r="2.5" fill="#fff"/>
+          <path d="M119 135 Q128 141 136 134" fill="none" stroke="#a76c8c" stroke-width="2" stroke-linecap="round"/>
+          <path d="M88 178 Q124 193 162 177 L174 284 L76 284Z" fill="#241b31" stroke="#b28ccf" stroke-width="2"/><path d="M110 178 L127 203 L144 178" fill="none" stroke="#e6b86a" stroke-width="3"/><path d="M126 207 L131 219 L144 221 L134 229 L137 242 L126 235 L115 242 L118 229 L108 221 L121 219Z" fill="#e6b86a"/>
+          <path d="M80 188 Q56 190 52 213 L81 224" fill="none" stroke="#dfd1ef" stroke-width="8" stroke-linecap="round"/><path d="M163 189 Q190 195 192 215 L163 225" fill="none" stroke="#dfd1ef" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+        <div class="astra-slider"><i></i><i></i><i></i><span>01 / 03</span></div>
+      </section>
+      <section><div class="astra-section-head"><div><h3>Seus mundos</h3><p>Continue a aventura de onde parou.</p></div><div class="astra-new">＋ Novo sistema</div></div>
+        <div class="astra-systems">
+          <article class="astra-system"><div class="astra-cover"><span class="astra-cover-badge">Fantasia · Campanha</span></div><div class="astra-system-info"><h4>Crônicas do Crepúsculo</h4><p>Atualizado há 2 horas</p><div class="astra-system-foot"><span>◉ 4 aventureiros</span><span class="astra-go">Entrar&nbsp; ↗</span></div></div></article>
+          <article class="astra-system"><div class="astra-cover" style="background:radial-gradient(ellipse at 55% 72%,#e6b86a55,transparent 32%),linear-gradient(140deg,#493326,#25202b 55%,#594337)"><span class="astra-cover-badge">Mistério · Mesa</span></div><div class="astra-system-info"><h4>O Último Farol</h4><p>Atualizado ontem</p><div class="astra-system-foot"><span>◉ 5 aventureiros</span><span class="astra-go">Entrar&nbsp; ↗</span></div></div></article>
+          <article class="astra-system"><div class="astra-cover" style="background:radial-gradient(ellipse at 68% 65%,#718bc955,transparent 33%),linear-gradient(140deg,#273949,#21202c 54%,#33485b)"><span class="astra-cover-badge">Sci-fi · Em criação</span></div><div class="astra-system-info"><h4>Órbita de Éter</h4><p>Atualizado há 3 dias</p><div class="astra-system-foot"><span>◉ Só você por enquanto</span><span class="astra-go">Abrir&nbsp; ↗</span></div></div></article>
+        </div>
+      </section>
+      <div class="astra-note"><b>✦</b><span>A Astra aparece nos momentos de orientação e descoberta; a navegação e as ferramentas continuam em primeiro plano.</span></div>
+    </div>
+  </main>
+</div>

@@ -26,6 +26,7 @@ interface AppHeaderProps {
 
 const navItems = [
   { label: 'MEUS SISTEMAS', href: '/dashboard' },
+  { label: 'AMIGOS', href: '/friends' },
   { label: 'TROCAS', href: '/trading' },
   { label: 'CRIAR SISTEMA', href: '/dashboard/systems/new' },
 ];

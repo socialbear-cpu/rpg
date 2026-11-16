@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { getCharacterChatMessages, getCharacterChats, sendCharacterChatMessage, type Chat, type ChatMessage } from '../../api';
 import { chatsForCurrentCharacter, clearChatDraftIfUnchanged, emptyChatDrafts, updateChatDraft } from './chat-state';
 import './chat.css';
+import { InviteFriendControl } from '../social/invite-friend-control';
 
 interface ChatPanelProps {
   chats: Chat[];
@@ -40,7 +41,7 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
         </nav>
         <div className="chat-conversation">
           {selectedChat ? <>
-            <h3>{selectedChat.name}</h3>
+            <div className="chat-title-row"><h3>{selectedChat.name}</h3><InviteFriendControl chatId={selectedChat.id} /></div>
             {loadingMessages ? <p role="status">Carregando mensagens…</p> : <ol className="chat-messages" aria-label={`Mensagens de ${selectedChat.name}`} aria-live="polite">
               {messages.map((message) => <li className={message.character_id === characterId ? 'chat-message-own' : undefined} key={message.id}>
                 <span>{message.character_id === characterId ? 'Você' : 'Personagem'} · {formatMessageTime(message.created_at)}</span><p>{message.content}</p>

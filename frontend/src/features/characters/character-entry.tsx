@@ -1,14 +1,15 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
-import { createSystemCharacter, getCharacterExperience, getCharacterSheet, getGameSystems, getMySystemMemberships, getSystemCharacters, requestSystemAccess, type CharacterSheetDefinition, type GameSystem, type SystemCharacter, type SystemMemberships } from '../../api';
+import { createSystemCharacter, getCharacterExperience, getCharacterSheet, getGameSystems, getMySystemMemberships, getSystemCharacters, requestSystemAccess, respondToSocialInvitation, type CharacterSheetDefinition, type GameSystem, type SystemCharacter, type SystemMemberships } from '../../api';
 import { CharacterForm } from './character-form';
 import { CharacterGallery } from './character-gallery';
 import { AppHeader } from '../shell/app-header';
 import './characters.css';
 import { definitionToLegacyFields } from '../system-creation/sheet-model';
+import { InviteFriendControl } from '../social/invite-friend-control';
 
-export function CharacterEntry({ systemId, push }: { systemId: string; push: (path: string) => void }) {
+export function CharacterEntry({ systemId, push, invitationId = null, invitationChatId = null }: { systemId: string; push: (path: string) => void; invitationId?: string | null; invitationChatId?: string | null }) {
   const [system, setSystem] = useState<GameSystem | null>(null);
   const [definition, setDefinition] = useState<CharacterSheetDefinition>({version:1,steps:[{key:'step_1',label:'Etapa 1',position:0,components:[]}]});
   const [characters, setCharacters] = useState<SystemCharacter[]>([]);
@@ -107,10 +108,22 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
       }).catch(() => undefined);
       setCreating(false);
       setSaving(false);
+      if (invitationId && invitationChatId) await enterWithCharacter(character.id);
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Não foi possível criar o personagem. Confira a senha do sistema e os campos da ficha.');
       setSaving(false);
     }
+  }
+
+  async function enterWithCharacter(characterId: string) {
+    if (invitationId && invitationChatId) {
+      try {
+        await respondToSocialInvitation(invitationId, 'accept', characterId);
+        push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}?chatId=${encodeURIComponent(invitationChatId)}`);
+      } catch (reason) { setError(reason instanceof Error ? reason.message : 'Não foi possível concluir sua entrada no chat.'); }
+      return;
+    }
+    push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`);
   }
 
   if (loading) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando sistema...</p></main>;
@@ -132,5 +145,5 @@ export function CharacterEntry({ systemId, push }: { systemId: string; push: (pa
     </section>
   </main>;
   if (creating) return <main className="character-entry-page character-creation-page"><AppHeader activeItem="Meus Sistemas"><button className="app-header-back" type="button" onClick={() => setCreating(false)}>← Voltar aos personagens</button></AppHeader><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm definition={definition} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
-  return <CharacterGallery systemName={system.name} fields={definitionToLegacyFields(definition)} characters={characters} selectedCharacterId={selectedCharacterId} experienceByCharacterId={experienceByCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`)} onConfigureLobby={canConfigureLobby ? () => push(`/systems/${encodeURIComponent(systemId)}/lobby-settings`) : undefined} />;
+  return <CharacterGallery systemName={system.name} fields={definitionToLegacyFields(definition)} characters={characters} selectedCharacterId={selectedCharacterId} experienceByCharacterId={experienceByCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => void enterWithCharacter(characterId)} onConfigureLobby={canConfigureLobby ? () => push(`/systems/${encodeURIComponent(systemId)}/lobby-settings`) : undefined} headerAction={<InviteFriendControl systemId={systemId} />} />;
 }

@@ -1,0 +1,29 @@
+.friends-page { min-height: 100vh; background: #110e18; color: #f5f1fb; }
+.friends-content { width: min(1120px, calc(100% - 36px)); margin: 42px auto 80px; }
+.friends-heading { margin-bottom: 28px; }
+.friends-heading > span { color: #ab8be0; font-size: 11px; font-weight: 700; letter-spacing: .15em; }
+.friends-heading h1 { margin: 6px 0; font-size: clamp(30px, 4vw, 42px); }
+.friends-heading p, .friends-muted, .friends-panel li span { color: #afa6ba; }
+.friends-panel { padding: 22px; border: 1px solid #342c42; border-radius: 16px; background: #191521; }
+.friends-panel h2 { display: flex; align-items: baseline; gap: 10px; margin: 0 0 18px; font-size: 19px; }
+.friends-panel h2 small { color: #ab8be0; font-size: 12px; }
+.friends-search label { display: block; margin-bottom: 8px; color: #c9c0d4; font-size: 13px; }
+.friends-search > div { display: flex; align-items: center; gap: 10px; max-width: 580px; padding-left: 12px; border: 1px solid #42364f; border-radius: 10px; background: #120f19; }
+.friends-search > div > span { color: #ab8be0; }
+.friends-search input { flex: 1; min-width: 0; padding: 12px 0; border: 0; outline: 0; color: inherit; background: transparent; }
+.friends-search button, .friends-list button { padding: 9px 14px; border: 1px solid #7658a8; border-radius: 8px; color: white; background: #59417b; cursor: pointer; }
+.friends-search button { margin-right: 4px; }
+.friends-list { display: grid; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
+.friends-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid #30283a; }
+.friends-list li > div:last-child { display: flex; gap: 8px; }
+.friends-profile { display: flex; align-items: center; gap: 11px; }
+.friends-profile img, .friends-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.friends-avatar { display: grid; place-items: center; color: #f5edff; background: #604983; font-weight: 700; }
+.friends-profile div, .friends-list li > div:first-child:not(.friends-profile) { display: grid; gap: 3px; }
+.friends-list li span { font-size: 12px; }
+.friends-list .friends-secondary { border-color: #51465e; color: #d0c8d8; background: transparent; }
+.friends-list button:disabled { opacity: .55; cursor: wait; }
+.friends-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.friends-alert, .friends-notice { padding: 12px 15px; border-radius: 10px; background: #3a2026; color: #ffd6dc; }
+.friends-notice { background: #202d27; color: #c7f2d6; }
+@media (max-width: 720px) { .friends-grid { grid-template-columns: 1fr; } .friends-panel { padding: 17px; } .friends-list li { align-items: flex-start; } .friends-list li > div:last-child { flex-wrap: wrap; justify-content: flex-end; } }

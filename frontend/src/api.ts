@@ -13,6 +13,25 @@ export interface Profile {
   phone: string | null;
 }
 
+export interface SocialProfile extends Omit<Profile, 'username'> { username: string; }
+export interface FriendRequestItem extends SocialProfile { id: string; created_at: string; }
+export interface FriendItem extends SocialProfile { since: string; }
+export interface FriendshipList { friends: FriendItem[]; incoming_requests: FriendRequestItem[]; outgoing_requests: FriendRequestItem[]; }
+export interface SocialInvitationItem {
+  id: string; game_system_id: string; chat_id: string | null; system_name: string; chat_name: string | null;
+  username: string; display_name: string; created_at: string; status: string; inviter_user_id?: string; invitee_user_id?: string;
+}
+export interface SocialInvitationList { owner_approvals: SocialInvitationItem[]; recipient_invitations: SocialInvitationItem[]; }
+export function searchSocialProfiles(query: string) { return authenticatedRequest<{ results: SocialProfile[] }>(`/api/v1/social/search?q=${encodeURIComponent(query)}`); }
+export function getMyFriends() { return authenticatedRequest<FriendshipList>('/api/v1/me/friends'); }
+export function getSocialInvitations() { return authenticatedRequest<SocialInvitationList>('/api/v1/me/social-invitations'); }
+export function sendFriendRequest(userId: string) { return authenticatedRequest<{ status: string }>('/api/v1/friend-requests', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ recipient_user_id: userId }) }); }
+export function respondToFriendRequest(id: string, decision: 'accept' | 'decline' | 'cancel') { return authenticatedRequest<{ status: string }>(`/api/v1/friend-requests/${encodeURIComponent(id)}/respond`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ decision }) }); }
+export function removeMyFriend(userId: string) { return authenticatedRequest<{ status: string }>(`/api/v1/me/friends/${encodeURIComponent(userId)}`, { method: 'DELETE' }); }
+export function createSystemFriendInvitation(systemId: string, friendUserId: string) { return authenticatedRequest<{ status: string }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/invitations`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ friend_user_id: friendUserId }) }); }
+export function createChatFriendInvitation(chatId: string, friendUserId: string) { return authenticatedRequest<{ status: string }>(`/api/v1/chats/${encodeURIComponent(chatId)}/invitations`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ friend_user_id: friendUserId }) }); }
+export function respondToSocialInvitation(id: string, decision: 'approve' | 'decline' | 'accept' | 'cancel', characterId?: string) { return authenticatedRequest<{ status: string }>(`/api/v1/social-invitations/${encodeURIComponent(id)}/respond`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ decision, ...(characterId ? { character_id: characterId } : {}) }) }); }
+
 export interface ProfilePatch {
   username?: string;
   display_name?: string;
