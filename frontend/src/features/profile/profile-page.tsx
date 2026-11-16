@@ -6,6 +6,7 @@ import { getMyProfile, updateMyProfile, type Profile, type ProfilePatch } from '
 import { hasSession } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
 import { ProfileCard, type ProfileFields } from './profile-card';
+import { PublicProfilePage } from './public-profile-page';
 
 function profileFields(profile: Profile): ProfileFields {
   return {
@@ -75,6 +76,7 @@ export function ProfilePage() {
   }
 
   if (!authenticated) return null;
+  if (profile?.username) return <PublicProfilePage username={profile.username} isOwnProfile />;
   return <main className="shell">
     <AppHeader activeItem="" backHref="/dashboard" backLabel="Voltar aos sistemas" />
     <section className="intro"><p className="eyebrow">SUA CONTA</p><h1>Meu perfil</h1><p>Personalize como você aparece para os outros jogadores.</p></section>
