@@ -65,10 +65,12 @@ describe('lobby creator tools', () => {
     expect(html).toContain('Encontre um grupo para a sua próxima aventura.');
   });
 
-  it('starts the two-row lobby layout after the character access strip without an extra section banner', () => {
+  it('shows the mesa heading after the character access strip and before the two-row lobby layout', () => {
     const html = renderLobby();
     expect(html.indexOf('Resumo da campanha')).toBeLessThan(html.indexOf('Ficha</button>'));
-    expect(html).not.toContain('Continue a aventura');
+    expect(html.indexOf('Ficha</button>')).toBeLessThan(html.indexOf('SUA MESA'));
+    expect(html.indexOf('SUA MESA')).toBeLessThan(html.indexOf('Continue a aventura'));
+    expect(html.indexOf('Continue a aventura')).toBeLessThan(html.indexOf('Salas e conversas'));
     expect(html).toContain('Salas e conversas');
     expect(html).toContain('Conversas recentes');
     expect(html).toContain('Próximo encontro');

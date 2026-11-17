@@ -478,6 +478,8 @@
 .lobby-stat-card strong { overflow: hidden; color: #f4f1fa; font: 700 16px 'Outfit', sans-serif; text-overflow: ellipsis; white-space: nowrap; }
 .lobby-settings-link { display: inline-flex; min-height: 38px; align-items: center; padding: 0 12px; border: 1px solid #514363; border-radius: 9px; color: #e7dcf6; background: #211b2a; text-decoration: none; white-space: nowrap; }
 .lobby-settings-link:hover { border-color: #8067bc; color: #fff; background: #2a2235; }
+.lobby-dashboard-heading { display: grid; gap: 4px; margin: 0; }
+.lobby-dashboard-heading h2 { margin: 0; color: #f4f1fa; font: 700 21px 'Outfit', sans-serif; letter-spacing: -.03em; }
 .lobby-rooms { grid-template-columns: minmax(0, 1.55fr) minmax(260px, .8fr); align-items: stretch; gap: 14px; }
 .lobby-rooms-default { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-areas: 'chat chat chat chat chat chat chat chat events events events events' 'recent recent recent recent recent recent store store store store store store'; }
 .lobby-rooms-default .lobby-section-slot[data-section='chat'] { display: contents; }

@@ -104,6 +104,7 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
           </header>
           <LobbyStats systemId={character.game_system_id} characterId={character.id} onlineCount={lobbyPresence.onlineCount} onlineUnavailable={lobbyPresence.unavailable} />
           {hasDefaultLobbyLayout && <div className="lobby-section-slot lobby-section-slot-character-sheet" data-section="character-sheet" style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections['character-sheet']}</div>}
+          {hasDefaultLobbyLayout && <header className="lobby-dashboard-heading"><span className="character-entry-eyebrow">SUA MESA</span><h2>Continue a aventura</h2></header>}
           <section className={`lobby-rooms${sectionsInDefaultLayout ? ' lobby-rooms-default' : ''}`} aria-label="Seções do saguão">{(sectionsInDefaultLayout ?? lobbySettings.section_order).map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div className={`lobby-section-slot lobby-section-slot-${section}`} data-section={section} key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</section>
         </div>
       </div>}
