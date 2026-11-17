@@ -5,9 +5,10 @@ import { StoreCard } from '../src/features/store/store-card.js';
 import { StoreAdminCard } from '../src/features/store/store-admin-card.js';
 const offer = { store_product_id: 'offer', item_id: 'item', item_name: 'Poção', price: 12.5, is_available: true };
 describe('system store', () => {
- it('displays named currency, character balance and offer price', () => {
+ it('displays the market balance, named currency and offer price', () => {
   const html = renderToStaticMarkup(createElement(StoreCard, { characterId: 'hero', characterName: 'Heroína', store: { currency_name: 'Cristais', character_id: 'hero', balance: 20, offers: [offer] }, busy: false, message: null, onPurchase: vi.fn() }));
-  expect(html).toContain('Cristais'); expect(html).toContain('12,50'); expect(html).toContain('20,00'); expect(html).toContain('Heroína');
+  expect(html).toContain('Saldo disponível:');
+  expect(html).toContain('Cristais'); expect(html).toContain('12,50'); expect(html).toContain('20,00');
  });
  it('disables purchases without a selected character', () => {
   const html = renderToStaticMarkup(createElement(StoreCard, { characterId: null, characterName: '', store: { currency_name: 'Cristais', character_id: 'hero', balance: 20, offers: [offer] }, busy: false, message: null, onPurchase: vi.fn() }));

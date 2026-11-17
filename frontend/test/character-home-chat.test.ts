@@ -12,8 +12,8 @@ describe('character home chats', () => {
       sheetDefinition: null, inventory: null, recordLoading: false, sheetError: null, inventoryError: null,
       onRefreshRecord: () => undefined, onSwitch: () => undefined,
     }));
-    expect(html).toContain('Chats');
-    expect(html).toContain('CHATS DO PERSONAGEM');
+    expect(html).toContain('Salas e conversas');
+    expect(html).toContain('Conversas recentes');
     expect(html).toContain('lobby-character-record-action');
     expect(html).not.toContain('lobby-room-grid');
     expect(html).not.toContain('Taverna do Dragão');

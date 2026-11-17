@@ -14,7 +14,7 @@ export function StoreCard({ characterId, characterName, store, busy, message, on
     <header className="store-card-header">
       <div className="store-card-heading">
         <h2>Mercado do sistema</h2>
-        {characterId && store && <p className="store-card-balance"><span>Saldo disponível</span><strong>{money(store.balance)} {store.currency_name}</strong></p>}
+        {characterId && store && <p className="store-card-balance"><span>Saldo disponível:</span><strong>{money(store.balance)} {store.currency_name}</strong></p>}
       </div>
       <button className="store-explore-link" type="button" disabled={!store?.offers.length} onClick={() => offersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}>Explorar <span aria-hidden="true">→</span></button>
     </header>

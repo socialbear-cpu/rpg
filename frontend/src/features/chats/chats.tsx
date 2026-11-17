@@ -34,23 +34,22 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
     const latestMessage = messages.at(-1) ?? null;
     return <>
       <section className="chat-directory" aria-labelledby="chats-heading">
-        <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">SUA MESA</span><h2 id="chats-heading">Salas e conversas</h2></div></header>
+        <header className="lobby-section-heading"><h2 id="chats-heading">Salas e conversas</h2>{!loadingChats && chats.length > 0 && <span className="lobby-room-count">{chats.length} {chats.length === 1 ? 'sala' : 'salas'}</span>}</header>
         {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
           ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
-          : <div className="lobby-room-list">{chats.map((item) => <button className="lobby-room-row" key={item.id} type="button" aria-pressed={selectedChatId === item.id} onClick={() => { onSelectChat(item.id); onOpenConversation?.(item.id); }}>
-            <span className="lobby-room-symbol" aria-hidden="true">✦</span><span className="lobby-room-copy"><strong>{item.name}</strong><small>{item.description || 'Chat do sistema'}</small></span><span className="lobby-room-open">Abrir →</span>
+          : <div className="lobby-room-list">{chats.map((item) => <button className="lobby-room-row" key={item.id} type="button" aria-label={`Abrir sala ${item.name}`} aria-pressed={selectedChatId === item.id} onClick={() => { onSelectChat(item.id); onOpenConversation?.(item.id); }}>
+            <span className="lobby-room-symbol" aria-hidden="true">✦</span><span className="lobby-room-copy"><strong>{item.name}</strong>{item.description && <small>{item.description}</small>}</span>
           </button>)}</div>}
         {error && <p className="chat-error" role="alert">{error}{onRetry && <button type="button" onClick={onRetry}>Tentar novamente</button>}</p>}
       </section>
       <section className="chat-recents" aria-labelledby="chat-recents-heading">
-        <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">ATIVIDADE DO PERSONAGEM</span><h2 id="chat-recents-heading">Conversas recentes</h2></div></header>
+        <header className="lobby-section-heading"><h2 id="chat-recents-heading">Conversas recentes</h2>{selectedChat && <button className="chat-recent-open" type="button" onClick={() => onOpenConversation?.(selectedChat.id)}>Abrir chat <span aria-hidden="true">→</span></button>}</header>
         {loadingChats ? <p role="status">Carregando conversas…</p> : !selectedChat
           ? <p className="chat-empty">Nenhuma conversa recente.</p>
           : loadingMessages ? <p role="status">Carregando mensagens…</p>
             : latestMessage ? <button className="chat-recent-preview" type="button" onClick={() => onOpenConversation?.(selectedChat.id)}>
-              <span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{selectedChat.name}</strong><small>{latestMessage.character_id === characterId ? 'Você' : 'Personagem'} · {formatMessageTime(latestMessage.created_at)}</small><span>{latestMessage.content}</span></span><span className="chat-recent-arrow" aria-hidden="true">→</span>
-            </button> : <div className="chat-recent-preview chat-recent-preview-empty"><span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{selectedChat.name}</strong><small>{selectedChat.description || 'Ainda não há mensagens nesta conversa.'}</small></span></div>}
-        {selectedChat && <button className="chat-recent-open" type="button" onClick={() => onOpenConversation?.(selectedChat.id)}>Conversar</button>}
+              <span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{selectedChat.name}</strong><small>{latestMessage.character_id === characterId ? 'Você' : 'Outro personagem'}: “{latestMessage.content}”</small></span>
+            </button> : <div className="chat-recent-preview chat-recent-preview-empty"><span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{selectedChat.name}</strong><small>Nenhuma mensagem ainda.</small></span></div>}
       </section>
     </>;
   }

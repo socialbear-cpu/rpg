@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import type { CharacterSheetDefinition, CharacterSheetField, GameSystem, SystemCharacter } from '../src/api.js';
+import { defaultSystemLobbySettings, type CharacterSheetDefinition, type CharacterSheetField, type GameSystem, type SystemCharacter } from '../src/api.js';
 import { CharacterGallery } from '../src/features/characters/character-gallery.js';
 import { CharacterForm } from '../src/features/characters/character-form.js';
 import { CharacterHome } from '../src/features/characters/character-home.js';
@@ -141,9 +141,9 @@ describe('character entry', () => {
     expect(html).toContain('Ayla');
     expect(html).toContain('Mago');
     expect(html).not.toContain('Uma história longa');
-    expect(html).toContain('Chats');
-    expect(html).toContain('Minha Ficha');
-    expect(html).toContain('Consultar dados e inventário');
+    expect(html).toContain('Salas e conversas');
+    expect(html).toContain('>Ficha</button>');
+    expect(html).toContain('>Inventário</button>');
     expect(html).toContain('>Recompensa diária</button>');
     expect(html).toContain('<dialog');
   });
@@ -152,6 +152,7 @@ describe('character entry', () => {
     const html = renderToStaticMarkup(createElement(CharacterHome, {
       system, character, fields, onSwitch: vi.fn(), sheetDefinition: definition,
       inventory: null, recordLoading: false, sheetError: null, inventoryError: null, onRefreshRecord: vi.fn(),
+      lobbySettings: { ...defaultSystemLobbySettings, section_order: ['system-presentation', 'chat', 'events', 'store', 'matchmaking', 'character-sheet'] },
     }));
 
     expect(html).toContain('aria-label="Apresentação de Crônicas"');
@@ -164,6 +165,7 @@ describe('character entry', () => {
       system: { ...system, description: null, cover_image_path: null },
       character, fields, onSwitch: vi.fn(), sheetDefinition: definition,
       inventory: null, recordLoading: false, sheetError: null, inventoryError: null, onRefreshRecord: vi.fn(),
+      lobbySettings: { ...defaultSystemLobbySettings, section_order: ['system-presentation', 'chat', 'events', 'store', 'matchmaking', 'character-sheet'] },
     }));
 
     expect(html).toContain('aria-label="Capa padrão de Crônicas"');

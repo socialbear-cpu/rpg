@@ -19,8 +19,8 @@ export const lobbySettingsSchema = z.strictObject({
 export const lobbySettingsDefaults = {
   section_order: [...lobbySectionIds],
   hidden_sections: [] as (typeof lobbySectionIds)[number][],
-  welcome_title: 'Bem-vindo à aventura',
-  welcome_message: 'Escolha onde sua próxima história começa.',
+  welcome_title: 'Bem-vinda à campanha',
+  welcome_message: 'Veja as salas, conversas e próximos encontros do sistema.',
   accent_color: '#8B5CF6',
 };
 

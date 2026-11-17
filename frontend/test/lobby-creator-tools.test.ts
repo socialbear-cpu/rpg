@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import type { SystemLobbySettings } from '../src/api.js';
+import { defaultSystemLobbySettings, type SystemLobbySettings } from '../src/api.js';
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }) }));
 import { CharacterHome } from '../src/features/characters/character-home.js';
 import { LobbyCustomizationForm } from '../src/features/characters/lobby-customization-form.js';
@@ -18,8 +18,8 @@ const defaultSettings: SystemLobbySettings = {
   accent_color: '#8B5CF6',
 };
 
-function renderLobby(lobbySettings = defaultSettings) {
-  return renderToStaticMarkup(createElement(CharacterHome, {
+function renderLobby(lobbySettings?: SystemLobbySettings) {
+  const props = {
     system,
     character,
     sheetDefinition: null,
@@ -29,7 +29,10 @@ function renderLobby(lobbySettings = defaultSettings) {
     inventoryError: null,
     onRefreshRecord: () => undefined,
     onSwitch: () => undefined,
-    lobbySettings,
+    ...(lobbySettings ? { lobbySettings } : {}),
+  };
+  return renderToStaticMarkup(createElement(CharacterHome, {
+    ...props,
   } as never));
 }
 
@@ -48,12 +51,43 @@ const event = {
 };
 
 describe('lobby creator tools', () => {
+  it('uses the approved mockup copy when a system has no saved welcome settings', () => {
+    const html = renderLobby();
+    expect(html).toContain('Bem-vinda à campanha');
+    expect(html).toContain('Veja as salas, conversas e próximos encontros do sistema.');
+  });
+
+  it('uses the approved matchmaking caption when that area is visible', () => {
+    const html = renderLobby({
+      ...defaultSystemLobbySettings,
+      section_order: ['matchmaking', 'chat', 'events', 'system-presentation', 'store', 'character-sheet'],
+    });
+    expect(html).toContain('Encontre um grupo para a sua próxima aventura.');
+  });
+
+  it('starts the two-row lobby layout after the character access strip without an extra section banner', () => {
+    const html = renderLobby();
+    expect(html.indexOf('Resumo da campanha')).toBeLessThan(html.indexOf('Ficha</button>'));
+    expect(html).not.toContain('Continue a aventura');
+    expect(html).toContain('Salas e conversas');
+    expect(html).toContain('Conversas recentes');
+    expect(html).toContain('Próximo encontro');
+    expect(html).toContain('Mercado do sistema');
+  });
+
+  it('preserves visible sections when an Owner saves visibility preferences without reordering', () => {
+    const html = renderLobby({ ...defaultSystemLobbySettings, hidden_sections: ['store'] });
+    expect(html).toContain('aria-label="Apresentação de Floresta"');
+    expect(html).toContain('Procurar partida');
+    expect(html).not.toContain('Mercado do sistema');
+  });
+
   it('does not show chat creation or event management tools in the character view', () => {
     const html = renderLobby();
     expect(html).not.toContain('Ferramentas do criador');
     expect(html).not.toContain('Criar chat');
     expect(html).not.toContain('Novo evento');
-    expect(html).toContain('Chats');
+    expect(html).toContain('Salas e conversas');
   });
 
   it('applies saved section order, hides selected sections and displays saved text/color for members', () => {
@@ -67,7 +101,7 @@ describe('lobby creator tools', () => {
     expect(html).toContain('Bem-vindos à Floresta');
     expect(html).toContain('Preparem seus personagens.');
     expect(html).toContain('--lobby-accent:#D946EF');
-    expect(html.indexOf('Chats')).toBeLessThan(html.indexOf('Eventos'));
+    expect(html.indexOf('Salas e conversas')).toBeLessThan(html.indexOf('Próximo encontro'));
     expect(html).not.toContain('Loja do sistema');
     expect(html).not.toContain('Procurar partida');
   });

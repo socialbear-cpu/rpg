@@ -22,6 +22,7 @@ beforeEach(() => {
     const body: unknown = init?.body ? JSON.parse(String(init.body)) : null;
     requests.push({ url, method, body });
     if (url.pathname === '/auth/v1/user') return Response.json({ id: userId, aud: 'authenticated', role: 'authenticated', email: 'settings@example.test', app_metadata: {}, user_metadata: {}, created_at: savedAt });
+    if (url.pathname === '/rest/v1/rpc/get_my_account_status') return Response.json(true);
     if (url.pathname === '/rest/v1/rpc/get_my_system_memberships') return Response.json({ is_platform_admin: isAdmin, memberships: [{ game_system_id: systemId, game_system_name: 'Sistema', role }] });
     if (url.pathname === '/rest/v1/rpc/join_game_system_with_password') return Response.json({ status: 'ok' });
     if (url.pathname === '/rest/v1/game_system_lobby_settings') {
@@ -61,8 +62,8 @@ describe('lobby settings API', () => {
     expect(response.json().settings).toEqual({
       section_order: ['system-presentation', 'matchmaking', 'store', 'chat', 'events', 'character-sheet'],
       hidden_sections: [],
-      welcome_title: 'Bem-vindo à aventura',
-      welcome_message: 'Escolha onde sua próxima história começa.',
+      welcome_title: 'Bem-vinda à campanha',
+      welcome_message: 'Veja as salas, conversas e próximos encontros do sistema.',
       accent_color: '#8B5CF6',
     });
   });

@@ -14,6 +14,7 @@ import { gameSystemsRoutes } from './modules/game-systems/game-systems.routes.js
 import { systemEventsRoutes } from './modules/system-events/system-events.routes.js';
 import { chatsRoutes } from './modules/chats/chats.routes.js';
 import { lobbySettingsRoutes } from './modules/lobby-settings/lobby-settings.routes.js';
+import { lobbyPresenceRoutes } from './modules/lobby-presence/lobby-presence.routes.js';
 import { socialRoutes } from './modules/social/social.routes.js';
 import { publicProfileRoutes } from './modules/social/public-profile.routes.js';
 import { directMessagesRoutes } from './modules/direct-messages/direct-messages.routes.js';
@@ -54,4 +55,5 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
   app.register(systemEventsRoutes);
   app.register(chatsRoutes);
   app.register(lobbySettingsRoutes);
+  app.register(lobbyPresenceRoutes);
 }
