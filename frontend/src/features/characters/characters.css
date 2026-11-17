@@ -518,7 +518,13 @@
 .chat-recent-arrow { margin-left: auto; color: #cbb2e8; }
 .chat-recent-open { flex: 0 0 auto; margin: 0; padding: 4px 0 4px 8px; border: 0; color: #cbb2e8; background: transparent; font: 600 11px 'DM Sans', sans-serif; cursor: pointer; }
 .chat-recent-open:hover { color: #eee5ff; }
-.lobby-section-slot[data-section='events'] .system-events-card { max-width: none; margin: 0; height: 100%; }
+.lobby-section-slot[data-section='events'] .system-events-card { max-width: none; height: 100%; margin: 0; padding: 17px; border-color: #383746; border-radius: 14px; color: #f4f1fa; background: linear-gradient(145deg, #1a1b23, #14151b); }
+.lobby-section-slot[data-section='events'] .system-events-eyebrow { display: none; }
+.lobby-section-slot[data-section='events'] .system-events-empty { margin-top: 12px; color: #96939f; }
+.lobby-section-slot[data-section='events'] .system-events-list { margin-top: 12px; }
+.lobby-section-slot[data-section='events'] .system-event { padding: 0; border: 0; border-radius: 0; background: transparent; }
+.lobby-section-slot[data-section='events'] .system-event dl { justify-content: space-between; gap: 10px 20px; margin-top: 13px; padding-top: 11px; border-top: 1px solid #30313b; color: #c5c0ca; font-size: 10px; }
+.lobby-section-slot[data-section='events'] .system-event dt { color: #918e99; }
 .lobby-character-record-grid { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 1px; padding: 12px 14px; border: 1px solid #393447; border-radius: 12px; background: linear-gradient(110deg, #211a2e, #171521 70%); }
 .lobby-character-identity { display: flex; min-width: 0; align-items: center; gap: 10px; }
 .lobby-character-avatar { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border: 1px solid #8067bc; border-radius: 50%; color: #f5edff; background: linear-gradient(140deg, #8f68cb, #442f67); font: 700 15px 'Outfit', sans-serif; }
@@ -541,7 +547,9 @@
 .character-home-page .store-offer { display: flex; min-width: 0; align-items: center; gap: 10px; padding: 10px 0; border: 0; border-top: 1px solid #302d3b; border-radius: 0; }
 .character-home-page .store-offer:first-child { border-top: 0; }
 .character-home-page .store-offer-art { display: grid; width: 36px; height: 36px; flex: 0 0 auto; place-items: center; border: 1px solid #493c5a; border-radius: 9px; color: #d8c1ed; background: #292133; font-size: 17px; }
-.character-home-page .store-offer h3 { min-width: 0; flex: 1; margin: 0; overflow: hidden; color: #eeeaf4; font: 700 12px 'DM Sans', sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+.character-home-page .store-offer-copy { display: grid; min-width: 0; flex: 1; gap: 3px; }
+.character-home-page .store-offer h3 { min-width: 0; margin: 0; overflow: hidden; color: #eeeaf4; font: 700 12px 'DM Sans', sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+.character-home-page .store-offer-description { margin: 0; overflow: hidden; color: #918e99; font-size: 10px; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
 .character-home-page .store-offer-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 9px; }
 .character-home-page .store-offer-price { color: #cbb2e8; font-size: 11px; font-weight: 600; white-space: nowrap; }
 .character-home-page .store-offer .button.primary { min-height: 29px; padding: 0 9px; border-radius: 7px; font-size: 10px; }

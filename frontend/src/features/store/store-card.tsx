@@ -5,6 +5,8 @@ import { getCharacterStore, purchaseStoreOffer, type CharacterStore } from '../.
 import './store.css';
 
 const money = (amount: number) => amount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const itemTypeLabels: Record<string, string> = { consumable: 'Consumível', equipment: 'Equipamento', misc: 'Diversos' };
+
 export function StoreCard({ characterId, characterName, store, busy, message, onPurchase }: {
   characterId: string | null; characterName: string; store: CharacterStore | null; busy: boolean;
   message: string | null; onPurchase: (offerId: string) => void;
@@ -23,7 +25,7 @@ export function StoreCard({ characterId, characterName, store, busy, message, on
     {store?.offers.length === 0 && <p>Nenhuma oferta disponível.</p>}
     <div className="store-offers" ref={offersRef}>{store?.offers.map((offer, index) => <section className="store-offer" key={offer.store_product_id ?? index}>
       <span className="store-offer-art" aria-hidden="true">✧</span>
-      <h3>{offer.item_name}</h3>
+      <div className="store-offer-copy"><h3>{offer.item_name}</h3>{(offer.item_type || offer.item_description) && <p className="store-offer-description">{[offer.item_type ? itemTypeLabels[offer.item_type] ?? offer.item_type : null, offer.item_description].filter(Boolean).join(' · ')}</p>}</div>
       <div className="store-offer-actions"><span className="store-offer-price">{money(offer.price)} {store.currency_name}</span>
         <button className="button primary" type="button" disabled={busy || !characterId || !offer.is_available || !offer.store_product_id || store.character_id !== characterId} onClick={() => { if (offer.store_product_id) onPurchase(offer.store_product_id); }}>Comprar</button>
       </div>

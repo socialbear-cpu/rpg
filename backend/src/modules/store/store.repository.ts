@@ -35,12 +35,21 @@ async function readCatalog(client: SupabaseClient, systemId: string) {
     result(client.from('store_products').select('id,product_id,price,is_available').eq('game_system_id', systemId).order('created_at')),
     result(client.from('items').select('id,name,description,item_type,image_url').eq('game_system_id', systemId).order('name')),
   ]);
-  const itemMap = new Map((items ?? []).map((item) => [item.id, item.name]));
+  const itemMap = new Map((items ?? []).map((item) => [item.id, item]));
   const itemProducts = (products ?? []).filter((p) => p.item_id && !p.ability_id && itemMap.has(p.item_id));
   const productMap = new Map(itemProducts.map((p) => [p.id, p.item_id]));
   const offers = (listings ?? []).flatMap((listing) => {
     const itemId = productMap.get(listing.product_id);
-    return itemId ? [{ store_product_id: listing.id, item_id: itemId as string, item_name: itemMap.get(itemId) as string, price: Number(listing.price), is_available: listing.is_available as boolean }] : [];
+    const item = itemId ? itemMap.get(itemId) : null;
+    return item ? [{
+      store_product_id: listing.id,
+      item_id: item.id as string,
+      item_name: item.name as string,
+      item_description: item.description as string | null,
+      item_type: item.item_type as string,
+      price: Number(listing.price),
+      is_available: listing.is_available as boolean,
+    }] : [];
   });
   return { items: items ?? [], offers, itemProducts };
 }

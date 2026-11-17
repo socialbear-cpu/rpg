@@ -906,6 +906,8 @@ export interface StoreOffer {
   store_product_id?: string;
   item_id: string;
   item_name: string;
+  item_description?: string | null;
+  item_type?: 'consumable' | 'equipment' | 'misc' | string;
   price: number;
   is_available: boolean;
 }
