@@ -533,6 +533,20 @@
 .lobby-owner-tools { padding: 0 12px 12px; }
 .character-home-page .store-card { padding: 17px; border-radius: 14px; background: linear-gradient(145deg, #1a1b23, #14151b); }
 .character-home-page .store-card-balance strong { color: var(--lobby-accent, #cbb2e8); }
+.character-home-page .store-card-header { align-items: center; margin-bottom: 12px; }
+.character-home-page .store-card-heading { min-width: 0; }
+.character-home-page .store-card-heading h2 { color: #f4f1fa; font: 700 16px 'Outfit', sans-serif; }
+.character-home-page .store-card-balance { display: block; margin-top: 5px; color: #aaa2b4; font-size: 11px; text-align: left; }
+.character-home-page .store-card-balance strong { margin-left: 4px; font-size: 11px; }
+.character-home-page .store-explore-link { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 4px; padding: 4px 0 4px 8px; border: 0; color: #cbb2e8; background: transparent; font: 600 11px 'DM Sans', sans-serif; cursor: pointer; }
+.character-home-page .store-explore-link:disabled { color: #74727d; cursor: default; }
+.character-home-page .store-offers { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.character-home-page .store-offer { display: flex; min-width: 0; align-items: center; gap: 10px; padding: 9px 0; border: 0; border-top: 1px solid #2b2c35; border-radius: 0; }
+.character-home-page .store-offer-art { display: grid; width: 36px; height: 36px; flex: 0 0 auto; place-items: center; border: 1px solid #514363; border-radius: 9px; color: #d8c1ed; background: #30243f; font-size: 17px; }
+.character-home-page .store-offer h3 { min-width: 0; flex: 1; margin: 0; overflow: hidden; color: #eee7f5; font: 700 11px 'DM Sans', sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+.character-home-page .store-offer-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 9px; }
+.character-home-page .store-offer-price { color: #cbb2e8; font-size: 10px; white-space: nowrap; }
+.character-home-page .store-offer .button.primary { min-height: 29px; padding: 0 9px; border-radius: 7px; font-size: 10px; }
 
 @media (max-width: 760px) {
   .character-home-page .lobby-welcome { align-items: flex-start; flex-direction: row; gap: 12px; }
@@ -548,6 +562,9 @@
   .lobby-character-record-grid { align-items: flex-start; flex-direction: column; }
   .lobby-character-record-actions { width: 100%; }
   .lobby-character-record-actions .lobby-character-record-action { flex: 1 1 auto; justify-content: center; }
+  .character-home-page .store-card { padding: 15px; }
+  .character-home-page .store-card-header { flex-direction: row; align-items: center; }
+  .character-home-page .store-card-balance { text-align: left; }
 }
 @media (max-width: 520px) {
   .character-home-page .lobby-welcome { flex-direction: column; }

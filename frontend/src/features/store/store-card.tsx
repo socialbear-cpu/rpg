@@ -9,17 +9,24 @@ export function StoreCard({ characterId, characterName, store, busy, message, on
   characterId: string | null; characterName: string; store: CharacterStore | null; busy: boolean;
   message: string | null; onPurchase: (offerId: string) => void;
 }) {
+  const offersRef = useRef<HTMLDivElement>(null);
   return <article className="card store-card">
     <header className="store-card-header">
-      <h2>Mercado do sistema</h2>
-      {characterId && store && <p className="store-card-balance"><span>Saldo de {characterName}</span><strong>{money(store.balance)} {store.currency_name}</strong></p>}
+      <div className="store-card-heading">
+        <h2>Mercado do sistema</h2>
+        {characterId && store && <p className="store-card-balance"><span>Saldo disponível</span><strong>{money(store.balance)} {store.currency_name}</strong></p>}
+      </div>
+      <button className="store-explore-link" type="button" disabled={!store?.offers.length} onClick={() => offersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}>Explorar <span aria-hidden="true">→</span></button>
     </header>
     {!characterId && <p>Selecione um personagem para comprar.</p>}
     {message && <p role="status" aria-live="polite">{message}</p>}
     {store?.offers.length === 0 && <p>Nenhuma oferta disponível.</p>}
-    <div className="store-offers">{store?.offers.map((offer, index) => <section className="store-offer" key={offer.store_product_id ?? index}>
-      <h3>{offer.item_name}</h3><p>{money(offer.price)} {store.currency_name}</p>
-      <button className="button primary" type="button" disabled={busy || !characterId || !offer.is_available || !offer.store_product_id || store.character_id !== characterId} onClick={() => { if (offer.store_product_id) onPurchase(offer.store_product_id); }}>Comprar</button>
+    <div className="store-offers" ref={offersRef}>{store?.offers.map((offer, index) => <section className="store-offer" key={offer.store_product_id ?? index}>
+      <span className="store-offer-art" aria-hidden="true">✧</span>
+      <h3>{offer.item_name}</h3>
+      <div className="store-offer-actions"><span className="store-offer-price">{money(offer.price)} {store.currency_name}</span>
+        <button className="button primary" type="button" disabled={busy || !characterId || !offer.is_available || !offer.store_product_id || store.character_id !== characterId} onClick={() => { if (offer.store_product_id) onPurchase(offer.store_product_id); }}>Comprar</button>
+      </div>
     </section>)}</div>
   </article>;
 }

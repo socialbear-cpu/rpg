@@ -9,7 +9,6 @@ import { DailyLoginPopup } from '../daily-login/daily-login-popup';
 import { CharacterRecord } from './character-record';
 import { Chats } from '../chats/chats';
 import { SystemEventsCard } from '../system-events/system-events-card';
-import { LobbyCreatorTools } from './lobby-creator-tools';
 import './characters.css';
 
 interface CharacterHomeProps {
@@ -34,7 +33,6 @@ interface CharacterHomeProps {
 export function CharacterHome({ system, character, sheetDefinition, inventory, recordLoading, sheetError, inventoryError, onRefreshRecord, fields = [], experience = null, onSwitch, dailyRewardVersion = 0, onDailyClaimed, isCreator = false, lobbySettings = defaultSystemLobbySettings, preferredChatId: initialPreferredChatId = null }: CharacterHomeProps) {
   const [showCharacterRecord, setShowCharacterRecord] = useState(false);
   const [activeRecordTab, setActiveRecordTab] = useState<'sheet' | 'inventory'>('sheet');
-  const [chatReload, setChatReload] = useState(0);
   const [preferredChatId, setPreferredChatId] = useState<string | null>(initialPreferredChatId);
   const [chatPopupOpen, setChatPopupOpen] = useState(false);
 
@@ -67,8 +65,8 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
       <span className="lobby-matchmaking-caption">Encontre uma sistema para a sua próxima aventura</span>
     </section>,
     store: <section className="lobby-character-home-section" aria-label="Loja do sistema"><SystemStore key={`${character.id}-${dailyRewardVersion}`} systemId={character.game_system_id} characterId={character.id} characterName={character.character_name} /></section>,
-    chat: <Chats characterId={character.id} reloadToken={chatReload} preferredChatId={preferredChatId} view={hasDefaultSectionOrder ? 'dashboard' : 'full'} onOpenConversation={(chatId) => { setPreferredChatId(chatId); setChatPopupOpen(true); }} />,
-    events: <div className="lobby-character-home-section" id="system-events"><SystemEventsCard systemId={character.game_system_id} canManage={isCreator} /></div>,
+    chat: <Chats characterId={character.id} preferredChatId={preferredChatId} view={hasDefaultSectionOrder ? 'dashboard' : 'full'} onOpenConversation={(chatId) => { setPreferredChatId(chatId); setChatPopupOpen(true); }} />,
+    events: <div className="lobby-character-home-section" id="system-events"><SystemEventsCard systemId={character.game_system_id} /></div>,
     'character-sheet': <section className="lobby-character-record-grid lobby-character-home-section" aria-label="Ficha e inventário do personagem">
       <div className="lobby-character-identity"><span className="lobby-character-avatar" aria-hidden="true">{character.character_name.trim().charAt(0).toLocaleUpperCase('pt-BR')}</span><span><strong>{character.character_name}</strong><small>{system.name}</small></span></div>
       <div className="lobby-character-record-actions">
@@ -107,14 +105,11 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
           <div className="lobby-content-heading"><span className="character-entry-eyebrow">SUA MESA</span><h2>Continue a aventura</h2></div>
           <section className={`lobby-rooms${sectionsInDefaultLayout ? ' lobby-rooms-default' : ''}`} aria-label="Seções do saguão">{(sectionsInDefaultLayout ?? lobbySettings.section_order).map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div className={`lobby-section-slot lobby-section-slot-${section}`} data-section={section} key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</section>
           {hasDefaultSectionOrder && secondarySections.some((section) => !lobbySettings.hidden_sections.includes(section)) && <details className="lobby-secondary-sections"><summary>Mais áreas do sistema</summary><div className="lobby-secondary-grid">{secondarySections.map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div className={`lobby-section-slot lobby-section-slot-${section}`} data-section={section} key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</div></details>}
-          {isCreator && <details className="lobby-owner-tools-disclosure"><summary>Ferramentas do criador</summary><div className="lobby-owner-tools"><LobbyCreatorTools system={system} characters={[character]} characterLoadError={null}
-            onChatCreated={(chatId) => { setPreferredChatId(chatId); setChatReload((version) => version + 1); }}
-          /></div></details>}
         </div>
       </div>}
       {chatPopupOpen && <dialog className="chat-float-popup" open aria-labelledby="chat-float-heading" onCancel={(event) => { event.preventDefault(); setChatPopupOpen(false); }}>
         <header className="chat-float-heading"><h2 id="chat-float-heading">Conversas</h2><button type="button" aria-label="Fechar conversa" onClick={() => setChatPopupOpen(false)}>×</button></header>
-        <Chats characterId={character.id} reloadToken={chatReload} preferredChatId={preferredChatId} />
+        <Chats characterId={character.id} preferredChatId={preferredChatId} />
       </dialog>}
       <button className="chat-float-button" type="button" aria-label={chatPopupOpen ? 'Fechar conversa' : 'Abrir conversa'} aria-expanded={chatPopupOpen} onClick={() => setChatPopupOpen((open) => !open)}>
         <span aria-hidden="true">{chatPopupOpen ? '×' : '✉'}</span><span className="chat-float-button-label">{chatPopupOpen ? 'Fechar conversa' : 'Conversar'}</span>
