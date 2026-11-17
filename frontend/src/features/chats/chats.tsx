@@ -19,7 +19,8 @@ interface ChatPanelProps {
   onSelectChat: (chatId: string) => void;
   onContentChange: (value: string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  showConversationList?: boolean;
+  view?: 'full' | 'dashboard';
+  onOpenConversation?: (chatId: string) => void;
   onRetry?: () => void;
 }
 
@@ -27,14 +28,45 @@ function formatMessageTime(value: string) {
   return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(value));
 }
 
-export function ChatPanel({ chats, selectedChatId, messages, characterId, content, loadingChats, loadingMessages, sending, error, onSelectChat, onContentChange, onSubmit, showConversationList = true, onRetry }: ChatPanelProps) {
+export function ChatPanel({ chats, selectedChatId, messages, characterId, content, loadingChats, loadingMessages, sending, error, onSelectChat, onContentChange, onSubmit, view = 'full', onOpenConversation, onRetry }: ChatPanelProps) {
   const selectedChat = chats.find((chat) => chat.id === selectedChatId) ?? null;
-  return <>
-    <section className="chat" aria-labelledby="chats-heading">
-      <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">SUA MESA</span><h2 id="chats-heading">Salas e conversas</h2></div></header>
-      {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
-        ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
-        : <div className="chat-conversation">
+  if (view === 'dashboard') {
+    const latestMessage = messages.at(-1) ?? null;
+    return <>
+      <section className="chat-directory" aria-labelledby="chats-heading">
+        <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">SUA MESA</span><h2 id="chats-heading">Salas e conversas</h2></div></header>
+        {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
+          ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
+          : <div className="lobby-room-list">{chats.map((item) => <button className="lobby-room-row" key={item.id} type="button" aria-pressed={selectedChatId === item.id} onClick={() => { onSelectChat(item.id); onOpenConversation?.(item.id); }}>
+            <span className="lobby-room-symbol" aria-hidden="true">✦</span><span className="lobby-room-copy"><strong>{item.name}</strong><small>{item.description || 'Chat do sistema'}</small></span><span className="lobby-room-open">Abrir →</span>
+          </button>)}</div>}
+        {error && <p className="chat-error" role="alert">{error}{onRetry && <button type="button" onClick={onRetry}>Tentar novamente</button>}</p>}
+      </section>
+      <section className="chat-recents" aria-labelledby="chat-recents-heading">
+        <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">ATIVIDADE DO PERSONAGEM</span><h2 id="chat-recents-heading">Conversas recentes</h2></div></header>
+        {loadingChats ? <p role="status">Carregando conversas…</p> : !selectedChat
+          ? <p className="chat-empty">Nenhuma conversa recente.</p>
+          : loadingMessages ? <p role="status">Carregando mensagens…</p>
+            : latestMessage ? <button className="chat-recent-preview" type="button" onClick={() => onOpenConversation?.(selectedChat.id)}>
+              <span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{selectedChat.name}</strong><small>{latestMessage.character_id === characterId ? 'Você' : 'Personagem'} · {formatMessageTime(latestMessage.created_at)}</small><span>{latestMessage.content}</span></span><span className="chat-recent-arrow" aria-hidden="true">→</span>
+            </button> : <div className="chat-recent-preview chat-recent-preview-empty"><span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{selectedChat.name}</strong><small>{selectedChat.description || 'Ainda não há mensagens nesta conversa.'}</small></span></div>}
+        {selectedChat && <button className="chat-recent-open" type="button" onClick={() => onOpenConversation?.(selectedChat.id)}>Conversar</button>}
+      </section>
+    </>;
+  }
+
+  return <section className="chat" aria-labelledby="chats-heading">
+    <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">SUA MESA</span><h2 id="chats-heading">{selectedChat?.name ?? 'Conversas'}</h2></div></header>
+    {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
+      ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
+      : <div className="chat-layout">
+        <nav className="chat-list" aria-label="Chats do personagem">
+          {chats.map((item) => <button key={item.id} type="button" aria-pressed={selectedChatId === item.id} onClick={() => onSelectChat(item.id)}>
+            <strong>{item.name}</strong>
+            {item.description && <span>{item.description}</span>}
+          </button>)}
+        </nav>
+        <div className="chat-conversation">
           {selectedChat ? <>
             <div className="chat-title-row"><h3>{selectedChat.name}</h3><InviteFriendControl chatId={selectedChat.id} /></div>
             {loadingMessages ? <p role="status">Carregando mensagens…</p> : <ol className="chat-messages" aria-label={`Mensagens de ${selectedChat.name}`} aria-live="polite">
@@ -49,21 +81,12 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
             </form>
           </> : <p>Selecione um chat para ver as mensagens.</p>}
         </div>
-      }
-      {error && <p className="chat-error" role="alert">{error}{onRetry && <button type="button" onClick={onRetry}>Tentar novamente</button>}</p>}
-    </section>
-    {showConversationList && <section className="chat-recents" aria-labelledby="chat-recents-heading">
-      <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">PERSONAGEM</span><h2 id="chat-recents-heading">Conversas</h2></div></header>
-      {loadingChats ? <p role="status">Carregando conversas…</p> : chats.length === 0
-        ? <p className="chat-empty">Nenhuma conversa disponível.</p>
-        : <nav className="chat-recents-list" aria-label="Conversas do personagem">{chats.map((item) => <button key={item.id} type="button" aria-current={selectedChatId === item.id ? 'true' : undefined} onClick={() => onSelectChat(item.id)}>
-          <span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{item.name}</strong><small>{item.description || `Criada em ${new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium' }).format(new Date(item.created_at))}`}</small></span><span className="chat-recent-arrow" aria-hidden="true">→</span>
-        </button>)}</nav>}
-    </section>}
-  </>;
+      </div>}
+    {error && <p className="chat-error" role="alert">{error}{onRetry && <button type="button" onClick={onRetry}>Tentar novamente</button>}</p>}
+  </section>;
 }
 
-export function Chats({ characterId, reloadToken = 0, preferredChatId = null, showConversationList = true }: { characterId: string; reloadToken?: number; preferredChatId?: string | null; showConversationList?: boolean }) {
+export function Chats({ characterId, reloadToken = 0, preferredChatId = null, view = 'full', onOpenConversation }: { characterId: string; reloadToken?: number; preferredChatId?: string | null; view?: 'full' | 'dashboard'; onOpenConversation?: (chatId: string) => void }) {
   const [chats, setChats] = useState<Chat[]>([]);
   const [chatsCharacterId, setChatsCharacterId] = useState<string | null>(null);
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
@@ -142,5 +165,5 @@ export function Chats({ characterId, reloadToken = 0, preferredChatId = null, sh
     setReload((value) => value + 1);
   }
 
-  return <ChatPanel chats={visibleChats} selectedChatId={visibleChatId} messages={messages} characterId={characterId} content={content} loadingChats={loadingChats} loadingMessages={loadingMessages} sending={sending} error={error} onSelectChat={setSelectedChatId} onContentChange={changeDraft} onSubmit={(event) => void submit(event)} showConversationList={showConversationList} onRetry={retryChats} />;
+  return <ChatPanel chats={visibleChats} selectedChatId={visibleChatId} messages={messages} characterId={characterId} content={content} loadingChats={loadingChats} loadingMessages={loadingMessages} sending={sending} error={error} onSelectChat={setSelectedChatId} onContentChange={changeDraft} onSubmit={(event) => void submit(event)} view={view} onOpenConversation={onOpenConversation} onRetry={retryChats} />;
 }
