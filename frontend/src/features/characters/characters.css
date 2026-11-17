@@ -138,7 +138,7 @@
 .lobby-heading > .character-primary-button { display: flex; align-items: center; gap: 12px; }
 .lobby-heading > .character-primary-button:disabled { opacity: 1; cursor: not-allowed; }
 .lobby-soon { padding: 4px 7px; border-radius: 999px; color: #d9c8ee; background: #ffffff1a; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
-.lobby-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 4vw, 52px); width: 100%; max-width: 1200px !important; }
+.lobby-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 4vw, 52px); width: 100%; max-width: 1200px !important; margin-inline: auto; }
 .lobby-heading { max-width: 1450px !important; }
 .lobby-main { min-width: 0; }
 .lobby-matchmaking { position: relative; display: flex; min-height: 180px; align-items: center; justify-content: space-between; gap: 20px; overflow: hidden; padding: clamp(22px, 4vw, 38px); border: 1px solid #393447; border-radius: 18px; background: radial-gradient(ellipse at 30% 80%, #47365b66, transparent 45%), linear-gradient(125deg, #1d1a29, #171922 70%); }
@@ -469,6 +469,12 @@
 .lobby-settings-link { display: inline-flex; min-height: 38px; align-items: center; padding: 0 12px; border: 1px solid #514363; border-radius: 9px; color: #e7dcf6; background: #211b2a; text-decoration: none; white-space: nowrap; }
 .lobby-settings-link:hover { border-color: #8067bc; color: #fff; background: #2a2235; }
 .lobby-rooms { grid-template-columns: minmax(0, 1.55fr) minmax(260px, .8fr); align-items: start; gap: 14px; }
+.lobby-rooms-default { grid-template-areas: 'chat events' 'presentation store' 'matchmaking matchmaking'; }
+.lobby-rooms-default [data-section='chat'] { grid-area: chat; }
+.lobby-rooms-default [data-section='events'] { grid-area: events; }
+.lobby-rooms-default [data-section='system-presentation'] { grid-area: presentation; }
+.lobby-rooms-default [data-section='store'] { grid-area: store; }
+.lobby-rooms-default [data-section='matchmaking'] { grid-area: matchmaking; }
 .lobby-section-slot { min-width: 0; }
 .lobby-section-slot[data-section='system-presentation'] .character-system-presentation { margin: 0; }
 .lobby-section-slot[data-section='store'] .store-card { width: 100%; margin: 0; }
@@ -498,6 +504,8 @@
   .character-home-page .lobby-welcome { align-items: flex-start; flex-direction: row; gap: 12px; }
   .lobby-welcome-actions { width: auto; }
   .lobby-rooms { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .lobby-rooms-default { grid-template-areas: none; }
+  .lobby-rooms-default [data-section] { grid-area: auto; }
   .lobby-section-slot[data-section='chat'] .chat-layout { grid-template-columns: minmax(0, 1fr); }
   .lobby-character-record-grid { align-items: flex-start; flex-direction: column; }
   .lobby-character-record-actions { width: 100%; }

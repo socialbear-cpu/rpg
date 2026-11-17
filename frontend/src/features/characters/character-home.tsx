@@ -41,6 +41,11 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
   if (!character) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Meus sistemas" /><section className="character-unavailable"><span className="character-entry-eyebrow">{system.name}</span><h1>Personagem indisponível</h1><p>Este personagem não está disponível neste sistema.</p><button type="button" className="character-primary-button" onClick={onSwitch}>Voltar aos personagens</button></section></main>;
 
   const visibleFields = fields.filter((field) => field.show_on_card && Object.hasOwn(character.attributes, field.key));
+  const hasDefaultSectionOrder = lobbySettings.section_order.length === defaultSystemLobbySettings.section_order.length
+    && lobbySettings.section_order.every((section, index) => section === defaultSystemLobbySettings.section_order[index]);
+  const sectionsInDefaultLayout = hasDefaultSectionOrder
+    ? ['chat', 'events', 'store', 'system-presentation', 'matchmaking'] as const
+    : null;
   function openCharacterRecord(tab: 'sheet' | 'inventory') {
     setActiveRecordTab(tab);
     setShowCharacterRecord(true);
@@ -94,8 +99,9 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
             <div className="lobby-welcome-copy"><span className="character-entry-eyebrow">{system.name} · SAGUÃO</span><h1>{lobbySettings.welcome_title}</h1><p>{lobbySettings.welcome_message}</p></div>
             <div className="lobby-welcome-actions"><DailyLoginPopup systemId={character.game_system_id} onClaimed={onDailyClaimed} /></div>
           </header>
+          {hasDefaultSectionOrder && !lobbySettings.hidden_sections.includes('character-sheet') && <div className="lobby-section-slot lobby-section-slot-character-sheet" data-section="character-sheet" style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections['character-sheet']}</div>}
           <div className="lobby-content-heading"><span className="character-entry-eyebrow">SUA MESA</span><h2>Continue a aventura</h2></div>
-          <section className="lobby-rooms" aria-label="Seções do saguão">{lobbySettings.section_order.map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div className={`lobby-section-slot lobby-section-slot-${section}`} data-section={section} key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</section>
+          <section className={`lobby-rooms${sectionsInDefaultLayout ? ' lobby-rooms-default' : ''}`} aria-label="Seções do saguão">{(sectionsInDefaultLayout ?? lobbySettings.section_order).map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div className={`lobby-section-slot lobby-section-slot-${section}`} data-section={section} key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</section>
           {isCreator && <div className="lobby-owner-tools"><LobbyCreatorTools system={system} characters={[character]} characterLoadError={null}
             onChatCreated={(chatId) => { setPreferredChatId(chatId); setChatReload((version) => version + 1); }}
           /></div>}
