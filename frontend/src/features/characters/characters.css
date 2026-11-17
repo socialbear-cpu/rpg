@@ -189,7 +189,7 @@
 .lobby-character-record-copy strong { font: 650 13px 'Outfit', sans-serif; }
 .lobby-character-record-copy small { color: #b1a7bf; font-size: 11px; }
 .lobby-character-record-arrow { margin-left: 4px; color: #cbb2e8; }
-.lobby-main .lobby-section-heading h2 { color: var(--lobby-accent, #f0ebf6); }
+.lobby-main .lobby-section-heading h2 { color: #f4f1fa; }
 .lobby-main .lobby-search-button { border-color: var(--lobby-accent, #9d7acc); }
 .lobby-main .lobby-character-record-action:hover { border-color: var(--lobby-accent, #8563ad); }
 
@@ -478,7 +478,7 @@
 .lobby-stat-card strong { overflow: hidden; color: #f4f1fa; font: 700 16px 'Outfit', sans-serif; text-overflow: ellipsis; white-space: nowrap; }
 .lobby-settings-link { display: inline-flex; min-height: 38px; align-items: center; padding: 0 12px; border: 1px solid #514363; border-radius: 9px; color: #e7dcf6; background: #211b2a; text-decoration: none; white-space: nowrap; }
 .lobby-settings-link:hover { border-color: #8067bc; color: #fff; background: #2a2235; }
-.lobby-rooms { grid-template-columns: minmax(0, 1.55fr) minmax(260px, .8fr); align-items: start; gap: 14px; }
+.lobby-rooms { grid-template-columns: minmax(0, 1.55fr) minmax(260px, .8fr); align-items: stretch; gap: 14px; }
 .lobby-rooms-default { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-areas: 'chat chat chat chat chat chat chat chat events events events events' 'recent recent recent recent recent recent store store store store store store'; }
 .lobby-rooms-default .lobby-section-slot[data-section='chat'] { display: contents; }
 .lobby-rooms-default [data-section='events'] { grid-area: events; }
@@ -487,7 +487,7 @@
 .lobby-rooms-default [data-section='chat'] > .chat-recents { grid-area: recent; }
 .lobby-section-slot { min-width: 0; }
 .lobby-section-slot[data-section='system-presentation'] .character-system-presentation { margin: 0; }
-.lobby-section-slot[data-section='store'] .store-card { width: 100%; margin: 0; }
+.lobby-section-slot[data-section='store'] .store-card { width: 100%; height: 100%; margin: 0; }
 .lobby-section-slot[data-section='chat'] .chat { margin: 0; padding: 17px; border: 1px solid #383746; border-radius: 14px; background: linear-gradient(145deg, #1a1b23, #14151b); }
 .lobby-section-slot[data-section='chat'] .lobby-section-heading { justify-content: space-between; margin-bottom: 13px; text-align: left; }
 .lobby-section-slot[data-section='chat'] .lobby-section-heading h2 { margin: 4px 0 0; font-size: 18px; }
