@@ -157,7 +157,7 @@
 
 /* Character lobby: shared app navigation above the character and room dashboard. */
 .character-home-page { min-height: 100vh; padding: 0 clamp(20px, 4vw, 80px) 56px; background: radial-gradient(ellipse at 18% 64%, #242038 0, #171521 34%, #11121a 75%); }
-.character-home-page > .app-header { width: calc(100% + clamp(40px, 8vw, 160px)); margin: 0 calc(-1 * clamp(20px, 4vw, 80px)) 32px; }
+.character-home-page > .app-header { width: calc(100% + clamp(40px, 8vw, 160px)); margin: 0 calc(-1 * clamp(20px, 4vw, 80px)) 18px; }
 .character-home-page > * { max-width: none; }
 .lobby-main { display: grid; align-content: start; gap: clamp(20px, 3vw, 30px); width: min(100%, 1200px); min-width: 0; margin-inline: auto; padding-top: 0; }
 .lobby-welcome { margin: 0; text-align: center; }
@@ -462,31 +462,49 @@
 .character-home-page .lobby-welcome { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 2px 16px; border-bottom: 1px solid #393244; text-align: left; }
 .lobby-welcome-copy { min-width: 0; }
 .character-home-page .lobby-welcome h1 { margin: 5px 0 4px; font-size: clamp(24px, 2.8vw, 34px); }
-.character-home-page .lobby-welcome p { max-width: 70ch; font-size: 13px; line-height: 1.5; }
+.character-home-page .lobby-welcome-copy > p { max-width: 70ch; font-size: 13px; line-height: 1.5; }
 .lobby-welcome-actions { display: flex; flex: 0 0 auto; align-items: center; }
 .lobby-welcome-actions .character-secondary-button { min-height: 40px; margin: 0; border-color: #6b5790; border-radius: 9px; color: #eee5ff; background: #2a2434; white-space: nowrap; }
 .lobby-welcome-actions .character-secondary-button:hover { border-color: var(--lobby-accent, #a78bfa); background: #342943; }
 .lobby-settings-link { display: inline-flex; min-height: 38px; align-items: center; padding: 0 12px; border: 1px solid #514363; border-radius: 9px; color: #e7dcf6; background: #211b2a; text-decoration: none; white-space: nowrap; }
 .lobby-settings-link:hover { border-color: #8067bc; color: #fff; background: #2a2235; }
-.lobby-rooms { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 16px; }
+.lobby-rooms { grid-template-columns: minmax(0, 1.55fr) minmax(260px, .8fr); align-items: start; gap: 14px; }
 .lobby-section-slot { min-width: 0; }
-.lobby-section-slot[data-section='chat'] { grid-column: 1 / -1; }
 .lobby-section-slot[data-section='system-presentation'] .character-system-presentation { margin: 0; }
 .lobby-section-slot[data-section='store'] .store-card { width: 100%; margin: 0; }
-.lobby-section-slot[data-section='chat'] .chat { margin-top: 0; }
+.lobby-section-slot[data-section='chat'] .chat { margin: 0; padding: 17px; border: 1px solid #383746; border-radius: 14px; background: linear-gradient(145deg, #1a1b23, #14151b); }
+.lobby-section-slot[data-section='chat'] .lobby-section-heading { justify-content: space-between; margin-bottom: 13px; text-align: left; }
+.lobby-section-slot[data-section='chat'] .lobby-section-heading h2 { margin: 4px 0 0; font-size: 18px; }
+.lobby-section-slot[data-section='chat'] .chat-layout { grid-template-columns: minmax(120px, .8fr) minmax(0, 2fr); gap: 10px; }
+.lobby-section-slot[data-section='chat'] .chat-list button { padding: 10px; border-color: #30313b; border-radius: 10px; background: #13141a; }
+.lobby-section-slot[data-section='chat'] .chat-conversation { min-width: 0; padding: 12px; border: 1px solid #30313b; border-radius: 10px; background: #13141a; }
 .lobby-section-slot[data-section='events'] .system-events-card { max-width: none; margin: 0; height: 100%; }
-.lobby-character-record-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.lobby-main .lobby-character-record-action { justify-self: stretch; width: 100%; min-height: 62px; }
+.lobby-character-record-grid { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 14px; border: 1px solid #393447; border-radius: 12px; background: linear-gradient(110deg, #211a2e, #171521 70%); }
+.lobby-character-identity { display: flex; min-width: 0; align-items: center; gap: 10px; }
+.lobby-character-avatar { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border: 1px solid #8067bc; border-radius: 50%; color: #f5edff; background: linear-gradient(140deg, #8f68cb, #442f67); font: 700 15px 'Outfit', sans-serif; }
+.lobby-character-identity > span:last-child { display: grid; min-width: 0; gap: 3px; }
+.lobby-character-identity strong { overflow: hidden; color: #f4f1fa; font: 700 13px 'Outfit', sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+.lobby-character-identity small { overflow: hidden; color: #aaa2b4; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.lobby-character-record-actions { display: flex; flex: 0 0 auto; gap: 8px; }
+.lobby-main .lobby-character-record-action { display: inline-flex; min-height: 35px; align-items: center; gap: 7px; padding: 0 12px; border-radius: 8px; font-size: 11px; }
+.lobby-content-heading { margin: 2px 0 -5px; }
+.lobby-content-heading h2 { margin: 4px 0 0; color: #f4f1fa; font: 700 21px 'Outfit', sans-serif; letter-spacing: -.03em; }
 .lobby-owner-tools { min-width: 0; }
 .lobby-owner-tools .lobby-creator-tools { margin: 0; }
+.character-home-page .store-card { padding: 17px; border-radius: 14px; background: linear-gradient(145deg, #1a1b23, #14151b); }
+.character-home-page .store-card-balance strong { color: var(--lobby-accent, #cbb2e8); }
 
 @media (max-width: 760px) {
-  .character-home-page .lobby-welcome { align-items: flex-start; flex-direction: column; gap: 12px; }
-  .lobby-welcome-actions { width: 100%; }
+  .character-home-page .lobby-welcome { align-items: flex-start; flex-direction: row; gap: 12px; }
+  .lobby-welcome-actions { width: auto; }
   .lobby-rooms { grid-template-columns: minmax(0, 1fr); gap: 14px; }
-  .lobby-section-slot[data-section='chat'] { grid-column: auto; }
+  .lobby-section-slot[data-section='chat'] .chat-layout { grid-template-columns: minmax(0, 1fr); }
+  .lobby-character-record-grid { align-items: flex-start; flex-direction: column; }
+  .lobby-character-record-actions { width: 100%; }
+  .lobby-character-record-actions .lobby-character-record-action { flex: 1 1 auto; justify-content: center; }
 }
 @media (max-width: 520px) {
-  .lobby-character-record-grid { grid-template-columns: minmax(0, 1fr); }
+  .character-home-page .lobby-welcome { flex-direction: column; }
+  .lobby-welcome-actions { width: 100%; }
   .lobby-settings-link { min-height: 36px; padding-inline: 9px; font-size: 11px; }
 }

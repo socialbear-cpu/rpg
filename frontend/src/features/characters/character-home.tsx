@@ -55,21 +55,19 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
       <div className="character-system-details"><p>{system.description?.trim() || 'Este sistema ainda não tem uma descrição.'}</p></div>
     </section>,
     matchmaking: <section className="lobby-matchmaking lobby-character-home-section" aria-label="Procurar partida">
-      <div className="lobby-search-decoration lobby-search-decoration-top" aria-hidden="true">✧</div><div className="lobby-search-decoration lobby-search-decoration-left" aria-hidden="true">✧</div><div className="lobby-search-decoration lobby-search-decoration-right" aria-hidden="true">✧</div>
       <button className="lobby-search-button" type="button" disabled title="O matchmaking estará disponível em breve"><span className="lobby-search-icon" aria-hidden="true">✧</span>Procurar partida<small>Em breve</small></button>
       <span className="lobby-matchmaking-caption">Encontre uma sistema para a sua próxima aventura</span>
     </section>,
     store: <section className="lobby-character-home-section" aria-label="Loja do sistema"><SystemStore key={`${character.id}-${dailyRewardVersion}`} systemId={character.game_system_id} characterId={character.id} characterName={character.character_name} /></section>,
     chat: <div className="lobby-character-home-section" id="chat"><Chats characterId={character.id} reloadToken={chatReload} preferredChatId={preferredChatId} /></div>,
     events: <div className="lobby-character-home-section" id="system-events"><SystemEventsCard systemId={character.game_system_id} canManage={isCreator} /></div>,
-    'character-sheet': <div className="lobby-character-record-grid lobby-character-home-section" aria-label="Ficha e inventário do personagem">
-      <button className="lobby-character-record-action" type="button" onClick={() => openCharacterRecord('sheet')}>
-        <span className="lobby-character-record-icon" aria-hidden="true">♙</span><span className="lobby-character-record-copy"><strong>Ficha</strong><small>Consultar atributos e progresso</small></span><span className="lobby-character-record-arrow" aria-hidden="true">→</span>
-      </button>
-      <button className="lobby-character-record-action" type="button" onClick={() => openCharacterRecord('inventory')}>
-        <span className="lobby-character-record-icon" aria-hidden="true">▦</span><span className="lobby-character-record-copy"><strong>Inventário</strong><small>Consultar itens do personagem</small></span><span className="lobby-character-record-arrow" aria-hidden="true">→</span>
-      </button>
-    </div>,
+    'character-sheet': <section className="lobby-character-record-grid lobby-character-home-section" aria-label="Ficha e inventário do personagem">
+      <div className="lobby-character-identity"><span className="lobby-character-avatar" aria-hidden="true">{character.character_name.trim().charAt(0).toLocaleUpperCase('pt-BR')}</span><span><strong>{character.character_name}</strong><small>{system.name}</small></span></div>
+      <div className="lobby-character-record-actions">
+        <button className="lobby-character-record-action" type="button" onClick={() => openCharacterRecord('sheet')}><span aria-hidden="true">♙</span>Ficha</button>
+        <button className="lobby-character-record-action" type="button" onClick={() => openCharacterRecord('inventory')}><span aria-hidden="true">▦</span>Inventário</button>
+      </div>
+    </section>,
   };
 
   return (
@@ -96,6 +94,7 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
             <div className="lobby-welcome-copy"><span className="character-entry-eyebrow">{system.name} · SAGUÃO</span><h1>{lobbySettings.welcome_title}</h1><p>{lobbySettings.welcome_message}</p></div>
             <div className="lobby-welcome-actions"><DailyLoginPopup systemId={character.game_system_id} onClaimed={onDailyClaimed} /></div>
           </header>
+          <div className="lobby-content-heading"><span className="character-entry-eyebrow">SUA MESA</span><h2>Continue a aventura</h2></div>
           <section className="lobby-rooms" aria-label="Seções do saguão">{lobbySettings.section_order.map((section) => lobbySettings.hidden_sections.includes(section) ? null : <div className={`lobby-section-slot lobby-section-slot-${section}`} data-section={section} key={section} style={{ '--lobby-accent': lobbySettings.accent_color } as React.CSSProperties}>{sections[section]}</div>)}</section>
           {isCreator && <div className="lobby-owner-tools"><LobbyCreatorTools system={system} characters={[character]} characterLoadError={null}
             onChatCreated={(chatId) => { setPreferredChatId(chatId); setChatReload((version) => version + 1); }}
