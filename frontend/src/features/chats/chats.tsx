@@ -19,6 +19,7 @@ interface ChatPanelProps {
   onSelectChat: (chatId: string) => void;
   onContentChange: (value: string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  showConversationList?: boolean;
   onRetry?: () => void;
 }
 
@@ -26,20 +27,14 @@ function formatMessageTime(value: string) {
   return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(value));
 }
 
-export function ChatPanel({ chats, selectedChatId, messages, characterId, content, loadingChats, loadingMessages, sending, error, onSelectChat, onContentChange, onSubmit, onRetry }: ChatPanelProps) {
+export function ChatPanel({ chats, selectedChatId, messages, characterId, content, loadingChats, loadingMessages, sending, error, onSelectChat, onContentChange, onSubmit, showConversationList = true, onRetry }: ChatPanelProps) {
   const selectedChat = chats.find((chat) => chat.id === selectedChatId) ?? null;
-  return <section className="chat" aria-labelledby="chats-heading">
-    <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">SUA MESA</span><h2 id="chats-heading">Salas e conversas</h2></div></header>
-    {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
-      ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
-      : <div className="chat-layout">
-        <nav className="chat-list" aria-label="Chats do personagem">
-          {chats.map((item) => <button key={item.id} type="button" aria-pressed={selectedChatId === item.id} onClick={() => onSelectChat(item.id)}>
-            <strong>{item.name}</strong>
-            {item.description && <span>{item.description}</span>}
-          </button>)}
-        </nav>
-        <div className="chat-conversation">
+  return <>
+    <section className="chat" aria-labelledby="chats-heading">
+      <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">SUA MESA</span><h2 id="chats-heading">Salas e conversas</h2></div></header>
+      {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
+        ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
+        : <div className="chat-conversation">
           {selectedChat ? <>
             <div className="chat-title-row"><h3>{selectedChat.name}</h3><InviteFriendControl chatId={selectedChat.id} /></div>
             {loadingMessages ? <p role="status">Carregando mensagens…</p> : <ol className="chat-messages" aria-label={`Mensagens de ${selectedChat.name}`} aria-live="polite">
@@ -54,12 +49,21 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
             </form>
           </> : <p>Selecione um chat para ver as mensagens.</p>}
         </div>
-      </div>}
-    {error && <p className="chat-error" role="alert">{error}{onRetry && <button type="button" onClick={onRetry}>Tentar novamente</button>}</p>}
-  </section>;
+      }
+      {error && <p className="chat-error" role="alert">{error}{onRetry && <button type="button" onClick={onRetry}>Tentar novamente</button>}</p>}
+    </section>
+    {showConversationList && <section className="chat-recents" aria-labelledby="chat-recents-heading">
+      <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">PERSONAGEM</span><h2 id="chat-recents-heading">Conversas</h2></div></header>
+      {loadingChats ? <p role="status">Carregando conversas…</p> : chats.length === 0
+        ? <p className="chat-empty">Nenhuma conversa disponível.</p>
+        : <nav className="chat-recents-list" aria-label="Conversas do personagem">{chats.map((item) => <button key={item.id} type="button" aria-current={selectedChatId === item.id ? 'true' : undefined} onClick={() => onSelectChat(item.id)}>
+          <span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{item.name}</strong><small>{item.description || `Criada em ${new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium' }).format(new Date(item.created_at))}`}</small></span><span className="chat-recent-arrow" aria-hidden="true">→</span>
+        </button>)}</nav>}
+    </section>}
+  </>;
 }
 
-export function Chats({ characterId, reloadToken = 0, preferredChatId = null }: { characterId: string; reloadToken?: number; preferredChatId?: string | null }) {
+export function Chats({ characterId, reloadToken = 0, preferredChatId = null, showConversationList = true }: { characterId: string; reloadToken?: number; preferredChatId?: string | null; showConversationList?: boolean }) {
   const [chats, setChats] = useState<Chat[]>([]);
   const [chatsCharacterId, setChatsCharacterId] = useState<string | null>(null);
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
@@ -138,5 +142,5 @@ export function Chats({ characterId, reloadToken = 0, preferredChatId = null }: 
     setReload((value) => value + 1);
   }
 
-  return <ChatPanel chats={visibleChats} selectedChatId={visibleChatId} messages={messages} characterId={characterId} content={content} loadingChats={loadingChats} loadingMessages={loadingMessages} sending={sending} error={error} onSelectChat={setSelectedChatId} onContentChange={changeDraft} onSubmit={(event) => void submit(event)} onRetry={retryChats} />;
+  return <ChatPanel chats={visibleChats} selectedChatId={visibleChatId} messages={messages} characterId={characterId} content={content} loadingChats={loadingChats} loadingMessages={loadingMessages} sending={sending} error={error} onSelectChat={setSelectedChatId} onContentChange={changeDraft} onSubmit={(event) => void submit(event)} showConversationList={showConversationList} onRetry={retryChats} />;
 }

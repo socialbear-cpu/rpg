@@ -109,7 +109,7 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
       </div>}
       {chatPopupOpen && <dialog className="chat-float-popup" open aria-labelledby="chat-float-heading" onCancel={(event) => { event.preventDefault(); setChatPopupOpen(false); }}>
         <header className="chat-float-heading"><h2 id="chat-float-heading">Conversas</h2><button type="button" aria-label="Fechar conversa" onClick={() => setChatPopupOpen(false)}>×</button></header>
-        <Chats characterId={character.id} reloadToken={chatReload} preferredChatId={preferredChatId} />
+        <Chats characterId={character.id} reloadToken={chatReload} preferredChatId={preferredChatId} showConversationList={false} />
       </dialog>}
       <button className="chat-float-button" type="button" aria-label={chatPopupOpen ? 'Fechar conversa' : 'Abrir conversa'} aria-expanded={chatPopupOpen} onClick={() => setChatPopupOpen((open) => !open)}>
         <span aria-hidden="true">{chatPopupOpen ? '×' : '✉'}</span><span className="chat-float-button-label">{chatPopupOpen ? 'Fechar conversa' : 'Conversar'}</span>
