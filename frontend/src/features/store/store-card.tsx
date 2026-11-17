@@ -11,7 +11,7 @@ export function StoreCard({ characterId, characterName, store, busy, message, on
 }) {
   return <article className="card store-card">
     <header className="store-card-header">
-      <h2>Loja do sistema</h2>
+      <h2>Mercado do sistema</h2>
       {characterId && store && <p className="store-card-balance"><span>Saldo de {characterName}</span><strong>{money(store.balance)} {store.currency_name}</strong></p>}
     </header>
     {!characterId && <p>Selecione um personagem para comprar.</p>}

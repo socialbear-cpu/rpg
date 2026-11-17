@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { createSystemEvent, deleteSystemEvent, getSystemEvents, startSystemEvent, updateSystemEvent, type SystemEvent, type SystemEventInput } from '../../api';
 import './system-events-card.css';
 
@@ -47,6 +47,7 @@ export function SystemEventsCard({ systemId, canManage = false }: { systemId: st
   const [description, setDescription] = useState('');
   const [startsAt, setStartsAt] = useState('');
   const [endsAt, setEndsAt] = useState('');
+  const managementDisclosure = useRef<HTMLDetailsElement>(null);
 
   async function refresh() {
     setLoading(true);
@@ -65,6 +66,7 @@ export function SystemEventsCard({ systemId, canManage = false }: { systemId: st
   function startEditing(event: SystemEvent) {
     setEditing(event); setTitle(event.title); setDescription(event.description ?? '');
     setStartsAt(localDateTime(event.starts_at)); setEndsAt(localDateTime(event.ends_at));
+    if (managementDisclosure.current) managementDisclosure.current.open = true;
   }
 
   async function save(event: FormEvent<HTMLFormElement>) {
@@ -74,7 +76,9 @@ export function SystemEventsCard({ systemId, canManage = false }: { systemId: st
     try {
       if (editing) await updateSystemEvent(systemId, editing.id, input);
       else await createSystemEvent(systemId, input);
-      resetForm(); await refresh();
+      resetForm();
+      if (managementDisclosure.current) managementDisclosure.current.open = false;
+      await refresh();
     } catch (reason) { setError(reason instanceof Error ? reason.message : 'Não foi possível salvar o evento.'); }
     finally { setBusy(false); }
   }
@@ -94,14 +98,14 @@ export function SystemEventsCard({ systemId, canManage = false }: { systemId: st
   }
 
   return <section className="system-events-card" aria-labelledby="system-events-heading">
-    <header><div><h2 id="system-events-heading">Eventos</h2></div></header>
-    {canManage && <form className="system-events-form" onSubmit={(event) => void save(event)}>
+    <header><div><p className="system-events-eyebrow">AGENDA DO SISTEMA</p><h2 id="system-events-heading">Próximo encontro</h2></div></header>
+    {canManage && <details className="system-events-management" ref={managementDisclosure}><summary>{editing ? 'Editar evento' : 'Gerenciar eventos'}</summary><form className="system-events-form" onSubmit={(event) => void save(event)}>
       <h3>{editing ? 'Editar evento' : 'Novo evento'}</h3>
       <label>Título<input required minLength={1} maxLength={120} value={title} onChange={(event) => setTitle(event.target.value)} /></label>
       <label>Descrição (opcional)<textarea maxLength={2000} value={description} onChange={(event) => setDescription(event.target.value)} /></label>
       <div className="system-events-dates"><label>Início<input required type="datetime-local" value={startsAt} onChange={(event) => setStartsAt(event.target.value)} /></label><label>Término<input required type="datetime-local" value={endsAt} onChange={(event) => setEndsAt(event.target.value)} /></label></div>
       <div className="system-events-form-actions"><button type="submit" disabled={busy || !startsAt || !endsAt}>{busy ? 'Salvando…' : editing ? 'Salvar evento' : 'Criar evento'}</button>{editing && <button type="button" disabled={busy} onClick={resetForm}>Cancelar edição</button>}</div>
-    </form>}
+    </form></details>}
     {error && <p role="alert" className="system-events-error">{error}</p>}
     {loading ? <p role="status">Carregando eventos…</p> : <SystemEventsList events={events} canManage={canManage} onEdit={startEditing} onDelete={(event) => void remove(event)} onStart={(event) => { if (startingEventId !== event.id) void start(event); }} />}
   </section>;

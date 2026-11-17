@@ -29,7 +29,7 @@ function formatMessageTime(value: string) {
 export function ChatPanel({ chats, selectedChatId, messages, characterId, content, loadingChats, loadingMessages, sending, error, onSelectChat, onContentChange, onSubmit, onRetry }: ChatPanelProps) {
   const selectedChat = chats.find((chat) => chat.id === selectedChatId) ?? null;
   return <section className="chat" aria-labelledby="chats-heading">
-    <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">CHATS DO PERSONAGEM</span><h2 id="chats-heading">Chats</h2></div></header>
+    <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">SUA MESA</span><h2 id="chats-heading">Salas e conversas</h2></div></header>
     {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
       ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
       : <div className="chat-layout">

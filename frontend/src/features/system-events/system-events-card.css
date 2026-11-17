@@ -1,6 +1,10 @@
 .system-events-card { margin: 2rem auto; max-width: 68rem; padding: 1.5rem; border: 1px solid #342c42; border-radius: 1rem; color: #f5f1fb; background: #191521; }
 .system-events-card > header { display: flex; justify-content: space-between; align-items: center; }
 .system-events-eyebrow { margin: 0 0 .25rem; font-size: .72rem; letter-spacing: .12em; opacity: .72; }
+.system-events-management { margin-top: .75rem; }
+.system-events-management > summary { width: fit-content; color: #cbb2e8; font-size: .78rem; cursor: pointer; }
+.system-events-management[open] > summary { margin-bottom: .75rem; }
+.system-events-management .system-events-form { margin: 0; }
 .system-events-card h2, .system-events-card h3 { margin-top: 0; }
 .system-events-list { display: grid; gap: .75rem; margin: 1rem 0 0; padding: 0; list-style: none; }
 .system-event { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border: 1px solid #342c42; border-radius: .75rem; background: #15121d; }

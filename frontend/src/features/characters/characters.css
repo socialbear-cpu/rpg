@@ -469,14 +469,16 @@
 .lobby-settings-link { display: inline-flex; min-height: 38px; align-items: center; padding: 0 12px; border: 1px solid #514363; border-radius: 9px; color: #e7dcf6; background: #211b2a; text-decoration: none; white-space: nowrap; }
 .lobby-settings-link:hover { border-color: #8067bc; color: #fff; background: #2a2235; }
 .lobby-rooms { grid-template-columns: minmax(0, 1.55fr) minmax(260px, .8fr); align-items: start; gap: 14px; }
-.lobby-rooms-default { grid-template-areas: 'chat events' 'presentation store' 'matchmaking matchmaking'; }
+.lobby-rooms-default { grid-template-areas: 'chat events' '. store' 'presentation presentation' 'matchmaking matchmaking'; }
 .lobby-rooms-default [data-section='chat'] { grid-area: chat; }
 .lobby-rooms-default [data-section='events'] { grid-area: events; }
-.lobby-rooms-default [data-section='system-presentation'] { grid-area: presentation; }
 .lobby-rooms-default [data-section='store'] { grid-area: store; }
+.lobby-rooms-default [data-section='system-presentation'] { grid-area: presentation; }
 .lobby-rooms-default [data-section='matchmaking'] { grid-area: matchmaking; }
 .lobby-section-slot { min-width: 0; }
 .lobby-section-slot[data-section='system-presentation'] .character-system-presentation { margin: 0; }
+.lobby-rooms-default [data-section='system-presentation'] .character-system-presentation { grid-template-columns: minmax(110px, 150px) minmax(0, 1fr); gap: 14px; padding: 12px; }
+.lobby-rooms-default [data-section='system-presentation'] .character-system-details > p { margin-top: 0; font-size: 13px; }
 .lobby-section-slot[data-section='store'] .store-card { width: 100%; margin: 0; }
 .lobby-section-slot[data-section='chat'] .chat { margin: 0; padding: 17px; border: 1px solid #383746; border-radius: 14px; background: linear-gradient(145deg, #1a1b23, #14151b); }
 .lobby-section-slot[data-section='chat'] .lobby-section-heading { justify-content: space-between; margin-bottom: 13px; text-align: left; }
@@ -499,6 +501,8 @@
 .lobby-owner-tools .lobby-creator-tools { margin: 0; }
 .character-home-page .store-card { padding: 17px; border-radius: 14px; background: linear-gradient(145deg, #1a1b23, #14151b); }
 .character-home-page .store-card-balance strong { color: var(--lobby-accent, #cbb2e8); }
+.lobby-rooms-default .lobby-matchmaking { min-height: 76px; padding: 12px 18px; }
+.lobby-rooms-default .lobby-search-button { min-height: 40px; padding: 8px 13px; font-size: 13px; }
 
 @media (max-width: 760px) {
   .character-home-page .lobby-welcome { align-items: flex-start; flex-direction: row; gap: 12px; }
@@ -506,6 +510,7 @@
   .lobby-rooms { grid-template-columns: minmax(0, 1fr); gap: 14px; }
   .lobby-rooms-default { grid-template-areas: none; }
   .lobby-rooms-default [data-section] { grid-area: auto; }
+  .lobby-rooms-default [data-section='system-presentation'] .character-system-presentation { grid-template-columns: minmax(90px, 130px) minmax(0, 1fr); }
   .lobby-section-slot[data-section='chat'] .chat-layout { grid-template-columns: minmax(0, 1fr); }
   .lobby-character-record-grid { align-items: flex-start; flex-direction: column; }
   .lobby-character-record-actions { width: 100%; }
