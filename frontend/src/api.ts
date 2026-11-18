@@ -186,7 +186,7 @@ export interface GameSystem {
   cover_focus_x?: number;
   cover_focus_y?: number;
   tags?: SystemTagOption[];
-  play_mode?: 'text' | 'voice';
+  play_mode?: GameSystemPlayMode;
 }
 
 export interface SystemEvent {
@@ -265,7 +265,7 @@ export interface SystemTagOption {
   label: string;
 }
 
-export type GameSystemPlayMode = 'text' | 'voice';
+export type GameSystemPlayMode = 'text' | 'voice' | 'hybrid';
 
 export type UpdateGameSystemInput = Pick<GameSystem, 'name' | 'description' | 'is_public'> & {
   password?: string;

@@ -44,7 +44,7 @@ const systemJsonSchema = {
     cover_focus_x: { type: 'integer', minimum: 0, maximum: 100 },
     cover_focus_y: { type: 'integer', minimum: 0, maximum: 100 },
     tags: { type: 'array', items: { type: 'object', required: ['slug', 'label'], additionalProperties: false, properties: { slug: { type: 'string' }, label: { type: 'string' } } } },
-    play_mode: { type: 'string', enum: ['text', 'voice'] },
+    play_mode: { type: 'string', enum: ['text', 'voice', 'hybrid'] },
   },
 } as const;
 const fieldJsonSchema = {
@@ -234,9 +234,9 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
           type: 'object', required: ['name', 'definition', 'play_mode', 'tags'], additionalProperties: false,
           properties: {
             name: { type: 'string', minLength: 1, maxLength: 80 },
-            description: { type: ['string', 'null'], maxLength: 500 },
+            description: { type: ['string', 'null'], maxLength: 10000 },
             definition: definitionJsonSchema,
-            play_mode: { type: 'string', enum: ['text', 'voice'] },
+            play_mode: { type: 'string', enum: ['text', 'voice', 'hybrid'] },
             tags: { type: 'array', maxItems: 5, items: { type: 'string' } },
           },
         },
@@ -265,10 +265,10 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
       type: 'object', required: ['name', 'description', 'is_public', 'play_mode', 'tags', 'cover_image_path', 'cover_focus_x', 'cover_focus_y'], additionalProperties: false,
       properties: {
         name: { type: 'string', minLength: 1, maxLength: 80 },
-        description: { type: ['string', 'null'], maxLength: 500 },
+        description: { type: ['string', 'null'], maxLength: 10000 },
         is_public: { type: 'boolean' },
         password: { type: 'string', minLength: 8, maxLength: 72 },
-        play_mode: { type: 'string', enum: ['text', 'voice'] },
+        play_mode: { type: 'string', enum: ['text', 'voice', 'hybrid'] },
         tags: { type: 'array', maxItems: 5, items: { type: 'string' } },
         cover_image_path: { type: ['string', 'null'] },
         cover_focus_x: { type: 'integer', minimum: 0, maximum: 100 },

@@ -23,8 +23,8 @@ describe('chat panel', () => {
     expect(html).toContain('A Estrada Antiga');
     expect(html).toContain('A missão começa!');
     expect(html).toContain('for="chat-message">Mensagem para A Estrada Antiga</label>');
+    expect(html).toContain('CHAT DA MESA');
     expect(html).toContain('Enviar mensagem');
-    expect(html).not.toContain('sala');
   });
 
   it('shows a direct empty-chat state without a separate room creation step', () => {

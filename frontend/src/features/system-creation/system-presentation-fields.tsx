@@ -66,6 +66,7 @@ export function SystemPresentationFields({
       <div>
         <label><input type="radio" name="game-system-play-mode" value="text" checked={playMode === 'text'} onChange={() => onPlayModeChange('text')} /> Texto</label>
         <label><input type="radio" name="game-system-play-mode" value="voice" checked={playMode === 'voice'} onChange={() => onPlayModeChange('voice')} /> Voz</label>
+        <label><input type="radio" name="game-system-play-mode" value="hybrid" checked={playMode === 'hybrid'} onChange={() => onPlayModeChange('hybrid')} /> Híbrido</label>
       </div>
     </fieldset>}
 

@@ -59,7 +59,7 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
       {system.cover_image_path
         ? <img className="character-system-cover" src={getGameSystemCoverUrl(system.cover_image_path) ?? undefined} alt={`Capa de ${system.name}`} style={{ objectPosition: `${system.cover_focus_x ?? 50}% ${system.cover_focus_y ?? 50}%` }} />
         : <div className="character-system-cover character-system-cover-default" role="img" aria-label={`Capa padrão de ${system.name}`}>✧</div>}
-      <div className="character-system-details"><p>{system.description?.trim() || 'Este sistema ainda não tem uma descrição.'}</p></div>
+      <div className="character-system-details"><span className="system-card-mode">{system.play_mode === 'voice' ? '◉ Voz' : system.play_mode === 'hybrid' ? '◈ Híbrido' : '▤ Texto'}</span><p>{system.description?.trim() || 'Este sistema ainda não tem uma descrição.'}</p></div>
     </section>,
     matchmaking: <section className="lobby-matchmaking lobby-character-home-section" aria-label="Procurar partida">
       <button className="lobby-search-button" type="button" disabled title="O matchmaking estará disponível em breve"><span className="lobby-search-icon" aria-hidden="true">✧</span>Procurar partida<small>Em breve</small></button>

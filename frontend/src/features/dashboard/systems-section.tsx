@@ -64,7 +64,7 @@ export function SystemsSection({ systems, loading, error, onCreate, onEnter, own
                 <h3>{system.name}</h3>
                 <p>{system.is_active === false ? 'Este sistema está desativado. Você pode reativá-lo nas configurações.' : system.description || 'Uma nova aventura espera pelo seu grupo.'}</p>
                 <div className="system-card-metadata">
-                  <span className="system-card-mode">{system.play_mode === 'voice' ? '◉ Voz' : '▤ Texto'}</span>
+                  <span className="system-card-mode">{system.play_mode === 'voice' ? '◉ Voz' : system.play_mode === 'hybrid' ? '◈ Híbrido' : '▤ Texto'}</span>
                   {(system.tags ?? []).slice(0, 3).map((tag) => <span className="system-card-tag" key={tag.slug}>{tag.label}</span>)}
                   {(system.tags?.length ?? 0) > 3 && <span className="system-card-tag">+{(system.tags?.length ?? 0) - 3}</span>}
                 </div>

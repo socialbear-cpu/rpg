@@ -185,7 +185,10 @@ describe('system dashboard and creation', () => {
     expect(html).toContain('Descrição');
     expect(html).toContain('value="Meu Sistema"');
     expect(html).toContain('Uma descrição');
-    expect(html).toContain('RPG');
+    expect(html).toContain('Voz');
+    expect(html.match(/type="radio"/g)).toHaveLength(3);
+    expect(html).toContain('Híbrido');
+    expect(html).toContain('maxLength="10000"');
     expect(html).toContain('Modalidade principal');
     expect(html).toContain('Salvar visão geral');
   });

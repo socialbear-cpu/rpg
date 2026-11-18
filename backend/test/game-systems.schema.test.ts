@@ -30,6 +30,13 @@ const legacyFields: LegacyCharacterSheetField[] = [
 ];
 
 describe('versioned character-sheet definitions', () => {
+  it('accepts all three play modes and expanded system descriptions', () => {
+    const input = { name: 'Sistema', description: 'x'.repeat(10000), definition, play_mode: 'hybrid', tags: [] };
+    expect(createSystemInputSchema.safeParse(input).success).toBe(true);
+    expect(createSystemInputSchema.safeParse({ ...input, description: 'x'.repeat(10001) }).success).toBe(false);
+    expect(createSystemInputSchema.safeParse({ ...input, play_mode: 'invalid' }).success).toBe(false);
+  });
+
   it('accepts fields arranged across steps, including visual select cards', () => {
     expect(characterSheetDefinitionSchema.safeParse(definition)).toEqual({ success: true, data: definition });
   });
