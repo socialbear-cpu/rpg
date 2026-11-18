@@ -1,6 +1,6 @@
+import { errorSchema, authOptions, systemParamsSchema } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { z } from 'zod';
-import { authenticate } from '../../plugins/authenticate.js';
 import { authorizeSystemAccess } from '../game-systems/game-systems.repository.js';
 import { rejectSystemAccess } from '../game-systems/system-access.js';
 import {
@@ -21,15 +21,6 @@ import {
   tradeOffersQuerySchema,
 } from './trading.schema.js';
 
-const errorSchema = {
-  type: 'object', required: ['error'], additionalProperties: false,
-  properties: { error: { type: 'string' } },
-} as const;
-const authOptions = {
-  preHandler: authenticate,
-  schema: { security: [{ bearerAuth: [] }] },
-};
-const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
 const characterParamsSchema = z.strictObject({ systemId: z.uuid(), characterId: z.uuid() });
 const myCharacterParamsSchema = z.strictObject({ characterId: z.uuid() });
 const offerParamsSchema = z.strictObject({ offerId: z.uuid() });

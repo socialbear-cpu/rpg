@@ -1,15 +1,10 @@
-import { z } from 'zod';
+import { authOptions as auth, systemParamsSchema, errorSchema } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { authenticate } from '../../plugins/authenticate.js';
 import { authorizeSystemAccess } from '../game-systems/game-systems.repository.js';
 import { rejectSystemAccess } from '../game-systems/system-access.js';
 import { readMySystemMemberships } from '../system-membership/system-membership.repository.js';
 import { getSystemLobbySettings, saveSystemLobbySettings } from './lobby-settings.repository.js';
 import { lobbySettingsSchema } from './lobby-settings.schema.js';
-
-const auth = { preHandler: authenticate, schema: { security: [{ bearerAuth: [] }] } };
-const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
-const errorSchema = { type: 'object', required: ['error'], additionalProperties: false, properties: { error: { type: 'string' } } } as const;
 
 async function checkMemberAccess(client: NonNullable<import('fastify').FastifyRequest['supabase']>, reply: FastifyReply, systemId: string) {
   const status = await authorizeSystemAccess(client, systemId);

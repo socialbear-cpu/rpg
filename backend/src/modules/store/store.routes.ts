@@ -1,6 +1,6 @@
+import { authOptions as auth } from '../../http/route-options.js';
 import { z } from 'zod';
 import type { FastifyInstance, FastifySchema } from 'fastify';
-import { authenticate } from '../../plugins/authenticate.js';
 import { canManageStore, createStoreItem, readStore, readStoreCharacter, replaceStore, purchaseStoreOffer, updateStoreCurrencyField, updateStoreOfferField } from './store.repository.js';
 import { storeCharacterQuerySchema, storeCurrencyFieldSchema, storeItemCreateSchema, storeOfferFieldSchema, storeOfferParamsSchema, storeParamsSchema, storePurchaseSchema, storeScheduleSchema } from './store.schema.js';
 import { authorizeSystemAccess } from '../game-systems/game-systems.repository.js';
@@ -14,7 +14,6 @@ function documentedInputs(body?: z.ZodType, querystring?: z.ZodType, paramsSchem
     },
   }) };
 }
-const auth = { preHandler: authenticate, schema: { security: [{ bearerAuth: [] }] } };
 export async function storeRoutes(app: FastifyInstance) {
   app.get('/api/v1/game-systems/:systemId/store', { ...auth, config: documentedInputs(undefined, storeCharacterQuerySchema) }, async (request, reply) => {
     const params = storeParamsSchema.safeParse(request.params);

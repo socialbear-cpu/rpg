@@ -1,0 +1,49 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v2.html",
+      "language": "html",
+      "sizeLines": 12,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v3.html",
+      "language": "html",
+      "sizeLines": 13,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v4.html",
+      "language": "html",
+      "sizeLines": 12,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v5.html",
+      "language": "html",
+      "sizeLines": 12,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v6.html",
+      "language": "html",
+      "sizeLines": 12,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "language": "html",
+      "sizeLines": 21,
+      "fileCategory": "markup"
+    }
+  ],
+  "batchImportData": {
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v2.html": [],
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v3.html": [],
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v4.html": [],
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v5.html": [],
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v6.html": [],
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards.html": []
+  }
+}

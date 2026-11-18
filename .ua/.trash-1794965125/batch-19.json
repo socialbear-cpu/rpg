@@ -1,0 +1,48 @@
+{
+  "edges": [],
+  "nodes": [
+    {
+      "name": "033_public_player_profiles.test.sql",
+      "id": "file:supabase/tests/033_public_player_profiles.test.sql",
+      "filePath": "supabase/tests/033_public_player_profiles.test.sql",
+      "type": "file",
+      "summary": "Testa por pgTAP os perfis públicos de jogadores, comentários em murais e mensagens diretas, incluindo privacidade de e-mail e telefone, autorização entre participantes e rejeição de operações inválidas.",
+      "tags": [
+        "teste-sql",
+        "perfis-publicos",
+        "pgtap",
+        "privacidade"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "name": "034_system_lobby_presence.test.sql",
+      "id": "file:supabase/tests/034_system_lobby_presence.test.sql",
+      "filePath": "supabase/tests/034_system_lobby_presence.test.sql",
+      "type": "file",
+      "summary": "Valida por pgTAP a RPC de heartbeat e a contagem de presença em lobbies, cobrindo isolamento por sistema, idempotência, RLS, permissões, membros removidos e registros expirados.",
+      "tags": [
+        "teste-sql",
+        "presenca",
+        "lobby",
+        "pgtap",
+        "rls"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "name": "CONCURRENCY.md",
+      "id": "document:supabase/tests/CONCURRENCY.md",
+      "filePath": "supabase/tests/CONCURRENCY.md",
+      "type": "document",
+      "summary": "Documenta o teste de integração concorrente da loja: requisitos de banco descartável, coordenação das transações, verificação de bloqueios, limpeza das fixtures e limites de segurança.",
+      "tags": [
+        "documentacao",
+        "concorrencia",
+        "testes-de-integracao",
+        "banco-de-dados"
+      ],
+      "complexity": "simple"
+    }
+  ]
+}

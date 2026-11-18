@@ -1,3 +1,4 @@
+import { withActiveAccount } from './fixtures/supabase-fetch.js';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildApp } from '../src/create-app.js';
 
@@ -51,7 +52,7 @@ beforeEach(() => {
     respond_to_trade_offer: { status: 'accepted', offer_id: offerId },
     cancel_trade_offer: { status: 'cancelled', offer_id: offerId },
   };
-  vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+  vi.stubGlobal('fetch', withActiveAccount(async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input));
     const method = init?.method ?? 'GET';
     const headers = new Headers(init?.headers);
@@ -72,7 +73,7 @@ beforeEach(() => {
     if (url.pathname === '/rest/v1/character_inventory') return Response.json(ownInventoryRows);
     if (url.pathname === '/rest/v1/items') return Response.json(ownInventoryItems);
     throw new Error(`Unexpected request: ${url}`);
-  });
+  }));
 });
 
 afterEach(() => {
@@ -129,7 +130,7 @@ describe('character trading API', () => {
   });
 
   it('does not read inventory when the character is not owned by the signed-in user', async () => {
-    vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+    vi.stubGlobal('fetch', withActiveAccount(async (input: RequestInfo | URL, init?: RequestInit) => {
       const url = new URL(String(input));
       const method = init?.method ?? 'GET';
       const headers = new Headers(init?.headers);
@@ -143,7 +144,7 @@ describe('character trading API', () => {
       }
       if (url.pathname === '/rest/v1/characters') return Response.json(null);
       throw new Error(`Unexpected request: ${url}`);
-    });
+    }));
     const response = await request('GET', `/api/v1/me/characters/${recipientCharacterId}/inventory`);
     expect(response.statusCode).toBe(404);
     expect(requests.some(({ url }) => url.pathname === '/rest/v1/character_inventory')).toBe(false);

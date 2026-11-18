@@ -1,0 +1,35 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 45,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "AUTH_AND_STACK.md",
+      "language": "markdown",
+      "sizeLines": 73,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "vercel.json",
+      "language": "json",
+      "sizeLines": 17,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "AGENTS.md": [],
+    "AUTH_AND_STACK.md": [],
+    "package.json": [],
+    "vercel.json": []
+  }
+}

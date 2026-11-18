@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-17T12:00:00.000Z",
+  "files": {
+    "backend/README.md": {
+      "overview": "A documentação apresenta a API Fastify e explica como ela é usada tanto pelo servidor local quanto pelas rotas Next.js em produção. Ela também registra como configurar o ambiente, validar a autenticação Supabase e compreender os contratos principais da API.",
+      "sections": [
+        { "title": "Arquitetura e configuração", "lineRange": [1, 35], "explanation": "O início do documento localiza a API dentro dos workspaces e descreve o caminho de execução em desenvolvimento e produção. As instruções de ambiente deixam claro que as chaves usadas pelo cliente são públicas e que testes de banco têm requisitos próprios, separando a configuração da aplicação da validação PostgreSQL.", "tourOrder": 1 },
+        { "title": "Autenticação e perfil", "lineRange": [37, 98], "explanation": "Esta parte descreve o fluxo de autenticação iniciado no navegador e o contrato do perfil protegido por bearer token. Ela especifica os campos aceitos, as respostas de erro e a origem de identidade verificada, ajudando a comparar o contrato documentado com as rotas e validadores do backend.", "tourOrder": 3 },
+        { "title": "Recompensas e notificações", "lineRange": [100, 142], "explanation": "As tabelas documentam operações de login diário e notificações, incluindo limites e regras de acesso para ações de proprietário. Use esta seção como mapa de endpoints: a autorização e as regras de negócio finais permanecem implementadas nas rotas e nas funções SQL correspondentes.", "tourOrder": 1 }
+      ]
+    },
+    "package.json": {
+      "overview": "O manifesto raiz coordena os workspaces backend e frontend e oferece comandos de build, desenvolvimento, testes e verificação de tipos. Ele mostra que o desenvolvimento local usa o Vercel CLI para executar a aplicação integrada.",
+      "sections": [
+        { "title": "Workspaces do projeto", "lineRange": [1, 11], "explanation": "O nome e a configuração de workspaces identificam a raiz como coordenadora dos projetos backend e frontend. O Supabase CLI aparece como dependência de desenvolvimento, enquanto os detalhes de runtime ficam nos manifestos de cada workspace.", "tourOrder": 1 },
+        { "title": "Comandos compartilhados", "lineRange": [12, 21], "explanation": "Os scripts delegam build, teste e typecheck aos workspaces, e o comando dev inicia o Vercel local. O encadeamento com && faz a verificação parar no primeiro workspace que falhar, evitando um resultado aparentemente bem-sucedido com apenas metade da aplicação validada.", "tourOrder": 1 }
+      ]
+    },
+    "backend/src/server.ts": {
+      "overview": "Este é o processo HTTP autônomo do backend para desenvolvimento direto. Ele lê a configuração, cria a instância Fastify, registra as rotas e fecha o servidor ao receber sinais de encerramento.",
+      "sections": [
+        { "title": "Dependências do servidor", "lineRange": [1, 4], "explanation": "O arquivo usa Fastify e o registro compartilhado da aplicação, além de carregar a configuração do ambiente. A separação permite que o mesmo conjunto de rotas também seja montado pelo adaptador Next.js sem precisar iniciar outro listener.", "tourOrder": 2 },
+        { "title": "Inicialização e encerramento", "lineRange": [5, 20], "explanation": "A configuração é carregada antes da criação do servidor, e o logger oculta o cabeçalho Authorization para evitar registrar credenciais. Os sinais SIGINT e SIGTERM iniciam o fechamento gracioso; somente depois a aplicação começa a escutar na porta configurada.", "tourOrder": 2 },
+        { "title": "Falha de inicialização", "lineRange": [21, 24], "explanation": "Erros de configuração ou de startup são convertidos em uma mensagem curta e fazem o processo terminar com código diferente de zero. O tratamento evita imprimir objetos arbitrários de erro no console de produção.", "tourOrder": 2 }
+      ]
+    },
+    "backend/src/create-app.ts": {
+      "overview": "A fábrica buildApp cria uma instância Fastify já configurada com os plugins e as rotas da aplicação. Como não abre uma porta de rede, ela pode ser usada por testes e por adaptadores que invocam a aplicação diretamente.",
+      "sections": [
+        { "title": "Opções da aplicação", "lineRange": [1, 5], "explanation": "O tipo AppOptions combina opções do Fastify com um ambiente opcional. Isso mantém as opções de servidor disponíveis ao chamador sem exigir que todo consumidor conheça o tipo interno de configuração.", "tourOrder": 2 },
+        { "title": "Fábrica Fastify", "lineRange": [7, 11], "explanation": "A função aplica development como ambiente padrão, encaminha as demais opções ao construtor Fastify e registra o app. Retornar a instância ainda não iniciada deixa o ciclo de vida de rede sob controle do servidor local, dos testes ou do adaptador Next.js.", "tourOrder": 2 }
+      ]
+    },
+    "backend/src/register-app.ts": {
+      "overview": "Este módulo é o ponto central de composição do Fastify: registra os campos decorados da requisição, a documentação OpenAPI e os módulos de rotas do produto. O mesmo registro é reutilizado pelo servidor independente e pela fábrica consumida pelo frontend.",
+      "sections": [
+        { "title": "Módulos de rota", "lineRange": [1, 21], "explanation": "Os imports enumeram os módulos que formam a API, agrupados por recursos como sistemas, conversas, loja e experiência. Essa lista torna explícito o catálogo de funcionalidades que será montado pelo app.", "tourOrder": 2 },
+        { "title": "Contexto e documentação", "lineRange": [23, 40], "explanation": "A requisição recebe campos userId e supabase para que os preHandlers de autenticação possam compartilhar o contexto validado com as rotas. O plugin Swagger publica o esquema OpenAPI e a interface visual /docs só é habilitada em desenvolvimento.", "tourOrder": 2 },
+        { "title": "Registro dos endpoints", "lineRange": [42, 59], "explanation": "Cada módulo é registrado na mesma instância Fastify, mantendo a montagem da API em um único lugar. A rota de health e os recursos de domínio ficam sujeitos às opções e hooks configurados nesta instância.", "tourOrder": 2 }
+      ]
+    },
+    "frontend/app/api/[...path]/route.ts": {
+      "overview": "A rota catch-all do Next.js entrega os métodos HTTP compatíveis ao adaptador que encaminha as requisições para Fastify. Isso expõe a API no mesmo serviço do frontend durante o deploy integrado.",
+      "sections": [
+        { "title": "Adaptador HTTP", "lineRange": [1, 10], "explanation": "A rota importa handleFastifyRequest e o reutiliza para GET, DELETE, PATCH, POST e PUT, evitando duplicar o encaminhamento por método. force-dynamic e runtime nodejs mantêm a execução dinâmica em Node, necessária para o adaptador Fastify.", "tourOrder": 2 }
+      ]
+    },
+    "frontend/src/supabase-auth.ts": {
+      "overview": "Este módulo cliente conversa diretamente com Supabase Auth e mantém o token de acesso em memória para as chamadas autenticadas do frontend. Também prepara e valida ações de conta que precisam de confirmação por e-mail antes de prosseguir.",
+      "sections": [
+        { "title": "Estado e requisições Auth", "lineRange": [1, 63], "explanation": "O arquivo é marcado como client e define os tipos de sessão e ações pendentes, além de montar chamadas HTTP para a API Auth do Supabase. As respostas são normalizadas e erros de diferentes formatos da API são convertidos em mensagens legíveis.", "tourOrder": 3 },
+        { "title": "Confirmação por e-mail", "lineRange": [64, 110], "explanation": "O fluxo de exclusão recupera o usuário pela sessão, guarda a ação pendente no localStorage e solicita um link OTP. Se a solicitação falhar, o estado pendente é removido para não deixar uma confirmação antiga disponível; o fluxo de conta usa o mesmo padrão.", "tourOrder": 3 },
+        { "title": "Validação de ações pendentes", "lineRange": [112, 159], "explanation": "Os dados lidos do localStorage são tratados como entrada não confiável: o código verifica userId, tipo de ação e formato dos campos antes de reconstruir o objeto aceito. JSON inválido ou payload incompatível resulta em null, impedindo que dados antigos ou alterados sejam usados como ação válida.", "tourOrder": 3 },
+        { "title": "Sessão e callbacks", "lineRange": [161, 226], "explanation": "As funções de cadastro, login, logout, recuperação e atualização de senha usam o helper Auth e atualizam o token em memória. consumeAuthCallback lê tokens do fragmento da URL e limpa o endereço quando necessário; currentAccessToken e clearSession centralizam o estado compartilhado pelo cliente.", "tourOrder": 3 }
+      ]
+    },
+    "backend/src/plugins/authenticate.ts": {
+      "overview": "O plugin fornece preHandlers Fastify para proteger rotas com uma identidade confirmada pelo Supabase. Ele também verifica se a conta está ativa e instala no request o usuário e o cliente Supabase usados pelo restante da requisição.",
+      "sections": [
+        { "title": "Campos da requisição", "lineRange": [1, 10], "explanation": "A declaração de módulo amplia FastifyRequest com userId e supabase, ambos inicialmente anuláveis. Essa tipagem torna explícito o contexto que as rotas autenticadas podem receber depois que o guard termina com sucesso.", "tourOrder": 3 },
+        { "title": "Validação de acesso", "lineRange": [12, 35], "explanation": "O helper extrai o bearer token, verifica a identidade e consulta o status da conta por RPC. Falhas de autenticação retornam 401, falhas ao obter o status retornam 500 e contas inativas recebem 403, salvo quando a rota permite explicitamente esse estado.", "tourOrder": 3 },
+        { "title": "Guards de rota", "lineRange": [37, 44], "explanation": "authenticate e authenticateAllowInactive adaptam a mesma validação para dois níveis de acesso. Rotas públicas não instalam nenhum dos preHandlers, enquanto fluxos de recuperação ou reativação podem usar a variante que tolera uma conta desativada.", "tourOrder": 3 }
+      ]
+    },
+    "backend/src/authenticate-user.ts": {
+      "overview": "Este módulo transforma um cabeçalho bearer em um contexto de usuário validado. Ele separa a leitura sintática do token da consulta ao Supabase Auth e fornece o cliente com token que será usado pelas rotas.",
+      "sections": [
+        { "title": "Contexto autenticado", "lineRange": [1, 8], "explanation": "AuthenticatedRequestContext reúne o identificador verificado, o objeto User e o cliente Supabase vinculado ao token. A estrutura evita que rotas recebam um userId desacompanhado da credencial que o comprovou.", "tourOrder": 3 },
+        { "title": "Leitura do bearer", "lineRange": [10, 12], "explanation": "parseBearerToken aceita apenas o esquema Bearer seguido por caracteres compatíveis com o token e devolve null para cabeçalhos ausentes ou malformados. Assim, a etapa de validação remota recebe apenas valores que passaram por uma checagem básica de formato.", "tourOrder": 3 },
+        { "title": "Verificação Supabase", "lineRange": [14, 23], "explanation": "authenticateAccessToken cria o cliente de usuário e chama getUser com o token recebido. Erros da API ou exceções retornam null; somente um usuário com id confirmado gera o contexto usado pelo preHandler.", "tourOrder": 3 }
+      ]
+    },
+    "backend/src/clients/supabase.ts": {
+      "overview": "A fábrica cria um cliente Supabase associado ao usuário autenticado e às configurações carregadas do ambiente. O token é enviado em cada chamada à Data API para que as políticas de acesso do banco recebam o contexto da sessão.",
+      "sections": [
+        { "title": "Cliente por usuário", "lineRange": [1, 14], "explanation": "createUserSupabaseClient combina a URL e a chave publishable com o bearer token recebido. A sessão não é persistida nem renovada pelo SDK no backend, pois o cliente é criado para o contexto de uma requisição já autenticada.", "tourOrder": 3 }
+      ]
+    },
+    "frontend/app/layout.tsx": {
+      "overview": "O layout raiz define os metadados e a estrutura HTML compartilhados por todas as páginas do frontend. Ele estabelece pt-BR como idioma do documento e importa os estilos globais do Next.js.",
+      "sections": [
+        { "title": "Viewport e metadados", "lineRange": [1, 14], "explanation": "A configuração de viewport adapta a largura ao dispositivo e habilita o ajuste seguro em telas com recortes. Metadata define título, descrição e ícone usados pelo navegador e por mecanismos que exibem informações da página.", "tourOrder": 4 },
+        { "title": "Layout compartilhado", "lineRange": [16, 22], "explanation": "RootLayout envolve todas as páginas com as tags html e body e insere children no ponto de montagem comum. O atributo lang informa a língua principal do conteúdo às tecnologias assistivas e ao navegador.", "tourOrder": 4 }
+      ]
+    },
+    "frontend/src/api.ts": {
+      "overview": "Este arquivo centraliza os tipos de resposta e as funções de acesso à API usadas pelo frontend. Os métodos específicos constroem caminhos e payloads de domínio, enquanto authenticatedRequest anexa o token atual e normaliza erros HTTP.",
+      "sections": [
+        { "title": "Contratos sociais", "lineRange": [1, 80], "explanation": "As interfaces iniciais modelam perfis, amizades, convites e mensagens diretas e são usadas pelas funções sociais que seguem. Os caminhos codificam identificadores de usuário e nomes públicos, e os métodos de escrita enviam payloads JSON pelo helper autenticado.", "tourOrder": 4 },
+        { "title": "Contratos e operações de conta", "lineRange": [81, 300], "explanation": "Esta área reúne tipos e chamadas relacionadas às configurações da conta e aos dados do jogador. Os tipos explícitos descrevem o formato esperado pela interface, enquanto as funções mantêm as rotas HTTP e os métodos de atualização próximos dos respectivos contratos.", "tourOrder": 4 },
+        { "title": "Recursos de domínio", "lineRange": [301, 615], "explanation": "O bloco amplia o cliente para os recursos do jogo e suas operações autenticadas. As funções atuam como uma camada fina sobre endpoints, usando parâmetros tipados e serializando os campos que precisam ser enviados ao backend.", "tourOrder": 4 },
+        { "title": "Sistemas e progressão", "lineRange": [616, 884], "explanation": "Aqui aparecem chamadas para membros, notificações, sistemas, fichas, personagens, login diário, trocas e experiência. Identificadores dinâmicos são codificados antes de entrar nos caminhos e os tipos de retorno dão às telas contratos específicos para cada recurso.", "tourOrder": 4 },
+        { "title": "Transporte autenticado", "lineRange": [885, 904], "explanation": "profileRequest delega ao helper genérico, que exige token e faz fetch sem cache. A resposta JSON é lida mesmo quando o corpo não é JSON, e respostas não bem-sucedidas são convertidas em Error com a mensagem do backend ou o status HTTP.", "tourOrder": 4 },
+        { "title": "Loja do sistema", "lineRange": [905, 980], "explanation": "Os últimos tipos descrevem ofertas, itens, moeda e resultados de compra. As funções seguintes expõem operações administrativas e de jogador; a compra envia o item e a quantidade ao endpoint, deixando a regra de saldo e persistência no backend.", "tourOrder": 4 }
+      ]
+    }
+  }
+}

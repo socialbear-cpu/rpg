@@ -4,13 +4,19 @@ import { useEffect, useState } from 'react';
 import { getCharacterChats, getSystemEvents, type Chat, type SystemEvent } from '../../api';
 
 export function countActiveLobbyChats(chats: Chat[]) {
-  return chats.filter((chat) => chat.status === 'active').length;
+  return chats.reduce((count, chat) => count + Number(chat.status === 'active'), 0);
 }
 
 export function findNextLobbySession(events: SystemEvent[], now = new Date()) {
-  return events
-    .filter((event) => !event.started_at && new Date(event.starts_at).getTime() > now.getTime())
-    .sort((left, right) => new Date(left.starts_at).getTime() - new Date(right.starts_at).getTime())[0] ?? null;
+  const nowTime = now.getTime();
+  let next: SystemEvent | null = null;
+  let nextTime = Infinity;
+  for (const event of events) {
+    if (event.started_at) continue;
+    const startTime = new Date(event.starts_at).getTime();
+    if (startTime > nowTime && startTime < nextTime) { next = event; nextTime = startTime; }
+  }
+  return next;
 }
 
 export function startLobbySessionClock(onTick: (now: Date) => void, doc?: Pick<Document, 'visibilityState' | 'addEventListener' | 'removeEventListener'>) {
@@ -28,7 +34,6 @@ export function startLobbySessionClock(onTick: (now: Date) => void, doc?: Pick<D
 
 export function formatLobbySession(value: string, now = new Date()) {
   const sessionDate = new Date(value);
-  const today = new Date(now);
   const tomorrow = new Date(now);
   tomorrow.setDate(tomorrow.getDate() + 1);
   const sameDate = (left: Date, right: Date) => left.getFullYear() === right.getFullYear() && left.getMonth() === right.getMonth() && left.getDate() === right.getDate();
@@ -36,7 +41,7 @@ export function formatLobbySession(value: string, now = new Date()) {
   const hour = timeParts.find(({ type }) => type === 'hour')?.value ?? '00';
   const minute = timeParts.find(({ type }) => type === 'minute')?.value ?? '00';
   const time = minute === '00' ? `${hour}h` : `${hour}h${minute}`;
-  if (sameDate(sessionDate, today)) return `Hoje, ${time}`;
+  if (sameDate(sessionDate, now)) return `Hoje, ${time}`;
   if (sameDate(sessionDate, tomorrow)) return `Amanhã, ${time}`;
   return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium', timeStyle: 'short' }).format(sessionDate);
 }

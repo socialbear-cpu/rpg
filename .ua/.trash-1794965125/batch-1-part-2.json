@@ -1,0 +1,1080 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/src/modules/lobby-presence/lobby-presence.schema.ts",
+      "type": "file",
+      "name": "lobby-presence.schema.ts",
+      "filePath": "backend/src/modules/lobby-presence/lobby-presence.schema.ts",
+      "summary": "Valida os parâmetros e a resposta de contagem da presença no lobby.",
+      "tags": [
+        "validação",
+        "schema-api",
+        "lobby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "type": "file",
+      "name": "notifications.repository.ts",
+      "filePath": "backend/src/modules/notifications/notifications.repository.ts",
+      "summary": "Lê, transforma e atualiza notificações do usuário e cria anúncios para sistemas de jogo.",
+      "tags": [
+        "repositório",
+        "notificações",
+        "supabase"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/notifications/notifications.repository.ts:parseNotification",
+      "type": "function",
+      "name": "parseNotification",
+      "filePath": "backend/src/modules/notifications/notifications.repository.ts",
+      "lineRange": [
+        13,
+        24
+      ],
+      "summary": "Converte o registro do banco para a representação de notificação da API.",
+      "tags": [
+        "função",
+        "backend",
+        "validação"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/notifications/notifications.repository.ts:listMyNotifications",
+      "type": "function",
+      "name": "listMyNotifications",
+      "filePath": "backend/src/modules/notifications/notifications.repository.ts",
+      "lineRange": [
+        26,
+        49
+      ],
+      "summary": "Lista as notificações do usuário autenticado.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/notifications/notifications.repository.ts:markMyNotificationRead",
+      "type": "function",
+      "name": "markMyNotificationRead",
+      "filePath": "backend/src/modules/notifications/notifications.repository.ts",
+      "lineRange": [
+        51,
+        59
+      ],
+      "summary": "Marca uma notificação do usuário como lida.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/notifications/notifications.repository.ts:createSystemAnnouncement",
+      "type": "function",
+      "name": "createSystemAnnouncement",
+      "filePath": "backend/src/modules/notifications/notifications.repository.ts",
+      "lineRange": [
+        61,
+        75
+      ],
+      "summary": "Cria uma notificação de anúncio para os membros do sistema.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/notifications/notifications.routes.ts",
+      "type": "file",
+      "name": "notifications.routes.ts",
+      "filePath": "backend/src/modules/notifications/notifications.routes.ts",
+      "summary": "Expõe endpoints autenticados para listar notificações, marcá-las como lidas e publicar anúncios.",
+      "tags": [
+        "api-handler",
+        "notificações",
+        "autenticação"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/notifications/notifications.routes.ts:notificationsRoutes",
+      "type": "function",
+      "name": "notificationsRoutes",
+      "filePath": "backend/src/modules/notifications/notifications.routes.ts",
+      "lineRange": [
+        29,
+        154
+      ],
+      "summary": "Registra endpoints de consulta, leitura e publicação de notificações.",
+      "tags": [
+        "função",
+        "api-handler",
+        "serviço"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/notifications/notifications.schema.ts",
+      "type": "file",
+      "name": "notifications.schema.ts",
+      "filePath": "backend/src/modules/notifications/notifications.schema.ts",
+      "summary": "Define schemas para notificações, paginação, anúncios e resultados de mutação.",
+      "tags": [
+        "validação",
+        "schema-api",
+        "notificações"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/social/public-profile.routes.ts",
+      "type": "file",
+      "name": "public-profile.routes.ts",
+      "filePath": "backend/src/modules/social/public-profile.routes.ts",
+      "summary": "Registra endpoints públicos de perfil e as operações de perfil que exigem usuário autenticado.",
+      "tags": [
+        "api-handler",
+        "perfil",
+        "social"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/public-profile.routes.ts:publicProfileRoutes",
+      "type": "function",
+      "name": "publicProfileRoutes",
+      "filePath": "backend/src/modules/social/public-profile.routes.ts",
+      "lineRange": [
+        9,
+        50
+      ],
+      "summary": "Registra as rotas de consulta e atualização de perfis públicos.",
+      "tags": [
+        "função",
+        "api-handler",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/social/social.repository.ts",
+      "type": "file",
+      "name": "social.repository.ts",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "summary": "Implementa busca de perfis, amizades e convites entre usuários, sistemas e chats.",
+      "tags": [
+        "repositório",
+        "social",
+        "supabase"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.repository.ts:searchSocialProfiles",
+      "type": "function",
+      "name": "searchSocialProfiles",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "lineRange": [
+        17,
+        21
+      ],
+      "summary": "Busca perfis públicos disponíveis para descoberta social.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.repository.ts:listMyFriendships",
+      "type": "function",
+      "name": "listMyFriendships",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "lineRange": [
+        23,
+        27
+      ],
+      "summary": "Lista as amizades e solicitações associadas ao usuário atual.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.repository.ts:createFriendRequest",
+      "type": "function",
+      "name": "createFriendRequest",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "lineRange": [
+        29,
+        35
+      ],
+      "summary": "Cria uma solicitação de amizade entre usuários.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.repository.ts:respondFriendRequest",
+      "type": "function",
+      "name": "respondFriendRequest",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "lineRange": [
+        37,
+        48
+      ],
+      "summary": "Aceita ou recusa uma solicitação de amizade.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.repository.ts:cancelFriendRequest",
+      "type": "function",
+      "name": "cancelFriendRequest",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "lineRange": [
+        50,
+        56
+      ],
+      "summary": "Cancela uma solicitação de amizade pendente.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.repository.ts:removeFriend",
+      "type": "function",
+      "name": "removeFriend",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "lineRange": [
+        58,
+        64
+      ],
+      "summary": "Remove uma amizade existente.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.repository.ts:createRpgInvitation",
+      "type": "function",
+      "name": "createRpgInvitation",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "lineRange": [
+        66,
+        72
+      ],
+      "summary": "Cria um convite para um sistema ou chat de RPG.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.repository.ts:listMySocialInvitations",
+      "type": "function",
+      "name": "listMySocialInvitations",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "lineRange": [
+        74,
+        78
+      ],
+      "summary": "Lista os convites sociais recebidos pelo usuário.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.repository.ts:respondRpgInvitation",
+      "type": "function",
+      "name": "respondRpgInvitation",
+      "filePath": "backend/src/modules/social/social.repository.ts",
+      "lineRange": [
+        80,
+        86
+      ],
+      "summary": "Aceita ou recusa um convite de RPG.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/social/social.routes.ts",
+      "type": "file",
+      "name": "social.routes.ts",
+      "filePath": "backend/src/modules/social/social.routes.ts",
+      "summary": "Registra rotas de busca social, amizades e convites para sistemas e chats, com validação e respostas HTTP.",
+      "tags": [
+        "api-handler",
+        "social",
+        "convites"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.routes.ts:sendMutationResult",
+      "type": "function",
+      "name": "sendMutationResult",
+      "filePath": "backend/src/modules/social/social.routes.ts",
+      "lineRange": [
+        115,
+        132
+      ],
+      "summary": "Converte estados de mutação social em respostas HTTP e mensagens de erro.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.routes.ts:sendInvitationResult",
+      "type": "function",
+      "name": "sendInvitationResult",
+      "filePath": "backend/src/modules/social/social.routes.ts",
+      "lineRange": [
+        134,
+        146
+      ],
+      "summary": "Converte estados de convite em respostas HTTP coerentes.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/social/social.routes.ts:socialRoutes",
+      "type": "function",
+      "name": "socialRoutes",
+      "filePath": "backend/src/modules/social/social.routes.ts",
+      "lineRange": [
+        148,
+        333
+      ],
+      "summary": "Registra rotas de busca social, amizades e convites de RPG.",
+      "tags": [
+        "função",
+        "api-handler",
+        "serviço"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/social/social.schema.ts",
+      "type": "file",
+      "name": "social.schema.ts",
+      "filePath": "backend/src/modules/social/social.schema.ts",
+      "summary": "Define schemas para busca de perfis, amizades, decisões de convite e respostas das operações sociais.",
+      "tags": [
+        "validação",
+        "schema-api",
+        "social"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/plugins/authenticate.ts",
+      "type": "file",
+      "name": "authenticate.ts",
+      "filePath": "backend/src/plugins/authenticate.ts",
+      "summary": "Adapta a autenticação Supabase para preHandlers Fastify, incluindo contas inativas e opcionais.",
+      "tags": [
+        "middleware",
+        "autenticação",
+        "fastify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/plugins/authenticate.ts:authenticateRequest",
+      "type": "function",
+      "name": "authenticateRequest",
+      "filePath": "backend/src/plugins/authenticate.ts",
+      "lineRange": [
+        12,
+        35
+      ],
+      "summary": "Lê o token da requisição, autentica o usuário e injeta credenciais no contexto Fastify.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/plugins/authenticate.ts:authenticate",
+      "type": "function",
+      "name": "authenticate",
+      "filePath": "backend/src/plugins/authenticate.ts",
+      "lineRange": [
+        38,
+        40
+      ],
+      "summary": "Cria um preHandler que exige um usuário autenticado e ativo.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/plugins/authenticate.ts:authenticateAllowInactive",
+      "type": "function",
+      "name": "authenticateAllowInactive",
+      "filePath": "backend/src/plugins/authenticate.ts",
+      "lineRange": [
+        42,
+        44
+      ],
+      "summary": "Cria um preHandler que autentica sem bloquear usuários inativos.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/register-app.ts",
+      "type": "file",
+      "name": "register-app.ts",
+      "filePath": "backend/src/register-app.ts",
+      "summary": "Registra plugins e módulos de rota da API Fastify em uma única aplicação.",
+      "tags": [
+        "registro",
+        "fastify",
+        "api"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/register-app.ts:registerApp",
+      "type": "function",
+      "name": "registerApp",
+      "filePath": "backend/src/register-app.ts",
+      "lineRange": [
+        23,
+        59
+      ],
+      "summary": "Registra configuração, plugins e todas as famílias de rotas da aplicação.",
+      "tags": [
+        "função",
+        "backend",
+        "serviço"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "backend/src/server.ts",
+      "summary": "Inicializa o servidor HTTP de desenvolvimento e inicia a aplicação Fastify.",
+      "tags": [
+        "entry-point",
+        "servidor",
+        "fastify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/vercel-app.ts",
+      "type": "file",
+      "name": "vercel-app.ts",
+      "filePath": "backend/src/vercel-app.ts",
+      "summary": "Prepara a aplicação Fastify para execução integrada às funções do Vercel.",
+      "tags": [
+        "vercel",
+        "fastify",
+        "deploy"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/test/config.test.ts",
+      "type": "file",
+      "name": "config.test.ts",
+      "filePath": "backend/test/config.test.ts",
+      "summary": "Testa a leitura e validação da configuração, incluindo cenários de ambiente inválido.",
+      "tags": [
+        "test",
+        "configuração",
+        "validação"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/social.schema.test.ts",
+      "type": "file",
+      "name": "social.schema.test.ts",
+      "filePath": "backend/test/social.schema.test.ts",
+      "summary": "Testa os schemas Zod de parâmetros e entradas usados nas rotas sociais.",
+      "tags": [
+        "test",
+        "social",
+        "validação"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "target": "function:backend/src/modules/notifications/notifications.repository.ts:parseNotification",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "target": "function:backend/src/modules/notifications/notifications.repository.ts:listMyNotifications",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "target": "function:backend/src/modules/notifications/notifications.repository.ts:listMyNotifications",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "target": "function:backend/src/modules/notifications/notifications.repository.ts:markMyNotificationRead",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "target": "function:backend/src/modules/notifications/notifications.repository.ts:markMyNotificationRead",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "target": "function:backend/src/modules/notifications/notifications.repository.ts:createSystemAnnouncement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "target": "function:backend/src/modules/notifications/notifications.repository.ts:createSystemAnnouncement",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "target": "file:backend/src/modules/notifications/notifications.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.routes.ts",
+      "target": "function:backend/src/modules/notifications/notifications.routes.ts:notificationsRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.routes.ts",
+      "target": "function:backend/src/modules/notifications/notifications.routes.ts:notificationsRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.routes.ts",
+      "target": "file:backend/src/modules/notifications/notifications.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.routes.ts",
+      "target": "file:backend/src/modules/notifications/notifications.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/notifications/notifications.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/social/public-profile.routes.ts",
+      "target": "function:backend/src/modules/social/public-profile.routes.ts:publicProfileRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/public-profile.routes.ts",
+      "target": "function:backend/src/modules/social/public-profile.routes.ts:publicProfileRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/public-profile.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:searchSocialProfiles",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:searchSocialProfiles",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:listMyFriendships",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:listMyFriendships",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:createFriendRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:createFriendRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:respondFriendRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:respondFriendRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:cancelFriendRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:cancelFriendRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:removeFriend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:removeFriend",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:createRpgInvitation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:createRpgInvitation",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:listMySocialInvitations",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:listMySocialInvitations",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:respondRpgInvitation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "function:backend/src/modules/social/social.repository.ts:respondRpgInvitation",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.repository.ts",
+      "target": "file:backend/src/modules/social/social.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/social/social.routes.ts",
+      "target": "function:backend/src/modules/social/social.routes.ts:sendMutationResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.routes.ts",
+      "target": "function:backend/src/modules/social/social.routes.ts:sendInvitationResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.routes.ts",
+      "target": "function:backend/src/modules/social/social.routes.ts:socialRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/social/social.routes.ts",
+      "target": "function:backend/src/modules/social/social.routes.ts:socialRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/social/social.routes.ts",
+      "target": "file:backend/src/modules/social/social.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/social/social.routes.ts",
+      "target": "file:backend/src/modules/social/social.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/social/social.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/plugins/authenticate.ts",
+      "target": "function:backend/src/plugins/authenticate.ts:authenticateRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/plugins/authenticate.ts",
+      "target": "function:backend/src/plugins/authenticate.ts:authenticate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/plugins/authenticate.ts",
+      "target": "function:backend/src/plugins/authenticate.ts:authenticate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/plugins/authenticate.ts",
+      "target": "function:backend/src/plugins/authenticate.ts:authenticateAllowInactive",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/plugins/authenticate.ts",
+      "target": "function:backend/src/plugins/authenticate.ts:authenticateAllowInactive",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/plugins/authenticate.ts",
+      "target": "file:backend/src/authenticate-user.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "function:backend/src/register-app.ts:registerApp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "function:backend/src/register-app.ts:registerApp",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/account/account.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/chats/chats.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/direct-messages/direct-messages.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/experience/experience.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/health/health.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/lobby-presence/lobby-presence.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/notifications/notifications.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/profile/profile.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/social/public-profile.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/social/social.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/store/store.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/system-events/system-events.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/register-app.ts",
+      "target": "file:backend/src/modules/trading/trading.routes.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/server.ts",
+      "target": "file:backend/src/register-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/vercel-app.ts",
+      "target": "file:backend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/vercel-app.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/config.test.ts",
+      "target": "file:backend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/social.schema.test.ts",
+      "target": "file:backend/src/modules/social/social.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { withActiveAccount } from './fixtures/supabase-fetch.js';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildApp } from '../src/create-app.js';
 
@@ -20,7 +21,7 @@ beforeEach(() => {
   accessStatus = 'ok';
   requests = [];
   events = [{ id: eventId, game_system_id: systemId, title: 'Sessão zero', description: null, starts_at: startsAt, ends_at: endsAt, started_at: null, created_at: startsAt, updated_at: startsAt }];
-  vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+  vi.stubGlobal('fetch', withActiveAccount(async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input));
     const method = init?.method ?? 'GET';
     const body: unknown = init?.body ? JSON.parse(String(init.body)) : null;
@@ -40,7 +41,7 @@ beforeEach(() => {
       if (method === 'DELETE') return Response.json({ id: eventId });
     }
     throw new Error(`Unexpected request: ${url}`);
-  });
+  }));
 });
 
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });

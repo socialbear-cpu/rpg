@@ -1,0 +1,2464 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "type": "file",
+      "name": "daily-login.repository.ts",
+      "filePath": "backend/src/modules/daily-login/daily-login.repository.ts",
+      "summary": "Consulta e atualiza dados de login diário, calendários de recompensas e resgates de personagens por meio do Supabase.",
+      "tags": [
+        "repositório",
+        "supabase",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/daily-login/daily-login.repository.ts:listMyDailyLoginSystems",
+      "type": "function",
+      "name": "listMyDailyLoginSystems",
+      "filePath": "backend/src/modules/daily-login/daily-login.repository.ts",
+      "lineRange": [
+        64,
+        110
+      ],
+      "summary": "Lista login diário, com base nos parâmetros e regras da operação list my daily login systems.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:backend/src/modules/daily-login/daily-login.repository.ts:readPlayerDailyLoginSystem",
+      "type": "function",
+      "name": "readPlayerDailyLoginSystem",
+      "filePath": "backend/src/modules/daily-login/daily-login.repository.ts",
+      "lineRange": [
+        112,
+        131
+      ],
+      "summary": "Consulta login diário, com base nos parâmetros e regras da operação read player daily login system.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/daily-login/daily-login.repository.ts:readOwnerDailyLoginCalendar",
+      "type": "function",
+      "name": "readOwnerDailyLoginCalendar",
+      "filePath": "backend/src/modules/daily-login/daily-login.repository.ts",
+      "lineRange": [
+        133,
+        165
+      ],
+      "summary": "Consulta login diário, com base nos parâmetros e regras da operação read owner daily login calendar.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/daily-login/daily-login.repository.ts:saveOwnerDailyLoginCalendar",
+      "type": "function",
+      "name": "saveOwnerDailyLoginCalendar",
+      "filePath": "backend/src/modules/daily-login/daily-login.repository.ts",
+      "lineRange": [
+        167,
+        179
+      ],
+      "summary": "Atualiza login diário, com base nos parâmetros e regras da operação save owner daily login calendar.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/daily-login/daily-login.repository.ts:claimDailyLoginReward",
+      "type": "function",
+      "name": "claimDailyLoginReward",
+      "filePath": "backend/src/modules/daily-login/daily-login.repository.ts",
+      "lineRange": [
+        181,
+        192
+      ],
+      "summary": "Processa o resgate de login diário, com base nos parâmetros e regras da operação claim daily login reward.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "type": "file",
+      "name": "daily-login.routes.ts",
+      "filePath": "backend/src/modules/daily-login/daily-login.routes.ts",
+      "summary": "Registra a API de login diário, validando requisições e aplicando regras de acesso antes de consultar ou alterar recompensas.",
+      "tags": [
+        "api",
+        "rotas",
+        "autorização"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/daily-login/daily-login.routes.ts:dailyLoginRoutes",
+      "type": "function",
+      "name": "dailyLoginRoutes",
+      "filePath": "backend/src/modules/daily-login/daily-login.routes.ts",
+      "lineRange": [
+        53,
+        202
+      ],
+      "summary": "Coordena login diário, com base nos parâmetros e regras da operação daily login routes.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "api-handler"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/src/modules/daily-login/daily-login.schema.ts",
+      "type": "file",
+      "name": "daily-login.schema.ts",
+      "filePath": "backend/src/modules/daily-login/daily-login.schema.ts",
+      "summary": "Define os esquemas de validação para resgates, recompensas e calendários de login diário.",
+      "tags": [
+        "validação",
+        "esquema",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "type": "file",
+      "name": "game-systems.repository.ts",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "summary": "Coordena a persistência de sistemas de jogo, acesso, personagens, fichas e ciclo de vida no banco de dados.",
+      "tags": [
+        "repositório",
+        "supabase",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:parseGameSystem",
+      "type": "function",
+      "name": "parseGameSystem",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        33,
+        49
+      ],
+      "summary": "Converte e valida sistemas de jogo, com base nos parâmetros e regras da operação parse game system.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:manageGameSystemLifecycle",
+      "type": "function",
+      "name": "manageGameSystemLifecycle",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        51,
+        64
+      ],
+      "summary": "Aplica regras de ciclo de vida a sistemas de jogo, com base nos parâmetros e regras da operação manage game system lifecycle.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:listAccessibleGameSystems",
+      "type": "function",
+      "name": "listAccessibleGameSystems",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        66,
+        102
+      ],
+      "summary": "Lista sistemas de jogo, com base nos parâmetros e regras da operação list accessible game systems.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:listSystemTagOptions",
+      "type": "function",
+      "name": "listSystemTagOptions",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        104,
+        106
+      ],
+      "summary": "Lista sistemas de jogo, com base nos parâmetros e regras da operação list system tag options.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:createGameSystem",
+      "type": "function",
+      "name": "createGameSystem",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        108,
+        120
+      ],
+      "summary": "Cria sistemas de jogo, com base nos parâmetros e regras da operação create game system.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:updateGameSystem",
+      "type": "function",
+      "name": "updateGameSystem",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        122,
+        141
+      ],
+      "summary": "Atualiza sistemas de jogo, com base nos parâmetros e regras da operação update game system.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:authorizeSystemAccess",
+      "type": "function",
+      "name": "authorizeSystemAccess",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        143,
+        152
+      ],
+      "summary": "Autoriza sistemas de jogo, com base nos parâmetros e regras da operação authorize system access.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:readActiveGameSystem",
+      "type": "function",
+      "name": "readActiveGameSystem",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        154,
+        159
+      ],
+      "summary": "Consulta sistemas de jogo, com base nos parâmetros e regras da operação read active game system.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:readGameSystemCharacterSheet",
+      "type": "function",
+      "name": "readGameSystemCharacterSheet",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        161,
+        169
+      ],
+      "summary": "Consulta sistemas de jogo, com base nos parâmetros e regras da operação read game system character sheet.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:listSystemCharacters",
+      "type": "function",
+      "name": "listSystemCharacters",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        171,
+        182
+      ],
+      "summary": "Lista sistemas de jogo, com base nos parâmetros e regras da operação list system characters.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.repository.ts:createSystemCharacter",
+      "type": "function",
+      "name": "createSystemCharacter",
+      "filePath": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "lineRange": [
+        184,
+        204
+      ],
+      "summary": "Cria sistemas de jogo, com base nos parâmetros e regras da operação create system character.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "type": "file",
+      "name": "game-systems.routes.ts",
+      "filePath": "backend/src/modules/game-systems/game-systems.routes.ts",
+      "summary": "Expõe rotas para administrar sistemas de jogo, seus membros, personagens, fichas e operações de ciclo de vida.",
+      "tags": [
+        "api",
+        "rotas",
+        "autorização"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.routes.ts:gameSystemsRoutes",
+      "type": "function",
+      "name": "gameSystemsRoutes",
+      "filePath": "backend/src/modules/game-systems/game-systems.routes.ts",
+      "lineRange": [
+        120,
+        447
+      ],
+      "summary": "Coordena sistemas de jogo, com base nos parâmetros e regras da operação game systems routes.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "api-handler"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "type": "file",
+      "name": "game-systems.schema.ts",
+      "filePath": "backend/src/modules/game-systems/game-systems.schema.ts",
+      "summary": "Centraliza os esquemas Zod de entrada e saída para sistemas, fichas de personagem, atributos e operações relacionadas.",
+      "tags": [
+        "validação",
+        "esquema",
+        "backend"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.schema.ts:legacyFieldsToDefinition",
+      "type": "function",
+      "name": "legacyFieldsToDefinition",
+      "filePath": "backend/src/modules/game-systems/game-systems.schema.ts",
+      "lineRange": [
+        173,
+        183
+      ],
+      "summary": "Converte campos antigos de ficha em sistemas de jogo, com base nos parâmetros e regras da operação legacy fields to definition.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "validação"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/game-systems.schema.ts:characterAttributesSchemaFor",
+      "type": "function",
+      "name": "characterAttributesSchemaFor",
+      "filePath": "backend/src/modules/game-systems/game-systems.schema.ts",
+      "lineRange": [
+        289,
+        354
+      ],
+      "summary": "Cria o esquema de atributos de personagem para sistemas de jogo, com base nos parâmetros e regras da operação character attributes schema for.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "validação"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/src/modules/game-systems/system-access.ts",
+      "type": "file",
+      "name": "system-access.ts",
+      "filePath": "backend/src/modules/game-systems/system-access.ts",
+      "summary": "Reúne a resposta padrão para solicitações que não têm acesso autorizado ao sistema de jogo.",
+      "tags": [
+        "backend",
+        "sistemas-de-jogo",
+        "lógica-de-negócio"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/game-systems/system-access.ts:rejectSystemAccess",
+      "type": "function",
+      "name": "rejectSystemAccess",
+      "filePath": "backend/src/modules/game-systems/system-access.ts",
+      "lineRange": [
+        7,
+        16
+      ],
+      "summary": "Formata a rejeição de acesso a sistemas de jogo, com base nos parâmetros e regras da operação reject system access.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "serviço"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "type": "file",
+      "name": "lobby-settings.repository.ts",
+      "filePath": "backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "summary": "Lê e salva configurações do lobby de um sistema de jogo no Supabase.",
+      "tags": [
+        "repositório",
+        "supabase",
+        "backend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/lobby-settings/lobby-settings.repository.ts:getSystemLobbySettings",
+      "type": "function",
+      "name": "getSystemLobbySettings",
+      "filePath": "backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "lineRange": [
+        6,
+        20
+      ],
+      "summary": "Consulta lobby, com base nos parâmetros e regras da operação get system lobby settings.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/lobby-settings/lobby-settings.repository.ts:saveSystemLobbySettings",
+      "type": "function",
+      "name": "saveSystemLobbySettings",
+      "filePath": "backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "lineRange": [
+        22,
+        38
+      ],
+      "summary": "Atualiza lobby, com base nos parâmetros e regras da operação save system lobby settings.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "type": "file",
+      "name": "lobby-settings.routes.ts",
+      "filePath": "backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "summary": "Define os endpoints de leitura e atualização das configurações do lobby e verifica permissões dos membros.",
+      "tags": [
+        "api",
+        "rotas",
+        "autorização"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/lobby-settings/lobby-settings.routes.ts:lobbySettingsRoutes",
+      "type": "function",
+      "name": "lobbySettingsRoutes",
+      "filePath": "backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "lineRange": [
+        25,
+        58
+      ],
+      "summary": "Coordena lobby, com base nos parâmetros e regras da operação lobby settings routes.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "api-handler"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/lobby-settings/lobby-settings.schema.ts",
+      "type": "file",
+      "name": "lobby-settings.schema.ts",
+      "filePath": "backend/src/modules/lobby-settings/lobby-settings.schema.ts",
+      "summary": "Valida os dados de entrada usados para atualizar as configurações do lobby.",
+      "tags": [
+        "validação",
+        "esquema",
+        "backend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/store/store.repository.ts",
+      "type": "file",
+      "name": "store.repository.ts",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "summary": "Executa operações de catálogo, estoque, moeda e ofertas da loja, incluindo compras de personagens.",
+      "tags": [
+        "repositório",
+        "supabase",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.repository.ts:canManageStore",
+      "type": "function",
+      "name": "canManageStore",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "lineRange": [
+        10,
+        13
+      ],
+      "summary": "Verifica a permissão de gerenciamento de loja, com base nos parâmetros e regras da operação can manage store.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.repository.ts:createStoreItem",
+      "type": "function",
+      "name": "createStoreItem",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "lineRange": [
+        14,
+        27
+      ],
+      "summary": "Cria loja, com base nos parâmetros e regras da operação create store item.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.repository.ts:readStoreCharacter",
+      "type": "function",
+      "name": "readStoreCharacter",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "lineRange": [
+        28,
+        31
+      ],
+      "summary": "Consulta loja, com base nos parâmetros e regras da operação read store character.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.repository.ts:readCatalog",
+      "type": "function",
+      "name": "readCatalog",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "lineRange": [
+        32,
+        55
+      ],
+      "summary": "Consulta loja, com base nos parâmetros e regras da operação read catalog.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.repository.ts:readStore",
+      "type": "function",
+      "name": "readStore",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "lineRange": [
+        56,
+        66
+      ],
+      "summary": "Consulta loja, com base nos parâmetros e regras da operação read store.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.repository.ts:updateStoreCurrencyField",
+      "type": "function",
+      "name": "updateStoreCurrencyField",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "lineRange": [
+        67,
+        72
+      ],
+      "summary": "Atualiza loja, com base nos parâmetros e regras da operação update store currency field.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.repository.ts:updateStoreOfferField",
+      "type": "function",
+      "name": "updateStoreOfferField",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "lineRange": [
+        73,
+        81
+      ],
+      "summary": "Atualiza loja, com base nos parâmetros e regras da operação update store offer field.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.repository.ts:replaceStore",
+      "type": "function",
+      "name": "replaceStore",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "lineRange": [
+        82,
+        92
+      ],
+      "summary": "Atualiza loja, com base nos parâmetros e regras da operação replace store.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.repository.ts:purchaseStoreOffer",
+      "type": "function",
+      "name": "purchaseStoreOffer",
+      "filePath": "backend/src/modules/store/store.repository.ts",
+      "lineRange": [
+        93,
+        96
+      ],
+      "summary": "Coordena loja, com base nos parâmetros e regras da operação purchase store offer.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/store/store.routes.ts",
+      "type": "file",
+      "name": "store.routes.ts",
+      "filePath": "backend/src/modules/store/store.routes.ts",
+      "summary": "Registra endpoints para consultar e administrar a loja e para realizar compras de ofertas.",
+      "tags": [
+        "api",
+        "rotas",
+        "autorização"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/store/store.routes.ts:storeRoutes",
+      "type": "function",
+      "name": "storeRoutes",
+      "filePath": "backend/src/modules/store/store.routes.ts",
+      "lineRange": [
+        18,
+        117
+      ],
+      "summary": "Coordena loja, com base nos parâmetros e regras da operação store routes.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "api-handler"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/src/modules/store/store.schema.ts",
+      "type": "file",
+      "name": "store.schema.ts",
+      "filePath": "backend/src/modules/store/store.schema.ts",
+      "summary": "Define os esquemas de validação e resposta para catálogo, itens, ofertas, moeda e operações da loja.",
+      "tags": [
+        "validação",
+        "esquema",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "type": "file",
+      "name": "system-events.repository.ts",
+      "filePath": "backend/src/modules/system-events/system-events.repository.ts",
+      "summary": "Consulta e altera eventos de sistemas de jogo, incluindo criação, edição, remoção e início de eventos.",
+      "tags": [
+        "repositório",
+        "supabase",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/system-events/system-events.repository.ts:canManageSystemEvents",
+      "type": "function",
+      "name": "canManageSystemEvents",
+      "filePath": "backend/src/modules/system-events/system-events.repository.ts",
+      "lineRange": [
+        7,
+        11
+      ],
+      "summary": "Verifica a permissão de gerenciamento de eventos do sistema, com base nos parâmetros e regras da operação can manage system events.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/system-events/system-events.repository.ts:listSystemEvents",
+      "type": "function",
+      "name": "listSystemEvents",
+      "filePath": "backend/src/modules/system-events/system-events.repository.ts",
+      "lineRange": [
+        13,
+        20
+      ],
+      "summary": "Lista eventos do sistema, com base nos parâmetros e regras da operação list system events.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/system-events/system-events.repository.ts:createSystemEvent",
+      "type": "function",
+      "name": "createSystemEvent",
+      "filePath": "backend/src/modules/system-events/system-events.repository.ts",
+      "lineRange": [
+        22,
+        34
+      ],
+      "summary": "Cria eventos do sistema, com base nos parâmetros e regras da operação create system event.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/system-events/system-events.repository.ts:updateSystemEvent",
+      "type": "function",
+      "name": "updateSystemEvent",
+      "filePath": "backend/src/modules/system-events/system-events.repository.ts",
+      "lineRange": [
+        36,
+        49
+      ],
+      "summary": "Atualiza eventos do sistema, com base nos parâmetros e regras da operação update system event.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/system-events/system-events.repository.ts:deleteSystemEvent",
+      "type": "function",
+      "name": "deleteSystemEvent",
+      "filePath": "backend/src/modules/system-events/system-events.repository.ts",
+      "lineRange": [
+        51,
+        56
+      ],
+      "summary": "Remove ou cancela eventos do sistema, com base nos parâmetros e regras da operação delete system event.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/system-events/system-events.repository.ts:startSystemEvent",
+      "type": "function",
+      "name": "startSystemEvent",
+      "filePath": "backend/src/modules/system-events/system-events.repository.ts",
+      "lineRange": [
+        58,
+        73
+      ],
+      "summary": "Inicia eventos do sistema, com base nos parâmetros e regras da operação start system event.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/system-events/system-events.routes.ts",
+      "type": "file",
+      "name": "system-events.routes.ts",
+      "filePath": "backend/src/modules/system-events/system-events.routes.ts",
+      "summary": "Expõe rotas para consultar e administrar eventos de sistemas, com verificações de acesso e validação de payloads.",
+      "tags": [
+        "api",
+        "rotas",
+        "autorização"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/system-events/system-events.routes.ts:systemEventsRoutes",
+      "type": "function",
+      "name": "systemEventsRoutes",
+      "filePath": "backend/src/modules/system-events/system-events.routes.ts",
+      "lineRange": [
+        44,
+        118
+      ],
+      "summary": "Coordena eventos do sistema, com base nos parâmetros e regras da operação system events routes.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "api-handler"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/src/modules/system-events/system-events.schema.ts",
+      "type": "file",
+      "name": "system-events.schema.ts",
+      "filePath": "backend/src/modules/system-events/system-events.schema.ts",
+      "summary": "Define os formatos válidos para eventos de sistema e para as respostas da API de eventos.",
+      "tags": [
+        "validação",
+        "esquema",
+        "backend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "type": "file",
+      "name": "system-membership.repository.ts",
+      "filePath": "backend/src/modules/system-membership/system-membership.repository.ts",
+      "summary": "Consulta associações de jogadores, atualiza permissões de moderador e pesquisa membros pelo nome do personagem.",
+      "tags": [
+        "repositório",
+        "supabase",
+        "backend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/system-membership/system-membership.repository.ts:readMySystemMemberships",
+      "type": "function",
+      "name": "readMySystemMemberships",
+      "filePath": "backend/src/modules/system-membership/system-membership.repository.ts",
+      "lineRange": [
+        8,
+        14
+      ],
+      "summary": "Consulta associação de membros, com base nos parâmetros e regras da operação read my system memberships.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/system-membership/system-membership.repository.ts:setSystemModerator",
+      "type": "function",
+      "name": "setSystemModerator",
+      "filePath": "backend/src/modules/system-membership/system-membership.repository.ts",
+      "lineRange": [
+        16,
+        29
+      ],
+      "summary": "Atualiza associação de membros, com base nos parâmetros e regras da operação set system moderator.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/system-membership/system-membership.repository.ts:searchSystemMembersByCharacterName",
+      "type": "function",
+      "name": "searchSystemMembersByCharacterName",
+      "filePath": "backend/src/modules/system-membership/system-membership.repository.ts",
+      "lineRange": [
+        31,
+        40
+      ],
+      "summary": "Lista associação de membros, com base nos parâmetros e regras da operação search system members by character name.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/system-membership/system-membership.routes.ts",
+      "type": "file",
+      "name": "system-membership.routes.ts",
+      "filePath": "backend/src/modules/system-membership/system-membership.routes.ts",
+      "summary": "Registra endpoints de associação e administração de membros, protegendo operações por autenticação e autorização.",
+      "tags": [
+        "api",
+        "rotas",
+        "autorização"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/system-membership/system-membership.routes.ts:systemMembershipRoutes",
+      "type": "function",
+      "name": "systemMembershipRoutes",
+      "filePath": "backend/src/modules/system-membership/system-membership.routes.ts",
+      "lineRange": [
+        26,
+        134
+      ],
+      "summary": "Coordena associação de membros, com base nos parâmetros e regras da operação system membership routes.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "api-handler"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/src/modules/system-membership/system-membership.schema.ts",
+      "type": "file",
+      "name": "system-membership.schema.ts",
+      "filePath": "backend/src/modules/system-membership/system-membership.schema.ts",
+      "summary": "Valida parâmetros, papéis e respostas usados nos fluxos de associação de membros ao sistema.",
+      "tags": [
+        "validação",
+        "esquema",
+        "backend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/trading/trading.repository.ts",
+      "type": "file",
+      "name": "trading.repository.ts",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "summary": "Coordena consultas e mutações de trocas entre personagens, ofertas e inventários por meio de RPCs do Supabase.",
+      "tags": [
+        "repositório",
+        "supabase",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.repository.ts:readTradeCharacters",
+      "type": "function",
+      "name": "readTradeCharacters",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "lineRange": [
+        27,
+        31
+      ],
+      "summary": "Consulta trocas, com base nos parâmetros e regras da operação read trade characters.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.repository.ts:readTradeInventory",
+      "type": "function",
+      "name": "readTradeInventory",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "lineRange": [
+        33,
+        38
+      ],
+      "summary": "Consulta trocas, com base nos parâmetros e regras da operação read trade inventory.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.repository.ts:readOwnedInventoryCharacter",
+      "type": "function",
+      "name": "readOwnedInventoryCharacter",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "lineRange": [
+        40,
+        52
+      ],
+      "summary": "Consulta trocas, com base nos parâmetros e regras da operação read owned inventory character.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.repository.ts:readOwnedCharacterInventory",
+      "type": "function",
+      "name": "readOwnedCharacterInventory",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "lineRange": [
+        54,
+        91
+      ],
+      "summary": "Consulta trocas, com base nos parâmetros e regras da operação read owned character inventory.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.repository.ts:readTradeOffers",
+      "type": "function",
+      "name": "readTradeOffers",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "lineRange": [
+        93,
+        99
+      ],
+      "summary": "Consulta trocas, com base nos parâmetros e regras da operação read trade offers.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.repository.ts:createTradeOffer",
+      "type": "function",
+      "name": "createTradeOffer",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "lineRange": [
+        101,
+        108
+      ],
+      "summary": "Cria trocas, com base nos parâmetros e regras da operação create trade offer.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.repository.ts:counterTradeOffer",
+      "type": "function",
+      "name": "counterTradeOffer",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "lineRange": [
+        110,
+        116
+      ],
+      "summary": "Registra uma contraproposta para trocas, com base nos parâmetros e regras da operação counter trade offer.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.repository.ts:respondToTradeOffer",
+      "type": "function",
+      "name": "respondToTradeOffer",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "lineRange": [
+        118,
+        123
+      ],
+      "summary": "Registra a resposta a trocas, com base nos parâmetros e regras da operação respond to trade offer.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.repository.ts:cancelTradeOffer",
+      "type": "function",
+      "name": "cancelTradeOffer",
+      "filePath": "backend/src/modules/trading/trading.repository.ts",
+      "lineRange": [
+        125,
+        129
+      ],
+      "summary": "Remove ou cancela trocas, com base nos parâmetros e regras da operação cancel trade offer.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "persistência"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/trading/trading.routes.ts",
+      "type": "file",
+      "name": "trading.routes.ts",
+      "filePath": "backend/src/modules/trading/trading.routes.ts",
+      "summary": "Expõe endpoints para listar personagens e inventários e para criar, responder, contrapor ou cancelar trocas.",
+      "tags": [
+        "api",
+        "rotas",
+        "autorização"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.routes.ts:mutationReply",
+      "type": "function",
+      "name": "mutationReply",
+      "filePath": "backend/src/modules/trading/trading.routes.ts",
+      "lineRange": [
+        45,
+        94
+      ],
+      "summary": "Normaliza as respostas das mutações de trocas, com base nos parâmetros e regras da operação mutation reply.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "api-handler"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:backend/src/modules/trading/trading.routes.ts:tradingRoutes",
+      "type": "function",
+      "name": "tradingRoutes",
+      "filePath": "backend/src/modules/trading/trading.routes.ts",
+      "lineRange": [
+        100,
+        246
+      ],
+      "summary": "Coordena trocas, com base nos parâmetros e regras da operação trading routes.",
+      "tags": [
+        "backend",
+        "lógica-de-negócio",
+        "api-handler"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/src/modules/trading/trading.schema.ts",
+      "type": "file",
+      "name": "trading.schema.ts",
+      "filePath": "backend/src/modules/trading/trading.schema.ts",
+      "summary": "Define os esquemas Zod para personagens, inventários, ofertas e respostas das operações de troca.",
+      "tags": [
+        "validação",
+        "esquema",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/daily-login.schema.test.ts",
+      "type": "file",
+      "name": "daily-login.schema.test.ts",
+      "filePath": "backend/test/daily-login.schema.test.ts",
+      "summary": "Verifica a validação dos esquemas de resgate e calendário de login diário.",
+      "tags": [
+        "teste",
+        "validação",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/game-systems.schema.test.ts",
+      "type": "file",
+      "name": "game-systems.schema.test.ts",
+      "filePath": "backend/test/game-systems.schema.test.ts",
+      "summary": "Testa validações e transformações dos esquemas de sistemas, fichas e personagens.",
+      "tags": [
+        "teste",
+        "validação",
+        "backend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/store.schema.test.ts",
+      "type": "file",
+      "name": "store.schema.test.ts",
+      "filePath": "backend/test/store.schema.test.ts",
+      "summary": "Confere a validação dos dados usados nas operações da loja.",
+      "tags": [
+        "teste",
+        "validação",
+        "backend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/test/system-membership.schema.test.ts",
+      "type": "file",
+      "name": "system-membership.schema.test.ts",
+      "filePath": "backend/test/system-membership.schema.test.ts",
+      "summary": "Testa os esquemas de associação e pesquisa de membros do sistema.",
+      "tags": [
+        "teste",
+        "validação",
+        "backend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/test/trading.schema.test.ts",
+      "type": "file",
+      "name": "trading.schema.test.ts",
+      "filePath": "backend/test/trading.schema.test.ts",
+      "summary": "Verifica os esquemas de entrada e saída dos fluxos de troca e inventário.",
+      "tags": [
+        "teste",
+        "validação",
+        "backend"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:listMyDailyLoginSystems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:listMyDailyLoginSystems",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:readPlayerDailyLoginSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:readPlayerDailyLoginSystem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:readOwnerDailyLoginCalendar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:readOwnerDailyLoginCalendar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:saveOwnerDailyLoginCalendar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:saveOwnerDailyLoginCalendar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:claimDailyLoginReward",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.repository.ts:claimDailyLoginReward",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "file:backend/src/modules/daily-login/daily-login.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.routes.ts:dailyLoginRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "target": "function:backend/src/modules/daily-login/daily-login.routes.ts:dailyLoginRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "target": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "target": "file:backend/src/modules/daily-login/daily-login.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "target": "file:backend/src/modules/game-systems/system-access.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.schema.ts",
+      "target": "file:backend/src/modules/store/store.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:parseGameSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:manageGameSystemLifecycle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:manageGameSystemLifecycle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:listAccessibleGameSystems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:listAccessibleGameSystems",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:listSystemTagOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:listSystemTagOptions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:createGameSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:createGameSystem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:updateGameSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:updateGameSystem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:authorizeSystemAccess",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:authorizeSystemAccess",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:readActiveGameSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:readActiveGameSystem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:readGameSystemCharacterSheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:readGameSystemCharacterSheet",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:listSystemCharacters",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:listSystemCharacters",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:createSystemCharacter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.repository.ts:createSystemCharacter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.routes.ts:gameSystemsRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.routes.ts:gameSystemsRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "target": "file:backend/src/modules/game-systems/system-access.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.schema.ts:legacyFieldsToDefinition",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.schema.ts:legacyFieldsToDefinition",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.schema.ts:characterAttributesSchemaFor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "target": "function:backend/src/modules/game-systems/game-systems.schema.ts:characterAttributesSchemaFor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/system-access.ts",
+      "target": "function:backend/src/modules/game-systems/system-access.ts:rejectSystemAccess",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/system-access.ts",
+      "target": "function:backend/src/modules/game-systems/system-access.ts:rejectSystemAccess",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/system-access.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "target": "function:backend/src/modules/lobby-settings/lobby-settings.repository.ts:getSystemLobbySettings",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "target": "function:backend/src/modules/lobby-settings/lobby-settings.repository.ts:getSystemLobbySettings",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "target": "function:backend/src/modules/lobby-settings/lobby-settings.repository.ts:saveSystemLobbySettings",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "target": "function:backend/src/modules/lobby-settings/lobby-settings.repository.ts:saveSystemLobbySettings",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "target": "file:backend/src/modules/lobby-settings/lobby-settings.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "target": "function:backend/src/modules/lobby-settings/lobby-settings.routes.ts:lobbySettingsRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "target": "function:backend/src/modules/lobby-settings/lobby-settings.routes.ts:lobbySettingsRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "target": "file:backend/src/modules/game-systems/system-access.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "target": "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "target": "file:backend/src/modules/lobby-settings/lobby-settings.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:canManageStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:canManageStore",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:createStoreItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:createStoreItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:readStoreCharacter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:readStoreCharacter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:readCatalog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:readStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:readStore",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:updateStoreCurrencyField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:updateStoreCurrencyField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:updateStoreOfferField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:updateStoreOfferField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:replaceStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:replaceStore",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:purchaseStoreOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "function:backend/src/modules/store/store.repository.ts:purchaseStoreOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "file:backend/src/modules/store/store.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/store/store.repository.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/store/store.routes.ts",
+      "target": "function:backend/src/modules/store/store.routes.ts:storeRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/store/store.routes.ts",
+      "target": "function:backend/src/modules/store/store.routes.ts:storeRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/store/store.routes.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/store/store.routes.ts",
+      "target": "file:backend/src/modules/game-systems/system-access.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/store/store.routes.ts",
+      "target": "file:backend/src/modules/store/store.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/store/store.routes.ts",
+      "target": "file:backend/src/modules/store/store.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/store/store.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:canManageSystemEvents",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:canManageSystemEvents",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:listSystemEvents",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:listSystemEvents",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:createSystemEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:createSystemEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:updateSystemEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:updateSystemEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:deleteSystemEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:deleteSystemEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:startSystemEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "function:backend/src/modules/system-events/system-events.repository.ts:startSystemEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "file:backend/src/modules/system-events/system-events.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.routes.ts",
+      "target": "function:backend/src/modules/system-events/system-events.routes.ts:systemEventsRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.routes.ts",
+      "target": "function:backend/src/modules/system-events/system-events.routes.ts:systemEventsRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.routes.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.routes.ts",
+      "target": "file:backend/src/modules/game-systems/system-access.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.routes.ts",
+      "target": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.routes.ts",
+      "target": "file:backend/src/modules/system-events/system-events.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-events/system-events.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "target": "function:backend/src/modules/system-membership/system-membership.repository.ts:readMySystemMemberships",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "target": "function:backend/src/modules/system-membership/system-membership.repository.ts:readMySystemMemberships",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "target": "function:backend/src/modules/system-membership/system-membership.repository.ts:setSystemModerator",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "target": "function:backend/src/modules/system-membership/system-membership.repository.ts:setSystemModerator",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "target": "function:backend/src/modules/system-membership/system-membership.repository.ts:searchSystemMembersByCharacterName",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "target": "function:backend/src/modules/system-membership/system-membership.repository.ts:searchSystemMembersByCharacterName",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.routes.ts",
+      "target": "function:backend/src/modules/system-membership/system-membership.routes.ts:systemMembershipRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.routes.ts",
+      "target": "function:backend/src/modules/system-membership/system-membership.routes.ts:systemMembershipRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.routes.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.routes.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readTradeCharacters",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readTradeCharacters",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readTradeInventory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readTradeInventory",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readOwnedInventoryCharacter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readOwnedInventoryCharacter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readOwnedCharacterInventory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readOwnedCharacterInventory",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readTradeOffers",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:readTradeOffers",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:createTradeOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:createTradeOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:counterTradeOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:counterTradeOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:respondToTradeOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:respondToTradeOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:cancelTradeOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "function:backend/src/modules/trading/trading.repository.ts:cancelTradeOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.repository.ts",
+      "target": "file:backend/src/modules/trading/trading.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.routes.ts",
+      "target": "function:backend/src/modules/trading/trading.routes.ts:mutationReply",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.routes.ts",
+      "target": "function:backend/src/modules/trading/trading.routes.ts:tradingRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.routes.ts",
+      "target": "function:backend/src/modules/trading/trading.routes.ts:tradingRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.routes.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.routes.ts",
+      "target": "file:backend/src/modules/game-systems/system-access.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.routes.ts",
+      "target": "file:backend/src/modules/trading/trading.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.routes.ts",
+      "target": "file:backend/src/modules/trading/trading.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/daily-login.schema.test.ts",
+      "target": "file:backend/src/modules/daily-login/daily-login.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/game-systems.schema.test.ts",
+      "target": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/store.schema.test.ts",
+      "target": "file:backend/src/modules/store/store.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/system-membership.schema.test.ts",
+      "target": "file:backend/src/modules/system-membership/system-membership.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/trading.schema.test.ts",
+      "target": "file:backend/src/modules/trading/trading.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/daily-login/daily-login.schema.ts",
+      "target": "file:backend/test/daily-login.schema.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "target": "file:backend/test/game-systems.schema.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/modules/store/store.schema.ts",
+      "target": "file:backend/test/store.schema.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/modules/system-membership/system-membership.schema.ts",
+      "target": "file:backend/test/system-membership.schema.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/modules/trading/trading.schema.ts",
+      "target": "file:backend/test/trading.schema.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

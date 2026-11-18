@@ -1,6 +1,6 @@
+import { authOptions as auth, systemParamsSchema, errorSchema } from '../../http/route-options.js';
 import { z } from 'zod';
 import type { FastifyInstance, FastifyReply, FastifyRequest, FastifySchema } from 'fastify';
-import { authenticate } from '../../plugins/authenticate.js';
 import { authorizeSystemAccess } from '../game-systems/game-systems.repository.js';
 import { rejectSystemAccess } from '../game-systems/system-access.js';
 import {
@@ -13,10 +13,7 @@ import {
 } from './system-events.repository.js';
 import { systemEventInputSchema } from './system-events.schema.js';
 
-const auth = { preHandler: authenticate, schema: { security: [{ bearerAuth: [] }] } };
-const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
 const eventParamsSchema = z.strictObject({ systemId: z.uuid(), eventId: z.uuid() });
-const errorSchema = { type: 'object', required: ['error'], additionalProperties: false, properties: { error: { type: 'string' } } } as const;
 
 async function checkEventAccess(client: NonNullable<FastifyRequest['supabase']>, reply: FastifyReply, systemId: string) {
   const canManage = await canManageSystemEvents(client, systemId);

@@ -1,5 +1,5 @@
+import { errorSchema, authOptions } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { authenticate } from '../../plugins/authenticate.js';
 import {
   announcementInputSchema,
   notificationPaginationSchema,
@@ -12,15 +12,6 @@ import {
   listMyNotifications,
   markMyNotificationRead,
 } from './notifications.repository.js';
-
-const errorSchema = {
-  type: 'object', required: ['error'], additionalProperties: false,
-  properties: { error: { type: 'string' } },
-} as const;
-const authOptions = {
-  preHandler: authenticate,
-  schema: { security: [{ bearerAuth: [] }] },
-};
 
 function databaseError(reply: FastifyReply) {
   return reply.code(500).send({ error: 'Unable to access notifications' });

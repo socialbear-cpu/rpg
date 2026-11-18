@@ -1,0 +1,58 @@
+{
+  "nodes": [
+    {
+      "id": "config:backend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "backend/.env.example",
+      "summary": "Modelo de configuração local do backend com URL e chave publicável do Supabase, porta HTTP e ambiente de execução.",
+      "tags": ["configuracao", "supabase", "ambiente-local", "backend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:backend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "backend/README.md",
+      "summary": "Documenta a API Fastify, a configuração local, autenticação Supabase, contratos de perfil e recompensas diárias, notificações, migrações e verificações do backend.",
+      "tags": ["documentacao", "api", "backend", "autenticacao", "operacao"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "backend/package.json",
+      "summary": "Define o workspace privado do backend, seus comandos de desenvolvimento, teste, build e typecheck, e as dependências Fastify, Supabase e Zod.",
+      "tags": ["configuracao", "npm", "fastify", "supabase", "backend"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:backend/tsconfig.build.json",
+      "type": "config",
+      "name": "tsconfig.build.json",
+      "filePath": "backend/tsconfig.build.json",
+      "summary": "Configura a compilação de produção do backend para incluir os arquivos TypeScript de src e gerar declarações, herdando as opções base do workspace.",
+      "tags": ["configuracao", "typescript", "compilacao", "backend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "backend/tsconfig.json",
+      "summary": "Define a compilação TypeScript do backend com NodeNext, modo estrito, verificações adicionais de tipos e diretórios de saída para código e testes.",
+      "tags": ["configuracao", "typescript", "tipagem-estrita", "backend"],
+      "complexity": "moderate",
+      "languageNotes": "O uso de NodeNext alinha a resolução de módulos ao runtime ESM do Node.js."
+    }
+  ],
+  "edges": [
+    {"source": "config:backend/.env.example", "target": "file:backend/src/config.ts", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "document:backend/README.md", "target": "file:backend/src/server.ts", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:backend/README.md", "target": "file:backend/src/create-app.ts", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "config:backend/package.json", "target": "file:backend/src/server.ts", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:backend/tsconfig.build.json", "target": "file:backend/src/server.ts", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "config:backend/tsconfig.json", "target": "file:backend/src/server.ts", "type": "configures", "direction": "forward", "weight": 0.6}
+  ]
+}

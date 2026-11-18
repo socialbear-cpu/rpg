@@ -1,0 +1,236 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": "backend/src/create-app.ts",
+      "language": "typescript",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/profile/profile.repository.ts",
+      "language": "typescript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/profile/profile.routes.ts",
+      "language": "typescript",
+      "sizeLines": 115,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/profile/profile.schema.ts",
+      "language": "typescript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/authenticate.test.ts",
+      "language": "typescript",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/chats.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 129,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/daily-login.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 282,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/experience.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/fixtures/profile.ts",
+      "language": "typescript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/game-systems.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 410,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/health.test.ts",
+      "language": "typescript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/lobby-presence.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/lobby-settings.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 102,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/openapi.test.ts",
+      "language": "typescript",
+      "sizeLines": 115,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/profile.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 172,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/profile.schema.test.ts",
+      "language": "typescript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/social.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 191,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/store.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/system-events.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 167,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/system-membership.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 111,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/trading.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 247,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/api/[...path]/route.ts",
+      "language": "typescript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/healthz/route.ts",
+      "language": "typescript",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/fastify-request.ts",
+      "language": "typescript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/next-routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "backend/src/create-app.ts": [
+      "backend/src/config.ts",
+      "backend/src/register-app.ts"
+    ],
+    "backend/src/modules/profile/profile.repository.ts": [
+      "backend/src/modules/profile/profile.schema.ts"
+    ],
+    "backend/src/modules/profile/profile.routes.ts": [
+      "backend/src/modules/profile/profile.repository.ts",
+      "backend/src/modules/profile/profile.schema.ts",
+      "backend/src/plugins/authenticate.ts"
+    ],
+    "backend/src/modules/profile/profile.schema.ts": [],
+    "backend/test/authenticate.test.ts": [
+      "backend/src/create-app.ts",
+      "backend/src/plugins/authenticate.ts"
+    ],
+    "backend/test/chats.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/daily-login.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/experience.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/fixtures/profile.ts": [],
+    "backend/test/game-systems.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/health.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/lobby-presence.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/lobby-settings.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/openapi.test.ts": [
+      "backend/src/create-app.ts",
+      "backend/src/modules/profile/profile.schema.ts"
+    ],
+    "backend/test/profile.routes.test.ts": [
+      "backend/src/create-app.ts",
+      "backend/test/fixtures/profile.ts"
+    ],
+    "backend/test/profile.schema.test.ts": [
+      "backend/src/modules/profile/profile.schema.ts",
+      "backend/test/fixtures/profile.ts"
+    ],
+    "backend/test/social.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/store.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/system-events.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/system-membership.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "backend/test/trading.routes.test.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "frontend/app/api/[...path]/route.ts": [
+      "frontend/src/fastify-request.ts"
+    ],
+    "frontend/app/healthz/route.ts": [
+      "frontend/src/fastify-request.ts"
+    ],
+    "frontend/src/fastify-request.ts": [
+      "backend/src/create-app.ts"
+    ],
+    "frontend/test/next-routes.test.ts": [
+      "frontend/app/api/[...path]/route.ts",
+      "frontend/app/healthz/route.ts"
+    ]
+  }
+}

@@ -1,3 +1,4 @@
+import { withActiveAccount } from './fixtures/supabase-fetch.js';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildApp } from '../src/create-app.js';
 
@@ -33,7 +34,7 @@ beforeEach(() => {
       level: 2, xp_in_level: 25, xp_to_next_level: 75, history: [],
     },
   };
-  vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+  vi.stubGlobal('fetch', withActiveAccount(async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input));
     const method = init?.method ?? 'GET';
     const headers = new Headers(init?.headers);
@@ -51,7 +52,7 @@ beforeEach(() => {
       return Response.json(rpcResults[name]);
     }
     throw new Error(`Unexpected request: ${url}`);
-  });
+  }));
 });
 
 afterEach(() => {

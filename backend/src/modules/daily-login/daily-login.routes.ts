@@ -1,5 +1,5 @@
+import { errorSchema, authOptions } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { authenticate } from '../../plugins/authenticate.js';
 import {
   claimDailyLoginReward,
   listMyDailyLoginSystems,
@@ -11,14 +11,6 @@ import { dailyLoginClaimSchema, dailyLoginScheduleSchema } from './daily-login.s
 import { authorizeSystemAccess } from '../game-systems/game-systems.repository.js';
 import { rejectSystemAccess } from '../game-systems/system-access.js';
 
-const errorSchema = {
-  type: 'object', required: ['error'], additionalProperties: false,
-  properties: { error: { type: 'string' } },
-} as const;
-const authOptions = {
-  preHandler: authenticate,
-  schema: { security: [{ bearerAuth: [] }] },
-};
 const claimOpenApiBody = {
   type: 'object', required: ['character_id'], additionalProperties: false,
   properties: { character_id: { type: 'string', format: 'uuid' } },

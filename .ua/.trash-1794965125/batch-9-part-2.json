@@ -1,0 +1,423 @@
+{
+  "nodes": [
+    {
+      "id": "table:database/migrations/021_system_password_access_enforcement.sql:migration",
+      "type": "table",
+      "name": "021_system_password_access_enforcement",
+      "filePath": "database/migrations/021_system_password_access_enforcement.sql",
+      "summary": "Reforça a verificação de senha e as políticas de acesso para sistemas protegidos.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/022_system_discovery_metadata.sql:game_system_tag_catalog",
+      "type": "table",
+      "name": "game_system_tag_catalog",
+      "filePath": "database/migrations/022_system_discovery_metadata.sql",
+      "summary": "Adiciona metadados de descoberta e tags pesquisáveis aos sistemas de jogo. A alteração se aplica à tabela game_system_tag_catalog.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/022_system_discovery_metadata.sql:game_systems",
+      "type": "table",
+      "name": "game_systems",
+      "filePath": "database/migrations/022_system_discovery_metadata.sql",
+      "summary": "Adiciona metadados de descoberta e tags pesquisáveis aos sistemas de jogo. A alteração se aplica à tabela game_systems.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/023_system_lifecycle.sql:migration",
+      "type": "table",
+      "name": "023_system_lifecycle",
+      "filePath": "database/migrations/023_system_lifecycle.sql",
+      "summary": "Centraliza operações de ciclo de vida do sistema em funções transacionais e protegidas.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/024_fix_system_tag_labels.sql:migration",
+      "type": "table",
+      "name": "024_fix_system_tag_labels",
+      "filePath": "database/migrations/024_fix_system_tag_labels.sql",
+      "summary": "Corrige a normalização e os rótulos de tags dos sistemas de jogo.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/025_require_email_confirmation_for_system_deletion.sql:migration",
+      "type": "table",
+      "name": "025_require_email_confirmation_for_system_deletion",
+      "filePath": "database/migrations/025_require_email_confirmation_for_system_deletion.sql",
+      "summary": "Exige confirmação por email antes de concluir a exclusão de um sistema.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/026_atomic_system_store_update.sql:migration",
+      "type": "table",
+      "name": "026_atomic_system_store_update",
+      "filePath": "database/migrations/026_atomic_system_store_update.sql",
+      "summary": "Torna atômicas as alterações de configurações e catálogo da loja de um sistema.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/027_system_events.sql:game_system_events",
+      "type": "table",
+      "name": "game_system_events",
+      "filePath": "database/migrations/027_system_events.sql",
+      "summary": "Cria eventos de sistema com horários e índices para listagem cronológica. A alteração se aplica à tabela game_system_events.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/028_campaign_chat_room_authorization.sql:chat_rooms",
+      "type": "table",
+      "name": "chat_rooms",
+      "filePath": "database/migrations/028_campaign_chat_room_authorization.sql",
+      "summary": "Atualiza regras de autorização das salas de campanha e conversas. A alteração se aplica à tabela chat_rooms.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/029_lobby_creator_tools.sql:game_system_events",
+      "type": "table",
+      "name": "game_system_events",
+      "filePath": "database/migrations/029_lobby_creator_tools.sql",
+      "summary": "Adiciona configurações e suporte de dados para ferramentas do criador no lobby. A alteração se aplica à tabela game_system_events.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/029_lobby_creator_tools.sql:game_system_lobby_settings",
+      "type": "table",
+      "name": "game_system_lobby_settings",
+      "filePath": "database/migrations/029_lobby_creator_tools.sql",
+      "summary": "Adiciona configurações e suporte de dados para ferramentas do criador no lobby. A alteração se aplica à tabela game_system_lobby_settings.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/030_store_item_images.sql:items",
+      "type": "table",
+      "name": "items",
+      "filePath": "database/migrations/030_store_item_images.sql",
+      "summary": "Ajusta permissões e referências de imagens dos itens da loja. A alteração se aplica à tabela items.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/031_store_currency_and_offer_autosave.sql:game_systems",
+      "type": "table",
+      "name": "game_systems",
+      "filePath": "database/migrations/031_store_currency_and_offer_autosave.sql",
+      "summary": "Atualiza políticas e funções para moeda e salvamento automático de ofertas. A alteração se aplica à tabela game_systems.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/032_chats_as_game_space.sql:campaigns",
+      "type": "table",
+      "name": "campaigns",
+      "filePath": "database/migrations/032_chats_as_game_space.sql",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela campaigns.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/032_chats_as_game_space.sql:campaign_members",
+      "type": "table",
+      "name": "campaign_members",
+      "filePath": "database/migrations/032_chats_as_game_space.sql",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela campaign_members.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/032_chats_as_game_space.sql:chat_members",
+      "type": "table",
+      "name": "chat_members",
+      "filePath": "database/migrations/032_chats_as_game_space.sql",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela chat_members.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/032_chats_as_game_space.sql:chat_rooms",
+      "type": "table",
+      "name": "chat_rooms",
+      "filePath": "database/migrations/032_chats_as_game_space.sql",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela chat_rooms.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/032_chats_as_game_space.sql:messages",
+      "type": "table",
+      "name": "messages",
+      "filePath": "database/migrations/032_chats_as_game_space.sql",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela messages.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/032_chats_as_game_space.sql:chats",
+      "type": "table",
+      "name": "chats",
+      "filePath": "database/migrations/032_chats_as_game_space.sql",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela chats.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/032_chats_as_game_space.sql:game_system_lobby_settings",
+      "type": "table",
+      "name": "game_system_lobby_settings",
+      "filePath": "database/migrations/032_chats_as_game_space.sql",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela game_system_lobby_settings.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/033_store_currency_image_permissions.sql:migration",
+      "type": "table",
+      "name": "033_store_currency_image_permissions",
+      "filePath": "database/migrations/033_store_currency_image_permissions.sql",
+      "summary": "Ajusta permissões de imagens ligadas à moeda da loja.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/034_daily_login_per_character.sql:daily_login_claims",
+      "type": "table",
+      "name": "daily_login_claims",
+      "filePath": "database/migrations/034_daily_login_per_character.sql",
+      "summary": "Torna os resgates diários específicos por personagem e atualiza a função de consulta. A alteração se aplica à tabela daily_login_claims.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/035_account_settings.sql:user_profiles",
+      "type": "table",
+      "name": "user_profiles",
+      "filePath": "database/migrations/035_account_settings.sql",
+      "summary": "Adiciona solicitações de transferência de propriedade de sistemas e configurações de conta. A alteração se aplica à tabela user_profiles.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/035_account_settings.sql:system_owner_transfer_requests",
+      "type": "table",
+      "name": "system_owner_transfer_requests",
+      "filePath": "database/migrations/035_account_settings.sql",
+      "summary": "Adiciona solicitações de transferência de propriedade de sistemas e configurações de conta. A alteração se aplica à tabela system_owner_transfer_requests.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/035_friendships.sql:friend_requests",
+      "type": "table",
+      "name": "friend_requests",
+      "filePath": "database/migrations/035_friendships.sql",
+      "summary": "Cria pedidos de amizade com estados e índices para consultas por participante. A alteração se aplica à tabela friend_requests.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/036_profile_customization.sql:user_profiles",
+      "type": "table",
+      "name": "user_profiles",
+      "filePath": "database/migrations/036_profile_customization.sql",
+      "summary": "Adiciona atualização controlada de preferências e campos do perfil do usuário. A alteração se aplica à tabela user_profiles.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/036_rpg_invitations.sql:rpg_invitations",
+      "type": "table",
+      "name": "rpg_invitations",
+      "filePath": "database/migrations/036_rpg_invitations.sql",
+      "summary": "Implementa convites para sistemas e conversas, busca social e operações de amizade. A alteração se aplica à tabela rpg_invitations.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/037_allow_profile_timestamp_updates.sql:migration",
+      "type": "table",
+      "name": "037_allow_profile_timestamp_updates",
+      "filePath": "database/migrations/037_allow_profile_timestamp_updates.sql",
+      "summary": "Permite que a função de proteção de perfil aceite atualizações de timestamps.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/037_public_player_profiles.sql:profile_comments",
+      "type": "table",
+      "name": "profile_comments",
+      "filePath": "database/migrations/037_public_player_profiles.sql",
+      "summary": "Cria comentários em perfis públicos e mensagens diretas, com funções de leitura e envio. A alteração se aplica à tabela profile_comments.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/037_public_player_profiles.sql:direct_messages",
+      "type": "table",
+      "name": "direct_messages",
+      "filePath": "database/migrations/037_public_player_profiles.sql",
+      "summary": "Cria comentários em perfis públicos e mensagens diretas, com funções de leitura e envio. A alteração se aplica à tabela direct_messages.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/038_username_change_once.sql:user_profiles",
+      "type": "table",
+      "name": "user_profiles",
+      "filePath": "database/migrations/038_username_change_once.sql",
+      "summary": "Impede alterações repetidas do username depois da mudança inicial. A alteração se aplica à tabela user_profiles.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "table:database/migrations/029_lobby_creator_tools.sql:game_system_events",
+      "target": "table:database/migrations/027_system_events.sql:game_system_events",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/032_chats_as_game_space.sql:game_system_lobby_settings",
+      "target": "table:database/migrations/029_lobby_creator_tools.sql:game_system_lobby_settings",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

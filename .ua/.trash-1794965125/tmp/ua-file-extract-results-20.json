@@ -1,0 +1,201 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [
+    ".superpowers/brainstorm/astra-review/state/server-info",
+    ".superpowers/brainstorm/character-sheet-visual/content/approaches.html",
+    ".superpowers/brainstorm/character-sheet-visual/state/server-stopped",
+    ".superpowers/brainstorm/codex-cards-20261115/state/server-stopped",
+    ".superpowers/brainstorm/sheet-mockup/state/server-info",
+    "frontend/app/account-page.css",
+    "frontend/app/globals.css",
+    "frontend/src/features/account/account-settings-page.css",
+    "frontend/src/features/characters/characters.css",
+    "frontend/src/features/characters/lobby-creator-tools.css",
+    "frontend/src/features/chats/chat.css",
+    "frontend/src/features/daily-login/daily-login-admin.css",
+    "frontend/src/features/daily-login/daily-login-popup.css",
+    "frontend/src/features/dashboard/dashboard.css",
+    "frontend/src/features/notifications/notifications.css",
+    "frontend/src/features/profile/profile-card.css",
+    "frontend/src/features/profile/public-profile-page.css",
+    "frontend/src/features/shell/app-header.css"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 7,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 3,
+      "failed": 0,
+      "skipped": 4
+    }
+  },
+  "results": [
+    {
+      "path": ".ua/config.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "outputLanguage",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "database/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 65,
+      "nonEmptyLines": 42,
+      "sections": [
+        {
+          "heading": "Database",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Layout",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Domains",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "Conventions",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "System store economy (018)",
+          "level": 2,
+          "line": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "database/schema/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 22,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "Schema domains",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "database/tests/daily_login_per_character_rollback.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 37,
+      "nonEmptyLines": 37,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "frontend/app/layout.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "RootLayout",
+          "startLine": 16,
+          "endLine": 22,
+          "params": [
+            "{ children }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "viewport",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "metadata",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "RootLayout",
+          "line": 16,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/next-env.d.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/next.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 25,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

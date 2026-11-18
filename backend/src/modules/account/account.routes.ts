@@ -1,11 +1,8 @@
+import { errorSchema } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { z } from 'zod';
 import { authenticate, authenticateAllowInactive } from '../../plugins/authenticate.js';
 
-const errorSchema = {
-  type: 'object', required: ['error'], additionalProperties: false,
-  properties: { error: { type: 'string' } },
-} as const;
 const accountSettingsSchema = {
   type: 'object',
   required: ['user_id', 'email', 'is_active', 'profile', 'owned_systems', 'incoming_transfers'],

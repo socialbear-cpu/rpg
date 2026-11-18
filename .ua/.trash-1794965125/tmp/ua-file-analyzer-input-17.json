@@ -1,0 +1,49 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": "frontend/.env.example",
+      "language": "config",
+      "sizeLines": 2,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 9,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend/README.md",
+      "language": "markdown",
+      "sizeLines": 40,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "sizeLines": 28,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/styles.css",
+      "language": "css",
+      "sizeLines": 2,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "language": "json",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "frontend/.env.example": [],
+    "frontend/AGENTS.md": [],
+    "frontend/README.md": [],
+    "frontend/package.json": [],
+    "frontend/styles.css": [],
+    "frontend/tsconfig.json": []
+  }
+}

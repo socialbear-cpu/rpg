@@ -1,0 +1,147 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": "supabase/tests/004_profile_rls.test.sql",
+      "language": "sql",
+      "sizeLines": 76,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/005_daily_login_rewards.test.sql",
+      "language": "sql",
+      "sizeLines": 137,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/006_user_hierarchy.test.sql",
+      "language": "sql",
+      "sizeLines": 216,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/008_daily_login_popup.test.sql",
+      "language": "sql",
+      "sizeLines": 20,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/010_daily_login_popup_per_system.test.sql",
+      "language": "sql",
+      "sizeLines": 24,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/011_character_experience.test.sql",
+      "language": "sql",
+      "sizeLines": 209,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/012_character_item_trading.test.sql",
+      "language": "sql",
+      "sizeLines": 244,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/013_system_character_sheets.test.sql",
+      "language": "sql",
+      "sizeLines": 105,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/016_character_sheet_visual_elements.test.sql",
+      "language": "sql",
+      "sizeLines": 49,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/017_character_sheet_choices.test.sql",
+      "language": "sql",
+      "sizeLines": 31,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/018_system_store_economy.test.sql",
+      "language": "sql",
+      "sizeLines": 154,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/019_system_member_character_search.test.sql",
+      "language": "sql",
+      "sizeLines": 73,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/021_system_password_access_enforcement.test.sql",
+      "language": "sql",
+      "sizeLines": 67,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/022_system_discovery_metadata.test.sql",
+      "language": "sql",
+      "sizeLines": 182,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/023_system_lifecycle.test.sql",
+      "language": "sql",
+      "sizeLines": 145,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/027_system_events.test.sql",
+      "language": "sql",
+      "sizeLines": 53,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/029_lobby_creator_tools_integrity.test.sql",
+      "language": "sql",
+      "sizeLines": 84,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/030_chats_as_game_space.test.sql",
+      "language": "sql",
+      "sizeLines": 65,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/031_friendships.test.sql",
+      "language": "sql",
+      "sizeLines": 153,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/032_rpg_invitations.test.sql",
+      "language": "sql",
+      "sizeLines": 158,
+      "fileCategory": "data"
+    }
+  ],
+  "batchImportData": {
+    "supabase/tests/004_profile_rls.test.sql": [],
+    "supabase/tests/005_daily_login_rewards.test.sql": [],
+    "supabase/tests/006_user_hierarchy.test.sql": [],
+    "supabase/tests/008_daily_login_popup.test.sql": [],
+    "supabase/tests/010_daily_login_popup_per_system.test.sql": [],
+    "supabase/tests/011_character_experience.test.sql": [],
+    "supabase/tests/012_character_item_trading.test.sql": [],
+    "supabase/tests/013_system_character_sheets.test.sql": [],
+    "supabase/tests/016_character_sheet_visual_elements.test.sql": [],
+    "supabase/tests/017_character_sheet_choices.test.sql": [],
+    "supabase/tests/018_system_store_economy.test.sql": [],
+    "supabase/tests/019_system_member_character_search.test.sql": [],
+    "supabase/tests/021_system_password_access_enforcement.test.sql": [],
+    "supabase/tests/022_system_discovery_metadata.test.sql": [],
+    "supabase/tests/023_system_lifecycle.test.sql": [],
+    "supabase/tests/027_system_events.test.sql": [],
+    "supabase/tests/029_lobby_creator_tools_integrity.test.sql": [],
+    "supabase/tests/030_chats_as_game_space.test.sql": [],
+    "supabase/tests/031_friendships.test.sql": [],
+    "supabase/tests/032_rpg_invitations.test.sql": []
+  }
+}

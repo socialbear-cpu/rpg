@@ -1,3 +1,4 @@
+import { errorSchema } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { authenticate } from '../../plugins/authenticate.js';
 import { claimUsername, readProfile, updateProfile } from './profile.repository.js';
@@ -39,10 +40,6 @@ async function respondWithUsernameClaim(
 }
 
 export async function profileRoutes(app: FastifyInstance) {
-  const errorSchema = {
-    type: 'object', required: ['error'], additionalProperties: false,
-    properties: { error: { type: 'string' } },
-  } as const;
   const options = {
     preHandler: authenticate,
     schema: { security: [{ bearerAuth: [] }], response: {

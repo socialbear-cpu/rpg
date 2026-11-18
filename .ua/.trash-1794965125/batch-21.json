@@ -1,0 +1,325 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/features/social/friends-page.css",
+      "type": "file",
+      "name": "friends-page.css",
+      "filePath": "frontend/src/features/social/friends-page.css",
+      "summary": "Estiliza a página social de amizades: busca de jogadores, convites, listas, abas e estados responsivos.",
+      "tags": [
+        "amizades",
+        "layout",
+        "formulario",
+        "responsividade"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/social/invite-friend-control.css",
+      "type": "file",
+      "name": "invite-friend-control.css",
+      "filePath": "frontend/src/features/social/invite-friend-control.css",
+      "summary": "Define o estilo compacto do controle de convite de amizade usado na interface social.",
+      "tags": [
+        "amizades",
+        "convites",
+        "componente",
+        "estilos"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/store/store.css",
+      "type": "file",
+      "name": "store.css",
+      "filePath": "frontend/src/features/store/store.css",
+      "summary": "Organiza cartões e painéis da loja do sistema, com espaçamento, bordas e cores alinhados ao tema da aplicação.",
+      "tags": [
+        "loja",
+        "cartoes",
+        "layout",
+        "tema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/system-creation.css",
+      "type": "file",
+      "name": "system-creation.css",
+      "filePath": "frontend/src/features/system-creation/system-creation.css",
+      "summary": "Estiliza o fluxo de criação de sistemas e montagem de fichas, incluindo etapas, campos e estados da interface.",
+      "tags": [
+        "criacao-de-sistema",
+        "formularios",
+        "layout",
+        "responsividade"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/system-events/system-events-card.css",
+      "type": "file",
+      "name": "system-events-card.css",
+      "filePath": "frontend/src/features/system-events/system-events-card.css",
+      "summary": "Define a apresentação dos cartões e listas de eventos do sistema.",
+      "tags": [
+        "eventos",
+        "cartoes",
+        "interface",
+        "estilos"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/system-management/system-management-codex.css",
+      "type": "file",
+      "name": "system-management-codex.css",
+      "filePath": "frontend/src/features/system-management/system-management-codex.css",
+      "summary": "Estiliza a visualização em formato de códice usada na administração do sistema, com páginas, navegação e identidade visual.",
+      "tags": [
+        "administracao",
+        "codice",
+        "navegacao",
+        "tema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/system-management/system-management-page.css",
+      "type": "file",
+      "name": "system-management-page.css",
+      "filePath": "frontend/src/features/system-management/system-management-page.css",
+      "summary": "Define o layout abrangente da página de gerenciamento do sistema, incluindo navegação, painel tipo livro e áreas de conteúdo.",
+      "tags": [
+        "administracao",
+        "layout",
+        "navegacao",
+        "responsividade"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/trading/trading.css",
+      "type": "file",
+      "name": "trading.css",
+      "filePath": "frontend/src/features/trading/trading.css",
+      "summary": "Aplica estilos aos cartões e formulários de ofertas de troca entre personagens, com adaptação para telas estreitas.",
+      "tags": [
+        "trocas",
+        "formularios",
+        "layout",
+        "responsividade"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/character-home-layout.test.ts",
+      "type": "file",
+      "name": "character-home-layout.test.ts",
+      "filePath": "frontend/test/character-home-layout.test.ts",
+      "summary": "Verifica os agrupamentos de áreas e a adaptação responsiva do layout inicial do personagem.",
+      "tags": [
+        "test",
+        "layout",
+        "responsividade",
+        "personagem"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/next-config-env.test.ts",
+      "type": "file",
+      "name": "next-config-env.test.ts",
+      "filePath": "frontend/test/next-config-env.test.ts",
+      "summary": "Confere o mapeamento das variáveis Supabase do Vercel para os nomes públicos usados pelo cliente Next.js.",
+      "tags": [
+        "test",
+        "configuracao",
+        "nextjs",
+        "supabase"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/workspace-scripts.test.ts",
+      "type": "file",
+      "name": "workspace-scripts.test.ts",
+      "filePath": "frontend/test/workspace-scripts.test.ts",
+      "summary": "Confere que os scripts do workspace frontend permitem executar o serviço Next.js sem compilar o pacote backend.",
+      "tags": [
+        "test",
+        "workspace",
+        "nextjs",
+        "scripts"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:supabase/config.toml",
+      "type": "config",
+      "name": "config.toml",
+      "filePath": "supabase/config.toml",
+      "summary": "Configura os serviços locais do Supabase, incluindo API, armazenamento, banco de dados e autenticação; também seleciona os templates de e-mail.",
+      "tags": [
+        "supabase",
+        "configuracao",
+        "autenticacao",
+        "email"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/templates/signup-confirmation.html",
+      "type": "file",
+      "name": "signup-confirmation.html",
+      "filePath": "supabase/templates/signup-confirmation.html",
+      "summary": "Template em português para confirmar o cadastro por e-mail, com chamada de confirmação e orientação alternativa para abrir o link.",
+      "tags": [
+        "email",
+        "confirmacao",
+        "autenticacao",
+        "template"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/templates/system-deletion-magic-link.html",
+      "type": "file",
+      "name": "system-deletion-magic-link.html",
+      "filePath": "supabase/templates/system-deletion-magic-link.html",
+      "summary": "Template em português para validar a identidade em alterações de conta ou sistema e retornar a pessoa ao aplicativo.",
+      "tags": [
+        "email",
+        "seguranca",
+        "autenticacao",
+        "template"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/tests/store-concurrency.mjs",
+      "type": "file",
+      "name": "store-concurrency.mjs",
+      "filePath": "supabase/tests/store-concurrency.mjs",
+      "summary": "Executa uma verificação de concorrência da loja em um banco Supabase descartável, usando sessões psql separadas para observar bloqueios transacionais.",
+      "tags": [
+        "test",
+        "banco-de-dados",
+        "concorrencia",
+        "supabase"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:supabase/tests/store-concurrency.mjs:Session",
+      "type": "class",
+      "name": "Session",
+      "filePath": "supabase/tests/store-concurrency.mjs",
+      "lineRange": [
+        15,
+        59
+      ],
+      "summary": "Mantém uma sessão psql interativa, correlaciona respostas por marcador e propaga falhas e timeouts às consultas pendentes.",
+      "tags": [
+        "sessao",
+        "psql",
+        "concorrencia",
+        "banco-de-dados"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/features/social/friends-page.css",
+      "target": "file:frontend/src/features/social/friends-page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/social/invite-friend-control.css",
+      "target": "file:frontend/src/features/social/invite-friend-control.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/store/store.css",
+      "target": "file:frontend/src/features/store/store-admin-card.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/store/store.css",
+      "target": "file:frontend/src/features/store/store-card.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation.css",
+      "target": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation.css",
+      "target": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation.css",
+      "target": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/system-events/system-events-card.css",
+      "target": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-codex.css",
+      "target": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.css",
+      "target": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:supabase/config.toml",
+      "target": "file:supabase/templates/system-deletion-magic-link.html",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:supabase/config.toml",
+      "target": "file:supabase/templates/signup-confirmation.html",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:supabase/tests/store-concurrency.mjs",
+      "target": "class:supabase/tests/store-concurrency.mjs:Session",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

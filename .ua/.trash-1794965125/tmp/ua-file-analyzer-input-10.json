@@ -1,0 +1,315 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": "supabase/migrations/001_initial_schema.sql",
+      "language": "sql",
+      "sizeLines": 247,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/002_character_fields.sql",
+      "language": "sql",
+      "sizeLines": 16,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/003_supabase_auth.sql",
+      "language": "sql",
+      "sizeLines": 77,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/004_profile_rls.sql",
+      "language": "sql",
+      "sizeLines": 42,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/005_daily_login_rewards.sql",
+      "language": "sql",
+      "sizeLines": 410,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/006_user_hierarchy.sql",
+      "language": "sql",
+      "sizeLines": 329,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/007_system_hierarchy_rls.sql",
+      "language": "sql",
+      "sizeLines": 270,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/008_daily_login_popup.sql",
+      "language": "sql",
+      "sizeLines": 37,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111014645_notifications.sql",
+      "language": "sql",
+      "sizeLines": 209,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111021246_daily_login_popup_per_system.sql",
+      "language": "sql",
+      "sizeLines": 49,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111181232_character_experience.sql",
+      "language": "sql",
+      "sizeLines": 508,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111190000_character_item_trading.sql",
+      "language": "sql",
+      "sizeLines": 843,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111200000_system_character_sheets.sql",
+      "language": "sql",
+      "sizeLines": 194,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112183000_profile_usernames.sql",
+      "language": "sql",
+      "sizeLines": 42,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112193504_visual_character_sheet.sql",
+      "language": "sql",
+      "sizeLines": 330,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112210000_system_store_economy.sql",
+      "language": "sql",
+      "sizeLines": 398,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112223000_character_sheet_visual_elements.sql",
+      "language": "sql",
+      "sizeLines": 151,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112224500_character_sheet_choices_and_conditions.sql",
+      "language": "sql",
+      "sizeLines": 253,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261113220000_game_system_visibility_password.sql",
+      "language": "sql",
+      "sizeLines": 191,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261113221000_system_password_access_enforcement.sql",
+      "language": "sql",
+      "sizeLines": 549,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114001000_system_discovery_metadata.sql",
+      "language": "sql",
+      "sizeLines": 343,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114144818_system_lifecycle.sql",
+      "language": "sql",
+      "sizeLines": 97,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114145224_fix_system_tag_labels.sql",
+      "language": "sql",
+      "sizeLines": 31,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114151644_require_email_confirmation_for_system_deletion.sql",
+      "language": "sql",
+      "sizeLines": 51,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114210354_system_member_character_search.sql",
+      "language": "sql",
+      "sizeLines": 77,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114215315_atomic_system_store_update.sql",
+      "language": "sql",
+      "sizeLines": 139,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114223717_system_events.sql",
+      "language": "sql",
+      "sizeLines": 41,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114232728_campaign_chat_room_authorization.sql",
+      "language": "sql",
+      "sizeLines": 27,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115013118_lobby_creator_tools.sql",
+      "language": "sql",
+      "sizeLines": 169,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115120000_store_item_images.sql",
+      "language": "sql",
+      "sizeLines": 9,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115125424_store_currency_and_offer_autosave.sql",
+      "language": "sql",
+      "sizeLines": 149,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115140000_chats_as_game_space.sql",
+      "language": "sql",
+      "sizeLines": 336,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115155939_store_currency_image_permissions.sql",
+      "language": "sql",
+      "sizeLines": 6,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115162952_daily_login_per_character.sql",
+      "language": "sql",
+      "sizeLines": 194,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115170000_remove_character_sheet_conditions.sql",
+      "language": "sql",
+      "sizeLines": 38,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115180000_account_settings.sql",
+      "language": "sql",
+      "sizeLines": 349,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115210000_profile_customization.sql",
+      "language": "sql",
+      "sizeLines": 77,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116180000_friendships.sql",
+      "language": "sql",
+      "sizeLines": 304,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116190000_rpg_invitations.sql",
+      "language": "sql",
+      "sizeLines": 284,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116191152_public_player_profiles.sql",
+      "language": "sql",
+      "sizeLines": 100,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116195000_allow_profile_timestamp_updates.sql",
+      "language": "sql",
+      "sizeLines": 16,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116200000_username_change_once.sql",
+      "language": "sql",
+      "sizeLines": 24,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261117013820_system_lobby_presence.sql",
+      "language": "sql",
+      "sizeLines": 63,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261117014550_lobby_welcome_copy_defaults.sql",
+      "language": "sql",
+      "sizeLines": 7,
+      "fileCategory": "data"
+    }
+  ],
+  "batchImportData": {
+    "supabase/migrations/001_initial_schema.sql": [],
+    "supabase/migrations/002_character_fields.sql": [],
+    "supabase/migrations/003_supabase_auth.sql": [],
+    "supabase/migrations/004_profile_rls.sql": [],
+    "supabase/migrations/005_daily_login_rewards.sql": [],
+    "supabase/migrations/006_user_hierarchy.sql": [],
+    "supabase/migrations/007_system_hierarchy_rls.sql": [],
+    "supabase/migrations/008_daily_login_popup.sql": [],
+    "supabase/migrations/20261111014645_notifications.sql": [],
+    "supabase/migrations/20261111021246_daily_login_popup_per_system.sql": [],
+    "supabase/migrations/20261111181232_character_experience.sql": [],
+    "supabase/migrations/20261111190000_character_item_trading.sql": [],
+    "supabase/migrations/20261111200000_system_character_sheets.sql": [],
+    "supabase/migrations/20261112183000_profile_usernames.sql": [],
+    "supabase/migrations/20261112193504_visual_character_sheet.sql": [],
+    "supabase/migrations/20261112210000_system_store_economy.sql": [],
+    "supabase/migrations/20261112223000_character_sheet_visual_elements.sql": [],
+    "supabase/migrations/20261112224500_character_sheet_choices_and_conditions.sql": [],
+    "supabase/migrations/20261113220000_game_system_visibility_password.sql": [],
+    "supabase/migrations/20261113221000_system_password_access_enforcement.sql": [],
+    "supabase/migrations/20261114001000_system_discovery_metadata.sql": [],
+    "supabase/migrations/20261114144818_system_lifecycle.sql": [],
+    "supabase/migrations/20261114145224_fix_system_tag_labels.sql": [],
+    "supabase/migrations/20261114151644_require_email_confirmation_for_system_deletion.sql": [],
+    "supabase/migrations/20261114210354_system_member_character_search.sql": [],
+    "supabase/migrations/20261114215315_atomic_system_store_update.sql": [],
+    "supabase/migrations/20261114223717_system_events.sql": [],
+    "supabase/migrations/20261114232728_campaign_chat_room_authorization.sql": [],
+    "supabase/migrations/20261115013118_lobby_creator_tools.sql": [],
+    "supabase/migrations/20261115120000_store_item_images.sql": [],
+    "supabase/migrations/20261115125424_store_currency_and_offer_autosave.sql": [],
+    "supabase/migrations/20261115140000_chats_as_game_space.sql": [],
+    "supabase/migrations/20261115155939_store_currency_image_permissions.sql": [],
+    "supabase/migrations/20261115162952_daily_login_per_character.sql": [],
+    "supabase/migrations/20261115170000_remove_character_sheet_conditions.sql": [],
+    "supabase/migrations/20261115180000_account_settings.sql": [],
+    "supabase/migrations/20261115210000_profile_customization.sql": [],
+    "supabase/migrations/20261116180000_friendships.sql": [],
+    "supabase/migrations/20261116190000_rpg_invitations.sql": [],
+    "supabase/migrations/20261116191152_public_player_profiles.sql": [],
+    "supabase/migrations/20261116195000_allow_profile_timestamp_updates.sql": [],
+    "supabase/migrations/20261116200000_username_change_once.sql": [],
+    "supabase/migrations/20261117013820_system_lobby_presence.sql": [],
+    "supabase/migrations/20261117014550_lobby_welcome_copy_defaults.sql": []
+  }
+}

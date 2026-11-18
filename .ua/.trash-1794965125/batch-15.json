@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Define princípios de trabalho para manter mudanças focadas, explicitar restrições e validar alterações com verificações pequenas. Também descreve a divisão do repositório entre backend, frontend, banco de dados e Supabase.",
+      "tags": ["orientações", "processo-de-desenvolvimento", "estrutura-do-projeto"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:AUTH_AND_STACK.md",
+      "type": "document",
+      "name": "AUTH_AND_STACK.md",
+      "filePath": "AUTH_AND_STACK.md",
+      "summary": "Documenta o desenho e o estado atual de cadastro, autenticação e perfil, além de recomendações para Supabase Auth, sessões, validação e políticas RLS. Distingue claramente a implementação existente das etapas arquiteturais ainda recomendadas.",
+      "tags": ["autenticação", "segurança", "arquitetura"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Configura o monorepo npm com workspaces para backend e frontend e define comandos agregados de build, desenvolvimento, testes e verificação de tipos. O frontend e o backend têm seus próprios manifestos e scripts.",
+      "tags": ["monorepo", "npm-workspaces", "scripts"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "filePath": "vercel.json",
+      "summary": "Declara o frontend Next.js como um serviço Vercel enraizado em `frontend/` e encaminha as requisições recebidas para esse serviço.",
+      "tags": ["vercel", "deploy", "roteamento"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

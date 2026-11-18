@@ -64,6 +64,21 @@ describe('account card', () => {
 });
 
 describe('profile card', () => {
+  it.each([
+    { interests: ' ,  , ', expected: [] },
+    { interests: ' RPG , , fantasia, jogos ', expected: ['RPG', 'fantasia', 'jogos'] },
+    { interests: Array.from({ length: 13 }, (_, index) => `interesse-${index}`).join(','), expected: Array.from({ length: 12 }, (_, index) => `interesse-${index}`) },
+  ])('renders cleaned preview interests with a twelve-item limit: $interests', ({ interests, expected }) => {
+    const html = renderToStaticMarkup(createElement(ProfileCard, {
+      profile: { username: 'player', displayName: 'Jogador', avatarUrl: '', bannerUrl: '', bio: '', status: '', interests },
+      authenticated: true, profileBusy: false, previewing: true,
+      onTogglePreview: () => {}, onProfileChange: () => {}, onLoadProfile: () => {}, onSaveProfile: () => {},
+    }));
+    const section = html.match(/class="profile-visitor-interests"[^>]*>(.*?)<\/div>/)?.[1] ?? '';
+    expect([...section.matchAll(/<span>(.*?)<\/span>/g)].map((match) => match[1])).toEqual(expected);
+    expect(section.includes('Nenhum interesse adicionado.')).toBe(expected.length === 0);
+  });
+
   it('renders profile fields and actions disabled while signed out', () => {
     const html = renderToStaticMarkup(createElement(ProfileCard, {
       profile: { username: 'rpg_player', displayName: '', avatarUrl: '', bannerUrl: '', bio: '', status: '', interests: '' },

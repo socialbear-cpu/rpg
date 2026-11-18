@@ -1,0 +1,737 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/features/characters/character-entry.tsx",
+      "type": "file",
+      "name": "character-entry.tsx",
+      "filePath": "frontend/src/features/characters/character-entry.tsx",
+      "summary": "Componente de fluxo de entrada do personagem que reúne os dados e as ações da área de jogo.",
+      "tags": [
+        "component",
+        "character",
+        "game-interface",
+        "navigation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/characters/character-form.tsx",
+      "type": "file",
+      "name": "character-form.tsx",
+      "filePath": "frontend/src/features/characters/character-form.tsx",
+      "summary": "Formulário guiado de criação ou edição de personagem, com validação de campos e composição dos valores da ficha.",
+      "tags": [
+        "component",
+        "character",
+        "form",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/characters/character-gallery.tsx",
+      "type": "file",
+      "name": "character-gallery.tsx",
+      "filePath": "frontend/src/features/characters/character-gallery.tsx",
+      "summary": "Galeria de personagens com apresentação visual das opções disponíveis para o jogador.",
+      "tags": [
+        "component",
+        "character",
+        "gallery",
+        "selection-ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/characters/character-home-page.tsx",
+      "type": "file",
+      "name": "character-home-page.tsx",
+      "filePath": "frontend/src/features/characters/character-home-page.tsx",
+      "summary": "Carrega os dados necessários e compõe a página inicial de um personagem dentro do sistema.",
+      "tags": [
+        "component",
+        "character-home",
+        "data-loading",
+        "page-composition"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/characters/character-home.tsx",
+      "type": "file",
+      "name": "character-home.tsx",
+      "filePath": "frontend/src/features/characters/character-home.tsx",
+      "summary": "Interface principal da área de personagem, integrando dados, navegação e ações do jogador.",
+      "tags": [
+        "component",
+        "character-home",
+        "game-interface",
+        "navigation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/characters/character-record.tsx",
+      "type": "file",
+      "name": "character-record.tsx",
+      "filePath": "frontend/src/features/characters/character-record.tsx",
+      "summary": "Apresenta o registro do personagem, sua ficha visual e inventário, formatando atributos e imagens com segurança.",
+      "tags": [
+        "component",
+        "character-sheet",
+        "inventory",
+        "data-presentation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/characters/lobby-creator-tools.tsx",
+      "type": "file",
+      "name": "lobby-creator-tools.tsx",
+      "filePath": "frontend/src/features/characters/lobby-creator-tools.tsx",
+      "summary": "Ferramentas do criador do lobby para administrar ações e recursos da sala de jogo.",
+      "tags": [
+        "component",
+        "lobby",
+        "creator-tools",
+        "game-management"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-entry.tsx:CharacterEntry",
+      "type": "function",
+      "name": "CharacterEntry",
+      "filePath": "frontend/src/features/characters/character-entry.tsx",
+      "summary": "Componente character entry, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        12,
+        149
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-form.tsx:validComponentValue",
+      "type": "function",
+      "name": "validComponentValue",
+      "filePath": "frontend/src/features/characters/character-form.tsx",
+      "summary": "Função valid component value, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        38,
+        47
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-form.tsx:CharacterForm",
+      "type": "function",
+      "name": "CharacterForm",
+      "filePath": "frontend/src/features/characters/character-form.tsx",
+      "summary": "Componente character form, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        49,
+        194
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-gallery.tsx:CharacterGallery",
+      "type": "function",
+      "name": "CharacterGallery",
+      "filePath": "frontend/src/features/characters/character-gallery.tsx",
+      "summary": "Componente character gallery, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        28,
+        78
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-home-page.tsx:loadCharacterHomePageData",
+      "type": "function",
+      "name": "loadCharacterHomePageData",
+      "filePath": "frontend/src/features/characters/character-home-page.tsx",
+      "summary": "Função load character home page data, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        9,
+        28
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-home-page.tsx:CharacterHomePage",
+      "type": "function",
+      "name": "CharacterHomePage",
+      "filePath": "frontend/src/features/characters/character-home-page.tsx",
+      "summary": "Componente character home page, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        30,
+        142
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-home.tsx:CharacterHome",
+      "type": "function",
+      "name": "CharacterHome",
+      "filePath": "frontend/src/features/characters/character-home.tsx",
+      "summary": "Componente character home, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        35,
+        120
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-record.tsx:selectedOptionLabels",
+      "type": "function",
+      "name": "selectedOptionLabels",
+      "filePath": "frontend/src/features/characters/character-record.tsx",
+      "summary": "Função selected option labels, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        23,
+        32
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-record.tsx:CharacterSheetValue",
+      "type": "function",
+      "name": "CharacterSheetValue",
+      "filePath": "frontend/src/features/characters/character-record.tsx",
+      "summary": "Componente character sheet value, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        34,
+        46
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-record.tsx:SheetArt",
+      "type": "function",
+      "name": "SheetArt",
+      "filePath": "frontend/src/features/characters/character-record.tsx",
+      "summary": "Componente sheet art, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        48,
+        59
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-record.tsx:CharacterSheetView",
+      "type": "function",
+      "name": "CharacterSheetView",
+      "filePath": "frontend/src/features/characters/character-record.tsx",
+      "summary": "Componente character sheet view, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        61,
+        94
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-record.tsx:itemCategory",
+      "type": "function",
+      "name": "itemCategory",
+      "filePath": "frontend/src/features/characters/character-record.tsx",
+      "summary": "Função item category, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        96,
+        106
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-record.tsx:CharacterInventoryView",
+      "type": "function",
+      "name": "CharacterInventoryView",
+      "filePath": "frontend/src/features/characters/character-record.tsx",
+      "summary": "Componente character inventory view, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        112,
+        158
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/character-record.tsx:CharacterRecord",
+      "type": "function",
+      "name": "CharacterRecord",
+      "filePath": "frontend/src/features/characters/character-record.tsx",
+      "summary": "Componente character record, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        160,
+        208
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-creator-tools.tsx:LobbyCreatorTools",
+      "type": "function",
+      "name": "LobbyCreatorTools",
+      "filePath": "frontend/src/features/characters/lobby-creator-tools.tsx",
+      "summary": "Componente lobby creator tools, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        7,
+        52
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/features/characters/character-entry.tsx",
+      "target": "function:frontend/src/features/characters/character-entry.tsx:CharacterEntry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-entry.tsx",
+      "target": "function:frontend/src/features/characters/character-entry.tsx:CharacterEntry",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-form.tsx",
+      "target": "function:frontend/src/features/characters/character-form.tsx:validComponentValue",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-form.tsx",
+      "target": "function:frontend/src/features/characters/character-form.tsx:CharacterForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-form.tsx",
+      "target": "function:frontend/src/features/characters/character-form.tsx:CharacterForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-gallery.tsx",
+      "target": "function:frontend/src/features/characters/character-gallery.tsx:CharacterGallery",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-gallery.tsx",
+      "target": "function:frontend/src/features/characters/character-gallery.tsx:CharacterGallery",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home-page.tsx",
+      "target": "function:frontend/src/features/characters/character-home-page.tsx:loadCharacterHomePageData",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home-page.tsx",
+      "target": "function:frontend/src/features/characters/character-home-page.tsx:loadCharacterHomePageData",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home-page.tsx",
+      "target": "function:frontend/src/features/characters/character-home-page.tsx:CharacterHomePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home-page.tsx",
+      "target": "function:frontend/src/features/characters/character-home-page.tsx:CharacterHomePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "function:frontend/src/features/characters/character-home.tsx:CharacterHome",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "function:frontend/src/features/characters/character-home.tsx:CharacterHome",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-record.tsx",
+      "target": "function:frontend/src/features/characters/character-record.tsx:selectedOptionLabels",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-record.tsx",
+      "target": "function:frontend/src/features/characters/character-record.tsx:CharacterSheetValue",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-record.tsx",
+      "target": "function:frontend/src/features/characters/character-record.tsx:SheetArt",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-record.tsx",
+      "target": "function:frontend/src/features/characters/character-record.tsx:CharacterSheetView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-record.tsx",
+      "target": "function:frontend/src/features/characters/character-record.tsx:itemCategory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-record.tsx",
+      "target": "function:frontend/src/features/characters/character-record.tsx:CharacterInventoryView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-record.tsx",
+      "target": "function:frontend/src/features/characters/character-record.tsx:CharacterRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-record.tsx",
+      "target": "function:frontend/src/features/characters/character-record.tsx:CharacterRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-creator-tools.tsx",
+      "target": "function:frontend/src/features/characters/lobby-creator-tools.tsx:LobbyCreatorTools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-creator-tools.tsx",
+      "target": "function:frontend/src/features/characters/lobby-creator-tools.tsx:LobbyCreatorTools",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-entry.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-entry.tsx",
+      "target": "file:frontend/src/features/characters/character-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-entry.tsx",
+      "target": "file:frontend/src/features/characters/character-gallery.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-entry.tsx",
+      "target": "file:frontend/src/features/characters/characters.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-entry.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-entry.tsx",
+      "target": "file:frontend/src/features/social/invite-friend-control.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-entry.tsx",
+      "target": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-form.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-form.tsx",
+      "target": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-form.tsx",
+      "target": "file:frontend/src/features/characters/characters.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-gallery.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-gallery.tsx",
+      "target": "file:frontend/src/features/character-sheet/format-value.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-gallery.tsx",
+      "target": "file:frontend/src/features/characters/characters.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-gallery.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home-page.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home-page.tsx",
+      "target": "file:frontend/src/features/characters/character-home.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home-page.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home-page.tsx",
+      "target": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/features/characters/character-record.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/features/characters/characters.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/features/characters/lobby-presence.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/features/chats/chats.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/features/daily-login/daily-login-popup.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/features/store/store-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-home.tsx",
+      "target": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/character-record.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-creator-tools.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-creator-tools.tsx",
+      "target": "file:frontend/src/features/characters/lobby-creator-tools.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

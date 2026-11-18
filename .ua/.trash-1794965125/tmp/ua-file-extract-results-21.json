@@ -1,0 +1,355 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [
+    "frontend/src/features/social/friends-page.css",
+    "frontend/src/features/social/invite-friend-control.css",
+    "frontend/src/features/store/store.css",
+    "frontend/src/features/system-creation/system-creation.css",
+    "frontend/src/features/system-events/system-events-card.css",
+    "frontend/src/features/system-management/system-management-codex.css",
+    "frontend/src/features/system-management/system-management-page.css",
+    "frontend/src/features/trading/trading.css",
+    "supabase/templates/signup-confirmation.html",
+    "supabase/templates/system-deletion-magic-link.html"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 5,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 4,
+      "failed": 0,
+      "skipped": 1
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/test/character-home-layout.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 15,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/next-config-env.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 18,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/workspace-scripts.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 11,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/config.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 36,
+      "nonEmptyLines": 29,
+      "sections": [
+        {
+          "heading": "api",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "storage",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "db",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "auth",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "auth.email",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "auth.email.template.magic_link",
+          "level": 4,
+          "line": 30
+        },
+        {
+          "heading": "auth.email.template.confirmation",
+          "level": 4,
+          "line": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "supabase/tests/store-concurrency.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 162,
+      "nonEmptyLines": 156,
+      "classes": [
+        {
+          "name": "Session",
+          "startLine": 15,
+          "endLine": 59,
+          "methods": [
+            "constructor",
+            "fail",
+            "query",
+            "init",
+            "close"
+          ],
+          "properties": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "spawn",
+          "lineNumber": 17
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.process.stderr.on",
+          "lineNumber": 22
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.process.on",
+          "lineNumber": 23
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.fail",
+          "lineNumber": 23
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.process.on",
+          "lineNumber": 24
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.fail",
+          "lineNumber": 24
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.process.stdin.on",
+          "lineNumber": 25
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.fail",
+          "lineNumber": 25
+        },
+        {
+          "caller": "constructor",
+          "callee": "createInterface({ input: this.process.stdout }).on",
+          "lineNumber": 26
+        },
+        {
+          "caller": "constructor",
+          "callee": "createInterface",
+          "lineNumber": 26
+        },
+        {
+          "caller": "constructor",
+          "callee": "clearTimeout",
+          "lineNumber": 30
+        },
+        {
+          "caller": "constructor",
+          "callee": "resolve",
+          "lineNumber": 32
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.pending.rows.push",
+          "lineNumber": 33
+        },
+        {
+          "caller": "fail",
+          "callee": "clearTimeout",
+          "lineNumber": 39
+        },
+        {
+          "caller": "fail",
+          "callee": "this.pending.reject",
+          "lineNumber": 40
+        },
+        {
+          "caller": "query",
+          "callee": "Promise.reject",
+          "lineNumber": 45
+        },
+        {
+          "caller": "query",
+          "callee": "assert",
+          "lineNumber": 46
+        },
+        {
+          "caller": "query",
+          "callee": "randomUUID",
+          "lineNumber": 48
+        },
+        {
+          "caller": "query",
+          "callee": "setTimeout",
+          "lineNumber": 49
+        },
+        {
+          "caller": "query",
+          "callee": "this.fail",
+          "lineNumber": 49
+        },
+        {
+          "caller": "query",
+          "callee": "this.process.stdin.write",
+          "lineNumber": 51
+        },
+        {
+          "caller": "init",
+          "callee": "this.query",
+          "lineNumber": 55
+        },
+        {
+          "caller": "init",
+          "callee": "Number",
+          "lineNumber": 56
+        },
+        {
+          "caller": "close",
+          "callee": "this.process.kill",
+          "lineNumber": 58
+        },
+        {
+          "caller": "contend",
+          "callee": "a.query",
+          "lineNumber": 92
+        },
+        {
+          "caller": "contend",
+          "callee": "b.query",
+          "lineNumber": 93
+        },
+        {
+          "caller": "contend",
+          "callee": "JSON.parse",
+          "lineNumber": 94
+        },
+        {
+          "caller": "contend",
+          "callee": "a.query",
+          "lineNumber": 94
+        },
+        {
+          "caller": "contend",
+          "callee": "assert.equal",
+          "lineNumber": 95
+        },
+        {
+          "caller": "contend",
+          "callee": "b.query",
+          "lineNumber": 98
+        },
+        {
+          "caller": "contend",
+          "callee": "secondPromise.then",
+          "lineNumber": 100
+        },
+        {
+          "caller": "contend",
+          "callee": "Date.now",
+          "lineNumber": 101
+        },
+        {
+          "caller": "contend",
+          "callee": "Date.now",
+          "lineNumber": 103
+        },
+        {
+          "caller": "contend",
+          "callee": "admin.query",
+          "lineNumber": 104
+        },
+        {
+          "caller": "contend",
+          "callee": "delay",
+          "lineNumber": 106
+        },
+        {
+          "caller": "contend",
+          "callee": "assert",
+          "lineNumber": 108
+        },
+        {
+          "caller": "contend",
+          "callee": "a.query",
+          "lineNumber": 109
+        },
+        {
+          "caller": "contend",
+          "callee": "JSON.parse",
+          "lineNumber": 110
+        },
+        {
+          "caller": "contend",
+          "callee": "assert.equal",
+          "lineNumber": 111
+        },
+        {
+          "caller": "contend",
+          "callee": "b.query",
+          "lineNumber": 112
+        },
+        {
+          "caller": "contend",
+          "callee": "console.log",
+          "lineNumber": 113
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

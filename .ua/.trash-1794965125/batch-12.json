@@ -1,0 +1,125 @@
+{
+  "nodes": [
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "type": "file",
+      "name": "character-cards.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "summary": "Protótipo HTML autocontido da tela de seleção de personagens do Bifrost RPG, com três aventureiros, atributos, características e opção para criar personagem.",
+      "tags": [
+        "protótipo",
+        "html",
+        "interface",
+        "seleção-de-personagem"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v2.html",
+      "type": "file",
+      "name": "character-cards-v2.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v2.html",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual.",
+      "tags": [
+        "protótipo",
+        "html",
+        "interface",
+        "seleção-de-personagem"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v3.html",
+      "type": "file",
+      "name": "character-cards-v3.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v3.html",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual.",
+      "tags": [
+        "protótipo",
+        "html",
+        "interface",
+        "seleção-de-personagem"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v4.html",
+      "type": "file",
+      "name": "character-cards-v4.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v4.html",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual.",
+      "tags": [
+        "protótipo",
+        "html",
+        "interface",
+        "seleção-de-personagem"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v5.html",
+      "type": "file",
+      "name": "character-cards-v5.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v5.html",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual.",
+      "tags": [
+        "protótipo",
+        "html",
+        "interface",
+        "seleção-de-personagem"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v6.html",
+      "type": "file",
+      "name": "character-cards-v6.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v6.html",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual.",
+      "tags": [
+        "protótipo",
+        "html",
+        "interface",
+        "seleção-de-personagem"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v2.html",
+      "target": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v3.html",
+      "target": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v4.html",
+      "target": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v5.html",
+      "target": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v6.html",
+      "target": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

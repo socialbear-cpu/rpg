@@ -1,10 +1,7 @@
+import { authOptions as auth, errorSchema } from '../../http/route-options.js';
 import type { FastifyInstance } from 'fastify';
-import { authenticate } from '../../plugins/authenticate.js';
 import { lobbyPresenceParamsSchema } from './lobby-presence.schema.js';
 import { heartbeatGameSystemLobbyPresence } from './lobby-presence.repository.js';
-
-const auth = { preHandler: authenticate, schema: { security: [{ bearerAuth: [] }] } };
-const errorSchema = { type: 'object', required: ['error'], additionalProperties: false, properties: { error: { type: 'string' } } } as const;
 
 export async function lobbyPresenceRoutes(app: FastifyInstance) {
   app.post('/api/v1/game-systems/:systemId/lobby-presence/heartbeat', {

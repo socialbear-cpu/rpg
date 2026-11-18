@@ -40,12 +40,17 @@ it('describes the public health and profile success payloads', async () => {
     const operation = document.paths['/api/v1/me/profile'][method];
     expect(operation.summary).toBeTruthy();
     expect(resolve(operation.responses['200'].content['application/json'].schema)).toMatchObject({
-      required: ['user_id', 'username', 'display_name', 'avatar_url', 'bio'], additionalProperties: false,
+      required: ['user_id', 'username', 'username_change_used', 'display_name', 'avatar_url', 'banner_url', 'bio', 'status', 'interests', 'phone'], additionalProperties: false,
       properties: {
         user_id: { type: 'string', format: 'uuid' },
         username: { type: 'string', nullable: true, minLength: 3, maxLength: 20, pattern: '^[a-z0-9_]+$' },
+        username_change_used: { type: 'boolean' },
         display_name: { type: 'string' },
         avatar_url: { type: 'string', nullable: true }, bio: { type: 'string', nullable: true },
+        banner_url: { type: 'string', nullable: true },
+        status: { type: 'string', nullable: true, maxLength: 120 },
+        interests: { type: 'array', maxItems: 12, items: { type: 'string', minLength: 1, maxLength: 40 } },
+        phone: { type: 'string', nullable: true, maxLength: 32 },
       },
     });
   }
@@ -62,11 +67,15 @@ it('publishes a required strict PATCH body with editable field limits and cleari
       display_name: { type: 'string', minLength: 1 },
       username: { type: 'string', minLength: 3, maxLength: 20, pattern: '^[a-zA-Z0-9_]+$' },
       avatar_url: { type: 'string', nullable: true, maxLength: 2048, format: 'uri', pattern: expect.any(String) },
+      banner_url: { type: 'string', nullable: true, maxLength: 2048, format: 'uri', pattern: expect.any(String) },
       bio: { type: 'string', nullable: true, maxLength: 500 },
+      status: { type: 'string', nullable: true, maxLength: 120 },
+      interests: { type: 'array', maxItems: 12, items: { type: 'string', minLength: 1, maxLength: 40 } },
+      phone: { type: 'string', nullable: true, maxLength: 32 },
     },
   });
   expect(Object.keys(resolve(body.content['application/json'].schema).properties)).toEqual([
-    'display_name', 'username', 'avatar_url', 'bio',
+    'display_name', 'username', 'avatar_url', 'banner_url', 'bio', 'status', 'interests', 'phone',
   ]);
   expect(document.paths['/api/v1/me/profile'].get.requestBody).toBeUndefined();
 });

@@ -20,6 +20,27 @@ const event = (id: string, starts_at: string, started_at: string | null = null):
 describe('lobby summary data', () => {
   it('counts only active chats available to the current character', () => {
     expect(countActiveLobbyChats(chats)).toBe(2);
+    expect(countActiveLobbyChats([])).toBe(0);
+  });
+
+  it('returns no next session for empty, invalid or already due dates', () => {
+    const now = new Date('2026-12-01T00:00:00Z');
+    expect(findNextLobbySession([], now)).toBeNull();
+    expect(findNextLobbySession([
+      event('invalid', 'invalid'), event('due', now.toISOString()),
+      event('past', '2026-01-01T00:00:00Z'),
+    ], now)).toBeNull();
+  });
+
+  it('keeps the first event on equal dates without reordering the input', () => {
+    const events = [
+      event('later', '2026-12-20T10:00:00Z'),
+      event('first', '2026-12-02T10:00:00Z'),
+      event('tied', '2026-12-02T10:00:00Z'),
+    ];
+    const original = [...events];
+    expect(findNextLobbySession(events, new Date('2026-12-01T00:00:00Z'))).toBe(events[1]);
+    expect(events).toEqual(original);
   });
 
   it('chooses the closest future session and ignores started and past events', () => {

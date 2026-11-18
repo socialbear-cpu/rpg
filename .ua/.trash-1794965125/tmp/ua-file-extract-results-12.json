@@ -1,0 +1,25 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 0,
+  "filesSkipped": [
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v2.html",
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v3.html",
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v4.html",
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v5.html",
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v6.html",
+    ".superpowers/brainstorm/codex-cards-20261115/content/character-cards.html"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 0,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": []
+}

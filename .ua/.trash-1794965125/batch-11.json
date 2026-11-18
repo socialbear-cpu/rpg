@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": "file:.superpowers/brainstorm/astra-review/content/dashboard-01.html",
+      "type": "file",
+      "name": "dashboard-01.html",
+      "filePath": ".superpowers/brainstorm/astra-review/content/dashboard-01.html",
+      "summary": "Protótipo visual da tela inicial do Astra para uma experiência de escrita de RPG. Apresenta navegação lateral, saudação ao usuário, chamada para continuar escrevendo e cartões com os mundos do jogador.",
+      "tags": ["protótipo", "painel-inicial", "rpg", "interface"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/astra-review/content/dashboard-02.html",
+      "type": "file",
+      "name": "dashboard-02.html",
+      "filePath": ".superpowers/brainstorm/astra-review/content/dashboard-02.html",
+      "summary": "Variação do protótipo da tela inicial do Astra, com marca e navegação no cabeçalho em vez de manter a navegação principal na lateral. Mantém a saudação, o acesso à escrita e a área de mundos do jogador.",
+      "tags": ["protótipo", "painel-inicial", "navegação", "interface"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/astra-review/content/dashboard-03.html",
+      "type": "file",
+      "name": "dashboard-03.html",
+      "filePath": ".superpowers/brainstorm/astra-review/content/dashboard-03.html",
+      "summary": "Terceira composição do protótipo da tela inicial do Astra, explorando a identidade visual e a navegação do produto. Inclui a saudação ao usuário, uma chamada para escrever e uma seção com seus mundos.",
+      "tags": ["protótipo", "painel-inicial", "identidade-visual", "interface"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:.superpowers/brainstorm/astra-review/content/dashboard-01.html",
+      "target": "file:.superpowers/brainstorm/astra-review/content/dashboard-02.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/astra-review/content/dashboard-01.html",
+      "target": "file:.superpowers/brainstorm/astra-review/content/dashboard-03.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/astra-review/content/dashboard-02.html",
+      "target": "file:.superpowers/brainstorm/astra-review/content/dashboard-03.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

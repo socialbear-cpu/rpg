@@ -1,0 +1,3447 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    {
+      "id": "file:backend/src/server.ts",
+      "score": 3,
+      "name": "server.ts",
+      "summary": "Inicializa o servidor HTTP de desenvolvimento e inicia a aplicação Fastify.",
+      "type": "file"
+    },
+    {
+      "id": "file:frontend/test/character-entry-render.test.ts",
+      "score": 2,
+      "name": "character-entry-render.test.ts",
+      "summary": "Testes de renderização da entrada de personagem e dos componentes relacionados à ficha.",
+      "type": "file"
+    },
+    {
+      "id": "file:frontend/test/lobby-creator-tools.test.ts",
+      "score": 2,
+      "name": "lobby-creator-tools.test.ts",
+      "summary": "Testes de renderização das ferramentas de criação e personalização do lobby.",
+      "type": "file"
+    },
+    {
+      "id": "file:frontend/test/system-creation-render.test.ts",
+      "score": 2,
+      "name": "system-creation-render.test.ts",
+      "summary": "Testes de renderização do fluxo de criação e edição de sistemas.",
+      "type": "file"
+    },
+    {
+      "id": "document:AGENTS.md",
+      "score": 2,
+      "name": "AGENTS.md",
+      "summary": "Define princípios de trabalho para manter mudanças focadas, explicitar restrições e validar alterações com verificações pequenas. Também descreve a divisão do repositório entre backend, frontend, banco de dados e Supabase.",
+      "type": "document"
+    }
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:frontend/src/api.ts",
+      "fanIn": 57,
+      "name": "api.ts"
+    },
+    {
+      "id": "file:backend/src/create-app.ts",
+      "fanIn": 18,
+      "name": "create-app.ts"
+    },
+    {
+      "id": "file:backend/src/plugins/authenticate.ts",
+      "fanIn": 17,
+      "name": "authenticate.ts"
+    },
+    {
+      "id": "file:frontend/src/supabase-auth.ts",
+      "fanIn": 16,
+      "name": "supabase-auth.ts"
+    },
+    {
+      "id": "file:frontend/src/features/shell/app-header.tsx",
+      "fanIn": 15,
+      "name": "app-header.tsx"
+    },
+    {
+      "id": "file:backend/src/config.ts",
+      "fanIn": 7,
+      "name": "config.ts"
+    },
+    {
+      "id": "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "fanIn": 7,
+      "name": "system-membership.repository.ts"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "fanIn": 7,
+      "name": "sheet-model.ts"
+    },
+    {
+      "id": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "fanIn": 6,
+      "name": "game-systems.repository.ts"
+    },
+    {
+      "id": "file:backend/src/modules/game-systems/system-access.ts",
+      "fanIn": 6,
+      "name": "system-access.ts"
+    },
+    {
+      "id": "file:frontend/test/ui-render.test.ts",
+      "fanIn": 6,
+      "name": "ui-render.test.ts"
+    },
+    {
+      "id": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "fanIn": 6,
+      "name": "system-events-card.tsx"
+    },
+    {
+      "id": "file:frontend/src/features/characters/character-home.tsx",
+      "fanIn": 5,
+      "name": "character-home.tsx"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "fanIn": 5,
+      "name": "character-sheet-builder.tsx"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "fanIn": 5,
+      "name": "character-cards.html"
+    },
+    {
+      "id": "file:frontend/src/features/characters/characters.css",
+      "fanIn": 5,
+      "name": "characters.css"
+    },
+    {
+      "id": "file:backend/src/server.ts",
+      "fanIn": 4,
+      "name": "server.ts"
+    },
+    {
+      "id": "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "fanIn": 4,
+      "name": "game-systems.schema.ts"
+    },
+    {
+      "id": "file:backend/src/modules/store/store.schema.ts",
+      "fanIn": 4,
+      "name": "store.schema.ts"
+    },
+    {
+      "id": "file:backend/src/modules/profile/profile.schema.ts",
+      "fanIn": 4,
+      "name": "profile.schema.ts"
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "file:frontend/src/api.ts",
+      "fanOut": 87,
+      "name": "api.ts"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "fanOut": 21,
+      "name": "sheet-model.ts"
+    },
+    {
+      "id": "file:frontend/src/supabase-auth.ts",
+      "fanOut": 20,
+      "name": "supabase-auth.ts"
+    },
+    {
+      "id": "file:backend/src/register-app.ts",
+      "fanOut": 19,
+      "name": "register-app.ts"
+    },
+    {
+      "id": "file:backend/src/create-app.ts",
+      "fanOut": 18,
+      "name": "create-app.ts"
+    },
+    {
+      "id": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "fanOut": 16,
+      "name": "system-management-page.tsx"
+    },
+    {
+      "id": "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "fanOut": 13,
+      "name": "game-systems.repository.ts"
+    },
+    {
+      "id": "file:backend/src/modules/store/store.repository.ts",
+      "fanOut": 11,
+      "name": "store.repository.ts"
+    },
+    {
+      "id": "file:frontend/src/features/characters/character-home.tsx",
+      "fanOut": 11,
+      "name": "character-home.tsx"
+    },
+    {
+      "id": "file:backend/src/modules/social/social.repository.ts",
+      "fanOut": 10,
+      "name": "social.repository.ts"
+    },
+    {
+      "id": "file:backend/src/modules/trading/trading.repository.ts",
+      "fanOut": 10,
+      "name": "trading.repository.ts"
+    },
+    {
+      "id": "file:frontend/src/features/account/account-settings-page.tsx",
+      "fanOut": 9,
+      "name": "account-settings-page.tsx"
+    },
+    {
+      "id": "file:frontend/src/features/store/store-admin-card.tsx",
+      "fanOut": 9,
+      "name": "store-admin-card.tsx"
+    },
+    {
+      "id": "file:backend/src/modules/system-events/system-events.repository.ts",
+      "fanOut": 8,
+      "name": "system-events.repository.ts"
+    },
+    {
+      "id": "file:frontend/src/features/characters/character-entry.tsx",
+      "fanOut": 8,
+      "name": "character-entry.tsx"
+    },
+    {
+      "id": "file:frontend/src/features/characters/character-record.tsx",
+      "fanOut": 8,
+      "name": "character-record.tsx"
+    },
+    {
+      "id": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "fanOut": 8,
+      "name": "lobby-settings-page.tsx"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "fanOut": 8,
+      "name": "system-creation-wizard.tsx"
+    },
+    {
+      "id": "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "fanOut": 7,
+      "name": "daily-login.repository.ts"
+    },
+    {
+      "id": "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "fanOut": 7,
+      "name": "lobby-settings.routes.ts"
+    }
+  ],
+  "bfsTraversal": {
+    "startNode": "file:backend/src/server.ts",
+    "order": [
+      "file:backend/src/server.ts",
+      "file:backend/src/config.ts",
+      "file:backend/src/register-app.ts",
+      "file:backend/src/modules/account/account.routes.ts",
+      "file:backend/src/modules/chats/chats.routes.ts",
+      "file:backend/src/modules/daily-login/daily-login.routes.ts",
+      "file:backend/src/modules/direct-messages/direct-messages.routes.ts",
+      "file:backend/src/modules/experience/experience.routes.ts",
+      "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "file:backend/src/modules/health/health.routes.ts",
+      "file:backend/src/modules/lobby-presence/lobby-presence.routes.ts",
+      "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "file:backend/src/modules/notifications/notifications.routes.ts",
+      "file:backend/src/modules/profile/profile.routes.ts",
+      "file:backend/src/modules/social/public-profile.routes.ts",
+      "file:backend/src/modules/social/social.routes.ts",
+      "file:backend/src/modules/store/store.routes.ts",
+      "file:backend/src/modules/system-events/system-events.routes.ts",
+      "file:backend/src/modules/system-membership/system-membership.routes.ts",
+      "file:backend/src/modules/trading/trading.routes.ts",
+      "file:backend/src/plugins/authenticate.ts",
+      "file:backend/src/modules/chats/chats.repository.ts",
+      "file:backend/src/modules/chats/chats.schema.ts",
+      "file:backend/src/modules/daily-login/daily-login.repository.ts",
+      "file:backend/src/modules/daily-login/daily-login.schema.ts",
+      "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "file:backend/src/modules/game-systems/system-access.ts",
+      "file:backend/src/modules/experience/experience.repository.ts",
+      "file:backend/src/modules/experience/experience.schema.ts",
+      "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "file:backend/src/modules/lobby-presence/lobby-presence.repository.ts",
+      "file:backend/src/modules/lobby-presence/lobby-presence.schema.ts",
+      "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "file:backend/src/modules/lobby-settings/lobby-settings.schema.ts",
+      "file:backend/src/modules/system-membership/system-membership.repository.ts",
+      "file:backend/src/modules/notifications/notifications.repository.ts",
+      "file:backend/src/modules/notifications/notifications.schema.ts",
+      "file:backend/src/modules/profile/profile.repository.ts",
+      "file:backend/src/modules/profile/profile.schema.ts",
+      "file:backend/src/modules/social/social.repository.ts",
+      "file:backend/src/modules/social/social.schema.ts",
+      "file:backend/src/modules/store/store.repository.ts",
+      "file:backend/src/modules/store/store.schema.ts",
+      "file:backend/src/modules/system-events/system-events.repository.ts",
+      "file:backend/src/modules/system-events/system-events.schema.ts",
+      "file:backend/src/modules/system-membership/system-membership.schema.ts",
+      "file:backend/src/modules/trading/trading.repository.ts",
+      "file:backend/src/modules/trading/trading.schema.ts",
+      "file:backend/src/authenticate-user.ts",
+      "file:backend/src/clients/supabase.ts"
+    ],
+    "depthMap": {
+      "file:backend/src/server.ts": 0,
+      "file:backend/src/config.ts": 1,
+      "file:backend/src/register-app.ts": 1,
+      "file:backend/src/modules/account/account.routes.ts": 2,
+      "file:backend/src/modules/chats/chats.routes.ts": 2,
+      "file:backend/src/modules/daily-login/daily-login.routes.ts": 2,
+      "file:backend/src/modules/direct-messages/direct-messages.routes.ts": 2,
+      "file:backend/src/modules/experience/experience.routes.ts": 2,
+      "file:backend/src/modules/game-systems/game-systems.routes.ts": 2,
+      "file:backend/src/modules/health/health.routes.ts": 2,
+      "file:backend/src/modules/lobby-presence/lobby-presence.routes.ts": 2,
+      "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts": 2,
+      "file:backend/src/modules/notifications/notifications.routes.ts": 2,
+      "file:backend/src/modules/profile/profile.routes.ts": 2,
+      "file:backend/src/modules/social/public-profile.routes.ts": 2,
+      "file:backend/src/modules/social/social.routes.ts": 2,
+      "file:backend/src/modules/store/store.routes.ts": 2,
+      "file:backend/src/modules/system-events/system-events.routes.ts": 2,
+      "file:backend/src/modules/system-membership/system-membership.routes.ts": 2,
+      "file:backend/src/modules/trading/trading.routes.ts": 2,
+      "file:backend/src/plugins/authenticate.ts": 3,
+      "file:backend/src/modules/chats/chats.repository.ts": 3,
+      "file:backend/src/modules/chats/chats.schema.ts": 3,
+      "file:backend/src/modules/daily-login/daily-login.repository.ts": 3,
+      "file:backend/src/modules/daily-login/daily-login.schema.ts": 3,
+      "file:backend/src/modules/game-systems/game-systems.repository.ts": 3,
+      "file:backend/src/modules/game-systems/system-access.ts": 3,
+      "file:backend/src/modules/experience/experience.repository.ts": 3,
+      "file:backend/src/modules/experience/experience.schema.ts": 3,
+      "file:backend/src/modules/game-systems/game-systems.schema.ts": 3,
+      "file:backend/src/modules/lobby-presence/lobby-presence.repository.ts": 3,
+      "file:backend/src/modules/lobby-presence/lobby-presence.schema.ts": 3,
+      "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts": 3,
+      "file:backend/src/modules/lobby-settings/lobby-settings.schema.ts": 3,
+      "file:backend/src/modules/system-membership/system-membership.repository.ts": 3,
+      "file:backend/src/modules/notifications/notifications.repository.ts": 3,
+      "file:backend/src/modules/notifications/notifications.schema.ts": 3,
+      "file:backend/src/modules/profile/profile.repository.ts": 3,
+      "file:backend/src/modules/profile/profile.schema.ts": 3,
+      "file:backend/src/modules/social/social.repository.ts": 3,
+      "file:backend/src/modules/social/social.schema.ts": 3,
+      "file:backend/src/modules/store/store.repository.ts": 3,
+      "file:backend/src/modules/store/store.schema.ts": 3,
+      "file:backend/src/modules/system-events/system-events.repository.ts": 3,
+      "file:backend/src/modules/system-events/system-events.schema.ts": 3,
+      "file:backend/src/modules/system-membership/system-membership.schema.ts": 3,
+      "file:backend/src/modules/trading/trading.repository.ts": 3,
+      "file:backend/src/modules/trading/trading.schema.ts": 3,
+      "file:backend/src/authenticate-user.ts": 4,
+      "file:backend/src/clients/supabase.ts": 5
+    },
+    "byDepth": {
+      "0": [
+        "file:backend/src/server.ts"
+      ],
+      "1": [
+        "file:backend/src/config.ts",
+        "file:backend/src/register-app.ts"
+      ],
+      "2": [
+        "file:backend/src/modules/account/account.routes.ts",
+        "file:backend/src/modules/chats/chats.routes.ts",
+        "file:backend/src/modules/daily-login/daily-login.routes.ts",
+        "file:backend/src/modules/direct-messages/direct-messages.routes.ts",
+        "file:backend/src/modules/experience/experience.routes.ts",
+        "file:backend/src/modules/game-systems/game-systems.routes.ts",
+        "file:backend/src/modules/health/health.routes.ts",
+        "file:backend/src/modules/lobby-presence/lobby-presence.routes.ts",
+        "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+        "file:backend/src/modules/notifications/notifications.routes.ts",
+        "file:backend/src/modules/profile/profile.routes.ts",
+        "file:backend/src/modules/social/public-profile.routes.ts",
+        "file:backend/src/modules/social/social.routes.ts",
+        "file:backend/src/modules/store/store.routes.ts",
+        "file:backend/src/modules/system-events/system-events.routes.ts",
+        "file:backend/src/modules/system-membership/system-membership.routes.ts",
+        "file:backend/src/modules/trading/trading.routes.ts"
+      ],
+      "3": [
+        "file:backend/src/plugins/authenticate.ts",
+        "file:backend/src/modules/chats/chats.repository.ts",
+        "file:backend/src/modules/chats/chats.schema.ts",
+        "file:backend/src/modules/daily-login/daily-login.repository.ts",
+        "file:backend/src/modules/daily-login/daily-login.schema.ts",
+        "file:backend/src/modules/game-systems/game-systems.repository.ts",
+        "file:backend/src/modules/game-systems/system-access.ts",
+        "file:backend/src/modules/experience/experience.repository.ts",
+        "file:backend/src/modules/experience/experience.schema.ts",
+        "file:backend/src/modules/game-systems/game-systems.schema.ts",
+        "file:backend/src/modules/lobby-presence/lobby-presence.repository.ts",
+        "file:backend/src/modules/lobby-presence/lobby-presence.schema.ts",
+        "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+        "file:backend/src/modules/lobby-settings/lobby-settings.schema.ts",
+        "file:backend/src/modules/system-membership/system-membership.repository.ts",
+        "file:backend/src/modules/notifications/notifications.repository.ts",
+        "file:backend/src/modules/notifications/notifications.schema.ts",
+        "file:backend/src/modules/profile/profile.repository.ts",
+        "file:backend/src/modules/profile/profile.schema.ts",
+        "file:backend/src/modules/social/social.repository.ts",
+        "file:backend/src/modules/social/social.schema.ts",
+        "file:backend/src/modules/store/store.repository.ts",
+        "file:backend/src/modules/store/store.schema.ts",
+        "file:backend/src/modules/system-events/system-events.repository.ts",
+        "file:backend/src/modules/system-events/system-events.schema.ts",
+        "file:backend/src/modules/system-membership/system-membership.schema.ts",
+        "file:backend/src/modules/trading/trading.repository.ts",
+        "file:backend/src/modules/trading/trading.schema.ts"
+      ],
+      "4": [
+        "file:backend/src/authenticate-user.ts"
+      ],
+      "5": [
+        "file:backend/src/clients/supabase.ts"
+      ]
+    }
+  },
+  "nonCodeFiles": {
+    "documentation": [
+      {
+        "id": "document:AGENTS.md",
+        "name": "AGENTS.md",
+        "type": "document",
+        "summary": "Define princípios de trabalho para manter mudanças focadas, explicitar restrições e validar alterações com verificações pequenas. Também descreve a divisão do repositório entre backend, frontend, banco de dados e Supabase."
+      },
+      {
+        "id": "document:AUTH_AND_STACK.md",
+        "name": "AUTH_AND_STACK.md",
+        "type": "document",
+        "summary": "Documenta o desenho e o estado atual de cadastro, autenticação e perfil, além de recomendações para Supabase Auth, sessões, validação e políticas RLS. Distingue claramente a implementação existente das etapas arquiteturais ainda recomendadas."
+      },
+      {
+        "id": "document:backend/README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "Documenta a API Fastify, a configuração local, autenticação Supabase, contratos de perfil e recompensas diárias, notificações, migrações e verificações do backend."
+      },
+      {
+        "id": "document:frontend/AGENTS.md",
+        "name": "AGENTS.md",
+        "type": "document",
+        "summary": "Registra notas sobre a versão de Next.js usada pelo frontend e a origem dos arquivos de orientação que o próprio Next.js gera."
+      },
+      {
+        "id": "document:frontend/README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "Explica como desenvolver e publicar o frontend Next.js, configurar Supabase Auth e integrar as rotas API ao Fastify no mesmo processo. Também descreve os fluxos de autenticação e as recompensas de login diário."
+      },
+      {
+        "id": "document:supabase/tests/CONCURRENCY.md",
+        "name": "CONCURRENCY.md",
+        "type": "document",
+        "summary": "Documenta o teste de integração concorrente da loja: requisitos de banco descartável, coordenação das transações, verificação de bloqueios, limpeza das fixtures e limites de segurança."
+      },
+      {
+        "id": "document:database/README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "Documenta a organização das migrações SQL, os domínios do banco e convenções de segurança e evolução; detalha ainda a economia da loja, carteiras, lançamentos e compras atômicas."
+      },
+      {
+        "id": "document:database/schema/README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "Resume os domínios do esquema relacional, incluindo contas, autorização, sistemas de jogo, progressão, trocas, loja e conversas; aponta as migrações como DDL canônico."
+      }
+    ],
+    "infrastructure": [],
+    "data": [
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:users",
+        "name": "users",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela users."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:user_profiles",
+        "name": "user_profiles",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela user_profiles."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:game_systems",
+        "name": "game_systems",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela game_systems."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:characters",
+        "name": "characters",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela characters."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:character_info",
+        "name": "character_info",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_info."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:abilities",
+        "name": "abilities",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela abilities."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:items",
+        "name": "items",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela items."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:achievements",
+        "name": "achievements",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela achievements."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:user_achievements",
+        "name": "user_achievements",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela user_achievements."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:character_achievements",
+        "name": "character_achievements",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_achievements."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:character_abilities",
+        "name": "character_abilities",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_abilities."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:character_inventory",
+        "name": "character_inventory",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_inventory."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:products",
+        "name": "products",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela products."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:store_products",
+        "name": "store_products",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela store_products."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:purchases",
+        "name": "purchases",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela purchases."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:purchase_items",
+        "name": "purchase_items",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela purchase_items."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:campaigns",
+        "name": "campaigns",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela campaigns."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:campaign_members",
+        "name": "campaign_members",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela campaign_members."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:chat_rooms",
+        "name": "chat_rooms",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela chat_rooms."
+      },
+      {
+        "id": "table:database/migrations/001_initial_schema.sql:messages",
+        "name": "messages",
+        "type": "table",
+        "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela messages."
+      },
+      {
+        "id": "table:database/migrations/002_character_fields.sql:characters",
+        "name": "characters",
+        "type": "table",
+        "summary": "Ajusta o modelo de personagem, renomeando campos e removendo a tabela legada de informações do personagem. A alteração se aplica à tabela characters."
+      },
+      {
+        "id": "table:database/migrations/002_character_fields.sql:character_info",
+        "name": "character_info",
+        "type": "table",
+        "summary": "Ajusta o modelo de personagem, renomeando campos e removendo a tabela legada de informações do personagem. A alteração se aplica à tabela character_info."
+      },
+      {
+        "id": "table:database/migrations/003_supabase_auth.sql:users",
+        "name": "users",
+        "type": "table",
+        "summary": "Integra os usuários existentes ao Supabase Auth e remove o armazenamento local de credenciais. A alteração se aplica à tabela users."
+      },
+      {
+        "id": "table:database/migrations/004_profile_rls.sql:users",
+        "name": "users",
+        "type": "table",
+        "summary": "Ativa Row Level Security e limita leitura e atualização de perfis ao próprio usuário. A alteração se aplica à tabela users."
+      },
+      {
+        "id": "table:database/migrations/004_profile_rls.sql:user_profiles",
+        "name": "user_profiles",
+        "type": "table",
+        "summary": "Ativa Row Level Security e limita leitura e atualização de perfis ao próprio usuário. A alteração se aplica à tabela user_profiles."
+      },
+      {
+        "id": "table:database/migrations/005_daily_login_rewards.sql:game_systems",
+        "name": "game_systems",
+        "type": "table",
+        "summary": "Introduz recompensas e resgates diários por sistema, com registros para auditoria e políticas de acesso. A alteração se aplica à tabela game_systems."
+      },
+      {
+        "id": "table:database/migrations/005_daily_login_rewards.sql:daily_login_rewards",
+        "name": "daily_login_rewards",
+        "type": "table",
+        "summary": "Introduz recompensas e resgates diários por sistema, com registros para auditoria e políticas de acesso. A alteração se aplica à tabela daily_login_rewards."
+      },
+      {
+        "id": "table:database/migrations/005_daily_login_rewards.sql:daily_login_claims",
+        "name": "daily_login_claims",
+        "type": "table",
+        "summary": "Introduz recompensas e resgates diários por sistema, com registros para auditoria e políticas de acesso. A alteração se aplica à tabela daily_login_claims."
+      },
+      {
+        "id": "table:database/migrations/006_user_hierarchy.sql:platform_admins",
+        "name": "platform_admins",
+        "type": "table",
+        "summary": "Cria administradores da plataforma e associa membros aos sistemas com papéis e funções de autorização. A alteração se aplica à tabela platform_admins."
+      },
+      {
+        "id": "table:database/migrations/006_user_hierarchy.sql:game_system_memberships",
+        "name": "game_system_memberships",
+        "type": "table",
+        "summary": "Cria administradores da plataforma e associa membros aos sistemas com papéis e funções de autorização. A alteração se aplica à tabela game_system_memberships."
+      },
+      {
+        "id": "table:database/migrations/007_system_hierarchy_rls.sql:migration",
+        "name": "007_system_hierarchy_rls",
+        "type": "table",
+        "summary": "Aplica políticas de segurança por propriedade, associação e papel às principais entidades do jogo."
+      },
+      {
+        "id": "table:database/migrations/008_daily_login_popup.sql:daily_login_popup_views",
+        "name": "daily_login_popup_views",
+        "type": "table",
+        "summary": "Registra a visualização do aviso de login diário por usuário. A alteração se aplica à tabela daily_login_popup_views."
+      },
+      {
+        "id": "table:database/migrations/009_notifications.sql:notifications",
+        "name": "notifications",
+        "type": "table",
+        "summary": "Cria notificações e funções seguras para leitura, anúncios e moderação de sistemas. A alteração se aplica à tabela notifications."
+      },
+      {
+        "id": "table:database/migrations/010_daily_login_popup_per_system.sql:daily_login_system_popup_views",
+        "name": "daily_login_system_popup_views",
+        "type": "table",
+        "summary": "Move o controle do aviso diário para o escopo de cada sistema de jogo. A alteração se aplica à tabela daily_login_system_popup_views."
+      },
+      {
+        "id": "table:database/migrations/011_character_experience.sql:game_system_xp_settings",
+        "name": "game_system_xp_settings",
+        "type": "table",
+        "summary": "Modela fontes de experiência, configurações por sistema e o histórico de XP dos personagens. A alteração se aplica à tabela game_system_xp_settings."
+      },
+      {
+        "id": "table:database/migrations/011_character_experience.sql:game_system_xp_sources",
+        "name": "game_system_xp_sources",
+        "type": "table",
+        "summary": "Modela fontes de experiência, configurações por sistema e o histórico de XP dos personagens. A alteração se aplica à tabela game_system_xp_sources."
+      },
+      {
+        "id": "table:database/migrations/011_character_experience.sql:character_xp_ledger",
+        "name": "character_xp_ledger",
+        "type": "table",
+        "summary": "Modela fontes de experiência, configurações por sistema e o histórico de XP dos personagens. A alteração se aplica à tabela character_xp_ledger."
+      },
+      {
+        "id": "table:database/migrations/012_character_item_trading.sql:character_inventory",
+        "name": "character_inventory",
+        "type": "table",
+        "summary": "Adiciona ofertas de troca entre personagens e linhas de itens, com índices para consulta e concorrência. A alteração se aplica à tabela character_inventory."
+      },
+      {
+        "id": "table:database/migrations/012_character_item_trading.sql:trade_offers",
+        "name": "trade_offers",
+        "type": "table",
+        "summary": "Adiciona ofertas de troca entre personagens e linhas de itens, com índices para consulta e concorrência. A alteração se aplica à tabela trade_offers."
+      },
+      {
+        "id": "table:database/migrations/012_character_item_trading.sql:trade_offer_lines",
+        "name": "trade_offer_lines",
+        "type": "table",
+        "summary": "Adiciona ofertas de troca entre personagens e linhas de itens, com índices para consulta e concorrência. A alteração se aplica à tabela trade_offer_lines."
+      },
+      {
+        "id": "table:database/migrations/013_system_character_sheets.sql:game_system_character_sheets",
+        "name": "game_system_character_sheets",
+        "type": "table",
+        "summary": "Permite que cada sistema defina e persista fichas de personagem próprias. A alteração se aplica à tabela game_system_character_sheets."
+      },
+      {
+        "id": "table:database/migrations/014_profile_usernames.sql:user_profiles",
+        "name": "user_profiles",
+        "type": "table",
+        "summary": "Adiciona usernames únicos aos perfis e um índice case-insensitive para evitar duplicidade. A alteração se aplica à tabela user_profiles."
+      },
+      {
+        "id": "table:database/migrations/015_visual_character_sheet.sql:game_system_character_sheets",
+        "name": "game_system_character_sheets",
+        "type": "table",
+        "summary": "Expande o modelo visual das fichas de personagem e seus dados configuráveis. A alteração se aplica à tabela game_system_character_sheets."
+      },
+      {
+        "id": "table:database/migrations/016_character_sheet_visual_elements.sql:game_system_character_sheets",
+        "name": "game_system_character_sheets",
+        "type": "table",
+        "summary": "Adiciona elementos visuais estruturados às fichas personalizadas. A alteração se aplica à tabela game_system_character_sheets."
+      },
+      {
+        "id": "table:database/migrations/017_character_sheet_choices_and_conditions.sql:game_system_character_sheets",
+        "name": "game_system_character_sheets",
+        "type": "table",
+        "summary": "Adiciona opções e condições para controlar campos e escolhas nas fichas de personagem. A alteração se aplica à tabela game_system_character_sheets."
+      },
+      {
+        "id": "table:database/migrations/018_system_store_economy.sql:game_systems",
+        "name": "game_systems",
+        "type": "table",
+        "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela game_systems."
+      },
+      {
+        "id": "table:database/migrations/018_system_store_economy.sql:daily_login_rewards",
+        "name": "daily_login_rewards",
+        "type": "table",
+        "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela daily_login_rewards."
+      },
+      {
+        "id": "table:database/migrations/018_system_store_economy.sql:daily_login_claims",
+        "name": "daily_login_claims",
+        "type": "table",
+        "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela daily_login_claims."
+      },
+      {
+        "id": "table:database/migrations/018_system_store_economy.sql:character_wallets",
+        "name": "character_wallets",
+        "type": "table",
+        "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela character_wallets."
+      },
+      {
+        "id": "table:database/migrations/018_system_store_economy.sql:character_currency_ledger",
+        "name": "character_currency_ledger",
+        "type": "table",
+        "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela character_currency_ledger."
+      },
+      {
+        "id": "table:database/migrations/019_system_member_character_search.sql:migration",
+        "name": "019_system_member_character_search",
+        "type": "table",
+        "summary": "Ajusta funções e permissões para permitir busca de personagens por membros do sistema."
+      },
+      {
+        "id": "table:database/migrations/020_game_system_visibility_password.sql:game_systems",
+        "name": "game_systems",
+        "type": "table",
+        "summary": "Armazena controles de visibilidade e acesso por senha nos sistemas de jogo. A alteração se aplica à tabela game_systems."
+      },
+      {
+        "id": "table:database/migrations/020_game_system_visibility_password.sql:system_password_attempts",
+        "name": "system_password_attempts",
+        "type": "table",
+        "summary": "Armazena controles de visibilidade e acesso por senha nos sistemas de jogo. A alteração se aplica à tabela system_password_attempts."
+      },
+      {
+        "id": "table:database/migrations/021_fix_daily_login_inventory_upsert.sql:migration",
+        "name": "021_fix_daily_login_inventory_upsert",
+        "type": "table",
+        "summary": "Corrige a atualização atômica de itens recebidos por resgates de login diário."
+      },
+      {
+        "id": "table:database/migrations/021_system_password_access_enforcement.sql:migration",
+        "name": "021_system_password_access_enforcement",
+        "type": "table",
+        "summary": "Reforça a verificação de senha e as políticas de acesso para sistemas protegidos."
+      },
+      {
+        "id": "table:database/migrations/022_system_discovery_metadata.sql:game_system_tag_catalog",
+        "name": "game_system_tag_catalog",
+        "type": "table",
+        "summary": "Adiciona metadados de descoberta e tags pesquisáveis aos sistemas de jogo. A alteração se aplica à tabela game_system_tag_catalog."
+      },
+      {
+        "id": "table:database/migrations/022_system_discovery_metadata.sql:game_systems",
+        "name": "game_systems",
+        "type": "table",
+        "summary": "Adiciona metadados de descoberta e tags pesquisáveis aos sistemas de jogo. A alteração se aplica à tabela game_systems."
+      },
+      {
+        "id": "table:database/migrations/023_system_lifecycle.sql:migration",
+        "name": "023_system_lifecycle",
+        "type": "table",
+        "summary": "Centraliza operações de ciclo de vida do sistema em funções transacionais e protegidas."
+      },
+      {
+        "id": "table:database/migrations/024_fix_system_tag_labels.sql:migration",
+        "name": "024_fix_system_tag_labels",
+        "type": "table",
+        "summary": "Corrige a normalização e os rótulos de tags dos sistemas de jogo."
+      },
+      {
+        "id": "table:database/migrations/025_require_email_confirmation_for_system_deletion.sql:migration",
+        "name": "025_require_email_confirmation_for_system_deletion",
+        "type": "table",
+        "summary": "Exige confirmação por email antes de concluir a exclusão de um sistema."
+      },
+      {
+        "id": "table:database/migrations/026_atomic_system_store_update.sql:migration",
+        "name": "026_atomic_system_store_update",
+        "type": "table",
+        "summary": "Torna atômicas as alterações de configurações e catálogo da loja de um sistema."
+      },
+      {
+        "id": "table:database/migrations/027_system_events.sql:game_system_events",
+        "name": "game_system_events",
+        "type": "table",
+        "summary": "Cria eventos de sistema com horários e índices para listagem cronológica. A alteração se aplica à tabela game_system_events."
+      },
+      {
+        "id": "table:database/migrations/028_campaign_chat_room_authorization.sql:chat_rooms",
+        "name": "chat_rooms",
+        "type": "table",
+        "summary": "Atualiza regras de autorização das salas de campanha e conversas. A alteração se aplica à tabela chat_rooms."
+      },
+      {
+        "id": "table:database/migrations/029_lobby_creator_tools.sql:game_system_events",
+        "name": "game_system_events",
+        "type": "table",
+        "summary": "Adiciona configurações e suporte de dados para ferramentas do criador no lobby. A alteração se aplica à tabela game_system_events."
+      },
+      {
+        "id": "table:database/migrations/029_lobby_creator_tools.sql:game_system_lobby_settings",
+        "name": "game_system_lobby_settings",
+        "type": "table",
+        "summary": "Adiciona configurações e suporte de dados para ferramentas do criador no lobby. A alteração se aplica à tabela game_system_lobby_settings."
+      },
+      {
+        "id": "table:database/migrations/030_store_item_images.sql:items",
+        "name": "items",
+        "type": "table",
+        "summary": "Ajusta permissões e referências de imagens dos itens da loja. A alteração se aplica à tabela items."
+      },
+      {
+        "id": "table:database/migrations/031_store_currency_and_offer_autosave.sql:game_systems",
+        "name": "game_systems",
+        "type": "table",
+        "summary": "Atualiza políticas e funções para moeda e salvamento automático de ofertas. A alteração se aplica à tabela game_systems."
+      },
+      {
+        "id": "table:database/migrations/032_chats_as_game_space.sql:campaigns",
+        "name": "campaigns",
+        "type": "table",
+        "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela campaigns."
+      },
+      {
+        "id": "table:database/migrations/032_chats_as_game_space.sql:campaign_members",
+        "name": "campaign_members",
+        "type": "table",
+        "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela campaign_members."
+      },
+      {
+        "id": "table:database/migrations/032_chats_as_game_space.sql:chat_members",
+        "name": "chat_members",
+        "type": "table",
+        "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela chat_members."
+      },
+      {
+        "id": "table:database/migrations/032_chats_as_game_space.sql:chat_rooms",
+        "name": "chat_rooms",
+        "type": "table",
+        "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela chat_rooms."
+      },
+      {
+        "id": "table:database/migrations/032_chats_as_game_space.sql:messages",
+        "name": "messages",
+        "type": "table",
+        "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela messages."
+      },
+      {
+        "id": "table:database/migrations/032_chats_as_game_space.sql:chats",
+        "name": "chats",
+        "type": "table",
+        "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela chats."
+      },
+      {
+        "id": "table:database/migrations/032_chats_as_game_space.sql:game_system_lobby_settings",
+        "name": "game_system_lobby_settings",
+        "type": "table",
+        "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela game_system_lobby_settings."
+      },
+      {
+        "id": "table:database/migrations/033_store_currency_image_permissions.sql:migration",
+        "name": "033_store_currency_image_permissions",
+        "type": "table",
+        "summary": "Ajusta permissões de imagens ligadas à moeda da loja."
+      },
+      {
+        "id": "table:database/migrations/034_daily_login_per_character.sql:daily_login_claims",
+        "name": "daily_login_claims",
+        "type": "table",
+        "summary": "Torna os resgates diários específicos por personagem e atualiza a função de consulta. A alteração se aplica à tabela daily_login_claims."
+      },
+      {
+        "id": "table:database/migrations/035_account_settings.sql:user_profiles",
+        "name": "user_profiles",
+        "type": "table",
+        "summary": "Adiciona solicitações de transferência de propriedade de sistemas e configurações de conta. A alteração se aplica à tabela user_profiles."
+      },
+      {
+        "id": "table:database/migrations/035_account_settings.sql:system_owner_transfer_requests",
+        "name": "system_owner_transfer_requests",
+        "type": "table",
+        "summary": "Adiciona solicitações de transferência de propriedade de sistemas e configurações de conta. A alteração se aplica à tabela system_owner_transfer_requests."
+      },
+      {
+        "id": "table:database/migrations/035_friendships.sql:friend_requests",
+        "name": "friend_requests",
+        "type": "table",
+        "summary": "Cria pedidos de amizade com estados e índices para consultas por participante. A alteração se aplica à tabela friend_requests."
+      },
+      {
+        "id": "table:database/migrations/036_profile_customization.sql:user_profiles",
+        "name": "user_profiles",
+        "type": "table",
+        "summary": "Adiciona atualização controlada de preferências e campos do perfil do usuário. A alteração se aplica à tabela user_profiles."
+      },
+      {
+        "id": "table:database/migrations/036_rpg_invitations.sql:rpg_invitations",
+        "name": "rpg_invitations",
+        "type": "table",
+        "summary": "Implementa convites para sistemas e conversas, busca social e operações de amizade. A alteração se aplica à tabela rpg_invitations."
+      },
+      {
+        "id": "table:database/migrations/037_allow_profile_timestamp_updates.sql:migration",
+        "name": "037_allow_profile_timestamp_updates",
+        "type": "table",
+        "summary": "Permite que a função de proteção de perfil aceite atualizações de timestamps."
+      },
+      {
+        "id": "table:database/migrations/037_public_player_profiles.sql:profile_comments",
+        "name": "profile_comments",
+        "type": "table",
+        "summary": "Cria comentários em perfis públicos e mensagens diretas, com funções de leitura e envio. A alteração se aplica à tabela profile_comments."
+      },
+      {
+        "id": "table:database/migrations/037_public_player_profiles.sql:direct_messages",
+        "name": "direct_messages",
+        "type": "table",
+        "summary": "Cria comentários em perfis públicos e mensagens diretas, com funções de leitura e envio. A alteração se aplica à tabela direct_messages."
+      },
+      {
+        "id": "table:database/migrations/038_username_change_once.sql:user_profiles",
+        "name": "user_profiles",
+        "type": "table",
+        "summary": "Impede alterações repetidas do username depois da mudança inicial. A alteração se aplica à tabela user_profiles."
+      },
+      {
+        "id": "table:supabase/migrations/001_initial_schema.sql:migration",
+        "name": "Migração: Esquema inicial",
+        "type": "table",
+        "summary": "Migração SQL que define as tabelas centrais de usuários, perfis, sistemas, personagens, conquistas, inventário, campanhas, conversas e compras."
+      },
+      {
+        "id": "table:supabase/migrations/002_character_fields.sql:migration",
+        "name": "Migração: Campos de personagem",
+        "type": "table",
+        "summary": "Migração SQL que move os dados principais de personagem para `characters` e acrescenta campos de clã, altura e patente."
+      },
+      {
+        "id": "table:supabase/migrations/003_supabase_auth.sql:migration",
+        "name": "Migração: Integração com Supabase Auth",
+        "type": "table",
+        "summary": "Migração SQL que vincula os usuários existentes ao Supabase Auth e substitui o armazenamento local de credenciais."
+      },
+      {
+        "id": "table:supabase/migrations/004_profile_rls.sql:migration",
+        "name": "Migração: Segurança de perfis",
+        "type": "table",
+        "summary": "Migração SQL que restringe privilégios e configura RLS para que usuários autenticados leiam perfis e alterem apenas campos públicos."
+      },
+      {
+        "id": "table:supabase/migrations/005_daily_login_rewards.sql:migration",
+        "name": "Migração: Recompensas de login diário",
+        "type": "table",
+        "summary": "Migração SQL que adiciona calendários semanais de recompensas por sistema e uma operação transacional de resgate vinculada ao usuário autenticado."
+      },
+      {
+        "id": "table:supabase/migrations/006_user_hierarchy.sql:migration",
+        "name": "Migração: Hierarquia de usuários",
+        "type": "table",
+        "summary": "Migração SQL que cria administradores globais, papéis por sistema e funções privadas de autorização."
+      },
+      {
+        "id": "table:supabase/migrations/007_system_hierarchy_rls.sql:migration",
+        "name": "Migração: RLS da hierarquia",
+        "type": "table",
+        "summary": "Migração SQL que define políticas de acesso por papel para sistemas, personagens e recursos associados."
+      },
+      {
+        "id": "table:supabase/migrations/008_daily_login_popup.sql:migration",
+        "name": "Migração: Popup de login diário",
+        "type": "table",
+        "summary": "Migração SQL que registra a visualização do popup diário e fornece uma operação privada para limitar sua frequência."
+      },
+      {
+        "id": "table:supabase/migrations/20261111014645_notifications.sql:migration",
+        "name": "Migração: Notificações",
+        "type": "table",
+        "summary": "Migração SQL que cria a caixa de entrada persistente por usuário para mudanças de papel e avisos dos sistemas."
+      },
+      {
+        "id": "table:supabase/migrations/20261111021246_daily_login_popup_per_system.sql:migration",
+        "name": "Migração: Popup diário por sistema",
+        "type": "table",
+        "summary": "Migração SQL que adiciona o registro de visualização do popup associado a cada sistema de jogo."
+      },
+      {
+        "id": "table:supabase/migrations/20261111181232_character_experience.sql:migration",
+        "name": "Migração: Experiência de personagem",
+        "type": "table",
+        "summary": "Migração SQL que adiciona fontes de experiência por sistema, configurações e um histórico de alterações por personagem."
+      },
+      {
+        "id": "table:supabase/migrations/20261111190000_character_item_trading.sql:migration",
+        "name": "Migração: Troca de itens",
+        "type": "table",
+        "summary": "Migração SQL que implementa propostas de troca, linhas de oferta e operações transacionais para negociar itens entre personagens."
+      },
+      {
+        "id": "table:supabase/migrations/20261111200000_system_character_sheets.sql:migration",
+        "name": "Migração: Fichas de personagem por sistema",
+        "type": "table",
+        "summary": "Migração SQL que adiciona configurações de ficha e dados específicos de personagem vinculados a cada sistema."
+      },
+      {
+        "id": "table:supabase/migrations/20261112183000_profile_usernames.sql:migration",
+        "name": "Migração: Nomes de usuário",
+        "type": "table",
+        "summary": "Migração SQL que adiciona nomes de usuário aos perfis e garante unicidade sem diferenciar maiúsculas e minúsculas."
+      },
+      {
+        "id": "table:supabase/migrations/20261112193504_visual_character_sheet.sql:migration",
+        "name": "Migração: Fichas visuais",
+        "type": "table",
+        "summary": "Migração SQL que armazena configurações visuais e componentes reutilizáveis para fichas de personagem."
+      },
+      {
+        "id": "table:supabase/migrations/20261112210000_system_store_economy.sql:migration",
+        "name": "Migração: Economia da loja",
+        "type": "table",
+        "summary": "Migração SQL que adiciona moedas por sistema e um livro-razão de transações para o saldo dos personagens."
+      },
+      {
+        "id": "table:supabase/migrations/20261112223000_character_sheet_visual_elements.sql:migration",
+        "name": "Migração: Elementos visuais da ficha",
+        "type": "table",
+        "summary": "Migração SQL que adiciona elementos configuráveis à interface da ficha visual de personagem."
+      },
+      {
+        "id": "table:supabase/migrations/20261112224500_character_sheet_choices_and_conditions.sql:migration",
+        "name": "Migração: Escolhas e condições da ficha",
+        "type": "table",
+        "summary": "Migração SQL que expande as definições da ficha com escolhas condicionais e regras de visibilidade."
+      },
+      {
+        "id": "table:supabase/migrations/20261113220000_game_system_visibility_password.sql:migration",
+        "name": "Migração: Visibilidade e senha dos sistemas",
+        "type": "table",
+        "summary": "Migração SQL que adiciona metadados de descoberta, visibilidade e proteção por senha aos sistemas de jogo."
+      },
+      {
+        "id": "table:supabase/migrations/20261113221000_system_password_access_enforcement.sql:migration",
+        "name": "Migração: Acesso protegido por senha",
+        "type": "table",
+        "summary": "Migração SQL que aplica a validação de senha nos fluxos de acesso a sistemas privados."
+      },
+      {
+        "id": "table:supabase/migrations/20261114001000_system_discovery_metadata.sql:migration",
+        "name": "Migração: Metadados de descoberta",
+        "type": "table",
+        "summary": "Migração SQL que adiciona tags e índices para classificar e localizar sistemas de jogo."
+      },
+      {
+        "id": "table:supabase/migrations/20261114144818_system_lifecycle.sql:migration",
+        "name": "Migração: Ciclo de vida dos sistemas",
+        "type": "table",
+        "summary": "Migração SQL que define estados de ciclo de vida e operações de arquivamento para sistemas de jogo."
+      },
+      {
+        "id": "table:supabase/migrations/20261114145224_fix_system_tag_labels.sql:migration",
+        "name": "Migração: Correção de rótulos de tags",
+        "type": "table",
+        "summary": "Migração SQL que normaliza rótulos de tags existentes para manter a classificação dos sistemas consistente."
+      },
+      {
+        "id": "table:supabase/migrations/20261114151644_require_email_confirmation_for_system_deletion.sql:migration",
+        "name": "Migração: Confirmação para exclusão",
+        "type": "table",
+        "summary": "Migração SQL que exige confirmação por e-mail antes de excluir um sistema de jogo."
+      },
+      {
+        "id": "table:supabase/migrations/20261114210354_system_member_character_search.sql:migration",
+        "name": "Migração: Busca de personagens de membros",
+        "type": "table",
+        "summary": "Migração SQL que amplia a busca de membros para localizar personagens dentro dos sistemas autorizados."
+      },
+      {
+        "id": "table:supabase/migrations/20261114215315_atomic_system_store_update.sql:migration",
+        "name": "Migração: Atualização atômica da loja",
+        "type": "table",
+        "summary": "Migração SQL que agrupa a atualização da loja de um sistema em uma única operação consistente."
+      },
+      {
+        "id": "table:supabase/migrations/20261114223717_system_events.sql:migration",
+        "name": "Migração: Eventos de sistema",
+        "type": "table",
+        "summary": "Migração SQL que cria eventos de campanha associados aos sistemas e índices para consultá-los por data."
+      },
+      {
+        "id": "table:supabase/migrations/20261114232728_campaign_chat_room_authorization.sql:migration",
+        "name": "Migração: Autorização de salas de campanha",
+        "type": "table",
+        "summary": "Migração SQL que ajusta as regras de autorização de salas de chat vinculadas às campanhas."
+      },
+      {
+        "id": "table:supabase/migrations/20261115013118_lobby_creator_tools.sql:migration",
+        "name": "Migração: Ferramentas do criador de lobby",
+        "type": "table",
+        "summary": "Migração SQL que adiciona configurações e permissões para as ferramentas de criação de lobby."
+      },
+      {
+        "id": "table:supabase/migrations/20261115120000_store_item_images.sql:migration",
+        "name": "Migração: Imagens de itens da loja",
+        "type": "table",
+        "summary": "Migração SQL que permite associar imagens aos itens disponibilizados na loja do sistema."
+      },
+      {
+        "id": "table:supabase/migrations/20261115125424_store_currency_and_offer_autosave.sql:migration",
+        "name": "Migração: Moeda e salvamento de ofertas",
+        "type": "table",
+        "summary": "Migração SQL que atualiza a persistência de moeda e o salvamento automático de ofertas de troca."
+      },
+      {
+        "id": "table:supabase/migrations/20261115140000_chats_as_game_space.sql:migration",
+        "name": "Migração: Conversas como espaço de jogo",
+        "type": "table",
+        "summary": "Migração SQL que adapta salas de chat para funcionarem como espaços de jogo com mensagens e dados de campanha."
+      },
+      {
+        "id": "table:supabase/migrations/20261115155939_store_currency_image_permissions.sql:migration",
+        "name": "Migração: Permissões de imagens e moeda",
+        "type": "table",
+        "summary": "Migração SQL que ajusta as permissões de acesso às imagens da loja e aos dados de moeda."
+      },
+      {
+        "id": "table:supabase/migrations/20261115162952_daily_login_per_character.sql:migration",
+        "name": "Migração: Login diário por personagem",
+        "type": "table",
+        "summary": "Migração SQL que migra o registro e as regras de recompensas diárias para o escopo de cada personagem."
+      },
+      {
+        "id": "table:supabase/migrations/20261115170000_remove_character_sheet_conditions.sql:migration",
+        "name": "Migração: Remoção de condições da ficha",
+        "type": "table",
+        "summary": "Migração SQL que remove condições antigas da estrutura e dos dados das fichas de personagem."
+      },
+      {
+        "id": "table:supabase/migrations/20261115180000_account_settings.sql:migration",
+        "name": "Migração: Configurações de conta",
+        "type": "table",
+        "summary": "Migração SQL que adiciona campos de perfil e solicitações de transferência de propriedade de sistemas."
+      },
+      {
+        "id": "table:supabase/migrations/20261115210000_profile_customization.sql:migration",
+        "name": "Migração: Personalização de perfil",
+        "type": "table",
+        "summary": "Migração SQL que adiciona banner, status e interesses ao perfil e define uma operação controlada para atualizá-los."
+      },
+      {
+        "id": "table:supabase/migrations/20261116180000_friendships.sql:migration",
+        "name": "Migração: Amizades",
+        "type": "table",
+        "summary": "Migração SQL que cria solicitações de amizade com estados e restrições para evitar pares duplicados ou autoconvites."
+      },
+      {
+        "id": "table:supabase/migrations/20261116190000_rpg_invitations.sql:migration",
+        "name": "Migração: Convites de RPG",
+        "type": "table",
+        "summary": "Migração SQL que implementa convites para sistemas de RPG e valida a busca social usada no fluxo."
+      },
+      {
+        "id": "table:supabase/migrations/20261116191152_public_player_profiles.sql:migration",
+        "name": "Migração: Perfis públicos de jogadores",
+        "type": "table",
+        "summary": "Migração SQL que adiciona comentários e mensagens diretas associados a perfis públicos."
+      },
+      {
+        "id": "table:supabase/migrations/20261116195000_allow_profile_timestamp_updates.sql:migration",
+        "name": "Migração: Proteção de campos de perfil",
+        "type": "table",
+        "summary": "Migração SQL que refina o gatilho que impede alterações não autorizadas nos campos protegidos do perfil."
+      },
+      {
+        "id": "table:supabase/migrations/20261116200000_username_change_once.sql:migration",
+        "name": "Migração: Limite de alteração de nome",
+        "type": "table",
+        "summary": "Migração SQL que impõe a regra de que o nome de usuário do perfil só pode ser alterado uma vez."
+      },
+      {
+        "id": "table:supabase/migrations/20261117013820_system_lobby_presence.sql:migration",
+        "name": "Migração: Presença no lobby",
+        "type": "table",
+        "summary": "Migração SQL que armazena batimentos de presença dos jogadores por sistema e fornece controle de acesso restrito."
+      },
+      {
+        "id": "table:supabase/migrations/20261117014550_lobby_welcome_copy_defaults.sql:migration",
+        "name": "Migração: Textos padrão de boas-vindas",
+        "type": "table",
+        "summary": "Migração SQL que define título e mensagem padrão para a recepção do lobby."
+      },
+      {
+        "id": "table:supabase/tests/004_profile_rls.test.sql:test_suite",
+        "name": "004_profile_rls.test.sql",
+        "type": "table",
+        "summary": "Valida o isolamento de linhas e as permissões de leitura e escrita para perfis e contas, cobrindo usuários anônimos, autenticados e proprietários."
+      },
+      {
+        "id": "table:supabase/tests/005_daily_login_rewards.test.sql:test_suite",
+        "name": "005_daily_login_rewards.test.sql",
+        "type": "table",
+        "summary": "Verifica agendas de recompensas diárias, limites de resgate, permissões de proprietários e jogadores e consistência dos prêmios concedidos."
+      },
+      {
+        "id": "table:supabase/tests/006_user_hierarchy.test.sql:test_suite",
+        "name": "006_user_hierarchy.test.sql",
+        "type": "table",
+        "summary": "Testa a hierarquia entre administradores da plataforma e membros de sistemas de jogo, incluindo políticas de acesso e funções auxiliares."
+      },
+      {
+        "id": "table:supabase/tests/008_daily_login_popup.test.sql:test_suite",
+        "name": "008_daily_login_popup.test.sql",
+        "type": "table",
+        "summary": "Confirma o registro e a exibição de avisos de login diário por usuário, impedindo alterações no estado de outras pessoas."
+      },
+      {
+        "id": "table:supabase/tests/010_daily_login_popup_per_system.test.sql:test_suite",
+        "name": "010_daily_login_popup_per_system.test.sql",
+        "type": "table",
+        "summary": "Valida que o estado de avisos de login diário é independente para cada sistema de jogo."
+      },
+      {
+        "id": "table:supabase/tests/011_character_experience.test.sql:test_suite",
+        "name": "011_character_experience.test.sql",
+        "type": "table",
+        "summary": "Exercita configurações de XP, fontes de experiência e histórico de XP de personagens, incluindo autorização e efeitos de resgate."
+      },
+      {
+        "id": "table:supabase/tests/012_character_item_trading.test.sql:test_suite",
+        "name": "012_character_item_trading.test.sql",
+        "type": "table",
+        "summary": "Testa ofertas de troca entre personagens, respostas, contrapropostas, cancelamento, expiração e transferência segura de itens."
+      },
+      {
+        "id": "table:supabase/tests/013_system_character_sheets.test.sql:test_suite",
+        "name": "013_system_character_sheets.test.sql",
+        "type": "table",
+        "summary": "Verifica a criação e o preenchimento de fichas de personagem por sistema, inclusive metadados de descoberta e restrições de acesso."
+      },
+      {
+        "id": "table:supabase/tests/016_character_sheet_visual_elements.test.sql:test_suite",
+        "name": "016_character_sheet_visual_elements.test.sql",
+        "type": "table",
+        "summary": "Confirma que elementos visuais da ficha são persistidos e acessíveis conforme as permissões do sistema."
+      },
+      {
+        "id": "table:supabase/tests/017_character_sheet_choices.test.sql:test_suite",
+        "name": "017_character_sheet_choices.test.sql",
+        "type": "table",
+        "summary": "Valida escolhas de ficha e suas condições, incluindo persistência e leitura por usuários autorizados."
+      },
+      {
+        "id": "table:supabase/tests/018_system_store_economy.test.sql:test_suite",
+        "name": "018_system_store_economy.test.sql",
+        "type": "table",
+        "summary": "Exercita a economia do sistema: saldos, compras, recompensas em moeda, ledger e reversão atômica quando uma operação falha."
+      },
+      {
+        "id": "table:supabase/tests/019_system_member_character_search.test.sql:test_suite",
+        "name": "019_system_member_character_search.test.sql",
+        "type": "table",
+        "summary": "Testa a busca de personagens por membros do sistema e restringe os resultados segundo participação e permissões."
+      },
+      {
+        "id": "table:supabase/tests/021_system_password_access_enforcement.test.sql:test_suite",
+        "name": "021_system_password_access_enforcement.test.sql",
+        "type": "table",
+        "summary": "Confirma a validação de acesso a sistemas protegidos por senha e o bloqueio de tentativas não autorizadas."
+      },
+      {
+        "id": "table:supabase/tests/022_system_discovery_metadata.test.sql:test_suite",
+        "name": "022_system_discovery_metadata.test.sql",
+        "type": "table",
+        "summary": "Verifica metadados e tags usados na descoberta de sistemas, incluindo validação e permissões de alteração."
+      },
+      {
+        "id": "table:supabase/tests/023_system_lifecycle.test.sql:test_suite",
+        "name": "023_system_lifecycle.test.sql",
+        "type": "table",
+        "summary": "Testa transições do ciclo de vida de sistemas de jogo, regras de encerramento e acesso dos participantes."
+      },
+      {
+        "id": "table:supabase/tests/027_system_events.test.sql:test_suite",
+        "name": "027_system_events.test.sql",
+        "type": "table",
+        "summary": "Valida a criação e consulta de eventos do sistema, respeitando papéis de proprietário, membro e administrador."
+      },
+      {
+        "id": "table:supabase/tests/029_lobby_creator_tools_integrity.test.sql:test_suite",
+        "name": "029_lobby_creator_tools_integrity.test.sql",
+        "type": "table",
+        "summary": "Confirma a integridade das ferramentas de criação do lobby e das configurações que controlam a participação."
+      },
+      {
+        "id": "table:supabase/tests/030_chats_as_game_space.test.sql:test_suite",
+        "name": "030_chats_as_game_space.test.sql",
+        "type": "table",
+        "summary": "Verifica chats como espaço principal de jogo, associação de membros e vínculo direto das mensagens ao chat."
+      },
+      {
+        "id": "table:supabase/tests/031_friendships.test.sql:test_suite",
+        "name": "031_friendships.test.sql",
+        "type": "table",
+        "summary": "Testa solicitações e relações de amizade, incluindo aceitação, recusas, duplicatas e isolamento entre usuários."
+      },
+      {
+        "id": "table:supabase/tests/032_rpg_invitations.test.sql:test_suite",
+        "name": "032_rpg_invitations.test.sql",
+        "type": "table",
+        "summary": "Valida convites de RPG, seus destinatários e estados, além das regras de autorização e uso."
+      }
+    ],
+    "config": [
+      {
+        "id": "config:package.json",
+        "name": "package.json",
+        "type": "config",
+        "summary": "Configura o monorepo npm com workspaces para backend e frontend e define comandos agregados de build, desenvolvimento, testes e verificação de tipos. O frontend e o backend têm seus próprios manifestos e scripts."
+      },
+      {
+        "id": "config:vercel.json",
+        "name": "vercel.json",
+        "type": "config",
+        "summary": "Declara o frontend Next.js como um serviço Vercel enraizado em `frontend/` e encaminha as requisições recebidas para esse serviço."
+      },
+      {
+        "id": "config:backend/.env.example",
+        "name": ".env.example",
+        "type": "config",
+        "summary": "Modelo de configuração local do backend com URL e chave publicável do Supabase, porta HTTP e ambiente de execução."
+      },
+      {
+        "id": "config:backend/package.json",
+        "name": "package.json",
+        "type": "config",
+        "summary": "Define o workspace privado do backend, seus comandos de desenvolvimento, teste, build e typecheck, e as dependências Fastify, Supabase e Zod."
+      },
+      {
+        "id": "config:backend/tsconfig.build.json",
+        "name": "tsconfig.build.json",
+        "type": "config",
+        "summary": "Configura a compilação de produção do backend para incluir os arquivos TypeScript de src e gerar declarações, herdando as opções base do workspace."
+      },
+      {
+        "id": "config:backend/tsconfig.json",
+        "name": "tsconfig.json",
+        "type": "config",
+        "summary": "Define a compilação TypeScript do backend com NodeNext, modo estrito, verificações adicionais de tipos e diretórios de saída para código e testes."
+      },
+      {
+        "id": "config:frontend/.env.example",
+        "name": ".env.example",
+        "type": "config",
+        "summary": "Lista as duas variáveis públicas necessárias para apontar o frontend ao Supabase local: URL do projeto e chave publishable."
+      },
+      {
+        "id": "config:frontend/package.json",
+        "name": "package.json",
+        "type": "config",
+        "summary": "Define o workspace privado do frontend, que exige Node.js 24 ou superior e usa Next.js e React. Oferece comandos para desenvolvimento, build, execução, testes e verificação de tipos."
+      },
+      {
+        "id": "config:frontend/tsconfig.json",
+        "name": "tsconfig.json",
+        "type": "config",
+        "summary": "Configura o TypeScript do frontend em modo estrito, com JSX React, resolução de módulos bundler e alias `@/*` para `src/*`. Inclui os arquivos TypeScript da aplicação e exclui `node_modules`."
+      },
+      {
+        "id": "config:.ua/config.json",
+        "name": "config.json",
+        "type": "config",
+        "summary": "Preferência do Understand Anything para gerar o conteúdo do grafo em português."
+      },
+      {
+        "id": "config:supabase/config.toml",
+        "name": "config.toml",
+        "type": "config",
+        "summary": "Configura os serviços locais do Supabase, incluindo API, armazenamento, banco de dados e autenticação; também seleciona os templates de e-mail."
+      }
+    ]
+  },
+  "clusters": [],
+  "layers": {
+    "count": 7,
+    "list": [
+      {
+        "id": "layer:backend-api",
+        "name": "Backend e API",
+        "description": "Implementa autenticação, rotas Fastify, regras de domínio, acesso a dados e integração da API com o Supabase."
+      },
+      {
+        "id": "layer:frontend-web",
+        "name": "Aplicação web",
+        "description": "Reúne as rotas, telas, componentes, estilos e integrações do cliente Next.js e React."
+      },
+      {
+        "id": "layer:data-supabase",
+        "name": "Banco de dados e Supabase",
+        "description": "Define o esquema relacional, migrações, políticas de segurança, funções e recursos de autenticação do Supabase."
+      },
+      {
+        "id": "layer:tests",
+        "name": "Testes e validação",
+        "description": "Verifica os contratos da API e da interface, as regras de banco de dados e os cenários de integração."
+      },
+      {
+        "id": "layer:configuration",
+        "name": "Configuração e implantação",
+        "description": "Centraliza manifestos dos workspaces, opções de build e configurações de execução e implantação."
+      },
+      {
+        "id": "layer:documentation",
+        "name": "Documentação",
+        "description": "Explica a arquitetura, autenticação, estrutura do banco de dados e orientações de desenvolvimento do projeto."
+      },
+      {
+        "id": "layer:design-prototypes",
+        "name": "Protótipos de interface",
+        "description": "Guarda explorações visuais e protótipos HTML usados para avaliar diferentes experiências e apresentações do RPG."
+      }
+    ]
+  },
+  "nodeSummaryIndex": {
+    "file:backend/src/authenticate-user.ts": {
+      "name": "authenticate-user.ts",
+      "type": "file",
+      "summary": "Valida o formato do bearer token e consulta o Supabase Auth para autenticar o usuário."
+    },
+    "file:backend/src/clients/supabase.ts": {
+      "name": "supabase.ts",
+      "type": "file",
+      "summary": "Cria um cliente Supabase associado ao token do usuário para chamadas autenticadas à API."
+    },
+    "file:backend/src/config.ts": {
+      "name": "config.ts",
+      "type": "file",
+      "summary": "Valida as variáveis de ambiente e monta a configuração usada nos ambientes de execução e desenvolvimento."
+    },
+    "file:backend/src/modules/account/account.routes.ts": {
+      "name": "account.routes.ts",
+      "type": "file",
+      "summary": "Registra endpoints de consulta, atualização, desativação e transferência relacionados à conta do usuário."
+    },
+    "file:backend/src/modules/chats/chats.repository.ts": {
+      "name": "chats.repository.ts",
+      "type": "file",
+      "summary": "Implementa consultas e mutações de chats e mensagens, verificando o acesso do personagem ao chat."
+    },
+    "file:backend/src/modules/chats/chats.routes.ts": {
+      "name": "chats.routes.ts",
+      "type": "file",
+      "summary": "Expõe endpoints autenticados para listar chats de personagens, obter mensagens e enviar mensagens."
+    },
+    "file:backend/src/modules/chats/chats.schema.ts": {
+      "name": "chats.schema.ts",
+      "type": "file",
+      "summary": "Define schemas Zod para parâmetros, mensagens e respostas dos endpoints de chat."
+    },
+    "file:backend/src/modules/direct-messages/direct-messages.routes.ts": {
+      "name": "direct-messages.routes.ts",
+      "type": "file",
+      "summary": "Registra as rotas de mensagens diretas e aplica autenticação às operações de conversa entre usuários."
+    },
+    "file:backend/src/modules/experience/experience.repository.ts": {
+      "name": "experience.repository.ts",
+      "type": "file",
+      "summary": "Consulta e atualiza configurações de experiência e o histórico de experiência dos personagens."
+    },
+    "file:backend/src/modules/experience/experience.routes.ts": {
+      "name": "experience.routes.ts",
+      "type": "file",
+      "summary": "Expõe endpoints autenticados para consultar e administrar configurações e dados de experiência."
+    },
+    "file:backend/src/modules/experience/experience.schema.ts": {
+      "name": "experience.schema.ts",
+      "type": "file",
+      "summary": "Define schemas de entrada e saída para configurações, fontes e resumos de experiência."
+    },
+    "file:backend/src/modules/health/health.routes.ts": {
+      "name": "health.routes.ts",
+      "type": "file",
+      "summary": "Registra a rota de saúde usada para verificar se a API está respondendo."
+    },
+    "file:backend/src/modules/lobby-presence/lobby-presence.repository.ts": {
+      "name": "lobby-presence.repository.ts",
+      "type": "file",
+      "summary": "Atualiza o heartbeat de presença de um sistema de jogo no lobby."
+    },
+    "file:backend/src/modules/lobby-presence/lobby-presence.routes.ts": {
+      "name": "lobby-presence.routes.ts",
+      "type": "file",
+      "summary": "Expõe operações autenticadas de presença no lobby e consulta da contagem de participantes."
+    },
+    "file:backend/src/modules/lobby-presence/lobby-presence.schema.ts": {
+      "name": "lobby-presence.schema.ts",
+      "type": "file",
+      "summary": "Valida os parâmetros e a resposta de contagem da presença no lobby."
+    },
+    "file:backend/src/modules/notifications/notifications.repository.ts": {
+      "name": "notifications.repository.ts",
+      "type": "file",
+      "summary": "Lê, transforma e atualiza notificações do usuário e cria anúncios para sistemas de jogo."
+    },
+    "file:backend/src/modules/notifications/notifications.routes.ts": {
+      "name": "notifications.routes.ts",
+      "type": "file",
+      "summary": "Expõe endpoints autenticados para listar notificações, marcá-las como lidas e publicar anúncios."
+    },
+    "file:backend/src/modules/notifications/notifications.schema.ts": {
+      "name": "notifications.schema.ts",
+      "type": "file",
+      "summary": "Define schemas para notificações, paginação, anúncios e resultados de mutação."
+    },
+    "file:backend/src/modules/social/public-profile.routes.ts": {
+      "name": "public-profile.routes.ts",
+      "type": "file",
+      "summary": "Registra endpoints públicos de perfil e as operações de perfil que exigem usuário autenticado."
+    },
+    "file:backend/src/modules/social/social.repository.ts": {
+      "name": "social.repository.ts",
+      "type": "file",
+      "summary": "Implementa busca de perfis, amizades e convites entre usuários, sistemas e chats."
+    },
+    "file:backend/src/modules/social/social.routes.ts": {
+      "name": "social.routes.ts",
+      "type": "file",
+      "summary": "Registra rotas de busca social, amizades e convites para sistemas e chats, com validação e respostas HTTP."
+    },
+    "file:backend/src/modules/social/social.schema.ts": {
+      "name": "social.schema.ts",
+      "type": "file",
+      "summary": "Define schemas para busca de perfis, amizades, decisões de convite e respostas das operações sociais."
+    },
+    "file:backend/src/plugins/authenticate.ts": {
+      "name": "authenticate.ts",
+      "type": "file",
+      "summary": "Adapta a autenticação Supabase para preHandlers Fastify, incluindo contas inativas e opcionais."
+    },
+    "file:backend/src/register-app.ts": {
+      "name": "register-app.ts",
+      "type": "file",
+      "summary": "Registra plugins e módulos de rota da API Fastify em uma única aplicação."
+    },
+    "file:backend/src/server.ts": {
+      "name": "server.ts",
+      "type": "file",
+      "summary": "Inicializa o servidor HTTP de desenvolvimento e inicia a aplicação Fastify."
+    },
+    "file:backend/src/vercel-app.ts": {
+      "name": "vercel-app.ts",
+      "type": "file",
+      "summary": "Prepara a aplicação Fastify para execução integrada às funções do Vercel."
+    },
+    "file:backend/test/config.test.ts": {
+      "name": "config.test.ts",
+      "type": "file",
+      "summary": "Testa a leitura e validação da configuração, incluindo cenários de ambiente inválido."
+    },
+    "file:backend/test/social.schema.test.ts": {
+      "name": "social.schema.test.ts",
+      "type": "file",
+      "summary": "Testa os schemas Zod de parâmetros e entradas usados nas rotas sociais."
+    },
+    "file:backend/src/modules/daily-login/daily-login.repository.ts": {
+      "name": "daily-login.repository.ts",
+      "type": "file",
+      "summary": "Consulta e atualiza dados de login diário, calendários de recompensas e resgates de personagens por meio do Supabase."
+    },
+    "file:backend/src/modules/daily-login/daily-login.routes.ts": {
+      "name": "daily-login.routes.ts",
+      "type": "file",
+      "summary": "Registra a API de login diário, validando requisições e aplicando regras de acesso antes de consultar ou alterar recompensas."
+    },
+    "file:backend/src/modules/daily-login/daily-login.schema.ts": {
+      "name": "daily-login.schema.ts",
+      "type": "file",
+      "summary": "Define os esquemas de validação para resgates, recompensas e calendários de login diário."
+    },
+    "file:backend/src/modules/game-systems/game-systems.repository.ts": {
+      "name": "game-systems.repository.ts",
+      "type": "file",
+      "summary": "Coordena a persistência de sistemas de jogo, acesso, personagens, fichas e ciclo de vida no banco de dados."
+    },
+    "file:backend/src/modules/game-systems/game-systems.routes.ts": {
+      "name": "game-systems.routes.ts",
+      "type": "file",
+      "summary": "Expõe rotas para administrar sistemas de jogo, seus membros, personagens, fichas e operações de ciclo de vida."
+    },
+    "file:backend/src/modules/game-systems/game-systems.schema.ts": {
+      "name": "game-systems.schema.ts",
+      "type": "file",
+      "summary": "Centraliza os esquemas Zod de entrada e saída para sistemas, fichas de personagem, atributos e operações relacionadas."
+    },
+    "file:backend/src/modules/game-systems/system-access.ts": {
+      "name": "system-access.ts",
+      "type": "file",
+      "summary": "Reúne a resposta padrão para solicitações que não têm acesso autorizado ao sistema de jogo."
+    },
+    "file:backend/src/modules/lobby-settings/lobby-settings.repository.ts": {
+      "name": "lobby-settings.repository.ts",
+      "type": "file",
+      "summary": "Lê e salva configurações do lobby de um sistema de jogo no Supabase."
+    },
+    "file:backend/src/modules/lobby-settings/lobby-settings.routes.ts": {
+      "name": "lobby-settings.routes.ts",
+      "type": "file",
+      "summary": "Define os endpoints de leitura e atualização das configurações do lobby e verifica permissões dos membros."
+    },
+    "file:backend/src/modules/lobby-settings/lobby-settings.schema.ts": {
+      "name": "lobby-settings.schema.ts",
+      "type": "file",
+      "summary": "Valida os dados de entrada usados para atualizar as configurações do lobby."
+    },
+    "file:backend/src/modules/store/store.repository.ts": {
+      "name": "store.repository.ts",
+      "type": "file",
+      "summary": "Executa operações de catálogo, estoque, moeda e ofertas da loja, incluindo compras de personagens."
+    },
+    "file:backend/src/modules/store/store.routes.ts": {
+      "name": "store.routes.ts",
+      "type": "file",
+      "summary": "Registra endpoints para consultar e administrar a loja e para realizar compras de ofertas."
+    },
+    "file:backend/src/modules/store/store.schema.ts": {
+      "name": "store.schema.ts",
+      "type": "file",
+      "summary": "Define os esquemas de validação e resposta para catálogo, itens, ofertas, moeda e operações da loja."
+    },
+    "file:backend/src/modules/system-events/system-events.repository.ts": {
+      "name": "system-events.repository.ts",
+      "type": "file",
+      "summary": "Consulta e altera eventos de sistemas de jogo, incluindo criação, edição, remoção e início de eventos."
+    },
+    "file:backend/src/modules/system-events/system-events.routes.ts": {
+      "name": "system-events.routes.ts",
+      "type": "file",
+      "summary": "Expõe rotas para consultar e administrar eventos de sistemas, com verificações de acesso e validação de payloads."
+    },
+    "file:backend/src/modules/system-events/system-events.schema.ts": {
+      "name": "system-events.schema.ts",
+      "type": "file",
+      "summary": "Define os formatos válidos para eventos de sistema e para as respostas da API de eventos."
+    },
+    "file:backend/src/modules/system-membership/system-membership.repository.ts": {
+      "name": "system-membership.repository.ts",
+      "type": "file",
+      "summary": "Consulta associações de jogadores, atualiza permissões de moderador e pesquisa membros pelo nome do personagem."
+    },
+    "file:backend/src/modules/system-membership/system-membership.routes.ts": {
+      "name": "system-membership.routes.ts",
+      "type": "file",
+      "summary": "Registra endpoints de associação e administração de membros, protegendo operações por autenticação e autorização."
+    },
+    "file:backend/src/modules/system-membership/system-membership.schema.ts": {
+      "name": "system-membership.schema.ts",
+      "type": "file",
+      "summary": "Valida parâmetros, papéis e respostas usados nos fluxos de associação de membros ao sistema."
+    },
+    "file:backend/src/modules/trading/trading.repository.ts": {
+      "name": "trading.repository.ts",
+      "type": "file",
+      "summary": "Coordena consultas e mutações de trocas entre personagens, ofertas e inventários por meio de RPCs do Supabase."
+    },
+    "file:backend/src/modules/trading/trading.routes.ts": {
+      "name": "trading.routes.ts",
+      "type": "file",
+      "summary": "Expõe endpoints para listar personagens e inventários e para criar, responder, contrapor ou cancelar trocas."
+    },
+    "file:backend/src/modules/trading/trading.schema.ts": {
+      "name": "trading.schema.ts",
+      "type": "file",
+      "summary": "Define os esquemas Zod para personagens, inventários, ofertas e respostas das operações de troca."
+    },
+    "file:backend/test/daily-login.schema.test.ts": {
+      "name": "daily-login.schema.test.ts",
+      "type": "file",
+      "summary": "Verifica a validação dos esquemas de resgate e calendário de login diário."
+    },
+    "file:backend/test/game-systems.schema.test.ts": {
+      "name": "game-systems.schema.test.ts",
+      "type": "file",
+      "summary": "Testa validações e transformações dos esquemas de sistemas, fichas e personagens."
+    },
+    "file:backend/test/store.schema.test.ts": {
+      "name": "store.schema.test.ts",
+      "type": "file",
+      "summary": "Confere a validação dos dados usados nas operações da loja."
+    },
+    "file:backend/test/system-membership.schema.test.ts": {
+      "name": "system-membership.schema.test.ts",
+      "type": "file",
+      "summary": "Testa os esquemas de associação e pesquisa de membros do sistema."
+    },
+    "file:backend/test/trading.schema.test.ts": {
+      "name": "trading.schema.test.ts",
+      "type": "file",
+      "summary": "Verifica os esquemas de entrada e saída dos fluxos de troca e inventário."
+    },
+    "file:backend/src/create-app.ts": {
+      "name": "create-app.ts",
+      "type": "file",
+      "summary": "Constrói o servidor Fastify e registra rotas e plugins da API."
+    },
+    "file:backend/src/modules/profile/profile.repository.ts": {
+      "name": "profile.repository.ts",
+      "type": "file",
+      "summary": "Implementa leitura e atualização do perfil no Supabase com filtros explícitos de propriedade."
+    },
+    "file:backend/src/modules/profile/profile.routes.ts": {
+      "name": "profile.routes.ts",
+      "type": "file",
+      "summary": "Registra endpoints autenticados do perfil e trata validação, conflitos e respostas HTTP."
+    },
+    "file:backend/src/modules/profile/profile.schema.ts": {
+      "name": "profile.schema.ts",
+      "type": "file",
+      "summary": "Define validações e tipos de entrada e saída para o perfil."
+    },
+    "file:backend/test/authenticate.test.ts": {
+      "name": "authenticate.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de authenticate da API."
+    },
+    "file:backend/test/chats.routes.test.ts": {
+      "name": "chats.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de chats routes da API."
+    },
+    "file:backend/test/daily-login.routes.test.ts": {
+      "name": "daily-login.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de daily login routes da API."
+    },
+    "file:backend/test/experience.routes.test.ts": {
+      "name": "experience.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de experience routes da API."
+    },
+    "file:backend/test/fixtures/profile.ts": {
+      "name": "profile.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de profile ts da API."
+    },
+    "file:backend/test/game-systems.routes.test.ts": {
+      "name": "game-systems.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de game systems routes da API."
+    },
+    "file:backend/test/health.test.ts": {
+      "name": "health.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de health da API."
+    },
+    "file:backend/test/lobby-presence.routes.test.ts": {
+      "name": "lobby-presence.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de lobby presence routes da API."
+    },
+    "file:backend/test/lobby-settings.routes.test.ts": {
+      "name": "lobby-settings.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de lobby settings routes da API."
+    },
+    "file:backend/test/openapi.test.ts": {
+      "name": "openapi.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de openapi da API."
+    },
+    "file:backend/test/profile.routes.test.ts": {
+      "name": "profile.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de profile routes da API."
+    },
+    "file:backend/test/profile.schema.test.ts": {
+      "name": "profile.schema.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de profile schema da API."
+    },
+    "file:backend/test/social.routes.test.ts": {
+      "name": "social.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de social routes da API."
+    },
+    "file:backend/test/store.routes.test.ts": {
+      "name": "store.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de store routes da API."
+    },
+    "file:backend/test/system-events.routes.test.ts": {
+      "name": "system-events.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de system events routes da API."
+    },
+    "file:backend/test/system-membership.routes.test.ts": {
+      "name": "system-membership.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de system membership routes da API."
+    },
+    "file:backend/test/trading.routes.test.ts": {
+      "name": "trading.routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de trading routes da API."
+    },
+    "file:frontend/app/api/[...path]/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "Encaminha métodos HTTP do Next.js para a aplicação Fastify."
+    },
+    "file:frontend/app/healthz/route.ts": {
+      "name": "route.ts",
+      "type": "file",
+      "summary": "Expõe a verificação de saúde da aplicação pelo Next.js."
+    },
+    "file:frontend/src/fastify-request.ts": {
+      "name": "fastify-request.ts",
+      "type": "file",
+      "summary": "Adapta requisições Web para Fastify inject e converte o resultado em uma Response Web."
+    },
+    "file:frontend/test/next-routes.test.ts": {
+      "name": "next-routes.test.ts",
+      "type": "file",
+      "summary": "Testa os fluxos de next routes da API."
+    },
+    "file:frontend/app/account-settings/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Rota App Router que encaminha a página de configurações da conta para o componente da funcionalidade."
+    },
+    "file:frontend/app/dashboard/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Carrega o perfil autenticado, aplica o fluxo inicial de escolha de username e apresenta o dashboard; também redireciona sessões ausentes e permite sair."
+    },
+    "file:frontend/app/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Página inicial do Next.js que monta a experiência de cadastro e login do aplicativo RPG."
+    },
+    "file:frontend/app/players/[username]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Resolve o parâmetro dinâmico de username e entrega a rota pública ao componente de perfil do jogador."
+    },
+    "file:frontend/app/profile/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Rota autenticada da área de perfil, delegando a edição ao componente ProfilePage."
+    },
+    "file:frontend/app/rpg-app.tsx": {
+      "name": "rpg-app.tsx",
+      "type": "file",
+      "summary": "Componente cliente da entrada do Bifrost RPG: conduz cadastro, login e recuperação de senha, processa callbacks de autenticação e confirma exclusão de sistemas."
+    },
+    "file:frontend/app/systems/[systemId]/characters/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Rota protegida de personagens de um sistema; aguarda a sessão e encaminha systemId e parâmetros de convite para CharacterEntry."
+    },
+    "file:frontend/app/systems/[systemId]/lobby-settings/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Rota de configurações do lobby protegida por sessão, que fornece o systemId à página de configurações."
+    },
+    "file:frontend/src/auth-state.ts": {
+      "name": "auth-state.ts",
+      "type": "file",
+      "summary": "Interpreta fragmentos de URL do Supabase para reconhecer recuperação de senha, magic link e erros de autenticação, além de sinalizar limpeza do histórico."
+    },
+    "file:frontend/src/config.ts": {
+      "name": "config.ts",
+      "type": "file",
+      "summary": "Centraliza as variáveis públicas do Supabase e da aplicação e informa quais valores obrigatórios de autenticação estão ausentes."
+    },
+    "file:frontend/src/features/account/account-card.tsx": {
+      "name": "account-card.tsx",
+      "type": "file",
+      "summary": "Apresenta os formulários de login, cadastro, recuperação de senha e estado da sessão, delegando ações ao componente pai."
+    },
+    "file:frontend/src/features/account/account-settings-page.tsx": {
+      "name": "account-settings-page.tsx",
+      "type": "file",
+      "summary": "Gerencia leitura e edição das configurações da conta, troca única de username e operações de segurança com confirmação por e-mail."
+    },
+    "file:frontend/src/features/account/username-settings-field.tsx": {
+      "name": "username-settings-field.tsx",
+      "type": "file",
+      "summary": "Renderiza o campo de username e o controle de salvamento, refletindo se a troca única já foi usada ou está indisponível."
+    },
+    "file:frontend/src/features/profile/profile-card.tsx": {
+      "name": "profile-card.tsx",
+      "type": "file",
+      "summary": "Exibe os campos editáveis do perfil e suas ações, incluindo visualização prévia e estados de carregamento."
+    },
+    "file:frontend/src/features/profile/profile-page.tsx": {
+      "name": "profile-page.tsx",
+      "type": "file",
+      "summary": "Coordena carregamento e atualização do perfil próprio e compõe o cabeçalho da aplicação, cartão de perfil e visualização pública."
+    },
+    "file:frontend/src/features/profile/public-profile-page.tsx": {
+      "name": "public-profile-page.tsx",
+      "type": "file",
+      "summary": "Carrega e apresenta o perfil público de um jogador, permitindo interações contextuais como visualizar comentários e mensagens."
+    },
+    "file:frontend/src/features/profile/username-setup.tsx": {
+      "name": "username-setup.tsx",
+      "type": "file",
+      "summary": "Apresenta a escolha obrigatória do username no primeiro acesso e entrega o valor ao callback de submissão."
+    },
+    "file:frontend/src/supabase-auth.ts": {
+      "name": "supabase-auth.ts",
+      "type": "file",
+      "summary": "Implementa a sessão de autenticação no cliente e as chamadas ao Supabase Auth para cadastro, login, logout, recuperação, callbacks e ações de conta."
+    },
+    "file:frontend/test/account-username-settings-render.test.ts": {
+      "name": "account-username-settings-render.test.ts",
+      "type": "file",
+      "summary": "Verifica a renderização do campo de username e os estados disponíveis antes e depois da troca única."
+    },
+    "file:frontend/test/client-auth.test.ts": {
+      "name": "client-auth.test.ts",
+      "type": "file",
+      "summary": "Testa leitura de callbacks da URL, detecção de configuração ausente, limpeza do histórico e ciclo de sessão da recuperação de senha."
+    },
+    "file:frontend/test/system-cover-storage.test.ts": {
+      "name": "system-cover-storage.test.ts",
+      "type": "file",
+      "summary": "Testa upload, URL pública e exclusão autenticada de capas de sistemas, incluindo rejeição de caminhos e formatos inválidos."
+    },
+    "file:frontend/test/ui-render.test.ts": {
+      "name": "ui-render.test.ts",
+      "type": "file",
+      "summary": "Agrupa testes de renderização dos componentes de conta, perfil e dashboard e valida navegação inicial e checagem de saúde da API."
+    },
+    "file:frontend/test/username-setup-render.test.ts": {
+      "name": "username-setup-render.test.ts",
+      "type": "file",
+      "summary": "Verifica a apresentação do fluxo de primeiro acesso para escolha de username."
+    },
+    "file:frontend/app/dashboard/systems/new/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Página Next.js de rota protegida para iniciar a criação de um sistema, validando a sessão antes de abrir o assistente."
+    },
+    "file:frontend/app/systems/[systemId]/home/[characterId]/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Rota dinâmica que valida a sessão e encaminha o jogador para a página inicial do personagem no sistema selecionado."
+    },
+    "file:frontend/app/trading/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Rota Next.js que monta a área de trocas entre personagens."
+    },
+    "file:frontend/src/api.ts": {
+      "name": "api.ts",
+      "type": "file",
+      "summary": "Cliente central da API frontend: define contratos de dados e funções autenticadas para perfis, sistemas, chat, presença, progressão, trocas e loja."
+    },
+    "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx": {
+      "name": "character-sheet-step-renderer.tsx",
+      "type": "file",
+      "summary": "Renderiza etapas e componentes de fichas de personagem, incluindo opções de escolha e layouts visuais."
+    },
+    "file:frontend/src/features/character-sheet/format-value.test.ts": {
+      "name": "format-value.test.ts",
+      "type": "file",
+      "summary": "Testes da formatação de valores de componentes de ficha, com foco nas opções de seleção e nos valores ausentes."
+    },
+    "file:frontend/src/features/character-sheet/format-value.ts": {
+      "name": "format-value.ts",
+      "type": "file",
+      "summary": "Formata valores de componentes da ficha para exibição legível, incluindo rótulos de opções e valores vazios."
+    },
+    "file:frontend/src/features/characters/character-entry.tsx": {
+      "name": "character-entry.tsx",
+      "type": "file",
+      "summary": "Componente de fluxo de entrada do personagem que reúne os dados e as ações da área de jogo."
+    },
+    "file:frontend/src/features/characters/character-form.tsx": {
+      "name": "character-form.tsx",
+      "type": "file",
+      "summary": "Formulário guiado de criação ou edição de personagem, com validação de campos e composição dos valores da ficha."
+    },
+    "file:frontend/src/features/characters/character-gallery.tsx": {
+      "name": "character-gallery.tsx",
+      "type": "file",
+      "summary": "Galeria de personagens com apresentação visual das opções disponíveis para o jogador."
+    },
+    "file:frontend/src/features/characters/character-home-page.tsx": {
+      "name": "character-home-page.tsx",
+      "type": "file",
+      "summary": "Carrega os dados necessários e compõe a página inicial de um personagem dentro do sistema."
+    },
+    "file:frontend/src/features/characters/character-home.tsx": {
+      "name": "character-home.tsx",
+      "type": "file",
+      "summary": "Interface principal da área de personagem, integrando dados, navegação e ações do jogador."
+    },
+    "file:frontend/src/features/characters/character-record.tsx": {
+      "name": "character-record.tsx",
+      "type": "file",
+      "summary": "Apresenta o registro do personagem, sua ficha visual e inventário, formatando atributos e imagens com segurança."
+    },
+    "file:frontend/src/features/characters/lobby-creator-tools.tsx": {
+      "name": "lobby-creator-tools.tsx",
+      "type": "file",
+      "summary": "Ferramentas do criador do lobby para administrar ações e recursos da sala de jogo."
+    },
+    "file:frontend/src/features/characters/lobby-customization-form.tsx": {
+      "name": "lobby-customization-form.tsx",
+      "type": "file",
+      "summary": "Formulário de personalização das configurações visuais e funcionais do lobby."
+    },
+    "file:frontend/src/features/characters/lobby-presence.ts": {
+      "name": "lobby-presence.ts",
+      "type": "file",
+      "summary": "Mantém a presença do jogador no lobby por heartbeat periódico e fornece o hook de ciclo de vida da presença."
+    },
+    "file:frontend/src/features/characters/lobby-settings-page.tsx": {
+      "name": "lobby-settings-page.tsx",
+      "type": "file",
+      "summary": "Página de gerenciamento das configurações do lobby de um sistema."
+    },
+    "file:frontend/src/features/characters/lobby-stats.tsx": {
+      "name": "lobby-stats.tsx",
+      "type": "file",
+      "summary": "Calcula e apresenta contagens e horários das sessões ativas do lobby."
+    },
+    "file:frontend/src/features/dashboard/dashboard.tsx": {
+      "name": "dashboard.tsx",
+      "type": "file",
+      "summary": "Dashboard do jogador que carrega memberships e organiza sistemas próprios e acessíveis."
+    },
+    "file:frontend/src/features/dashboard/systems-section.tsx": {
+      "name": "systems-section.tsx",
+      "type": "file",
+      "summary": "Seção reutilizável do dashboard para exibir sistemas e ações de gerenciamento ou entrada."
+    },
+    "file:frontend/src/features/notifications/notification-center.tsx": {
+      "name": "notification-center.tsx",
+      "type": "file",
+      "summary": "Central de notificações com apresentação de eventos, anúncios e alterações de função, além de ações de leitura."
+    },
+    "file:frontend/src/features/shell/app-header.tsx": {
+      "name": "app-header.tsx",
+      "type": "file",
+      "summary": "Componente de cabeçalho que coordena navegação autenticada, perfil do jogador e acesso às principais áreas do app."
+    },
+    "file:frontend/src/features/system-creation/character-sheet-builder.tsx": {
+      "name": "character-sheet-builder.tsx",
+      "type": "file",
+      "summary": "Editor visual para montar etapas e componentes de fichas de personagem, com opções posicionadas em uma grade."
+    },
+    "file:frontend/src/features/system-creation/sheet-model.test.ts": {
+      "name": "sheet-model.test.ts",
+      "type": "file",
+      "summary": "Testes unitários para as transformações e regras do modelo de fichas de personagem."
+    },
+    "file:frontend/src/features/system-creation/sheet-model.ts": {
+      "name": "sheet-model.ts",
+      "type": "file",
+      "summary": "Define operações de criação, ordenação, conversão e validação de definições de fichas de personagem."
+    },
+    "file:frontend/src/features/system-creation/system-creation-wizard.tsx": {
+      "name": "system-creation-wizard.tsx",
+      "type": "file",
+      "summary": "Fluxo em etapas para criar um sistema de jogo, reunindo detalhes, apresentação e configuração da ficha."
+    },
+    "file:frontend/src/features/system-creation/system-details-fields.tsx": {
+      "name": "system-details-fields.tsx",
+      "type": "file",
+      "summary": "Campos controlados para editar nome e descrição de um sistema de jogo."
+    },
+    "file:frontend/src/features/system-creation/system-presentation-fields.tsx": {
+      "name": "system-presentation-fields.tsx",
+      "type": "file",
+      "summary": "Editor da apresentação visual do sistema, incluindo seleção de tags e mídia associada."
+    },
+    "file:frontend/src/features/system-creation/system-sheet-editor.tsx": {
+      "name": "system-sheet-editor.tsx",
+      "type": "file",
+      "summary": "Tela de edição da ficha do sistema que conecta o construtor visual ao modelo persistido."
+    },
+    "file:frontend/src/features/system-events/system-events-card.tsx": {
+      "name": "system-events-card.tsx",
+      "type": "file",
+      "summary": "Exibe eventos de um sistema e oferece ações para iniciar e acompanhar sessões."
+    },
+    "file:frontend/src/features/system-management/system-details-editor.tsx": {
+      "name": "system-details-editor.tsx",
+      "type": "file",
+      "summary": "Formulário para atualizar detalhes e configurações editáveis de um sistema existente."
+    },
+    "file:frontend/src/features/trading/trading-card.tsx": {
+      "name": "trading-card.tsx",
+      "type": "file",
+      "summary": "Apresenta ofertas de troca, itens e quantidades, com ações conforme o estado da negociação."
+    },
+    "file:frontend/src/features/trading/trading-page.tsx": {
+      "name": "trading-page.tsx",
+      "type": "file",
+      "summary": "Página autenticada que carrega e organiza a interface de trocas de personagens."
+    },
+    "file:frontend/test/character-entry-render.test.ts": {
+      "name": "character-entry-render.test.ts",
+      "type": "file",
+      "summary": "Testes de renderização da entrada de personagem e dos componentes relacionados à ficha."
+    },
+    "file:frontend/test/character-home-chat.test.ts": {
+      "name": "character-home-chat.test.ts",
+      "type": "file",
+      "summary": "Testes de renderização e comportamento da área de conversa na página inicial do personagem."
+    },
+    "file:frontend/test/character-home-page.test.ts": {
+      "name": "character-home-page.test.ts",
+      "type": "file",
+      "summary": "Testes da página inicial do personagem e de seus principais estados visuais."
+    },
+    "file:frontend/test/lobby-creator-tools.test.ts": {
+      "name": "lobby-creator-tools.test.ts",
+      "type": "file",
+      "summary": "Testes de renderização das ferramentas de criação e personalização do lobby."
+    },
+    "file:frontend/test/lobby-stats.test.ts": {
+      "name": "lobby-stats.test.ts",
+      "type": "file",
+      "summary": "Testes das funções que calculam e formatam estatísticas e sessões do lobby."
+    },
+    "file:frontend/test/system-creation-render.test.ts": {
+      "name": "system-creation-render.test.ts",
+      "type": "file",
+      "summary": "Testes de renderização do fluxo de criação e edição de sistemas."
+    },
+    "file:frontend/test/system-events-render.test.ts": {
+      "name": "system-events-render.test.ts",
+      "type": "file",
+      "summary": "Testes de renderização dos cartões e listas de eventos do sistema."
+    },
+    "file:frontend/test/trading-render.test.ts": {
+      "name": "trading-render.test.ts",
+      "type": "file",
+      "summary": "Testes de renderização das ofertas e visualizações da área de trocas."
+    },
+    "file:frontend/app/dashboard/systems/[systemId]/manage/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Rota Next.js da área de gestão de um sistema. Encaminha a página para o componente de gestão compartilhado."
+    },
+    "file:frontend/src/features/daily-login/daily-login-admin-card.tsx": {
+      "name": "daily-login-admin-card.tsx",
+      "type": "file",
+      "summary": "Formulário administrativo para configurar os prêmios de login diário, incluindo itens, quantidades e ativação semanal."
+    },
+    "file:frontend/src/features/daily-login/daily-login-card.tsx": {
+      "name": "daily-login-card.tsx",
+      "type": "file",
+      "summary": "Interface para escolher um personagem elegível, consultar o prêmio do dia e solicitar a recompensa de login diário."
+    },
+    "file:frontend/src/features/daily-login/daily-login-messages.ts": {
+      "name": "daily-login-messages.ts",
+      "type": "file",
+      "summary": "Formata a mensagem de sucesso após a reivindicação de um prêmio diário, incluindo a moeda recebida."
+    },
+    "file:frontend/src/features/daily-login/daily-login-popup.tsx": {
+      "name": "daily-login-popup.tsx",
+      "type": "file",
+      "summary": "Carrega e apresenta o aviso de login diário da sessão, permite reivindicar o prêmio e atualiza o estado exibido."
+    },
+    "file:frontend/src/features/experience/experience-admin-card.tsx": {
+      "name": "experience-admin-card.tsx",
+      "type": "file",
+      "summary": "Editor administrativo das regras de experiência do sistema, com campos de nível, fontes de XP e ações para salvar."
+    },
+    "file:frontend/src/features/experience/experience-model.ts": {
+      "name": "experience-model.ts",
+      "type": "file",
+      "summary": "Cria fontes personalizadas de experiência e valida limites, tipos obrigatórios, nomes únicos e valores das regras."
+    },
+    "file:frontend/src/features/store/store-admin-card.tsx": {
+      "name": "store-admin-card.tsx",
+      "type": "file",
+      "summary": "Componentes de administração da loja: edição de ofertas e moeda, validação dos campos e salvamento automático."
+    },
+    "file:frontend/src/features/store/store-card.tsx": {
+      "name": "store-card.tsx",
+      "type": "file",
+      "summary": "Exibe ofertas da loja de um sistema e permite que o personagem selecione e compre itens."
+    },
+    "file:frontend/src/features/system-management/book-category.tsx": {
+      "name": "book-category.tsx",
+      "type": "file",
+      "summary": "Organiza o conteúdo da gestão do sistema em categorias navegáveis, com controle de página e adaptação de layout."
+    },
+    "file:frontend/src/features/system-management/system-management-page.tsx": {
+      "name": "system-management-page.tsx",
+      "type": "file",
+      "summary": "Coordena a tela de gestão do sistema: carrega dados, controla categorias e executa ações administrativas de calendário, XP, membros e ciclo de vida."
+    },
+    "file:frontend/src/features/system-membership/system-membership-card.tsx": {
+      "name": "system-membership-card.tsx",
+      "type": "file",
+      "summary": "Apresenta as associações do usuário a sistemas e permite pesquisar personagens para atribuir função de moderador."
+    },
+    "file:frontend/test/daily-login-render.test.ts": {
+      "name": "daily-login-render.test.ts",
+      "type": "file",
+      "summary": "Testes de renderização das telas de administração e reivindicação de login diário, além da formatação da mensagem de sucesso."
+    },
+    "file:frontend/test/experience-render.test.ts": {
+      "name": "experience-render.test.ts",
+      "type": "file",
+      "summary": "Testa a renderização do editor de experiência e as regras que criam e validam fontes de XP."
+    },
+    "file:frontend/test/store-render.test.ts": {
+      "name": "store-render.test.ts",
+      "type": "file",
+      "summary": "Testa a renderização dos controles administrativos de loja e de ofertas."
+    },
+    "file:frontend/test/system-membership-render.test.ts": {
+      "name": "system-membership-render.test.ts",
+      "type": "file",
+      "summary": "Testa a renderização dos papéis de associação e dos controles de atribuição de moderadores."
+    },
+    "file:frontend/app/friends/page.tsx": {
+      "name": "page.tsx",
+      "type": "file",
+      "summary": "Rota do Next.js para a área de amizades. Renderiza a tela social principal do usuário."
+    },
+    "file:frontend/src/features/chats/chat-state.ts": {
+      "name": "chat-state.ts",
+      "type": "file",
+      "summary": "Mantém helpers puros para filtrar chats por personagem e atualizar rascunhos de mensagens com controle de versão."
+    },
+    "file:frontend/src/features/chats/chats.tsx": {
+      "name": "chats.tsx",
+      "type": "file",
+      "summary": "Implementa a interface de chats, incluindo seleção de conversas, carregamento de mensagens, envio e preservação de rascunhos por chat."
+    },
+    "file:frontend/src/features/social/friend-state.ts": {
+      "name": "friend-state.ts",
+      "type": "file",
+      "summary": "Determina o estado da relação entre dois usuários a partir das listas de amizades e solicitações recebidas ou enviadas."
+    },
+    "file:frontend/src/features/social/friends-page.tsx": {
+      "name": "friends-page.tsx",
+      "type": "file",
+      "summary": "Apresenta busca por perfis, amizades, solicitações e convites relacionados a sistemas e chats. Coordena atualizações periódicas, ações sociais e navegação para personagens convidados."
+    },
+    "file:frontend/src/features/social/invite-friend-control.tsx": {
+      "name": "invite-friend-control.tsx",
+      "type": "file",
+      "summary": "Oferece uma ação contextual para convidar um amigo a um sistema ou chat e exibe o resultado da operação."
+    },
+    "file:frontend/test/chats-render.test.ts": {
+      "name": "chats-render.test.ts",
+      "type": "file",
+      "summary": "Verifica a renderização do painel de chat, incluindo mensagens, formulário de envio e o estado sem conversas."
+    },
+    "file:frontend/test/chats-state.test.ts": {
+      "name": "chats-state.test.ts",
+      "type": "file",
+      "summary": "Testa o isolamento de rascunhos por personagem e chat, a limpeza segura após envio e a filtragem de conversas por personagem."
+    },
+    "file:frontend/test/friend-state.test.ts": {
+      "name": "friend-state.test.ts",
+      "type": "file",
+      "summary": "Valida a prioridade e os resultados da classificação de uma relação social entre usuários."
+    },
+    "file:frontend/test/friends-render.test.ts": {
+      "name": "friends-render.test.ts",
+      "type": "file",
+      "summary": "Confere os elementos principais da tela de amizades e a ação contextual para convidar amigos."
+    },
+    "table:database/migrations/001_initial_schema.sql:users": {
+      "name": "users",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela users."
+    },
+    "table:database/migrations/001_initial_schema.sql:user_profiles": {
+      "name": "user_profiles",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela user_profiles."
+    },
+    "table:database/migrations/001_initial_schema.sql:game_systems": {
+      "name": "game_systems",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela game_systems."
+    },
+    "table:database/migrations/001_initial_schema.sql:characters": {
+      "name": "characters",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela characters."
+    },
+    "table:database/migrations/001_initial_schema.sql:character_info": {
+      "name": "character_info",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_info."
+    },
+    "table:database/migrations/001_initial_schema.sql:abilities": {
+      "name": "abilities",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela abilities."
+    },
+    "table:database/migrations/001_initial_schema.sql:items": {
+      "name": "items",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela items."
+    },
+    "table:database/migrations/001_initial_schema.sql:achievements": {
+      "name": "achievements",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela achievements."
+    },
+    "table:database/migrations/001_initial_schema.sql:user_achievements": {
+      "name": "user_achievements",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela user_achievements."
+    },
+    "table:database/migrations/001_initial_schema.sql:character_achievements": {
+      "name": "character_achievements",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_achievements."
+    },
+    "table:database/migrations/001_initial_schema.sql:character_abilities": {
+      "name": "character_abilities",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_abilities."
+    },
+    "table:database/migrations/001_initial_schema.sql:character_inventory": {
+      "name": "character_inventory",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_inventory."
+    },
+    "table:database/migrations/001_initial_schema.sql:products": {
+      "name": "products",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela products."
+    },
+    "table:database/migrations/001_initial_schema.sql:store_products": {
+      "name": "store_products",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela store_products."
+    },
+    "table:database/migrations/001_initial_schema.sql:purchases": {
+      "name": "purchases",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela purchases."
+    },
+    "table:database/migrations/001_initial_schema.sql:purchase_items": {
+      "name": "purchase_items",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela purchase_items."
+    },
+    "table:database/migrations/001_initial_schema.sql:campaigns": {
+      "name": "campaigns",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela campaigns."
+    },
+    "table:database/migrations/001_initial_schema.sql:campaign_members": {
+      "name": "campaign_members",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela campaign_members."
+    },
+    "table:database/migrations/001_initial_schema.sql:chat_rooms": {
+      "name": "chat_rooms",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela chat_rooms."
+    },
+    "table:database/migrations/001_initial_schema.sql:messages": {
+      "name": "messages",
+      "type": "table",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela messages."
+    },
+    "table:database/migrations/002_character_fields.sql:characters": {
+      "name": "characters",
+      "type": "table",
+      "summary": "Ajusta o modelo de personagem, renomeando campos e removendo a tabela legada de informações do personagem. A alteração se aplica à tabela characters."
+    },
+    "table:database/migrations/002_character_fields.sql:character_info": {
+      "name": "character_info",
+      "type": "table",
+      "summary": "Ajusta o modelo de personagem, renomeando campos e removendo a tabela legada de informações do personagem. A alteração se aplica à tabela character_info."
+    },
+    "table:database/migrations/003_supabase_auth.sql:users": {
+      "name": "users",
+      "type": "table",
+      "summary": "Integra os usuários existentes ao Supabase Auth e remove o armazenamento local de credenciais. A alteração se aplica à tabela users."
+    },
+    "table:database/migrations/004_profile_rls.sql:users": {
+      "name": "users",
+      "type": "table",
+      "summary": "Ativa Row Level Security e limita leitura e atualização de perfis ao próprio usuário. A alteração se aplica à tabela users."
+    },
+    "table:database/migrations/004_profile_rls.sql:user_profiles": {
+      "name": "user_profiles",
+      "type": "table",
+      "summary": "Ativa Row Level Security e limita leitura e atualização de perfis ao próprio usuário. A alteração se aplica à tabela user_profiles."
+    },
+    "table:database/migrations/005_daily_login_rewards.sql:game_systems": {
+      "name": "game_systems",
+      "type": "table",
+      "summary": "Introduz recompensas e resgates diários por sistema, com registros para auditoria e políticas de acesso. A alteração se aplica à tabela game_systems."
+    },
+    "table:database/migrations/005_daily_login_rewards.sql:daily_login_rewards": {
+      "name": "daily_login_rewards",
+      "type": "table",
+      "summary": "Introduz recompensas e resgates diários por sistema, com registros para auditoria e políticas de acesso. A alteração se aplica à tabela daily_login_rewards."
+    },
+    "table:database/migrations/005_daily_login_rewards.sql:daily_login_claims": {
+      "name": "daily_login_claims",
+      "type": "table",
+      "summary": "Introduz recompensas e resgates diários por sistema, com registros para auditoria e políticas de acesso. A alteração se aplica à tabela daily_login_claims."
+    },
+    "table:database/migrations/006_user_hierarchy.sql:platform_admins": {
+      "name": "platform_admins",
+      "type": "table",
+      "summary": "Cria administradores da plataforma e associa membros aos sistemas com papéis e funções de autorização. A alteração se aplica à tabela platform_admins."
+    },
+    "table:database/migrations/006_user_hierarchy.sql:game_system_memberships": {
+      "name": "game_system_memberships",
+      "type": "table",
+      "summary": "Cria administradores da plataforma e associa membros aos sistemas com papéis e funções de autorização. A alteração se aplica à tabela game_system_memberships."
+    },
+    "table:database/migrations/007_system_hierarchy_rls.sql:migration": {
+      "name": "007_system_hierarchy_rls",
+      "type": "table",
+      "summary": "Aplica políticas de segurança por propriedade, associação e papel às principais entidades do jogo."
+    },
+    "table:database/migrations/008_daily_login_popup.sql:daily_login_popup_views": {
+      "name": "daily_login_popup_views",
+      "type": "table",
+      "summary": "Registra a visualização do aviso de login diário por usuário. A alteração se aplica à tabela daily_login_popup_views."
+    },
+    "table:database/migrations/009_notifications.sql:notifications": {
+      "name": "notifications",
+      "type": "table",
+      "summary": "Cria notificações e funções seguras para leitura, anúncios e moderação de sistemas. A alteração se aplica à tabela notifications."
+    },
+    "table:database/migrations/010_daily_login_popup_per_system.sql:daily_login_system_popup_views": {
+      "name": "daily_login_system_popup_views",
+      "type": "table",
+      "summary": "Move o controle do aviso diário para o escopo de cada sistema de jogo. A alteração se aplica à tabela daily_login_system_popup_views."
+    },
+    "table:database/migrations/011_character_experience.sql:game_system_xp_settings": {
+      "name": "game_system_xp_settings",
+      "type": "table",
+      "summary": "Modela fontes de experiência, configurações por sistema e o histórico de XP dos personagens. A alteração se aplica à tabela game_system_xp_settings."
+    },
+    "table:database/migrations/011_character_experience.sql:game_system_xp_sources": {
+      "name": "game_system_xp_sources",
+      "type": "table",
+      "summary": "Modela fontes de experiência, configurações por sistema e o histórico de XP dos personagens. A alteração se aplica à tabela game_system_xp_sources."
+    },
+    "table:database/migrations/011_character_experience.sql:character_xp_ledger": {
+      "name": "character_xp_ledger",
+      "type": "table",
+      "summary": "Modela fontes de experiência, configurações por sistema e o histórico de XP dos personagens. A alteração se aplica à tabela character_xp_ledger."
+    },
+    "table:database/migrations/012_character_item_trading.sql:character_inventory": {
+      "name": "character_inventory",
+      "type": "table",
+      "summary": "Adiciona ofertas de troca entre personagens e linhas de itens, com índices para consulta e concorrência. A alteração se aplica à tabela character_inventory."
+    },
+    "table:database/migrations/012_character_item_trading.sql:trade_offers": {
+      "name": "trade_offers",
+      "type": "table",
+      "summary": "Adiciona ofertas de troca entre personagens e linhas de itens, com índices para consulta e concorrência. A alteração se aplica à tabela trade_offers."
+    },
+    "table:database/migrations/012_character_item_trading.sql:trade_offer_lines": {
+      "name": "trade_offer_lines",
+      "type": "table",
+      "summary": "Adiciona ofertas de troca entre personagens e linhas de itens, com índices para consulta e concorrência. A alteração se aplica à tabela trade_offer_lines."
+    },
+    "table:database/migrations/013_system_character_sheets.sql:game_system_character_sheets": {
+      "name": "game_system_character_sheets",
+      "type": "table",
+      "summary": "Permite que cada sistema defina e persista fichas de personagem próprias. A alteração se aplica à tabela game_system_character_sheets."
+    },
+    "table:database/migrations/014_profile_usernames.sql:user_profiles": {
+      "name": "user_profiles",
+      "type": "table",
+      "summary": "Adiciona usernames únicos aos perfis e um índice case-insensitive para evitar duplicidade. A alteração se aplica à tabela user_profiles."
+    },
+    "table:database/migrations/015_visual_character_sheet.sql:game_system_character_sheets": {
+      "name": "game_system_character_sheets",
+      "type": "table",
+      "summary": "Expande o modelo visual das fichas de personagem e seus dados configuráveis. A alteração se aplica à tabela game_system_character_sheets."
+    },
+    "table:database/migrations/016_character_sheet_visual_elements.sql:game_system_character_sheets": {
+      "name": "game_system_character_sheets",
+      "type": "table",
+      "summary": "Adiciona elementos visuais estruturados às fichas personalizadas. A alteração se aplica à tabela game_system_character_sheets."
+    },
+    "table:database/migrations/017_character_sheet_choices_and_conditions.sql:game_system_character_sheets": {
+      "name": "game_system_character_sheets",
+      "type": "table",
+      "summary": "Adiciona opções e condições para controlar campos e escolhas nas fichas de personagem. A alteração se aplica à tabela game_system_character_sheets."
+    },
+    "table:database/migrations/018_system_store_economy.sql:game_systems": {
+      "name": "game_systems",
+      "type": "table",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela game_systems."
+    },
+    "table:database/migrations/018_system_store_economy.sql:daily_login_rewards": {
+      "name": "daily_login_rewards",
+      "type": "table",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela daily_login_rewards."
+    },
+    "table:database/migrations/018_system_store_economy.sql:daily_login_claims": {
+      "name": "daily_login_claims",
+      "type": "table",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela daily_login_claims."
+    },
+    "table:database/migrations/018_system_store_economy.sql:character_wallets": {
+      "name": "character_wallets",
+      "type": "table",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela character_wallets."
+    },
+    "table:database/migrations/018_system_store_economy.sql:character_currency_ledger": {
+      "name": "character_currency_ledger",
+      "type": "table",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela character_currency_ledger."
+    },
+    "table:database/migrations/019_system_member_character_search.sql:migration": {
+      "name": "019_system_member_character_search",
+      "type": "table",
+      "summary": "Ajusta funções e permissões para permitir busca de personagens por membros do sistema."
+    },
+    "table:database/migrations/020_game_system_visibility_password.sql:game_systems": {
+      "name": "game_systems",
+      "type": "table",
+      "summary": "Armazena controles de visibilidade e acesso por senha nos sistemas de jogo. A alteração se aplica à tabela game_systems."
+    },
+    "table:database/migrations/020_game_system_visibility_password.sql:system_password_attempts": {
+      "name": "system_password_attempts",
+      "type": "table",
+      "summary": "Armazena controles de visibilidade e acesso por senha nos sistemas de jogo. A alteração se aplica à tabela system_password_attempts."
+    },
+    "table:database/migrations/021_fix_daily_login_inventory_upsert.sql:migration": {
+      "name": "021_fix_daily_login_inventory_upsert",
+      "type": "table",
+      "summary": "Corrige a atualização atômica de itens recebidos por resgates de login diário."
+    },
+    "table:database/migrations/021_system_password_access_enforcement.sql:migration": {
+      "name": "021_system_password_access_enforcement",
+      "type": "table",
+      "summary": "Reforça a verificação de senha e as políticas de acesso para sistemas protegidos."
+    },
+    "table:database/migrations/022_system_discovery_metadata.sql:game_system_tag_catalog": {
+      "name": "game_system_tag_catalog",
+      "type": "table",
+      "summary": "Adiciona metadados de descoberta e tags pesquisáveis aos sistemas de jogo. A alteração se aplica à tabela game_system_tag_catalog."
+    },
+    "table:database/migrations/022_system_discovery_metadata.sql:game_systems": {
+      "name": "game_systems",
+      "type": "table",
+      "summary": "Adiciona metadados de descoberta e tags pesquisáveis aos sistemas de jogo. A alteração se aplica à tabela game_systems."
+    },
+    "table:database/migrations/023_system_lifecycle.sql:migration": {
+      "name": "023_system_lifecycle",
+      "type": "table",
+      "summary": "Centraliza operações de ciclo de vida do sistema em funções transacionais e protegidas."
+    },
+    "table:database/migrations/024_fix_system_tag_labels.sql:migration": {
+      "name": "024_fix_system_tag_labels",
+      "type": "table",
+      "summary": "Corrige a normalização e os rótulos de tags dos sistemas de jogo."
+    },
+    "table:database/migrations/025_require_email_confirmation_for_system_deletion.sql:migration": {
+      "name": "025_require_email_confirmation_for_system_deletion",
+      "type": "table",
+      "summary": "Exige confirmação por email antes de concluir a exclusão de um sistema."
+    },
+    "table:database/migrations/026_atomic_system_store_update.sql:migration": {
+      "name": "026_atomic_system_store_update",
+      "type": "table",
+      "summary": "Torna atômicas as alterações de configurações e catálogo da loja de um sistema."
+    },
+    "table:database/migrations/027_system_events.sql:game_system_events": {
+      "name": "game_system_events",
+      "type": "table",
+      "summary": "Cria eventos de sistema com horários e índices para listagem cronológica. A alteração se aplica à tabela game_system_events."
+    },
+    "table:database/migrations/028_campaign_chat_room_authorization.sql:chat_rooms": {
+      "name": "chat_rooms",
+      "type": "table",
+      "summary": "Atualiza regras de autorização das salas de campanha e conversas. A alteração se aplica à tabela chat_rooms."
+    },
+    "table:database/migrations/029_lobby_creator_tools.sql:game_system_events": {
+      "name": "game_system_events",
+      "type": "table",
+      "summary": "Adiciona configurações e suporte de dados para ferramentas do criador no lobby. A alteração se aplica à tabela game_system_events."
+    },
+    "table:database/migrations/029_lobby_creator_tools.sql:game_system_lobby_settings": {
+      "name": "game_system_lobby_settings",
+      "type": "table",
+      "summary": "Adiciona configurações e suporte de dados para ferramentas do criador no lobby. A alteração se aplica à tabela game_system_lobby_settings."
+    },
+    "table:database/migrations/030_store_item_images.sql:items": {
+      "name": "items",
+      "type": "table",
+      "summary": "Ajusta permissões e referências de imagens dos itens da loja. A alteração se aplica à tabela items."
+    },
+    "table:database/migrations/031_store_currency_and_offer_autosave.sql:game_systems": {
+      "name": "game_systems",
+      "type": "table",
+      "summary": "Atualiza políticas e funções para moeda e salvamento automático de ofertas. A alteração se aplica à tabela game_systems."
+    },
+    "table:database/migrations/032_chats_as_game_space.sql:campaigns": {
+      "name": "campaigns",
+      "type": "table",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela campaigns."
+    },
+    "table:database/migrations/032_chats_as_game_space.sql:campaign_members": {
+      "name": "campaign_members",
+      "type": "table",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela campaign_members."
+    },
+    "table:database/migrations/032_chats_as_game_space.sql:chat_members": {
+      "name": "chat_members",
+      "type": "table",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela chat_members."
+    },
+    "table:database/migrations/032_chats_as_game_space.sql:chat_rooms": {
+      "name": "chat_rooms",
+      "type": "table",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela chat_rooms."
+    },
+    "table:database/migrations/032_chats_as_game_space.sql:messages": {
+      "name": "messages",
+      "type": "table",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela messages."
+    },
+    "table:database/migrations/032_chats_as_game_space.sql:chats": {
+      "name": "chats",
+      "type": "table",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela chats."
+    },
+    "table:database/migrations/032_chats_as_game_space.sql:game_system_lobby_settings": {
+      "name": "game_system_lobby_settings",
+      "type": "table",
+      "summary": "Converte campanhas em chats como espaço central do jogo e migra membros, mensagens e permissões. A alteração se aplica à tabela game_system_lobby_settings."
+    },
+    "table:database/migrations/033_store_currency_image_permissions.sql:migration": {
+      "name": "033_store_currency_image_permissions",
+      "type": "table",
+      "summary": "Ajusta permissões de imagens ligadas à moeda da loja."
+    },
+    "table:database/migrations/034_daily_login_per_character.sql:daily_login_claims": {
+      "name": "daily_login_claims",
+      "type": "table",
+      "summary": "Torna os resgates diários específicos por personagem e atualiza a função de consulta. A alteração se aplica à tabela daily_login_claims."
+    },
+    "table:database/migrations/035_account_settings.sql:user_profiles": {
+      "name": "user_profiles",
+      "type": "table",
+      "summary": "Adiciona solicitações de transferência de propriedade de sistemas e configurações de conta. A alteração se aplica à tabela user_profiles."
+    },
+    "table:database/migrations/035_account_settings.sql:system_owner_transfer_requests": {
+      "name": "system_owner_transfer_requests",
+      "type": "table",
+      "summary": "Adiciona solicitações de transferência de propriedade de sistemas e configurações de conta. A alteração se aplica à tabela system_owner_transfer_requests."
+    },
+    "table:database/migrations/035_friendships.sql:friend_requests": {
+      "name": "friend_requests",
+      "type": "table",
+      "summary": "Cria pedidos de amizade com estados e índices para consultas por participante. A alteração se aplica à tabela friend_requests."
+    },
+    "table:database/migrations/036_profile_customization.sql:user_profiles": {
+      "name": "user_profiles",
+      "type": "table",
+      "summary": "Adiciona atualização controlada de preferências e campos do perfil do usuário. A alteração se aplica à tabela user_profiles."
+    },
+    "table:database/migrations/036_rpg_invitations.sql:rpg_invitations": {
+      "name": "rpg_invitations",
+      "type": "table",
+      "summary": "Implementa convites para sistemas e conversas, busca social e operações de amizade. A alteração se aplica à tabela rpg_invitations."
+    },
+    "table:database/migrations/037_allow_profile_timestamp_updates.sql:migration": {
+      "name": "037_allow_profile_timestamp_updates",
+      "type": "table",
+      "summary": "Permite que a função de proteção de perfil aceite atualizações de timestamps."
+    },
+    "table:database/migrations/037_public_player_profiles.sql:profile_comments": {
+      "name": "profile_comments",
+      "type": "table",
+      "summary": "Cria comentários em perfis públicos e mensagens diretas, com funções de leitura e envio. A alteração se aplica à tabela profile_comments."
+    },
+    "table:database/migrations/037_public_player_profiles.sql:direct_messages": {
+      "name": "direct_messages",
+      "type": "table",
+      "summary": "Cria comentários em perfis públicos e mensagens diretas, com funções de leitura e envio. A alteração se aplica à tabela direct_messages."
+    },
+    "table:database/migrations/038_username_change_once.sql:user_profiles": {
+      "name": "user_profiles",
+      "type": "table",
+      "summary": "Impede alterações repetidas do username depois da mudança inicial. A alteração se aplica à tabela user_profiles."
+    },
+    "table:supabase/migrations/001_initial_schema.sql:migration": {
+      "name": "Migração: Esquema inicial",
+      "type": "table",
+      "summary": "Migração SQL que define as tabelas centrais de usuários, perfis, sistemas, personagens, conquistas, inventário, campanhas, conversas e compras."
+    },
+    "table:supabase/migrations/002_character_fields.sql:migration": {
+      "name": "Migração: Campos de personagem",
+      "type": "table",
+      "summary": "Migração SQL que move os dados principais de personagem para `characters` e acrescenta campos de clã, altura e patente."
+    },
+    "table:supabase/migrations/003_supabase_auth.sql:migration": {
+      "name": "Migração: Integração com Supabase Auth",
+      "type": "table",
+      "summary": "Migração SQL que vincula os usuários existentes ao Supabase Auth e substitui o armazenamento local de credenciais."
+    },
+    "table:supabase/migrations/004_profile_rls.sql:migration": {
+      "name": "Migração: Segurança de perfis",
+      "type": "table",
+      "summary": "Migração SQL que restringe privilégios e configura RLS para que usuários autenticados leiam perfis e alterem apenas campos públicos."
+    },
+    "table:supabase/migrations/005_daily_login_rewards.sql:migration": {
+      "name": "Migração: Recompensas de login diário",
+      "type": "table",
+      "summary": "Migração SQL que adiciona calendários semanais de recompensas por sistema e uma operação transacional de resgate vinculada ao usuário autenticado."
+    },
+    "table:supabase/migrations/006_user_hierarchy.sql:migration": {
+      "name": "Migração: Hierarquia de usuários",
+      "type": "table",
+      "summary": "Migração SQL que cria administradores globais, papéis por sistema e funções privadas de autorização."
+    },
+    "table:supabase/migrations/007_system_hierarchy_rls.sql:migration": {
+      "name": "Migração: RLS da hierarquia",
+      "type": "table",
+      "summary": "Migração SQL que define políticas de acesso por papel para sistemas, personagens e recursos associados."
+    },
+    "table:supabase/migrations/008_daily_login_popup.sql:migration": {
+      "name": "Migração: Popup de login diário",
+      "type": "table",
+      "summary": "Migração SQL que registra a visualização do popup diário e fornece uma operação privada para limitar sua frequência."
+    },
+    "table:supabase/migrations/20261111014645_notifications.sql:migration": {
+      "name": "Migração: Notificações",
+      "type": "table",
+      "summary": "Migração SQL que cria a caixa de entrada persistente por usuário para mudanças de papel e avisos dos sistemas."
+    },
+    "table:supabase/migrations/20261111021246_daily_login_popup_per_system.sql:migration": {
+      "name": "Migração: Popup diário por sistema",
+      "type": "table",
+      "summary": "Migração SQL que adiciona o registro de visualização do popup associado a cada sistema de jogo."
+    },
+    "table:supabase/migrations/20261111181232_character_experience.sql:migration": {
+      "name": "Migração: Experiência de personagem",
+      "type": "table",
+      "summary": "Migração SQL que adiciona fontes de experiência por sistema, configurações e um histórico de alterações por personagem."
+    },
+    "table:supabase/migrations/20261111190000_character_item_trading.sql:migration": {
+      "name": "Migração: Troca de itens",
+      "type": "table",
+      "summary": "Migração SQL que implementa propostas de troca, linhas de oferta e operações transacionais para negociar itens entre personagens."
+    },
+    "table:supabase/migrations/20261111200000_system_character_sheets.sql:migration": {
+      "name": "Migração: Fichas de personagem por sistema",
+      "type": "table",
+      "summary": "Migração SQL que adiciona configurações de ficha e dados específicos de personagem vinculados a cada sistema."
+    },
+    "table:supabase/migrations/20261112183000_profile_usernames.sql:migration": {
+      "name": "Migração: Nomes de usuário",
+      "type": "table",
+      "summary": "Migração SQL que adiciona nomes de usuário aos perfis e garante unicidade sem diferenciar maiúsculas e minúsculas."
+    },
+    "table:supabase/migrations/20261112193504_visual_character_sheet.sql:migration": {
+      "name": "Migração: Fichas visuais",
+      "type": "table",
+      "summary": "Migração SQL que armazena configurações visuais e componentes reutilizáveis para fichas de personagem."
+    },
+    "table:supabase/migrations/20261112210000_system_store_economy.sql:migration": {
+      "name": "Migração: Economia da loja",
+      "type": "table",
+      "summary": "Migração SQL que adiciona moedas por sistema e um livro-razão de transações para o saldo dos personagens."
+    },
+    "table:supabase/migrations/20261112223000_character_sheet_visual_elements.sql:migration": {
+      "name": "Migração: Elementos visuais da ficha",
+      "type": "table",
+      "summary": "Migração SQL que adiciona elementos configuráveis à interface da ficha visual de personagem."
+    },
+    "table:supabase/migrations/20261112224500_character_sheet_choices_and_conditions.sql:migration": {
+      "name": "Migração: Escolhas e condições da ficha",
+      "type": "table",
+      "summary": "Migração SQL que expande as definições da ficha com escolhas condicionais e regras de visibilidade."
+    },
+    "table:supabase/migrations/20261113220000_game_system_visibility_password.sql:migration": {
+      "name": "Migração: Visibilidade e senha dos sistemas",
+      "type": "table",
+      "summary": "Migração SQL que adiciona metadados de descoberta, visibilidade e proteção por senha aos sistemas de jogo."
+    },
+    "table:supabase/migrations/20261113221000_system_password_access_enforcement.sql:migration": {
+      "name": "Migração: Acesso protegido por senha",
+      "type": "table",
+      "summary": "Migração SQL que aplica a validação de senha nos fluxos de acesso a sistemas privados."
+    },
+    "table:supabase/migrations/20261114001000_system_discovery_metadata.sql:migration": {
+      "name": "Migração: Metadados de descoberta",
+      "type": "table",
+      "summary": "Migração SQL que adiciona tags e índices para classificar e localizar sistemas de jogo."
+    },
+    "table:supabase/migrations/20261114144818_system_lifecycle.sql:migration": {
+      "name": "Migração: Ciclo de vida dos sistemas",
+      "type": "table",
+      "summary": "Migração SQL que define estados de ciclo de vida e operações de arquivamento para sistemas de jogo."
+    },
+    "table:supabase/migrations/20261114145224_fix_system_tag_labels.sql:migration": {
+      "name": "Migração: Correção de rótulos de tags",
+      "type": "table",
+      "summary": "Migração SQL que normaliza rótulos de tags existentes para manter a classificação dos sistemas consistente."
+    },
+    "table:supabase/migrations/20261114151644_require_email_confirmation_for_system_deletion.sql:migration": {
+      "name": "Migração: Confirmação para exclusão",
+      "type": "table",
+      "summary": "Migração SQL que exige confirmação por e-mail antes de excluir um sistema de jogo."
+    },
+    "table:supabase/migrations/20261114210354_system_member_character_search.sql:migration": {
+      "name": "Migração: Busca de personagens de membros",
+      "type": "table",
+      "summary": "Migração SQL que amplia a busca de membros para localizar personagens dentro dos sistemas autorizados."
+    },
+    "table:supabase/migrations/20261114215315_atomic_system_store_update.sql:migration": {
+      "name": "Migração: Atualização atômica da loja",
+      "type": "table",
+      "summary": "Migração SQL que agrupa a atualização da loja de um sistema em uma única operação consistente."
+    },
+    "table:supabase/migrations/20261114223717_system_events.sql:migration": {
+      "name": "Migração: Eventos de sistema",
+      "type": "table",
+      "summary": "Migração SQL que cria eventos de campanha associados aos sistemas e índices para consultá-los por data."
+    },
+    "table:supabase/migrations/20261114232728_campaign_chat_room_authorization.sql:migration": {
+      "name": "Migração: Autorização de salas de campanha",
+      "type": "table",
+      "summary": "Migração SQL que ajusta as regras de autorização de salas de chat vinculadas às campanhas."
+    },
+    "table:supabase/migrations/20261115013118_lobby_creator_tools.sql:migration": {
+      "name": "Migração: Ferramentas do criador de lobby",
+      "type": "table",
+      "summary": "Migração SQL que adiciona configurações e permissões para as ferramentas de criação de lobby."
+    },
+    "table:supabase/migrations/20261115120000_store_item_images.sql:migration": {
+      "name": "Migração: Imagens de itens da loja",
+      "type": "table",
+      "summary": "Migração SQL que permite associar imagens aos itens disponibilizados na loja do sistema."
+    },
+    "table:supabase/migrations/20261115125424_store_currency_and_offer_autosave.sql:migration": {
+      "name": "Migração: Moeda e salvamento de ofertas",
+      "type": "table",
+      "summary": "Migração SQL que atualiza a persistência de moeda e o salvamento automático de ofertas de troca."
+    },
+    "table:supabase/migrations/20261115140000_chats_as_game_space.sql:migration": {
+      "name": "Migração: Conversas como espaço de jogo",
+      "type": "table",
+      "summary": "Migração SQL que adapta salas de chat para funcionarem como espaços de jogo com mensagens e dados de campanha."
+    },
+    "table:supabase/migrations/20261115155939_store_currency_image_permissions.sql:migration": {
+      "name": "Migração: Permissões de imagens e moeda",
+      "type": "table",
+      "summary": "Migração SQL que ajusta as permissões de acesso às imagens da loja e aos dados de moeda."
+    },
+    "table:supabase/migrations/20261115162952_daily_login_per_character.sql:migration": {
+      "name": "Migração: Login diário por personagem",
+      "type": "table",
+      "summary": "Migração SQL que migra o registro e as regras de recompensas diárias para o escopo de cada personagem."
+    },
+    "table:supabase/migrations/20261115170000_remove_character_sheet_conditions.sql:migration": {
+      "name": "Migração: Remoção de condições da ficha",
+      "type": "table",
+      "summary": "Migração SQL que remove condições antigas da estrutura e dos dados das fichas de personagem."
+    },
+    "table:supabase/migrations/20261115180000_account_settings.sql:migration": {
+      "name": "Migração: Configurações de conta",
+      "type": "table",
+      "summary": "Migração SQL que adiciona campos de perfil e solicitações de transferência de propriedade de sistemas."
+    },
+    "table:supabase/migrations/20261115210000_profile_customization.sql:migration": {
+      "name": "Migração: Personalização de perfil",
+      "type": "table",
+      "summary": "Migração SQL que adiciona banner, status e interesses ao perfil e define uma operação controlada para atualizá-los."
+    },
+    "table:supabase/migrations/20261116180000_friendships.sql:migration": {
+      "name": "Migração: Amizades",
+      "type": "table",
+      "summary": "Migração SQL que cria solicitações de amizade com estados e restrições para evitar pares duplicados ou autoconvites."
+    },
+    "table:supabase/migrations/20261116190000_rpg_invitations.sql:migration": {
+      "name": "Migração: Convites de RPG",
+      "type": "table",
+      "summary": "Migração SQL que implementa convites para sistemas de RPG e valida a busca social usada no fluxo."
+    },
+    "table:supabase/migrations/20261116191152_public_player_profiles.sql:migration": {
+      "name": "Migração: Perfis públicos de jogadores",
+      "type": "table",
+      "summary": "Migração SQL que adiciona comentários e mensagens diretas associados a perfis públicos."
+    },
+    "table:supabase/migrations/20261116195000_allow_profile_timestamp_updates.sql:migration": {
+      "name": "Migração: Proteção de campos de perfil",
+      "type": "table",
+      "summary": "Migração SQL que refina o gatilho que impede alterações não autorizadas nos campos protegidos do perfil."
+    },
+    "table:supabase/migrations/20261116200000_username_change_once.sql:migration": {
+      "name": "Migração: Limite de alteração de nome",
+      "type": "table",
+      "summary": "Migração SQL que impõe a regra de que o nome de usuário do perfil só pode ser alterado uma vez."
+    },
+    "table:supabase/migrations/20261117013820_system_lobby_presence.sql:migration": {
+      "name": "Migração: Presença no lobby",
+      "type": "table",
+      "summary": "Migração SQL que armazena batimentos de presença dos jogadores por sistema e fornece controle de acesso restrito."
+    },
+    "table:supabase/migrations/20261117014550_lobby_welcome_copy_defaults.sql:migration": {
+      "name": "Migração: Textos padrão de boas-vindas",
+      "type": "table",
+      "summary": "Migração SQL que define título e mensagem padrão para a recepção do lobby."
+    },
+    "file:.superpowers/brainstorm/astra-review/content/dashboard-01.html": {
+      "name": "dashboard-01.html",
+      "type": "file",
+      "summary": "Protótipo visual da tela inicial do Astra para uma experiência de escrita de RPG. Apresenta navegação lateral, saudação ao usuário, chamada para continuar escrevendo e cartões com os mundos do jogador."
+    },
+    "file:.superpowers/brainstorm/astra-review/content/dashboard-02.html": {
+      "name": "dashboard-02.html",
+      "type": "file",
+      "summary": "Variação do protótipo da tela inicial do Astra, com marca e navegação no cabeçalho em vez de manter a navegação principal na lateral. Mantém a saudação, o acesso à escrita e a área de mundos do jogador."
+    },
+    "file:.superpowers/brainstorm/astra-review/content/dashboard-03.html": {
+      "name": "dashboard-03.html",
+      "type": "file",
+      "summary": "Terceira composição do protótipo da tela inicial do Astra, explorando a identidade visual e a navegação do produto. Inclui a saudação ao usuário, uma chamada para escrever e uma seção com seus mundos."
+    },
+    "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards.html": {
+      "name": "character-cards.html",
+      "type": "file",
+      "summary": "Protótipo HTML autocontido da tela de seleção de personagens do Bifrost RPG, com três aventureiros, atributos, características e opção para criar personagem."
+    },
+    "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v2.html": {
+      "name": "character-cards-v2.html",
+      "type": "file",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual."
+    },
+    "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v3.html": {
+      "name": "character-cards-v3.html",
+      "type": "file",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual."
+    },
+    "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v4.html": {
+      "name": "character-cards-v4.html",
+      "type": "file",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual."
+    },
+    "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v5.html": {
+      "name": "character-cards-v5.html",
+      "type": "file",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual."
+    },
+    "file:.superpowers/brainstorm/codex-cards-20261115/content/character-cards-v6.html": {
+      "name": "character-cards-v6.html",
+      "type": "file",
+      "summary": "Variação visual autocontida da tela de seleção de personagens do Bifrost RPG. Mantém os três aventureiros de exemplo e ajusta a apresentação dos cartões e da identidade visual."
+    },
+    "file:.superpowers/brainstorm/codex-cards-v7.html": {
+      "name": "codex-cards-v7.html",
+      "type": "file",
+      "summary": "Protótipo em HTML para escolher personagem no Bifrost RPG. A versão apresenta três personagens com cartas responsivas e um botão de entrada em faixa larga com texto."
+    },
+    "file:.superpowers/brainstorm/codex-cards-v8.html": {
+      "name": "codex-cards-v8.html",
+      "type": "file",
+      "summary": "Variante do protótipo de seleção de personagem que transforma a ação de entrada em um botão circular de ícone alinhado à direita de cada carta."
+    },
+    "file:.superpowers/brainstorm/codex-cards-v9.html": {
+      "name": "codex-cards-v9.html",
+      "type": "file",
+      "summary": "Variante centrada da tela de seleção de personagem do Bifrost RPG, com cartões responsivos e botões circulares de entrada usando ícones SVG compactos."
+    },
+    "file:.superpowers/brainstorm/codex-cards-v10.html": {
+      "name": "codex-cards-v10.html",
+      "type": "file",
+      "summary": "Protótipo da seleção de personagens do Bifrost RPG com três cartas, personalização do saguão e uma ação de entrada central em botão circular com ícone de bússola."
+    },
+    "file:.superpowers/brainstorm/sheet-mockup/content/layout-v1.html": {
+      "name": "layout-v1.html",
+      "type": "file",
+      "summary": "Protótipo HTML de uma tela para configurar a ficha de personagem de um sistema de RPG, com etapas, campos editáveis e uma prévia da composição visual. Esta versão documenta uma alternativa de layout para o editor de ficha."
+    },
+    "file:.superpowers/brainstorm/sheet-mockup/content/layout-v2.html": {
+      "name": "layout-v2.html",
+      "type": "file",
+      "summary": "Protótipo HTML de uma tela para configurar a ficha de personagem de um sistema de RPG, com etapas, campos editáveis e uma prévia da composição visual. Esta versão documenta uma alternativa de layout para o editor de ficha."
+    },
+    "file:.superpowers/brainstorm/sheet-mockup/content/layout-v3.html": {
+      "name": "layout-v3.html",
+      "type": "file",
+      "summary": "Protótipo HTML de uma tela para configurar a ficha de personagem de um sistema de RPG, com etapas, campos editáveis e uma prévia da composição visual. Esta versão documenta uma alternativa de layout para o editor de ficha."
+    },
+    "file:.superpowers/brainstorm/sheet-mockup/content/layout-v4.html": {
+      "name": "layout-v4.html",
+      "type": "file",
+      "summary": "Protótipo HTML de uma tela para configurar a ficha de personagem de um sistema de RPG, com etapas, campos editáveis e uma prévia da composição visual. Esta versão documenta uma alternativa de layout para o editor de ficha."
+    },
+    "document:AGENTS.md": {
+      "name": "AGENTS.md",
+      "type": "document",
+      "summary": "Define princípios de trabalho para manter mudanças focadas, explicitar restrições e validar alterações com verificações pequenas. Também descreve a divisão do repositório entre backend, frontend, banco de dados e Supabase."
+    },
+    "document:AUTH_AND_STACK.md": {
+      "name": "AUTH_AND_STACK.md",
+      "type": "document",
+      "summary": "Documenta o desenho e o estado atual de cadastro, autenticação e perfil, além de recomendações para Supabase Auth, sessões, validação e políticas RLS. Distingue claramente a implementação existente das etapas arquiteturais ainda recomendadas."
+    },
+    "config:package.json": {
+      "name": "package.json",
+      "type": "config",
+      "summary": "Configura o monorepo npm com workspaces para backend e frontend e define comandos agregados de build, desenvolvimento, testes e verificação de tipos. O frontend e o backend têm seus próprios manifestos e scripts."
+    },
+    "config:vercel.json": {
+      "name": "vercel.json",
+      "type": "config",
+      "summary": "Declara o frontend Next.js como um serviço Vercel enraizado em `frontend/` e encaminha as requisições recebidas para esse serviço."
+    },
+    "config:backend/.env.example": {
+      "name": ".env.example",
+      "type": "config",
+      "summary": "Modelo de configuração local do backend com URL e chave publicável do Supabase, porta HTTP e ambiente de execução."
+    },
+    "document:backend/README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "Documenta a API Fastify, a configuração local, autenticação Supabase, contratos de perfil e recompensas diárias, notificações, migrações e verificações do backend."
+    },
+    "config:backend/package.json": {
+      "name": "package.json",
+      "type": "config",
+      "summary": "Define o workspace privado do backend, seus comandos de desenvolvimento, teste, build e typecheck, e as dependências Fastify, Supabase e Zod."
+    },
+    "config:backend/tsconfig.build.json": {
+      "name": "tsconfig.build.json",
+      "type": "config",
+      "summary": "Configura a compilação de produção do backend para incluir os arquivos TypeScript de src e gerar declarações, herdando as opções base do workspace."
+    },
+    "config:backend/tsconfig.json": {
+      "name": "tsconfig.json",
+      "type": "config",
+      "summary": "Define a compilação TypeScript do backend com NodeNext, modo estrito, verificações adicionais de tipos e diretórios de saída para código e testes."
+    },
+    "config:frontend/.env.example": {
+      "name": ".env.example",
+      "type": "config",
+      "summary": "Lista as duas variáveis públicas necessárias para apontar o frontend ao Supabase local: URL do projeto e chave publishable."
+    },
+    "document:frontend/AGENTS.md": {
+      "name": "AGENTS.md",
+      "type": "document",
+      "summary": "Registra notas sobre a versão de Next.js usada pelo frontend e a origem dos arquivos de orientação que o próprio Next.js gera."
+    },
+    "document:frontend/README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "Explica como desenvolver e publicar o frontend Next.js, configurar Supabase Auth e integrar as rotas API ao Fastify no mesmo processo. Também descreve os fluxos de autenticação e as recompensas de login diário."
+    },
+    "config:frontend/package.json": {
+      "name": "package.json",
+      "type": "config",
+      "summary": "Define o workspace privado do frontend, que exige Node.js 24 ou superior e usa Next.js e React. Oferece comandos para desenvolvimento, build, execução, testes e verificação de tipos."
+    },
+    "file:frontend/styles.css": {
+      "name": "styles.css",
+      "type": "file",
+      "summary": "Define a folha de estilos global do frontend, com paleta escura, variáveis visuais e regras para componentes de navegação, formulários, cartões e layouts responsivos."
+    },
+    "config:frontend/tsconfig.json": {
+      "name": "tsconfig.json",
+      "type": "config",
+      "summary": "Configura o TypeScript do frontend em modo estrito, com JSX React, resolução de módulos bundler e alias `@/*` para `src/*`. Inclui os arquivos TypeScript da aplicação e exclui `node_modules`."
+    },
+    "table:supabase/tests/004_profile_rls.test.sql:test_suite": {
+      "name": "004_profile_rls.test.sql",
+      "type": "table",
+      "summary": "Valida o isolamento de linhas e as permissões de leitura e escrita para perfis e contas, cobrindo usuários anônimos, autenticados e proprietários."
+    },
+    "table:supabase/tests/005_daily_login_rewards.test.sql:test_suite": {
+      "name": "005_daily_login_rewards.test.sql",
+      "type": "table",
+      "summary": "Verifica agendas de recompensas diárias, limites de resgate, permissões de proprietários e jogadores e consistência dos prêmios concedidos."
+    },
+    "table:supabase/tests/006_user_hierarchy.test.sql:test_suite": {
+      "name": "006_user_hierarchy.test.sql",
+      "type": "table",
+      "summary": "Testa a hierarquia entre administradores da plataforma e membros de sistemas de jogo, incluindo políticas de acesso e funções auxiliares."
+    },
+    "table:supabase/tests/008_daily_login_popup.test.sql:test_suite": {
+      "name": "008_daily_login_popup.test.sql",
+      "type": "table",
+      "summary": "Confirma o registro e a exibição de avisos de login diário por usuário, impedindo alterações no estado de outras pessoas."
+    },
+    "table:supabase/tests/010_daily_login_popup_per_system.test.sql:test_suite": {
+      "name": "010_daily_login_popup_per_system.test.sql",
+      "type": "table",
+      "summary": "Valida que o estado de avisos de login diário é independente para cada sistema de jogo."
+    },
+    "table:supabase/tests/011_character_experience.test.sql:test_suite": {
+      "name": "011_character_experience.test.sql",
+      "type": "table",
+      "summary": "Exercita configurações de XP, fontes de experiência e histórico de XP de personagens, incluindo autorização e efeitos de resgate."
+    },
+    "table:supabase/tests/012_character_item_trading.test.sql:test_suite": {
+      "name": "012_character_item_trading.test.sql",
+      "type": "table",
+      "summary": "Testa ofertas de troca entre personagens, respostas, contrapropostas, cancelamento, expiração e transferência segura de itens."
+    },
+    "table:supabase/tests/013_system_character_sheets.test.sql:test_suite": {
+      "name": "013_system_character_sheets.test.sql",
+      "type": "table",
+      "summary": "Verifica a criação e o preenchimento de fichas de personagem por sistema, inclusive metadados de descoberta e restrições de acesso."
+    },
+    "table:supabase/tests/016_character_sheet_visual_elements.test.sql:test_suite": {
+      "name": "016_character_sheet_visual_elements.test.sql",
+      "type": "table",
+      "summary": "Confirma que elementos visuais da ficha são persistidos e acessíveis conforme as permissões do sistema."
+    },
+    "table:supabase/tests/017_character_sheet_choices.test.sql:test_suite": {
+      "name": "017_character_sheet_choices.test.sql",
+      "type": "table",
+      "summary": "Valida escolhas de ficha e suas condições, incluindo persistência e leitura por usuários autorizados."
+    },
+    "table:supabase/tests/018_system_store_economy.test.sql:test_suite": {
+      "name": "018_system_store_economy.test.sql",
+      "type": "table",
+      "summary": "Exercita a economia do sistema: saldos, compras, recompensas em moeda, ledger e reversão atômica quando uma operação falha."
+    },
+    "table:supabase/tests/019_system_member_character_search.test.sql:test_suite": {
+      "name": "019_system_member_character_search.test.sql",
+      "type": "table",
+      "summary": "Testa a busca de personagens por membros do sistema e restringe os resultados segundo participação e permissões."
+    },
+    "table:supabase/tests/021_system_password_access_enforcement.test.sql:test_suite": {
+      "name": "021_system_password_access_enforcement.test.sql",
+      "type": "table",
+      "summary": "Confirma a validação de acesso a sistemas protegidos por senha e o bloqueio de tentativas não autorizadas."
+    },
+    "table:supabase/tests/022_system_discovery_metadata.test.sql:test_suite": {
+      "name": "022_system_discovery_metadata.test.sql",
+      "type": "table",
+      "summary": "Verifica metadados e tags usados na descoberta de sistemas, incluindo validação e permissões de alteração."
+    },
+    "table:supabase/tests/023_system_lifecycle.test.sql:test_suite": {
+      "name": "023_system_lifecycle.test.sql",
+      "type": "table",
+      "summary": "Testa transições do ciclo de vida de sistemas de jogo, regras de encerramento e acesso dos participantes."
+    },
+    "table:supabase/tests/027_system_events.test.sql:test_suite": {
+      "name": "027_system_events.test.sql",
+      "type": "table",
+      "summary": "Valida a criação e consulta de eventos do sistema, respeitando papéis de proprietário, membro e administrador."
+    },
+    "table:supabase/tests/029_lobby_creator_tools_integrity.test.sql:test_suite": {
+      "name": "029_lobby_creator_tools_integrity.test.sql",
+      "type": "table",
+      "summary": "Confirma a integridade das ferramentas de criação do lobby e das configurações que controlam a participação."
+    },
+    "table:supabase/tests/030_chats_as_game_space.test.sql:test_suite": {
+      "name": "030_chats_as_game_space.test.sql",
+      "type": "table",
+      "summary": "Verifica chats como espaço principal de jogo, associação de membros e vínculo direto das mensagens ao chat."
+    },
+    "table:supabase/tests/031_friendships.test.sql:test_suite": {
+      "name": "031_friendships.test.sql",
+      "type": "table",
+      "summary": "Testa solicitações e relações de amizade, incluindo aceitação, recusas, duplicatas e isolamento entre usuários."
+    },
+    "table:supabase/tests/032_rpg_invitations.test.sql:test_suite": {
+      "name": "032_rpg_invitations.test.sql",
+      "type": "table",
+      "summary": "Valida convites de RPG, seus destinatários e estados, além das regras de autorização e uso."
+    },
+    "file:supabase/tests/033_public_player_profiles.test.sql": {
+      "name": "033_public_player_profiles.test.sql",
+      "type": "file",
+      "summary": "Testa por pgTAP os perfis públicos de jogadores, comentários em murais e mensagens diretas, incluindo privacidade de e-mail e telefone, autorização entre participantes e rejeição de operações inválidas."
+    },
+    "file:supabase/tests/034_system_lobby_presence.test.sql": {
+      "name": "034_system_lobby_presence.test.sql",
+      "type": "file",
+      "summary": "Valida por pgTAP a RPC de heartbeat e a contagem de presença em lobbies, cobrindo isolamento por sistema, idempotência, RLS, permissões, membros removidos e registros expirados."
+    },
+    "document:supabase/tests/CONCURRENCY.md": {
+      "name": "CONCURRENCY.md",
+      "type": "document",
+      "summary": "Documenta o teste de integração concorrente da loja: requisitos de banco descartável, coordenação das transações, verificação de bloqueios, limpeza das fixtures e limites de segurança."
+    },
+    "file:.superpowers/brainstorm/astra-review/state/server-info": {
+      "name": "server-info",
+      "type": "file",
+      "summary": "Marcador de estado de um servidor local de prévia usado durante a revisão Astra. Registra metadados de execução; valores voláteis foram omitidos."
+    },
+    "file:.superpowers/brainstorm/character-sheet-visual/content/approaches.html": {
+      "name": "approaches.html",
+      "type": "file",
+      "summary": "Protótipo visual em português que compara dois fluxos para montar fichas de personagem: campos organizados e montagem livre por etapas, ambos com opções gráficas e prévia do jogador."
+    },
+    "file:.superpowers/brainstorm/character-sheet-visual/state/server-stopped": {
+      "name": "server-stopped",
+      "type": "file",
+      "summary": "Registro de que o servidor local de prévia do protótipo de ficha foi encerrado após inatividade."
+    },
+    "file:.superpowers/brainstorm/codex-cards-20261115/state/server-stopped": {
+      "name": "server-stopped",
+      "type": "file",
+      "summary": "Registro de encerramento por inatividade do servidor local usado para visualizar os cartões de Codex."
+    },
+    "file:.superpowers/brainstorm/sheet-mockup/state/server-info": {
+      "name": "server-info",
+      "type": "file",
+      "summary": "Metadados de execução do servidor local de prévia do mockup de fichas; detalhes voláteis da conexão foram omitidos."
+    },
+    "config:.ua/config.json": {
+      "name": "config.json",
+      "type": "config",
+      "summary": "Preferência do Understand Anything para gerar o conteúdo do grafo em português."
+    },
+    "document:database/README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "Documenta a organização das migrações SQL, os domínios do banco e convenções de segurança e evolução; detalha ainda a economia da loja, carteiras, lançamentos e compras atômicas."
+    },
+    "document:database/schema/README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "Resume os domínios do esquema relacional, incluindo contas, autorização, sistemas de jogo, progressão, trocas, loja e conversas; aponta as migrações como DDL canônico."
+    },
+    "file:database/tests/daily_login_per_character_rollback.sql": {
+      "name": "daily_login_per_character_rollback.sql",
+      "type": "file",
+      "summary": "Teste transacional que valida reivindicações de recompensa diária por personagem, atualização de saldo, disponibilidade entre personagens do mesmo sistema e prevenção de crédito duplicado; desfaz as alterações ao final."
+    },
+    "file:frontend/app/account-page.css": {
+      "name": "account-page.css",
+      "type": "file",
+      "summary": "Define a apresentação responsiva da página de autenticação, com painéis de narrativa e formulário, identidade visual escura e componentes de acesso."
+    },
+    "file:frontend/app/globals.css": {
+      "name": "globals.css",
+      "type": "file",
+      "summary": "Define estilos globais, tokens de cor e tipografia da aplicação, além de padrões compartilhados para navegação por abas e superfícies visuais."
+    },
+    "file:frontend/app/layout.tsx": {
+      "name": "layout.tsx",
+      "type": "file",
+      "summary": "Layout raiz do Next.js que define viewport, metadados, idioma pt-BR e envolve as páginas com a estrutura HTML base."
+    },
+    "file:frontend/next-env.d.ts": {
+      "name": "next-env.d.ts",
+      "type": "file",
+      "summary": "Declarações de tipos geradas pelo Next.js para integrar os tipos do framework e as definições de rotas geradas."
+    },
+    "file:frontend/next.config.ts": {
+      "name": "next.config.ts",
+      "type": "file",
+      "summary": "Configura o Next.js para o workspace: injeta variáveis públicas de URL do Supabase e da aplicação, define a raiz do Turbopack e ajusta aliases de extensão do webpack."
+    },
+    "file:frontend/src/features/account/account-settings-page.css": {
+      "name": "account-settings-page.css",
+      "type": "file",
+      "summary": "Estiliza a página de configurações da conta, seus cartões, avisos de confirmação e estados inativos, mantendo hierarquia de títulos e campos consistente."
+    },
+    "file:frontend/src/features/characters/characters.css": {
+      "name": "characters.css",
+      "type": "file",
+      "summary": "Reúne estilos das telas e componentes de personagens, incluindo entradas, formulários, galerias, cartões e áreas de lobby."
+    },
+    "file:frontend/src/features/characters/lobby-creator-tools.css": {
+      "name": "lobby-creator-tools.css",
+      "type": "file",
+      "summary": "Estiliza controles de criação e personalização do lobby, com campos, opções e ações compactas."
+    },
+    "file:frontend/src/features/chats/chat.css": {
+      "name": "chat.css",
+      "type": "file",
+      "summary": "Define a apresentação dos painéis de chat, mensagens e controles associados à conversa durante o jogo."
+    },
+    "file:frontend/src/features/daily-login/daily-login-admin.css": {
+      "name": "daily-login-admin.css",
+      "type": "file",
+      "summary": "Estiliza os controles administrativos de configuração das recompensas de login diário."
+    },
+    "file:frontend/src/features/daily-login/daily-login-popup.css": {
+      "name": "daily-login-popup.css",
+      "type": "file",
+      "summary": "Define o layout visual do popup de login diário, incluindo apresentação da recompensa e ações de reivindicação."
+    },
+    "file:frontend/src/features/dashboard/dashboard.css": {
+      "name": "dashboard.css",
+      "type": "file",
+      "summary": "Folha extensa de estilos do dashboard, cobrindo navegação, painéis, cartões, listas e layouts responsivos da área principal do jogo."
+    },
+    "file:frontend/src/features/notifications/notifications.css": {
+      "name": "notifications.css",
+      "type": "file",
+      "summary": "Estiliza a central de notificações, seus itens, estados de leitura, ações e apresentação responsiva."
+    },
+    "file:frontend/src/features/profile/profile-card.css": {
+      "name": "profile-card.css",
+      "type": "file",
+      "summary": "Define cartões de perfil, avatares, identidade visual e estados de interação usados na apresentação de jogadores."
+    },
+    "file:frontend/src/features/profile/public-profile-page.css": {
+      "name": "public-profile-page.css",
+      "type": "file",
+      "summary": "Estiliza a página pública de perfil e os elementos de apresentação compartilháveis do jogador."
+    },
+    "file:frontend/src/features/shell/app-header.css": {
+      "name": "app-header.css",
+      "type": "file",
+      "summary": "Define a barra superior da aplicação, incluindo marca, navegação e menu popover do perfil do usuário."
+    },
+    "file:frontend/src/features/social/friends-page.css": {
+      "name": "friends-page.css",
+      "type": "file",
+      "summary": "Estiliza a página social de amizades: busca de jogadores, convites, listas, abas e estados responsivos."
+    },
+    "file:frontend/src/features/social/invite-friend-control.css": {
+      "name": "invite-friend-control.css",
+      "type": "file",
+      "summary": "Define o estilo compacto do controle de convite de amizade usado na interface social."
+    },
+    "file:frontend/src/features/store/store.css": {
+      "name": "store.css",
+      "type": "file",
+      "summary": "Organiza cartões e painéis da loja do sistema, com espaçamento, bordas e cores alinhados ao tema da aplicação."
+    },
+    "file:frontend/src/features/system-creation/system-creation.css": {
+      "name": "system-creation.css",
+      "type": "file",
+      "summary": "Estiliza o fluxo de criação de sistemas e montagem de fichas, incluindo etapas, campos e estados da interface."
+    },
+    "file:frontend/src/features/system-events/system-events-card.css": {
+      "name": "system-events-card.css",
+      "type": "file",
+      "summary": "Define a apresentação dos cartões e listas de eventos do sistema."
+    },
+    "file:frontend/src/features/system-management/system-management-codex.css": {
+      "name": "system-management-codex.css",
+      "type": "file",
+      "summary": "Estiliza a visualização em formato de códice usada na administração do sistema, com páginas, navegação e identidade visual."
+    },
+    "file:frontend/src/features/system-management/system-management-page.css": {
+      "name": "system-management-page.css",
+      "type": "file",
+      "summary": "Define o layout abrangente da página de gerenciamento do sistema, incluindo navegação, painel tipo livro e áreas de conteúdo."
+    },
+    "file:frontend/src/features/trading/trading.css": {
+      "name": "trading.css",
+      "type": "file",
+      "summary": "Aplica estilos aos cartões e formulários de ofertas de troca entre personagens, com adaptação para telas estreitas."
+    },
+    "file:frontend/test/character-home-layout.test.ts": {
+      "name": "character-home-layout.test.ts",
+      "type": "file",
+      "summary": "Verifica os agrupamentos de áreas e a adaptação responsiva do layout inicial do personagem."
+    },
+    "file:frontend/test/next-config-env.test.ts": {
+      "name": "next-config-env.test.ts",
+      "type": "file",
+      "summary": "Confere o mapeamento das variáveis Supabase do Vercel para os nomes públicos usados pelo cliente Next.js."
+    },
+    "file:frontend/test/workspace-scripts.test.ts": {
+      "name": "workspace-scripts.test.ts",
+      "type": "file",
+      "summary": "Confere que os scripts do workspace frontend permitem executar o serviço Next.js sem compilar o pacote backend."
+    },
+    "config:supabase/config.toml": {
+      "name": "config.toml",
+      "type": "config",
+      "summary": "Configura os serviços locais do Supabase, incluindo API, armazenamento, banco de dados e autenticação; também seleciona os templates de e-mail."
+    },
+    "file:supabase/templates/signup-confirmation.html": {
+      "name": "signup-confirmation.html",
+      "type": "file",
+      "summary": "Template em português para confirmar o cadastro por e-mail, com chamada de confirmação e orientação alternativa para abrir o link."
+    },
+    "file:supabase/templates/system-deletion-magic-link.html": {
+      "name": "system-deletion-magic-link.html",
+      "type": "file",
+      "summary": "Template em português para validar a identidade em alterações de conta ou sistema e retornar a pessoa ao aplicativo."
+    },
+    "file:supabase/tests/store-concurrency.mjs": {
+      "name": "store-concurrency.mjs",
+      "type": "file",
+      "summary": "Executa uma verificação de concorrência da loja em um banco Supabase descartável, usando sessões psql separadas para observar bloqueios transacionais."
+    }
+  },
+  "totalNodes": 394,
+  "totalEdges": 1097
+}

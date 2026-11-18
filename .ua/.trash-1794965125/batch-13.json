@@ -1,0 +1,87 @@
+{
+  "nodes": [
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-v7.html",
+      "type": "file",
+      "name": "codex-cards-v7.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-v7.html",
+      "summary": "Protótipo em HTML para escolher personagem no Bifrost RPG. A versão apresenta três personagens com cartas responsivas e um botão de entrada em faixa larga com texto.",
+      "tags": [
+        "protótipo",
+        "seleção-de-personagem",
+        "html",
+        "interface"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Documento HTML autocontido com estilos CSS embutidos e conteúdo em português do Brasil."
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-v8.html",
+      "type": "file",
+      "name": "codex-cards-v8.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-v8.html",
+      "summary": "Variante do protótipo de seleção de personagem que transforma a ação de entrada em um botão circular de ícone alinhado à direita de cada carta.",
+      "tags": [
+        "protótipo",
+        "seleção-de-personagem",
+        "html",
+        "interface"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "HTML autocontido com CSS embutido e layout responsivo."
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-v9.html",
+      "type": "file",
+      "name": "codex-cards-v9.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-v9.html",
+      "summary": "Variante centrada da tela de seleção de personagem do Bifrost RPG, com cartões responsivos e botões circulares de entrada usando ícones SVG compactos.",
+      "tags": [
+        "protótipo",
+        "seleção-de-personagem",
+        "html",
+        "interface"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "HTML autocontido com CSS embutido; refina a posição e o tamanho do ícone de ação em relação à variante v8."
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-v10.html",
+      "type": "file",
+      "name": "codex-cards-v10.html",
+      "filePath": ".superpowers/brainstorm/codex-cards-v10.html",
+      "summary": "Protótipo da seleção de personagens do Bifrost RPG com três cartas, personalização do saguão e uma ação de entrada central em botão circular com ícone de bússola.",
+      "tags": [
+        "protótipo",
+        "seleção-de-personagem",
+        "html",
+        "interface"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "HTML autocontido com CSS embutido, conteúdo pt-BR e ajustes responsivos; o botão circular e o SVG de bússola são maiores que na versão v9."
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:.superpowers/brainstorm/codex-cards-v7.html",
+      "target": "file:.superpowers/brainstorm/codex-cards-v8.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/codex-cards-v8.html",
+      "target": "file:.superpowers/brainstorm/codex-cards-v9.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/codex-cards-v9.html",
+      "target": "file:.superpowers/brainstorm/codex-cards-v10.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

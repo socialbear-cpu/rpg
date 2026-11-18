@@ -1,0 +1,299 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 20,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 20,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 20
+    }
+  },
+  "results": [
+    {
+      "path": "supabase/tests/004_profile_rls.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 76,
+      "nonEmptyLines": 68,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/005_daily_login_rewards.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 137,
+      "nonEmptyLines": 129,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/006_user_hierarchy.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 216,
+      "nonEmptyLines": 200,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/008_daily_login_popup.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 20,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/010_daily_login_popup_per_system.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 24,
+      "nonEmptyLines": 24,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/011_character_experience.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 209,
+      "nonEmptyLines": 198,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/012_character_item_trading.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 244,
+      "nonEmptyLines": 226,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/013_system_character_sheets.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 105,
+      "nonEmptyLines": 92,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/016_character_sheet_visual_elements.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 49,
+      "nonEmptyLines": 41,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/017_character_sheet_choices.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 31,
+      "nonEmptyLines": 25,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/018_system_store_economy.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 154,
+      "nonEmptyLines": 145,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/019_system_member_character_search.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 73,
+      "nonEmptyLines": 65,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/021_system_password_access_enforcement.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 67,
+      "nonEmptyLines": 61,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/022_system_discovery_metadata.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 182,
+      "nonEmptyLines": 173,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/023_system_lifecycle.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 145,
+      "nonEmptyLines": 137,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/027_system_events.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 53,
+      "nonEmptyLines": 46,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/029_lobby_creator_tools_integrity.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 84,
+      "nonEmptyLines": 74,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/030_chats_as_game_space.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 65,
+      "nonEmptyLines": 60,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/031_friendships.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 153,
+      "nonEmptyLines": 143,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/tests/032_rpg_invitations.test.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 158,
+      "nonEmptyLines": 141,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    }
+  ]
+}

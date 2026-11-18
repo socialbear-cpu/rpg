@@ -1,0 +1,1378 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 10,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 10,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 10,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/app/friends/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 2,
+      "functions": [
+        {
+          "name": "Page",
+          "startLine": 3,
+          "endLine": 3,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Page",
+          "line": 3,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/chats/chat-state.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "chatsForCurrentCharacter",
+          "startLine": 8,
+          "endLine": 10,
+          "params": [
+            "chats",
+            "chatsCharacterId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "updateChatDraft",
+          "startLine": 12,
+          "endLine": 17,
+          "params": [
+            "state",
+            "key",
+            "value"
+          ]
+        },
+        {
+          "name": "clearChatDraftIfUnchanged",
+          "startLine": 19,
+          "endLine": 25,
+          "params": [
+            "state",
+            "key",
+            "version"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "emptyChatDrafts",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "chatsForCurrentCharacter",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "updateChatDraft",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "clearChatDraftIfUnchanged",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/chats/chats.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 168,
+      "nonEmptyLines": 156,
+      "functions": [
+        {
+          "name": "formatMessageTime",
+          "startLine": 27,
+          "endLine": 29,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "ChatPanel",
+          "startLine": 31,
+          "endLine": 86,
+          "params": [
+            "{ chats, selectedChatId, messages, characterId, content, loadingChats, loadingMessages, sending, error, onSelectChat, onContentChange, onSubmit, view = 'full', onOpenConversation, onRetry }"
+          ]
+        },
+        {
+          "name": "Chats",
+          "startLine": 88,
+          "endLine": 168,
+          "params": [
+            "{ characterId, reloadToken = 0, preferredChatId = null, view = 'full', onOpenConversation }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ChatPanel",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "Chats",
+          "line": 88,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatMessageTime",
+          "callee": "new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format",
+          "lineNumber": 28
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "chats.find",
+          "lineNumber": 32
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "messages.at",
+          "lineNumber": 34
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "chats.map",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "onSelectChat",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "onOpenConversation",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "onOpenConversation",
+          "lineNumber": 46
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "onOpenConversation",
+          "lineNumber": 50
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "chats.map",
+          "lineNumber": 63
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "onSelectChat",
+          "lineNumber": 63
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "messages.map",
+          "lineNumber": 72
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "formatMessageTime",
+          "lineNumber": 73
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "onContentChange",
+          "lineNumber": 78
+        },
+        {
+          "caller": "ChatPanel",
+          "callee": "content.trim",
+          "lineNumber": 79
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 89
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 90
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 91
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 92
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 93
+        },
+        {
+          "caller": "Chats",
+          "callee": "useRef",
+          "lineNumber": 94
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 95
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 96
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 97
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 98
+        },
+        {
+          "caller": "Chats",
+          "callee": "useState",
+          "lineNumber": 99
+        },
+        {
+          "caller": "Chats",
+          "callee": "chatsForCurrentCharacter",
+          "lineNumber": 100
+        },
+        {
+          "caller": "Chats",
+          "callee": "useEffect",
+          "lineNumber": 106
+        },
+        {
+          "caller": "Chats",
+          "callee": "setLoadingChats",
+          "lineNumber": 108
+        },
+        {
+          "caller": "Chats",
+          "callee": "setError",
+          "lineNumber": 108
+        },
+        {
+          "caller": "Chats",
+          "callee": "setChats",
+          "lineNumber": 108
+        },
+        {
+          "caller": "Chats",
+          "callee": "setChatsCharacterId",
+          "lineNumber": 108
+        },
+        {
+          "caller": "Chats",
+          "callee": "setSelectedChatId",
+          "lineNumber": 108
+        },
+        {
+          "caller": "Chats",
+          "callee": "setMessages",
+          "lineNumber": 108
+        },
+        {
+          "caller": "Chats",
+          "callee": "getCharacterChats(characterId).then(({ chats: loadedChats }) => {\n      if (!active) return;\n      setChats(loadedChats);\n      setChatsCharacterId(characterId);\n      setSelectedChatId(loadedChats.find((chat) => chat.id === preferredChatId)?.id ?? loadedChats[0]?.id ?? null);\n    }).catch((reason) => {\n      if (active) {\n        setChats([]); setChatsCharacterId(characterId); setSelectedChatId(null); setMessages([]);\n        setError(reason instanceof Error ? reason.message : 'Não foi possível carregar os chats.');\n      }\n    }).finally",
+          "lineNumber": 109
+        },
+        {
+          "caller": "Chats",
+          "callee": "getCharacterChats(characterId).then(({ chats: loadedChats }) => {\n      if (!active) return;\n      setChats(loadedChats);\n      setChatsCharacterId(characterId);\n      setSelectedChatId(loadedChats.find((chat) => chat.id === preferredChatId)?.id ?? loadedChats[0]?.id ?? null);\n    }).catch",
+          "lineNumber": 109
+        },
+        {
+          "caller": "Chats",
+          "callee": "getCharacterChats(characterId).then",
+          "lineNumber": 109
+        },
+        {
+          "caller": "Chats",
+          "callee": "getCharacterChats",
+          "lineNumber": 109
+        },
+        {
+          "caller": "Chats",
+          "callee": "setChats",
+          "lineNumber": 111
+        },
+        {
+          "caller": "Chats",
+          "callee": "setChatsCharacterId",
+          "lineNumber": 112
+        },
+        {
+          "caller": "Chats",
+          "callee": "setSelectedChatId",
+          "lineNumber": 113
+        },
+        {
+          "caller": "Chats",
+          "callee": "loadedChats.find",
+          "lineNumber": 113
+        },
+        {
+          "caller": "Chats",
+          "callee": "setChats",
+          "lineNumber": 116
+        },
+        {
+          "caller": "Chats",
+          "callee": "setChatsCharacterId",
+          "lineNumber": 116
+        },
+        {
+          "caller": "Chats",
+          "callee": "setSelectedChatId",
+          "lineNumber": 116
+        },
+        {
+          "caller": "Chats",
+          "callee": "setMessages",
+          "lineNumber": 116
+        },
+        {
+          "caller": "Chats",
+          "callee": "setError",
+          "lineNumber": 117
+        },
+        {
+          "caller": "Chats",
+          "callee": "setLoadingChats",
+          "lineNumber": 119
+        },
+        {
+          "caller": "Chats",
+          "callee": "useEffect",
+          "lineNumber": 123
+        },
+        {
+          "caller": "Chats",
+          "callee": "setMessages",
+          "lineNumber": 124
+        },
+        {
+          "caller": "Chats",
+          "callee": "setLoadingMessages",
+          "lineNumber": 126
+        },
+        {
+          "caller": "Chats",
+          "callee": "setError",
+          "lineNumber": 126
+        },
+        {
+          "caller": "Chats",
+          "callee": "setMessages",
+          "lineNumber": 126
+        },
+        {
+          "caller": "Chats",
+          "callee": "getCharacterChatMessages(characterId, visibleChatId).then(({ messages: loadedMessages }) => {\n      if (active) setMessages(loadedMessages);\n    }).catch((reason) => {\n      if (active) setError(reason instanceof Error ? reason.message : 'Não foi possível carregar as mensagens.');\n    }).finally",
+          "lineNumber": 127
+        },
+        {
+          "caller": "Chats",
+          "callee": "getCharacterChatMessages(characterId, visibleChatId).then(({ messages: loadedMessages }) => {\n      if (active) setMessages(loadedMessages);\n    }).catch",
+          "lineNumber": 127
+        },
+        {
+          "caller": "Chats",
+          "callee": "getCharacterChatMessages(characterId, visibleChatId).then",
+          "lineNumber": 127
+        },
+        {
+          "caller": "Chats",
+          "callee": "getCharacterChatMessages",
+          "lineNumber": 127
+        },
+        {
+          "caller": "Chats",
+          "callee": "setMessages",
+          "lineNumber": 128
+        },
+        {
+          "caller": "Chats",
+          "callee": "setError",
+          "lineNumber": 130
+        },
+        {
+          "caller": "Chats",
+          "callee": "setLoadingMessages",
+          "lineNumber": 131
+        },
+        {
+          "caller": "submit",
+          "callee": "event.preventDefault",
+          "lineNumber": 136
+        },
+        {
+          "caller": "submit",
+          "callee": "content.trim",
+          "lineNumber": 138
+        },
+        {
+          "caller": "submit",
+          "callee": "setSending",
+          "lineNumber": 143
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 143
+        },
+        {
+          "caller": "submit",
+          "callee": "sendCharacterChatMessage",
+          "lineNumber": 145
+        },
+        {
+          "caller": "submit",
+          "callee": "setMessages",
+          "lineNumber": 147
+        },
+        {
+          "caller": "submit",
+          "callee": "current.some",
+          "lineNumber": 147
+        },
+        {
+          "caller": "submit",
+          "callee": "setDrafts",
+          "lineNumber": 149
+        },
+        {
+          "caller": "submit",
+          "callee": "clearChatDraftIfUnchanged",
+          "lineNumber": 149
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 152
+        },
+        {
+          "caller": "submit",
+          "callee": "setSending",
+          "lineNumber": 154
+        },
+        {
+          "caller": "changeDraft",
+          "callee": "setDrafts",
+          "lineNumber": 159
+        },
+        {
+          "caller": "changeDraft",
+          "callee": "updateChatDraft",
+          "lineNumber": 159
+        },
+        {
+          "caller": "retryChats",
+          "callee": "setChats",
+          "lineNumber": 163
+        },
+        {
+          "caller": "retryChats",
+          "callee": "setChatsCharacterId",
+          "lineNumber": 163
+        },
+        {
+          "caller": "retryChats",
+          "callee": "setSelectedChatId",
+          "lineNumber": 163
+        },
+        {
+          "caller": "retryChats",
+          "callee": "setMessages",
+          "lineNumber": 163
+        },
+        {
+          "caller": "retryChats",
+          "callee": "setReload",
+          "lineNumber": 164
+        },
+        {
+          "caller": "Chats",
+          "callee": "submit",
+          "lineNumber": 167
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/social/friend-state.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "friendRequestState",
+          "startLine": 7,
+          "endLine": 17,
+          "params": [
+            "userId",
+            "graph"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "friendRequestState",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "friendRequestState",
+          "callee": "graph.friends.some",
+          "lineNumber": 12
+        },
+        {
+          "caller": "friendRequestState",
+          "callee": "graph.incoming_requests.find",
+          "lineNumber": 13
+        },
+        {
+          "caller": "friendRequestState",
+          "callee": "graph.outgoing_requests.some",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/social/friends-page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 254,
+      "nonEmptyLines": 240,
+      "functions": [
+        {
+          "name": "FriendsPage",
+          "startLine": 15,
+          "endLine": 242,
+          "params": []
+        },
+        {
+          "name": "EmptyState",
+          "startLine": 244,
+          "endLine": 246,
+          "params": [
+            "{ symbol, title, message }"
+          ]
+        },
+        {
+          "name": "InvitationGroup",
+          "startLine": 248,
+          "endLine": 250,
+          "params": [
+            "{ title, count, empty, children }"
+          ]
+        },
+        {
+          "name": "ProfileLine",
+          "startLine": 252,
+          "endLine": 254,
+          "params": [
+            "{ profile }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "FriendsPage",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "FriendsPage",
+          "callee": "useRouter",
+          "lineNumber": 16
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 22
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 23
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 24
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 25
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useState",
+          "lineNumber": 26
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useCallback",
+          "lineNumber": 27
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "setLoading",
+          "lineNumber": 28
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Promise.allSettled",
+          "lineNumber": 29
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "getMyFriends",
+          "lineNumber": 29
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "getSocialInvitations",
+          "lineNumber": 29
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "setFriends",
+          "lineNumber": 30
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "setInvitations",
+          "lineNumber": 31
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "setLoadErrors",
+          "lineNumber": 32
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "setLoading",
+          "lineNumber": 36
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "useEffect",
+          "lineNumber": 38
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "hasSession",
+          "lineNumber": 39
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "router.replace",
+          "lineNumber": 39
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "load",
+          "lineNumber": 40
+        },
+        {
+          "caller": "refreshWhenVisible",
+          "callee": "load",
+          "lineNumber": 41
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "window.setInterval",
+          "lineNumber": 42
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "window.addEventListener",
+          "lineNumber": 43
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "document.addEventListener",
+          "lineNumber": 44
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "window.clearInterval",
+          "lineNumber": 46
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "window.removeEventListener",
+          "lineNumber": 47
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "document.removeEventListener",
+          "lineNumber": 48
+        },
+        {
+          "caller": "search",
+          "callee": "event.preventDefault",
+          "lineNumber": 52
+        },
+        {
+          "caller": "search",
+          "callee": "setError",
+          "lineNumber": 52
+        },
+        {
+          "caller": "search",
+          "callee": "setNotice",
+          "lineNumber": 52
+        },
+        {
+          "caller": "search",
+          "callee": "setResults",
+          "lineNumber": 53
+        },
+        {
+          "caller": "search",
+          "callee": "searchSocialProfiles",
+          "lineNumber": 53
+        },
+        {
+          "caller": "search",
+          "callee": "setError",
+          "lineNumber": 54
+        },
+        {
+          "caller": "act",
+          "callee": "setBusy",
+          "lineNumber": 57
+        },
+        {
+          "caller": "act",
+          "callee": "setError",
+          "lineNumber": 57
+        },
+        {
+          "caller": "act",
+          "callee": "operation",
+          "lineNumber": 58
+        },
+        {
+          "caller": "act",
+          "callee": "setNotice",
+          "lineNumber": 58
+        },
+        {
+          "caller": "act",
+          "callee": "load",
+          "lineNumber": 58
+        },
+        {
+          "caller": "act",
+          "callee": "key.startsWith",
+          "lineNumber": 58
+        },
+        {
+          "caller": "act",
+          "callee": "setResults",
+          "lineNumber": 58
+        },
+        {
+          "caller": "act",
+          "callee": "current.filter",
+          "lineNumber": 58
+        },
+        {
+          "caller": "act",
+          "callee": "key.slice",
+          "lineNumber": 58
+        },
+        {
+          "caller": "act",
+          "callee": "load",
+          "lineNumber": 60
+        },
+        {
+          "caller": "act",
+          "callee": "setError",
+          "lineNumber": 61
+        },
+        {
+          "caller": "act",
+          "callee": "setBusy",
+          "lineNumber": 63
+        },
+        {
+          "caller": "handleTabKeyDown",
+          "callee": "friendsTabs.indexOf",
+          "lineNumber": 66
+        },
+        {
+          "caller": "handleTabKeyDown",
+          "callee": "event.preventDefault",
+          "lineNumber": 73
+        },
+        {
+          "caller": "handleTabKeyDown",
+          "callee": "setActiveTab",
+          "lineNumber": 74
+        },
+        {
+          "caller": "handleTabKeyDown",
+          "callee": "document.getElementById(`friends-tab-${nextTab}`)?.focus",
+          "lineNumber": 75
+        },
+        {
+          "caller": "handleTabKeyDown",
+          "callee": "document.getElementById",
+          "lineNumber": 75
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "search",
+          "lineNumber": 103
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "setQuery",
+          "lineNumber": 107
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "results.map",
+          "lineNumber": 113
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "friendRequestState",
+          "lineNumber": 114
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Boolean",
+          "lineNumber": 122
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 122
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "respondToFriendRequest",
+          "lineNumber": 122
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Boolean",
+          "lineNumber": 123
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 123
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "respondToFriendRequest",
+          "lineNumber": 123
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 125
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "sendFriendRequest",
+          "lineNumber": 125
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "friendsTabs.map",
+          "lineNumber": 136
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "setActiveTab",
+          "lineNumber": 148
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "handleTabKeyDown",
+          "lineNumber": 149
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "friends.friends.map",
+          "lineNumber": 164
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 167
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "removeMyFriend",
+          "lineNumber": 167
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "friends.incoming_requests.map",
+          "lineNumber": 180
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Boolean",
+          "lineNumber": 184
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 184
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "respondToFriendRequest",
+          "lineNumber": 184
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Boolean",
+          "lineNumber": 185
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 185
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "respondToFriendRequest",
+          "lineNumber": 185
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "friends.outgoing_requests.map",
+          "lineNumber": 189
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Boolean",
+          "lineNumber": 192
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 192
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "respondToFriendRequest",
+          "lineNumber": 192
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "invitations.owner_approvals.map",
+          "lineNumber": 207
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Boolean",
+          "lineNumber": 211
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 211
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "respondToSocialInvitation",
+          "lineNumber": 211
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Boolean",
+          "lineNumber": 212
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 212
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "respondToSocialInvitation",
+          "lineNumber": 212
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "invitations.recipient_invitations.map",
+          "lineNumber": 220
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "router.push",
+          "lineNumber": 225
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 225
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 225
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 225
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Boolean",
+          "lineNumber": 227
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 227
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "respondToSocialInvitation",
+          "lineNumber": 227
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "Boolean",
+          "lineNumber": 228
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "act",
+          "lineNumber": 228
+        },
+        {
+          "caller": "FriendsPage",
+          "callee": "respondToSocialInvitation",
+          "lineNumber": 228
+        },
+        {
+          "caller": "ProfileLine",
+          "callee": "encodeURIComponent",
+          "lineNumber": 253
+        },
+        {
+          "caller": "ProfileLine",
+          "callee": "profile.username.slice(0, 1).toUpperCase",
+          "lineNumber": 253
+        },
+        {
+          "caller": "ProfileLine",
+          "callee": "profile.username.slice",
+          "lineNumber": 253
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/social/invite-friend-control.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "InviteFriendControl",
+          "startLine": 7,
+          "endLine": 31,
+          "params": [
+            "{ systemId, chatId }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "InviteFriendControl",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "InviteFriendControl",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "InviteFriendControl",
+          "callee": "useState",
+          "lineNumber": 9
+        },
+        {
+          "caller": "InviteFriendControl",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "InviteFriendControl",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "InviteFriendControl",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "show",
+          "callee": "setMessage",
+          "lineNumber": 14
+        },
+        {
+          "caller": "show",
+          "callee": "setOpen",
+          "lineNumber": 14
+        },
+        {
+          "caller": "show",
+          "callee": "setFriends",
+          "lineNumber": 15
+        },
+        {
+          "caller": "show",
+          "callee": "getMyFriends",
+          "lineNumber": 15
+        },
+        {
+          "caller": "show",
+          "callee": "setMessage",
+          "lineNumber": 16
+        },
+        {
+          "caller": "invite",
+          "callee": "setBusy",
+          "lineNumber": 20
+        },
+        {
+          "caller": "invite",
+          "callee": "setMessage",
+          "lineNumber": 20
+        },
+        {
+          "caller": "invite",
+          "callee": "createChatFriendInvitation",
+          "lineNumber": 22
+        },
+        {
+          "caller": "invite",
+          "callee": "createSystemFriendInvitation",
+          "lineNumber": 22
+        },
+        {
+          "caller": "invite",
+          "callee": "setMessage",
+          "lineNumber": 23
+        },
+        {
+          "caller": "invite",
+          "callee": "setSelected",
+          "lineNumber": 24
+        },
+        {
+          "caller": "invite",
+          "callee": "setMessage",
+          "lineNumber": 25
+        },
+        {
+          "caller": "invite",
+          "callee": "setBusy",
+          "lineNumber": 26
+        },
+        {
+          "caller": "InviteFriendControl",
+          "callee": "setOpen",
+          "lineNumber": 28
+        },
+        {
+          "caller": "InviteFriendControl",
+          "callee": "show",
+          "lineNumber": 28
+        },
+        {
+          "caller": "InviteFriendControl",
+          "callee": "setSelected",
+          "lineNumber": 29
+        },
+        {
+          "caller": "InviteFriendControl",
+          "callee": "friends.map",
+          "lineNumber": 29
+        },
+        {
+          "caller": "InviteFriendControl",
+          "callee": "invite",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/chats-render.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 36,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/chats-state.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 30,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/friend-state.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 22,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/friends-render.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 22,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

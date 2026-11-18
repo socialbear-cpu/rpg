@@ -1,0 +1,1630 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/app/account-settings/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/account-settings/page.tsx",
+      "summary": "Rota App Router que encaminha a página de configurações da conta para o componente da funcionalidade.",
+      "tags": [
+        "entry-point",
+        "routing",
+        "account-settings"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/app/account-settings/page.tsx:AccountSettingsRoute",
+      "type": "function",
+      "name": "AccountSettingsRoute",
+      "filePath": "frontend/app/account-settings/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Encaminha a rota de configurações para AccountSettingsPage.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/app/dashboard/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/dashboard/page.tsx",
+      "summary": "Carrega o perfil autenticado, aplica o fluxo inicial de escolha de username e apresenta o dashboard; também redireciona sessões ausentes e permite sair.",
+      "tags": [
+        "entry-point",
+        "routing",
+        "authentication",
+        "dashboard"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/app/dashboard/page.tsx:DashboardPage",
+      "type": "function",
+      "name": "DashboardPage",
+      "filePath": "frontend/app/dashboard/page.tsx",
+      "lineRange": [
+        10,
+        67
+      ],
+      "summary": "Verifica a sessão, carrega o perfil, orienta a escolha de username e monta o dashboard com ações de logout.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/app/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/page.tsx",
+      "summary": "Página inicial do Next.js que monta a experiência de cadastro e login do aplicativo RPG.",
+      "tags": [
+        "entry-point",
+        "routing",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/app/page.tsx:HomePage",
+      "type": "function",
+      "name": "HomePage",
+      "filePath": "frontend/app/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Monta RpgApp como tela inicial.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/app/players/[username]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/players/[username]/page.tsx",
+      "summary": "Resolve o parâmetro dinâmico de username e entrega a rota pública ao componente de perfil do jogador.",
+      "tags": [
+        "entry-point",
+        "routing",
+        "profile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/app/players/[username]/page.tsx:PlayerRoute",
+      "type": "function",
+      "name": "PlayerRoute",
+      "filePath": "frontend/app/players/[username]/page.tsx",
+      "lineRange": [
+        3,
+        6
+      ],
+      "summary": "Obtém o username dos parâmetros assíncronos da rota e o repassa à página pública do jogador.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/app/profile/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/profile/page.tsx",
+      "summary": "Rota autenticada da área de perfil, delegando a edição ao componente ProfilePage.",
+      "tags": [
+        "entry-point",
+        "routing",
+        "profile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/app/profile/page.tsx:PlayerProfileRoute",
+      "type": "function",
+      "name": "PlayerProfileRoute",
+      "filePath": "frontend/app/profile/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Monta a página do perfil próprio.",
+      "tags": [
+        "function",
+        "application-logic",
+        "profile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/app/rpg-app.tsx",
+      "type": "file",
+      "name": "rpg-app.tsx",
+      "filePath": "frontend/app/rpg-app.tsx",
+      "summary": "Componente cliente da entrada do Bifrost RPG: conduz cadastro, login e recuperação de senha, processa callbacks de autenticação e confirma exclusão de sistemas.",
+      "tags": [
+        "component",
+        "authentication",
+        "account-management",
+        "client-state"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/app/rpg-app.tsx:RpgApp",
+      "type": "function",
+      "name": "RpgApp",
+      "filePath": "frontend/app/rpg-app.tsx",
+      "lineRange": [
+        25,
+        233
+      ],
+      "summary": "Coordena o fluxo de autenticação, recuperação de conta, callback do Supabase e confirmação de exclusão permanente de sistema.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/app/systems/[systemId]/characters/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/systems/[systemId]/characters/page.tsx",
+      "summary": "Rota protegida de personagens de um sistema; aguarda a sessão e encaminha systemId e parâmetros de convite para CharacterEntry.",
+      "tags": [
+        "entry-point",
+        "routing",
+        "authentication",
+        "characters"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/app/systems/[systemId]/characters/page.tsx:SystemCharactersPage",
+      "type": "function",
+      "name": "SystemCharactersPage",
+      "filePath": "frontend/app/systems/[systemId]/characters/page.tsx",
+      "lineRange": [
+        9,
+        11
+      ],
+      "summary": "Envolve o conteúdo de personagens em Suspense para aguardar parâmetros de navegação.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/app/systems/[systemId]/lobby-settings/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/systems/[systemId]/lobby-settings/page.tsx",
+      "summary": "Rota de configurações do lobby protegida por sessão, que fornece o systemId à página de configurações.",
+      "tags": [
+        "entry-point",
+        "routing",
+        "authentication",
+        "lobby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/app/systems/[systemId]/lobby-settings/page.tsx:SystemLobbySettingsRoute",
+      "type": "function",
+      "name": "SystemLobbySettingsRoute",
+      "filePath": "frontend/app/systems/[systemId]/lobby-settings/page.tsx",
+      "lineRange": [
+        8,
+        15
+      ],
+      "summary": "Confirma a sessão, obtém systemId e monta as configurações do lobby.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/auth-state.ts",
+      "type": "file",
+      "name": "auth-state.ts",
+      "filePath": "frontend/src/auth-state.ts",
+      "summary": "Interpreta fragmentos de URL do Supabase para reconhecer recuperação de senha, magic link e erros de autenticação, além de sinalizar limpeza do histórico.",
+      "tags": [
+        "authentication",
+        "url-parsing",
+        "state"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/auth-state.ts:readAuthCallback",
+      "type": "function",
+      "name": "readAuthCallback",
+      "filePath": "frontend/src/auth-state.ts",
+      "lineRange": [
+        8,
+        23
+      ],
+      "summary": "Decodifica o fragmento da URL e classifica tokens de recuperação, magic link e erros.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/config.ts",
+      "type": "file",
+      "name": "config.ts",
+      "filePath": "frontend/src/config.ts",
+      "summary": "Centraliza as variáveis públicas do Supabase e da aplicação e informa quais valores obrigatórios de autenticação estão ausentes.",
+      "tags": [
+        "configuration",
+        "supabase",
+        "environment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/config.ts:missingSupabaseConfig",
+      "type": "function",
+      "name": "missingSupabaseConfig",
+      "filePath": "frontend/src/config.ts",
+      "lineRange": [
+        7,
+        12
+      ],
+      "summary": "Lista os valores públicos obrigatórios do Supabase que não foram configurados.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/account/account-card.tsx",
+      "type": "file",
+      "name": "account-card.tsx",
+      "filePath": "frontend/src/features/account/account-card.tsx",
+      "summary": "Apresenta os formulários de login, cadastro, recuperação de senha e estado da sessão, delegando ações ao componente pai.",
+      "tags": [
+        "component",
+        "authentication",
+        "forms",
+        "account"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/account/account-card.tsx:AccountCard",
+      "type": "function",
+      "name": "AccountCard",
+      "filePath": "frontend/src/features/account/account-card.tsx",
+      "lineRange": [
+        28,
+        72
+      ],
+      "summary": "Renderiza os modos de login, cadastro e recuperação, além dos controles de sessão.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/account/account-settings-page.tsx",
+      "type": "file",
+      "name": "account-settings-page.tsx",
+      "filePath": "frontend/src/features/account/account-settings-page.tsx",
+      "summary": "Gerencia leitura e edição das configurações da conta, troca única de username e operações de segurança com confirmação por e-mail.",
+      "tags": [
+        "component",
+        "account-settings",
+        "authentication",
+        "forms"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/account/account-settings-page.tsx:AccountSettingsPage",
+      "type": "function",
+      "name": "AccountSettingsPage",
+      "filePath": "frontend/src/features/account/account-settings-page.tsx",
+      "lineRange": [
+        45,
+        345
+      ],
+      "summary": "Carrega e atualiza dados da conta, organiza ações de segurança e estados de confirmação.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/account/account-settings-page.tsx:confirmationTitle",
+      "type": "function",
+      "name": "confirmationTitle",
+      "filePath": "frontend/src/features/account/account-settings-page.tsx",
+      "lineRange": [
+        347,
+        358
+      ],
+      "summary": "Escolhe o título de confirmação conforme a ação de segurança da conta.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/account/account-settings-page.tsx:confirmationDescription",
+      "type": "function",
+      "name": "confirmationDescription",
+      "filePath": "frontend/src/features/account/account-settings-page.tsx",
+      "lineRange": [
+        360,
+        371
+      ],
+      "summary": "Monta a explicação correspondente à ação de segurança que será confirmada.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/account/account-settings-page.tsx:confirmationButton",
+      "type": "function",
+      "name": "confirmationButton",
+      "filePath": "frontend/src/features/account/account-settings-page.tsx",
+      "lineRange": [
+        373,
+        384
+      ],
+      "summary": "Escolhe o rótulo do botão final conforme a ação de segurança.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/account/username-settings-field.tsx",
+      "type": "file",
+      "name": "username-settings-field.tsx",
+      "filePath": "frontend/src/features/account/username-settings-field.tsx",
+      "summary": "Renderiza o campo de username e o controle de salvamento, refletindo se a troca única já foi usada ou está indisponível.",
+      "tags": [
+        "component",
+        "account-settings",
+        "username",
+        "form"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/account/username-settings-field.tsx:UsernameSettingsField",
+      "type": "function",
+      "name": "UsernameSettingsField",
+      "filePath": "frontend/src/features/account/username-settings-field.tsx",
+      "lineRange": [
+        3,
+        32
+      ],
+      "summary": "Exibe o username e habilita edição ou salvamento conforme a disponibilidade da troca.",
+      "tags": [
+        "function",
+        "application-logic",
+        "rpg"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/profile/profile-card.tsx",
+      "type": "file",
+      "name": "profile-card.tsx",
+      "filePath": "frontend/src/features/profile/profile-card.tsx",
+      "summary": "Exibe os campos editáveis do perfil e suas ações, incluindo visualização prévia e estados de carregamento.",
+      "tags": [
+        "component",
+        "profile",
+        "forms",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/profile/profile-card.tsx:ProfileCard",
+      "type": "function",
+      "name": "ProfileCard",
+      "filePath": "frontend/src/features/profile/profile-card.tsx",
+      "lineRange": [
+        27,
+        77
+      ],
+      "summary": "Renderiza dados do perfil, campos de edição, preview e ações de carregar e salvar.",
+      "tags": [
+        "function",
+        "application-logic",
+        "profile"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/profile/profile-page.tsx",
+      "type": "file",
+      "name": "profile-page.tsx",
+      "filePath": "frontend/src/features/profile/profile-page.tsx",
+      "summary": "Coordena carregamento e atualização do perfil próprio e compõe o cabeçalho da aplicação, cartão de perfil e visualização pública.",
+      "tags": [
+        "component",
+        "profile",
+        "account",
+        "data-loading"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/profile/profile-page.tsx:profileFields",
+      "type": "function",
+      "name": "profileFields",
+      "filePath": "frontend/src/features/profile/profile-page.tsx",
+      "lineRange": [
+        11,
+        21
+      ],
+      "summary": "Converte os dados do perfil em campos para exibição e edição.",
+      "tags": [
+        "function",
+        "application-logic",
+        "profile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/profile/profile-page.tsx:ProfilePage",
+      "type": "function",
+      "name": "ProfilePage",
+      "filePath": "frontend/src/features/profile/profile-page.tsx",
+      "lineRange": [
+        23,
+        92
+      ],
+      "summary": "Carrega e salva o perfil do jogador e compõe os cartões de perfil e cabeçalho.",
+      "tags": [
+        "function",
+        "application-logic",
+        "profile"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/profile/public-profile-page.tsx",
+      "type": "file",
+      "name": "public-profile-page.tsx",
+      "filePath": "frontend/src/features/profile/public-profile-page.tsx",
+      "summary": "Carrega e apresenta o perfil público de um jogador, permitindo interações contextuais como visualizar comentários e mensagens.",
+      "tags": [
+        "component",
+        "profile",
+        "social",
+        "public-page"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/profile/public-profile-page.tsx:PublicProfilePage",
+      "type": "function",
+      "name": "PublicProfilePage",
+      "filePath": "frontend/src/features/profile/public-profile-page.tsx",
+      "lineRange": [
+        12,
+        117
+      ],
+      "summary": "Carrega a página pública e seus dados associados para um username específico.",
+      "tags": [
+        "function",
+        "application-logic",
+        "profile"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/profile/username-setup.tsx",
+      "type": "file",
+      "name": "username-setup.tsx",
+      "filePath": "frontend/src/features/profile/username-setup.tsx",
+      "summary": "Apresenta a escolha obrigatória do username no primeiro acesso e entrega o valor ao callback de submissão.",
+      "tags": [
+        "component",
+        "profile",
+        "username",
+        "onboarding"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/profile/username-setup.tsx:UsernameSetup",
+      "type": "function",
+      "name": "UsernameSetup",
+      "filePath": "frontend/src/features/profile/username-setup.tsx",
+      "lineRange": [
+        9,
+        66
+      ],
+      "summary": "Coleta e envia o username definido pelo jogador no primeiro acesso.",
+      "tags": [
+        "function",
+        "application-logic",
+        "profile"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/supabase-auth.ts",
+      "type": "file",
+      "name": "supabase-auth.ts",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "summary": "Implementa a sessão de autenticação no cliente e as chamadas ao Supabase Auth para cadastro, login, logout, recuperação, callbacks e ações de conta.",
+      "tags": [
+        "authentication",
+        "supabase",
+        "session-management",
+        "api-client"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:authRequest",
+      "type": "function",
+      "name": "authRequest",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        45,
+        62
+      ],
+      "summary": "Constrói e executa requisições autenticadas contra os endpoints do Supabase Auth.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:sendDeletionEmailLink",
+      "type": "function",
+      "name": "sendDeletionEmailLink",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        64,
+        78
+      ],
+      "summary": "Solicita por e-mail o link de confirmação para excluir um sistema.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:readPendingSystemDeletion",
+      "type": "function",
+      "name": "readPendingSystemDeletion",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        80,
+        90
+      ],
+      "summary": "Lê e valida a intenção pendente de exclusão de sistema armazenada no navegador.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:clearPendingSystemDeletion",
+      "type": "function",
+      "name": "clearPendingSystemDeletion",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        92,
+        94
+      ],
+      "summary": "Remove do armazenamento local a solicitação de exclusão pendente.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:sendAccountConfirmationEmail",
+      "type": "function",
+      "name": "sendAccountConfirmationEmail",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        96,
+        110
+      ],
+      "summary": "Inicia uma ação sensível de conta e registra o contexto para confirmação por e-mail.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:readPendingAccountAction",
+      "type": "function",
+      "name": "readPendingAccountAction",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        112,
+        159
+      ],
+      "summary": "Lê e valida os diferentes formatos de ação de conta aguardando confirmação.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:clearPendingAccountAction",
+      "type": "function",
+      "name": "clearPendingAccountAction",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        161,
+        163
+      ],
+      "summary": "Remove a ação de conta pendente do armazenamento local.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:getCurrentAuthUser",
+      "type": "function",
+      "name": "getCurrentAuthUser",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        165,
+        171
+      ],
+      "summary": "Consulta o usuário associado ao token de sessão atual.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:signUp",
+      "type": "function",
+      "name": "signUp",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        173,
+        178
+      ],
+      "summary": "Cria uma conta no Supabase Auth, configura o redirecionamento e registra a sessão retornada.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:signIn",
+      "type": "function",
+      "name": "signIn",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        180,
+        184
+      ],
+      "summary": "Autentica por e-mail e senha e registra a sessão retornada.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:signOut",
+      "type": "function",
+      "name": "signOut",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        186,
+        193
+      ],
+      "summary": "Encerra a sessão remota quando há token e limpa o estado local mesmo se a chamada falhar.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:requestPasswordReset",
+      "type": "function",
+      "name": "requestPasswordReset",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        195,
+        198
+      ],
+      "summary": "Solicita recuperação de senha com uma URL de retorno da aplicação.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:updatePassword",
+      "type": "function",
+      "name": "updatePassword",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        200,
+        205
+      ],
+      "summary": "Atualiza a senha com a sessão de recuperação atual e limpa o token após a conclusão.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:consumeAuthCallback",
+      "type": "function",
+      "name": "consumeAuthCallback",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        207,
+        215
+      ],
+      "summary": "Consome o callback de autenticação, grava a sessão e remove tokens do fragmento da URL.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:currentAccessToken",
+      "type": "function",
+      "name": "currentAccessToken",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        217,
+        217
+      ],
+      "summary": "Retorna o token de acesso mantido apenas na memória da sessão.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/supabase-auth.ts:hasSession",
+      "type": "function",
+      "name": "hasSession",
+      "filePath": "frontend/src/supabase-auth.ts",
+      "lineRange": [
+        218,
+        218
+      ],
+      "summary": "Indica se existe token de acesso no estado de sessão em memória.",
+      "tags": [
+        "function",
+        "application-logic",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/account-username-settings-render.test.ts",
+      "type": "file",
+      "name": "account-username-settings-render.test.ts",
+      "filePath": "frontend/test/account-username-settings-render.test.ts",
+      "summary": "Verifica a renderização do campo de username e os estados disponíveis antes e depois da troca única.",
+      "tags": [
+        "test",
+        "account-settings",
+        "username",
+        "rendering"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/client-auth.test.ts",
+      "type": "file",
+      "name": "client-auth.test.ts",
+      "filePath": "frontend/test/client-auth.test.ts",
+      "summary": "Testa leitura de callbacks da URL, detecção de configuração ausente, limpeza do histórico e ciclo de sessão da recuperação de senha.",
+      "tags": [
+        "test",
+        "authentication",
+        "supabase",
+        "rendering"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/system-cover-storage.test.ts",
+      "type": "file",
+      "name": "system-cover-storage.test.ts",
+      "filePath": "frontend/test/system-cover-storage.test.ts",
+      "summary": "Testa upload, URL pública e exclusão autenticada de capas de sistemas, incluindo rejeição de caminhos e formatos inválidos.",
+      "tags": [
+        "test",
+        "storage",
+        "authentication",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/ui-render.test.ts",
+      "type": "file",
+      "name": "ui-render.test.ts",
+      "filePath": "frontend/test/ui-render.test.ts",
+      "summary": "Agrupa testes de renderização dos componentes de conta, perfil e dashboard e valida navegação inicial e checagem de saúde da API.",
+      "tags": [
+        "test",
+        "ui",
+        "rendering",
+        "navigation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/test/username-setup-render.test.ts",
+      "type": "file",
+      "name": "username-setup-render.test.ts",
+      "filePath": "frontend/test/username-setup-render.test.ts",
+      "summary": "Verifica a apresentação do fluxo de primeiro acesso para escolha de username.",
+      "tags": [
+        "test",
+        "profile",
+        "username",
+        "rendering"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/app/account-settings/page.tsx",
+      "target": "function:frontend/app/account-settings/page.tsx:AccountSettingsRoute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/account-settings/page.tsx",
+      "target": "file:frontend/src/features/account/account-settings-page.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/dashboard/page.tsx",
+      "target": "function:frontend/app/dashboard/page.tsx:DashboardPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/dashboard/page.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/dashboard/page.tsx",
+      "target": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/dashboard/page.tsx",
+      "target": "file:frontend/src/features/profile/username-setup.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/dashboard/page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/page.tsx",
+      "target": "function:frontend/app/page.tsx:HomePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/page.tsx",
+      "target": "file:frontend/app/rpg-app.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/players/[username]/page.tsx",
+      "target": "function:frontend/app/players/[username]/page.tsx:PlayerRoute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/players/[username]/page.tsx",
+      "target": "file:frontend/src/features/profile/public-profile-page.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/profile/page.tsx",
+      "target": "function:frontend/app/profile/page.tsx:PlayerProfileRoute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/profile/page.tsx",
+      "target": "file:frontend/src/features/profile/profile-page.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/rpg-app.tsx",
+      "target": "function:frontend/app/rpg-app.tsx:RpgApp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/rpg-app.tsx",
+      "target": "file:frontend/app/account-page.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/rpg-app.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/rpg-app.tsx",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/rpg-app.tsx",
+      "target": "file:frontend/src/features/account/account-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/rpg-app.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/characters/page.tsx",
+      "target": "function:frontend/app/systems/[systemId]/characters/page.tsx:SystemCharactersPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/characters/page.tsx",
+      "target": "file:frontend/src/features/characters/character-entry.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/characters/page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/lobby-settings/page.tsx",
+      "target": "function:frontend/app/systems/[systemId]/lobby-settings/page.tsx:SystemLobbySettingsRoute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/lobby-settings/page.tsx",
+      "target": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/lobby-settings/page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/auth-state.ts",
+      "target": "function:frontend/src/auth-state.ts:readAuthCallback",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/config.ts",
+      "target": "function:frontend/src/config.ts:missingSupabaseConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/account/account-card.tsx",
+      "target": "function:frontend/src/features/account/account-card.tsx:AccountCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.tsx",
+      "target": "function:frontend/src/features/account/account-settings-page.tsx:AccountSettingsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.tsx",
+      "target": "function:frontend/src/features/account/account-settings-page.tsx:confirmationTitle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.tsx",
+      "target": "function:frontend/src/features/account/account-settings-page.tsx:confirmationDescription",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.tsx",
+      "target": "function:frontend/src/features/account/account-settings-page.tsx:confirmationButton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.tsx",
+      "target": "file:frontend/src/features/account/account-settings-page.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.tsx",
+      "target": "file:frontend/src/features/account/username-settings-field.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/account/username-settings-field.tsx",
+      "target": "function:frontend/src/features/account/username-settings-field.tsx:UsernameSettingsField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-card.tsx",
+      "target": "function:frontend/src/features/profile/profile-card.tsx:ProfileCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-card.tsx",
+      "target": "file:frontend/src/features/profile/profile-card.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-page.tsx",
+      "target": "function:frontend/src/features/profile/profile-page.tsx:profileFields",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-page.tsx",
+      "target": "function:frontend/src/features/profile/profile-page.tsx:ProfilePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-page.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-page.tsx",
+      "target": "file:frontend/src/features/profile/profile-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-page.tsx",
+      "target": "file:frontend/src/features/profile/public-profile-page.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-page.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/public-profile-page.tsx",
+      "target": "function:frontend/src/features/profile/public-profile-page.tsx:PublicProfilePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/profile/public-profile-page.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/public-profile-page.tsx",
+      "target": "file:frontend/src/features/profile/public-profile-page.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/public-profile-page.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/public-profile-page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/profile/username-setup.tsx",
+      "target": "function:frontend/src/features/profile/username-setup.tsx:UsernameSetup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:authRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:sendDeletionEmailLink",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:readPendingSystemDeletion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:clearPendingSystemDeletion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:sendAccountConfirmationEmail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:readPendingAccountAction",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:clearPendingAccountAction",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:getCurrentAuthUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:signUp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:signIn",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:signOut",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:requestPasswordReset",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:updatePassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:consumeAuthCallback",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:currentAccessToken",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "function:frontend/src/supabase-auth.ts:hasSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "file:frontend/src/auth-state.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/account-username-settings-render.test.ts",
+      "target": "file:frontend/src/features/account/username-settings-field.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/client-auth.test.ts",
+      "target": "file:frontend/src/auth-state.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/client-auth.test.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/client-auth.test.ts",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-cover-storage.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-cover-storage.test.ts",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/ui-render.test.ts",
+      "target": "file:frontend/app/rpg-app.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/ui-render.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/ui-render.test.ts",
+      "target": "file:frontend/src/features/account/account-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/ui-render.test.ts",
+      "target": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/ui-render.test.ts",
+      "target": "file:frontend/src/features/profile/profile-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/ui-render.test.ts",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/username-setup-render.test.ts",
+      "target": "file:frontend/src/features/profile/username-setup.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/account/username-settings-field.tsx",
+      "target": "file:frontend/test/account-username-settings-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/auth-state.ts",
+      "target": "file:frontend/test/client-auth.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/config.ts",
+      "target": "file:frontend/test/client-auth.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "file:frontend/test/client-auth.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/supabase-auth.ts",
+      "target": "file:frontend/test/system-cover-storage.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "file:frontend/test/system-cover-storage.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "file:frontend/test/ui-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/account/account-card.tsx",
+      "target": "file:frontend/test/ui-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "target": "file:frontend/test/ui-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-card.tsx",
+      "target": "file:frontend/test/ui-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/app/rpg-app.tsx",
+      "target": "file:frontend/test/ui-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/shell/app-header.tsx",
+      "target": "file:frontend/test/ui-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/profile/username-setup.tsx",
+      "target": "file:frontend/test/username-setup-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

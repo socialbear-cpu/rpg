@@ -1,0 +1,28 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": ".superpowers/brainstorm/astra-review/content/dashboard-01.html",
+      "language": "html",
+      "sizeLines": 104,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/astra-review/content/dashboard-02.html",
+      "language": "html",
+      "sizeLines": 84,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/astra-review/content/dashboard-03.html",
+      "language": "html",
+      "sizeLines": 84,
+      "fileCategory": "markup"
+    }
+  ],
+  "batchImportData": {
+    ".superpowers/brainstorm/astra-review/content/dashboard-01.html": [],
+    ".superpowers/brainstorm/astra-review/content/dashboard-02.html": [],
+    ".superpowers/brainstorm/astra-review/content/dashboard-03.html": []
+  }
+}

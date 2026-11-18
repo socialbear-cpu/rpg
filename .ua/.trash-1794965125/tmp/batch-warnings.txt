@@ -1,0 +1,5 @@
+Loaded 351 files (181 code).
+Warning: compute-batches: community size 41 > max 35 — splitting via alphabetical chunking — modularity may decrease
+Info: compute-batches: merged 33 small batches (40 files) into 2 misc batches — singletons and orphans consolidated
+Warning: compute-batches: neighborMap for frontend/src/api.ts has high 1-hop degree 59 — exceeds soft cap of 50 — keeping top 41 cross-batch entries (0 dropped by degree sort)
+Wrote 21 batches (sizes: max=44, min=3) to C:\Users\opsce\OneDrive\Documents\ChatGPT\RPG\.ua\intermediate\batches.json

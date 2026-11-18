@@ -1,0 +1,2138 @@
+{
+  "scriptCompleted": true,
+  "contentDigest": "a08ab4dcc12aada6ade9fdc9602c9f53d14667e2410bced4ae2316d74b4634da",
+  "files": [
+    {
+      "path": ".superpowers/brainstorm/astra-review/content/dashboard-01.html",
+      "language": "html",
+      "sizeLines": 104,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/astra-review/content/dashboard-02.html",
+      "language": "html",
+      "sizeLines": 84,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/astra-review/content/dashboard-03.html",
+      "language": "html",
+      "sizeLines": 84,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/astra-review/state/server-info",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".superpowers/brainstorm/character-sheet-visual/content/approaches.html",
+      "language": "html",
+      "sizeLines": 53,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/character-sheet-visual/state/server-stopped",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v2.html",
+      "language": "html",
+      "sizeLines": 12,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v3.html",
+      "language": "html",
+      "sizeLines": 13,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v4.html",
+      "language": "html",
+      "sizeLines": 12,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v5.html",
+      "language": "html",
+      "sizeLines": 12,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards-v6.html",
+      "language": "html",
+      "sizeLines": 12,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/content/character-cards.html",
+      "language": "html",
+      "sizeLines": 21,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/state/server-stopped",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-v10.html",
+      "language": "html",
+      "sizeLines": 17,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-v7.html",
+      "language": "html",
+      "sizeLines": 13,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-v8.html",
+      "language": "html",
+      "sizeLines": 15,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-v9.html",
+      "language": "html",
+      "sizeLines": 16,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/sheet-mockup/content/layout-v1.html",
+      "language": "html",
+      "sizeLines": 74,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/sheet-mockup/content/layout-v2.html",
+      "language": "html",
+      "sizeLines": 54,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/sheet-mockup/content/layout-v3.html",
+      "language": "html",
+      "sizeLines": 57,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/sheet-mockup/content/layout-v4.html",
+      "language": "html",
+      "sizeLines": 58,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/sheet-mockup/state/server-info",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".ua/config.json",
+      "language": "json",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 45,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "AUTH_AND_STACK.md",
+      "language": "markdown",
+      "sizeLines": 73,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "backend/.env.example",
+      "language": "config",
+      "sizeLines": 4,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/README.md",
+      "language": "markdown",
+      "sizeLines": 142,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "backend/package.json",
+      "language": "json",
+      "sizeLines": 29,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/src/authenticate-user.ts",
+      "language": "typescript",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/clients/supabase.ts",
+      "language": "typescript",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/config.ts",
+      "language": "typescript",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/create-app.ts",
+      "language": "typescript",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/account/account.routes.ts",
+      "language": "typescript",
+      "sizeLines": 218,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/chats/chats.repository.ts",
+      "language": "typescript",
+      "sizeLines": 100,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/chats/chats.routes.ts",
+      "language": "typescript",
+      "sizeLines": 84,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/chats/chats.schema.ts",
+      "language": "typescript",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/daily-login/daily-login.repository.ts",
+      "language": "typescript",
+      "sizeLines": 192,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/daily-login/daily-login.routes.ts",
+      "language": "typescript",
+      "sizeLines": 202,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/daily-login/daily-login.schema.ts",
+      "language": "typescript",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/direct-messages/direct-messages.routes.ts",
+      "language": "typescript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/experience/experience.repository.ts",
+      "language": "typescript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/experience/experience.routes.ts",
+      "language": "typescript",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/experience/experience.schema.ts",
+      "language": "typescript",
+      "sizeLines": 126,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "language": "typescript",
+      "sizeLines": 204,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/game-systems/game-systems.routes.ts",
+      "language": "typescript",
+      "sizeLines": 447,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/game-systems/game-systems.schema.ts",
+      "language": "typescript",
+      "sizeLines": 360,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/game-systems/system-access.ts",
+      "language": "typescript",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/health/health.routes.ts",
+      "language": "typescript",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/lobby-presence/lobby-presence.repository.ts",
+      "language": "typescript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/lobby-presence/lobby-presence.routes.ts",
+      "language": "typescript",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/lobby-presence/lobby-presence.schema.ts",
+      "language": "typescript",
+      "sizeLines": 4,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "language": "typescript",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "language": "typescript",
+      "sizeLines": 58,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/lobby-settings/lobby-settings.schema.ts",
+      "language": "typescript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/notifications/notifications.repository.ts",
+      "language": "typescript",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/notifications/notifications.routes.ts",
+      "language": "typescript",
+      "sizeLines": 154,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/notifications/notifications.schema.ts",
+      "language": "typescript",
+      "sizeLines": 60,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/profile/profile.repository.ts",
+      "language": "typescript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/profile/profile.routes.ts",
+      "language": "typescript",
+      "sizeLines": 115,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/profile/profile.schema.ts",
+      "language": "typescript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/social/public-profile.routes.ts",
+      "language": "typescript",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/social/social.repository.ts",
+      "language": "typescript",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/social/social.routes.ts",
+      "language": "typescript",
+      "sizeLines": 333,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/social/social.schema.ts",
+      "language": "typescript",
+      "sizeLines": 89,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/store/store.repository.ts",
+      "language": "typescript",
+      "sizeLines": 96,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/store/store.routes.ts",
+      "language": "typescript",
+      "sizeLines": 117,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/store/store.schema.ts",
+      "language": "typescript",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/system-events/system-events.repository.ts",
+      "language": "typescript",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/system-events/system-events.routes.ts",
+      "language": "typescript",
+      "sizeLines": 118,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/system-events/system-events.schema.ts",
+      "language": "typescript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/system-membership/system-membership.repository.ts",
+      "language": "typescript",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/system-membership/system-membership.routes.ts",
+      "language": "typescript",
+      "sizeLines": 134,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/system-membership/system-membership.schema.ts",
+      "language": "typescript",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/trading/trading.repository.ts",
+      "language": "typescript",
+      "sizeLines": 129,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/trading/trading.routes.ts",
+      "language": "typescript",
+      "sizeLines": 246,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/modules/trading/trading.schema.ts",
+      "language": "typescript",
+      "sizeLines": 168,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/plugins/authenticate.ts",
+      "language": "typescript",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/register-app.ts",
+      "language": "typescript",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/server.ts",
+      "language": "typescript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/src/vercel-app.ts",
+      "language": "typescript",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/authenticate.test.ts",
+      "language": "typescript",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/chats.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 129,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/config.test.ts",
+      "language": "typescript",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/daily-login.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 282,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/daily-login.schema.test.ts",
+      "language": "typescript",
+      "sizeLines": 61,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/experience.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/fixtures/profile.ts",
+      "language": "typescript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/game-systems.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 410,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/game-systems.schema.test.ts",
+      "language": "typescript",
+      "sizeLines": 187,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/health.test.ts",
+      "language": "typescript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/lobby-presence.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/lobby-settings.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 102,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/openapi.test.ts",
+      "language": "typescript",
+      "sizeLines": 115,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/profile.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 172,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/profile.schema.test.ts",
+      "language": "typescript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/social.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 191,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/social.schema.test.ts",
+      "language": "typescript",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/store.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/store.schema.test.ts",
+      "language": "typescript",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/system-events.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 167,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/system-membership.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 111,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/system-membership.schema.test.ts",
+      "language": "typescript",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/trading.routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 247,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/test/trading.schema.test.ts",
+      "language": "typescript",
+      "sizeLines": 125,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/tsconfig.build.json",
+      "language": "json",
+      "sizeLines": 5,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/tsconfig.json",
+      "language": "json",
+      "sizeLines": 16,
+      "fileCategory": "config"
+    },
+    {
+      "path": "database/README.md",
+      "language": "markdown",
+      "sizeLines": 65,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "database/migrations/001_initial_schema.sql",
+      "language": "sql",
+      "sizeLines": 247,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/002_character_fields.sql",
+      "language": "sql",
+      "sizeLines": 16,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/003_supabase_auth.sql",
+      "language": "sql",
+      "sizeLines": 77,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/004_profile_rls.sql",
+      "language": "sql",
+      "sizeLines": 42,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/005_daily_login_rewards.sql",
+      "language": "sql",
+      "sizeLines": 410,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/006_user_hierarchy.sql",
+      "language": "sql",
+      "sizeLines": 329,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/007_system_hierarchy_rls.sql",
+      "language": "sql",
+      "sizeLines": 270,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/008_daily_login_popup.sql",
+      "language": "sql",
+      "sizeLines": 37,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/009_notifications.sql",
+      "language": "sql",
+      "sizeLines": 209,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/010_daily_login_popup_per_system.sql",
+      "language": "sql",
+      "sizeLines": 49,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/011_character_experience.sql",
+      "language": "sql",
+      "sizeLines": 508,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/012_character_item_trading.sql",
+      "language": "sql",
+      "sizeLines": 843,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/013_system_character_sheets.sql",
+      "language": "sql",
+      "sizeLines": 194,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/014_profile_usernames.sql",
+      "language": "sql",
+      "sizeLines": 42,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/015_visual_character_sheet.sql",
+      "language": "sql",
+      "sizeLines": 330,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/016_character_sheet_visual_elements.sql",
+      "language": "sql",
+      "sizeLines": 151,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/017_character_sheet_choices_and_conditions.sql",
+      "language": "sql",
+      "sizeLines": 253,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/018_system_store_economy.sql",
+      "language": "sql",
+      "sizeLines": 398,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/019_system_member_character_search.sql",
+      "language": "sql",
+      "sizeLines": 77,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/020_game_system_visibility_password.sql",
+      "language": "sql",
+      "sizeLines": 191,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/021_fix_daily_login_inventory_upsert.sql",
+      "language": "sql",
+      "sizeLines": 95,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/021_system_password_access_enforcement.sql",
+      "language": "sql",
+      "sizeLines": 549,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/022_system_discovery_metadata.sql",
+      "language": "sql",
+      "sizeLines": 343,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/023_system_lifecycle.sql",
+      "language": "sql",
+      "sizeLines": 97,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/024_fix_system_tag_labels.sql",
+      "language": "sql",
+      "sizeLines": 31,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/025_require_email_confirmation_for_system_deletion.sql",
+      "language": "sql",
+      "sizeLines": 51,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/026_atomic_system_store_update.sql",
+      "language": "sql",
+      "sizeLines": 139,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/027_system_events.sql",
+      "language": "sql",
+      "sizeLines": 41,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/028_campaign_chat_room_authorization.sql",
+      "language": "sql",
+      "sizeLines": 27,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/029_lobby_creator_tools.sql",
+      "language": "sql",
+      "sizeLines": 169,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/030_store_item_images.sql",
+      "language": "sql",
+      "sizeLines": 9,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/031_store_currency_and_offer_autosave.sql",
+      "language": "sql",
+      "sizeLines": 149,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/032_chats_as_game_space.sql",
+      "language": "sql",
+      "sizeLines": 336,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/033_store_currency_image_permissions.sql",
+      "language": "sql",
+      "sizeLines": 6,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/034_daily_login_per_character.sql",
+      "language": "sql",
+      "sizeLines": 194,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/035_account_settings.sql",
+      "language": "sql",
+      "sizeLines": 349,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/035_friendships.sql",
+      "language": "sql",
+      "sizeLines": 304,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/036_profile_customization.sql",
+      "language": "sql",
+      "sizeLines": 77,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/036_rpg_invitations.sql",
+      "language": "sql",
+      "sizeLines": 284,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/037_allow_profile_timestamp_updates.sql",
+      "language": "sql",
+      "sizeLines": 16,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/037_public_player_profiles.sql",
+      "language": "sql",
+      "sizeLines": 100,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/migrations/038_username_change_once.sql",
+      "language": "sql",
+      "sizeLines": 24,
+      "fileCategory": "data"
+    },
+    {
+      "path": "database/schema/README.md",
+      "language": "markdown",
+      "sizeLines": 22,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "database/tests/daily_login_per_character_rollback.sql",
+      "language": "sql",
+      "sizeLines": 37,
+      "fileCategory": "data"
+    },
+    {
+      "path": "frontend/.env.example",
+      "language": "config",
+      "sizeLines": 2,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 9,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend/README.md",
+      "language": "markdown",
+      "sizeLines": 40,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend/app/account-page.css",
+      "language": "css",
+      "sizeLines": 299,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/app/account-settings/page.tsx",
+      "language": "typescript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/api/[...path]/route.ts",
+      "language": "typescript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/dashboard/page.tsx",
+      "language": "typescript",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/dashboard/systems/[systemId]/manage/page.tsx",
+      "language": "typescript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/dashboard/systems/new/page.tsx",
+      "language": "typescript",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/friends/page.tsx",
+      "language": "typescript",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/globals.css",
+      "language": "css",
+      "sizeLines": 173,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/app/healthz/route.ts",
+      "language": "typescript",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/layout.tsx",
+      "language": "typescript",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/page.tsx",
+      "language": "typescript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/players/[username]/page.tsx",
+      "language": "typescript",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/profile/page.tsx",
+      "language": "typescript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/rpg-app.tsx",
+      "language": "typescript",
+      "sizeLines": 233,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/systems/[systemId]/characters/page.tsx",
+      "language": "typescript",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/systems/[systemId]/home/[characterId]/page.tsx",
+      "language": "typescript",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/systems/[systemId]/lobby-settings/page.tsx",
+      "language": "typescript",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/app/trading/page.tsx",
+      "language": "typescript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/next-env.d.ts",
+      "language": "typescript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/next.config.ts",
+      "language": "typescript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "sizeLines": 28,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/src/api.ts",
+      "language": "typescript",
+      "sizeLines": 980,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/auth-state.ts",
+      "language": "typescript",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/config.ts",
+      "language": "typescript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/fastify-request.ts",
+      "language": "typescript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/account/account-card.tsx",
+      "language": "typescript",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/account/account-settings-page.css",
+      "language": "css",
+      "sizeLines": 186,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/account/account-settings-page.tsx",
+      "language": "typescript",
+      "sizeLines": 384,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/account/username-settings-field.tsx",
+      "language": "typescript",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "language": "typescript",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/character-sheet/format-value.test.ts",
+      "language": "typescript",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/character-sheet/format-value.ts",
+      "language": "typescript",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/character-entry.tsx",
+      "language": "typescript",
+      "sizeLines": 149,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/character-form.tsx",
+      "language": "typescript",
+      "sizeLines": 194,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/character-gallery.tsx",
+      "language": "typescript",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/character-home-page.tsx",
+      "language": "typescript",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/character-home.tsx",
+      "language": "typescript",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/character-record.tsx",
+      "language": "typescript",
+      "sizeLines": 210,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/characters.css",
+      "language": "css",
+      "sizeLines": 604,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-creator-tools.css",
+      "language": "css",
+      "sizeLines": 21,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-creator-tools.tsx",
+      "language": "typescript",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-customization-form.tsx",
+      "language": "typescript",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-presence.ts",
+      "language": "typescript",
+      "sizeLines": 61,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-settings-page.tsx",
+      "language": "typescript",
+      "sizeLines": 88,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-stats.tsx",
+      "language": "typescript",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/chats/chat-state.ts",
+      "language": "typescript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/chats/chat.css",
+      "language": "css",
+      "sizeLines": 23,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/chats/chats.tsx",
+      "language": "typescript",
+      "sizeLines": 168,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "language": "typescript",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-admin.css",
+      "language": "css",
+      "sizeLines": 3,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-card.tsx",
+      "language": "typescript",
+      "sizeLines": 69,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-messages.ts",
+      "language": "typescript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-popup.css",
+      "language": "css",
+      "sizeLines": 30,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-popup.tsx",
+      "language": "typescript",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/dashboard/dashboard.css",
+      "language": "css",
+      "sizeLines": 1348,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/dashboard/dashboard.tsx",
+      "language": "typescript",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/dashboard/systems-section.tsx",
+      "language": "typescript",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/experience/experience-admin-card.tsx",
+      "language": "typescript",
+      "sizeLines": 130,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/experience/experience-model.ts",
+      "language": "typescript",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/notifications/notification-center.tsx",
+      "language": "typescript",
+      "sizeLines": 271,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/notifications/notifications.css",
+      "language": "css",
+      "sizeLines": 337,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/profile/profile-card.css",
+      "language": "css",
+      "sizeLines": 184,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/profile/profile-card.tsx",
+      "language": "typescript",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/profile/profile-page.tsx",
+      "language": "typescript",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/profile/public-profile-page.css",
+      "language": "css",
+      "sizeLines": 40,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/profile/public-profile-page.tsx",
+      "language": "typescript",
+      "sizeLines": 117,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/profile/username-setup.tsx",
+      "language": "typescript",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/shell/app-header.css",
+      "language": "css",
+      "sizeLines": 95,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/shell/app-header.tsx",
+      "language": "typescript",
+      "sizeLines": 138,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/social/friend-state.ts",
+      "language": "typescript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/social/friends-page.css",
+      "language": "css",
+      "sizeLines": 155,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/social/friends-page.tsx",
+      "language": "typescript",
+      "sizeLines": 254,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/social/invite-friend-control.css",
+      "language": "css",
+      "sizeLines": 7,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/social/invite-friend-control.tsx",
+      "language": "typescript",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/store/store-admin-card.tsx",
+      "language": "typescript",
+      "sizeLines": 300,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/store/store-card.tsx",
+      "language": "typescript",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/store/store.css",
+      "language": "css",
+      "sizeLines": 44,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "language": "typescript",
+      "sizeLines": 311,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-creation/sheet-model.test.ts",
+      "language": "typescript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-creation/sheet-model.ts",
+      "language": "typescript",
+      "sizeLines": 294,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "language": "typescript",
+      "sizeLines": 177,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-creation/system-creation.css",
+      "language": "css",
+      "sizeLines": 476,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/system-creation/system-details-fields.tsx",
+      "language": "typescript",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-creation/system-presentation-fields.tsx",
+      "language": "typescript",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "language": "typescript",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-events/system-events-card.css",
+      "language": "css",
+      "sizeLines": 31,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/system-events/system-events-card.tsx",
+      "language": "typescript",
+      "sizeLines": 112,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-management/book-category.tsx",
+      "language": "typescript",
+      "sizeLines": 88,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-management/system-details-editor.tsx",
+      "language": "typescript",
+      "sizeLines": 150,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-management/system-management-codex.css",
+      "language": "css",
+      "sizeLines": 210,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/system-management/system-management-page.css",
+      "language": "css",
+      "sizeLines": 504,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/system-management/system-management-page.tsx",
+      "language": "typescript",
+      "sizeLines": 363,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/system-membership/system-membership-card.tsx",
+      "language": "typescript",
+      "sizeLines": 115,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/trading/trading-card.tsx",
+      "language": "typescript",
+      "sizeLines": 464,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/trading/trading-page.tsx",
+      "language": "typescript",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/trading/trading.css",
+      "language": "css",
+      "sizeLines": 2,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/supabase-auth.ts",
+      "language": "typescript",
+      "sizeLines": 226,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/styles.css",
+      "language": "css",
+      "sizeLines": 2,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/test/account-username-settings-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/character-entry-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 220,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/character-home-chat.test.ts",
+      "language": "typescript",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/character-home-layout.test.ts",
+      "language": "typescript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/character-home-page.test.ts",
+      "language": "typescript",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/chats-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/chats-state.test.ts",
+      "language": "typescript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/client-auth.test.ts",
+      "language": "typescript",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/daily-login-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 122,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/experience-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/friend-state.test.ts",
+      "language": "typescript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/friends-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/lobby-creator-tools.test.ts",
+      "language": "typescript",
+      "sizeLines": 174,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/lobby-stats.test.ts",
+      "language": "typescript",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/next-config-env.test.ts",
+      "language": "typescript",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/next-routes.test.ts",
+      "language": "typescript",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/store-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/system-cover-storage.test.ts",
+      "language": "typescript",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/system-creation-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 192,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/system-events-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/system-membership-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/trading-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/ui-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/username-setup-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/workspace-scripts.test.ts",
+      "language": "typescript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "language": "json",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "supabase/config.toml",
+      "language": "toml",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "supabase/migrations/001_initial_schema.sql",
+      "language": "sql",
+      "sizeLines": 247,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/002_character_fields.sql",
+      "language": "sql",
+      "sizeLines": 16,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/003_supabase_auth.sql",
+      "language": "sql",
+      "sizeLines": 77,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/004_profile_rls.sql",
+      "language": "sql",
+      "sizeLines": 42,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/005_daily_login_rewards.sql",
+      "language": "sql",
+      "sizeLines": 410,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/006_user_hierarchy.sql",
+      "language": "sql",
+      "sizeLines": 329,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/007_system_hierarchy_rls.sql",
+      "language": "sql",
+      "sizeLines": 270,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/008_daily_login_popup.sql",
+      "language": "sql",
+      "sizeLines": 37,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111014645_notifications.sql",
+      "language": "sql",
+      "sizeLines": 209,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111021246_daily_login_popup_per_system.sql",
+      "language": "sql",
+      "sizeLines": 49,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111181232_character_experience.sql",
+      "language": "sql",
+      "sizeLines": 508,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111190000_character_item_trading.sql",
+      "language": "sql",
+      "sizeLines": 843,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261111200000_system_character_sheets.sql",
+      "language": "sql",
+      "sizeLines": 194,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112183000_profile_usernames.sql",
+      "language": "sql",
+      "sizeLines": 42,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112193504_visual_character_sheet.sql",
+      "language": "sql",
+      "sizeLines": 330,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112210000_system_store_economy.sql",
+      "language": "sql",
+      "sizeLines": 398,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112223000_character_sheet_visual_elements.sql",
+      "language": "sql",
+      "sizeLines": 151,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261112224500_character_sheet_choices_and_conditions.sql",
+      "language": "sql",
+      "sizeLines": 253,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261113220000_game_system_visibility_password.sql",
+      "language": "sql",
+      "sizeLines": 191,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261113221000_system_password_access_enforcement.sql",
+      "language": "sql",
+      "sizeLines": 549,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114001000_system_discovery_metadata.sql",
+      "language": "sql",
+      "sizeLines": 343,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114144818_system_lifecycle.sql",
+      "language": "sql",
+      "sizeLines": 97,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114145224_fix_system_tag_labels.sql",
+      "language": "sql",
+      "sizeLines": 31,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114151644_require_email_confirmation_for_system_deletion.sql",
+      "language": "sql",
+      "sizeLines": 51,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114210354_system_member_character_search.sql",
+      "language": "sql",
+      "sizeLines": 77,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114215315_atomic_system_store_update.sql",
+      "language": "sql",
+      "sizeLines": 139,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114223717_system_events.sql",
+      "language": "sql",
+      "sizeLines": 41,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261114232728_campaign_chat_room_authorization.sql",
+      "language": "sql",
+      "sizeLines": 27,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115013118_lobby_creator_tools.sql",
+      "language": "sql",
+      "sizeLines": 169,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115120000_store_item_images.sql",
+      "language": "sql",
+      "sizeLines": 9,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115125424_store_currency_and_offer_autosave.sql",
+      "language": "sql",
+      "sizeLines": 149,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115140000_chats_as_game_space.sql",
+      "language": "sql",
+      "sizeLines": 336,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115155939_store_currency_image_permissions.sql",
+      "language": "sql",
+      "sizeLines": 6,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115162952_daily_login_per_character.sql",
+      "language": "sql",
+      "sizeLines": 194,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115170000_remove_character_sheet_conditions.sql",
+      "language": "sql",
+      "sizeLines": 38,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115180000_account_settings.sql",
+      "language": "sql",
+      "sizeLines": 349,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261115210000_profile_customization.sql",
+      "language": "sql",
+      "sizeLines": 77,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116180000_friendships.sql",
+      "language": "sql",
+      "sizeLines": 304,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116190000_rpg_invitations.sql",
+      "language": "sql",
+      "sizeLines": 284,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116191152_public_player_profiles.sql",
+      "language": "sql",
+      "sizeLines": 100,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116195000_allow_profile_timestamp_updates.sql",
+      "language": "sql",
+      "sizeLines": 16,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261116200000_username_change_once.sql",
+      "language": "sql",
+      "sizeLines": 24,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261117013820_system_lobby_presence.sql",
+      "language": "sql",
+      "sizeLines": 63,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20261117014550_lobby_welcome_copy_defaults.sql",
+      "language": "sql",
+      "sizeLines": 7,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/templates/signup-confirmation.html",
+      "language": "html",
+      "sizeLines": 25,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "supabase/templates/system-deletion-magic-link.html",
+      "language": "html",
+      "sizeLines": 25,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "supabase/tests/004_profile_rls.test.sql",
+      "language": "sql",
+      "sizeLines": 76,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/005_daily_login_rewards.test.sql",
+      "language": "sql",
+      "sizeLines": 137,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/006_user_hierarchy.test.sql",
+      "language": "sql",
+      "sizeLines": 216,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/008_daily_login_popup.test.sql",
+      "language": "sql",
+      "sizeLines": 20,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/010_daily_login_popup_per_system.test.sql",
+      "language": "sql",
+      "sizeLines": 24,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/011_character_experience.test.sql",
+      "language": "sql",
+      "sizeLines": 209,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/012_character_item_trading.test.sql",
+      "language": "sql",
+      "sizeLines": 244,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/013_system_character_sheets.test.sql",
+      "language": "sql",
+      "sizeLines": 105,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/016_character_sheet_visual_elements.test.sql",
+      "language": "sql",
+      "sizeLines": 49,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/017_character_sheet_choices.test.sql",
+      "language": "sql",
+      "sizeLines": 31,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/018_system_store_economy.test.sql",
+      "language": "sql",
+      "sizeLines": 154,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/019_system_member_character_search.test.sql",
+      "language": "sql",
+      "sizeLines": 73,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/021_system_password_access_enforcement.test.sql",
+      "language": "sql",
+      "sizeLines": 67,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/022_system_discovery_metadata.test.sql",
+      "language": "sql",
+      "sizeLines": 182,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/023_system_lifecycle.test.sql",
+      "language": "sql",
+      "sizeLines": 145,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/027_system_events.test.sql",
+      "language": "sql",
+      "sizeLines": 53,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/029_lobby_creator_tools_integrity.test.sql",
+      "language": "sql",
+      "sizeLines": 84,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/030_chats_as_game_space.test.sql",
+      "language": "sql",
+      "sizeLines": 65,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/031_friendships.test.sql",
+      "language": "sql",
+      "sizeLines": 153,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/032_rpg_invitations.test.sql",
+      "language": "sql",
+      "sizeLines": 158,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/033_public_player_profiles.test.sql",
+      "language": "sql",
+      "sizeLines": 38,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/034_system_lobby_presence.test.sql",
+      "language": "sql",
+      "sizeLines": 59,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/CONCURRENCY.md",
+      "language": "markdown",
+      "sizeLines": 45,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "supabase/tests/store-concurrency.mjs",
+      "language": "javascript",
+      "sizeLines": 162,
+      "fileCategory": "code"
+    },
+    {
+      "path": "vercel.json",
+      "language": "json",
+      "sizeLines": 17,
+      "fileCategory": "config"
+    }
+  ],
+  "totalFiles": 351,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "large",
+  "failures": [],
+  "stats": {
+    "filesScanned": 351,
+    "byCategory": {
+      "markup": 42,
+      "code": 181,
+      "config": 11,
+      "docs": 8,
+      "data": 109
+    },
+    "byLanguage": {
+      "html": 20,
+      "unknown": 4,
+      "json": 8,
+      "markdown": 8,
+      "config": 2,
+      "typescript": 176,
+      "sql": 109,
+      "css": 22,
+      "toml": 1,
+      "javascript": 1
+    }
+  }
+}
