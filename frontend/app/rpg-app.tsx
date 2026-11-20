@@ -206,28 +206,41 @@ export function RpgApp() {
   if (authenticated && !recovery) return <main className="shell"><p role="status">Abrindo seus sistemas…</p></main>;
 
   return (
-      <main className={`auth-landing ${mode === 'signup' ? 'auth-landing-signup' : ''}`}>
-        <section className="auth-story-panel">
+      <main className={`auth-landing auth-bifrost-landing ${mode === 'signup' ? 'auth-landing-signup' : ''}`}>
+        <svg className="auth-bridge" viewBox="0 0 1440 400" preserveAspectRatio="none" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="bifrost-spectrum"><stop stopColor="#72cbd4" /><stop offset=".35" stopColor="#9aabed" /><stop offset=".6" stopColor="#c3a4dc" /><stop offset=".8" stopColor="#dc9eae" /><stop offset="1" stopColor="#d7bc8f" /></linearGradient>
+            <linearGradient id="bifrost-fade" x2="0" y2="1"><stop stopColor="white" stopOpacity="0" /><stop offset=".35" stopColor="white" stopOpacity=".4" /><stop offset="1" stopColor="white" /></linearGradient>
+            <mask id="bifrost-bridge-mask"><path fill="url(#bifrost-fade)" d="M0 0h1440v400H0z" /></mask>
+          </defs>
+          <g stroke="url(#bifrost-spectrum)" mask="url(#bifrost-bridge-mask)">
+            <path d="M670 0 270 400M695 0 495 400M720 0v400M745 0l200 400M770 0l400 400" />
+            <path d="M670 0h100l400 400H270Z" fill="url(#bifrost-spectrum)" fillOpacity=".025" />
+          </g>
+        </svg>
+        <header className="auth-access-header">
           <a className="auth-brand" href="/" aria-label="Bifrost RPG início">
-            <span className="auth-brand-mark" aria-hidden="true">✧</span>
-            <span>BIFROST <em>RPG</em></span>
+            <svg className="auth-brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="m5 24 15-15 15 15M5 32l15-15 15 15" stroke="currentColor" strokeWidth="1.5" /></svg>
+            <span><span className="auth-brand-name">ᛒᛁᚠᚱᛟᛊᛏ</span> <em>RPG</em></span>
           </a>
-          <div className="auth-story-copy">
-            <p className="auth-story-eyebrow">SUA PRÓXIMA AVENTURA COMEÇA AQUI</p>
-            <h1>O seu mundo.<br /><span>As suas regras.</span></h1>
-            <p>Crie sistemas, personalize fichas e reúna seu grupo para escrever histórias que só poderiam acontecer na seu sistema.</p>
+          <h1>RPG de mesa, do seu jeito.</h1>
+          <div className="auth-tabletop-mark" aria-hidden="true">
+            <span />
+            <svg viewBox="0 0 48 50" fill="none">
+              <path d="m24 3 20 11v22L24 47 4 36V14Z" stroke="currentColor" />
+              <path d="m24 12 14 23H10Zm0-9v9M4 14l20-2 20 2M4 36l6-1 14 12 14-12 6 1" stroke="currentColor" opacity=".65" />
+              <text x="24" y="30" fill="currentColor" textAnchor="middle">20</text>
+            </svg>
+            <span />
           </div>
-          <div className="auth-story-rune" aria-hidden="true"><span>✧</span><i /><b /></div>
-          <div className="auth-story-footer"><span className="auth-live-dot" /> Um espaço para quem joga e cria RPG</div>
-        </section>
+        </header>
         <section className="auth-form-panel" aria-label={recovery ? 'Recuperar acesso' : mode === 'signup' ? 'Criar conta' : 'Entrar'}>
           <div className="auth-form-wrap">
-            {notice && <div className={`notice${notice.error ? ' error' : ''}`} role="status" aria-live="polite">{notice.message}</div>}
+            {notice && <div className={`notice${notice.error ? ' error' : ''}`} role={notice.error ? 'alert' : 'status'}>{notice.message}</div>}
             {accountCard}
-            <p className="auth-form-footnote">Seus sistemas, personagens e aventuras em um só lugar.</p>
           </div>
-          <footer className="auth-footer"><span>BIFROST RPG</span><span>Feito para as suas histórias</span></footer>
         </section>
+        <footer className="auth-footer">Uma ponte entre mestres, jogadores e histórias.</footer>
       </main>
   );
 }

@@ -3,6 +3,7 @@ import type {
   DailyLoginCharacter,
   DailyLoginClaimInput,
   DailyLoginClaim,
+  DailyLoginClaimResult,
   DailyLoginReward,
   DailyLoginScheduleInput,
   DailyLoginSystem,
@@ -23,22 +24,6 @@ export interface DailyLoginOwnerCalendar {
   is_active: boolean;
   items: { id: string; name: string }[];
   rewards: DailyLoginReward[];
-}
-
-export interface DailyLoginClaimResult {
-  status: 'claimed' | 'already_claimed' | 'invalid_character' | 'calendar_unavailable' | 'system_unavailable' | 'unauthorized';
-  claim_id?: string;
-  game_system_id?: string;
-  character_id?: string;
-  item_id?: string;
-  item_name?: string;
-  quantity?: number;
-  weekday?: number;
-  local_claim_date?: string;
-  timezone?: string;
-  xp_awarded: number;
-  currency_awarded: number;
-  currency_name: string;
 }
 
 const systemColumns = 'id,name,description,is_active,daily_login_timezone,daily_login_rewards_enabled,currency_name';
