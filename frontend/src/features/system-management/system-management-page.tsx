@@ -28,13 +28,22 @@ import { addCustomExperienceSource } from '../experience/experience-model';
 import { SystemMembershipCard } from '../system-membership/system-membership-card';
 import { SystemSheetEditor } from '../system-creation/system-sheet-editor';
 import { SystemDetailsEditor } from './system-details-editor';
-import { BookCategory } from './book-category';
-import './system-management-page.css';
 import '../system-creation/system-creation.css';
-import './system-management-codex.css';
+import './system-management-page.css';
 
 type PageState = 'loading' | 'ready' | 'forbidden' | 'error';
 type ManagementCategory = 'overview' | 'people' | 'game' | 'store' | 'sheet' | 'events' | 'community' | 'settings';
+
+const managementSections: { id: ManagementCategory; label: string; icon: string }[] = [
+  { id: 'overview', label: 'Visão geral', icon: 'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z' },
+  { id: 'people', label: 'Pessoas', icon: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8 M17 4a4 4 0 0 1 0 7 M22 21v-2a4 4 0 0 0-3-3.87' },
+  { id: 'game', label: 'Jogo', icon: 'M12 3 3 8v9l9 5 9-5V8z M3 8l9 5 9-5 M12 13v9 M7.5 5.5l9 5' },
+  { id: 'store', label: 'Loja', icon: 'M3 3h2l3 13h11l3-9H6 M10 21h.01 M18 21h.01' },
+  { id: 'sheet', label: 'Ficha', icon: 'M14 2H6v20h12V6z M14 2v5h5 M9 12h6 M9 16h6' },
+  { id: 'events', label: 'Eventos', icon: 'M3 5h18v16H3z M16 3v4 M8 3v4 M3 11h18 M8 15h2 M14 15h2' },
+  { id: 'community', label: 'Comunidade', icon: 'M21 11.5a8.5 8.5 0 0 1-8.5 8.5H3l2-5a8.5 8.5 0 1 1 16-3.5 M8 11h8 M8 15h5' },
+  { id: 'settings', label: 'Configurações', icon: 'M4 7h16 M4 17h16 M8 4v6 M16 14v6' },
+];
 
 export function SystemManagementPage() {
   const { systemId } = useParams<{ systemId: string }>();
@@ -266,10 +275,6 @@ export function SystemManagementPage() {
     return category === activeCategory;
   }
 
-  function categoryPageClass() {
-    return 'system-management-section system-management-book-current-page';
-  }
-
   return <main className="system-management-page">
     <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar aos sistemas" />
     <div className="system-management-content">
@@ -277,52 +282,53 @@ export function SystemManagementPage() {
       {pageState === 'error' && <section className="system-management-state"><h1>Não foi possível abrir o gerenciamento</h1><p role="alert">{pageError}</p><button className="button secondary" type="button" onClick={() => setReloadKey((key) => key + 1)}>Tentar novamente</button></section>}
       {pageState === 'forbidden' && <section className="system-management-state"><span className="system-management-eyebrow">ACESSO RESTRITO</span><h1>Você não pode gerenciar este sistema</h1><p>Somente o Owner do sistema ou um Admin global pode acessar estas configurações.</p><button className="button secondary" type="button" onClick={() => router.push('/dashboard')}>Voltar aos sistemas</button></section>}
       {pageState === 'ready' && systemView && <>
-        <div className="system-management-book">
-          <svg className="system-management-book-binding" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <defs>
-              <linearGradient id="codex-paper-left"><stop stopColor="#201c2a" /><stop offset=".85" stopColor="#211c2b" /><stop offset="1" stopColor="#100e17" /></linearGradient>
-              <linearGradient id="codex-paper-right"><stop stopColor="#100e17" /><stop offset=".08" stopColor="#211b2b" /><stop offset="1" stopColor="#1d1926" /></linearGradient>
-            </defs>
-            <path d="M26 16Q310 0 600 30Q890 0 1174 16Q1196 18 1196 44V766Q1196 794 1172 790Q880 768 600 796Q320 768 28 790Q4 794 4 766V44Q4 18 26 16Z" fill="#100e16" stroke="#493d56" />
-            <path d="M30 10Q320 -4 600 25V780Q320 752 30 774Q12 776 12 754V36Q12 12 30 10Z" fill="url(#codex-paper-left)" stroke="#63516f" strokeOpacity=".35" />
-            <path d="M600 25Q880 -4 1170 10Q1188 12 1188 36V754Q1188 776 1170 774Q880 752 600 780Z" fill="url(#codex-paper-right)" stroke="#63516f" strokeOpacity=".35" />
-            <path d="M22 760Q320 742 590 774M610 774Q880 742 1178 760M22 768Q320 750 590 782M610 782Q880 750 1178 768" fill="none" stroke="#9d80ad" strokeOpacity=".18" />
-          </svg>
-          <nav className="system-management-nav" aria-label="Seções de gerenciamento" role="tablist">
-            <button className="bifrost-tab" type="button" role="tab" id="management-tab-overview" aria-selected={activeCategory === 'overview'} aria-controls="overview" onClick={() => selectCategory('overview')}>Visão geral</button>
-            <button className="bifrost-tab" type="button" role="tab" id="management-tab-people" aria-selected={activeCategory === 'people'} aria-controls="people" onClick={() => selectCategory('people')}>Pessoas</button>
-            <button className="bifrost-tab" type="button" role="tab" id="management-tab-game" aria-selected={activeCategory === 'game'} aria-controls="game" onClick={() => selectCategory('game')}>Jogo</button>
-            <button className="bifrost-tab" type="button" role="tab" id="management-tab-store" aria-selected={activeCategory === 'store'} aria-controls="store" onClick={() => selectCategory('store')}>Loja</button>
-            <button className="bifrost-tab" type="button" role="tab" id="management-tab-sheet" aria-selected={activeCategory === 'sheet'} aria-controls="sheet" onClick={() => selectCategory('sheet')}>Ficha</button>
-            <button className="bifrost-tab" type="button" role="tab" id="management-tab-events" aria-selected={activeCategory === 'events'} aria-controls="events" onClick={() => selectCategory('events')}>Eventos</button>
-            <button className="bifrost-tab" type="button" role="tab" id="management-tab-community" aria-selected={activeCategory === 'community'} aria-controls="community" onClick={() => selectCategory('community')}>Comunidade</button>
-            <button className="bifrost-tab" type="button" role="tab" id="management-tab-settings" aria-selected={activeCategory === 'settings'} aria-controls="settings" onClick={() => selectCategory('settings')}>Configurações</button>
-          </nav>
-          <div className="system-management-book-page">
-            {isVisibleCategory('overview') && <BookCategory className={categoryPageClass()} id="overview" role="tabpanel" aria-labelledby="management-tab-overview"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO I · PAINEL</p><h2>Visão geral</h2></div></div>
+        <header className="system-management-header">
+          <div>
+            <p className="system-management-eyebrow">GERENCIAMENTO DO SISTEMA</p>
+            <h1>{systemView.system.name}</h1>
+            <p>Organize seu universo e prepare a próxima aventura.</p>
+          </div>
+          <div className="system-management-statuses" aria-label="Status do sistema">
+            <span className={systemView.system.is_active ? 'system-management-status is-active' : 'system-management-status'}>{systemView.system.is_active ? 'Sistema ativo' : 'Sistema desativado'}</span>
+            <span className="system-management-status">{systemIsPublic ? 'Público' : 'Privado'}</span>
+          </div>
+        </header>
+        <div className="system-management-layout">
+          <aside className="system-management-sidebar">
+            <p className="system-management-nav-label">ESPAÇO DO SISTEMA</p>
+            <nav className="system-management-nav" aria-label="Seções de gerenciamento">
+              {managementSections.map(({ id, label, icon }) => <button key={id} className="system-management-nav-item" type="button" id={`management-tab-${id}`} aria-pressed={activeCategory === id} aria-controls={activeCategory === id ? id : undefined} onClick={() => selectCategory(id)}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={icon} /></svg>
+                <span>{label}</span>
+              </button>)}
+            </nav>
+            <div className="system-management-sidebar-note"><strong>Tudo no seu lugar</strong><p>Gerencie as regras, os jogadores e as experiências do seu sistema.</p></div>
+          </aside>
+          <div className="system-management-workspace">
+            {isVisibleCategory('overview') && <section className="system-management-section" id="overview" aria-labelledby="management-heading-overview"><header className="system-management-section-heading"><h2 id="management-heading-overview">Informações do sistema</h2><p>Personalize a identidade e a apresentação do seu universo.</p></header>
               <div className="system-management-sheet-editor">
-                <div><h3>Informações básicas</h3></div>
+                <div><h3>Identidade e apresentação</h3><p>Estas informações ajudam os jogadores a conhecer o sistema.</p></div>
                 {canEditOwnerSettings
                   ? editorSystem && <SystemDetailsEditor key={`${systemId}-${editorSystem.cover_image_path ?? 'no-cover'}-overview`} system={editorSystem} section="overview" onSaved={updateSystemDetails} />
                   : <p>Somente o Owner do sistema pode editar estas informações.</p>}
               </div>
-            </BookCategory>}
-            {isVisibleCategory('people') && <BookCategory className={categoryPageClass()} id="people" role="tabpanel" aria-labelledby="management-tab-people"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO II · ACESSO</p><h2>Pessoas</h2></div></div>
+            </section>}
+            {isVisibleCategory('people') && <section className="system-management-section" id="people" aria-labelledby="management-heading-people"><header className="system-management-section-heading"><h2 id="management-heading-people">Pessoas e permissões</h2><p>Organize os participantes e os cargos de moderação.</p></header>
               {membershipsForSystem && <SystemMembershipCard access={membershipsForSystem} manageableSystems={selectedManageable ? [{ game_system_id: systemId, game_system_name: selectedManageable.system.name }] : []} busy={membershipBusy} message={membershipMessage} messageIsError={membershipMessageIsError} onAssign={(targetId, userId, isModerator) => void assignModerator(targetId, userId, isModerator)} />}
-            </BookCategory>}
-            {isVisibleCategory('game') && <BookCategory className={categoryPageClass()} id="game" role="tabpanel" aria-labelledby="management-tab-game"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO III · REGRAS</p><h2>Jogo</h2></div></div>
+            </section>}
+            {isVisibleCategory('game') && <section className="system-management-section" id="game" aria-labelledby="management-heading-game"><header className="system-management-section-heading"><h2 id="management-heading-game">Regras e progressão</h2><p>Configure a experiência e as recompensas dos jogadores.</p></header>
               <ExperienceAdminCard systems={[systemView]} selectedSystemId={systemId} settings={experience} loading={experienceLoading} saving={experienceSaving} message={experienceMessage} messageIsError={experienceMessageIsError} onSystemChange={() => undefined} onXpPerLevelChange={(amount) => setExperience((current) => current ? { ...current, xp_per_level: amount } : current)} onSourceChange={(index, field, value) => setExperience((current) => current ? { ...current, sources: current.sources.map((source, sourceIndex) => sourceIndex === index ? { ...source, [field]: value } : source) } : current)} onAddCustomSource={() => setExperience((current) => current ? { ...current, sources: addCustomExperienceSource(current.sources) } : current)} onRemoveCustomSource={(index) => setExperience((current) => current ? { ...current, sources: current.sources.filter((_, sourceIndex) => sourceIndex !== index) } : current)} onSave={(event) => void saveExperience(event)} />
               <DailyLoginAdminCard systems={[systemView]} selectedSystemId={systemId} calendar={calendar} loading={calendarLoading} saving={calendarSaving} message={calendarMessage} messageIsError={calendarMessageIsError} onSystemChange={() => undefined} onRewardChange={changeReward} onActiveChange={(isActive) => setCalendar((current) => current ? { ...current, is_active: isActive } : current)} onSave={(event) => void saveCalendar(event)} />
-            </BookCategory>}
-            {isVisibleCategory('store') && <BookCategory className={categoryPageClass()} id="store" role="tabpanel" aria-labelledby="management-tab-store"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO IV · COMÉRCIO</p><h2>Loja</h2></div></div>
+            </section>}
+            {isVisibleCategory('store') && <section className="system-management-section" id="store" aria-labelledby="management-heading-store"><header className="system-management-section-heading"><h2 id="management-heading-store">Loja do sistema</h2><p>Gerencie o catálogo, os itens e as ofertas da sua loja.</p></header>
               <SystemStoreAdmin key={systemId} systemId={systemId} />
-            </BookCategory>}
-            {isVisibleCategory('sheet') && <BookCategory className={categoryPageClass()} id="sheet" role="tabpanel" aria-labelledby="management-tab-sheet"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO V · PERSONAGENS</p><h2>Ficha</h2></div></div>
+            </section>}
+            {isVisibleCategory('sheet') && <section className="system-management-section" id="sheet" aria-labelledby="management-heading-sheet"><header className="system-management-section-heading"><h2 id="management-heading-sheet">Ficha de personagem</h2><p>Defina os campos e a estrutura das fichas do sistema.</p></header>
               <div className="system-management-sheet-editor">{canEditOwnerSettings ? <SystemSheetEditor systemId={systemId} systemName={systemView.system.name} /> : <p>Somente o Owner do sistema pode editar a ficha de personagem.</p>}</div>
-            </BookCategory>}
-            {isVisibleCategory('events') && <BookCategory className={categoryPageClass()} id="events" role="tabpanel" aria-labelledby="management-tab-events"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO VI · AGENDA</p><h2>Eventos</h2></div></div><SystemEventsCard systemId={systemId} canManage={canEditOwnerSettings} /></BookCategory>}
-            {isVisibleCategory('community') && <BookCategory className={`${categoryPageClass()} system-management-future`} id="community" role="tabpanel" aria-labelledby="management-tab-community"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO VI · GRUPO</p><h2>Comunidade</h2></div></div><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></BookCategory>}
-            {isVisibleCategory('settings') && <BookCategory className={categoryPageClass()} id="settings" role="tabpanel" aria-labelledby="management-tab-settings"><div className="system-management-section-heading"><span aria-hidden="true">✧</span><div><p>CAPÍTULO VII · SISTEMA</p><h2>Configurações</h2></div></div>
+            </section>}
+            {isVisibleCategory('events') && <section className="system-management-section" id="events" aria-labelledby="management-heading-events"><header className="system-management-section-heading"><h2 id="management-heading-events">Eventos</h2><p>Prepare os próximos encontros e atividades do seu sistema.</p></header><SystemEventsCard systemId={systemId} canManage={canEditOwnerSettings} /></section>}
+            {isVisibleCategory('community') && <section className="system-management-section system-management-future" id="community" aria-labelledby="management-heading-community"><header className="system-management-section-heading"><h2 id="management-heading-community">Comunidade</h2><p>Um espaço para as próximas ferramentas do seu grupo.</p></header><p>Anúncios e ferramentas para o grupo poderão ser organizados aqui quando estiverem disponíveis para gerenciamento.</p></section>}
+            {isVisibleCategory('settings') && <section className="system-management-section" id="settings" aria-labelledby="management-heading-settings"><header className="system-management-section-heading"><h2 id="management-heading-settings">Configurações</h2><p>Controle o acesso e a disponibilidade do seu sistema.</p></header>
               <div className="system-management-sheet-editor">
                 <div><h3>Acesso do sistema</h3></div>
                 {canEditOwnerSettings
@@ -354,7 +360,7 @@ export function SystemManagementPage() {
                   : <p>Somente o Owner do sistema ou um Admin global pode excluir este sistema.</p>}
               </section>
               {lifecycleMessage && <p className={lifecycleMessageIsError ? 'system-management-lifecycle-error' : 'system-management-lifecycle-success'} role={lifecycleMessageIsError ? 'alert' : 'status'}>{lifecycleMessage}</p>}
-            </BookCategory>}
+            </section>}
           </div>
         </div>
       </>}
