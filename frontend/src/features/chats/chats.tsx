@@ -29,7 +29,9 @@ function formatMessageTime(value: string) {
 }
 
 export function ChatPanel({ chats, selectedChatId, messages, characterId, content, loadingChats, loadingMessages, sending, error, onSelectChat, onContentChange, onSubmit, view = 'full', onOpenConversation, onRetry }: ChatPanelProps) {
+  const messageList = useRef<HTMLOListElement>(null);
   const selectedChat = chats.find((chat) => chat.id === selectedChatId) ?? null;
+  useEffect(() => { messageList.current?.scrollTo({ top: messageList.current.scrollHeight, behavior: 'smooth' }); }, [messages]);
   if (view === 'dashboard') {
     const latestMessage = messages.at(-1) ?? null;
     return <>
@@ -55,7 +57,7 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
   }
 
   return <section className="chat" aria-labelledby="chats-heading">
-    <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">SUA MESA</span><h2 id="chats-heading">{selectedChat?.name ?? 'Conversas'}</h2></div></header>
+    <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">CHAT DA MESA</span><h2 id="chats-heading">{selectedChat?.name ?? 'Chat principal'}</h2></div></header>
     {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
       ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
       : <div className="chat-layout">
@@ -68,7 +70,7 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
         <div className="chat-conversation">
           {selectedChat ? <>
             <div className="chat-title-row"><h3>{selectedChat.name}</h3><InviteFriendControl chatId={selectedChat.id} /></div>
-            {loadingMessages ? <p role="status">Carregando mensagens…</p> : <ol className="chat-messages" aria-label={`Mensagens de ${selectedChat.name}`} aria-live="polite">
+            {loadingMessages ? <p role="status">Carregando mensagens…</p> : <ol ref={messageList} className="chat-messages" aria-label={`Mensagens do chat ${selectedChat.name}`} aria-live="polite">
               {messages.map((message) => <li className={message.character_id === characterId ? 'chat-message-own' : undefined} key={message.id}>
                 <span>{message.character_id === characterId ? 'Você' : 'Personagem'} · {formatMessageTime(message.created_at)}</span><p>{message.content}</p>
               </li>)}

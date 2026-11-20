@@ -184,18 +184,18 @@ export function legacyFieldsToDefinition(fields: LegacyCharacterSheetField[]): C
 
 export const createSystemInputSchema = z.strictObject({
   name: z.string().trim().min(1).max(80),
-  description: z.string().trim().max(500).nullable().optional(),
+  description: z.string().trim().max(10000).nullable().optional(),
   definition: characterSheetDefinitionSchema,
-  play_mode: z.enum(['text', 'voice']),
+  play_mode: z.enum(['text', 'voice', 'hybrid']),
   tags: systemTagSlugsSchema,
 });
 
 export const updateGameSystemInputSchema = z.strictObject({
   name: z.string().trim().min(1).max(80),
-  description: z.string().trim().max(500).nullable(),
+  description: z.string().trim().max(10000).nullable(),
   is_public: z.boolean(),
   password: z.string().min(8).max(72).optional(),
-  play_mode: z.enum(['text', 'voice']),
+  play_mode: z.enum(['text', 'voice', 'hybrid']),
   tags: systemTagSlugsSchema,
   cover_image_path: z.string().regex(/^[0-9a-f-]{36}\/[0-9a-f-]{36}\.(jpg|png|webp|avif)$/i).nullable(),
   cover_focus_x: z.number().int().min(0).max(100),
@@ -224,7 +224,7 @@ export const storedGameSystemSchema = z.strictObject({
   cover_focus_x: z.number().int().min(0).max(100).default(50),
   cover_focus_y: z.number().int().min(0).max(100).default(50),
   tags: z.array(z.string()).default([]),
-  play_mode: z.enum(['text', 'voice']).default('text'),
+  play_mode: z.enum(['text', 'voice', 'hybrid']).default('text'),
 });
 
 export const gameSystemSchema = z.strictObject({

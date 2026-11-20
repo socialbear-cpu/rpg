@@ -474,3 +474,4 @@
   .visual-sheet-options fieldset { grid-template-columns: minmax(0, 1fr); }
   .sheet-option-transform-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+.system-presentation-mode label:has(input:checked) { border-color: #9c79c7; color: #f3eaff; background: #352647; box-shadow: 0 0 0 1px #9c79c744; }

@@ -46,12 +46,36 @@ export function SystemsSection({ systems, loading, error, onCreate, onEnter, own
       {!loading && !error && systems.length > 0 && (
         <ul className="worlds-grid" aria-label="Seus sistemas" role="list">
           {systems.map((system, index) => (
+<<<<<<< HEAD
             <li className={`worlds-stop${system.is_active === false ? ' worlds-stop-archived' : ''}`} key={system.id}>
               <article className={`worlds-destination worlds-tone-${index % 4}`}>
                 <div className={`worlds-cover${system.cover_image_path ? '' : ' worlds-cover-fallback'}`} aria-hidden="true">
                   {system.cover_image_path
                     ? <img src={getGameSystemCoverUrl(system.cover_image_path) ?? undefined} alt="" loading="lazy" style={{ objectPosition: `${system.cover_focus_x ?? 50}% ${system.cover_focus_y ?? 50}%` }} />
                     : <><svg className="worlds-cover-bridge" viewBox="0 0 160 90" fill="none"><path d="m60 0-50 90M70 0 45 90M80 0v90M90 0l25 90M100 0l50 90M60 0h40" stroke="currentColor" /></svg><span className="worlds-cover-name">ᛒᛁᚠᚱᛟᛊᛏ</span></>}
+=======
+            <article className={`system-card system-card-tone-${index % 4}${system.is_active === false ? ' system-card-archived' : ''}`} key={system.id}>
+              <div className={`system-card-art${system.cover_image_path ? ' has-cover' : ''}`} aria-hidden="true">
+                {system.cover_image_path
+                  ? <img className="system-card-cover" src={getGameSystemCoverUrl(system.cover_image_path) ?? undefined} alt="" style={{ objectPosition: `${system.cover_focus_x ?? 50}% ${system.cover_focus_y ?? 50}%` }} />
+                  : <>
+                    <span className="system-card-art-brand">BIFROST RPG</span>
+                    <span className="system-card-art-sigil">✧</span>
+                    <span className="system-card-art-caption">UM MUNDO À SUA MANEIRA</span>
+                  </>}
+              </div>
+              {(ownerSystemIds.has(system.id) || isPlatformAdmin) && <button type="button" className="system-card-settings" aria-label={`Gerenciar ${system.name}`} title="Gerenciar sistema" onClick={() => onManage?.(system.id)}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg>
+              </button>}
+              <div className="system-card-content">
+                <span className="system-card-eyebrow">{system.is_active === false ? 'SISTEMA DESATIVADO' : 'SISTEMA DE RPG'}</span>
+                <h3>{system.name}</h3>
+                <p>{system.is_active === false ? 'Este sistema está desativado. Você pode reativá-lo nas configurações.' : system.description || 'Uma nova aventura espera pelo seu grupo.'}</p>
+                <div className="system-card-metadata">
+                  <span className="system-card-mode">{system.play_mode === 'voice' ? '◉ Voz' : system.play_mode === 'hybrid' ? '◈ Híbrido' : '▤ Texto'}</span>
+                  {(system.tags ?? []).slice(0, 3).map((tag) => <span className="system-card-tag" key={tag.slug}>{tag.label}</span>)}
+                  {(system.tags?.length ?? 0) > 3 && <span className="system-card-tag">+{(system.tags?.length ?? 0) - 3}</span>}
+>>>>>>> 0bea1f026a107c8b24c7b27281997d67881b5ff8
                 </div>
                 <div className="worlds-destination-heading">
                   <span className="worlds-mode">{system.is_active === false ? 'Em pausa' : system.play_mode === 'voice' ? '◉ Voz' : '▤ Texto'}</span>
