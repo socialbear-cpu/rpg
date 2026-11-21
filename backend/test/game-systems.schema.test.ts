@@ -157,6 +157,31 @@ describe('versioned character-sheet definitions', () => {
       }],
     });
   });
+
+  it('accepts ordered visual compositions and validates choices against earlier answers', () => {
+    const conditionalDefinition: CharacterSheetDefinition = {
+      version: 1,
+      steps: [{
+        key: 'identity', label: 'Identidade', position: 0,
+        components: [
+          { key: 'origin', label: 'Origem', type: 'single_select', required: false, position: 0, width: 'full', show_on_card: false, presentation: 'select', options: [{ label: 'Cidade', value: 'city' }, { label: 'Campo', value: 'country' }] },
+          { key: 'role', label: 'Função', type: 'single_select', required: true, position: 1, width: 'full', show_on_card: false, presentation: 'select', options: [
+            { label: 'Guarda', value: 'guard', condition: { logic: 'all', rules: [{ component_key: 'origin', operator: 'equals', value: 'city' }] } },
+            { label: 'Fazendeira', value: 'farmer', condition: { logic: 'all', rules: [{ component_key: 'origin', operator: 'equals', value: 'country' }] } },
+          ] },
+          { key: 'art', label: 'Retrato', type: 'visual_composition', composition_key: 'portrait', required: false, position: 2, width: 'full', show_on_card: false },
+        ],
+        elements: [{ key: 'portrait_title', composition_key: 'portrait', type: 'text', text: 'Retrato do personagem', x: 5, y: 5, width: 40, height: 15, rotation: 0 }],
+      }],
+    };
+
+    expect(characterSheetDefinitionSchema.safeParse(conditionalDefinition).success).toBe(true);
+    const attributesSchema = characterAttributesSchemaFor(conditionalDefinition);
+    expect(attributesSchema.safeParse({ origin: 'city', role: 'guard' }).success).toBe(true);
+    expect(attributesSchema.safeParse({ origin: 'city', role: 'farmer' }).success).toBe(false);
+    expect(attributesSchema.safeParse({}).success).toBe(true);
+    expect(attributesSchema.safeParse({ origin: 'city', role: 'guard', art: 'unexpected' }).success).toBe(false);
+  });
 });
 
 describe('system and character input schemas', () => {

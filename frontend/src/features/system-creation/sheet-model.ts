@@ -91,7 +91,7 @@ export function legacyFieldsToDefinition(fields: CharacterSheetField[]): Charact
 }
 
 export function definitionToLegacyFields(definition: CharacterSheetDefinition): CharacterSheetField[] {
-  return definition.steps.flatMap((step) => step.components).sort((a, b) => a.position - b.position).map((component, position) => ({
+  return definition.steps.flatMap((step) => step.components).filter((component) => component.type !== 'visual_composition').sort((a, b) => a.position - b.position).map((component, position) => ({
     key: component.key, label: component.label, type: component.type, required: component.required,
     position, show_on_card: component.show_on_card,
     ...(component.type === 'single_select' ? {
@@ -171,6 +171,58 @@ export function addSheetComponent(definition: CharacterSheetDefinition, stepKey:
   };
 }
 
+export function addSheetChoiceComponent(definition: CharacterSheetDefinition, stepKey: string): CharacterSheetDefinition {
+  const step = definition.steps.find((item) => item.key === stepKey);
+  if (!step) return definition;
+  const component: Extract<CharacterSheetComponent, { type: 'single_select' }> = {
+    key: `field_${globalThis.crypto.randomUUID().replaceAll('-', '')}`,
+    label: 'Nova lista de opções',
+    type: 'single_select',
+    presentation: 'select',
+    selection_mode: 'single',
+    options: [
+      { label: 'Opção 1', value: `option_${globalThis.crypto.randomUUID().replaceAll('-', '')}` },
+      { label: 'Opção 2', value: `option_${globalThis.crypto.randomUUID().replaceAll('-', '')}` },
+    ],
+    required: false,
+    position: step.components.length,
+    width: 'full',
+    show_on_card: false,
+  };
+  return { ...definition, steps: definition.steps.map((item) => item.key === stepKey ? { ...item, components: [...item.components, component] } : item) };
+}
+
+export function addSheetComposition(definition: CharacterSheetDefinition, stepKey: string): { definition: CharacterSheetDefinition; compositionKey: string } {
+  const step = definition.steps.find((item) => item.key === stepKey);
+  if (!step) return { definition, compositionKey: '' };
+  const compositionKey = `comp_${globalThis.crypto.randomUUID().replaceAll('-', '')}`;
+  const component: Extract<CharacterSheetComponent, { type: 'visual_composition' }> = {
+    key: `field_${globalThis.crypto.randomUUID().replaceAll('-', '')}`,
+    label: 'Composição visual',
+    type: 'visual_composition',
+    composition_key: compositionKey,
+    required: false,
+    position: step.components.length,
+    width: 'full',
+    show_on_card: false,
+  };
+  const element: CharacterSheetVisualElement = {
+    key: `element_${globalThis.crypto.randomUUID().replaceAll('-', '')}`,
+    composition_key: compositionKey,
+    type: 'text',
+    text: 'Novo texto',
+    x: 5,
+    y: 5,
+    width: 30,
+    height: 15,
+    rotation: 0,
+  };
+  return {
+    compositionKey,
+    definition: { ...definition, steps: definition.steps.map((item) => item.key === stepKey ? { ...item, components: [...item.components, component], elements: [...(item.elements ?? []), element] } : item) },
+  };
+}
+
 export function removeSheetComponent(definition: CharacterSheetDefinition, stepKey: string, componentKey: string): CharacterSheetDefinition {
   const next = {
     ...definition,
@@ -221,21 +273,24 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
   const elementKeys = new Set<string>();
   let componentCount = 0;
   let elementCount = 0;
+  const priorChoices = new Map<string, Set<string>>();
 
-  for (const step of definition.steps) {
+  for (const step of [...definition.steps].sort((a, b) => a.position - b.position)) {
     if (!/^[a-z][a-z0-9_]{0,39}$/.test(step.key) || stepKeys.has(step.key)) return false;
     if (!step.label.trim() || step.label.trim().length > 80) return false;
     if (!Number.isInteger(step.position) || step.position < 0 || step.position > 19 || stepPositions.has(step.position)) return false;
     if (step.components.length > 50) return false;
 
     const componentPositions = new Set<number>();
-    for (const component of step.components) {
+    const compositions = new Set((step.elements ?? []).map((element) => element.composition_key ?? 'composition_1'));
+    const referencedCompositions = new Set<string>();
+    for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
       if (!/^[a-z][a-z0-9_]{0,39}$/.test(component.key) || componentKeys.has(component.key)) return false;
       if (!component.label.trim() || component.label.trim().length > 80) return false;
       if (!Number.isInteger(component.position) || component.position < 0 || component.position > 49 || componentPositions.has(component.position)) return false;
       if (!['full', 'half', 'third'].includes(component.width)) return false;
       if (typeof component.required !== 'boolean' || typeof component.show_on_card !== 'boolean') return false;
-      if (!supportedTypes.has(component.type)) return false;
+      if (!supportedTypes.has(component.type) && component.type !== 'visual_composition') return false;
 
       if (component.type === 'single_select') {
         if (!['select', 'cards', 'canvas'].includes(component.presentation) || ![undefined, 'single', 'multiple'].includes(component.selection_mode) || component.options.length < 1 || component.options.length > 50) return false;
@@ -246,6 +301,15 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
           const optionValue = option.value ?? option.label;
           if (!optionValue.trim() || optionValue.trim().length > 80 || values.has(optionValue.trim())) return false;
           if (option.description !== undefined && option.description.trim().length > 500) return false;
+          if (option.condition) {
+            if (!['all', 'any'].includes(option.condition.logic) || option.condition.rules.length < 1 || option.condition.rules.length > 20) return false;
+            for (const rule of option.condition.rules) {
+              if (!['equals', 'not_equals', 'contains', 'not_contains', 'is_filled', 'is_empty'].includes(rule.operator)) return false;
+              const available = priorChoices.get(rule.component_key);
+              const needsValue = ['equals', 'not_equals', 'contains', 'not_contains'].includes(rule.operator);
+              if (!available || needsValue !== (rule.value !== undefined) || (rule.value !== undefined && (!rule.value.trim() || rule.value.length > 80 || !available.has(rule.value)))) return false;
+            }
+          }
           if (option.image_url !== undefined) {
             if (option.image_url.length > 2048) return false;
             try { if (new URL(option.image_url).protocol !== 'https:') return false; }
@@ -258,6 +322,10 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
           labels.add(option.label.trim());
           values.add(optionValue.trim());
         }
+        priorChoices.set(component.key, values);
+      } else if (component.type === 'visual_composition') {
+        if (!/^[a-z][a-z0-9_]{0,39}$/.test(component.composition_key) || !compositions.has(component.composition_key) || referencedCompositions.has(component.composition_key)) return false;
+        referencedCompositions.add(component.composition_key);
       }
 
       componentKeys.add(component.key);
@@ -286,6 +354,7 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
       elementKeys.add(element.key);
       elementCount++;
     }
+    if (step.components.some((component) => component.type === 'visual_composition') && (step.elements ?? []).length === 0) return false;
 
     stepKeys.add(step.key);
     stepPositions.add(step.position);

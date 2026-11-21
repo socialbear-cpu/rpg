@@ -25,6 +25,7 @@ Apply the numbered files in `migrations/` in order to a new Supabase project (Po
 Migration 014 adds an optional, case-insensitive unique profile nick. Each account must claim one before using the dashboard; the database does not permit changing a claimed nick.
 
 Migration 015 versions character sheets into ordered steps and components. Migration 016 adds validated, positioned text and image elements to each step and is required before creating or saving sheets that use those elements.
+Migration 040 adds visual compositions as ordered sheet components and supports conditional choices in character-sheet option lists.
 Migration 020 adds public/private system access with bcrypt password hashes. Migration 021 requires access for protected system content, stores the password hash outside authenticated column access, and clears it when protection is removed. The equivalent Supabase CLI migrations are `20261113220000_game_system_visibility_password.sql` and `20261113221000_system_password_access_enforcement.sql`.
 Migration 022 adds a public cover image path, system tags, and a required text/voice modality with compatible defaults for existing systems. It seeds the platform tag catalogue and creates the public `game-system-covers` Supabase Storage bucket with Owner/Admin-only object writes. Its Supabase CLI copy is `20261114001000_system_discovery_metadata.sql`.
 

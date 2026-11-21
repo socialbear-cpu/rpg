@@ -2,7 +2,7 @@
 
 import { useRef, useState, type CSSProperties, type PointerEvent } from 'react';
 import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetOption, CharacterSheetVisualElement } from '../../api';
-import { addSheetComponent, addSheetVisualElement, moveSheetComponent, removeSheetComponent, removeSheetVisualElement } from './sheet-model';
+import { addSheetChoiceComponent, addSheetComponent, addSheetComposition, addSheetVisualElement, moveSheetComponent, removeSheetComponent, removeSheetVisualElement } from './sheet-model';
 import { CharacterSheetStepRenderer } from '../character-sheet/character-sheet-step-renderer';
 import './system-creation.css';
 
@@ -40,13 +40,41 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
   const selectedOptionComponent = selectedOptionKey ? steps.flatMap((item) => item.components).find((component) => component.key === selectedOptionKey.componentKey) : null;
   const selectedOption = selectedOptionComponent?.type === 'single_select' ? selectedOptionComponent.options[selectedOptionKey!.optionIndex] : undefined;
 
+  function clearInvalidChoiceConditions(source: CharacterSheetDefinition) {
+    const priorChoices = new Map<string, Set<string>>();
+    let changed = false;
+    const byStep = new Map<string, CharacterSheetDefinition['steps'][number]['components']>();
+    for (const step of source.steps.slice().sort((a, b) => a.position - b.position)) {
+      const components = step.components.slice().sort((a, b) => a.position - b.position).map((component) => {
+        if (component.type !== 'single_select') return component;
+        const options = component.options.map((option) => {
+          if (!option.condition || option.condition.rules.every((rule) => {
+            const values = priorChoices.get(rule.component_key);
+            return values !== undefined && (rule.value === undefined || values.has(rule.value));
+          })) return option;
+          changed = true;
+          return { ...option, condition: undefined };
+        });
+        priorChoices.set(component.key, new Set(component.options.map((option) => option.value ?? option.label)));
+        return options.some((option, index) => option !== component.options[index]) ? { ...component, options } : component;
+      });
+      byStep.set(step.key, components);
+    }
+    return {
+      definition: { ...source, steps: source.steps.map((step) => ({ ...step, components: byStep.get(step.key) ?? step.components })) },
+      changed,
+    };
+  }
+
   function applyMove(updated: CharacterSheetDefinition) {
     if (updated === definition) {
-      setBuilderNotice('NÃ£o foi possÃ­vel mover: verifique o limite de campos.');
+      setBuilderNotice('Não foi possível mover: verifique o limite de campos.');
       return;
     }
-      setBuilderNotice('NÃ£o foi possÃ­vel mover: verifique o limite de campos.');
-    onChange(updated);
+
+    const cleaned = clearInvalidChoiceConditions(updated);
+    setBuilderNotice(cleaned.changed ? 'A dependência foi removida porque a escolha de origem ficou depois desta lista.' : '');
+    onChange(cleaned.definition);
   }
 
   function patchComponent(componentKey: string, patch: Partial<CharacterSheetComponent>) {
@@ -77,7 +105,9 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
           : field),
       })),
     };
-    onChange(updatedDefinition);
+    const cleaned = clearInvalidChoiceConditions(updatedDefinition);
+    if (cleaned.changed) setBuilderNotice('A dependência foi removida porque a opção de origem não está mais disponível.');
+    onChange(cleaned.definition);
   }
 
   function addOption(componentKey: string) {
@@ -99,13 +129,13 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
     setSelectedOptionKey({ componentKey, optionIndex: index });
   }
 
-  function addChoiceGroup(stepKey: string, presentation: 'canvas' | 'select' = 'canvas') {
+  function addChoiceGroup(stepKey: string) {
     const key = `field_${globalThis.crypto.randomUUID().replaceAll('-', '')}`;
     const component: Extract<CharacterSheetComponent, { type: 'single_select' }> = {
       key,
       label: 'Nova escolha',
       type: 'single_select',
-      presentation,
+      presentation: 'canvas',
       selection_mode: 'single',
       options: [{ label: 'Opção 1', value: `option_${globalThis.crypto.randomUUID().replaceAll('-', '')}`, x: 5, y: 5, width: 28, height: 35, rotation: 0 }],
       required: false,
@@ -132,31 +162,18 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
           : field),
       } : item),
     };
-    onChange(updated);
+    const cleaned = clearInvalidChoiceConditions(updated);
+    if (cleaned.changed) setBuilderNotice('A dependência foi removida porque a opção de origem foi excluída.');
+    onChange(cleaned.definition);
   }
 
-  function changeType(component: CharacterSheetComponent, type: CharacterSheetComponent['type']) {
+  function changeType(component: CharacterSheetComponent, type: 'short_text' | 'long_text' | 'number') {
     const base = { key: component.key, label: component.label, required: component.required, position: component.position, width: component.width, show_on_card: component.show_on_card };
-    const replacement: CharacterSheetComponent = type === 'single_select' ? { ...base, type, presentation: 'cards', options: [{ label: 'Opção 1' }] } : { ...base, type } as CharacterSheetComponent;
-    patchComponent(component.key, replacement);
-  }
-
-  function setPresentation(component: Extract<CharacterSheetComponent, { type: 'single_select' }>, presentation: 'select' | 'cards' | 'canvas') {
-    const columns = Math.max(1, Math.ceil(Math.sqrt(component.options.length)));
-    const width = 90 / columns;
-    const rows = Math.ceil(component.options.length / columns);
-    const height = 80 / rows;
-    patchComponent(component.key, {
-      presentation,
-      options: component.options.map((option, index) => presentation === 'canvas' ? {
-        ...option,
-        x: option.x ?? 5 + (index % columns) * (width + 2),
-        y: option.y ?? 5 + Math.floor(index / columns) * (height + 2),
-        width: option.width ?? width,
-        height: option.height ?? height,
-        rotation: option.rotation ?? 0,
-      } : option),
-    });
+    const replacement: CharacterSheetComponent = { ...base, type };
+    const updated: CharacterSheetDefinition = { ...definition, steps: definition.steps.map((item) => ({ ...item, components: item.components.map((field) => field.key === component.key ? replacement : field) })) };
+    const cleaned = clearInvalidChoiceConditions(updated);
+    if (cleaned.changed) setBuilderNotice('A dependência foi removida porque o campo deixou de ser uma lista de opções.');
+    onChange(cleaned.definition);
   }
 
   function addVisual(stepKey: string, type: CharacterSheetVisualElement['type'], compositionKey = activeCompositionByStep[stepKey] ?? 'composition_1') {
@@ -167,9 +184,44 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
   }
 
   function addComposition(stepKey: string) {
-    const compositionKey = `comp_${globalThis.crypto.randomUUID().replaceAll('-', '')}`;
-    setActiveCompositionByStep((current) => ({ ...current, [stepKey]: compositionKey }));
-    addVisual(stepKey, 'text', compositionKey);
+    const result = addSheetComposition(definition, stepKey);
+    if (!result.compositionKey) return;
+    onChange(result.definition);
+    setActiveCompositionByStep((current) => ({ ...current, [stepKey]: result.compositionKey }));
+    setSelectedElementKey(result.definition.steps.find((item) => item.key === stepKey)?.elements?.at(-1)?.key ?? null);
+    setSelectedOptionKey(null);
+  }
+
+  function addListOption(component: Extract<CharacterSheetComponent, { type: 'single_select' }>) {
+    const index = component.options.length;
+    patchComponent(component.key, { options: [...component.options, { label: `Opção ${index + 1}`, value: `option_${globalThis.crypto.randomUUID().replaceAll('-', '')}` }] });
+  }
+
+  function priorChoiceComponents(componentKey: string) {
+    const ordered = steps.flatMap((item) => item.components.slice().sort((a, b) => a.position - b.position));
+    const index = ordered.findIndex((field) => field.key === componentKey);
+    return ordered.slice(0, index).filter((field) => field.type === 'single_select');
+  }
+
+  function setOptionCondition(componentKey: string, optionIndex: number, encoded: string) {
+    if (!encoded) {
+      patchOption(componentKey, optionIndex, { condition: undefined });
+      return;
+    }
+    try {
+      const rule = JSON.parse(encoded) as { component_key: string; value: string };
+      patchOption(componentKey, optionIndex, { condition: { logic: 'all', rules: [{ component_key: rule.component_key, operator: 'equals', value: rule.value }] } });
+    } catch { return; }
+  }
+
+  function removeComponent(stepKey: string, component: CharacterSheetComponent) {
+    let updated = removeSheetComponent(definition, stepKey, component.key);
+    if (component.type === 'visual_composition') {
+      updated = { ...updated, steps: updated.steps.map((item) => item.key === stepKey ? { ...item, elements: (item.elements ?? []).filter((element) => element.composition_key !== component.composition_key) } : item) };
+    }
+    const cleaned = clearInvalidChoiceConditions(updated);
+    if (cleaned.changed) setBuilderNotice('A dependência de uma lista foi removida porque o campo de origem foi excluído.');
+    onChange(cleaned.definition);
   }
 
   function handleCanvasPointerDown(event: PointerEvent<HTMLDivElement>) {
@@ -237,13 +289,14 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
     {steps.map((step) => <div className="sheet-page-content" key={step.key}>
       {builderNotice && <p className="sheet-editor-notice" role="status">{builderNotice}</p>}
 
-      <div className="visual-sheet-components">{step.components.filter((component) => component.type !== 'single_select').slice().sort((a, b) => a.position - b.position).map((component, index) => <fieldset className="sheet-field-card" key={component.key} draggable onDragStart={(event) => event.dataTransfer.setData('application/json', JSON.stringify({ stepKey: step.key, componentKey: component.key }))} onDragOver={(event) => event.preventDefault()} onDrop={(event) => {
+      <div className="visual-sheet-components">{step.components.filter((component) => component.type !== 'single_select' || component.presentation !== 'canvas').slice().sort((a, b) => a.position - b.position).map((component, index) => <fieldset className="sheet-field-card" key={component.key} draggable onDragStart={(event) => event.dataTransfer.setData('application/json', JSON.stringify({ stepKey: step.key, componentKey: component.key }))} onDragOver={(event) => event.preventDefault()} onDrop={(event) => {
         event.preventDefault();
         const payload = event.dataTransfer.getData('application/json');
         if (!payload) return;
         try {
           const data = JSON.parse(payload) as { stepKey: string; componentKey: string };
-          if (data.stepKey === step.key) onChange(moveSheetComponent(definition, step.key, data.componentKey, index < component.position ? 'up' : 'down'));
+          const draggedComponent = step.components.find((field) => field.key === data.componentKey);
+          if (data.stepKey === step.key && draggedComponent && draggedComponent.position !== component.position) applyMove(moveSheetComponent(definition, step.key, data.componentKey, draggedComponent.position < component.position ? 'down' : 'up'));
         } catch {
           return;
         }
@@ -251,23 +304,44 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
       <legend className="sr-only">Componente {index + 1}</legend>
       <div className="sheet-field-topline">
         <label className="sheet-field-label-control"><span>Nome do campo</span><input value={component.label} maxLength={80} onChange={(event) => patchComponent(component.key, { label: event.target.value })} /></label>
-        <label className="sheet-field-type-control"><span>Tipo</span><select value={component.type} onChange={(event) => changeType(component, event.target.value as CharacterSheetComponent['type'])}><option value="short_text">Texto curto</option><option value="long_text">Texto longo</option><option value="number">Número</option></select></label>
+        {component.type === 'visual_composition' ? <span className="sheet-component-kind">Composição visual</span> : component.type === 'single_select' ? <span className="sheet-component-kind">Lista de opções</span> : <label className="sheet-field-type-control"><span>Tipo</span><select value={component.type} onChange={(event) => changeType(component, event.target.value as 'short_text' | 'long_text' | 'number')}><option value="short_text">Texto curto</option><option value="long_text">Texto longo</option><option value="number">Número</option></select></label>}
       </div>
-      <label className="sheet-field-type-control"><span>Largura</span><select value={component.width} onChange={(event) => patchComponent(component.key, { width: event.target.value as CharacterSheetComponent['width'] })}><option value="full">Linha inteira</option><option value="half">Metade</option><option value="third">Um terço</option></select></label>
-      <div className="sheet-field-settings"><label className="sheet-checkbox"><input type="checkbox" checked={component.required} onChange={(event) => patchComponent(component.key, { required: event.target.checked })} /><span>Obrigatório</span></label><label className="sheet-checkbox"><input type="checkbox" checked={component.show_on_card} onChange={(event) => patchComponent(component.key, { show_on_card: event.target.checked })} /><span>Exibir na galeria</span></label><div className="sheet-field-actions"><button type="button" aria-label={`Mover campo ${component.label} para cima`} disabled={index === 0} onClick={() => applyMove(moveSheetComponent(definition, step.key, component.key, 'up'))}>↑</button><button type="button" aria-label={`Mover campo ${component.label} para baixo`} disabled={index === step.components.length - 1} onClick={() => applyMove(moveSheetComponent(definition, step.key, component.key, 'down'))}>↓</button><button type="button" className="sheet-remove-button" onClick={() => onChange(removeSheetComponent(definition, step.key, component.key))}>Remover</button></div></div>
+      {component.type !== 'visual_composition' && <label className="sheet-field-type-control"><span>Largura</span><select value={component.width} onChange={(event) => patchComponent(component.key, { width: event.target.value as CharacterSheetComponent['width'] })}><option value="full">Linha inteira</option><option value="half">Metade</option><option value="third">Um terço</option></select></label>}
+      {component.type === 'single_select' && component.presentation === 'select' && <div className="sheet-list-options-editor"><strong>Opções disponíveis</strong>{component.options.map((option, optionIndex) => {
+        const sourceComponents = priorChoiceComponents(component.key);
+        const selectedSource = option.condition?.rules[0];
+        const dependency = selectedSource?.value === undefined ? '' : JSON.stringify({ component_key: selectedSource.component_key, value: selectedSource.value });
+        return <div className="sheet-list-option-row" key={`${component.key}-${optionIndex}`}>
+          <label>Opção {optionIndex + 1}<input maxLength={80} value={option.label} onChange={(event) => patchOption(component.key, optionIndex, { label: event.target.value })} /></label>
+          <label>Mostrar quando<select value={dependency} onChange={(event) => setOptionCondition(component.key, optionIndex, event.target.value)}><option value="">Sempre disponível</option>{sourceComponents.flatMap((source) => source.type === 'single_select' ? source.options.map((sourceOption) => <option key={`${source.key}:${sourceOption.value ?? sourceOption.label}`} value={JSON.stringify({ component_key: source.key, value: sourceOption.value ?? sourceOption.label })}>{source.label}: {sourceOption.label}</option>) : [])}</select></label>
+          <button type="button" className="sheet-remove-button" disabled={component.options.length <= 1} onClick={() => removeOption(component.key, optionIndex)}>Remover</button>
+        </div>;
+      })}<button type="button" onClick={() => addListOption(component)}>+ Adicionar opção</button></div>}
+      {component.type === 'visual_composition' && <p className="sheet-composition-hint">Edite textos, imagens e escolhas no canvas abaixo. Esta composição aparece aqui na ficha do jogador.</p>}
+      <div className="sheet-field-settings">
+        {component.type !== 'visual_composition' && <>
+          <label className="sheet-checkbox"><input type="checkbox" checked={component.required} onChange={(event) => patchComponent(component.key, { required: event.target.checked })} /><span>Obrigatório</span></label>
+          <label className="sheet-checkbox"><input type="checkbox" checked={component.show_on_card} onChange={(event) => patchComponent(component.key, { show_on_card: event.target.checked })} /><span>Exibir na galeria</span></label>
+        </>}
+        <div className="sheet-field-actions">
+          <button type="button" aria-label={`Mover campo ${component.label} para cima`} disabled={component.position === 0} onClick={() => applyMove(moveSheetComponent(definition, step.key, component.key, 'up'))}>↑</button>
+          <button type="button" aria-label={`Mover campo ${component.label} para baixo`} disabled={component.position === step.components.length - 1} onClick={() => applyMove(moveSheetComponent(definition, step.key, component.key, 'down'))}>↓</button>
+          <button type="button" className="sheet-remove-button" onClick={() => removeComponent(step.key, component)}>Remover</button>
+        </div>
+      </div>
       </fieldset>)}</div>
-      <button type="button" className="sheet-add-button" onClick={() => onChange(addSheetComponent(definition, step.key))}>+ Adicionar componente</button>
+      <div className="sheet-add-component-actions"><button type="button" className="sheet-add-button" onClick={() => onChange(addSheetComponent(definition, step.key))}>+ Campo de texto</button><button type="button" className="sheet-add-button" onClick={() => onChange(addSheetChoiceComponent(definition, step.key))}>+ Lista de opções</button><button type="button" className="sheet-add-button" onClick={() => addComposition(step.key)}>+ Composição visual</button></div>
 
       <section className="sheet-visual-editor" aria-label="Composição visual da ficha">
-        <div className="sheet-visual-editor-heading"><div><h3>Composições visuais</h3><p>Crie várias áreas visuais; cada composição mantém seus próprios elementos.</p></div><div className="sheet-visual-add-actions"><button type="button" onClick={() => addComposition(step.key)}>+ Nova composição</button></div></div>
+        <div className="sheet-visual-editor-heading"><div><h3>Editor visual</h3><p>Selecione um elemento no canvas para editar ou arraste-o para posicionar.</p></div></div>
         {(() => {
-          const compositions = [...new Set((step.elements ?? []).map((element) => element.composition_key ?? 'composition_1'))];
+          const compositions = [...new Set([...(step.elements ?? []).map((element) => element.composition_key ?? 'composition_1'), ...step.components.filter((component) => component.type === 'visual_composition').map((component) => component.composition_key)])];
           if (compositions.length === 0) compositions.push('composition_1');
           const activeComposition = activeCompositionByStep[step.key] ?? compositions[0]!;
           const compositionElements = (step.elements ?? []).filter((element) => (element.composition_key ?? 'composition_1') === activeComposition);
           return <>
-        <div className="sheet-step-navigation" role="tablist" aria-label="Composições visuais">{compositions.map((key, index) => <button key={key} type="button" role="tab" aria-selected={activeComposition === key} className="bifrost-tab" onClick={() => setActiveCompositionByStep((current) => ({ ...current, [step.key]: key }))}>Composição {index + 1}</button>)}</div>
-        <div className="sheet-visual-add-actions"><button type="button" onClick={() => addChoiceGroup(step.key, 'select')}>+ Lista suspensa</button><button type="button" onClick={() => addChoiceGroup(step.key)}>+ Escolha visual</button><button type="button" onClick={() => addVisual(step.key, 'text', activeComposition)}>+ Texto</button><button type="button" onClick={() => addVisual(step.key, 'image', activeComposition)}>+ Imagem</button></div>
+        {compositions.length > 1 && <div className="sheet-step-navigation" role="tablist" aria-label="Composições visuais">{compositions.map((key, index) => <button key={key} type="button" role="tab" aria-selected={activeComposition === key} className="bifrost-tab" onClick={() => setActiveCompositionByStep((current) => ({ ...current, [step.key]: key }))}>Composição {index + 1}</button>)}</div>}
+        <div className="sheet-visual-add-actions"><button type="button" onClick={() => addChoiceGroup(step.key)}>+ Escolha visual</button><button type="button" onClick={() => addVisual(step.key, 'text', activeComposition)}>+ Texto</button><button type="button" onClick={() => addVisual(step.key, 'image', activeComposition)}>+ Imagem</button></div>
         <div className="sheet-visual-canvas" onPointerDown={handleCanvasPointerDown} onPointerMove={handleCanvasPointerMove} onPointerUp={() => { drag.current = null; }} onPointerCancel={() => { drag.current = null; }}>
           {compositionElements.map((element) => {
             const style: CSSProperties = { left: `${element.x}%`, top: `${element.y}%`, width: `${element.width}%`, height: `${element.height}%`, transform: `rotate(${element.rotation}deg)` };
@@ -275,7 +349,7 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
               {element.type === 'text' ? <span>{element.text}</span> : element.image_url ? <img src={element.image_url} alt={element.description || 'Imagem da ficha'} draggable={false} /> : <span>Adicione uma URL</span>}
             </div>;
           })}
-          {step.components.filter((component) => component.type === 'single_select').flatMap((component) => component.type === 'single_select' ? component.options.map((option, optionIndex) => {
+          {step.components.filter((component) => component.type === 'single_select' && component.presentation === 'canvas').flatMap((component) => component.type === 'single_select' ? component.options.map((option, optionIndex) => {
             const position = optionPosition(option, optionIndex, component.options.length);
             const style: CSSProperties = { left: `${position.x}%`, top: `${position.y}%`, width: `${position.width}%`, height: `${position.height}%`, transform: `rotate(${option.rotation ?? 0}deg)` };
             return <div key={`${component.key}:${option.value ?? option.label}`} data-option-component-key={component.key} data-option-index={optionIndex} className={`sheet-option-canvas-item ${selectedOptionKey?.componentKey === component.key && selectedOptionKey.optionIndex === optionIndex ? 'selected' : ''}`} style={style} title={option.description}>
@@ -311,14 +385,14 @@ export function CharacterSheetBuilder({ definition, onChange }: { definition: Ch
           <label>Rotação (graus)<input type="number" min={-360} max={360} value={Number(selectedElement.rotation.toFixed(1))} onChange={(event) => patchElement(selectedElement.key, { rotation: Number(event.target.value) })} /></label>
           <button type="button" className="sheet-remove-button" onClick={() => { onChange(removeSheetVisualElement(definition, step.key, selectedElement.key)); setSelectedElementKey(null); }}>Remover elemento</button>
         </div>}
-        {step.components.filter((component): component is Extract<CharacterSheetComponent, { type: 'single_select' }> => component.type === 'single_select').map((component) => <fieldset className="sheet-canvas-choice-group-editor" key={component.key}>
+        {step.components.filter((component): component is Extract<CharacterSheetComponent, { type: 'single_select' }> => component.type === 'single_select' && component.presentation === 'canvas').map((component) => <fieldset className="sheet-canvas-choice-group-editor" key={component.key}>
           <legend>Grupo de escolha</legend>
           <label>Nome da escolha<input maxLength={80} value={component.label} onChange={(event) => patchComponent(component.key, { label: event.target.value })} /></label>
           <label>Seleção<select value={component.selection_mode ?? 'single'} onChange={(event) => patchComponent(component.key, { selection_mode: event.target.value as 'single' | 'multiple' })}><option value="single">Uma opção</option><option value="multiple">Várias opções</option></select></label>
           <label className="sheet-checkbox"><input type="checkbox" checked={component.required} onChange={(event) => patchComponent(component.key, { required: event.target.checked })} /><span>Obrigatório</span></label>
           <label className="sheet-checkbox"><input type="checkbox" checked={component.show_on_card} onChange={(event) => patchComponent(component.key, { show_on_card: event.target.checked })} /><span>Exibir na galeria</span></label>
           <button type="button" onClick={() => addOption(component.key)}>+ Adicionar opção</button>
-          <button type="button" className="sheet-remove-button" onClick={() => { onChange(removeSheetComponent(definition, step.key, component.key)); setSelectedOptionKey(null); }}>Remover escolha</button>
+          <button type="button" className="sheet-remove-button" onClick={() => { removeComponent(step.key, component); setSelectedOptionKey(null); }}>Remover escolha</button>
         </fieldset>)}
       </section>
 

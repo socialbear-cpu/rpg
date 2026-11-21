@@ -443,6 +443,16 @@
 .sheet-field-settings { gap: 12px; }
 .sheet-field-actions button { min-height: 30px; padding: 0 8px; }
 .sheet-add-button { min-height: 36px; padding: 0 12px; }
+.sheet-add-component-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.sheet-component-kind { align-self: end; padding: 8px 0; color: #c8b8dc; font-size: 13px; }
+.sheet-list-options-editor { display: grid; gap: 10px; padding: 12px; border: 1px solid #342c42; border-radius: 10px; background: #17131e; }
+.sheet-list-options-editor > strong { color: #e8def5; font-size: 13px; }
+.sheet-list-option-row { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(200px, 1.4fr) auto; align-items: end; gap: 10px; }
+.sheet-list-option-row label { display: grid; gap: 5px; min-width: 0; color: #bfb4ca; font-size: 12px; }
+.sheet-list-option-row :is(input, select) { width: 100%; min-width: 0; min-height: 36px; padding: 7px 9px; border: 1px solid #40364f; border-radius: 7px; color: #f5f1fb; background: #110e18; font: inherit; }
+.sheet-list-option-row > button { min-height: 36px; }
+.sheet-list-options-editor > button { justify-self: start; min-height: 34px; padding: 0 10px; }
+.sheet-composition-hint { margin: 0; color: #a99bbf; font-size: 13px; }
 .sheet-step-navigation { gap: 24px; margin: 18px 0 24px; padding: 0 0 10px; border-bottom: 1px solid #302b36; }
 .sheet-step-navigation .bifrost-tab {
   min-width: max-content;
@@ -467,6 +477,7 @@
 @media (max-width: 620px) {
   .visual-sheet-components .sheet-field-topline { grid-template-columns: minmax(0, 1fr); }
   .sheet-field-card > .sheet-field-type-control { width: 100%; }
+  .sheet-list-option-row { grid-template-columns: minmax(0, 1fr); }
   .sheet-step-navigation { gap: 18px; }
 }
 

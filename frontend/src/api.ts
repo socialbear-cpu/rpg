@@ -119,6 +119,7 @@ export interface CharacterSheetField {
 export interface CharacterSheetOption {
   label: string;
   value?: string;
+  condition?: CharacterSheetCondition;
   image_url?: string;
   description?: string;
   x?: number;
@@ -126,6 +127,11 @@ export interface CharacterSheetOption {
   width?: number;
   height?: number;
   rotation?: number;
+}
+
+export interface CharacterSheetCondition {
+  logic: 'all' | 'any';
+  rules: Array<{ component_key: string; operator: 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'is_filled' | 'is_empty'; value?: string }>;
 }
 
 export interface CharacterSheetVisualElementBase {
@@ -155,7 +161,8 @@ export type CharacterSheetComponent =
   | (CharacterSheetComponentBase & { type: 'short_text' })
   | (CharacterSheetComponentBase & { type: 'long_text' })
   | (CharacterSheetComponentBase & { type: 'number' })
-  | (CharacterSheetComponentBase & { type: 'single_select'; presentation: 'select' | 'cards' | 'canvas'; selection_mode?: 'single' | 'multiple'; options: CharacterSheetOption[] });
+  | (CharacterSheetComponentBase & { type: 'single_select'; presentation: 'select' | 'cards' | 'canvas'; selection_mode?: 'single' | 'multiple'; options: CharacterSheetOption[] })
+  | (CharacterSheetComponentBase & { type: 'visual_composition'; composition_key: string });
 
 export interface CharacterSheetStep {
   key: string;

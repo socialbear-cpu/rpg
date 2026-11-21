@@ -32,7 +32,7 @@ function selectedOptionLabels(component: Extract<CharacterSheetComponent, { type
 }
 
 function CharacterSheetValue({ component, value }: {
-  component: CharacterSheetComponent;
+  component: Exclude<CharacterSheetComponent, { type: 'visual_composition' }>;
   value: unknown;
 }) {
   if (component.type === 'single_select') {
@@ -45,10 +45,11 @@ function CharacterSheetValue({ component, value }: {
   return <p className={`character-record-value${component.type === 'long_text' ? ' is-long' : ''}`}>{displayValue(value)}</p>;
 }
 
-function SheetArt({ step }: { step: CharacterSheetStep }) {
+function SheetArt({ step, compositionKey, excludeCompositions = [] }: { step: CharacterSheetStep; compositionKey?: string; excludeCompositions?: string[] }) {
   const elements = step.elements ?? [];
   if (elements.length === 0) return null;
-  const compositions = [...new Set(elements.map((element) => element.composition_key ?? 'composition_1'))];
+  const compositions = compositionKey ? [compositionKey] : [...new Set(elements.map((element) => element.composition_key ?? 'composition_1'))].filter((key) => !excludeCompositions.includes(key));
+  if (compositions.length === 0) return null;
   return <>{compositions.map((compositionKey, index) => <div key={compositionKey} className="character-record-sheet-art" aria-label={`Composição visual ${index + 1}: ${step.label}`}>
     {elements.filter((element) => (element.composition_key ?? 'composition_1') === compositionKey).map((element) => <div key={element.key} className="character-record-sheet-art-element" style={{
       left: `${element.x}%`, top: `${element.y}%`, width: `${element.width}%`, height: `${element.height}%`,
@@ -83,12 +84,11 @@ function CharacterSheetView({ character, definition, experience, error }: {
     {visibleSteps.length === 0
       ? <p className="character-record-notice">Esta ficha ainda não possui campos preenchidos ou visíveis.</p>
       : visibleSteps.map((step) => <section className="character-record-sheet-section" key={step.key}>
-        <SheetArt step={step} />
+        <SheetArt step={step} excludeCompositions={step.components.filter((component) => component.type === 'visual_composition').map((component) => component.composition_key)} />
         <div className="character-record-fields">
-          {(componentsByStep.get(step.key) ?? []).map(({ component }) => <article className={`character-record-field width-${component.width}`} key={component.key}>
-            <h3>{component.label}</h3>
-            <CharacterSheetValue component={component} value={character.attributes[component.key]} />
-          </article>)}
+          {(componentsByStep.get(step.key) ?? []).map(({ component }) => component.type === 'visual_composition'
+            ? <article className={`character-record-field character-record-visual-field width-${component.width}`} key={component.key}><h3>{component.label}</h3><SheetArt step={step} compositionKey={component.composition_key} /></article>
+            : <article className={`character-record-field width-${component.width}`} key={component.key}><h3>{component.label}</h3><CharacterSheetValue component={component} value={character.attributes[component.key]} /></article>)}
         </div>
       </section>)}
   </>;

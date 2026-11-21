@@ -447,6 +447,12 @@
   width: min(100%, max(280px, calc((100dvh - 100px) * 16 / 9)));
   max-height: calc(100dvh - 100px);
 }
+.character-sheet-visual-component { grid-column: span 6; min-width: 0; }
+.character-sheet-visual-component.width-half { grid-column: span 3; }
+.character-sheet-visual-component.width-third { grid-column: span 2; }
+.character-sheet-visual-component h3 { margin: 0 0 8px; color: #ddd2eb; font-size: 14px; }
+.character-wizard-question .character-sheet-visual-component { grid-column: 1 / -1; width: 100%; }
+.character-record-visual-field .character-record-sheet-art { width: 100%; margin-bottom: 0; }
 @media (max-width: 620px) {
   .character-creation-page { padding: 0 12px 14px; }
   .character-creation-page > .app-header { width: calc(100% + 24px); margin: 0 -12px 8px; }

@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetStep } from '../../api';
 import { CharacterSheetStepRenderer } from '../character-sheet/character-sheet-step-renderer';
+import { availableOptions, pruneCharacterSheetValues } from '../character-sheet/conditions';
 import './characters.css';
 
 interface CharacterFormProps {
@@ -35,11 +36,11 @@ function summaryValue(component: CharacterSheetComponent, value: unknown): strin
   return String(value);
 }
 
-function validComponentValue(component: CharacterSheetComponent, value: unknown): boolean {
-  if (!isFilled(value)) return !component.required;
+function validComponentValue(component: CharacterSheetComponent, value: unknown, values: Record<string, unknown>): boolean {
+  if (!isFilled(value)) return !component.required || (component.type === 'single_select' && availableOptions(component, values).length === 0);
   if (component.type === 'number') return Number.isFinite(Number(value));
   if (component.type !== 'single_select') return typeof value === 'string' && value.trim().length > 0;
-  const allowed = new Set(component.options.map((option) => option.value ?? option.label));
+  const allowed = new Set(availableOptions(component, values).map((option) => option.value ?? option.label));
   if (component.selection_mode === 'multiple') {
     return Array.isArray(value) && value.length > 0 && value.every((item) => typeof item === 'string' && allowed.has(item)) && new Set(value).size === value.length;
   }
@@ -48,12 +49,12 @@ function validComponentValue(component: CharacterSheetComponent, value: unknown)
 
 export function CharacterForm({ definition, initialName = '', initialAttributes = {}, submitLabel = 'Criar personagem', error = null, saving = false, onSubmit, onCancel }: CharacterFormProps) {
   const [name, setName] = useState(initialName);
-  const [values, setValues] = useState<Record<string, unknown>>(() => ({ ...initialAttributes }));
+  const [values, setValues] = useState<Record<string, unknown>>(() => pruneCharacterSheetValues(definition, { ...initialAttributes }));
   const [activePageKey, setActivePageKey] = useState<CreationPage['key']>('character_name');
   const [pageError, setPageError] = useState('');
   const layoutMode = 'single_page';
   const visibleComponents = [...definition.steps].sort((a, b) => a.position - b.position)
-    .flatMap((step) => [...step.components].sort((a, b) => a.position - b.position).map((component) => ({ step, component })));
+    .flatMap((step) => [...step.components].sort((a, b) => a.position - b.position).filter((component) => component.type !== 'visual_composition').map((component) => ({ step, component })));
   const visibleSteps = [...definition.steps].sort((a, b) => a.position - b.position)
     .map((step) => ({
       ...step,
@@ -77,10 +78,10 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
       if (component.type === 'number') {
         attributes[component.key] = Number(value);
       } else if (component.type === 'single_select' && component.selection_mode === 'multiple' && Array.isArray(value)) {
-        const available = new Set(component.options.map((option) => option.value ?? option.label));
+        const available = new Set(availableOptions(component, values).map((option) => option.value ?? option.label));
         attributes[component.key] = value.filter((selected): selected is string => typeof selected === 'string' && available.has(selected));
       } else if (component.type === 'single_select') {
-        const available = new Set(component.options.map((option) => option.value ?? option.label));
+        const available = new Set(availableOptions(component, values).map((option) => option.value ?? option.label));
         if (typeof value === 'string' && available.has(value)) attributes[component.key] = value;
       } else {
         attributes[component.key] = typeof value === 'string' ? value.trim() : value;
@@ -96,7 +97,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
         setPageError('Informe o nome do personagem.');
         return;
       }
-      const missing = visibleComponents.find(({ component }) => !validComponentValue(component, values[component.key]));
+      const missing = visibleComponents.find(({ component }) => !validComponentValue(component, values[component.key], values));
       if (missing) {
         setPageError(`Preencha a informação obrigatória: ${missing.component.label}.`);
         return;
@@ -109,7 +110,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
     if (page.kind !== 'summary') {
       const missing = page.kind === 'name'
         ? !name.trim()
-        : !validComponentValue(page.component, values[page.component.key]);
+        : !validComponentValue(page.component, values[page.component.key], values);
       if (missing) {
         setPageError(page.kind === 'name' ? 'Informe o nome do personagem.' : `Preencha a informação obrigatória: ${page.component.label}.`);
         return;
@@ -119,7 +120,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
       return;
     }
 
-    const missing = visibleComponents.find(({ component }) => !validComponentValue(component, values[component.key]));
+    const missing = visibleComponents.find(({ component }) => !validComponentValue(component, values[component.key], values));
     if (missing) {
       const missingKey = `component:${missing.component.key}`;
       setActivePageKey(missingKey);
@@ -131,7 +132,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
   }
 
   function updateValue(key: string, value: unknown) {
-    setValues((current) => ({ ...current, [key]: value }));
+    setValues((current) => pruneCharacterSheetValues(definition, { ...current, [key]: value }));
     setPageError('');
   }
 

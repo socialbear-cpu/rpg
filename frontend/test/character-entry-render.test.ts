@@ -104,6 +104,26 @@ describe('character entry', () => {
     expect(html).toContain('title="Retrato de Ayla"');
   });
 
+  it('places visual compositions among fields and filters dependent list options', () => {
+    const step: CharacterSheetDefinition['steps'][number] = {
+      key: 'identity', label: 'Identidade', position: 0,
+      components: [
+        { key: 'origin', label: 'Origem', type: 'single_select', presentation: 'select', required: true, position: 0, width: 'full', show_on_card: false, options: [{ label: 'Cidade', value: 'city' }] },
+        { key: 'portrait', label: 'Retrato', type: 'visual_composition', composition_key: 'portrait_art', required: false, position: 1, width: 'full', show_on_card: false },
+        { key: 'role', label: 'Função', type: 'single_select', presentation: 'select', required: true, position: 2, width: 'full', show_on_card: false, options: [
+          { label: 'Guarda', value: 'guard', condition: { logic: 'all', rules: [{ component_key: 'origin', operator: 'equals', value: 'city' }] } },
+          { label: 'Fazendeira', value: 'farmer', condition: { logic: 'all', rules: [{ component_key: 'origin', operator: 'equals', value: 'country' }] } },
+        ] },
+      ],
+      elements: [{ key: 'portrait_name', composition_key: 'portrait_art', type: 'text', text: 'Retrato do personagem', x: 5, y: 5, width: 40, height: 15, rotation: 0 }],
+    };
+    const html = renderToStaticMarkup(createElement(CharacterSheetStepRenderer, { step, values: { origin: 'city' }, onValueChange: vi.fn(), mode: 'entry' }));
+    expect(html.indexOf('<legend>Origem *</legend>')).toBeLessThan(html.indexOf('Retrato do personagem'));
+    expect(html.indexOf('Retrato do personagem')).toBeLessThan(html.indexOf('<legend>Função *</legend>'));
+    expect(html).toContain('<option value="guard">Guarda</option>');
+    expect(html).not.toContain('Fazendeira');
+  });
+
   it('renders fields from every legacy stage without stage controls', () => {
     const html = renderToStaticMarkup(createElement(CharacterSheetBuilder, { definition, onChange: vi.fn() }));
     expect(html).toContain('História');
