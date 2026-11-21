@@ -118,11 +118,10 @@ export function CharacterSheetStepRenderer({ step, values, onValueChange, mode }
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, [expanded]);
 
-  const visualStage = hasVisual ? <div className="character-sheet-visual-stage" aria-label="Composição visual da ficha">{elements.map((element) => <div key={element.key} className="character-sheet-visual-element" style={{ left: `${element.x}%`, top: `${element.y}%`, width: `${element.width}%`, height: `${element.height}%`, transform: `rotate(${element.rotation}deg)` }} title={element.type === 'image' ? element.description : undefined}>
+  const compositionGroups = [...new Set(elements.map((element) => element.composition_key ?? 'composition_1'))];
+  const visualStage = hasVisual ? <>{(compositionGroups.length > 0 ? compositionGroups : ['composition_1']).map((compositionKey, index) => <div key={compositionKey} className="character-sheet-visual-stage" aria-label="Composição visual da ficha">{elements.filter((element) => (element.composition_key ?? 'composition_1') === compositionKey).map((element) => <div key={element.key} className="character-sheet-visual-element" style={{ left: `${element.x}%`, top: `${element.y}%`, width: `${element.width}%`, height: `${element.height}%`, transform: `rotate(${element.rotation}deg)` }} title={element.type === 'image' ? element.description : undefined}>
       {element.type === 'text' ? element.text : <img src={element.image_url} alt={element.description || 'Imagem da ficha'} title={element.description} />}
-    </div>)}
-      {canvasComponents.map((component) => <CanvasChoiceOptions key={component.key} component={component} values={values} onValueChange={onValueChange} mode={mode} />)}
-    </div> : null;
+    </div>)}{index === 0 && canvasComponents.map((component) => <CanvasChoiceOptions key={component.key} component={component} values={values} onValueChange={onValueChange} mode={mode} />)}</div>)}</> : null;
 
   return <>
     {hasVisual && (mode === 'entry'

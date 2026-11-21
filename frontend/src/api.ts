@@ -130,6 +130,7 @@ export interface CharacterSheetOption {
 
 export interface CharacterSheetVisualElementBase {
   key: string;
+  composition_key?: string;
   x: number;
   y: number;
   width: number;
