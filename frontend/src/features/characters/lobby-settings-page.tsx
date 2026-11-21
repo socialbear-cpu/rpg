@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getGameSystems, getMySystemMemberships, getSystemCharacters, getSystemLobbySettings, type GameSystem, type SystemCharacter, type SystemLobbySettings } from '../../api';
 import { AppHeader } from '../shell/app-header';
+import { SettingsNav, WorkspaceHeading } from '../shell/workspace-heading';
 import { LobbyCustomizationForm } from './lobby-customization-form';
 import { LobbyCreatorTools } from './lobby-creator-tools';
 import { SystemEventsCard } from '../system-events/system-events-card';
@@ -67,22 +68,24 @@ export function LobbySettingsPage({ systemId }: { systemId: string }) {
   }, [systemId, loadAttempt]);
 
   const charactersHref = `/systems/${encodeURIComponent(systemId)}/characters`;
-  if (pageState === 'loading') return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando configuração do saguão...</p></main>;
-  if (pageState === 'forbidden') return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref={charactersHref} backLabel="Voltar aos personagens" /><section className="character-unavailable"><h1>Acesso restrito</h1><p>Somente o dono do sistema ou um administrador da plataforma pode configurar o saguão.</p></section></main>;
-  if (pageState === 'error') return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref={charactersHref} backLabel="Voltar aos personagens" /><section className="character-unavailable"><h1>Não foi possível carregar a configuração</h1><p role="alert">{pageError}</p><button className="character-primary-button" type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</button></section></main>;
+  if (pageState === 'loading') return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando configuração do saguão...</p></main>;
+  if (pageState === 'forbidden') return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" backHref={charactersHref} backLabel="Voltar aos personagens" /><section className="character-unavailable"><h1>Acesso restrito</h1><p>Somente o dono do sistema ou um administrador da plataforma pode configurar o saguão.</p></section></main>;
+  if (pageState === 'error') return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" backHref={charactersHref} backLabel="Voltar aos personagens" /><section className="character-unavailable"><h1>Não foi possível carregar a configuração</h1><p role="alert">{pageError}</p><button className="character-primary-button" type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</button></section></main>;
   if (!system || !settings) return null;
 
-  return <main className="character-entry-page lobby-settings-page">
+  return <main className="character-entry-page lobby-settings-page bifrost-workspace">
     <AppHeader activeItem="Meus Sistemas" backHref={charactersHref} backLabel="Voltar aos personagens" />
-    <header className="character-entry-heading">
-      <span className="character-entry-eyebrow">{system.name}</span>
-      <h1>Configurar saguão</h1>
-      <p>Personalize a apresentação e as seções que aparecem para os personagens.</p>
-    </header>
-    <section className="lobby-creator-tools lobby-settings-card" aria-label="Personalização do saguão">
+    <WorkspaceHeading eyebrow={system.name} title="Configurar saguão" description="Prepare o espaço onde as histórias do seu grupo acontecem." />
+    <div className="settings-layout">
+    <SettingsNav items={[{ href: '#lobby-presentation', label: 'Apresentação e layout' }, { href: '#lobby-tools', label: 'Personagens e conversas' }, { href: '#lobby-events', label: 'Eventos da mesa' }]} />
+    <div className="settings-content">
+    <section id="lobby-presentation" className="lobby-creator-tools lobby-settings-card" aria-label="Personalização do saguão">
+      <header><p className="eyebrow">O SEU MUNDO</p><h2>Apresentação e layout</h2><p>Defina as boas-vindas, a cor e a organização do saguão.</p></header>
       <div className="lobby-customization"><LobbyCustomizationForm system={system} settings={settings} onSettingsSaved={setSettings} onSystemSaved={setSystem} /></div>
     </section>
-    <LobbyCreatorTools system={system} characters={characters} characterLoadError={characterLoadError} />
-    <SystemEventsCard systemId={system.id} canManage />
+    <section id="lobby-tools" aria-label="Personagens e conversas"><LobbyCreatorTools system={system} characters={characters} characterLoadError={characterLoadError} /></section>
+    <section id="lobby-events" aria-label="Eventos da mesa"><SystemEventsCard systemId={system.id} canManage /></section>
+    </div>
+    </div>
   </main>;
 }

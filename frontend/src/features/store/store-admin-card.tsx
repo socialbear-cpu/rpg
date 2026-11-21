@@ -13,6 +13,7 @@ import {
   type StoreOfferFieldUpdate,
 } from '../../api';
 import './store.css';
+import { closeOnBackdrop, trapDialogFocus } from '../shell/modal';
 
 type AutosaveStatus = 'idle' | 'pending' | 'saving' | 'saved' | 'invalid' | 'error';
 const autosaveDelayMs = 500;
@@ -119,7 +120,7 @@ function CurrencySlot({ store, onSaveField }: {
       {store.currency_image_url ? <img src={store.currency_image_url} alt="" loading="lazy" /> : <span className="store-admin-slot-placeholder" aria-hidden="true">✧</span>}
       <span className="store-admin-slot-name">{store.currency_name}</span>
     </button>
-    <dialog className="store-admin-item-dialog" ref={dialog} aria-labelledby="store-admin-currency-title">
+    <dialog onKeyDown={trapDialogFocus} className="store-admin-item-dialog" ref={dialog} aria-labelledby="store-admin-currency-title" onClick={(event) => closeOnBackdrop(event, currencyName.status === 'saving' || currencyImage.status === 'saving')} onCancel={(event) => { if (currencyName.status === 'saving' || currencyImage.status === 'saving') event.preventDefault(); }}>
       <div className="store-admin-editor-form">
         <h3 id="store-admin-currency-title">Moeda do sistema</h3>
         <label>Nome da moeda<input maxLength={80} value={currencyName.value} onChange={(event) => currencyName.onChange(event.target.value)} />
@@ -129,23 +130,25 @@ function CurrencySlot({ store, onSaveField }: {
           <span className="store-admin-editor-hint">Opcional · use um endereço HTTPS.</span>
           <SaveStatus status={currencyImage.status} invalidMessage="Use um endereço HTTPS válido de até 2048 caracteres." />
         </label>
-        <button className="button secondary" type="button" onClick={() => dialog.current?.close()}>Fechar</button>
+        <button className="button secondary" type="button" disabled={currencyName.status === 'saving' || currencyImage.status === 'saving'} onClick={() => dialog.current?.close()}>Fechar</button>
       </div>
     </dialog>
   </>;
 }
 
-function OfferEditor({ item, offer, currencyName, onSaveField }: {
+function OfferEditor({ item, offer, currencyName, onSaveField, onBusyChange }: {
   item: OwnerStore['items'][number];
   offer?: StoreOffer;
   currencyName: string;
   onSaveField: (itemId: string, input: StoreOfferFieldUpdate) => Promise<void>;
+  onBusyChange: (busy: boolean) => void;
 }) {
   const price = useAutosaveField(offer ? String(offer.price) : '',
     (value) => onSaveField(item.id, { price: Number(value) }), isValidPrice);
   const [available, setAvailable] = useState(offer?.is_available ?? true);
   const [availabilityStatus, setAvailabilityStatus] = useState<AutosaveStatus>('idle');
   const availabilityRevision = useRef(0);
+  useEffect(() => { onBusyChange(price.status === 'saving' || availabilityStatus === 'saving'); }, [price.status, availabilityStatus, onBusyChange]);
 
   function updateAvailability(next: boolean) {
     setAvailable(next);
@@ -181,6 +184,7 @@ export function StoreAdminCard({ store, message, creatingItem = false, onCreateI
   onSaveOfferField: (itemId: string, input: StoreOfferFieldUpdate) => Promise<void>;
 }) {
   const [itemName, setItemName] = useState('');
+  const [offerBusy, setOfferBusy] = useState(false);
   const [itemDescription, setItemDescription] = useState('');
   const [itemType, setItemType] = useState<CreateStoreItemInput['item_type']>('misc');
   const [itemImageUrl, setItemImageUrl] = useState('');
@@ -220,7 +224,7 @@ export function StoreAdminCard({ store, message, creatingItem = false, onCreateI
           </button> : <button className="store-admin-slot is-empty" type="button" key={`empty-${index}`} aria-label={`Criar item no espaço ${index + 1}`} onClick={() => { setItemError(null); itemDialog.current?.showModal(); }}><span aria-hidden="true">+</span></button>;
         })}
       </div>
-      <dialog className="store-admin-item-dialog" ref={itemDialog} aria-labelledby="store-admin-item-dialog-title" onClose={resetItemForm}>
+      <dialog onKeyDown={trapDialogFocus} className="store-admin-item-dialog" ref={itemDialog} aria-labelledby="store-admin-item-dialog-title" onClose={resetItemForm} onClick={(event) => closeOnBackdrop(event, creatingItem)} onCancel={(event) => { if (creatingItem) event.preventDefault(); }}>
         <form className="store-admin-item-form" onSubmit={(event) => void submitItem(event)}>
           <h3 id="store-admin-item-dialog-title">Adicionar item</h3>
           {itemError && <p role="alert">{itemError}</p>}
@@ -231,9 +235,9 @@ export function StoreAdminCard({ store, message, creatingItem = false, onCreateI
           <div className="store-admin-item-dialog-actions"><button className="button secondary" type="button" disabled={creatingItem} onClick={() => itemDialog.current?.close()}>Cancelar</button><button className="button primary" type="submit" disabled={creatingItem}>{creatingItem ? 'Adicionando…' : 'Adicionar item'}</button></div>
         </form>
       </dialog>
-      <dialog className="store-admin-item-dialog" ref={offerDialog} aria-labelledby="store-admin-offer-dialog-title" >
-        {selectedOfferItem && <OfferEditor key={selectedOfferItem.id} item={selectedOfferItem} offer={offerByItem.get(selectedOfferItem.id)} currencyName={store.currency_name} onSaveField={onSaveOfferField} />}
-        <button className="button secondary store-admin-editor-close" type="button" onClick={() => offerDialog.current?.close()}>Fechar</button>
+      <dialog onKeyDown={trapDialogFocus} className="store-admin-item-dialog" ref={offerDialog} aria-labelledby="store-admin-offer-dialog-title" aria-busy={offerBusy || undefined} onClick={(event) => closeOnBackdrop(event, offerBusy)} onCancel={(event) => { if (offerBusy) event.preventDefault(); }}>
+        {selectedOfferItem && <OfferEditor key={selectedOfferItem.id} item={selectedOfferItem} offer={offerByItem.get(selectedOfferItem.id)} currencyName={store.currency_name} onSaveField={onSaveOfferField} onBusyChange={setOfferBusy} />}
+        <button className="button secondary store-admin-editor-close" type="button" disabled={offerBusy} onClick={() => offerDialog.current?.close()}>Fechar</button>
       </dialog>
     </section>
   </article>;

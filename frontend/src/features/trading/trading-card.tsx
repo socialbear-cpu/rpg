@@ -144,15 +144,16 @@ export function TradingCardView({
   const recipientCharacter = characters.find((character) => character.id === recipientCharacterId);
 
   return <article className="card trading-card">
-    <div className="section-heading"><div><p className="eyebrow">JOGADORES</p><h2>Troca de itens</h2></div><span className="step">↔</span></div>
-    <p className="card-copy">Envie ofertas entre personagens do mesmo sistema. Os itens só mudam de inventário quando a oferta é aceita.</p>
+    <div className="trade-guide"><span aria-hidden="true">01</span><p>Escolha os personagens</p><span aria-hidden="true">02</span><p>Compare os inventários</p><span aria-hidden="true">03</span><p>Revise e envie</p></div>
+    <p className="card-copy trade-safety-note">Os itens só mudam de inventário quando a oferta é aceita.</p>
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status" aria-live="polite">{message}</p>}
     {(systemsLoading || loading) && <p className="card-copy" role="status">Carregando ofertas e personagens…</p>}
     {!systemsLoading && activeSystems.length === 0 && <p className="card-copy">Nenhum sistema com personagem ativo disponível para troca.</p>}
     {activeSystems.length > 0 && <>
+      <div className="trade-workspace">
       <form className="trade-composer" onSubmit={onSubmitComposer}>
         <div className="trade-composer-heading">
-          <div><h3>{counterOfferId ? 'Contraproposta' : 'Criar oferta de troca'}</h3>
+          <div><p className="eyebrow">NOVA NEGOCIAÇÃO</p><h2>{counterOfferId ? 'Contraproposta' : 'Criar oferta de troca'}</h2>
             {counterOfferId && <p>Você pode ajustar os itens dos dois lados antes de devolver a oferta.</p>}
           </div>
           {counterOfferId && <button className="button secondary" type="button" onClick={onCancelCounter}>Sair da contraproposta</button>}
@@ -200,6 +201,7 @@ export function TradingCardView({
       </form>
 
       <section className="trade-offer-section" aria-label="Ofertas de troca">
+        <header className="trade-inbox-heading"><p className="eyebrow">SUAS NEGOCIAÇÕES</p><h2>Acompanhe as propostas</h2><p>Responda, ajuste ou consulte suas trocas.</p></header>
         <div className="trade-box-tabs bifrost-tab-list--segment" role="tablist" aria-label="Caixas de ofertas">
           {(['incoming', 'sent', 'history'] as const).map((value) => <button
             key={value} type="button" role="tab" aria-selected={box === value}
@@ -234,6 +236,7 @@ export function TradingCardView({
           </article>)}
         </div>
       </section>
+      </div>
     </>}
   </article>;
 }

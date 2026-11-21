@@ -65,9 +65,9 @@ export function LobbyCustomizationForm({ system, settings, onSettingsSaved, onSy
         <button type="button" aria-label={`Mover ${sectionLabels[section]} para cima`} disabled={index === 0} onClick={() => moveSection(section, -1)}>↑</button>
         <button type="button" aria-label={`Mover ${sectionLabels[section]} para baixo`} disabled={index === draft.section_order.length - 1} onClick={() => moveSection(section, 1)}>↓</button>
       </div>)}</fieldset>
-      <details className="lobby-cover-editor"><summary>Alterar capa e apresentação</summary><SystemDetailsEditor system={system} section="settings" onSaved={onSystemSaved} /></details>
       <button type="submit" disabled={savingSettings}>{savingSettings ? 'Salvando…' : 'Salvar personalização'}</button>
     </form>
     {message && <p role="status">{message}</p>}{error && <p role="alert">{error}</p>}
+    <details className="lobby-cover-editor"><summary>Alterar capa e apresentação</summary><SystemDetailsEditor system={system} section="settings" onSaved={onSystemSaved} /></details>
   </>;
 }

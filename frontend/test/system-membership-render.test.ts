@@ -28,7 +28,8 @@ describe('system membership card', () => {
     expect(html).toContain('Mod');
     expect(html).toContain('Sistema C');
     expect(html).toContain('User');
-    expect(html).toContain('UUID do usuário');
+    expect(html).toContain('Personagem da pessoa');
+    expect(html).toContain('role="combobox"');
     expect(html).toContain('Tornar moderador');
   });
 
@@ -41,7 +42,7 @@ describe('system membership card', () => {
       onAssign: vi.fn(),
     }));
     expect(html).toContain('Admin global');
-    expect(html).not.toContain('UUID do usuário');
+    expect(html).not.toContain('Personagem da pessoa');
   });
 
   it('shows membership loading failures and offers a retry', () => {

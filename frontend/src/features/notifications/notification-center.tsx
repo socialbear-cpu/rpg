@@ -10,6 +10,7 @@ import {
   type SystemMembership,
 } from '../../api';
 import './notifications.css';
+import { usePopoverDismiss } from '../shell/use-popover-dismiss';
 
 type RoleChangePayload = {
   game_system_name: string;
@@ -100,6 +101,7 @@ export function NotificationCenter({ compact = false }: { compact?: boolean }) {
   const [publishing, setPublishing] = useState(false);
   const [publishMessage, setPublishMessage] = useState<string | null>(null);
   const [publishError, setPublishError] = useState(false);
+  const container = usePopoverDismiss(open, setOpen, publishing);
 
   const loadNotifications = useCallback(async (offset = 0, append = false) => {
     if (append) setLoadingMore(true);
@@ -187,11 +189,12 @@ export function NotificationCenter({ compact = false }: { compact?: boolean }) {
 
   const manageableMemberships = memberships.filter((membership) => membership.role === 'owner' || membership.role === 'mod');
 
-  return <div className="notification-center">
+  return <div className="notification-center" ref={container}>
     <button
       className={`notification-toggle${compact ? ' compact' : ''}`}
       type="button"
       aria-label={compact ? 'Notificações' : 'Abrir notificações'}
+      disabled={publishing}
       aria-expanded={open}
       aria-controls="notification-panel"
       onClick={() => setOpen((value) => !value)}
@@ -203,13 +206,14 @@ export function NotificationCenter({ compact = false }: { compact?: boolean }) {
     {open && <section className="notification-panel" id="notification-panel" aria-label="Central de notificações">
       <div className="notification-panel-heading">
         <div><span className="dashboard-overline">SUA CONTA</span><h2>Notificações</h2></div>
-        <button className="notification-close" type="button" onClick={() => setOpen(false)} aria-label="Fechar notificações">×</button>
+        <button className="notification-close" type="button" disabled={publishing} onClick={() => setOpen(false)} aria-label="Fechar notificações">×</button>
       </div>
 
       {manageableMemberships.length > 0 && <button
         className="notification-compose-toggle"
         type="button"
         aria-expanded={composerOpen}
+        disabled={publishing}
         onClick={() => { setComposerOpen((value) => !value); setPublishMessage(null); }}
       >{composerOpen ? 'Fechar comunicados' : 'Publicar comunicado'}</button>}
 

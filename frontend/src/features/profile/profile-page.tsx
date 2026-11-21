@@ -7,6 +7,7 @@ import { hasSession } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
 import { ProfileCard, type ProfileFields } from './profile-card';
 import { PublicProfilePage } from './public-profile-page';
+import { WorkspaceHeading } from '../shell/workspace-heading';
 
 function profileFields(profile: Profile): ProfileFields {
   return {
@@ -77,9 +78,9 @@ export function ProfilePage() {
 
   if (!authenticated) return null;
   if (profile?.username) return <PublicProfilePage key={profile.username} username={profile.username} isOwnProfile onUsernameChanged={(username) => setProfile((current) => current ? { ...current, username } : current)} />;
-  return <main className="shell">
+  return <main className="shell bifrost-workspace profile-settings-page">
     <AppHeader activeItem="" backHref="/dashboard" backLabel="Voltar aos sistemas" />
-    <section className="intro"><p className="eyebrow">SUA CONTA</p><h1>Meu perfil</h1><p>Personalize como você aparece para os outros jogadores.</p></section>
+    <WorkspaceHeading eyebrow="SUA IDENTIDADE" title="Meu perfil" description="Conte quem está por trás das suas histórias." />
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status">{message}</p>}
     {loading ? <p role="status">Carregando perfil…</p> : profile ? <ProfileCard
       profile={profile} authenticated profileBusy={saving}

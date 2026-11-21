@@ -148,6 +148,17 @@ describe('character entry', () => {
     expect(html).toContain('<dialog');
   });
 
+  it('preserves configured presentation and unavailable matchmaking in the default lobby', () => {
+    const html = renderToStaticMarkup(createElement(CharacterHome, {
+      system, character, fields, onSwitch: vi.fn(), sheetDefinition: definition,
+      inventory: null, recordLoading: false, sheetError: null, inventoryError: null, onRefreshRecord: vi.fn(),
+    }));
+    expect(html).toContain('alt="Capa de Crônicas"');
+    expect(html).toContain('object-position:25% 65%');
+    expect(html).toContain('Uma aventura sombria.');
+    expect(html).toContain('O matchmaking estará disponível em breve');
+  });
+
   it('personalizes the system lobby with its configured cover and description', () => {
     const html = renderToStaticMarkup(createElement(CharacterHome, {
       system, character, fields, onSwitch: vi.fn(), sheetDefinition: definition,

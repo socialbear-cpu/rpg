@@ -1,0 +1,134 @@
+/* Shared overlay surfaces also apply outside the redesigned workspaces. */
+dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup {
+  --overlay-bg: #14111f; --overlay-text: #f3efff; --overlay-muted: #b8b1c9; --overlay-accent: #ceb4ff; --overlay-line: #78688f; --overlay-divider: #352c43;
+  box-sizing: border-box; color: var(--overlay-text); border: 1px solid var(--overlay-line); border-radius: 8px;
+  background: var(--overlay-bg); box-shadow: 0 24px 80px #0008; font: 400 15px / 1.6 'DM Sans', sans-serif;
+  overflow-wrap: anywhere; overscroll-behavior: contain;
+}
+dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog { position: fixed; inset: 0; width: min(640px, calc(100% - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; padding: 0; overflow-y: auto; }
+dialog.daily-login-popup { width: min(480px, calc(100% - 32px)); }
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog)::backdrop { background: #07050dd9; backdrop-filter: blur(4px); }
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup) :is(h2, h3) { color: var(--overlay-text); font-family: 'Outfit', sans-serif; font-weight: 500; letter-spacing: -.02em; }
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup) :is(p, label, small, button) { overflow-wrap: anywhere; }
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup) :is(button, input, select, textarea) { font-family: 'DM Sans', sans-serif; }
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup) :is(a, button, input, select, textarea):focus-visible { outline: 2px solid var(--overlay-accent); outline-offset: 3px; }
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup) :is(input:not([type='checkbox'], [type='radio']), select, textarea) {
+  box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; min-height: 48px; padding: 11px 14px;
+  border: 1px solid var(--overlay-line); border-radius: 5px; color: var(--overlay-text); background: #0c0a14; font-size: 16px; line-height: 1.5;
+}
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup) :is(input, textarea)::placeholder { color: #a39aaf; }
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup) :is(input, select, textarea):focus { border-color: var(--overlay-accent); box-shadow: 0 0 0 3px #bb89ff26; }
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup) button { min-height: 44px; cursor: pointer; }
+:is(dialog.bifrost-modal, dialog.daily-login-popup, dialog.store-admin-item-dialog, dialog.chat-float-popup) button:disabled { opacity: .55; cursor: not-allowed; }
+dialog.bifrost-modal .bifrost-modal-heading { position: sticky; top: 0; z-index: 1; display: flex; align-items: start; justify-content: space-between; gap: 16px; margin: 0; padding: 24px 28px; border-bottom: 1px solid var(--overlay-divider); background: var(--overlay-bg); }
+dialog.bifrost-modal .bifrost-modal-heading > div { min-width: 0; }
+dialog.bifrost-modal .bifrost-modal-heading .eyebrow { margin: 0 0 8px; color: var(--overlay-accent); font-size: 10px; font-weight: 500; letter-spacing: .15em; }
+dialog.bifrost-modal .bifrost-modal-heading h2 { margin: 0; font-size: 28px; line-height: 1.2; }
+dialog.bifrost-modal .bifrost-modal-heading h2:focus { outline: none; }
+dialog.bifrost-modal .bifrost-modal-close, dialog.daily-login-popup .daily-popup-close { position: static; display: grid; place-items: center; width: 44px; height: 44px; min-width: 44px; padding: 0; border: 1px solid var(--overlay-divider); border-radius: 5px; color: var(--overlay-text); background: transparent; font-size: 28px; line-height: 1; }
+dialog.bifrost-modal .bifrost-modal-close:hover:not(:disabled), dialog.daily-login-popup .daily-popup-close:hover:not(:disabled) { border-color: var(--overlay-accent); }
+dialog.bifrost-modal.profile-modal .bifrost-modal-close { border: 1px solid var(--overlay-divider); color: var(--overlay-text); background: transparent; padding: 0; }
+dialog.bifrost-modal .bifrost-modal-body { padding: 24px 28px 28px; }
+dialog.bifrost-modal .bifrost-modal-body > p:first-child { margin-top: 0; }
+dialog.bifrost-modal .modal-description, dialog.bifrost-modal .bifrost-modal-body > p { color: var(--overlay-muted); font-size: 14px; line-height: 1.7; }
+dialog.bifrost-modal .bifrost-modal-actions, dialog.bifrost-modal .profile-edit-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; margin: 0; padding: 20px 28px; border-top: 1px solid var(--overlay-divider); }
+dialog.bifrost-modal button:not(.bifrost-modal-close), dialog.daily-login-popup .button, dialog.store-admin-item-dialog .button {
+  min-height: 48px; padding: 11px 18px; border: 1px solid var(--overlay-line); border-radius: 5px; color: var(--overlay-text); background: transparent; box-shadow: none; font-size: 14px; font-weight: 500; white-space: normal;
+}
+dialog.bifrost-modal button[type='submit'], dialog.bifrost-modal .button.primary, dialog.daily-login-popup .button.primary, dialog.store-admin-item-dialog .button.primary { border-color: transparent; color: #20102f; background: var(--overlay-accent); font-weight: 600; }
+dialog.bifrost-modal .button.danger { border-color: #c58199; color: #ffe1eb; background: #361c2c; }
+dialog.bifrost-modal.profile-modal .profile-edit-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 24px; }
+dialog.bifrost-modal.profile-modal .profile-edit-form label { min-width: 0; color: var(--overlay-text); font-size: 14px; font-weight: 400; }
+dialog.bifrost-modal.profile-modal .profile-edit-form label:has(textarea), dialog.bifrost-modal.profile-modal .profile-edit-form label:last-of-type, dialog.bifrost-modal .username-change-hint { grid-column: 1 / -1; }
+dialog.bifrost-modal.profile-modal .profile-edit-form small { color: var(--overlay-muted); font-size: 12px; line-height: 1.7; }
+dialog.bifrost-modal.profile-modal .profile-edit-actions { grid-column: 1 / -1; padding: 20px 0 0; }
+dialog.bifrost-modal.profile-modal .profile-edit-error { color: #ffe1eb; background: #361c2c; border: 1px solid #c58199; border-radius: 5px; padding: 14px; }
+dialog.bifrost-modal .dm-history { max-height: 40dvh; min-height: 120px; color: var(--overlay-muted); }
+dialog.bifrost-modal .dm-history p { border-radius: 5px; color: var(--overlay-text); background: #292035; font-size: 14px; }
+dialog.bifrost-modal .dm-history p.mine { border: 1px solid var(--overlay-line); background: #352541; }
+dialog.bifrost-modal.profile-modal .bifrost-modal-body > form:not(.profile-edit-form) { display: grid; gap: 12px; }
+dialog.bifrost-modal.profile-modal .bifrost-modal-body > form:not(.profile-edit-form) > button { justify-self: end; }
+dialog.daily-login-popup .daily-popup-close { position: absolute; top: 16px; right: 16px; }
+dialog.daily-login-popup .daily-login-card { margin: 0; padding: 64px 28px 28px; border: 0; border-radius: 0; color: var(--overlay-text); background: transparent; box-shadow: none; }
+dialog.daily-login-popup .section-heading h2 { font-size: 30px; }
+dialog.daily-login-popup .section-heading .step { display: none; }
+dialog.daily-login-popup :is(.card-copy, .daily-state, .daily-field) { color: var(--overlay-muted); font-size: 14px; line-height: 1.7; }
+dialog.daily-login-popup .eyebrow { color: var(--overlay-accent); }
+dialog.daily-login-popup .daily-reward { display: grid; gap: 8px; padding: 24px; border: 1px solid var(--overlay-divider); border-radius: 5px; background: #0c0a14; }
+dialog.daily-login-popup .daily-reward strong { color: var(--overlay-accent); font: 500 26px 'Outfit', sans-serif; }
+dialog.daily-login-popup .daily-reward .label-muted { color: var(--overlay-muted); font-size: 11px; }
+dialog.daily-login-popup .daily-claim-form { gap: 20px; }
+dialog.store-admin-item-dialog :is(.store-admin-editor-form, .store-admin-item-form) { padding: 28px; gap: 20px; }
+dialog.store-admin-item-dialog h3 { grid-column: 1 / -1; margin: 0 0 4px; padding-right: 20px; font-size: 28px; }
+dialog.store-admin-item-dialog label { min-width: 0; color: var(--overlay-text); font-size: 14px; line-height: 1.6; }
+dialog.store-admin-item-dialog :is(.store-admin-editor-hint, .store-admin-item-description > span) { color: var(--overlay-muted); font-size: 12px; }
+dialog.store-admin-item-dialog .store-admin-editor-close { margin: 0 28px 28px; }
+dialog.store-admin-item-dialog .store-admin-item-dialog-actions { flex-wrap: wrap; gap: 12px; }
+
+/* Non-modal conversation: keep the page available behind it. */
+dialog.chat-float-popup { z-index: 30; inset: auto 24px 88px auto; width: min(600px, calc(100% - 32px)); max-width: none; max-height: calc(100dvh - 120px); margin: 0; padding: 20px; }
+dialog.chat-float-popup .chat-float-heading { gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--overlay-divider); }
+dialog.chat-float-popup .chat-float-heading h2 { margin: 0; font-size: 25px; }
+dialog.chat-float-popup .chat-float-heading > button { width: 44px; height: 44px; flex: 0 0 44px; border: 1px solid var(--overlay-divider); border-radius: 5px; background: transparent; }
+dialog.chat-float-popup .chat-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+dialog.chat-float-popup .chat-list { max-height: 140px; overflow-y: auto; margin-top: 16px; }
+dialog.chat-float-popup :is(.chat-conversation, .chat-list button, .chat-empty) { border: 1px solid var(--overlay-divider); border-radius: 5px; background: #0c0a14; }
+dialog.chat-float-popup .chat-conversation { min-height: 240px; }
+dialog.chat-float-popup .chat-messages { max-height: 240px; min-height: 100px; }
+dialog.chat-float-popup .chat-messages li { border-radius: 5px; background: #292035; font-size: 14px; box-shadow: none; }
+dialog.chat-float-popup .chat-composer { flex-wrap: wrap; }
+dialog.chat-float-popup .chat-composer button { min-height: 48px; border: 0; border-radius: 5px; color: #20102f; background: var(--overlay-accent); font-size: 14px; }
+main.bifrost-workspace .chat-float-button { z-index: 31; min-height: 48px; border: 1px solid #78688f; border-radius: 5px; color: #f3efff; background: #14111f; font-size: 14px; box-shadow: 0 8px 28px #0005; }
+
+/* Menu surfaces share the same identity without modal focus behavior. */
+.app-header :is(.app-header-profile-popover, .app-header-character-popover, .app-header-social-popover, .app-header-mobile-menu > nav),
+.notification-center .notification-panel, .invite-friend-control .invite-friend-picker {
+  box-sizing: border-box; border: 1px solid #78688f; border-radius: 5px; color: #f3efff; background: #14111f; box-shadow: 0 16px 48px #0008; font: 400 14px / 1.6 'DM Sans', sans-serif; overflow-wrap: anywhere;
+}
+.app-header :is(.app-header-profile-popover, .app-header-character-popover) { padding: 24px; }
+.app-header :is(.app-header-profile-options, .app-header-social-popover, .app-header-mobile-menu > nav) :is(a, button), .app-header .app-header-character-popover button { min-height: 44px; border-radius: 5px; font-size: 14px; }
+.app-header :is(.app-header-profile-trigger, .app-header-mobile-menu > summary), .app-header .notification-center .notification-toggle.compact { min-width: 44px; min-height: 44px; }
+.notification-center { --dash-panel: #14111f; --dash-panel-light: #21192e; --dash-border: #78688f; --dash-text: #f3efff; --dash-muted: #b8b1c9; --dash-accent: #ceb4ff; }
+.notification-center .notification-panel { width: min(440px, calc(100vw - 32px)); padding: 24px; max-height: calc(100dvh - 120px); overflow: auto; }
+.notification-center .notification-panel-heading h2 { font: 500 26px 'Outfit', sans-serif; }
+.notification-center .notification-list li { padding: 16px 0; border: 0; border-bottom: 1px solid #352c43; border-radius: 0; background: transparent; }
+.notification-center .notification-list li.unread { padding-inline: 14px; border-left: 2px solid #ceb4ff; background: #21192e; }
+.notification-center .notification-panel button { min-height: 44px; border-radius: 5px; font-size: 14px; }
+.notification-center .notification-close { width: 44px; height: 44px; font-size: 26px; }
+.notification-center .announcement-form { padding: 20px 0; border-radius: 0; background: transparent; }
+.app-header .notification-center .announcement-form { display: grid; gap: 16px; padding: 20px 0; border: 0; background: transparent; }
+.app-header .notification-center .announcement-form label { display: grid; gap: 8px; color: #f3efff; font-size: 14px; font-weight: 400; }
+.app-header .notification-center button.notification-submit { min-height: 48px; border: 0; border-radius: 5px; color: #20102f; background: #ceb4ff; font-size: 14px; font-weight: 600; }
+.app-header .notification-center button.notification-close { min-width: 44px; height: 44px; font-size: 26px; }
+.app-header .notification-center .notification-panel .dashboard-overline { color: #ceb4ff; font-size: 10px; font-weight: 500; }
+.app-header .notification-center .notification-panel .notification-compose-toggle { min-height: 44px; font-size: 14px; }
+.notification-center .announcement-form :is(input, select, textarea), .invite-friend-control .invite-friend-picker select { min-height: 48px; min-width: 0; max-width: 100%; border: 1px solid #78688f; border-radius: 5px; color: #f3efff; background: #0c0a14; font: 400 16px / 1.5 'DM Sans', sans-serif; }
+.notification-center .notification-submit, .invite-friend-control .invite-friend-picker > button { min-height: 48px; border: 0; border-radius: 5px; color: #20102f; background: #ceb4ff; font-weight: 600; }
+.invite-friend-control .invite-friend-picker { padding: 20px; gap: 16px; }
+.invite-friend-control .invite-friend-picker :is(label, span) { color: #b8b1c9; font-size: 14px; }
+.invite-friend-control > button { min-height: 44px; border-radius: 5px; }
+.system-member-search .system-member-search-results { max-height: 280px; overflow-y: auto; border: 1px solid #78688f; border-radius: 5px; color: #f3efff; background: #14111f; box-shadow: 0 16px 48px #0008; }
+.system-member-search .system-member-search-results button { min-height: 48px; color: #f3efff; background: transparent; font-size: 14px; }
+.system-member-search .system-member-search-results button:hover, .system-member-search .system-member-search-results button[aria-selected='true'] { background: #292035; outline: 1px solid #ceb4ff; outline-offset: -1px; }
+.system-member-search .system-member-search-results small { color: #b8b1c9; }
+.notification-center :is(button, input, select, textarea):focus-visible, .invite-friend-control :is(button, select):focus-visible { outline: 2px solid #ceb4ff; outline-offset: 3px; }
+@media (max-width: 700px) {
+  .app-header .notification-center .notification-panel { position: fixed; top: 84px; left: 16px; right: 16px; width: auto; }
+  .app-header :is(.app-header-character-popover, .app-header-profile-popover) { padding: 20px; max-height: calc(100dvh - 120px); overflow-y: auto; }
+}
+@media (max-width: 520px) {
+  dialog.bifrost-modal .bifrost-modal-heading { padding: 20px; gap: 12px; }
+  dialog.bifrost-modal .bifrost-modal-heading h2 { font-size: 25px; }
+  dialog.bifrost-modal .bifrost-modal-body { padding: 20px; }
+  dialog.bifrost-modal .bifrost-modal-actions { padding: 20px; }
+  dialog.bifrost-modal.profile-modal .profile-edit-form { grid-template-columns: minmax(0, 1fr); }
+  dialog.daily-login-popup .daily-login-card { padding-inline: 20px; }
+  dialog.store-admin-item-dialog :is(.store-admin-editor-form, .store-admin-item-form) { grid-template-columns: minmax(0, 1fr); padding: 20px; }
+  dialog.chat-float-popup { right: 16px; bottom: 80px; padding: 16px; }
+  main.bifrost-workspace .chat-float-button { right: 16px; bottom: 16px; }
+  .notification-center .notification-panel { padding: 20px; }
+  .invite-friend-control .invite-friend-picker { position: fixed; top: 100px; left: 16px; right: 16px; z-index: 40; width: auto; max-height: calc(100dvh - 132px); overflow-y: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog.bifrost-modal *, dialog.daily-login-popup *, dialog.store-admin-item-dialog *, dialog.chat-float-popup * { animation: none; transition: none; scroll-behavior: auto; }
+}
