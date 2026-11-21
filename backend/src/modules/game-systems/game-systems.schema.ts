@@ -47,6 +47,7 @@ export type CharacterSheetComponent = z.infer<typeof characterSheetComponentSche
 
 const visualElementBaseSchema = {
   key: keySchema,
+  composition_key: keySchema.optional(),
   x: z.number().min(0).max(100),
   y: z.number().min(0).max(100),
   width: z.number().min(1).max(100),

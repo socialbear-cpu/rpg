@@ -125,10 +125,10 @@ export function addSheetStep(definition: CharacterSheetDefinition): CharacterShe
   return { ...definition, steps: [...steps, next] };
 }
 
-export function addSheetVisualElement(definition: CharacterSheetDefinition, stepKey: string, type: CharacterSheetVisualElement['type']): CharacterSheetDefinition {
+export function addSheetVisualElement(definition: CharacterSheetDefinition, stepKey: string, type: CharacterSheetVisualElement['type'], compositionKey = 'composition_1'): CharacterSheetDefinition {
   const element: CharacterSheetVisualElement = type === 'text'
-    ? { key: `element_${globalThis.crypto.randomUUID().replaceAll('-', '')}`, type, text: 'Novo texto', x: 5, y: 5, width: 30, height: 15, rotation: 0 }
-    : { key: `element_${globalThis.crypto.randomUUID().replaceAll('-', '')}`, type, image_url: '', description: '', x: 5, y: 5, width: 30, height: 25, rotation: 0 };
+    ? { key: `element_${globalThis.crypto.randomUUID().replaceAll('-', '')}`, composition_key: compositionKey, type, text: 'Novo texto', x: 5, y: 5, width: 30, height: 15, rotation: 0 }
+    : { key: `element_${globalThis.crypto.randomUUID().replaceAll('-', '')}`, composition_key: compositionKey, type, image_url: '', description: '', x: 5, y: 5, width: 30, height: 25, rotation: 0 };
   return {
     ...definition,
     steps: definition.steps.map((step) => step.key === stepKey
@@ -267,6 +267,7 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
 
     for (const element of step.elements ?? []) {
       if (!/^[a-z][a-z0-9_]{0,39}$/.test(element.key) || elementKeys.has(element.key)) return false;
+      if (element.composition_key !== undefined && !/^[a-z][a-z0-9_]{0,39}$/.test(element.composition_key)) return false;
       if (![element.x, element.y, element.width, element.height, element.rotation].every(Number.isFinite)) return false;
       if (element.x < 0 || element.x > 100 || element.y < 0 || element.y > 100) return false;
       if (element.width < 1 || element.width > 100 || element.height < 1 || element.height > 100) return false;

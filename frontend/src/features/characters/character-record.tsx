@@ -48,14 +48,15 @@ function CharacterSheetValue({ component, value }: {
 function SheetArt({ step }: { step: CharacterSheetStep }) {
   const elements = step.elements ?? [];
   if (elements.length === 0) return null;
-  return <div className="character-record-sheet-art" aria-label={`Elementos visuais: ${step.label}`}>
-    {elements.map((element) => <div key={element.key} className="character-record-sheet-art-element" style={{
+  const compositions = [...new Set(elements.map((element) => element.composition_key ?? 'composition_1'))];
+  return <>{compositions.map((compositionKey, index) => <div key={compositionKey} className="character-record-sheet-art" aria-label={`Composição visual ${index + 1}: ${step.label}`}>
+    {elements.filter((element) => (element.composition_key ?? 'composition_1') === compositionKey).map((element) => <div key={element.key} className="character-record-sheet-art-element" style={{
       left: `${element.x}%`, top: `${element.y}%`, width: `${element.width}%`, height: `${element.height}%`,
       transform: `rotate(${element.rotation}deg)`,
     }}>
       {element.type === 'text' ? element.text : <img src={element.image_url} alt={element.description || 'Imagem da ficha'} />}
     </div>)}
-  </div>;
+  </div>)}</>;
 }
 
 function CharacterSheetView({ character, definition, experience, error }: {
