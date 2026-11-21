@@ -18,6 +18,7 @@ import { lobbyPresenceRoutes } from './modules/lobby-presence/lobby-presence.rou
 import { socialRoutes } from './modules/social/social.routes.js';
 import { publicProfileRoutes } from './modules/social/public-profile.routes.js';
 import { directMessagesRoutes } from './modules/direct-messages/direct-messages.routes.js';
+import { socialGroupsRoutes } from './modules/social-groups/social-groups.routes.js';
 import type { Config } from './config.js';
 
 export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
@@ -46,6 +47,7 @@ export function registerApp(app: FastifyInstance, nodeEnv: Config['nodeEnv']) {
   app.register(socialRoutes);
   app.register(publicProfileRoutes);
   app.register(directMessagesRoutes);
+  app.register(socialGroupsRoutes);
   app.register(dailyLoginRoutes);
   app.register(systemMembershipRoutes);
   app.register(notificationsRoutes);

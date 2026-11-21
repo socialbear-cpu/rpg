@@ -4,6 +4,11 @@ import { authenticate } from '../../plugins/authenticate.js';
 
 export async function directMessagesRoutes(app: FastifyInstance) {
   const options = { preHandler: authenticate, schema: { security: [{ bearerAuth: [] }] } };
+  app.get('/api/v1/direct-messages', options, async (request, reply) => {
+    const { data, error } = await request.supabase!.rpc('list_direct_conversations');
+    if (error || !Array.isArray(data?.conversations)) return reply.code(500).send({ error: 'Não foi possível carregar as conversas.' });
+    return reply.send({ conversations: data.conversations });
+  });
   app.get('/api/v1/direct-messages/:otherUserId', options, async (request, reply) => {
     const id = z.uuid().safeParse((request.params as { otherUserId?: string }).otherUserId);
     if (!id.success) return reply.code(400).send({ error: 'Jogador inválido.' });

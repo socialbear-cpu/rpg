@@ -30,10 +30,10 @@ VALUES
   ('72000000-0000-4000-8000-000000000002', '72000000-0000-4000-8000-000000000004', 'accepted'),
   ('72000000-0000-4000-8000-000000000005', '72000000-0000-4000-8000-000000000003', 'accepted');
 
-INSERT INTO public.game_systems (id, slug, name, owner_user_id, is_public, is_active)
+INSERT INTO public.game_systems (id, slug, name, owner_user_id, is_public, is_active, access_password_hash)
 VALUES
-  ('82000000-0000-4000-8000-000000000001', 'invite-private-system', 'Invite Private System', '72000000-0000-4000-8000-000000000001', false, true),
-  ('82000000-0000-4000-8000-000000000002', 'invite-archived-system', 'Invite Archived System', '72000000-0000-4000-8000-000000000001', true, false);
+  ('82000000-0000-4000-8000-000000000001', 'invite-private-system', 'Invite Private System', '72000000-0000-4000-8000-000000000001', false, true, extensions.crypt('test-password',extensions.gen_salt('bf'))),
+  ('82000000-0000-4000-8000-000000000002', 'invite-archived-system', 'Invite Archived System', '72000000-0000-4000-8000-000000000001', true, false, NULL);
 
 INSERT INTO public.game_system_memberships (user_id, game_system_id, role)
 VALUES ('72000000-0000-4000-8000-000000000002', '82000000-0000-4000-8000-000000000001', 'user');
@@ -48,11 +48,16 @@ VALUES
   ('a2000000-0000-4000-8000-000000000001', '82000000-0000-4000-8000-000000000001', '72000000-0000-4000-8000-000000000001', 'Main Chat', 'active'),
   ('a2000000-0000-4000-8000-000000000002', '82000000-0000-4000-8000-000000000001', '72000000-0000-4000-8000-000000000001', 'Second Chat', 'active');
 
+INSERT INTO public.chat_role_permissions(chat_id,role,can_view,can_enter,can_write)
+SELECT c.id,roles.role,true,true,true FROM public.chats c CROSS JOIN (VALUES('owner'),('user')) roles(role)
+WHERE c.game_system_id='82000000-0000-4000-8000-000000000001';
+SELECT set_config('request.jwt.claim.sub','72000000-0000-4000-8000-000000000002',true);
 INSERT INTO public.chat_members (chat_id, character_id, game_system_id, role)
 VALUES
   ('a2000000-0000-4000-8000-000000000001', '92000000-0000-4000-8000-000000000002', '82000000-0000-4000-8000-000000000001', 'player'),
   ('a2000000-0000-4000-8000-000000000002', '92000000-0000-4000-8000-000000000002', '82000000-0000-4000-8000-000000000001', 'player');
 
+SELECT set_config('request.jwt.claim.sub','',true);
 SET LOCAL ROLE authenticated;
 SELECT set_config('request.jwt.claim.sub', '72000000-0000-4000-8000-000000000002', true);
 SELECT set_config('request.jwt.claims', '{"role":"authenticated","sub":"72000000-0000-4000-8000-000000000002"}', true);
@@ -86,6 +91,7 @@ SELECT set_config('request.jwt.claims', '{"role":"authenticated","sub":"72000000
 SELECT is(public.list_my_social_invitations()->'owner_approvals'->0->>'id', current_setting('test.system_invitation_id'), 'the destination owner sees pending approval');
 SELECT is(public.respond_rpg_invitation(current_setting('test.system_invitation_id')::uuid, 'approve', NULL)->>'status', 'pending_recipient', 'the owner approval sends the invitation to the recipient');
 SELECT is(public.respond_rpg_invitation(current_setting('test.cancelled_invitation_id')::uuid, 'approve', NULL)->>'status', 'conflict', 'a friendship removal cancels its pending invitation');
+RESET ROLE;
 SELECT is((SELECT status FROM public.rpg_invitations WHERE id = current_setting('test.cancelled_invitation_id')::uuid), 'cancelled', 'friendship removal persists cancellation of pending invitations');
 RESET ROLE;
 

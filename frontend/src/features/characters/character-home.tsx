@@ -93,6 +93,7 @@ export function CharacterHome({ system, character, sheetDefinition, inventory, r
   return (
     <main className="character-entry-page character-home-page bifrost-workspace">
       <AppHeader activeItem="Meus Sistemas" characterSheet={{ systemName: system.name, character, fields: visibleFields, experience }} onOpenCharacterSheet={() => openCharacterRecord('sheet')} onSwitchCharacter={onSwitch}>
+        <Link className="app-header-back" href={`/systems/${encodeURIComponent(system.id)}/rooms`}>Salas de RPG</Link>
         {isCreator && <Link className="app-header-back lobby-settings-link" href={`/systems/${encodeURIComponent(system.id)}/lobby-settings`}>⚙ Ajustes</Link>}
       </AppHeader>
 

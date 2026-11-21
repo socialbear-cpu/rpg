@@ -6,10 +6,11 @@ import { startSystemLobbyPresenceHeartbeat } from '../src/features/characters/lo
 import type { Chat, SystemEvent } from '../src/api.js';
 import { vi } from 'vitest';
 
+const roomAccess = { max_players: null, player_count: 0, permissions: { view: true, enter: true, write: true }, is_member: false, has_player_seat: false, can_manage: false };
 const chats: Chat[] = [
-  { id: '1', game_system_id: 'system', name: 'Mesa', description: null, status: 'active', created_at: '2026-01-01T00:00:00Z' },
-  { id: '2', game_system_id: 'system', name: 'Arquivo', description: null, status: 'archived', created_at: '2026-01-01T00:00:00Z' },
-  { id: '3', game_system_id: 'system', name: 'Outra sala', description: null, status: 'active', created_at: '2026-01-01T00:00:00Z' },
+  { ...roomAccess, id: '1', game_system_id: 'system', name: 'Mesa', description: null, status: 'active', created_at: '2026-01-01T00:00:00Z' },
+  { ...roomAccess, id: '2', game_system_id: 'system', name: 'Arquivo', description: null, status: 'archived', created_at: '2026-01-01T00:00:00Z' },
+  { ...roomAccess, id: '3', game_system_id: 'system', name: 'Outra sala', description: null, status: 'active', created_at: '2026-01-01T00:00:00Z' },
 ];
 
 const event = (id: string, starts_at: string, started_at: string | null = null): SystemEvent => ({

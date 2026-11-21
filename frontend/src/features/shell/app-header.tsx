@@ -22,6 +22,7 @@ interface AppHeaderProps {
 }
 
 const socialItems = [
+  { label: 'Mensagens', href: '/messages' },
   { label: 'Amigos', href: '/friends' },
   { label: 'Trocas', href: '/trading' },
 ];

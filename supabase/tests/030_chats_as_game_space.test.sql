@@ -26,8 +26,9 @@ VALUES ('d2000000-0000-4000-8000-000000000001', 'chat-space-system', 'Chat Space
 INSERT INTO public.game_system_memberships (user_id, game_system_id, role)
 VALUES
   ('d1000000-0000-4000-8000-000000000001', 'd2000000-0000-4000-8000-000000000001', 'owner'),
-  ('d1000000-0000-4000-8000-000000000002', 'd2000000-0000-4000-8000-000000000001', 'user');
-INSERT INTO public.characters (id, user_id, game_system_id, name, status)
+  ('d1000000-0000-4000-8000-000000000002', 'd2000000-0000-4000-8000-000000000001', 'user')
+ON CONFLICT(user_id,game_system_id) DO UPDATE SET role=excluded.role;
+INSERT INTO public.characters (id, user_id, game_system_id, character_name, status)
 VALUES
   ('d3000000-0000-4000-8000-000000000001', 'd1000000-0000-4000-8000-000000000001', 'd2000000-0000-4000-8000-000000000001', 'Chat Host', 'active'),
   ('d3000000-0000-4000-8000-000000000002', 'd1000000-0000-4000-8000-000000000002', 'd2000000-0000-4000-8000-000000000001', 'Chat Player', 'active');
@@ -42,13 +43,13 @@ SELECT is(public.create_system_chat(
 )->>'status', 'created', 'system owner creates a chat with a host character');
 SELECT is((SELECT name FROM public.chats WHERE game_system_id = 'd2000000-0000-4000-8000-000000000001'), 'The Old Road', 'chat title is trimmed');
 SELECT is((SELECT description FROM public.chats WHERE game_system_id = 'd2000000-0000-4000-8000-000000000001'), 'Opening scene', 'chat description is trimmed');
-SELECT is((SELECT role FROM public.chat_members WHERE character_id = 'd3000000-0000-4000-8000-000000000001'), 'game_master', 'creator character becomes chat host');
+SELECT is((SELECT count(*) FROM public.chat_members WHERE character_id = 'd3000000-0000-4000-8000-000000000001'), 0::bigint, 'creation does not automatically enroll a character');
 SELECT ok(NOT has_table_privilege('authenticated', 'public.chats', 'INSERT'), 'authenticated users create chats through the guarded RPC');
-INSERT INTO public.messages (chat_id, character_id, content)
-SELECT id, 'd3000000-0000-4000-8000-000000000001', 'First action in the chat'
-FROM public.chats WHERE game_system_id = 'd2000000-0000-4000-8000-000000000001';
+SELECT is(public.room_operation('join',(SELECT id FROM public.chats WHERE game_system_id='d2000000-0000-4000-8000-000000000001'),'d3000000-0000-4000-8000-000000000001','{}')->>'status','ok','Owner chooses to participate');
+SELECT is(public.room_operation('send',(SELECT id FROM public.chats WHERE game_system_id='d2000000-0000-4000-8000-000000000001'),'d3000000-0000-4000-8000-000000000001','{"content":"First action in the chat"}')->>'status','ok','participant sends through guarded RPC');
 SELECT is((SELECT count(*) FROM public.messages WHERE chat_id = (SELECT id FROM public.chats WHERE game_system_id = 'd2000000-0000-4000-8000-000000000001')), 1::bigint, 'the chat accepts messages directly without a room');
 SELECT throws_ok($$INSERT INTO public.messages (chat_id, character_id, content) VALUES ((SELECT id FROM public.chats WHERE game_system_id = 'd2000000-0000-4000-8000-000000000001'), 'd3000000-0000-4000-8000-000000000002', 'Not a member')$$, '42501', NULL, 'a character outside the chat cannot write messages');
+SELECT set_config('request.jwt.claim.sub', 'd1000000-0000-4000-8000-000000000002', true);
 SELECT is(public.create_system_chat(
   'd2000000-0000-4000-8000-000000000001',
   'd3000000-0000-4000-8000-000000000002',
@@ -59,7 +60,7 @@ RESET ROLE;
 
 INSERT INTO public.game_system_lobby_settings (game_system_id)
 VALUES ('d2000000-0000-4000-8000-000000000001');
-SELECT ok('chat' = ANY((SELECT section_order FROM public.game_system_lobby_settings WHERE game_system_id = 'd2000000-0000-4000-8000-000000000001')), 'default lobby settings use the chat section');
+SELECT ok((SELECT 'chat' = ANY(section_order) FROM public.game_system_lobby_settings WHERE game_system_id = 'd2000000-0000-4000-8000-000000000001'), 'default lobby settings use the chat section');
 
 SELECT * FROM finish();
 ROLLBACK;

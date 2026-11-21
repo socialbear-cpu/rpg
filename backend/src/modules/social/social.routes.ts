@@ -123,6 +123,7 @@ function sendMutationResult(reply: FastifyReply, result: SocialMutationResult, o
 
 function sendInvitationResult(reply: FastifyReply, result: Awaited<ReturnType<typeof createRpgInvitation>> | Awaited<ReturnType<typeof respondRpgInvitation>>, created = false) {
   switch (result.status) {
+    case 'room_full': return reply.code(409).send({ error: 'Esta sala está cheia. O convite continua disponível.' });
     case 'pending_owner_approval': case 'pending_recipient': return reply.code(created ? 201 : 200).send(result);
     case 'accepted': case 'declined': case 'cancelled': return reply.send(result);
     case 'already_invited': case 'already_member': case 'conflict': return reply.code(409).send({ error: 'Este convite já foi processado ou já existe acesso ao destino.' });

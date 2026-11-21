@@ -14,6 +14,7 @@ type PageState = 'loading' | 'ready' | 'forbidden' | 'error';
 
 export function LobbySettingsPage({ systemId }: { systemId: string }) {
   const [pageState, setPageState] = useState<PageState>('loading');
+  const [canCreateRooms, setCanCreateRooms] = useState(false);
   const [system, setSystem] = useState<GameSystem | null>(null);
   const [settings, setSettings] = useState<SystemLobbySettings | null>(null);
   const [characters, setCharacters] = useState<SystemCharacter[]>([]);
@@ -34,6 +35,7 @@ export function LobbySettingsPage({ systemId }: { systemId: string }) {
         ]);
         if (!active) return;
         const loadedSystem = systemsResult.systems.find((entry) => entry.id === systemId);
+        setCanCreateRooms(memberships.memberships.some(member => member.game_system_id === systemId && member.role === 'owner'));
         const canManage = Boolean(memberships.is_platform_admin || memberships.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner'));
         if (!loadedSystem || !canManage) {
           setPageState('forbidden');
@@ -83,7 +85,7 @@ export function LobbySettingsPage({ systemId }: { systemId: string }) {
       <header><p className="eyebrow">O SEU MUNDO</p><h2>Apresentação e layout</h2><p>Defina as boas-vindas, a cor e a organização do saguão.</p></header>
       <div className="lobby-customization"><LobbyCustomizationForm system={system} settings={settings} onSettingsSaved={setSettings} onSystemSaved={setSystem} /></div>
     </section>
-    <section id="lobby-tools" aria-label="Personagens e conversas"><LobbyCreatorTools system={system} characters={characters} characterLoadError={characterLoadError} /></section>
+    <section id="lobby-tools" aria-label="Personagens e conversas"><LobbyCreatorTools system={system} characters={characters} characterLoadError={characterLoadError} canCreateRooms={canCreateRooms} /></section>
     <section id="lobby-events" aria-label="Eventos da mesa"><SystemEventsCard systemId={system.id} canManage /></section>
     </div>
     </div>

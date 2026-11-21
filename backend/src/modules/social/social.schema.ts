@@ -72,7 +72,7 @@ export const socialInvitationListResponseSchema = z.strictObject({
   recipient_invitations: z.array(invitationItemSchema),
 });
 export const socialInvitationMutationResultSchema = z.strictObject({
-  status: z.enum(['pending_owner_approval', 'pending_recipient', 'accepted', 'declined', 'cancelled', 'already_invited', 'already_member', 'not_friends', 'invalid_recipient', 'invalid_decision', 'invalid_character', 'not_found', 'forbidden', 'conflict', 'unauthorized']),
+  status: z.enum(['pending_owner_approval', 'pending_recipient', 'accepted', 'declined', 'cancelled', 'already_invited', 'already_member', 'not_friends', 'invalid_recipient', 'invalid_decision', 'invalid_character', 'not_found', 'forbidden', 'conflict', 'unauthorized', 'room_full']),
   invitation_id: z.uuid().optional(),
 });
 

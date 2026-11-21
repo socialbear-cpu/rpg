@@ -27,6 +27,19 @@ export interface PublicPlayerProfile extends Omit<Profile, 'phone' | 'username' 
 export interface PublicPlayerSystem { id: string; name: string; description: string | null; }
 export interface ProfileComment { id: string; content: string; created_at: string; author_user_id: string; author_username: string; author_display_name: string; author_avatar_url: string | null; }
 export interface DirectMessage { id: string; sender_user_id: string; recipient_user_id: string; content: string; created_at: string; }
+export interface DirectConversation { id: string; user_id: string; display_name: string | null; username: string | null; content: string; created_at: string; }
+export interface SocialGroup { id: string; name: string; owner_user_id: string; created_at: string; }
+export interface SocialGroupMember { user_id: string; display_name: string; username: string | null; }
+export interface SocialGroupMessage { id: string; group_id: string; sender_user_id: string; content: string; created_at: string; }
+export function getDirectConversations() { return authenticatedRequest<{ conversations: DirectConversation[] }>('/api/v1/direct-messages'); }
+export function getSocialGroups() { return authenticatedRequest<{ groups: SocialGroup[] }>('/api/v1/social-groups'); }
+export function createSocialGroup(name: string, user_ids: string[]) { return jsonRequest<{ group: SocialGroup }>('/api/v1/social-groups', 'POST', { name, user_ids }); }
+export function getSocialGroup(id: string) { return authenticatedRequest<{ group: SocialGroup; members: SocialGroupMember[]; messages: SocialGroupMessage[] }>(`/api/v1/social-groups/${encodeURIComponent(id)}`); }
+export function renameSocialGroup(id: string, name: string) { return jsonRequest<{ status: string }>(`/api/v1/social-groups/${encodeURIComponent(id)}`, 'PATCH', { name }); }
+export function sendSocialGroupMessage(id: string, content: string) { return jsonRequest<{ message: SocialGroupMessage }>(`/api/v1/social-groups/${encodeURIComponent(id)}/messages`, 'POST', { content }); }
+export function changeSocialGroupMember(id: string, userId: string, add: boolean) { return authenticatedRequest<{ status: string }>(`/api/v1/social-groups/${encodeURIComponent(id)}/members/${encodeURIComponent(userId)}`, { method: add ? 'PUT' : 'DELETE' }); }
+export function transferSocialGroup(id: string, user_id: string) { return jsonRequest<{ status: string }>(`/api/v1/social-groups/${encodeURIComponent(id)}/owner`, 'POST', { user_id }); }
+export function leaveSocialGroup(id: string) { return jsonRequest<{ status: string }>(`/api/v1/social-groups/${encodeURIComponent(id)}/leave`, 'POST', {}); }
 export function getPublicPlayerProfile(username: string) { return authenticatedRequest<{ profile: PublicPlayerProfile; systems: PublicPlayerSystem[] }>(`/api/v1/social/profiles/${encodeURIComponent(username)}`); }
 export function getProfileComments(username: string) { return authenticatedRequest<{ comments: ProfileComment[] }>(`/api/v1/social/profiles/${encodeURIComponent(username)}/comments`); }
 export function postProfileComment(username: string, content: string) { return jsonRequest<{ status: string; id: string }>(`/api/v1/social/profiles/${encodeURIComponent(username)}/comments`, 'POST', { content }); }
@@ -290,14 +303,30 @@ export interface Chat {
   description: string | null;
   status: string;
   created_at: string;
+  max_players: number | null;
+  player_count: number;
+  permissions: { view: boolean; enter: boolean; write: boolean };
+  is_member: boolean;
+  has_player_seat: boolean;
+  can_manage: boolean;
 }
 
-export function createSystemChat(systemId: string, input: { character_id: string; name: string; description?: string | null }) {
-  return jsonRequest<{ chat: Chat; character_id: string }>(
+export function createSystemChat(systemId: string, input: { name: string; description?: string | null }) {
+  return jsonRequest<{ chat: Chat }>(
     `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/chats`,
     'POST', input,
   );
 }
+
+export interface RoomRoleRule { role: 'owner' | 'mod' | 'user'; view: boolean; enter: boolean; write: boolean; }
+export interface RoomUserRule { user_id: string; view: boolean | null; enter: boolean | null; write: boolean | null; }
+export interface RoomSettingsInput { max_players: number | null; roles: RoomRoleRule[]; users: RoomUserRule[]; }
+export interface RoomSettings extends Omit<RoomSettingsInput, 'max_players'> { chat: Chat; members: { user_id: string; display_name: string; role: string }[]; }
+export function getSystemChats(systemId: string) { return authenticatedRequest<{ chats: Chat[] }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/chats`); }
+export function getRoomSettings(chatId: string) { return authenticatedRequest<RoomSettings>(`/api/v1/chats/${encodeURIComponent(chatId)}/settings`); }
+export function saveRoomSettings(chatId: string, input: RoomSettingsInput) { return jsonRequest<RoomSettings>(`/api/v1/chats/${encodeURIComponent(chatId)}/settings`, 'PUT', input); }
+export function joinCharacterChat(characterId: string, chatId: string) { return jsonRequest<{ chat: Chat }>(`/api/v1/me/characters/${encodeURIComponent(characterId)}/chats/${encodeURIComponent(chatId)}/membership`, 'POST', {}); }
+export function leaveCharacterChat(characterId: string, chatId: string) { return authenticatedRequest<{ status: string }>(`/api/v1/me/characters/${encodeURIComponent(characterId)}/chats/${encodeURIComponent(chatId)}/membership`, { method: 'DELETE' }); }
 
 export interface ChatMessage {
   id: string;
@@ -882,9 +911,13 @@ async function authenticatedRequest<T>(path: string, init: RequestInit = {}): Pr
   const data: unknown = await response.json().catch(() => ({}));
   if (!response.ok) {
     const error = data as { error?: string };
-    throw new Error(error.error || `API respondeu ${response.status}`);
+    throw new ApiError(response.status, error.error || `API respondeu ${response.status}`);
   }
   return data as T;
+}
+
+export class ApiError extends Error {
+  constructor(public readonly status: number, message: string) { super(message); this.name = 'ApiError'; }
 }
 
 export interface StoreOffer {

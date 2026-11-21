@@ -24,3 +24,9 @@
 .chat-composer button { transition: transform .18s, background .18s; }
 .chat-composer button:not(:disabled):hover { transform: translateY(-1px); background: #59436e; }
 @media(max-width:650px) { .chat-layout { grid-template-columns: 1fr; } .chat-composer { align-items: stretch; flex-direction: column; }.chat-conversation { min-height: 22rem; padding: .75rem; }.chat-messages li { max-width: 92%; }.chat-composer button { min-height: 2.8rem; } }
+.room-settings, .room-settings-form { display: grid; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+.room-settings-form label { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0; }
+.room-settings-form fieldset { min-width: 0; border: 1px solid var(--line); border-radius: 8px; margin: 8px 0; padding: 12px; }
+.room-settings-form :is(button, input:not([type=checkbox]), select), .room-directory button, .room-participation button { min-height: 44px; }
+.room-directory { list-style: none; padding: 0; }
+.room-directory li { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }

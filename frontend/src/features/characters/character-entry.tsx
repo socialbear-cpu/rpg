@@ -8,6 +8,7 @@ import { AppHeader } from '../shell/app-header';
 import './characters.css';
 import { definitionToLegacyFields } from '../system-creation/sheet-model';
 import { InviteFriendControl } from '../social/invite-friend-control';
+import Link from 'next/link';
 
 export function CharacterEntry({ systemId, push, invitationId = null, invitationChatId = null }: { systemId: string; push: (path: string) => void; invitationId?: string | null; invitationChatId?: string | null }) {
   const [system, setSystem] = useState<GameSystem | null>(null);
@@ -145,5 +146,5 @@ export function CharacterEntry({ systemId, push, invitationId = null, invitation
     </section>
   </main>;
   if (creating) return <main className="character-entry-page character-creation-page"><AppHeader activeItem="Meus Sistemas"><button className="app-header-back" type="button" onClick={() => setCreating(false)}>← Voltar aos personagens</button></AppHeader><header className="character-entry-heading"><span className="character-entry-eyebrow">{system.name}</span><h1>Crie seu personagem</h1></header><CharacterForm definition={definition} error={error} saving={saving} onSubmit={(name, attributes) => void createCharacter(name, attributes)} onCancel={() => setCreating(false)} /></main>;
-  return <CharacterGallery systemName={system.name} fields={definitionToLegacyFields(definition)} characters={characters} selectedCharacterId={selectedCharacterId} experienceByCharacterId={experienceByCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => void enterWithCharacter(characterId)} onConfigureLobby={canConfigureLobby ? () => push(`/systems/${encodeURIComponent(systemId)}/lobby-settings`) : undefined} headerAction={<InviteFriendControl systemId={systemId} />} />;
+  return <CharacterGallery systemName={system.name} fields={definitionToLegacyFields(definition)} characters={characters} selectedCharacterId={selectedCharacterId} experienceByCharacterId={experienceByCharacterId} onCreate={() => { setError(null); setCreating(true); }} onEnter={(characterId) => void enterWithCharacter(characterId)} onConfigureLobby={canConfigureLobby ? () => push(`/systems/${encodeURIComponent(systemId)}/lobby-settings`) : undefined} headerAction={<><Link href={`/systems/${encodeURIComponent(systemId)}/rooms`}>Salas de RPG</Link><InviteFriendControl systemId={systemId} /></>} />;
 }

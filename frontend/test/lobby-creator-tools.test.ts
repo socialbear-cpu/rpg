@@ -108,7 +108,7 @@ describe('lobby creator tools', () => {
     expect(html).not.toContain('Procurar partida');
   });
 
-  it('renders chat creation in the owner lobby tools with a character selector', () => {
+  it('renders room creation without requiring a character', () => {
     const html = renderToStaticMarkup(createElement(LobbyCreatorTools, {
       system,
       characters: [character],
@@ -116,8 +116,8 @@ describe('lobby creator tools', () => {
     }));
 
     expect(html).toContain('Criar chat');
-    expect(html).toContain('Personagem responsável pelo chat');
-    expect(html).toContain('Liora');
+    expect(html).not.toContain('Personagem responsável pelo chat');
+    expect(html).toContain('Gerenciar salas e permissões');
   });
 });
 

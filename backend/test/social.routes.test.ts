@@ -175,6 +175,13 @@ describe('RPG invitation API', () => {
     expect(response.body).not.toContain('email');
   });
 
+  it('returns a capacity conflict when accepting an invitation to a full room', async () => {
+    rpcResponses.respond_rpg_invitation = { status: 'room_full' };
+    const response = await request('POST', `/api/v1/social-invitations/${requestId}/respond`, { decision: 'accept', character_id: friendId });
+    expect(response.statusCode).toBe(409);
+    expect(response.json().error).toContain('cheia');
+  });
+
   it.each(['approve', 'decline', 'accept', 'cancel'] as const)('responds to a social invitation with %s', async (decision) => {
     rpcResponses.respond_rpg_invitation = { status: decision === 'approve' ? 'pending_recipient' : decision === 'accept' ? 'accepted' : decision === 'cancel' ? 'cancelled' : 'declined', invitation_id: requestId };
     const response = await request('POST', `/api/v1/social-invitations/${requestId}/respond`, { decision, character_id: friendId });
