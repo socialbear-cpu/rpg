@@ -7,13 +7,18 @@ import { InviteFriendControl } from '../src/features/social/invite-friend-contro
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn(), back: vi.fn() }) }));
 
 describe('friends social screens', () => {
-  it('renders username search, friend queues, and invitation sections without email', () => {
+  it('renders player discovery and accessible social sections without exposing email', () => {
     const html = renderToStaticMarkup(createElement(FriendsPage));
     expect(html).toContain('Buscar pelo nick');
     expect(html).toContain('Meus amigos');
     expect(html).toContain('Pedidos de amizade');
-    expect(html).toContain('Aprovações como dono');
-    expect(html).toContain('Convites para você');
+    expect(html).toContain('aria-label="Encontrar jogadores"');
+    expect(html).toContain('Convites e aprovações');
+    expect(html).toContain('aria-controls="friends-panel-friends"');
+    expect(html).toContain('aria-labelledby="friends-tab-requests" hidden=""');
+    expect(html).toContain('Carregando seus amigos');
+    expect(html).toContain('Contagem indisponível');
+    expect(html).not.toContain('Sua lista começa aqui');
     expect(html).not.toContain('email');
     expect(html).not.toContain('e-mail');
   });
