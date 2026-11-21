@@ -1,0 +1,1198 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/app/dashboard/systems/[systemId]/manage/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/dashboard/systems/[systemId]/manage/page.tsx",
+      "summary": "Rota Next.js da área de gestão de um sistema. Encaminha a página para o componente de gestão compartilhado.",
+      "tags": [
+        "rota",
+        "nextjs",
+        "gestao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/app/dashboard/systems/[systemId]/manage/page.tsx:ManageSystemRoute",
+      "type": "function",
+      "name": "ManageSystemRoute",
+      "filePath": "frontend/app/dashboard/systems/[systemId]/manage/page.tsx",
+      "lineRange": [
+        5,
+        7
+      ],
+      "summary": "Renderiza a página compartilhada de gestão para a rota do sistema.",
+      "tags": [
+        "rota",
+        "componente",
+        "gestao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "type": "file",
+      "name": "daily-login-admin-card.tsx",
+      "filePath": "frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "summary": "Formulário administrativo para configurar os prêmios de login diário, incluindo itens, quantidades e ativação semanal.",
+      "tags": [
+        "componente",
+        "login-diario",
+        "administracao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/daily-login/daily-login-admin-card.tsx:DailyLoginAdminCard",
+      "type": "function",
+      "name": "DailyLoginAdminCard",
+      "filePath": "frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "lineRange": [
+        26,
+        106
+      ],
+      "summary": "Renderiza os controles para selecionar sistemas e editar ou salvar recompensas semanais de login diário.",
+      "tags": [
+        "componente",
+        "login-diario",
+        "administracao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/daily-login/daily-login-card.tsx",
+      "type": "file",
+      "name": "daily-login-card.tsx",
+      "filePath": "frontend/src/features/daily-login/daily-login-card.tsx",
+      "summary": "Interface para escolher um personagem elegível, consultar o prêmio do dia e solicitar a recompensa de login diário.",
+      "tags": [
+        "componente",
+        "login-diario",
+        "recompensas"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/daily-login/daily-login-card.tsx:DailyLoginCard",
+      "type": "function",
+      "name": "DailyLoginCard",
+      "filePath": "frontend/src/features/daily-login/daily-login-card.tsx",
+      "lineRange": [
+        15,
+        69
+      ],
+      "summary": "Apresenta sistemas e personagens elegíveis, seleciona o personagem e encaminha a reivindicação do prêmio diário.",
+      "tags": [
+        "componente",
+        "login-diario",
+        "recompensas"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/daily-login/daily-login-messages.ts",
+      "type": "file",
+      "name": "daily-login-messages.ts",
+      "filePath": "frontend/src/features/daily-login/daily-login-messages.ts",
+      "summary": "Formata a mensagem de sucesso após a reivindicação de um prêmio diário, incluindo a moeda recebida.",
+      "tags": [
+        "utilitario",
+        "login-diario",
+        "mensagens"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/daily-login/daily-login-messages.ts:formatDailyLoginClaimSuccess",
+      "type": "function",
+      "name": "formatDailyLoginClaimSuccess",
+      "filePath": "frontend/src/features/daily-login/daily-login-messages.ts",
+      "lineRange": [
+        3,
+        12
+      ],
+      "summary": "Converte o resultado da reivindicação em uma mensagem legível com o valor de moeda concedido.",
+      "tags": [
+        "utilitario",
+        "login-diario",
+        "mensagens"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/daily-login/daily-login-popup.tsx",
+      "type": "file",
+      "name": "daily-login-popup.tsx",
+      "filePath": "frontend/src/features/daily-login/daily-login-popup.tsx",
+      "summary": "Carrega e apresenta o aviso de login diário da sessão, permite reivindicar o prêmio e atualiza o estado exibido.",
+      "tags": [
+        "componente",
+        "login-diario",
+        "estado"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/daily-login/daily-login-popup.tsx:DailyLoginPopup",
+      "type": "function",
+      "name": "DailyLoginPopup",
+      "filePath": "frontend/src/features/daily-login/daily-login-popup.tsx",
+      "lineRange": [
+        9,
+        80
+      ],
+      "summary": "Busca os dados do aviso diário, gerencia sua abertura e permite reivindicar a recompensa, tratando erros e atualizando os sistemas.",
+      "tags": [
+        "componente",
+        "login-diario",
+        "estado"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/experience/experience-admin-card.tsx",
+      "type": "file",
+      "name": "experience-admin-card.tsx",
+      "filePath": "frontend/src/features/experience/experience-admin-card.tsx",
+      "summary": "Editor administrativo das regras de experiência do sistema, com campos de nível, fontes de XP e ações para salvar.",
+      "tags": [
+        "componente",
+        "experiencia",
+        "administracao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/experience/experience-admin-card.tsx:ExperienceAdminCard",
+      "type": "function",
+      "name": "ExperienceAdminCard",
+      "filePath": "frontend/src/features/experience/experience-admin-card.tsx",
+      "lineRange": [
+        30,
+        130
+      ],
+      "summary": "Renderiza os ajustes de XP por nível e as fontes habilitadas, delegando mudanças e salvamento aos callbacks recebidos.",
+      "tags": [
+        "componente",
+        "experiencia",
+        "administracao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/experience/experience-model.ts",
+      "type": "file",
+      "name": "experience-model.ts",
+      "filePath": "frontend/src/features/experience/experience-model.ts",
+      "summary": "Cria fontes personalizadas de experiência e valida limites, tipos obrigatórios, nomes únicos e valores das regras.",
+      "tags": [
+        "modelo",
+        "experiencia",
+        "validacao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/experience/experience-model.ts:addCustomExperienceSource",
+      "type": "function",
+      "name": "addCustomExperienceSource",
+      "filePath": "frontend/src/features/experience/experience-model.ts",
+      "lineRange": [
+        5,
+        15
+      ],
+      "summary": "Adiciona uma fonte personalizada desativada com nome que não colide com fontes personalizadas existentes.",
+      "tags": [
+        "experiencia",
+        "fonte-personalizada",
+        "utilitario"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/experience/experience-model.ts:experienceSettingsAreValid",
+      "type": "function",
+      "name": "experienceSettingsAreValid",
+      "filePath": "frontend/src/features/experience/experience-model.ts",
+      "lineRange": [
+        17,
+        36
+      ],
+      "summary": "Valida XP por nível, fontes obrigatórias, limites, nomes personalizados únicos e IDs sem duplicação.",
+      "tags": [
+        "experiencia",
+        "validacao",
+        "regras-de-negocio"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/store/store-admin-card.tsx",
+      "type": "file",
+      "name": "store-admin-card.tsx",
+      "filePath": "frontend/src/features/store/store-admin-card.tsx",
+      "summary": "Componentes de administração da loja: edição de ofertas e moeda, validação dos campos e salvamento automático.",
+      "tags": [
+        "componente",
+        "loja",
+        "salvamento-automatico"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/store/store-admin-card.tsx:useAutosaveField",
+      "type": "function",
+      "name": "useAutosaveField",
+      "filePath": "frontend/src/features/store/store-admin-card.tsx",
+      "lineRange": [
+        20,
+        70
+      ],
+      "summary": "Mantém o estado de um campo editável e coordena salvamentos imediatos ou adiados, revisões pendentes e o estado de erro.",
+      "tags": [
+        "hook",
+        "loja",
+        "salvamento-automatico"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/store/store-admin-card.tsx:autosaveStatusText",
+      "type": "function",
+      "name": "autosaveStatusText",
+      "filePath": "frontend/src/features/store/store-admin-card.tsx",
+      "lineRange": [
+        72,
+        81
+      ],
+      "summary": "Traduz o estado de salvamento em texto apresentado ao usuário.",
+      "tags": [
+        "loja",
+        "status",
+        "utilitario"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/store/store-admin-card.tsx:CurrencySlot",
+      "type": "function",
+      "name": "CurrencySlot",
+      "filePath": "frontend/src/features/store/store-admin-card.tsx",
+      "lineRange": [
+        107,
+        136
+      ],
+      "summary": "Renderiza um campo de moeda e sua imagem, conectando alterações ao mecanismo de salvamento automático.",
+      "tags": [
+        "componente",
+        "loja",
+        "moeda"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/store/store-admin-card.tsx:OfferEditor",
+      "type": "function",
+      "name": "OfferEditor",
+      "filePath": "frontend/src/features/store/store-admin-card.tsx",
+      "lineRange": [
+        138,
+        173
+      ],
+      "summary": "Renderiza e valida os campos de uma oferta da loja, incluindo preço, descrição e imagem.",
+      "tags": [
+        "componente",
+        "loja",
+        "ofertas"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/store/store-admin-card.tsx:StoreAdminCard",
+      "type": "function",
+      "name": "StoreAdminCard",
+      "filePath": "frontend/src/features/store/store-admin-card.tsx",
+      "lineRange": [
+        175,
+        240
+      ],
+      "summary": "Edita o conteúdo administrativo da loja e suas ofertas, apresentando estados de disponibilidade e operações de salvamento.",
+      "tags": [
+        "componente",
+        "loja",
+        "administracao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/store/store-admin-card.tsx:SystemStoreAdmin",
+      "type": "function",
+      "name": "SystemStoreAdmin",
+      "filePath": "frontend/src/features/store/store-admin-card.tsx",
+      "lineRange": [
+        242,
+        300
+      ],
+      "summary": "Carrega e administra a loja do sistema, incluindo moeda e ofertas, integrando dados e ações de edição.",
+      "tags": [
+        "componente",
+        "loja",
+        "administracao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/store/store-card.tsx",
+      "type": "file",
+      "name": "store-card.tsx",
+      "filePath": "frontend/src/features/store/store-card.tsx",
+      "summary": "Exibe ofertas da loja de um sistema e permite que o personagem selecione e compre itens.",
+      "tags": [
+        "componente",
+        "loja",
+        "compras"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/store/store-card.tsx:StoreCard",
+      "type": "function",
+      "name": "StoreCard",
+      "filePath": "frontend/src/features/store/store-card.tsx",
+      "lineRange": [
+        10,
+        34
+      ],
+      "summary": "Exibe as ofertas e seus preços e chama a ação de compra para a oferta selecionada.",
+      "tags": [
+        "componente",
+        "loja",
+        "compras"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/store/store-card.tsx:SystemStore",
+      "type": "function",
+      "name": "SystemStore",
+      "filePath": "frontend/src/features/store/store-card.tsx",
+      "lineRange": [
+        36,
+        68
+      ],
+      "summary": "Carrega a loja e o estado de compra do personagem e apresenta as ofertas disponíveis.",
+      "tags": [
+        "componente",
+        "loja",
+        "compras"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/system-management/book-category.tsx",
+      "type": "file",
+      "name": "book-category.tsx",
+      "filePath": "frontend/src/features/system-management/book-category.tsx",
+      "summary": "Organiza o conteúdo da gestão do sistema em categorias navegáveis, com controle de página e adaptação de layout.",
+      "tags": [
+        "componente",
+        "gestao",
+        "navegacao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/system-management/book-category.tsx:BookCategory",
+      "type": "function",
+      "name": "BookCategory",
+      "filePath": "frontend/src/features/system-management/book-category.tsx",
+      "lineRange": [
+        6,
+        88
+      ],
+      "summary": "Organiza conteúdo em páginas de categoria e adapta a navegação ao layout disponível usando referências e medidas do DOM.",
+      "tags": [
+        "componente",
+        "gestao",
+        "navegacao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "type": "file",
+      "name": "system-management-page.tsx",
+      "filePath": "frontend/src/features/system-management/system-management-page.tsx",
+      "summary": "Coordena a tela de gestão do sistema: carrega dados, controla categorias e executa ações administrativas de calendário, XP, membros e ciclo de vida.",
+      "tags": [
+        "pagina",
+        "gestao-de-sistema",
+        "administracao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/system-management/system-management-page.tsx:SystemManagementPage",
+      "type": "function",
+      "name": "SystemManagementPage",
+      "filePath": "frontend/src/features/system-management/system-management-page.tsx",
+      "lineRange": [
+        39,
+        363
+      ],
+      "summary": "Carrega dados de gestão e integra operações de calendário diário, experiência, associação, permissões e ciclo de vida do sistema.",
+      "tags": [
+        "pagina",
+        "gestao-de-sistema",
+        "administracao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/system-membership/system-membership-card.tsx",
+      "type": "file",
+      "name": "system-membership-card.tsx",
+      "filePath": "frontend/src/features/system-membership/system-membership-card.tsx",
+      "summary": "Apresenta as associações do usuário a sistemas e permite pesquisar personagens para atribuir função de moderador.",
+      "tags": [
+        "componente",
+        "membros",
+        "permissoes"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/system-membership/system-membership-card.tsx:SystemMembershipError",
+      "type": "function",
+      "name": "SystemMembershipError",
+      "filePath": "frontend/src/features/system-membership/system-membership-card.tsx",
+      "lineRange": [
+        15,
+        21
+      ],
+      "summary": "Apresenta um erro de associação e oferece uma ação para repetir a operação.",
+      "tags": [
+        "componente",
+        "membros",
+        "erro"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-membership/system-membership-card.tsx:SystemMembershipCard",
+      "type": "function",
+      "name": "SystemMembershipCard",
+      "filePath": "frontend/src/features/system-membership/system-membership-card.tsx",
+      "lineRange": [
+        25,
+        115
+      ],
+      "summary": "Exibe as associações atuais e permite pesquisar membros e atribuir moderadores com tratamento de estados de busca.",
+      "tags": [
+        "componente",
+        "membros",
+        "permissoes"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/test/daily-login-render.test.ts",
+      "type": "file",
+      "name": "daily-login-render.test.ts",
+      "filePath": "frontend/test/daily-login-render.test.ts",
+      "summary": "Testes de renderização das telas de administração e reivindicação de login diário, além da formatação da mensagem de sucesso.",
+      "tags": [
+        "teste",
+        "login-diario",
+        "renderizacao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/test/experience-render.test.ts",
+      "type": "file",
+      "name": "experience-render.test.ts",
+      "filePath": "frontend/test/experience-render.test.ts",
+      "summary": "Testa a renderização do editor de experiência e as regras que criam e validam fontes de XP.",
+      "tags": [
+        "teste",
+        "experiencia",
+        "renderizacao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/test/store-render.test.ts",
+      "type": "file",
+      "name": "store-render.test.ts",
+      "filePath": "frontend/test/store-render.test.ts",
+      "summary": "Testa a renderização dos controles administrativos de loja e de ofertas.",
+      "tags": [
+        "teste",
+        "loja",
+        "renderizacao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/system-membership-render.test.ts",
+      "type": "file",
+      "name": "system-membership-render.test.ts",
+      "filePath": "frontend/test/system-membership-render.test.ts",
+      "summary": "Testa a renderização dos papéis de associação e dos controles de atribuição de moderadores.",
+      "tags": [
+        "teste",
+        "membros",
+        "renderizacao"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/app/dashboard/systems/[systemId]/manage/page.tsx",
+      "target": "function:frontend/app/dashboard/systems/[systemId]/manage/page.tsx:ManageSystemRoute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/dashboard/systems/[systemId]/manage/page.tsx",
+      "target": "function:frontend/app/dashboard/systems/[systemId]/manage/page.tsx:ManageSystemRoute",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "target": "function:frontend/src/features/daily-login/daily-login-admin-card.tsx:DailyLoginAdminCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "target": "function:frontend/src/features/daily-login/daily-login-admin-card.tsx:DailyLoginAdminCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-card.tsx",
+      "target": "function:frontend/src/features/daily-login/daily-login-card.tsx:DailyLoginCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-card.tsx",
+      "target": "function:frontend/src/features/daily-login/daily-login-card.tsx:DailyLoginCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-messages.ts",
+      "target": "function:frontend/src/features/daily-login/daily-login-messages.ts:formatDailyLoginClaimSuccess",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-messages.ts",
+      "target": "function:frontend/src/features/daily-login/daily-login-messages.ts:formatDailyLoginClaimSuccess",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-popup.tsx",
+      "target": "function:frontend/src/features/daily-login/daily-login-popup.tsx:DailyLoginPopup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-popup.tsx",
+      "target": "function:frontend/src/features/daily-login/daily-login-popup.tsx:DailyLoginPopup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-admin-card.tsx",
+      "target": "function:frontend/src/features/experience/experience-admin-card.tsx:ExperienceAdminCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-admin-card.tsx",
+      "target": "function:frontend/src/features/experience/experience-admin-card.tsx:ExperienceAdminCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-model.ts",
+      "target": "function:frontend/src/features/experience/experience-model.ts:addCustomExperienceSource",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-model.ts",
+      "target": "function:frontend/src/features/experience/experience-model.ts:addCustomExperienceSource",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-model.ts",
+      "target": "function:frontend/src/features/experience/experience-model.ts:experienceSettingsAreValid",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-model.ts",
+      "target": "function:frontend/src/features/experience/experience-model.ts:experienceSettingsAreValid",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "function:frontend/src/features/store/store-admin-card.tsx:useAutosaveField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "function:frontend/src/features/store/store-admin-card.tsx:autosaveStatusText",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "function:frontend/src/features/store/store-admin-card.tsx:CurrencySlot",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "function:frontend/src/features/store/store-admin-card.tsx:OfferEditor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "function:frontend/src/features/store/store-admin-card.tsx:StoreAdminCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "function:frontend/src/features/store/store-admin-card.tsx:StoreAdminCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "function:frontend/src/features/store/store-admin-card.tsx:SystemStoreAdmin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "function:frontend/src/features/store/store-admin-card.tsx:SystemStoreAdmin",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/store/store-card.tsx",
+      "target": "function:frontend/src/features/store/store-card.tsx:StoreCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/store/store-card.tsx",
+      "target": "function:frontend/src/features/store/store-card.tsx:StoreCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/store/store-card.tsx",
+      "target": "function:frontend/src/features/store/store-card.tsx:SystemStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/store/store-card.tsx",
+      "target": "function:frontend/src/features/store/store-card.tsx:SystemStore",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-management/book-category.tsx",
+      "target": "function:frontend/src/features/system-management/book-category.tsx:BookCategory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-management/book-category.tsx",
+      "target": "function:frontend/src/features/system-management/book-category.tsx:BookCategory",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "function:frontend/src/features/system-management/system-management-page.tsx:SystemManagementPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "function:frontend/src/features/system-management/system-management-page.tsx:SystemManagementPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-membership/system-membership-card.tsx",
+      "target": "function:frontend/src/features/system-membership/system-membership-card.tsx:SystemMembershipError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-membership/system-membership-card.tsx",
+      "target": "function:frontend/src/features/system-membership/system-membership-card.tsx:SystemMembershipError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-membership/system-membership-card.tsx",
+      "target": "function:frontend/src/features/system-membership/system-membership-card.tsx:SystemMembershipCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-membership/system-membership-card.tsx",
+      "target": "function:frontend/src/features/system-membership/system-membership-card.tsx:SystemMembershipCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/app/dashboard/systems/[systemId]/manage/page.tsx",
+      "target": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "target": "file:frontend/src/features/daily-login/daily-login-admin.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-card.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-messages.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-popup.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-popup.tsx",
+      "target": "file:frontend/src/features/daily-login/daily-login-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-popup.tsx",
+      "target": "file:frontend/src/features/daily-login/daily-login-messages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-popup.tsx",
+      "target": "file:frontend/src/features/daily-login/daily-login-popup.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-admin-card.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-admin-card.tsx",
+      "target": "file:frontend/src/features/experience/experience-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-model.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "file:frontend/src/features/store/store.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/store/store-card.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/store/store-card.tsx",
+      "target": "file:frontend/src/features/store/store.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/experience/experience-admin-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/experience/experience-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/store/store-admin-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/system-creation/system-creation.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/system-management/book-category.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/system-management/system-details-editor.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/system-management/system-management-codex.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/system-management/system-management-page.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/features/system-membership/system-membership-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-management-page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-membership/system-membership-card.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/daily-login-render.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/daily-login-render.test.ts",
+      "target": "file:frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/daily-login-render.test.ts",
+      "target": "file:frontend/src/features/daily-login/daily-login-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/daily-login-render.test.ts",
+      "target": "file:frontend/src/features/daily-login/daily-login-messages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/experience-render.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/experience-render.test.ts",
+      "target": "file:frontend/src/features/daily-login/daily-login-messages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/experience-render.test.ts",
+      "target": "file:frontend/src/features/experience/experience-admin-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/experience-render.test.ts",
+      "target": "file:frontend/src/features/experience/experience-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/store-render.test.ts",
+      "target": "file:frontend/src/features/store/store-admin-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/store-render.test.ts",
+      "target": "file:frontend/src/features/store/store-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-membership-render.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-membership-render.test.ts",
+      "target": "file:frontend/src/features/system-membership/system-membership-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "target": "file:frontend/test/daily-login-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-card.tsx",
+      "target": "file:frontend/test/daily-login-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-messages.ts",
+      "target": "file:frontend/test/daily-login-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-messages.ts",
+      "target": "file:frontend/test/experience-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-admin-card.tsx",
+      "target": "file:frontend/test/experience-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/experience/experience-model.ts",
+      "target": "file:frontend/test/experience-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/store/store-admin-card.tsx",
+      "target": "file:frontend/test/store-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/store/store-card.tsx",
+      "target": "file:frontend/test/store-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/system-membership/system-membership-card.tsx",
+      "target": "file:frontend/test/system-membership-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "function:frontend/src/features/daily-login/daily-login-popup.tsx:DailyLoginPopup",
+      "target": "function:frontend/src/features/daily-login/daily-login-messages.ts:formatDailyLoginClaimSuccess",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/experience/experience-admin-card.tsx:ExperienceAdminCard",
+      "target": "function:frontend/src/features/experience/experience-model.ts:experienceSettingsAreValid",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/system-management/system-management-page.tsx:SystemManagementPage",
+      "target": "function:frontend/src/features/experience/experience-model.ts:addCustomExperienceSource",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

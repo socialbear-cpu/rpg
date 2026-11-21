@@ -1,0 +1,813 @@
+{
+  "nodes": [
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:users",
+      "type": "table",
+      "name": "users",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela users.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:user_profiles",
+      "type": "table",
+      "name": "user_profiles",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela user_profiles.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:game_systems",
+      "type": "table",
+      "name": "game_systems",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela game_systems.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:characters",
+      "type": "table",
+      "name": "characters",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela characters.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:character_info",
+      "type": "table",
+      "name": "character_info",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_info.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:abilities",
+      "type": "table",
+      "name": "abilities",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela abilities.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:items",
+      "type": "table",
+      "name": "items",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela items.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:achievements",
+      "type": "table",
+      "name": "achievements",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela achievements.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:user_achievements",
+      "type": "table",
+      "name": "user_achievements",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela user_achievements.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:character_achievements",
+      "type": "table",
+      "name": "character_achievements",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_achievements.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:character_abilities",
+      "type": "table",
+      "name": "character_abilities",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_abilities.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:character_inventory",
+      "type": "table",
+      "name": "character_inventory",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela character_inventory.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:products",
+      "type": "table",
+      "name": "products",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela products.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:store_products",
+      "type": "table",
+      "name": "store_products",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela store_products.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:purchases",
+      "type": "table",
+      "name": "purchases",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela purchases.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:purchase_items",
+      "type": "table",
+      "name": "purchase_items",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela purchase_items.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:campaigns",
+      "type": "table",
+      "name": "campaigns",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela campaigns.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:campaign_members",
+      "type": "table",
+      "name": "campaign_members",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela campaign_members.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:chat_rooms",
+      "type": "table",
+      "name": "chat_rooms",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela chat_rooms.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/001_initial_schema.sql:messages",
+      "type": "table",
+      "name": "messages",
+      "filePath": "database/migrations/001_initial_schema.sql",
+      "summary": "Cria o esquema relacional inicial da aplicação: contas, perfis, sistemas de jogo, personagens, inventário, loja e conversas. A alteração se aplica à tabela messages.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/002_character_fields.sql:characters",
+      "type": "table",
+      "name": "characters",
+      "filePath": "database/migrations/002_character_fields.sql",
+      "summary": "Ajusta o modelo de personagem, renomeando campos e removendo a tabela legada de informações do personagem. A alteração se aplica à tabela characters.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/002_character_fields.sql:character_info",
+      "type": "table",
+      "name": "character_info",
+      "filePath": "database/migrations/002_character_fields.sql",
+      "summary": "Ajusta o modelo de personagem, renomeando campos e removendo a tabela legada de informações do personagem. A alteração se aplica à tabela character_info.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/003_supabase_auth.sql:users",
+      "type": "table",
+      "name": "users",
+      "filePath": "database/migrations/003_supabase_auth.sql",
+      "summary": "Integra os usuários existentes ao Supabase Auth e remove o armazenamento local de credenciais. A alteração se aplica à tabela users.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/004_profile_rls.sql:users",
+      "type": "table",
+      "name": "users",
+      "filePath": "database/migrations/004_profile_rls.sql",
+      "summary": "Ativa Row Level Security e limita leitura e atualização de perfis ao próprio usuário. A alteração se aplica à tabela users.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/004_profile_rls.sql:user_profiles",
+      "type": "table",
+      "name": "user_profiles",
+      "filePath": "database/migrations/004_profile_rls.sql",
+      "summary": "Ativa Row Level Security e limita leitura e atualização de perfis ao próprio usuário. A alteração se aplica à tabela user_profiles.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/005_daily_login_rewards.sql:game_systems",
+      "type": "table",
+      "name": "game_systems",
+      "filePath": "database/migrations/005_daily_login_rewards.sql",
+      "summary": "Introduz recompensas e resgates diários por sistema, com registros para auditoria e políticas de acesso. A alteração se aplica à tabela game_systems.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/005_daily_login_rewards.sql:daily_login_rewards",
+      "type": "table",
+      "name": "daily_login_rewards",
+      "filePath": "database/migrations/005_daily_login_rewards.sql",
+      "summary": "Introduz recompensas e resgates diários por sistema, com registros para auditoria e políticas de acesso. A alteração se aplica à tabela daily_login_rewards.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/005_daily_login_rewards.sql:daily_login_claims",
+      "type": "table",
+      "name": "daily_login_claims",
+      "filePath": "database/migrations/005_daily_login_rewards.sql",
+      "summary": "Introduz recompensas e resgates diários por sistema, com registros para auditoria e políticas de acesso. A alteração se aplica à tabela daily_login_claims.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/006_user_hierarchy.sql:platform_admins",
+      "type": "table",
+      "name": "platform_admins",
+      "filePath": "database/migrations/006_user_hierarchy.sql",
+      "summary": "Cria administradores da plataforma e associa membros aos sistemas com papéis e funções de autorização. A alteração se aplica à tabela platform_admins.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/006_user_hierarchy.sql:game_system_memberships",
+      "type": "table",
+      "name": "game_system_memberships",
+      "filePath": "database/migrations/006_user_hierarchy.sql",
+      "summary": "Cria administradores da plataforma e associa membros aos sistemas com papéis e funções de autorização. A alteração se aplica à tabela game_system_memberships.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/007_system_hierarchy_rls.sql:migration",
+      "type": "table",
+      "name": "007_system_hierarchy_rls",
+      "filePath": "database/migrations/007_system_hierarchy_rls.sql",
+      "summary": "Aplica políticas de segurança por propriedade, associação e papel às principais entidades do jogo.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/008_daily_login_popup.sql:daily_login_popup_views",
+      "type": "table",
+      "name": "daily_login_popup_views",
+      "filePath": "database/migrations/008_daily_login_popup.sql",
+      "summary": "Registra a visualização do aviso de login diário por usuário. A alteração se aplica à tabela daily_login_popup_views.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/009_notifications.sql:notifications",
+      "type": "table",
+      "name": "notifications",
+      "filePath": "database/migrations/009_notifications.sql",
+      "summary": "Cria notificações e funções seguras para leitura, anúncios e moderação de sistemas. A alteração se aplica à tabela notifications.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/010_daily_login_popup_per_system.sql:daily_login_system_popup_views",
+      "type": "table",
+      "name": "daily_login_system_popup_views",
+      "filePath": "database/migrations/010_daily_login_popup_per_system.sql",
+      "summary": "Move o controle do aviso diário para o escopo de cada sistema de jogo. A alteração se aplica à tabela daily_login_system_popup_views.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/011_character_experience.sql:game_system_xp_settings",
+      "type": "table",
+      "name": "game_system_xp_settings",
+      "filePath": "database/migrations/011_character_experience.sql",
+      "summary": "Modela fontes de experiência, configurações por sistema e o histórico de XP dos personagens. A alteração se aplica à tabela game_system_xp_settings.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/011_character_experience.sql:game_system_xp_sources",
+      "type": "table",
+      "name": "game_system_xp_sources",
+      "filePath": "database/migrations/011_character_experience.sql",
+      "summary": "Modela fontes de experiência, configurações por sistema e o histórico de XP dos personagens. A alteração se aplica à tabela game_system_xp_sources.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/011_character_experience.sql:character_xp_ledger",
+      "type": "table",
+      "name": "character_xp_ledger",
+      "filePath": "database/migrations/011_character_experience.sql",
+      "summary": "Modela fontes de experiência, configurações por sistema e o histórico de XP dos personagens. A alteração se aplica à tabela character_xp_ledger.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/012_character_item_trading.sql:character_inventory",
+      "type": "table",
+      "name": "character_inventory",
+      "filePath": "database/migrations/012_character_item_trading.sql",
+      "summary": "Adiciona ofertas de troca entre personagens e linhas de itens, com índices para consulta e concorrência. A alteração se aplica à tabela character_inventory.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/012_character_item_trading.sql:trade_offers",
+      "type": "table",
+      "name": "trade_offers",
+      "filePath": "database/migrations/012_character_item_trading.sql",
+      "summary": "Adiciona ofertas de troca entre personagens e linhas de itens, com índices para consulta e concorrência. A alteração se aplica à tabela trade_offers.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/012_character_item_trading.sql:trade_offer_lines",
+      "type": "table",
+      "name": "trade_offer_lines",
+      "filePath": "database/migrations/012_character_item_trading.sql",
+      "summary": "Adiciona ofertas de troca entre personagens e linhas de itens, com índices para consulta e concorrência. A alteração se aplica à tabela trade_offer_lines.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/013_system_character_sheets.sql:game_system_character_sheets",
+      "type": "table",
+      "name": "game_system_character_sheets",
+      "filePath": "database/migrations/013_system_character_sheets.sql",
+      "summary": "Permite que cada sistema defina e persista fichas de personagem próprias. A alteração se aplica à tabela game_system_character_sheets.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/014_profile_usernames.sql:user_profiles",
+      "type": "table",
+      "name": "user_profiles",
+      "filePath": "database/migrations/014_profile_usernames.sql",
+      "summary": "Adiciona usernames únicos aos perfis e um índice case-insensitive para evitar duplicidade. A alteração se aplica à tabela user_profiles.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:database/migrations/015_visual_character_sheet.sql:game_system_character_sheets",
+      "type": "table",
+      "name": "game_system_character_sheets",
+      "filePath": "database/migrations/015_visual_character_sheet.sql",
+      "summary": "Expande o modelo visual das fichas de personagem e seus dados configuráveis. A alteração se aplica à tabela game_system_character_sheets.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/016_character_sheet_visual_elements.sql:game_system_character_sheets",
+      "type": "table",
+      "name": "game_system_character_sheets",
+      "filePath": "database/migrations/016_character_sheet_visual_elements.sql",
+      "summary": "Adiciona elementos visuais estruturados às fichas personalizadas. A alteração se aplica à tabela game_system_character_sheets.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/017_character_sheet_choices_and_conditions.sql:game_system_character_sheets",
+      "type": "table",
+      "name": "game_system_character_sheets",
+      "filePath": "database/migrations/017_character_sheet_choices_and_conditions.sql",
+      "summary": "Adiciona opções e condições para controlar campos e escolhas nas fichas de personagem. A alteração se aplica à tabela game_system_character_sheets.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/018_system_store_economy.sql:game_systems",
+      "type": "table",
+      "name": "game_systems",
+      "filePath": "database/migrations/018_system_store_economy.sql",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela game_systems.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/018_system_store_economy.sql:daily_login_rewards",
+      "type": "table",
+      "name": "daily_login_rewards",
+      "filePath": "database/migrations/018_system_store_economy.sql",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela daily_login_rewards.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/018_system_store_economy.sql:daily_login_claims",
+      "type": "table",
+      "name": "daily_login_claims",
+      "filePath": "database/migrations/018_system_store_economy.sql",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela daily_login_claims.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/018_system_store_economy.sql:character_wallets",
+      "type": "table",
+      "name": "character_wallets",
+      "filePath": "database/migrations/018_system_store_economy.sql",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela character_wallets.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/018_system_store_economy.sql:character_currency_ledger",
+      "type": "table",
+      "name": "character_currency_ledger",
+      "filePath": "database/migrations/018_system_store_economy.sql",
+      "summary": "Introduz moeda por sistema e lançamentos de saldo para as transações da loja. A alteração se aplica à tabela character_currency_ledger.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:database/migrations/019_system_member_character_search.sql:migration",
+      "type": "table",
+      "name": "019_system_member_character_search",
+      "filePath": "database/migrations/019_system_member_character_search.sql",
+      "summary": "Ajusta funções e permissões para permitir busca de personagens por membros do sistema.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/020_game_system_visibility_password.sql:game_systems",
+      "type": "table",
+      "name": "game_systems",
+      "filePath": "database/migrations/020_game_system_visibility_password.sql",
+      "summary": "Armazena controles de visibilidade e acesso por senha nos sistemas de jogo. A alteração se aplica à tabela game_systems.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/020_game_system_visibility_password.sql:system_password_attempts",
+      "type": "table",
+      "name": "system_password_attempts",
+      "filePath": "database/migrations/020_game_system_visibility_password.sql",
+      "summary": "Armazena controles de visibilidade e acesso por senha nos sistemas de jogo. A alteração se aplica à tabela system_password_attempts.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:database/migrations/021_fix_daily_login_inventory_upsert.sql:migration",
+      "type": "table",
+      "name": "021_fix_daily_login_inventory_upsert",
+      "filePath": "database/migrations/021_fix_daily_login_inventory_upsert.sql",
+      "summary": "Corrige a atualização atômica de itens recebidos por resgates de login diário.",
+      "tags": [
+        "database",
+        "migration",
+        "schema"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "table:database/migrations/002_character_fields.sql:characters",
+      "target": "table:database/migrations/001_initial_schema.sql:characters",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/002_character_fields.sql:character_info",
+      "target": "table:database/migrations/001_initial_schema.sql:character_info",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/003_supabase_auth.sql:users",
+      "target": "table:database/migrations/001_initial_schema.sql:users",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/004_profile_rls.sql:users",
+      "target": "table:database/migrations/001_initial_schema.sql:users",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/004_profile_rls.sql:user_profiles",
+      "target": "table:database/migrations/001_initial_schema.sql:user_profiles",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/005_daily_login_rewards.sql:game_systems",
+      "target": "table:database/migrations/001_initial_schema.sql:game_systems",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/012_character_item_trading.sql:character_inventory",
+      "target": "table:database/migrations/001_initial_schema.sql:character_inventory",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/014_profile_usernames.sql:user_profiles",
+      "target": "table:database/migrations/001_initial_schema.sql:user_profiles",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/015_visual_character_sheet.sql:game_system_character_sheets",
+      "target": "table:database/migrations/013_system_character_sheets.sql:game_system_character_sheets",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/016_character_sheet_visual_elements.sql:game_system_character_sheets",
+      "target": "table:database/migrations/013_system_character_sheets.sql:game_system_character_sheets",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/017_character_sheet_choices_and_conditions.sql:game_system_character_sheets",
+      "target": "table:database/migrations/013_system_character_sheets.sql:game_system_character_sheets",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/018_system_store_economy.sql:game_systems",
+      "target": "table:database/migrations/001_initial_schema.sql:game_systems",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/018_system_store_economy.sql:daily_login_rewards",
+      "target": "table:database/migrations/005_daily_login_rewards.sql:daily_login_rewards",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/018_system_store_economy.sql:daily_login_claims",
+      "target": "table:database/migrations/005_daily_login_rewards.sql:daily_login_claims",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:database/migrations/020_game_system_visibility_password.sql:game_systems",
+      "target": "table:database/migrations/001_initial_schema.sql:game_systems",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

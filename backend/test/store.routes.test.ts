@@ -1,3 +1,4 @@
+import { withActiveAccount } from './fixtures/supabase-fetch.js';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildApp } from '../src/create-app.js';
 const system = '30000000-0000-4000-8000-000000000001';
@@ -11,7 +12,7 @@ let calls: { url: URL; method: string; body: any; headers: Headers }[];
 beforeEach(() => {
   vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co'); vi.stubEnv('SUPABASE_PUBLISHABLE_KEY', 'test');
   owner = false; admin = false; validCharacter = true; status = 'purchased'; updateStatus = 'updated'; calls = [];
-  vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+  vi.stubGlobal('fetch', withActiveAccount(async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input)); const method = init?.method ?? 'GET';
     const body = init?.body ? JSON.parse(String(init.body)) : null;
     calls.push({ url, method, body, headers: new Headers(init?.headers) });
@@ -29,7 +30,7 @@ beforeEach(() => {
     if (table === 'products') return Response.json([{ id: product, item_id: item, ability_id: null }, { id: character, item_id: null, ability_id: character }]);
     if (table === 'store_products') return Response.json([{ id: listing, product_id: product, price: 1.5, is_available: true }, { id: character, product_id: character, price: 2, is_available: true }]);
     throw new Error(`Unexpected ${url}`);
-  });
+  }));
 });
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 async function request(method: 'GET'|'POST'|'PUT', path: string, payload?: unknown, auth = true) {

@@ -1,0 +1,23 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 0,
+  "filesSkipped": [
+    ".superpowers/brainstorm/sheet-mockup/content/layout-v1.html",
+    ".superpowers/brainstorm/sheet-mockup/content/layout-v2.html",
+    ".superpowers/brainstorm/sheet-mockup/content/layout-v3.html",
+    ".superpowers/brainstorm/sheet-mockup/content/layout-v4.html"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 0,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": []
+}

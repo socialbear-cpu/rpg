@@ -1,5 +1,5 @@
+import { errorSchema, authOptions } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { authenticate } from '../../plugins/authenticate.js';
 import { readMySystemMemberships, searchSystemMembersByCharacterName, setSystemModerator } from './system-membership.repository.js';
 import {
   memberSearchParamsSchema,
@@ -9,15 +9,6 @@ import {
   systemMemberSearchResponseSchema,
   systemMembershipsResponseSchema,
 } from './system-membership.schema.js';
-
-const errorSchema = {
-  type: 'object', required: ['error'], additionalProperties: false,
-  properties: { error: { type: 'string' } },
-} as const;
-const authOptions = {
-  preHandler: authenticate,
-  schema: { security: [{ bearerAuth: [] }] },
-};
 
 function databaseError(reply: FastifyReply) {
   return reply.code(500).send({ error: 'Unable to access system memberships' });

@@ -1,0 +1,59 @@
+{
+  "nodes": [
+    {
+      "id": "config:frontend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "frontend/.env.example",
+      "summary": "Lista as duas variáveis públicas necessárias para apontar o frontend ao Supabase local: URL do projeto e chave publishable.",
+      "tags": ["supabase", "variaveis-de-ambiente", "configuracao-publica"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:frontend/AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "frontend/AGENTS.md",
+      "summary": "Registra notas sobre a versão de Next.js usada pelo frontend e a origem dos arquivos de orientação que o próprio Next.js gera.",
+      "tags": ["nextjs", "documentacao", "frontend"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:frontend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "frontend/README.md",
+      "summary": "Explica como desenvolver e publicar o frontend Next.js, configurar Supabase Auth e integrar as rotas API ao Fastify no mesmo processo. Também descreve os fluxos de autenticação e as recompensas de login diário.",
+      "tags": ["nextjs", "supabase-auth", "deploy", "login-diario"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "frontend/package.json",
+      "summary": "Define o workspace privado do frontend, que exige Node.js 24 ou superior e usa Next.js e React. Oferece comandos para desenvolvimento, build, execução, testes e verificação de tipos.",
+      "tags": ["npm-workspace", "nextjs", "react", "scripts"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/styles.css",
+      "type": "file",
+      "name": "styles.css",
+      "filePath": "frontend/styles.css",
+      "summary": "Define a folha de estilos global do frontend, com paleta escura, variáveis visuais e regras para componentes de navegação, formulários, cartões e layouts responsivos.",
+      "tags": ["css", "estilos-globais", "design-system", "responsivo"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:frontend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "frontend/tsconfig.json",
+      "summary": "Configura o TypeScript do frontend em modo estrito, com JSX React, resolução de módulos bundler e alias `@/*` para `src/*`. Inclui os arquivos TypeScript da aplicação e exclui `node_modules`.",
+      "tags": ["typescript", "compilacao", "alias-de-modulo", "nextjs"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

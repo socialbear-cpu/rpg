@@ -1,0 +1,613 @@
+{
+  "nodes": [
+    {
+      "id": "table:supabase/migrations/001_initial_schema.sql:migration",
+      "type": "table",
+      "name": "Migração: Esquema inicial",
+      "summary": "Migração SQL que define as tabelas centrais de usuários, perfis, sistemas, personagens, conquistas, inventário, campanhas, conversas e compras.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/001_initial_schema.sql"
+    },
+    {
+      "id": "table:supabase/migrations/002_character_fields.sql:migration",
+      "type": "table",
+      "name": "Migração: Campos de personagem",
+      "summary": "Migração SQL que move os dados principais de personagem para `characters` e acrescenta campos de clã, altura e patente.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/002_character_fields.sql"
+    },
+    {
+      "id": "table:supabase/migrations/003_supabase_auth.sql:migration",
+      "type": "table",
+      "name": "Migração: Integração com Supabase Auth",
+      "summary": "Migração SQL que vincula os usuários existentes ao Supabase Auth e substitui o armazenamento local de credenciais.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "segurança"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/003_supabase_auth.sql"
+    },
+    {
+      "id": "table:supabase/migrations/004_profile_rls.sql:migration",
+      "type": "table",
+      "name": "Migração: Segurança de perfis",
+      "summary": "Migração SQL que restringe privilégios e configura RLS para que usuários autenticados leiam perfis e alterem apenas campos públicos.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "segurança"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/004_profile_rls.sql"
+    },
+    {
+      "id": "table:supabase/migrations/005_daily_login_rewards.sql:migration",
+      "type": "table",
+      "name": "Migração: Recompensas de login diário",
+      "summary": "Migração SQL que adiciona calendários semanais de recompensas por sistema e uma operação transacional de resgate vinculada ao usuário autenticado.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/005_daily_login_rewards.sql"
+    },
+    {
+      "id": "table:supabase/migrations/006_user_hierarchy.sql:migration",
+      "type": "table",
+      "name": "Migração: Hierarquia de usuários",
+      "summary": "Migração SQL que cria administradores globais, papéis por sistema e funções privadas de autorização.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/006_user_hierarchy.sql"
+    },
+    {
+      "id": "table:supabase/migrations/007_system_hierarchy_rls.sql:migration",
+      "type": "table",
+      "name": "Migração: RLS da hierarquia",
+      "summary": "Migração SQL que define políticas de acesso por papel para sistemas, personagens e recursos associados.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "segurança"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/007_system_hierarchy_rls.sql"
+    },
+    {
+      "id": "table:supabase/migrations/008_daily_login_popup.sql:migration",
+      "type": "table",
+      "name": "Migração: Popup de login diário",
+      "summary": "Migração SQL que registra a visualização do popup diário e fornece uma operação privada para limitar sua frequência.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/008_daily_login_popup.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261111014645_notifications.sql:migration",
+      "type": "table",
+      "name": "Migração: Notificações",
+      "summary": "Migração SQL que cria a caixa de entrada persistente por usuário para mudanças de papel e avisos dos sistemas.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "social"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261111014645_notifications.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261111021246_daily_login_popup_per_system.sql:migration",
+      "type": "table",
+      "name": "Migração: Popup diário por sistema",
+      "summary": "Migração SQL que adiciona o registro de visualização do popup associado a cada sistema de jogo.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261111021246_daily_login_popup_per_system.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261111181232_character_experience.sql:migration",
+      "type": "table",
+      "name": "Migração: Experiência de personagem",
+      "summary": "Migração SQL que adiciona fontes de experiência por sistema, configurações e um histórico de alterações por personagem.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261111181232_character_experience.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261111190000_character_item_trading.sql:migration",
+      "type": "table",
+      "name": "Migração: Troca de itens",
+      "summary": "Migração SQL que implementa propostas de troca, linhas de oferta e operações transacionais para negociar itens entre personagens.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens",
+        "loja"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261111190000_character_item_trading.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261111200000_system_character_sheets.sql:migration",
+      "type": "table",
+      "name": "Migração: Fichas de personagem por sistema",
+      "summary": "Migração SQL que adiciona configurações de ficha e dados específicos de personagem vinculados a cada sistema.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261111200000_system_character_sheets.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261112183000_profile_usernames.sql:migration",
+      "type": "table",
+      "name": "Migração: Nomes de usuário",
+      "summary": "Migração SQL que adiciona nomes de usuário aos perfis e garante unicidade sem diferenciar maiúsculas e minúsculas.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261112183000_profile_usernames.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261112193504_visual_character_sheet.sql:migration",
+      "type": "table",
+      "name": "Migração: Fichas visuais",
+      "summary": "Migração SQL que armazena configurações visuais e componentes reutilizáveis para fichas de personagem.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261112193504_visual_character_sheet.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261112210000_system_store_economy.sql:migration",
+      "type": "table",
+      "name": "Migração: Economia da loja",
+      "summary": "Migração SQL que adiciona moedas por sistema e um livro-razão de transações para o saldo dos personagens.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "loja"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261112210000_system_store_economy.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261112223000_character_sheet_visual_elements.sql:migration",
+      "type": "table",
+      "name": "Migração: Elementos visuais da ficha",
+      "summary": "Migração SQL que adiciona elementos configuráveis à interface da ficha visual de personagem.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261112223000_character_sheet_visual_elements.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261112224500_character_sheet_choices_and_conditions.sql:migration",
+      "type": "table",
+      "name": "Migração: Escolhas e condições da ficha",
+      "summary": "Migração SQL que expande as definições da ficha com escolhas condicionais e regras de visibilidade.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261112224500_character_sheet_choices_and_conditions.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261113220000_game_system_visibility_password.sql:migration",
+      "type": "table",
+      "name": "Migração: Visibilidade e senha dos sistemas",
+      "summary": "Migração SQL que adiciona metadados de descoberta, visibilidade e proteção por senha aos sistemas de jogo.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "segurança"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261113220000_game_system_visibility_password.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261113221000_system_password_access_enforcement.sql:migration",
+      "type": "table",
+      "name": "Migração: Acesso protegido por senha",
+      "summary": "Migração SQL que aplica a validação de senha nos fluxos de acesso a sistemas privados.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "segurança"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261113221000_system_password_access_enforcement.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261114001000_system_discovery_metadata.sql:migration",
+      "type": "table",
+      "name": "Migração: Metadados de descoberta",
+      "summary": "Migração SQL que adiciona tags e índices para classificar e localizar sistemas de jogo.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261114001000_system_discovery_metadata.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261114144818_system_lifecycle.sql:migration",
+      "type": "table",
+      "name": "Migração: Ciclo de vida dos sistemas",
+      "summary": "Migração SQL que define estados de ciclo de vida e operações de arquivamento para sistemas de jogo.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261114144818_system_lifecycle.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261114145224_fix_system_tag_labels.sql:migration",
+      "type": "table",
+      "name": "Migração: Correção de rótulos de tags",
+      "summary": "Migração SQL que normaliza rótulos de tags existentes para manter a classificação dos sistemas consistente.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261114145224_fix_system_tag_labels.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261114151644_require_email_confirmation_for_system_deletion.sql:migration",
+      "type": "table",
+      "name": "Migração: Confirmação para exclusão",
+      "summary": "Migração SQL que exige confirmação por e-mail antes de excluir um sistema de jogo.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "segurança"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261114151644_require_email_confirmation_for_system_deletion.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261114210354_system_member_character_search.sql:migration",
+      "type": "table",
+      "name": "Migração: Busca de personagens de membros",
+      "summary": "Migração SQL que amplia a busca de membros para localizar personagens dentro dos sistemas autorizados.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261114210354_system_member_character_search.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261114215315_atomic_system_store_update.sql:migration",
+      "type": "table",
+      "name": "Migração: Atualização atômica da loja",
+      "summary": "Migração SQL que agrupa a atualização da loja de um sistema em uma única operação consistente.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "loja"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261114215315_atomic_system_store_update.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261114223717_system_events.sql:migration",
+      "type": "table",
+      "name": "Migração: Eventos de sistema",
+      "summary": "Migração SQL que cria eventos de campanha associados aos sistemas e índices para consultá-los por data.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261114223717_system_events.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261114232728_campaign_chat_room_authorization.sql:migration",
+      "type": "table",
+      "name": "Migração: Autorização de salas de campanha",
+      "summary": "Migração SQL que ajusta as regras de autorização de salas de chat vinculadas às campanhas.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "segurança",
+        "social"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261114232728_campaign_chat_room_authorization.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261115013118_lobby_creator_tools.sql:migration",
+      "type": "table",
+      "name": "Migração: Ferramentas do criador de lobby",
+      "summary": "Migração SQL que adiciona configurações e permissões para as ferramentas de criação de lobby.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "social"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261115013118_lobby_creator_tools.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261115120000_store_item_images.sql:migration",
+      "type": "table",
+      "name": "Migração: Imagens de itens da loja",
+      "summary": "Migração SQL que permite associar imagens aos itens disponibilizados na loja do sistema.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "loja"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261115120000_store_item_images.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261115125424_store_currency_and_offer_autosave.sql:migration",
+      "type": "table",
+      "name": "Migração: Moeda e salvamento de ofertas",
+      "summary": "Migração SQL que atualiza a persistência de moeda e o salvamento automático de ofertas de troca.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "loja"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261115125424_store_currency_and_offer_autosave.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261115140000_chats_as_game_space.sql:migration",
+      "type": "table",
+      "name": "Migração: Conversas como espaço de jogo",
+      "summary": "Migração SQL que adapta salas de chat para funcionarem como espaços de jogo com mensagens e dados de campanha.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "social"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261115140000_chats_as_game_space.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261115155939_store_currency_image_permissions.sql:migration",
+      "type": "table",
+      "name": "Migração: Permissões de imagens e moeda",
+      "summary": "Migração SQL que ajusta as permissões de acesso às imagens da loja e aos dados de moeda.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "segurança",
+        "loja"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261115155939_store_currency_image_permissions.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261115162952_daily_login_per_character.sql:migration",
+      "type": "table",
+      "name": "Migração: Login diário por personagem",
+      "summary": "Migração SQL que migra o registro e as regras de recompensas diárias para o escopo de cada personagem.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261115162952_daily_login_per_character.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261115170000_remove_character_sheet_conditions.sql:migration",
+      "type": "table",
+      "name": "Migração: Remoção de condições da ficha",
+      "summary": "Migração SQL que remove condições antigas da estrutura e dos dados das fichas de personagem.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "personagens"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261115170000_remove_character_sheet_conditions.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261115180000_account_settings.sql:migration",
+      "type": "table",
+      "name": "Migração: Configurações de conta",
+      "summary": "Migração SQL que adiciona campos de perfil e solicitações de transferência de propriedade de sistemas.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261115180000_account_settings.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261115210000_profile_customization.sql:migration",
+      "type": "table",
+      "name": "Migração: Personalização de perfil",
+      "summary": "Migração SQL que adiciona banner, status e interesses ao perfil e define uma operação controlada para atualizá-los.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261115210000_profile_customization.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261116180000_friendships.sql:migration",
+      "type": "table",
+      "name": "Migração: Amizades",
+      "summary": "Migração SQL que cria solicitações de amizade com estados e restrições para evitar pares duplicados ou autoconvites.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "social"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261116180000_friendships.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261116190000_rpg_invitations.sql:migration",
+      "type": "table",
+      "name": "Migração: Convites de RPG",
+      "summary": "Migração SQL que implementa convites para sistemas de RPG e valida a busca social usada no fluxo.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "social"
+      ],
+      "complexity": "complex",
+      "filePath": "supabase/migrations/20261116190000_rpg_invitations.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261116191152_public_player_profiles.sql:migration",
+      "type": "table",
+      "name": "Migração: Perfis públicos de jogadores",
+      "summary": "Migração SQL que adiciona comentários e mensagens diretas associados a perfis públicos.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261116191152_public_player_profiles.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261116195000_allow_profile_timestamp_updates.sql:migration",
+      "type": "table",
+      "name": "Migração: Proteção de campos de perfil",
+      "summary": "Migração SQL que refina o gatilho que impede alterações não autorizadas nos campos protegidos do perfil.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "segurança"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261116195000_allow_profile_timestamp_updates.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261116200000_username_change_once.sql:migration",
+      "type": "table",
+      "name": "Migração: Limite de alteração de nome",
+      "summary": "Migração SQL que impõe a regra de que o nome de usuário do perfil só pode ser alterado uma vez.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261116200000_username_change_once.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261117013820_system_lobby_presence.sql:migration",
+      "type": "table",
+      "name": "Migração: Presença no lobby",
+      "summary": "Migração SQL que armazena batimentos de presença dos jogadores por sistema e fornece controle de acesso restrito.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "social"
+      ],
+      "complexity": "moderate",
+      "filePath": "supabase/migrations/20261117013820_system_lobby_presence.sql"
+    },
+    {
+      "id": "table:supabase/migrations/20261117014550_lobby_welcome_copy_defaults.sql:migration",
+      "type": "table",
+      "name": "Migração: Textos padrão de boas-vindas",
+      "summary": "Migração SQL que define título e mensagem padrão para a recepção do lobby.",
+      "tags": [
+        "database",
+        "migration",
+        "supabase",
+        "social"
+      ],
+      "complexity": "simple",
+      "filePath": "supabase/migrations/20261117014550_lobby_welcome_copy_defaults.sql"
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,6811 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 21,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 21,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 21,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/app/dashboard/systems/new/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "NewSystemPage",
+          "startLine": 9,
+          "endLine": 20,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "NewSystemPage",
+          "line": 9,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "NewSystemPage",
+          "callee": "useRouter",
+          "lineNumber": 10
+        },
+        {
+          "caller": "NewSystemPage",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "NewSystemPage",
+          "callee": "useEffect",
+          "lineNumber": 13
+        },
+        {
+          "caller": "NewSystemPage",
+          "callee": "hasSession",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NewSystemPage",
+          "callee": "setAuthenticated",
+          "lineNumber": 14
+        },
+        {
+          "caller": "NewSystemPage",
+          "callee": "router.replace",
+          "lineNumber": 15
+        },
+        {
+          "caller": "NewSystemPage",
+          "callee": "router.push",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/app/systems/[systemId]/home/[characterId]/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "SystemCharacterHomePage",
+          "startLine": 9,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "SystemCharacterHomeContent",
+          "startLine": 13,
+          "endLine": 21,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SystemCharacterHomePage",
+          "line": 9,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "useRouter",
+          "lineNumber": 14
+        },
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "useParams",
+          "lineNumber": 15
+        },
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "useSearchParams",
+          "lineNumber": 16
+        },
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "useEffect",
+          "lineNumber": 18
+        },
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "hasSession",
+          "lineNumber": 18
+        },
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "setAuthenticated",
+          "lineNumber": 18
+        },
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "router.replace",
+          "lineNumber": 18
+        },
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "searchParams.get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "SystemCharacterHomeContent",
+          "callee": "router.push",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/app/trading/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "functions": [
+        {
+          "name": "PlayerTradingRoute",
+          "startLine": 3,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PlayerTradingRoute",
+          "line": 3,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/api.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 980,
+      "nonEmptyLines": 852,
+      "functions": [
+        {
+          "name": "getPublicPlayerProfile",
+          "startLine": 30,
+          "endLine": 30,
+          "params": [
+            "username"
+          ]
+        },
+        {
+          "name": "getProfileComments",
+          "startLine": 31,
+          "endLine": 31,
+          "params": [
+            "username"
+          ]
+        },
+        {
+          "name": "postProfileComment",
+          "startLine": 32,
+          "endLine": 32,
+          "params": [
+            "username",
+            "content"
+          ]
+        },
+        {
+          "name": "deleteProfileComment",
+          "startLine": 33,
+          "endLine": 33,
+          "params": [
+            "id"
+          ]
+        },
+        {
+          "name": "getDirectMessages",
+          "startLine": 34,
+          "endLine": 34,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "sendDirectMessage",
+          "startLine": 35,
+          "endLine": 35,
+          "params": [
+            "userId",
+            "content"
+          ]
+        },
+        {
+          "name": "searchSocialProfiles",
+          "startLine": 36,
+          "endLine": 36,
+          "params": [
+            "query"
+          ]
+        },
+        {
+          "name": "getMyFriends",
+          "startLine": 37,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "getSocialInvitations",
+          "startLine": 38,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "sendFriendRequest",
+          "startLine": 39,
+          "endLine": 39,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "respondToFriendRequest",
+          "startLine": 40,
+          "endLine": 40,
+          "params": [
+            "id",
+            "decision"
+          ]
+        },
+        {
+          "name": "removeMyFriend",
+          "startLine": 41,
+          "endLine": 41,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "createSystemFriendInvitation",
+          "startLine": 42,
+          "endLine": 42,
+          "params": [
+            "systemId",
+            "friendUserId"
+          ]
+        },
+        {
+          "name": "createChatFriendInvitation",
+          "startLine": 43,
+          "endLine": 43,
+          "params": [
+            "chatId",
+            "friendUserId"
+          ]
+        },
+        {
+          "name": "respondToSocialInvitation",
+          "startLine": 44,
+          "endLine": 44,
+          "params": [
+            "id",
+            "decision",
+            "characterId"
+          ]
+        },
+        {
+          "name": "getMyAccountSettings",
+          "startLine": 78,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "deactivateMyAccount",
+          "startLine": 82,
+          "endLine": 84,
+          "params": []
+        },
+        {
+          "name": "reactivateMyAccount",
+          "startLine": 86,
+          "endLine": 88,
+          "params": []
+        },
+        {
+          "name": "deleteMyAccount",
+          "startLine": 90,
+          "endLine": 92,
+          "params": []
+        },
+        {
+          "name": "requestSystemOwnerTransfer",
+          "startLine": 94,
+          "endLine": 99,
+          "params": [
+            "systemId",
+            "targetUserId"
+          ]
+        },
+        {
+          "name": "acceptSystemOwnerTransfer",
+          "startLine": 101,
+          "endLine": 103,
+          "params": [
+            "transferId"
+          ]
+        },
+        {
+          "name": "cancelSystemOwnerTransfer",
+          "startLine": 105,
+          "endLine": 107,
+          "params": [
+            "transferId"
+          ]
+        },
+        {
+          "name": "getSystemLobbySettings",
+          "startLine": 225,
+          "endLine": 227,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "updateSystemLobbySettings",
+          "startLine": 229,
+          "endLine": 233,
+          "params": [
+            "systemId",
+            "settings"
+          ]
+        },
+        {
+          "name": "startSystemEvent",
+          "startLine": 235,
+          "endLine": 237,
+          "params": [
+            "systemId",
+            "eventId"
+          ]
+        },
+        {
+          "name": "getSystemEvents",
+          "startLine": 239,
+          "endLine": 241,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "heartbeatSystemLobbyPresence",
+          "startLine": 243,
+          "endLine": 245,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "createSystemEvent",
+          "startLine": 247,
+          "endLine": 251,
+          "params": [
+            "systemId",
+            "event"
+          ]
+        },
+        {
+          "name": "updateSystemEvent",
+          "startLine": 253,
+          "endLine": 257,
+          "params": [
+            "systemId",
+            "eventId",
+            "event"
+          ]
+        },
+        {
+          "name": "deleteSystemEvent",
+          "startLine": 259,
+          "endLine": 261,
+          "params": [
+            "systemId",
+            "eventId"
+          ]
+        },
+        {
+          "name": "createSystemChat",
+          "startLine": 296,
+          "endLine": 301,
+          "params": [
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "getCharacterChats",
+          "startLine": 311,
+          "endLine": 315,
+          "params": [
+            "characterId"
+          ]
+        },
+        {
+          "name": "getCharacterChatMessages",
+          "startLine": 317,
+          "endLine": 321,
+          "params": [
+            "characterId",
+            "chatId"
+          ]
+        },
+        {
+          "name": "sendCharacterChatMessage",
+          "startLine": 323,
+          "endLine": 328,
+          "params": [
+            "characterId",
+            "chatId",
+            "content"
+          ]
+        },
+        {
+          "name": "takeDailyLoginPopup",
+          "startLine": 489,
+          "endLine": 493,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "getMySystemMemberships",
+          "startLine": 612,
+          "endLine": 614,
+          "params": []
+        },
+        {
+          "name": "searchSystemMembersByCharacterName",
+          "startLine": 616,
+          "endLine": 621,
+          "params": [
+            "gameSystemId",
+            "query"
+          ]
+        },
+        {
+          "name": "setSystemModerator",
+          "startLine": 623,
+          "endLine": 628,
+          "params": [
+            "gameSystemId",
+            "userId",
+            "isModerator"
+          ]
+        },
+        {
+          "name": "getMyNotifications",
+          "startLine": 630,
+          "endLine": 633,
+          "params": [
+            "limit",
+            "offset"
+          ]
+        },
+        {
+          "name": "markNotificationRead",
+          "startLine": 635,
+          "endLine": 640,
+          "params": [
+            "notificationId"
+          ]
+        },
+        {
+          "name": "publishSystemAnnouncement",
+          "startLine": 642,
+          "endLine": 647,
+          "params": [
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "checkHealth",
+          "startLine": 649,
+          "endLine": 653,
+          "params": []
+        },
+        {
+          "name": "getMyProfile",
+          "startLine": 655,
+          "endLine": 657,
+          "params": []
+        },
+        {
+          "name": "getGameSystems",
+          "startLine": 659,
+          "endLine": 662,
+          "params": [
+            "options"
+          ]
+        },
+        {
+          "name": "createGameSystem",
+          "startLine": 664,
+          "endLine": 668,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "getGameSystemTagOptions",
+          "startLine": 670,
+          "endLine": 672,
+          "params": []
+        },
+        {
+          "name": "updateGameSystem",
+          "startLine": 674,
+          "endLine": 678,
+          "params": [
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "updateGameSystemLifecycle",
+          "startLine": 680,
+          "endLine": 685,
+          "params": [
+            "systemId",
+            "action"
+          ]
+        },
+        {
+          "name": "deleteGameSystem",
+          "startLine": 687,
+          "endLine": 691,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "getGameSystemCoverUrl",
+          "startLine": 693,
+          "endLine": 697,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "uploadGameSystemCover",
+          "startLine": 699,
+          "endLine": 727,
+          "params": [
+            "systemId",
+            "file"
+          ]
+        },
+        {
+          "name": "deleteGameSystemCover",
+          "startLine": 729,
+          "endLine": 746,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "getCharacterSheet",
+          "startLine": 748,
+          "endLine": 752,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "updateGameSystemCharacterSheet",
+          "startLine": 754,
+          "endLine": 759,
+          "params": [
+            "systemId",
+            "definition"
+          ]
+        },
+        {
+          "name": "getSystemCharacters",
+          "startLine": 761,
+          "endLine": 765,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "requestSystemAccess",
+          "startLine": 767,
+          "endLine": 772,
+          "params": [
+            "systemId",
+            "password"
+          ]
+        },
+        {
+          "name": "createSystemCharacter",
+          "startLine": 774,
+          "endLine": 779,
+          "params": [
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "updateMyProfile",
+          "startLine": 781,
+          "endLine": 787,
+          "params": [
+            "patch"
+          ]
+        },
+        {
+          "name": "getMyDailyLoginSystems",
+          "startLine": 789,
+          "endLine": 791,
+          "params": []
+        },
+        {
+          "name": "getTradeCharacters",
+          "startLine": 793,
+          "endLine": 797,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "getTradeCharacterInventory",
+          "startLine": 799,
+          "endLine": 803,
+          "params": [
+            "systemId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "getMyCharacterInventory",
+          "startLine": 805,
+          "endLine": 809,
+          "params": [
+            "characterId"
+          ]
+        },
+        {
+          "name": "getTradeOffers",
+          "startLine": 811,
+          "endLine": 814,
+          "params": [
+            "box",
+            "limit",
+            "offset"
+          ]
+        },
+        {
+          "name": "createTradeOffer",
+          "startLine": 816,
+          "endLine": 820,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "respondToTradeOffer",
+          "startLine": 822,
+          "endLine": 826,
+          "params": [
+            "offerId",
+            "action"
+          ]
+        },
+        {
+          "name": "counterTradeOffer",
+          "startLine": 828,
+          "endLine": 832,
+          "params": [
+            "offerId",
+            "input"
+          ]
+        },
+        {
+          "name": "cancelTradeOffer",
+          "startLine": 834,
+          "endLine": 838,
+          "params": [
+            "offerId"
+          ]
+        },
+        {
+          "name": "getDailyLoginSystem",
+          "startLine": 840,
+          "endLine": 844,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "claimDailyLoginReward",
+          "startLine": 846,
+          "endLine": 851,
+          "params": [
+            "systemId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "getOwnerDailyLoginCalendar",
+          "startLine": 853,
+          "endLine": 857,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "saveOwnerDailyLoginCalendar",
+          "startLine": 859,
+          "endLine": 864,
+          "params": [
+            "systemId",
+            "schedule"
+          ]
+        },
+        {
+          "name": "getOwnerExperienceSettings",
+          "startLine": 866,
+          "endLine": 870,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "saveOwnerExperienceSettings",
+          "startLine": 872,
+          "endLine": 877,
+          "params": [
+            "systemId",
+            "settings"
+          ]
+        },
+        {
+          "name": "getCharacterExperience",
+          "startLine": 879,
+          "endLine": 883,
+          "params": [
+            "characterId"
+          ]
+        },
+        {
+          "name": "profileRequest",
+          "startLine": 885,
+          "endLine": 887,
+          "params": [
+            "path",
+            "init"
+          ]
+        },
+        {
+          "name": "authenticatedRequest",
+          "startLine": 889,
+          "endLine": 903,
+          "params": [
+            "path",
+            "init"
+          ]
+        },
+        {
+          "name": "getOwnerStore",
+          "startLine": 949,
+          "endLine": 951,
+          "params": [
+            "systemId"
+          ]
+        },
+        {
+          "name": "createOwnerStoreItem",
+          "startLine": 952,
+          "endLine": 956,
+          "params": [
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "saveOwnerStore",
+          "startLine": 957,
+          "endLine": 961,
+          "params": [
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "updateOwnerStoreCurrencyField",
+          "startLine": 962,
+          "endLine": 966,
+          "params": [
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "updateOwnerStoreOfferField",
+          "startLine": 967,
+          "endLine": 971,
+          "params": [
+            "systemId",
+            "itemId",
+            "input"
+          ]
+        },
+        {
+          "name": "getCharacterStore",
+          "startLine": 972,
+          "endLine": 974,
+          "params": [
+            "systemId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "purchaseStoreOffer",
+          "startLine": 975,
+          "endLine": 980,
+          "params": [
+            "systemId",
+            "characterId",
+            "offerId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getPublicPlayerProfile",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "getProfileComments",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "postProfileComment",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "deleteProfileComment",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "getDirectMessages",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "sendDirectMessage",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "searchSocialProfiles",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "getMyFriends",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "getSocialInvitations",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "sendFriendRequest",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "respondToFriendRequest",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "removeMyFriend",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "createSystemFriendInvitation",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "createChatFriendInvitation",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "respondToSocialInvitation",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "getMyAccountSettings",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "deactivateMyAccount",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "reactivateMyAccount",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "deleteMyAccount",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "requestSystemOwnerTransfer",
+          "line": 94,
+          "isDefault": false
+        },
+        {
+          "name": "acceptSystemOwnerTransfer",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "cancelSystemOwnerTransfer",
+          "line": 105,
+          "isDefault": false
+        },
+        {
+          "name": "lobbySectionIds",
+          "line": 206,
+          "isDefault": false
+        },
+        {
+          "name": "defaultSystemLobbySettings",
+          "line": 217,
+          "isDefault": false
+        },
+        {
+          "name": "getSystemLobbySettings",
+          "line": 225,
+          "isDefault": false
+        },
+        {
+          "name": "updateSystemLobbySettings",
+          "line": 229,
+          "isDefault": false
+        },
+        {
+          "name": "startSystemEvent",
+          "line": 235,
+          "isDefault": false
+        },
+        {
+          "name": "getSystemEvents",
+          "line": 239,
+          "isDefault": false
+        },
+        {
+          "name": "heartbeatSystemLobbyPresence",
+          "line": 243,
+          "isDefault": false
+        },
+        {
+          "name": "createSystemEvent",
+          "line": 247,
+          "isDefault": false
+        },
+        {
+          "name": "updateSystemEvent",
+          "line": 253,
+          "isDefault": false
+        },
+        {
+          "name": "deleteSystemEvent",
+          "line": 259,
+          "isDefault": false
+        },
+        {
+          "name": "createSystemChat",
+          "line": 296,
+          "isDefault": false
+        },
+        {
+          "name": "getCharacterChats",
+          "line": 311,
+          "isDefault": false
+        },
+        {
+          "name": "getCharacterChatMessages",
+          "line": 317,
+          "isDefault": false
+        },
+        {
+          "name": "sendCharacterChatMessage",
+          "line": 323,
+          "isDefault": false
+        },
+        {
+          "name": "takeDailyLoginPopup",
+          "line": 489,
+          "isDefault": false
+        },
+        {
+          "name": "getMySystemMemberships",
+          "line": 612,
+          "isDefault": false
+        },
+        {
+          "name": "searchSystemMembersByCharacterName",
+          "line": 616,
+          "isDefault": false
+        },
+        {
+          "name": "setSystemModerator",
+          "line": 623,
+          "isDefault": false
+        },
+        {
+          "name": "getMyNotifications",
+          "line": 630,
+          "isDefault": false
+        },
+        {
+          "name": "markNotificationRead",
+          "line": 635,
+          "isDefault": false
+        },
+        {
+          "name": "publishSystemAnnouncement",
+          "line": 642,
+          "isDefault": false
+        },
+        {
+          "name": "checkHealth",
+          "line": 649,
+          "isDefault": false
+        },
+        {
+          "name": "getMyProfile",
+          "line": 655,
+          "isDefault": false
+        },
+        {
+          "name": "getGameSystems",
+          "line": 659,
+          "isDefault": false
+        },
+        {
+          "name": "createGameSystem",
+          "line": 664,
+          "isDefault": false
+        },
+        {
+          "name": "getGameSystemTagOptions",
+          "line": 670,
+          "isDefault": false
+        },
+        {
+          "name": "updateGameSystem",
+          "line": 674,
+          "isDefault": false
+        },
+        {
+          "name": "updateGameSystemLifecycle",
+          "line": 680,
+          "isDefault": false
+        },
+        {
+          "name": "deleteGameSystem",
+          "line": 687,
+          "isDefault": false
+        },
+        {
+          "name": "getGameSystemCoverUrl",
+          "line": 693,
+          "isDefault": false
+        },
+        {
+          "name": "uploadGameSystemCover",
+          "line": 699,
+          "isDefault": false
+        },
+        {
+          "name": "deleteGameSystemCover",
+          "line": 729,
+          "isDefault": false
+        },
+        {
+          "name": "getCharacterSheet",
+          "line": 748,
+          "isDefault": false
+        },
+        {
+          "name": "updateGameSystemCharacterSheet",
+          "line": 754,
+          "isDefault": false
+        },
+        {
+          "name": "getSystemCharacters",
+          "line": 761,
+          "isDefault": false
+        },
+        {
+          "name": "requestSystemAccess",
+          "line": 767,
+          "isDefault": false
+        },
+        {
+          "name": "createSystemCharacter",
+          "line": 774,
+          "isDefault": false
+        },
+        {
+          "name": "updateMyProfile",
+          "line": 781,
+          "isDefault": false
+        },
+        {
+          "name": "getMyDailyLoginSystems",
+          "line": 789,
+          "isDefault": false
+        },
+        {
+          "name": "getTradeCharacters",
+          "line": 793,
+          "isDefault": false
+        },
+        {
+          "name": "getTradeCharacterInventory",
+          "line": 799,
+          "isDefault": false
+        },
+        {
+          "name": "getMyCharacterInventory",
+          "line": 805,
+          "isDefault": false
+        },
+        {
+          "name": "getTradeOffers",
+          "line": 811,
+          "isDefault": false
+        },
+        {
+          "name": "createTradeOffer",
+          "line": 816,
+          "isDefault": false
+        },
+        {
+          "name": "respondToTradeOffer",
+          "line": 822,
+          "isDefault": false
+        },
+        {
+          "name": "counterTradeOffer",
+          "line": 828,
+          "isDefault": false
+        },
+        {
+          "name": "cancelTradeOffer",
+          "line": 834,
+          "isDefault": false
+        },
+        {
+          "name": "getDailyLoginSystem",
+          "line": 840,
+          "isDefault": false
+        },
+        {
+          "name": "claimDailyLoginReward",
+          "line": 846,
+          "isDefault": false
+        },
+        {
+          "name": "getOwnerDailyLoginCalendar",
+          "line": 853,
+          "isDefault": false
+        },
+        {
+          "name": "saveOwnerDailyLoginCalendar",
+          "line": 859,
+          "isDefault": false
+        },
+        {
+          "name": "getOwnerExperienceSettings",
+          "line": 866,
+          "isDefault": false
+        },
+        {
+          "name": "saveOwnerExperienceSettings",
+          "line": 872,
+          "isDefault": false
+        },
+        {
+          "name": "getCharacterExperience",
+          "line": 879,
+          "isDefault": false
+        },
+        {
+          "name": "getOwnerStore",
+          "line": 949,
+          "isDefault": false
+        },
+        {
+          "name": "createOwnerStoreItem",
+          "line": 952,
+          "isDefault": false
+        },
+        {
+          "name": "saveOwnerStore",
+          "line": 957,
+          "isDefault": false
+        },
+        {
+          "name": "updateOwnerStoreCurrencyField",
+          "line": 962,
+          "isDefault": false
+        },
+        {
+          "name": "updateOwnerStoreOfferField",
+          "line": 967,
+          "isDefault": false
+        },
+        {
+          "name": "getCharacterStore",
+          "line": 972,
+          "isDefault": false
+        },
+        {
+          "name": "purchaseStoreOffer",
+          "line": 975,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getPublicPlayerProfile",
+          "callee": "authenticatedRequest",
+          "lineNumber": 30
+        },
+        {
+          "caller": "getPublicPlayerProfile",
+          "callee": "encodeURIComponent",
+          "lineNumber": 30
+        },
+        {
+          "caller": "getProfileComments",
+          "callee": "authenticatedRequest",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getProfileComments",
+          "callee": "encodeURIComponent",
+          "lineNumber": 31
+        },
+        {
+          "caller": "postProfileComment",
+          "callee": "authenticatedRequest",
+          "lineNumber": 32
+        },
+        {
+          "caller": "postProfileComment",
+          "callee": "encodeURIComponent",
+          "lineNumber": 32
+        },
+        {
+          "caller": "postProfileComment",
+          "callee": "JSON.stringify",
+          "lineNumber": 32
+        },
+        {
+          "caller": "deleteProfileComment",
+          "callee": "authenticatedRequest",
+          "lineNumber": 33
+        },
+        {
+          "caller": "deleteProfileComment",
+          "callee": "encodeURIComponent",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getDirectMessages",
+          "callee": "authenticatedRequest",
+          "lineNumber": 34
+        },
+        {
+          "caller": "getDirectMessages",
+          "callee": "encodeURIComponent",
+          "lineNumber": 34
+        },
+        {
+          "caller": "sendDirectMessage",
+          "callee": "authenticatedRequest",
+          "lineNumber": 35
+        },
+        {
+          "caller": "sendDirectMessage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 35
+        },
+        {
+          "caller": "sendDirectMessage",
+          "callee": "JSON.stringify",
+          "lineNumber": 35
+        },
+        {
+          "caller": "searchSocialProfiles",
+          "callee": "authenticatedRequest",
+          "lineNumber": 36
+        },
+        {
+          "caller": "searchSocialProfiles",
+          "callee": "encodeURIComponent",
+          "lineNumber": 36
+        },
+        {
+          "caller": "getMyFriends",
+          "callee": "authenticatedRequest",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getSocialInvitations",
+          "callee": "authenticatedRequest",
+          "lineNumber": 38
+        },
+        {
+          "caller": "sendFriendRequest",
+          "callee": "authenticatedRequest",
+          "lineNumber": 39
+        },
+        {
+          "caller": "sendFriendRequest",
+          "callee": "JSON.stringify",
+          "lineNumber": 39
+        },
+        {
+          "caller": "respondToFriendRequest",
+          "callee": "authenticatedRequest",
+          "lineNumber": 40
+        },
+        {
+          "caller": "respondToFriendRequest",
+          "callee": "encodeURIComponent",
+          "lineNumber": 40
+        },
+        {
+          "caller": "respondToFriendRequest",
+          "callee": "JSON.stringify",
+          "lineNumber": 40
+        },
+        {
+          "caller": "removeMyFriend",
+          "callee": "authenticatedRequest",
+          "lineNumber": 41
+        },
+        {
+          "caller": "removeMyFriend",
+          "callee": "encodeURIComponent",
+          "lineNumber": 41
+        },
+        {
+          "caller": "createSystemFriendInvitation",
+          "callee": "authenticatedRequest",
+          "lineNumber": 42
+        },
+        {
+          "caller": "createSystemFriendInvitation",
+          "callee": "encodeURIComponent",
+          "lineNumber": 42
+        },
+        {
+          "caller": "createSystemFriendInvitation",
+          "callee": "JSON.stringify",
+          "lineNumber": 42
+        },
+        {
+          "caller": "createChatFriendInvitation",
+          "callee": "authenticatedRequest",
+          "lineNumber": 43
+        },
+        {
+          "caller": "createChatFriendInvitation",
+          "callee": "encodeURIComponent",
+          "lineNumber": 43
+        },
+        {
+          "caller": "createChatFriendInvitation",
+          "callee": "JSON.stringify",
+          "lineNumber": 43
+        },
+        {
+          "caller": "respondToSocialInvitation",
+          "callee": "authenticatedRequest",
+          "lineNumber": 44
+        },
+        {
+          "caller": "respondToSocialInvitation",
+          "callee": "encodeURIComponent",
+          "lineNumber": 44
+        },
+        {
+          "caller": "respondToSocialInvitation",
+          "callee": "JSON.stringify",
+          "lineNumber": 44
+        },
+        {
+          "caller": "getMyAccountSettings",
+          "callee": "authenticatedRequest",
+          "lineNumber": 79
+        },
+        {
+          "caller": "deactivateMyAccount",
+          "callee": "authenticatedRequest",
+          "lineNumber": 83
+        },
+        {
+          "caller": "reactivateMyAccount",
+          "callee": "authenticatedRequest",
+          "lineNumber": 87
+        },
+        {
+          "caller": "deleteMyAccount",
+          "callee": "authenticatedRequest",
+          "lineNumber": 91
+        },
+        {
+          "caller": "requestSystemOwnerTransfer",
+          "callee": "authenticatedRequest",
+          "lineNumber": 95
+        },
+        {
+          "caller": "requestSystemOwnerTransfer",
+          "callee": "JSON.stringify",
+          "lineNumber": 97
+        },
+        {
+          "caller": "acceptSystemOwnerTransfer",
+          "callee": "authenticatedRequest",
+          "lineNumber": 102
+        },
+        {
+          "caller": "acceptSystemOwnerTransfer",
+          "callee": "encodeURIComponent",
+          "lineNumber": 102
+        },
+        {
+          "caller": "cancelSystemOwnerTransfer",
+          "callee": "authenticatedRequest",
+          "lineNumber": 106
+        },
+        {
+          "caller": "cancelSystemOwnerTransfer",
+          "callee": "encodeURIComponent",
+          "lineNumber": 106
+        },
+        {
+          "caller": "getSystemLobbySettings",
+          "callee": "authenticatedRequest",
+          "lineNumber": 226
+        },
+        {
+          "caller": "getSystemLobbySettings",
+          "callee": "encodeURIComponent",
+          "lineNumber": 226
+        },
+        {
+          "caller": "updateSystemLobbySettings",
+          "callee": "authenticatedRequest",
+          "lineNumber": 230
+        },
+        {
+          "caller": "updateSystemLobbySettings",
+          "callee": "encodeURIComponent",
+          "lineNumber": 230
+        },
+        {
+          "caller": "updateSystemLobbySettings",
+          "callee": "JSON.stringify",
+          "lineNumber": 231
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "authenticatedRequest",
+          "lineNumber": 236
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "encodeURIComponent",
+          "lineNumber": 236
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "encodeURIComponent",
+          "lineNumber": 236
+        },
+        {
+          "caller": "getSystemEvents",
+          "callee": "authenticatedRequest",
+          "lineNumber": 240
+        },
+        {
+          "caller": "getSystemEvents",
+          "callee": "encodeURIComponent",
+          "lineNumber": 240
+        },
+        {
+          "caller": "heartbeatSystemLobbyPresence",
+          "callee": "authenticatedRequest",
+          "lineNumber": 244
+        },
+        {
+          "caller": "heartbeatSystemLobbyPresence",
+          "callee": "encodeURIComponent",
+          "lineNumber": 244
+        },
+        {
+          "caller": "createSystemEvent",
+          "callee": "authenticatedRequest",
+          "lineNumber": 248
+        },
+        {
+          "caller": "createSystemEvent",
+          "callee": "encodeURIComponent",
+          "lineNumber": 248
+        },
+        {
+          "caller": "createSystemEvent",
+          "callee": "JSON.stringify",
+          "lineNumber": 249
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "authenticatedRequest",
+          "lineNumber": 254
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "encodeURIComponent",
+          "lineNumber": 254
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "encodeURIComponent",
+          "lineNumber": 254
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "JSON.stringify",
+          "lineNumber": 255
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "authenticatedRequest",
+          "lineNumber": 260
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "encodeURIComponent",
+          "lineNumber": 260
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "encodeURIComponent",
+          "lineNumber": 260
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "authenticatedRequest",
+          "lineNumber": 297
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "encodeURIComponent",
+          "lineNumber": 298
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "JSON.stringify",
+          "lineNumber": 299
+        },
+        {
+          "caller": "getCharacterChats",
+          "callee": "authenticatedRequest",
+          "lineNumber": 312
+        },
+        {
+          "caller": "getCharacterChats",
+          "callee": "encodeURIComponent",
+          "lineNumber": 313
+        },
+        {
+          "caller": "getCharacterChatMessages",
+          "callee": "authenticatedRequest",
+          "lineNumber": 318
+        },
+        {
+          "caller": "getCharacterChatMessages",
+          "callee": "encodeURIComponent",
+          "lineNumber": 319
+        },
+        {
+          "caller": "getCharacterChatMessages",
+          "callee": "encodeURIComponent",
+          "lineNumber": 319
+        },
+        {
+          "caller": "sendCharacterChatMessage",
+          "callee": "authenticatedRequest",
+          "lineNumber": 324
+        },
+        {
+          "caller": "sendCharacterChatMessage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 325
+        },
+        {
+          "caller": "sendCharacterChatMessage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 325
+        },
+        {
+          "caller": "sendCharacterChatMessage",
+          "callee": "JSON.stringify",
+          "lineNumber": 326
+        },
+        {
+          "caller": "takeDailyLoginPopup",
+          "callee": "authenticatedRequest",
+          "lineNumber": 490
+        },
+        {
+          "caller": "takeDailyLoginPopup",
+          "callee": "encodeURIComponent",
+          "lineNumber": 491
+        },
+        {
+          "caller": "getMySystemMemberships",
+          "callee": "authenticatedRequest",
+          "lineNumber": 613
+        },
+        {
+          "caller": "searchSystemMembersByCharacterName",
+          "callee": "authenticatedRequest",
+          "lineNumber": 618
+        },
+        {
+          "caller": "searchSystemMembersByCharacterName",
+          "callee": "encodeURIComponent",
+          "lineNumber": 619
+        },
+        {
+          "caller": "searchSystemMembersByCharacterName",
+          "callee": "params.toString",
+          "lineNumber": 619
+        },
+        {
+          "caller": "setSystemModerator",
+          "callee": "authenticatedRequest",
+          "lineNumber": 624
+        },
+        {
+          "caller": "setSystemModerator",
+          "callee": "encodeURIComponent",
+          "lineNumber": 625
+        },
+        {
+          "caller": "setSystemModerator",
+          "callee": "encodeURIComponent",
+          "lineNumber": 625
+        },
+        {
+          "caller": "setSystemModerator",
+          "callee": "JSON.stringify",
+          "lineNumber": 626
+        },
+        {
+          "caller": "getMyNotifications",
+          "callee": "String",
+          "lineNumber": 631
+        },
+        {
+          "caller": "getMyNotifications",
+          "callee": "String",
+          "lineNumber": 631
+        },
+        {
+          "caller": "getMyNotifications",
+          "callee": "authenticatedRequest",
+          "lineNumber": 632
+        },
+        {
+          "caller": "getMyNotifications",
+          "callee": "params.toString",
+          "lineNumber": 632
+        },
+        {
+          "caller": "markNotificationRead",
+          "callee": "authenticatedRequest",
+          "lineNumber": 636
+        },
+        {
+          "caller": "markNotificationRead",
+          "callee": "encodeURIComponent",
+          "lineNumber": 637
+        },
+        {
+          "caller": "publishSystemAnnouncement",
+          "callee": "authenticatedRequest",
+          "lineNumber": 643
+        },
+        {
+          "caller": "publishSystemAnnouncement",
+          "callee": "encodeURIComponent",
+          "lineNumber": 644
+        },
+        {
+          "caller": "publishSystemAnnouncement",
+          "callee": "JSON.stringify",
+          "lineNumber": 645
+        },
+        {
+          "caller": "checkHealth",
+          "callee": "fetch",
+          "lineNumber": 650
+        },
+        {
+          "caller": "checkHealth",
+          "callee": "response.json",
+          "lineNumber": 652
+        },
+        {
+          "caller": "getMyProfile",
+          "callee": "profileRequest",
+          "lineNumber": 656
+        },
+        {
+          "caller": "getGameSystems",
+          "callee": "authenticatedRequest",
+          "lineNumber": 661
+        },
+        {
+          "caller": "createGameSystem",
+          "callee": "authenticatedRequest",
+          "lineNumber": 665
+        },
+        {
+          "caller": "createGameSystem",
+          "callee": "JSON.stringify",
+          "lineNumber": 666
+        },
+        {
+          "caller": "getGameSystemTagOptions",
+          "callee": "authenticatedRequest",
+          "lineNumber": 671
+        },
+        {
+          "caller": "updateGameSystem",
+          "callee": "authenticatedRequest",
+          "lineNumber": 675
+        },
+        {
+          "caller": "updateGameSystem",
+          "callee": "encodeURIComponent",
+          "lineNumber": 675
+        },
+        {
+          "caller": "updateGameSystem",
+          "callee": "JSON.stringify",
+          "lineNumber": 676
+        },
+        {
+          "caller": "updateGameSystemLifecycle",
+          "callee": "authenticatedRequest",
+          "lineNumber": 681
+        },
+        {
+          "caller": "updateGameSystemLifecycle",
+          "callee": "encodeURIComponent",
+          "lineNumber": 682
+        },
+        {
+          "caller": "updateGameSystemLifecycle",
+          "callee": "JSON.stringify",
+          "lineNumber": 683
+        },
+        {
+          "caller": "deleteGameSystem",
+          "callee": "authenticatedRequest",
+          "lineNumber": 688
+        },
+        {
+          "caller": "deleteGameSystem",
+          "callee": "encodeURIComponent",
+          "lineNumber": 688
+        },
+        {
+          "caller": "getGameSystemCoverUrl",
+          "callee": "path.split('/').map((segment) => encodeURIComponent(segment)).join",
+          "lineNumber": 695
+        },
+        {
+          "caller": "getGameSystemCoverUrl",
+          "callee": "path.split('/').map",
+          "lineNumber": 695
+        },
+        {
+          "caller": "getGameSystemCoverUrl",
+          "callee": "path.split",
+          "lineNumber": 695
+        },
+        {
+          "caller": "getGameSystemCoverUrl",
+          "callee": "encodeURIComponent",
+          "lineNumber": 695
+        },
+        {
+          "caller": "getGameSystemCoverUrl",
+          "callee": "config.supabaseUrl.replace",
+          "lineNumber": 696
+        },
+        {
+          "caller": "uploadGameSystemCover",
+          "callee": "currentAccessToken",
+          "lineNumber": 700
+        },
+        {
+          "caller": "uploadGameSystemCover",
+          "callee": "globalThis.crypto.randomUUID",
+          "lineNumber": 711
+        },
+        {
+          "caller": "uploadGameSystemCover",
+          "callee": "fetch",
+          "lineNumber": 712
+        },
+        {
+          "caller": "uploadGameSystemCover",
+          "callee": "config.supabaseUrl.replace",
+          "lineNumber": 712
+        },
+        {
+          "caller": "uploadGameSystemCover",
+          "callee": "path.split('/').map(encodeURIComponent).join",
+          "lineNumber": 712
+        },
+        {
+          "caller": "uploadGameSystemCover",
+          "callee": "path.split('/').map",
+          "lineNumber": 712
+        },
+        {
+          "caller": "uploadGameSystemCover",
+          "callee": "path.split",
+          "lineNumber": 712
+        },
+        {
+          "caller": "uploadGameSystemCover",
+          "callee": "response.json().catch",
+          "lineNumber": 723
+        },
+        {
+          "caller": "uploadGameSystemCover",
+          "callee": "response.json",
+          "lineNumber": 723
+        },
+        {
+          "caller": "deleteGameSystemCover",
+          "callee": "currentAccessToken",
+          "lineNumber": 730
+        },
+        {
+          "caller": "deleteGameSystemCover",
+          "callee": "/^[0-9a-f-]{36}\\/[0-9a-f-]{36}\\.(jpg|png|webp|avif)$/i.test",
+          "lineNumber": 732
+        },
+        {
+          "caller": "deleteGameSystemCover",
+          "callee": "fetch",
+          "lineNumber": 733
+        },
+        {
+          "caller": "deleteGameSystemCover",
+          "callee": "config.supabaseUrl.replace",
+          "lineNumber": 733
+        },
+        {
+          "caller": "deleteGameSystemCover",
+          "callee": "JSON.stringify",
+          "lineNumber": 740
+        },
+        {
+          "caller": "deleteGameSystemCover",
+          "callee": "response.json().catch",
+          "lineNumber": 743
+        },
+        {
+          "caller": "deleteGameSystemCover",
+          "callee": "response.json",
+          "lineNumber": 743
+        },
+        {
+          "caller": "getCharacterSheet",
+          "callee": "authenticatedRequest",
+          "lineNumber": 749
+        },
+        {
+          "caller": "getCharacterSheet",
+          "callee": "encodeURIComponent",
+          "lineNumber": 750
+        },
+        {
+          "caller": "updateGameSystemCharacterSheet",
+          "callee": "authenticatedRequest",
+          "lineNumber": 755
+        },
+        {
+          "caller": "updateGameSystemCharacterSheet",
+          "callee": "encodeURIComponent",
+          "lineNumber": 756
+        },
+        {
+          "caller": "updateGameSystemCharacterSheet",
+          "callee": "JSON.stringify",
+          "lineNumber": 757
+        },
+        {
+          "caller": "getSystemCharacters",
+          "callee": "authenticatedRequest",
+          "lineNumber": 762
+        },
+        {
+          "caller": "getSystemCharacters",
+          "callee": "encodeURIComponent",
+          "lineNumber": 763
+        },
+        {
+          "caller": "requestSystemAccess",
+          "callee": "authenticatedRequest",
+          "lineNumber": 768
+        },
+        {
+          "caller": "requestSystemAccess",
+          "callee": "encodeURIComponent",
+          "lineNumber": 769
+        },
+        {
+          "caller": "requestSystemAccess",
+          "callee": "JSON.stringify",
+          "lineNumber": 770
+        },
+        {
+          "caller": "createSystemCharacter",
+          "callee": "authenticatedRequest",
+          "lineNumber": 775
+        },
+        {
+          "caller": "createSystemCharacter",
+          "callee": "encodeURIComponent",
+          "lineNumber": 776
+        },
+        {
+          "caller": "createSystemCharacter",
+          "callee": "JSON.stringify",
+          "lineNumber": 777
+        },
+        {
+          "caller": "updateMyProfile",
+          "callee": "profileRequest",
+          "lineNumber": 782
+        },
+        {
+          "caller": "updateMyProfile",
+          "callee": "JSON.stringify",
+          "lineNumber": 785
+        },
+        {
+          "caller": "getMyDailyLoginSystems",
+          "callee": "authenticatedRequest",
+          "lineNumber": 790
+        },
+        {
+          "caller": "getTradeCharacters",
+          "callee": "authenticatedRequest",
+          "lineNumber": 794
+        },
+        {
+          "caller": "getTradeCharacters",
+          "callee": "encodeURIComponent",
+          "lineNumber": 795
+        },
+        {
+          "caller": "getTradeCharacterInventory",
+          "callee": "authenticatedRequest",
+          "lineNumber": 800
+        },
+        {
+          "caller": "getTradeCharacterInventory",
+          "callee": "encodeURIComponent",
+          "lineNumber": 801
+        },
+        {
+          "caller": "getTradeCharacterInventory",
+          "callee": "encodeURIComponent",
+          "lineNumber": 801
+        },
+        {
+          "caller": "getMyCharacterInventory",
+          "callee": "authenticatedRequest",
+          "lineNumber": 806
+        },
+        {
+          "caller": "getMyCharacterInventory",
+          "callee": "encodeURIComponent",
+          "lineNumber": 807
+        },
+        {
+          "caller": "getTradeOffers",
+          "callee": "String",
+          "lineNumber": 812
+        },
+        {
+          "caller": "getTradeOffers",
+          "callee": "String",
+          "lineNumber": 812
+        },
+        {
+          "caller": "getTradeOffers",
+          "callee": "authenticatedRequest",
+          "lineNumber": 813
+        },
+        {
+          "caller": "getTradeOffers",
+          "callee": "params.toString",
+          "lineNumber": 813
+        },
+        {
+          "caller": "createTradeOffer",
+          "callee": "authenticatedRequest",
+          "lineNumber": 817
+        },
+        {
+          "caller": "createTradeOffer",
+          "callee": "JSON.stringify",
+          "lineNumber": 818
+        },
+        {
+          "caller": "respondToTradeOffer",
+          "callee": "authenticatedRequest",
+          "lineNumber": 823
+        },
+        {
+          "caller": "respondToTradeOffer",
+          "callee": "encodeURIComponent",
+          "lineNumber": 823
+        },
+        {
+          "caller": "respondToTradeOffer",
+          "callee": "JSON.stringify",
+          "lineNumber": 824
+        },
+        {
+          "caller": "counterTradeOffer",
+          "callee": "authenticatedRequest",
+          "lineNumber": 829
+        },
+        {
+          "caller": "counterTradeOffer",
+          "callee": "encodeURIComponent",
+          "lineNumber": 829
+        },
+        {
+          "caller": "counterTradeOffer",
+          "callee": "JSON.stringify",
+          "lineNumber": 830
+        },
+        {
+          "caller": "cancelTradeOffer",
+          "callee": "authenticatedRequest",
+          "lineNumber": 835
+        },
+        {
+          "caller": "cancelTradeOffer",
+          "callee": "encodeURIComponent",
+          "lineNumber": 835
+        },
+        {
+          "caller": "getDailyLoginSystem",
+          "callee": "authenticatedRequest",
+          "lineNumber": 841
+        },
+        {
+          "caller": "getDailyLoginSystem",
+          "callee": "encodeURIComponent",
+          "lineNumber": 842
+        },
+        {
+          "caller": "claimDailyLoginReward",
+          "callee": "authenticatedRequest",
+          "lineNumber": 847
+        },
+        {
+          "caller": "claimDailyLoginReward",
+          "callee": "encodeURIComponent",
+          "lineNumber": 848
+        },
+        {
+          "caller": "claimDailyLoginReward",
+          "callee": "JSON.stringify",
+          "lineNumber": 849
+        },
+        {
+          "caller": "getOwnerDailyLoginCalendar",
+          "callee": "authenticatedRequest",
+          "lineNumber": 854
+        },
+        {
+          "caller": "getOwnerDailyLoginCalendar",
+          "callee": "encodeURIComponent",
+          "lineNumber": 855
+        },
+        {
+          "caller": "saveOwnerDailyLoginCalendar",
+          "callee": "authenticatedRequest",
+          "lineNumber": 860
+        },
+        {
+          "caller": "saveOwnerDailyLoginCalendar",
+          "callee": "encodeURIComponent",
+          "lineNumber": 861
+        },
+        {
+          "caller": "saveOwnerDailyLoginCalendar",
+          "callee": "JSON.stringify",
+          "lineNumber": 862
+        },
+        {
+          "caller": "getOwnerExperienceSettings",
+          "callee": "authenticatedRequest",
+          "lineNumber": 867
+        },
+        {
+          "caller": "getOwnerExperienceSettings",
+          "callee": "encodeURIComponent",
+          "lineNumber": 868
+        },
+        {
+          "caller": "saveOwnerExperienceSettings",
+          "callee": "authenticatedRequest",
+          "lineNumber": 873
+        },
+        {
+          "caller": "saveOwnerExperienceSettings",
+          "callee": "encodeURIComponent",
+          "lineNumber": 874
+        },
+        {
+          "caller": "saveOwnerExperienceSettings",
+          "callee": "JSON.stringify",
+          "lineNumber": 875
+        },
+        {
+          "caller": "getCharacterExperience",
+          "callee": "authenticatedRequest",
+          "lineNumber": 880
+        },
+        {
+          "caller": "getCharacterExperience",
+          "callee": "encodeURIComponent",
+          "lineNumber": 881
+        },
+        {
+          "caller": "profileRequest",
+          "callee": "authenticatedRequest",
+          "lineNumber": 886
+        },
+        {
+          "caller": "authenticatedRequest",
+          "callee": "currentAccessToken",
+          "lineNumber": 890
+        },
+        {
+          "caller": "authenticatedRequest",
+          "callee": "fetch",
+          "lineNumber": 892
+        },
+        {
+          "caller": "authenticatedRequest",
+          "callee": "response.json().catch",
+          "lineNumber": 897
+        },
+        {
+          "caller": "authenticatedRequest",
+          "callee": "response.json",
+          "lineNumber": 897
+        },
+        {
+          "caller": "getOwnerStore",
+          "callee": "authenticatedRequest",
+          "lineNumber": 950
+        },
+        {
+          "caller": "getOwnerStore",
+          "callee": "encodeURIComponent",
+          "lineNumber": 950
+        },
+        {
+          "caller": "createOwnerStoreItem",
+          "callee": "authenticatedRequest",
+          "lineNumber": 953
+        },
+        {
+          "caller": "createOwnerStoreItem",
+          "callee": "encodeURIComponent",
+          "lineNumber": 953
+        },
+        {
+          "caller": "createOwnerStoreItem",
+          "callee": "JSON.stringify",
+          "lineNumber": 954
+        },
+        {
+          "caller": "saveOwnerStore",
+          "callee": "authenticatedRequest",
+          "lineNumber": 958
+        },
+        {
+          "caller": "saveOwnerStore",
+          "callee": "encodeURIComponent",
+          "lineNumber": 958
+        },
+        {
+          "caller": "saveOwnerStore",
+          "callee": "JSON.stringify",
+          "lineNumber": 959
+        },
+        {
+          "caller": "updateOwnerStoreCurrencyField",
+          "callee": "authenticatedRequest",
+          "lineNumber": 963
+        },
+        {
+          "caller": "updateOwnerStoreCurrencyField",
+          "callee": "encodeURIComponent",
+          "lineNumber": 963
+        },
+        {
+          "caller": "updateOwnerStoreCurrencyField",
+          "callee": "JSON.stringify",
+          "lineNumber": 964
+        },
+        {
+          "caller": "updateOwnerStoreOfferField",
+          "callee": "authenticatedRequest",
+          "lineNumber": 968
+        },
+        {
+          "caller": "updateOwnerStoreOfferField",
+          "callee": "encodeURIComponent",
+          "lineNumber": 968
+        },
+        {
+          "caller": "updateOwnerStoreOfferField",
+          "callee": "encodeURIComponent",
+          "lineNumber": 968
+        },
+        {
+          "caller": "updateOwnerStoreOfferField",
+          "callee": "JSON.stringify",
+          "lineNumber": 969
+        },
+        {
+          "caller": "getCharacterStore",
+          "callee": "authenticatedRequest",
+          "lineNumber": 973
+        },
+        {
+          "caller": "getCharacterStore",
+          "callee": "encodeURIComponent",
+          "lineNumber": 973
+        },
+        {
+          "caller": "getCharacterStore",
+          "callee": "encodeURIComponent",
+          "lineNumber": 973
+        },
+        {
+          "caller": "purchaseStoreOffer",
+          "callee": "authenticatedRequest",
+          "lineNumber": 976
+        },
+        {
+          "caller": "purchaseStoreOffer",
+          "callee": "encodeURIComponent",
+          "lineNumber": 976
+        },
+        {
+          "caller": "purchaseStoreOffer",
+          "callee": "JSON.stringify",
+          "lineNumber": 978
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 83,
+        "functionCount": 83,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 142,
+      "nonEmptyLines": 128,
+      "functions": [
+        {
+          "name": "optionLayout",
+          "startLine": 6,
+          "endLine": 18,
+          "params": [
+            "component",
+            "optionIndex"
+          ]
+        },
+        {
+          "name": "isSelected",
+          "startLine": 20,
+          "endLine": 22,
+          "params": [
+            "value",
+            "optionValue"
+          ]
+        },
+        {
+          "name": "CanvasChoiceOptions",
+          "startLine": 24,
+          "endLine": 57,
+          "params": [
+            "{ component, values, onValueChange, mode }"
+          ]
+        },
+        {
+          "name": "CharacterSheetField",
+          "startLine": 59,
+          "endLine": 98,
+          "params": [
+            "{ component, values, onValueChange, mode }"
+          ]
+        },
+        {
+          "name": "CharacterSheetStepRenderer",
+          "startLine": 100,
+          "endLine": 142,
+          "params": [
+            "{ step, values, onValueChange, mode }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CharacterSheetStepRenderer",
+          "line": 100,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "optionLayout",
+          "callee": "Math.max",
+          "lineNumber": 8
+        },
+        {
+          "caller": "optionLayout",
+          "callee": "Math.ceil",
+          "lineNumber": 8
+        },
+        {
+          "caller": "optionLayout",
+          "callee": "Math.sqrt",
+          "lineNumber": 8
+        },
+        {
+          "caller": "optionLayout",
+          "callee": "Math.ceil",
+          "lineNumber": 10
+        },
+        {
+          "caller": "optionLayout",
+          "callee": "Math.floor",
+          "lineNumber": 13
+        },
+        {
+          "caller": "isSelected",
+          "callee": "Array.isArray",
+          "lineNumber": 21
+        },
+        {
+          "caller": "isSelected",
+          "callee": "value.includes",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CanvasChoiceOptions",
+          "callee": "Array.isArray",
+          "lineNumber": 33
+        },
+        {
+          "caller": "CanvasChoiceOptions",
+          "callee": "currentValue.filter",
+          "lineNumber": 34
+        },
+        {
+          "caller": "selectOption",
+          "callee": "onValueChange",
+          "lineNumber": 39
+        },
+        {
+          "caller": "selectOption",
+          "callee": "onValueChange",
+          "lineNumber": 42
+        },
+        {
+          "caller": "selectOption",
+          "callee": "selectedValues.includes",
+          "lineNumber": 42
+        },
+        {
+          "caller": "selectOption",
+          "callee": "selectedValues.filter",
+          "lineNumber": 43
+        },
+        {
+          "caller": "CanvasChoiceOptions",
+          "callee": "options.map",
+          "lineNumber": 48
+        },
+        {
+          "caller": "CanvasChoiceOptions",
+          "callee": "isSelected",
+          "lineNumber": 50
+        },
+        {
+          "caller": "CanvasChoiceOptions",
+          "callee": "optionLayout",
+          "lineNumber": 51
+        },
+        {
+          "caller": "CanvasChoiceOptions",
+          "callee": "component.options.indexOf",
+          "lineNumber": 51
+        },
+        {
+          "caller": "CanvasChoiceOptions",
+          "callee": "selectOption",
+          "lineNumber": 51
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "Array.isArray",
+          "lineNumber": 69
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "value.filter",
+          "lineNumber": 69
+        },
+        {
+          "caller": "selectOption",
+          "callee": "onValueChange",
+          "lineNumber": 72
+        },
+        {
+          "caller": "selectOption",
+          "callee": "onValueChange",
+          "lineNumber": 75
+        },
+        {
+          "caller": "selectOption",
+          "callee": "selectedValues.includes",
+          "lineNumber": 75
+        },
+        {
+          "caller": "selectOption",
+          "callee": "selectedValues.filter",
+          "lineNumber": 76
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "options.map",
+          "lineNumber": 81
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "isSelected",
+          "lineNumber": 83
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "selectOption",
+          "lineNumber": 84
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "onValueChange",
+          "lineNumber": 88
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "[...event.currentTarget.selectedOptions].map",
+          "lineNumber": 88
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "options.map",
+          "lineNumber": 90
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "String",
+          "lineNumber": 95
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "onValueChange",
+          "lineNumber": 95
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "String",
+          "lineNumber": 97
+        },
+        {
+          "caller": "CharacterSheetField",
+          "callee": "onValueChange",
+          "lineNumber": 97
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "step.components.filter",
+          "lineNumber": 107
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "step.components.filter",
+          "lineNumber": 108
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "useState",
+          "lineNumber": 110
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "useEffect",
+          "lineNumber": 112
+        },
+        {
+          "caller": "closeOnEscape",
+          "callee": "setExpanded",
+          "lineNumber": 115
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "window.addEventListener",
+          "lineNumber": 117
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "window.removeEventListener",
+          "lineNumber": 118
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "elements.map",
+          "lineNumber": 121
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "canvasComponents.map",
+          "lineNumber": 124
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "canvasComponents.map",
+          "lineNumber": 131
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "setExpanded",
+          "lineNumber": 132
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "canvasComponents.map",
+          "lineNumber": 136
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "regularComponents.slice().sort((a, b) => a.position - b.position).map",
+          "lineNumber": 137
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "regularComponents.slice().sort",
+          "lineNumber": 137
+        },
+        {
+          "caller": "CharacterSheetStepRenderer",
+          "callee": "regularComponents.slice",
+          "lineNumber": 137
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/character-sheet/format-value.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/character-sheet/format-value.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 13,
+      "functions": [
+        {
+          "name": "formatCharacterSheetValue",
+          "startLine": 3,
+          "endLine": 14,
+          "params": [
+            "field",
+            "value"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "formatCharacterSheetValue",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatCharacterSheetValue",
+          "callee": "Array.isArray",
+          "lineNumber": 6
+        },
+        {
+          "caller": "formatCharacterSheetValue",
+          "callee": "selected\n      .map((item) => typeof item === 'string' ? field.option_labels?.[item] ?? item : String(item))\n      .join",
+          "lineNumber": 7
+        },
+        {
+          "caller": "formatCharacterSheetValue",
+          "callee": "selected\n      .map",
+          "lineNumber": 7
+        },
+        {
+          "caller": "formatCharacterSheetValue",
+          "callee": "String",
+          "lineNumber": 8
+        },
+        {
+          "caller": "formatCharacterSheetValue",
+          "callee": "Array.isArray",
+          "lineNumber": 11
+        },
+        {
+          "caller": "formatCharacterSheetValue",
+          "callee": "value.join",
+          "lineNumber": 11
+        },
+        {
+          "caller": "formatCharacterSheetValue",
+          "callee": "JSON.stringify",
+          "lineNumber": 12
+        },
+        {
+          "caller": "formatCharacterSheetValue",
+          "callee": "String",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/character-entry.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 149,
+      "nonEmptyLines": 141,
+      "functions": [
+        {
+          "name": "CharacterEntry",
+          "startLine": 12,
+          "endLine": 149,
+          "params": [
+            "{ systemId, push, invitationId = null, invitationChatId = null }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CharacterEntry",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 22
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 23
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 24
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 25
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useState",
+          "lineNumber": 26
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "useEffect",
+          "lineNumber": 28
+        },
+        {
+          "caller": "load",
+          "callee": "getGameSystems",
+          "lineNumber": 32
+        },
+        {
+          "caller": "load",
+          "callee": "systemsResult.systems.find",
+          "lineNumber": 34
+        },
+        {
+          "caller": "load",
+          "callee": "setSystem",
+          "lineNumber": 36
+        },
+        {
+          "caller": "load",
+          "callee": "setExperienceByCharacterId",
+          "lineNumber": 37
+        },
+        {
+          "caller": "load",
+          "callee": "getMySystemMemberships",
+          "lineNumber": 40
+        },
+        {
+          "caller": "load",
+          "callee": "setCanConfigureLobby",
+          "lineNumber": 45
+        },
+        {
+          "caller": "load",
+          "callee": "Boolean",
+          "lineNumber": 45
+        },
+        {
+          "caller": "load",
+          "callee": "memberships?.memberships.some",
+          "lineNumber": 45
+        },
+        {
+          "caller": "load",
+          "callee": "memberships?.memberships.some",
+          "lineNumber": 46
+        },
+        {
+          "caller": "load",
+          "callee": "setAccessRequired",
+          "lineNumber": 47
+        },
+        {
+          "caller": "load",
+          "callee": "loadSystemContent",
+          "lineNumber": 50
+        },
+        {
+          "caller": "load",
+          "callee": "setError",
+          "lineNumber": 52
+        },
+        {
+          "caller": "load",
+          "callee": "setLoading",
+          "lineNumber": 54
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "load",
+          "lineNumber": 57
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "Promise.all",
+          "lineNumber": 62
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "getCharacterSheet",
+          "lineNumber": 63
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "getSystemCharacters",
+          "lineNumber": 64
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "isCancelled",
+          "lineNumber": 66
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "characterResult.characters.filter",
+          "lineNumber": 67
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "setDefinition",
+          "lineNumber": 68
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "setCharacters",
+          "lineNumber": 69
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "setExperienceByCharacterId",
+          "lineNumber": 70
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "Promise.allSettled(activeCharacters.map((character) => getCharacterExperience(character.id))).then",
+          "lineNumber": 71
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "Promise.allSettled",
+          "lineNumber": 71
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "activeCharacters.map",
+          "lineNumber": 71
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "getCharacterExperience",
+          "lineNumber": 71
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "isCancelled",
+          "lineNumber": 72
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "results.flatMap",
+          "lineNumber": 73
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "setExperienceByCharacterId",
+          "lineNumber": 76
+        },
+        {
+          "caller": "loadSystemContent",
+          "callee": "Object.fromEntries",
+          "lineNumber": 76
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "event.preventDefault",
+          "lineNumber": 82
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "setAccessSaving",
+          "lineNumber": 83
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "setAccessError",
+          "lineNumber": 84
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "requestSystemAccess",
+          "lineNumber": 86
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "setLoading",
+          "lineNumber": 87
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "loadSystemContent",
+          "lineNumber": 88
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "setAccessRequired",
+          "lineNumber": 89
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "setAccessPassword",
+          "lineNumber": 90
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "setAccessError",
+          "lineNumber": 92
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "setLoading",
+          "lineNumber": 94
+        },
+        {
+          "caller": "submitAccess",
+          "callee": "setAccessSaving",
+          "lineNumber": 95
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "setError",
+          "lineNumber": 100
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "setSaving",
+          "lineNumber": 101
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "createSystemCharacter",
+          "lineNumber": 103
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "setCharacters",
+          "lineNumber": 104
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "setSelectedCharacterId",
+          "lineNumber": 105
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "getCharacterExperience(character.id).then(({ level }) => {\n        setExperienceByCharacterId((current) => ({ ...current, [character.id]: level }));\n      }).catch",
+          "lineNumber": 106
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "getCharacterExperience(character.id).then",
+          "lineNumber": 106
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "getCharacterExperience",
+          "lineNumber": 106
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "setExperienceByCharacterId",
+          "lineNumber": 107
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "setCreating",
+          "lineNumber": 109
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "setSaving",
+          "lineNumber": 110
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "enterWithCharacter",
+          "lineNumber": 111
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "setError",
+          "lineNumber": 113
+        },
+        {
+          "caller": "createCharacter",
+          "callee": "setSaving",
+          "lineNumber": 114
+        },
+        {
+          "caller": "enterWithCharacter",
+          "callee": "respondToSocialInvitation",
+          "lineNumber": 121
+        },
+        {
+          "caller": "enterWithCharacter",
+          "callee": "push",
+          "lineNumber": 122
+        },
+        {
+          "caller": "enterWithCharacter",
+          "callee": "encodeURIComponent",
+          "lineNumber": 122
+        },
+        {
+          "caller": "enterWithCharacter",
+          "callee": "encodeURIComponent",
+          "lineNumber": 122
+        },
+        {
+          "caller": "enterWithCharacter",
+          "callee": "encodeURIComponent",
+          "lineNumber": 122
+        },
+        {
+          "caller": "enterWithCharacter",
+          "callee": "setError",
+          "lineNumber": 123
+        },
+        {
+          "caller": "enterWithCharacter",
+          "callee": "push",
+          "lineNumber": 126
+        },
+        {
+          "caller": "enterWithCharacter",
+          "callee": "encodeURIComponent",
+          "lineNumber": 126
+        },
+        {
+          "caller": "enterWithCharacter",
+          "callee": "encodeURIComponent",
+          "lineNumber": 126
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "submitAccess",
+          "lineNumber": 138
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "setAccessPassword",
+          "lineNumber": 140
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "setCreating",
+          "lineNumber": 147
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "createCharacter",
+          "lineNumber": 147
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "setCreating",
+          "lineNumber": 147
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "definitionToLegacyFields",
+          "lineNumber": 148
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "setError",
+          "lineNumber": 148
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "setCreating",
+          "lineNumber": 148
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "enterWithCharacter",
+          "lineNumber": 148
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "push",
+          "lineNumber": 148
+        },
+        {
+          "caller": "CharacterEntry",
+          "callee": "encodeURIComponent",
+          "lineNumber": 148
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/character-form.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 194,
+      "nonEmptyLines": 175,
+      "functions": [
+        {
+          "name": "isFilled",
+          "startLine": 24,
+          "endLine": 27,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "summaryValue",
+          "startLine": 29,
+          "endLine": 36,
+          "params": [
+            "component",
+            "value"
+          ]
+        },
+        {
+          "name": "validComponentValue",
+          "startLine": 38,
+          "endLine": 47,
+          "params": [
+            "component",
+            "value"
+          ]
+        },
+        {
+          "name": "CharacterForm",
+          "startLine": 49,
+          "endLine": 194,
+          "params": [
+            "{ definition, initialName = '', initialAttributes = {}, submitLabel = 'Criar personagem', error = null, saving = false, onSubmit, onCancel }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CharacterForm",
+          "line": 49,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isFilled",
+          "callee": "Array.isArray",
+          "lineNumber": 25
+        },
+        {
+          "caller": "isFilled",
+          "callee": "String(value).trim",
+          "lineNumber": 26
+        },
+        {
+          "caller": "isFilled",
+          "callee": "String",
+          "lineNumber": 26
+        },
+        {
+          "caller": "summaryValue",
+          "callee": "Array.isArray",
+          "lineNumber": 32
+        },
+        {
+          "caller": "summaryValue",
+          "callee": "selected.map((selectedValue) => component.options.find((option) => (option.value ?? option.label) === selectedValue)?.label ?? String(selectedValue)).join",
+          "lineNumber": 33
+        },
+        {
+          "caller": "summaryValue",
+          "callee": "selected.map",
+          "lineNumber": 33
+        },
+        {
+          "caller": "summaryValue",
+          "callee": "component.options.find",
+          "lineNumber": 33
+        },
+        {
+          "caller": "summaryValue",
+          "callee": "String",
+          "lineNumber": 33
+        },
+        {
+          "caller": "summaryValue",
+          "callee": "String",
+          "lineNumber": 35
+        },
+        {
+          "caller": "validComponentValue",
+          "callee": "isFilled",
+          "lineNumber": 39
+        },
+        {
+          "caller": "validComponentValue",
+          "callee": "Number.isFinite",
+          "lineNumber": 40
+        },
+        {
+          "caller": "validComponentValue",
+          "callee": "Number",
+          "lineNumber": 40
+        },
+        {
+          "caller": "validComponentValue",
+          "callee": "value.trim",
+          "lineNumber": 41
+        },
+        {
+          "caller": "validComponentValue",
+          "callee": "component.options.map",
+          "lineNumber": 42
+        },
+        {
+          "caller": "validComponentValue",
+          "callee": "Array.isArray",
+          "lineNumber": 44
+        },
+        {
+          "caller": "validComponentValue",
+          "callee": "value.every",
+          "lineNumber": 44
+        },
+        {
+          "caller": "validComponentValue",
+          "callee": "allowed.has",
+          "lineNumber": 44
+        },
+        {
+          "caller": "validComponentValue",
+          "callee": "allowed.has",
+          "lineNumber": 46
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "useState",
+          "lineNumber": 50
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "useState",
+          "lineNumber": 51
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "useState",
+          "lineNumber": 52
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "useState",
+          "lineNumber": 53
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "[...definition.steps].sort((a, b) => a.position - b.position)\n    .flatMap",
+          "lineNumber": 55
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "[...definition.steps].sort",
+          "lineNumber": 55
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "[...step.components].sort((a, b) => a.position - b.position).map",
+          "lineNumber": 56
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "[...step.components].sort",
+          "lineNumber": 56
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "[...definition.steps].sort((a, b) => a.position - b.position)\n    .map((step) => ({\n      ...step,\n      components: [...step.components].sort((a, b) => a.position - b.position),\n    }))\n    .filter",
+          "lineNumber": 57
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "[...definition.steps].sort((a, b) => a.position - b.position)\n    .map",
+          "lineNumber": 57
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "[...definition.steps].sort",
+          "lineNumber": 57
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "[...step.components].sort",
+          "lineNumber": 60
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "visibleComponents.map",
+          "lineNumber": 65
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "pages.findIndex",
+          "lineNumber": 68
+        },
+        {
+          "caller": "attributesForSubmit",
+          "callee": "isFilled",
+          "lineNumber": 76
+        },
+        {
+          "caller": "attributesForSubmit",
+          "callee": "Number",
+          "lineNumber": 78
+        },
+        {
+          "caller": "attributesForSubmit",
+          "callee": "Array.isArray",
+          "lineNumber": 79
+        },
+        {
+          "caller": "attributesForSubmit",
+          "callee": "component.options.map",
+          "lineNumber": 80
+        },
+        {
+          "caller": "attributesForSubmit",
+          "callee": "value.filter",
+          "lineNumber": 81
+        },
+        {
+          "caller": "attributesForSubmit",
+          "callee": "available.has",
+          "lineNumber": 81
+        },
+        {
+          "caller": "attributesForSubmit",
+          "callee": "component.options.map",
+          "lineNumber": 83
+        },
+        {
+          "caller": "attributesForSubmit",
+          "callee": "available.has",
+          "lineNumber": 84
+        },
+        {
+          "caller": "attributesForSubmit",
+          "callee": "value.trim",
+          "lineNumber": 86
+        },
+        {
+          "caller": "submit",
+          "callee": "event.preventDefault",
+          "lineNumber": 93
+        },
+        {
+          "caller": "submit",
+          "callee": "name.trim",
+          "lineNumber": 95
+        },
+        {
+          "caller": "submit",
+          "callee": "setPageError",
+          "lineNumber": 96
+        },
+        {
+          "caller": "submit",
+          "callee": "visibleComponents.find",
+          "lineNumber": 99
+        },
+        {
+          "caller": "submit",
+          "callee": "validComponentValue",
+          "lineNumber": 99
+        },
+        {
+          "caller": "submit",
+          "callee": "setPageError",
+          "lineNumber": 101
+        },
+        {
+          "caller": "submit",
+          "callee": "setPageError",
+          "lineNumber": 104
+        },
+        {
+          "caller": "submit",
+          "callee": "onSubmit",
+          "lineNumber": 105
+        },
+        {
+          "caller": "submit",
+          "callee": "name.trim",
+          "lineNumber": 105
+        },
+        {
+          "caller": "submit",
+          "callee": "attributesForSubmit",
+          "lineNumber": 105
+        },
+        {
+          "caller": "submit",
+          "callee": "name.trim",
+          "lineNumber": 111
+        },
+        {
+          "caller": "submit",
+          "callee": "validComponentValue",
+          "lineNumber": 112
+        },
+        {
+          "caller": "submit",
+          "callee": "setPageError",
+          "lineNumber": 114
+        },
+        {
+          "caller": "submit",
+          "callee": "setPageError",
+          "lineNumber": 117
+        },
+        {
+          "caller": "submit",
+          "callee": "setActivePageKey",
+          "lineNumber": 118
+        },
+        {
+          "caller": "submit",
+          "callee": "visibleComponents.find",
+          "lineNumber": 122
+        },
+        {
+          "caller": "submit",
+          "callee": "validComponentValue",
+          "lineNumber": 122
+        },
+        {
+          "caller": "submit",
+          "callee": "setActivePageKey",
+          "lineNumber": 125
+        },
+        {
+          "caller": "submit",
+          "callee": "setPageError",
+          "lineNumber": 126
+        },
+        {
+          "caller": "submit",
+          "callee": "setPageError",
+          "lineNumber": 129
+        },
+        {
+          "caller": "submit",
+          "callee": "onSubmit",
+          "lineNumber": 130
+        },
+        {
+          "caller": "submit",
+          "callee": "name.trim",
+          "lineNumber": 130
+        },
+        {
+          "caller": "submit",
+          "callee": "attributesForSubmit",
+          "lineNumber": 130
+        },
+        {
+          "caller": "updateValue",
+          "callee": "setValues",
+          "lineNumber": 134
+        },
+        {
+          "caller": "updateValue",
+          "callee": "setPageError",
+          "lineNumber": 135
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "setName",
+          "lineNumber": 146
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "setPageError",
+          "lineNumber": 146
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "visibleSteps.map",
+          "lineNumber": 148
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "setName",
+          "lineNumber": 166
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "setPageError",
+          "lineNumber": 166
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "visibleComponents.map",
+          "lineNumber": 175
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "summaryValue",
+          "lineNumber": 175
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "onCancel",
+          "lineNumber": 183
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "setPageError",
+          "lineNumber": 185
+        },
+        {
+          "caller": "CharacterForm",
+          "callee": "setActivePageKey",
+          "lineNumber": 186
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/character-gallery.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 71,
+      "functions": [
+        {
+          "name": "characterRune",
+          "startLine": 23,
+          "endLine": 26,
+          "params": [
+            "characterId"
+          ]
+        },
+        {
+          "name": "CharacterGallery",
+          "startLine": 28,
+          "endLine": 78,
+          "params": [
+            "{ systemName, fields, characters, selectedCharacterId = null, experienceByCharacterId = {}, onCreate, onEnter, onConfigureLobby, headerAction }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CharacterGallery",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "characterRune",
+          "callee": "[...characterId].reduce",
+          "lineNumber": 24
+        },
+        {
+          "caller": "characterRune",
+          "callee": "character.charCodeAt",
+          "lineNumber": 24
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "[...fields].filter((field) => field.show_on_card).sort",
+          "lineNumber": 29
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "[...fields].filter",
+          "lineNumber": 29
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "useState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "Math.ceil",
+          "lineNumber": 32
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "characters.slice",
+          "lineNumber": 33
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "useEffect",
+          "lineNumber": 35
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "setCurrentPage",
+          "lineNumber": 35
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "setCurrentPage",
+          "lineNumber": 45
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "pageCharacters.map",
+          "lineNumber": 47
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "cardFields.find",
+          "lineNumber": 48
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "formatCharacterSheetValue",
+          "lineNumber": 49
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "value.trim",
+          "lineNumber": 50
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "characterRune",
+          "lineNumber": 54
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "formatCharacterSheetValue",
+          "lineNumber": 55
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "onEnter",
+          "lineNumber": 58
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "Array.from",
+          "lineNumber": 64
+        },
+        {
+          "caller": "CharacterGallery",
+          "callee": "setCurrentPage",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/character-home-page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 142,
+      "nonEmptyLines": 135,
+      "functions": [
+        {
+          "name": "loadCharacterHomePageData",
+          "startLine": 9,
+          "endLine": 28,
+          "params": [
+            "systemId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "CharacterHomePage",
+          "startLine": 30,
+          "endLine": 142,
+          "params": [
+            "{ systemId, characterId, preferredChatId = null, push }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "loadCharacterHomePageData",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "CharacterHomePage",
+          "line": 30,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loadCharacterHomePageData",
+          "callee": "Promise.allSettled",
+          "lineNumber": 10
+        },
+        {
+          "caller": "loadCharacterHomePageData",
+          "callee": "getGameSystems",
+          "lineNumber": 11
+        },
+        {
+          "caller": "loadCharacterHomePageData",
+          "callee": "getSystemCharacters",
+          "lineNumber": 11
+        },
+        {
+          "caller": "loadCharacterHomePageData",
+          "callee": "getCharacterSheet",
+          "lineNumber": 11
+        },
+        {
+          "caller": "loadCharacterHomePageData",
+          "callee": "getCharacterExperience",
+          "lineNumber": 11
+        },
+        {
+          "caller": "loadCharacterHomePageData",
+          "callee": "systemsResult.value.systems.find",
+          "lineNumber": 16
+        },
+        {
+          "caller": "loadCharacterHomePageData",
+          "callee": "charactersResult.value.characters.find",
+          "lineNumber": 17
+        },
+        {
+          "caller": "loadCharacterHomePageData",
+          "callee": "definitionToLegacyFields",
+          "lineNumber": 24
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 31
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 32
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 33
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 34
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 35
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 36
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 37
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 38
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 39
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 40
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 41
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 42
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 43
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 44
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useState",
+          "lineNumber": 45
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useRef",
+          "lineNumber": 46
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "useEffect",
+          "lineNumber": 48
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setLoading",
+          "lineNumber": 51
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setCharacter",
+          "lineNumber": 52
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setSheetDefinition",
+          "lineNumber": 53
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setInventory",
+          "lineNumber": 54
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setRecordLoading",
+          "lineNumber": 55
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setSheetError",
+          "lineNumber": 56
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setInventoryError",
+          "lineNumber": 57
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setLoadError",
+          "lineNumber": 58
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setIsCreator",
+          "lineNumber": 59
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setLobbySettings",
+          "lineNumber": 60
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "loadCharacterHomePageData(systemId, characterId)\n      .then((result) => {\n        if (cancelled) return;\n        setSystem(result.system);\n        setCharacter(result.character);\n        setSheetDefinition(result.sheetDefinition);\n        setFields(result.fields);\n        setExperience(result.experience);\n        setSheetError(result.sheetError);\n        void Promise.allSettled([getMySystemMemberships(), getSystemLobbySettings(systemId)]).then(([accessResult, settingsResult]) => {\n          if (cancelled) return;\n          setIsCreator(accessResult.status === 'fulfilled' && (accessResult.value.is_platform_admin || accessResult.value.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner')));\n          setLobbySettings(settingsResult.status === 'fulfilled' ? settingsResult.value.settings : defaultSystemLobbySettings);\n        });\n      })\n      .catch(() => { if (!cancelled) { setSystem(null); setCharacter(null); setLoadError('Não foi possível carregar a tela do sistema. Tente novamente.'); } })\n      .finally",
+          "lineNumber": 61
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "loadCharacterHomePageData(systemId, characterId)\n      .then((result) => {\n        if (cancelled) return;\n        setSystem(result.system);\n        setCharacter(result.character);\n        setSheetDefinition(result.sheetDefinition);\n        setFields(result.fields);\n        setExperience(result.experience);\n        setSheetError(result.sheetError);\n        void Promise.allSettled([getMySystemMemberships(), getSystemLobbySettings(systemId)]).then(([accessResult, settingsResult]) => {\n          if (cancelled) return;\n          setIsCreator(accessResult.status === 'fulfilled' && (accessResult.value.is_platform_admin || accessResult.value.memberships.some((membership) => membership.game_system_id === systemId && membership.role === 'owner')));\n          setLobbySettings(settingsResult.status === 'fulfilled' ? settingsResult.value.settings : defaultSystemLobbySettings);\n        });\n      })\n      .catch",
+          "lineNumber": 61
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "loadCharacterHomePageData(systemId, characterId)\n      .then",
+          "lineNumber": 61
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "loadCharacterHomePageData",
+          "lineNumber": 61
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setSystem",
+          "lineNumber": 64
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setCharacter",
+          "lineNumber": 65
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setSheetDefinition",
+          "lineNumber": 66
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setFields",
+          "lineNumber": 67
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setExperience",
+          "lineNumber": 68
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setSheetError",
+          "lineNumber": 69
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "Promise.allSettled([getMySystemMemberships(), getSystemLobbySettings(systemId)]).then",
+          "lineNumber": 70
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "Promise.allSettled",
+          "lineNumber": 70
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "getMySystemMemberships",
+          "lineNumber": 70
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "getSystemLobbySettings",
+          "lineNumber": 70
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setIsCreator",
+          "lineNumber": 72
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "accessResult.value.memberships.some",
+          "lineNumber": 72
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setLobbySettings",
+          "lineNumber": 73
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setSystem",
+          "lineNumber": 76
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setCharacter",
+          "lineNumber": 76
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setLoadError",
+          "lineNumber": 76
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setLoading",
+          "lineNumber": 77
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setRecordLoading",
+          "lineNumber": 89
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setSheetError",
+          "lineNumber": 90
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setInventoryError",
+          "lineNumber": 91
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "Promise.allSettled",
+          "lineNumber": 92
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "getCharacterSheet",
+          "lineNumber": 93
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "getMyCharacterInventory",
+          "lineNumber": 94
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "getSystemCharacters",
+          "lineNumber": 95
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setSheetDefinition",
+          "lineNumber": 99
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setFields",
+          "lineNumber": 100
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "definitionToLegacyFields",
+          "lineNumber": 100
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setSheetError",
+          "lineNumber": 102
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setInventory",
+          "lineNumber": 105
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setInventoryError",
+          "lineNumber": 106
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setInventoryError",
+          "lineNumber": 108
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "charactersResult.value.characters.find",
+          "lineNumber": 111
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setCharacter",
+          "lineNumber": 113
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setInventoryError",
+          "lineNumber": 114
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setSheetError",
+          "lineNumber": 116
+        },
+        {
+          "caller": "refreshCharacterRecord",
+          "callee": "setRecordLoading",
+          "lineNumber": 118
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setLoadAttempt",
+          "lineNumber": 122
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "refreshCharacterRecord",
+          "lineNumber": 132
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "setDailyRewardVersion",
+          "lineNumber": 139
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "push",
+          "lineNumber": 140
+        },
+        {
+          "caller": "CharacterHomePage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 140
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/character-home.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 112,
+      "functions": [
+        {
+          "name": "CharacterHome",
+          "startLine": 35,
+          "endLine": 120,
+          "params": [
+            "{ system, character, sheetDefinition, inventory, recordLoading, sheetError, inventoryError, onRefreshRecord, fields = [], experience = null, onSwitch, dailyRewardVersion = 0, onDailyClaimed, isCreator = false, lobbySettings = defaultSystemLobbySettings, preferredChatId: initialPreferredChatId = null }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CharacterHome",
+          "line": 35,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CharacterHome",
+          "callee": "useState",
+          "lineNumber": 36
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "useState",
+          "lineNumber": 37
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "useState",
+          "lineNumber": 38
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "useState",
+          "lineNumber": 39
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "useSystemLobbyPresence",
+          "lineNumber": 40
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "Boolean",
+          "lineNumber": 40
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "fields.filter",
+          "lineNumber": 44
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "Object.hasOwn",
+          "lineNumber": 44
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "lobbySettings.section_order.every",
+          "lineNumber": 47
+        },
+        {
+          "caller": "openCharacterRecord",
+          "callee": "setActiveRecordTab",
+          "lineNumber": 52
+        },
+        {
+          "caller": "openCharacterRecord",
+          "callee": "setShowCharacterRecord",
+          "lineNumber": 53
+        },
+        {
+          "caller": "openCharacterRecord",
+          "callee": "onRefreshRecord",
+          "lineNumber": 54
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "getGameSystemCoverUrl",
+          "lineNumber": 60
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "system.description?.trim",
+          "lineNumber": 62
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "setPreferredChatId",
+          "lineNumber": 69
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "setChatPopupOpen",
+          "lineNumber": 69
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "character.character_name.trim().charAt(0).toLocaleUpperCase",
+          "lineNumber": 72
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "character.character_name.trim().charAt",
+          "lineNumber": 72
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "character.character_name.trim",
+          "lineNumber": 72
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "openCharacterRecord",
+          "lineNumber": 74
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "openCharacterRecord",
+          "lineNumber": 75
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "encodeURIComponent",
+          "lineNumber": 83
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "setShowCharacterRecord",
+          "lineNumber": 97
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "(sectionsInDefaultLayout ?? lobbySettings.section_order).map",
+          "lineNumber": 108
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "lobbySettings.hidden_sections.includes",
+          "lineNumber": 108
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "event.preventDefault",
+          "lineNumber": 111
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "setChatPopupOpen",
+          "lineNumber": 111
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "setChatPopupOpen",
+          "lineNumber": 112
+        },
+        {
+          "caller": "CharacterHome",
+          "callee": "setChatPopupOpen",
+          "lineNumber": 115
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/character-record.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 210,
+      "nonEmptyLines": 194,
+      "functions": [
+        {
+          "name": "displayValue",
+          "startLine": 7,
+          "endLine": 12,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "safeImageUrl",
+          "startLine": 14,
+          "endLine": 21,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "selectedOptionLabels",
+          "startLine": 23,
+          "endLine": 32,
+          "params": [
+            "component",
+            "value"
+          ]
+        },
+        {
+          "name": "CharacterSheetValue",
+          "startLine": 34,
+          "endLine": 46,
+          "params": [
+            "{ component, value }"
+          ]
+        },
+        {
+          "name": "SheetArt",
+          "startLine": 48,
+          "endLine": 59,
+          "params": [
+            "{ step }"
+          ]
+        },
+        {
+          "name": "CharacterSheetView",
+          "startLine": 61,
+          "endLine": 94,
+          "params": [
+            "{ character, definition, experience, error }"
+          ]
+        },
+        {
+          "name": "itemCategory",
+          "startLine": 96,
+          "endLine": 106,
+          "params": [
+            "item"
+          ]
+        },
+        {
+          "name": "itemAttributes",
+          "startLine": 108,
+          "endLine": 110,
+          "params": [
+            "item"
+          ]
+        },
+        {
+          "name": "CharacterInventoryView",
+          "startLine": 112,
+          "endLine": 158,
+          "params": [
+            "{ inventory, selectedStackId, onSelect }"
+          ]
+        },
+        {
+          "name": "CharacterRecord",
+          "startLine": 160,
+          "endLine": 208,
+          "params": [
+            "{ character, definition, experience, inventory, activeTab, onTabChange, loading, sheetError, inventoryError, onRefresh, onClose }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CharacterRecord",
+          "line": 160,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "displayValue",
+          "callee": "Array.isArray",
+          "lineNumber": 9
+        },
+        {
+          "caller": "displayValue",
+          "callee": "value.map(displayValue).join",
+          "lineNumber": 9
+        },
+        {
+          "caller": "displayValue",
+          "callee": "value.map",
+          "lineNumber": 9
+        },
+        {
+          "caller": "displayValue",
+          "callee": "JSON.stringify",
+          "lineNumber": 10
+        },
+        {
+          "caller": "displayValue",
+          "callee": "String",
+          "lineNumber": 11
+        },
+        {
+          "caller": "selectedOptionLabels",
+          "callee": "Array.isArray",
+          "lineNumber": 24
+        },
+        {
+          "caller": "selectedOptionLabels",
+          "callee": "value.filter",
+          "lineNumber": 25
+        },
+        {
+          "caller": "selectedOptionLabels",
+          "callee": "selectedValues.map",
+          "lineNumber": 27
+        },
+        {
+          "caller": "selectedOptionLabels",
+          "callee": "component.options.find",
+          "lineNumber": 27
+        },
+        {
+          "caller": "selectedOptionLabels",
+          "callee": "matches.flatMap",
+          "lineNumber": 28
+        },
+        {
+          "caller": "selectedOptionLabels",
+          "callee": "safeImageUrl",
+          "lineNumber": 29
+        },
+        {
+          "caller": "CharacterSheetValue",
+          "callee": "selectedOptionLabels(component, value).map",
+          "lineNumber": 39
+        },
+        {
+          "caller": "CharacterSheetValue",
+          "callee": "selectedOptionLabels",
+          "lineNumber": 39
+        },
+        {
+          "caller": "CharacterSheetValue",
+          "callee": "displayValue",
+          "lineNumber": 45
+        },
+        {
+          "caller": "SheetArt",
+          "callee": "elements.map",
+          "lineNumber": 52
+        },
+        {
+          "caller": "CharacterSheetView",
+          "callee": "definition.steps.map",
+          "lineNumber": 70
+        },
+        {
+          "caller": "CharacterSheetView",
+          "callee": "[...step.components]\n    .sort((a, b) => a.position - b.position).map",
+          "lineNumber": 70
+        },
+        {
+          "caller": "CharacterSheetView",
+          "callee": "[...step.components]\n    .sort",
+          "lineNumber": 70
+        },
+        {
+          "caller": "CharacterSheetView",
+          "callee": "[...definition.steps]\n    .sort((a, b) => a.position - b.position)\n      .filter",
+          "lineNumber": 72
+        },
+        {
+          "caller": "CharacterSheetView",
+          "callee": "[...definition.steps]\n    .sort",
+          "lineNumber": 72
+        },
+        {
+          "caller": "CharacterSheetView",
+          "callee": "componentsByStep.get",
+          "lineNumber": 74
+        },
+        {
+          "caller": "CharacterSheetView",
+          "callee": "visibleSteps.map",
+          "lineNumber": 84
+        },
+        {
+          "caller": "CharacterSheetView",
+          "callee": "(componentsByStep.get(step.key) ?? []).map",
+          "lineNumber": 87
+        },
+        {
+          "caller": "CharacterSheetView",
+          "callee": "componentsByStep.get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "itemCategory",
+          "callee": "configuredCategory.trim",
+          "lineNumber": 98
+        },
+        {
+          "caller": "itemCategory",
+          "callee": "configuredCategory.trim",
+          "lineNumber": 98
+        },
+        {
+          "caller": "itemAttributes",
+          "callee": "Object.entries(item.rules_data).filter",
+          "lineNumber": 109
+        },
+        {
+          "caller": "itemAttributes",
+          "callee": "Object.entries",
+          "lineNumber": 109
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "inventory?.stacks.find",
+          "lineNumber": 117
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "itemCategory",
+          "lineNumber": 120
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "categories.get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "current.push",
+          "lineNumber": 122
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "categories.set",
+          "lineNumber": 123
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "[...categories.entries()].map",
+          "lineNumber": 131
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "categories.entries",
+          "lineNumber": 131
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "stacks.map",
+          "lineNumber": 134
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "safeImageUrl",
+          "lineNumber": 135
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "onSelect",
+          "lineNumber": 136
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "itemCategory",
+          "lineNumber": 148
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "itemAttributes(selectedStack).map",
+          "lineNumber": 153
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "itemAttributes",
+          "lineNumber": 153
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "displayValue",
+          "lineNumber": 153
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "Object.keys",
+          "lineNumber": 154
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "Object.entries(selectedStack.metadata).map",
+          "lineNumber": 154
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "Object.entries",
+          "lineNumber": 154
+        },
+        {
+          "caller": "CharacterInventoryView",
+          "callee": "displayValue",
+          "lineNumber": 154
+        },
+        {
+          "caller": "CharacterRecord",
+          "callee": "useState",
+          "lineNumber": 173
+        },
+        {
+          "caller": "CharacterRecord",
+          "callee": "useRef",
+          "lineNumber": 174
+        },
+        {
+          "caller": "handleTabKeyDown",
+          "callee": "event.preventDefault",
+          "lineNumber": 182
+        },
+        {
+          "caller": "handleTabKeyDown",
+          "callee": "onTabChange",
+          "lineNumber": 183
+        },
+        {
+          "caller": "handleTabKeyDown",
+          "callee": "tabButtons.current[nextTab]?.focus",
+          "lineNumber": 184
+        },
+        {
+          "caller": "CharacterRecord",
+          "callee": "onTabChange",
+          "lineNumber": 197
+        },
+        {
+          "caller": "CharacterRecord",
+          "callee": "onTabChange",
+          "lineNumber": 198
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-creator-tools.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "LobbyCreatorTools",
+          "startLine": 7,
+          "endLine": 52,
+          "params": [
+            "{ system, characters, characterLoadError, onChatCreated }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LobbyCreatorTools",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "useEffect",
+          "lineNumber": 20
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "setCharacterId",
+          "lineNumber": 21
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "characters.some",
+          "lineNumber": 21
+        },
+        {
+          "caller": "submitChat",
+          "callee": "event.preventDefault",
+          "lineNumber": 25
+        },
+        {
+          "caller": "submitChat",
+          "callee": "setSavingChat",
+          "lineNumber": 27
+        },
+        {
+          "caller": "submitChat",
+          "callee": "setMessage",
+          "lineNumber": 27
+        },
+        {
+          "caller": "submitChat",
+          "callee": "setError",
+          "lineNumber": 27
+        },
+        {
+          "caller": "submitChat",
+          "callee": "createSystemChat",
+          "lineNumber": 29
+        },
+        {
+          "caller": "submitChat",
+          "callee": "onChatCreated",
+          "lineNumber": 30
+        },
+        {
+          "caller": "submitChat",
+          "callee": "setChatName",
+          "lineNumber": 31
+        },
+        {
+          "caller": "submitChat",
+          "callee": "setChatDescription",
+          "lineNumber": 31
+        },
+        {
+          "caller": "submitChat",
+          "callee": "setMessage",
+          "lineNumber": 31
+        },
+        {
+          "caller": "submitChat",
+          "callee": "setError",
+          "lineNumber": 32
+        },
+        {
+          "caller": "submitChat",
+          "callee": "setSavingChat",
+          "lineNumber": 33
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "submitChat",
+          "lineNumber": 40
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "setCharacterId",
+          "lineNumber": 42
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "characters.map",
+          "lineNumber": 44
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "setChatName",
+          "lineNumber": 46
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "setChatDescription",
+          "lineNumber": 47
+        },
+        {
+          "caller": "LobbyCreatorTools",
+          "callee": "chatName.trim",
+          "lineNumber": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-customization-form.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 65,
+      "functions": [
+        {
+          "name": "LobbyCustomizationForm",
+          "startLine": 17,
+          "endLine": 73,
+          "params": [
+            "{ system, settings, onSettingsSaved, onSystemSaved }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LobbyCustomizationForm",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "useState",
+          "lineNumber": 23
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "useState",
+          "lineNumber": 24
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "useState",
+          "lineNumber": 25
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "useState",
+          "lineNumber": 26
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "useEffect",
+          "lineNumber": 28
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "setDraft",
+          "lineNumber": 28
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "event.preventDefault",
+          "lineNumber": 31
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "setSavingSettings",
+          "lineNumber": 32
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "setMessage",
+          "lineNumber": 32
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "setError",
+          "lineNumber": 32
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "updateSystemLobbySettings",
+          "lineNumber": 34
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "setDraft",
+          "lineNumber": 35
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "onSettingsSaved",
+          "lineNumber": 35
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "setMessage",
+          "lineNumber": 35
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "setError",
+          "lineNumber": 36
+        },
+        {
+          "caller": "submitSettings",
+          "callee": "setSavingSettings",
+          "lineNumber": 37
+        },
+        {
+          "caller": "moveSection",
+          "callee": "setDraft",
+          "lineNumber": 41
+        },
+        {
+          "caller": "moveSection",
+          "callee": "order.indexOf",
+          "lineNumber": 43
+        },
+        {
+          "caller": "setSectionVisible",
+          "callee": "setDraft",
+          "lineNumber": 52
+        },
+        {
+          "caller": "setSectionVisible",
+          "callee": "current.hidden_sections.filter",
+          "lineNumber": 53
+        },
+        {
+          "caller": "setSectionVisible",
+          "callee": "lobbySectionIds.filter",
+          "lineNumber": 54
+        },
+        {
+          "caller": "setSectionVisible",
+          "callee": "current.hidden_sections.includes",
+          "lineNumber": 54
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "submitSettings",
+          "lineNumber": 59
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "setDraft",
+          "lineNumber": 60
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "setDraft",
+          "lineNumber": 61
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "setDraft",
+          "lineNumber": 62
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "event.target.value.toUpperCase",
+          "lineNumber": 62
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "draft.section_order.map",
+          "lineNumber": 63
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "draft.hidden_sections.includes",
+          "lineNumber": 64
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "setSectionVisible",
+          "lineNumber": 64
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "moveSection",
+          "lineNumber": 65
+        },
+        {
+          "caller": "LobbyCustomizationForm",
+          "callee": "moveSection",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-presence.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 61,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "startSystemLobbyPresenceHeartbeat",
+          "startLine": 13,
+          "endLine": 45,
+          "params": [
+            "systemId",
+            "options"
+          ]
+        },
+        {
+          "name": "useSystemLobbyPresence",
+          "startLine": 47,
+          "endLine": 61,
+          "params": [
+            "systemId",
+            "enabled"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "startSystemLobbyPresenceHeartbeat",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "useSystemLobbyPresence",
+          "line": 47,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "pulse",
+          "callee": "heartbeat",
+          "lineNumber": 23
+        },
+        {
+          "caller": "pulse",
+          "callee": "options.onCount",
+          "lineNumber": 24
+        },
+        {
+          "caller": "pulse",
+          "callee": "options.onError",
+          "lineNumber": 26
+        },
+        {
+          "caller": "handleVisibilityChange",
+          "callee": "pulse",
+          "lineNumber": 33
+        },
+        {
+          "caller": "startSystemLobbyPresenceHeartbeat",
+          "callee": "globalThis.setInterval",
+          "lineNumber": 36
+        },
+        {
+          "caller": "startSystemLobbyPresenceHeartbeat",
+          "callee": "pulse",
+          "lineNumber": 36
+        },
+        {
+          "caller": "startSystemLobbyPresenceHeartbeat",
+          "callee": "doc.addEventListener",
+          "lineNumber": 37
+        },
+        {
+          "caller": "startSystemLobbyPresenceHeartbeat",
+          "callee": "pulse",
+          "lineNumber": 38
+        },
+        {
+          "caller": "startSystemLobbyPresenceHeartbeat",
+          "callee": "globalThis.clearInterval",
+          "lineNumber": 42
+        },
+        {
+          "caller": "startSystemLobbyPresenceHeartbeat",
+          "callee": "doc.removeEventListener",
+          "lineNumber": 43
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "useState",
+          "lineNumber": 48
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "useState",
+          "lineNumber": 49
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "useEffect",
+          "lineNumber": 51
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "setOnlineCount",
+          "lineNumber": 52
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "setUnavailable",
+          "lineNumber": 52
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "setOnlineCount",
+          "lineNumber": 53
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "setUnavailable",
+          "lineNumber": 53
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "startSystemLobbyPresenceHeartbeat",
+          "lineNumber": 54
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "setOnlineCount",
+          "lineNumber": 55
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "setUnavailable",
+          "lineNumber": 55
+        },
+        {
+          "caller": "useSystemLobbyPresence",
+          "callee": "setUnavailable",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-settings-page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 88,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "LobbySettingsPage",
+          "startLine": 14,
+          "endLine": 88,
+          "params": [
+            "{ systemId }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LobbySettingsPage",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "useEffect",
+          "lineNumber": 23
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "setPageState",
+          "lineNumber": 25
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "setPageError",
+          "lineNumber": 26
+        },
+        {
+          "caller": "load",
+          "callee": "Promise.all",
+          "lineNumber": 30
+        },
+        {
+          "caller": "load",
+          "callee": "getGameSystems",
+          "lineNumber": 31
+        },
+        {
+          "caller": "load",
+          "callee": "getMySystemMemberships",
+          "lineNumber": 32
+        },
+        {
+          "caller": "load",
+          "callee": "systemsResult.systems.find",
+          "lineNumber": 35
+        },
+        {
+          "caller": "load",
+          "callee": "Boolean",
+          "lineNumber": 36
+        },
+        {
+          "caller": "load",
+          "callee": "memberships.memberships.some",
+          "lineNumber": 36
+        },
+        {
+          "caller": "load",
+          "callee": "setPageState",
+          "lineNumber": 38
+        },
+        {
+          "caller": "load",
+          "callee": "Promise.allSettled",
+          "lineNumber": 42
+        },
+        {
+          "caller": "load",
+          "callee": "getSystemLobbySettings",
+          "lineNumber": 43
+        },
+        {
+          "caller": "load",
+          "callee": "getSystemCharacters",
+          "lineNumber": 44
+        },
+        {
+          "caller": "load",
+          "callee": "setSystem",
+          "lineNumber": 48
+        },
+        {
+          "caller": "load",
+          "callee": "setSettings",
+          "lineNumber": 49
+        },
+        {
+          "caller": "load",
+          "callee": "setCharacters",
+          "lineNumber": 51
+        },
+        {
+          "caller": "load",
+          "callee": "setCharacterLoadError",
+          "lineNumber": 52
+        },
+        {
+          "caller": "load",
+          "callee": "setCharacters",
+          "lineNumber": 54
+        },
+        {
+          "caller": "load",
+          "callee": "setCharacterLoadError",
+          "lineNumber": 55
+        },
+        {
+          "caller": "load",
+          "callee": "setPageState",
+          "lineNumber": 57
+        },
+        {
+          "caller": "load",
+          "callee": "setPageError",
+          "lineNumber": 60
+        },
+        {
+          "caller": "load",
+          "callee": "setPageState",
+          "lineNumber": 61
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "load",
+          "lineNumber": 65
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "encodeURIComponent",
+          "lineNumber": 69
+        },
+        {
+          "caller": "LobbySettingsPage",
+          "callee": "setLoadAttempt",
+          "lineNumber": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-stats.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 103,
+      "nonEmptyLines": 91,
+      "functions": [
+        {
+          "name": "countActiveLobbyChats",
+          "startLine": 6,
+          "endLine": 8,
+          "params": [
+            "chats"
+          ]
+        },
+        {
+          "name": "findNextLobbySession",
+          "startLine": 10,
+          "endLine": 14,
+          "params": [
+            "events",
+            "now"
+          ]
+        },
+        {
+          "name": "startLobbySessionClock",
+          "startLine": 16,
+          "endLine": 27,
+          "params": [
+            "onTick",
+            "doc"
+          ]
+        },
+        {
+          "name": "formatLobbySession",
+          "startLine": 29,
+          "endLine": 42,
+          "params": [
+            "value",
+            "now"
+          ]
+        },
+        {
+          "name": "formatCount",
+          "startLine": 55,
+          "endLine": 57,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "LobbyStatsDisplay",
+          "startLine": 59,
+          "endLine": 66,
+          "params": [
+            "{ onlineCount, onlineUnavailable, activeRoomCount, roomsUnavailable, nextSession, sessionsUnavailable, roomsLoading, sessionsLoading }"
+          ]
+        },
+        {
+          "name": "LobbyStats",
+          "startLine": 68,
+          "endLine": 103,
+          "params": [
+            "{ systemId, characterId, onlineCount, onlineUnavailable }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "countActiveLobbyChats",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "findNextLobbySession",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "startLobbySessionClock",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "formatLobbySession",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "LobbyStatsDisplay",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "LobbyStats",
+          "line": 68,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "countActiveLobbyChats",
+          "callee": "chats.filter",
+          "lineNumber": 7
+        },
+        {
+          "caller": "findNextLobbySession",
+          "callee": "events\n    .filter((event) => !event.started_at && new Date(event.starts_at).getTime() > now.getTime())\n    .sort",
+          "lineNumber": 11
+        },
+        {
+          "caller": "findNextLobbySession",
+          "callee": "events\n    .filter",
+          "lineNumber": 11
+        },
+        {
+          "caller": "findNextLobbySession",
+          "callee": "new Date(event.starts_at).getTime",
+          "lineNumber": 12
+        },
+        {
+          "caller": "findNextLobbySession",
+          "callee": "now.getTime",
+          "lineNumber": 12
+        },
+        {
+          "caller": "findNextLobbySession",
+          "callee": "new Date(left.starts_at).getTime",
+          "lineNumber": 13
+        },
+        {
+          "caller": "findNextLobbySession",
+          "callee": "new Date(right.starts_at).getTime",
+          "lineNumber": 13
+        },
+        {
+          "caller": "tick",
+          "callee": "onTick",
+          "lineNumber": 18
+        },
+        {
+          "caller": "onVisibilityChange",
+          "callee": "tick",
+          "lineNumber": 19
+        },
+        {
+          "caller": "startLobbySessionClock",
+          "callee": "globalThis.setInterval",
+          "lineNumber": 20
+        },
+        {
+          "caller": "startLobbySessionClock",
+          "callee": "visibilityDocument?.addEventListener",
+          "lineNumber": 21
+        },
+        {
+          "caller": "startLobbySessionClock",
+          "callee": "tick",
+          "lineNumber": 22
+        },
+        {
+          "caller": "startLobbySessionClock",
+          "callee": "globalThis.clearInterval",
+          "lineNumber": 24
+        },
+        {
+          "caller": "startLobbySessionClock",
+          "callee": "visibilityDocument?.removeEventListener",
+          "lineNumber": 25
+        },
+        {
+          "caller": "formatLobbySession",
+          "callee": "tomorrow.setDate",
+          "lineNumber": 33
+        },
+        {
+          "caller": "formatLobbySession",
+          "callee": "tomorrow.getDate",
+          "lineNumber": 33
+        },
+        {
+          "caller": "sameDate",
+          "callee": "left.getFullYear",
+          "lineNumber": 34
+        },
+        {
+          "caller": "sameDate",
+          "callee": "right.getFullYear",
+          "lineNumber": 34
+        },
+        {
+          "caller": "sameDate",
+          "callee": "left.getMonth",
+          "lineNumber": 34
+        },
+        {
+          "caller": "sameDate",
+          "callee": "right.getMonth",
+          "lineNumber": 34
+        },
+        {
+          "caller": "sameDate",
+          "callee": "left.getDate",
+          "lineNumber": 34
+        },
+        {
+          "caller": "sameDate",
+          "callee": "right.getDate",
+          "lineNumber": 34
+        },
+        {
+          "caller": "formatLobbySession",
+          "callee": "new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts",
+          "lineNumber": 35
+        },
+        {
+          "caller": "formatLobbySession",
+          "callee": "timeParts.find",
+          "lineNumber": 36
+        },
+        {
+          "caller": "formatLobbySession",
+          "callee": "timeParts.find",
+          "lineNumber": 37
+        },
+        {
+          "caller": "formatLobbySession",
+          "callee": "sameDate",
+          "lineNumber": 39
+        },
+        {
+          "caller": "formatLobbySession",
+          "callee": "sameDate",
+          "lineNumber": 40
+        },
+        {
+          "caller": "formatLobbySession",
+          "callee": "new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium', timeStyle: 'short' }).format",
+          "lineNumber": 41
+        },
+        {
+          "caller": "formatCount",
+          "callee": "new Intl.NumberFormat('pt-BR', { minimumIntegerDigits: 2, useGrouping: false }).format",
+          "lineNumber": 56
+        },
+        {
+          "caller": "summaryValue",
+          "callee": "formatCount",
+          "lineNumber": 60
+        },
+        {
+          "caller": "LobbyStatsDisplay",
+          "callee": "summaryValue",
+          "lineNumber": 62
+        },
+        {
+          "caller": "LobbyStatsDisplay",
+          "callee": "summaryValue",
+          "lineNumber": 63
+        },
+        {
+          "caller": "LobbyStatsDisplay",
+          "callee": "formatLobbySession",
+          "lineNumber": 64
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "useState",
+          "lineNumber": 69
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "useState",
+          "lineNumber": 70
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "useState",
+          "lineNumber": 71
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "useState",
+          "lineNumber": 72
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "useState",
+          "lineNumber": 73
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "useState",
+          "lineNumber": 74
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "useState",
+          "lineNumber": 75
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "useEffect",
+          "lineNumber": 77
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "startLobbySessionClock",
+          "lineNumber": 77
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "useEffect",
+          "lineNumber": 79
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setRoomsLoading",
+          "lineNumber": 81
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setRoomsUnavailable",
+          "lineNumber": 81
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setActiveRoomCount",
+          "lineNumber": 81
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setSessionsLoading",
+          "lineNumber": 82
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setSessionsUnavailable",
+          "lineNumber": 82
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setEvents",
+          "lineNumber": 82
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "getCharacterChats(characterId).then(({ chats }) => {\n      if (active) setActiveRoomCount(countActiveLobbyChats(chats));\n    }).catch(() => { if (active) setRoomsUnavailable(true); }).finally",
+          "lineNumber": 83
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "getCharacterChats(characterId).then(({ chats }) => {\n      if (active) setActiveRoomCount(countActiveLobbyChats(chats));\n    }).catch",
+          "lineNumber": 83
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "getCharacterChats(characterId).then",
+          "lineNumber": 83
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "getCharacterChats",
+          "lineNumber": 83
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setActiveRoomCount",
+          "lineNumber": 84
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "countActiveLobbyChats",
+          "lineNumber": 84
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setRoomsUnavailable",
+          "lineNumber": 85
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setRoomsLoading",
+          "lineNumber": 85
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "getSystemEvents(systemId).then(({ events: loadedEvents }) => {\n      if (active) setEvents(loadedEvents);\n    }).catch(() => { if (active) setSessionsUnavailable(true); }).finally",
+          "lineNumber": 86
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "getSystemEvents(systemId).then(({ events: loadedEvents }) => {\n      if (active) setEvents(loadedEvents);\n    }).catch",
+          "lineNumber": 86
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "getSystemEvents(systemId).then",
+          "lineNumber": 86
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "getSystemEvents",
+          "lineNumber": 86
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setEvents",
+          "lineNumber": 87
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setSessionsUnavailable",
+          "lineNumber": 88
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "setSessionsLoading",
+          "lineNumber": 88
+        },
+        {
+          "caller": "LobbyStats",
+          "callee": "findNextLobbySession",
+          "lineNumber": 92
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 6,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/dashboard/dashboard.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 78,
+      "functions": [
+        {
+          "name": "Dashboard",
+          "startLine": 17,
+          "endLine": 91,
+          "params": [
+            "{ playerName, onLogout }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Dashboard",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Dashboard",
+          "callee": "useRouter",
+          "lineNumber": 18
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "useState",
+          "lineNumber": 22
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "useState",
+          "lineNumber": 23
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "useState",
+          "lineNumber": 24
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "useEffect",
+          "lineNumber": 26
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "getGameSystems({ includeArchived: true })\n      .then(({ systems: loadedSystems }) => setSystems(loadedSystems))\n      .catch(() => setSystemsError('Não foi possível carregar seus sistemas.'))\n      .finally",
+          "lineNumber": 27
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "getGameSystems({ includeArchived: true })\n      .then(({ systems: loadedSystems }) => setSystems(loadedSystems))\n      .catch",
+          "lineNumber": 27
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "getGameSystems({ includeArchived: true })\n      .then",
+          "lineNumber": 27
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "getGameSystems",
+          "lineNumber": 27
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setSystems",
+          "lineNumber": 28
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setSystemsError",
+          "lineNumber": 29
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setSystemsLoading",
+          "lineNumber": 30
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "getMySystemMemberships().then(({ memberships, is_platform_admin }) => {\n      setOwnerSystemIds(new Set(memberships.filter((membership) => membership.role === 'owner').map((membership) => membership.game_system_id)));\n      setIsPlatformAdmin(is_platform_admin);\n    }).catch",
+          "lineNumber": 31
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "getMySystemMemberships().then",
+          "lineNumber": 31
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "getMySystemMemberships",
+          "lineNumber": 31
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setOwnerSystemIds",
+          "lineNumber": 32
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "memberships.filter((membership) => membership.role === 'owner').map",
+          "lineNumber": 32
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "memberships.filter",
+          "lineNumber": 32
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setIsPlatformAdmin",
+          "lineNumber": 33
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setOwnerSystemIds",
+          "lineNumber": 34
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setIsPlatformAdmin",
+          "lineNumber": 34
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "(playerName ?? '').trim",
+          "lineNumber": 37
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "safePlayerName.split",
+          "lineNumber": 38
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "router.push",
+          "lineNumber": 41
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "router.push",
+          "lineNumber": 42
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "router.push",
+          "lineNumber": 43
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "encodeURIComponent",
+          "lineNumber": 43
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "router.push",
+          "lineNumber": 43
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setActiveSlide",
+          "lineNumber": 75
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "slides.map",
+          "lineNumber": 76
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setActiveSlide",
+          "lineNumber": 76
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "setActiveSlide",
+          "lineNumber": 77
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "router.push",
+          "lineNumber": 82
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "router.push",
+          "lineNumber": 84
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "encodeURIComponent",
+          "lineNumber": 84
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "router.push",
+          "lineNumber": 85
+        },
+        {
+          "caller": "Dashboard",
+          "callee": "encodeURIComponent",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/dashboard/systems-section.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 83,
+      "nonEmptyLines": 80,
+      "functions": [
+        {
+          "name": "SystemsSection",
+          "startLine": 16,
+          "endLine": 83,
+          "params": [
+            "{ systems, loading, error, onCreate, onEnter, ownerSystemIds = new Set(), isPlatformAdmin = false, onManage }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SystemsSection",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SystemsSection",
+          "callee": "[0, 1, 2].map",
+          "lineNumber": 32
+        },
+        {
+          "caller": "SystemsSection",
+          "callee": "systems.map",
+          "lineNumber": 48
+        },
+        {
+          "caller": "SystemsSection",
+          "callee": "getGameSystemCoverUrl",
+          "lineNumber": 52
+        },
+        {
+          "caller": "SystemsSection",
+          "callee": "ownerSystemIds.has",
+          "lineNumber": 59
+        },
+        {
+          "caller": "SystemsSection",
+          "callee": "onManage",
+          "lineNumber": 59
+        },
+        {
+          "caller": "SystemsSection",
+          "callee": "(system.tags ?? []).slice(0, 3).map",
+          "lineNumber": 68
+        },
+        {
+          "caller": "SystemsSection",
+          "callee": "(system.tags ?? []).slice",
+          "lineNumber": 68
+        },
+        {
+          "caller": "SystemsSection",
+          "callee": "onEnter",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/notifications/notification-center.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 271,
+      "nonEmptyLines": 247,
+      "functions": [
+        {
+          "name": "roleChangePayload",
+          "startLine": 22,
+          "endLine": 31,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "announcementPayload",
+          "startLine": 33,
+          "endLine": 37,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "roleLabel",
+          "startLine": 39,
+          "endLine": 41,
+          "params": [
+            "role"
+          ]
+        },
+        {
+          "name": "formatDate",
+          "startLine": 43,
+          "endLine": 46,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "NotificationContent",
+          "startLine": 48,
+          "endLine": 62,
+          "params": [
+            "{ notification }"
+          ]
+        },
+        {
+          "name": "BellIcon",
+          "startLine": 64,
+          "endLine": 81,
+          "params": [
+            "{ size = 18 }"
+          ]
+        },
+        {
+          "name": "NotificationCenter",
+          "startLine": 83,
+          "endLine": 271,
+          "params": [
+            "{ compact = false }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "NotificationCenter",
+          "line": 83,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatDate",
+          "callee": "Number.isNaN",
+          "lineNumber": 45
+        },
+        {
+          "caller": "formatDate",
+          "callee": "date.getTime",
+          "lineNumber": 45
+        },
+        {
+          "caller": "formatDate",
+          "callee": "date.toLocaleString",
+          "lineNumber": 45
+        },
+        {
+          "caller": "NotificationContent",
+          "callee": "roleChangePayload",
+          "lineNumber": 50
+        },
+        {
+          "caller": "NotificationContent",
+          "callee": "roleLabel",
+          "lineNumber": 52
+        },
+        {
+          "caller": "NotificationContent",
+          "callee": "roleLabel",
+          "lineNumber": 52
+        },
+        {
+          "caller": "NotificationContent",
+          "callee": "announcementPayload",
+          "lineNumber": 56
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 84
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 85
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 86
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 87
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 88
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 89
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 90
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 91
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 92
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 93
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 94
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 95
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 96
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 97
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 98
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 99
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 100
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 101
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useState",
+          "lineNumber": 102
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useCallback",
+          "lineNumber": 104
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setLoadingMore",
+          "lineNumber": 105
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setLoading",
+          "lineNumber": 106
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setError",
+          "lineNumber": 107
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "getMyNotifications",
+          "lineNumber": 109
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setNotifications",
+          "lineNumber": 110
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setUnreadCount",
+          "lineNumber": 111
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setNextOffset",
+          "lineNumber": 112
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setHasMore",
+          "lineNumber": 113
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setError",
+          "lineNumber": 115
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setLoadingMore",
+          "lineNumber": 117
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setLoading",
+          "lineNumber": 118
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useCallback",
+          "lineNumber": 122
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setMembershipLoading",
+          "lineNumber": 123
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setMembershipError",
+          "lineNumber": 124
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "getMySystemMemberships",
+          "lineNumber": 126
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "access.memberships.filter",
+          "lineNumber": 127
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setMemberships",
+          "lineNumber": 128
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setComposerOpen",
+          "lineNumber": 129
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setSelectedSystemId",
+          "lineNumber": 130
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "manageable.some",
+          "lineNumber": 130
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setMembershipError",
+          "lineNumber": 134
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setMembershipLoading",
+          "lineNumber": 136
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useEffect",
+          "lineNumber": 140
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "loadNotifications",
+          "lineNumber": 141
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "loadMemberships",
+          "lineNumber": 142
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "useEffect",
+          "lineNumber": 145
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "loadNotifications",
+          "lineNumber": 147
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "loadMemberships",
+          "lineNumber": 148
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "setUpdatingId",
+          "lineNumber": 153
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "setError",
+          "lineNumber": 154
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "markNotificationRead",
+          "lineNumber": 156
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "setNotifications",
+          "lineNumber": 157
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "current.map",
+          "lineNumber": 157
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "new Date().toISOString",
+          "lineNumber": 158
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "setUnreadCount",
+          "lineNumber": 160
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "Math.max",
+          "lineNumber": 160
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "setError",
+          "lineNumber": 162
+        },
+        {
+          "caller": "handleMarkRead",
+          "callee": "setUpdatingId",
+          "lineNumber": 164
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "event.preventDefault",
+          "lineNumber": 169
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "setPublishing",
+          "lineNumber": 171
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "setPublishMessage",
+          "lineNumber": 172
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "publishSystemAnnouncement",
+          "lineNumber": 174
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "setTitle",
+          "lineNumber": 175
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "setBody",
+          "lineNumber": 176
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "setPublishMessage",
+          "lineNumber": 177
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "setPublishError",
+          "lineNumber": 178
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "loadNotifications",
+          "lineNumber": 179
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "setPublishMessage",
+          "lineNumber": 181
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "setPublishError",
+          "lineNumber": 182
+        },
+        {
+          "caller": "handlePublish",
+          "callee": "setPublishing",
+          "lineNumber": 184
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "memberships.filter",
+          "lineNumber": 188
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setOpen",
+          "lineNumber": 197
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setOpen",
+          "lineNumber": 206
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setComposerOpen",
+          "lineNumber": 213
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setPublishMessage",
+          "lineNumber": 213
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "loadMemberships",
+          "lineNumber": 218
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "handlePublish",
+          "lineNumber": 221
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setSelectedSystemId",
+          "lineNumber": 224
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "manageableMemberships.map",
+          "lineNumber": 225
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setTitle",
+          "lineNumber": 230
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "setBody",
+          "lineNumber": 234
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "loadNotifications",
+          "lineNumber": 243
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "notifications.map",
+          "lineNumber": 248
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "formatDate",
+          "lineNumber": 251
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "handleMarkRead",
+          "lineNumber": 259
+        },
+        {
+          "caller": "NotificationCenter",
+          "callee": "loadNotifications",
+          "lineNumber": 267
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    }
+  ]
+}

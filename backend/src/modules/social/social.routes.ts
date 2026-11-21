@@ -1,5 +1,5 @@
+import { errorSchema, authOptions } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { authenticate } from '../../plugins/authenticate.js';
 import {
   friendRequestBodySchema,
   friendRequestDecisionSchema,
@@ -24,11 +24,6 @@ import {
   listMySocialInvitations,
   respondRpgInvitation,
 } from './social.repository.js';
-
-const errorSchema = {
-  type: 'object', required: ['error'], additionalProperties: false,
-  properties: { error: { type: 'string' } },
-} as const;
 
 const publicProfileJsonSchema = {
   type: 'object', required: ['user_id', 'username', 'display_name', 'avatar_url', 'bio'], additionalProperties: false,
@@ -102,11 +97,6 @@ const invitationListItemJsonSchema = {
     inviter_user_id: { type: 'string', format: 'uuid' }, username: { type: 'string' }, display_name: { type: 'string' },
   },
 } as const;
-
-const authOptions = {
-  preHandler: authenticate,
-  schema: { security: [{ bearerAuth: [] }] },
-};
 
 function databaseError(reply: FastifyReply) {
   return reply.code(500).send({ error: 'Não foi possível acessar a rede de amigos.' });

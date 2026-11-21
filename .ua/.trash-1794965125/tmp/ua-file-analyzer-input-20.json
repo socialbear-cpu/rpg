@@ -1,0 +1,337 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": ".superpowers/brainstorm/astra-review/state/server-info",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".superpowers/brainstorm/character-sheet-visual/content/approaches.html",
+      "language": "html",
+      "sizeLines": 53,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/character-sheet-visual/state/server-stopped",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-20261115/state/server-stopped",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".superpowers/brainstorm/sheet-mockup/state/server-info",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".ua/config.json",
+      "language": "json",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "database/README.md",
+      "language": "markdown",
+      "sizeLines": 65,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "database/schema/README.md",
+      "language": "markdown",
+      "sizeLines": 22,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "database/tests/daily_login_per_character_rollback.sql",
+      "language": "sql",
+      "sizeLines": 37,
+      "fileCategory": "data"
+    },
+    {
+      "path": "frontend/app/account-page.css",
+      "language": "css",
+      "sizeLines": 299,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/app/globals.css",
+      "language": "css",
+      "sizeLines": 173,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/app/layout.tsx",
+      "language": "typescript",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/next-env.d.ts",
+      "language": "typescript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/next.config.ts",
+      "language": "typescript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/account/account-settings-page.css",
+      "language": "css",
+      "sizeLines": 186,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/characters/characters.css",
+      "language": "css",
+      "sizeLines": 604,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/characters/lobby-creator-tools.css",
+      "language": "css",
+      "sizeLines": 21,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/chats/chat.css",
+      "language": "css",
+      "sizeLines": 23,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-admin.css",
+      "language": "css",
+      "sizeLines": 3,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-popup.css",
+      "language": "css",
+      "sizeLines": 30,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/dashboard/dashboard.css",
+      "language": "css",
+      "sizeLines": 1348,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/notifications/notifications.css",
+      "language": "css",
+      "sizeLines": 337,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/profile/profile-card.css",
+      "language": "css",
+      "sizeLines": 184,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/profile/public-profile-page.css",
+      "language": "css",
+      "sizeLines": 40,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/shell/app-header.css",
+      "language": "css",
+      "sizeLines": 95,
+      "fileCategory": "markup"
+    }
+  ],
+  "batchImportData": {
+    ".superpowers/brainstorm/astra-review/state/server-info": [],
+    ".superpowers/brainstorm/character-sheet-visual/content/approaches.html": [],
+    ".superpowers/brainstorm/character-sheet-visual/state/server-stopped": [],
+    ".superpowers/brainstorm/codex-cards-20261115/state/server-stopped": [],
+    ".superpowers/brainstorm/sheet-mockup/state/server-info": [],
+    ".ua/config.json": [],
+    "database/README.md": [],
+    "database/schema/README.md": [],
+    "database/tests/daily_login_per_character_rollback.sql": [],
+    "frontend/app/account-page.css": [],
+    "frontend/app/globals.css": [],
+    "frontend/app/layout.tsx": [
+      "frontend/app/globals.css"
+    ],
+    "frontend/next-env.d.ts": [],
+    "frontend/next.config.ts": [],
+    "frontend/src/features/account/account-settings-page.css": [],
+    "frontend/src/features/characters/characters.css": [],
+    "frontend/src/features/characters/lobby-creator-tools.css": [],
+    "frontend/src/features/chats/chat.css": [],
+    "frontend/src/features/daily-login/daily-login-admin.css": [],
+    "frontend/src/features/daily-login/daily-login-popup.css": [],
+    "frontend/src/features/dashboard/dashboard.css": [],
+    "frontend/src/features/notifications/notifications.css": [],
+    "frontend/src/features/profile/profile-card.css": [],
+    "frontend/src/features/profile/public-profile-page.css": [],
+    "frontend/src/features/shell/app-header.css": []
+  },
+  "neighborMap": {
+    "frontend/app/account-page.css": [
+      {
+        "path": "frontend/app/rpg-app.tsx",
+        "batchIndex": 4,
+        "symbols": [
+          "RpgApp"
+        ]
+      }
+    ],
+    "frontend/src/features/account/account-settings-page.css": [
+      {
+        "path": "frontend/src/features/account/account-settings-page.tsx",
+        "batchIndex": 4,
+        "symbols": [
+          "AccountSettingsPage"
+        ]
+      }
+    ],
+    "frontend/src/features/characters/characters.css": [
+      {
+        "path": "frontend/src/features/characters/character-entry.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "CharacterEntry"
+        ]
+      },
+      {
+        "path": "frontend/src/features/characters/character-form.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "CharacterForm"
+        ]
+      },
+      {
+        "path": "frontend/src/features/characters/character-gallery.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "CharacterGallery"
+        ]
+      },
+      {
+        "path": "frontend/src/features/characters/character-home.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "CharacterHome"
+        ]
+      },
+      {
+        "path": "frontend/src/features/characters/lobby-settings-page.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "LobbySettingsPage"
+        ]
+      }
+    ],
+    "frontend/src/features/characters/lobby-creator-tools.css": [
+      {
+        "path": "frontend/src/features/characters/lobby-creator-tools.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "LobbyCreatorTools"
+        ]
+      },
+      {
+        "path": "frontend/src/features/characters/lobby-customization-form.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "LobbyCustomizationForm"
+        ]
+      },
+      {
+        "path": "frontend/src/features/characters/lobby-settings-page.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "LobbySettingsPage"
+        ]
+      }
+    ],
+    "frontend/src/features/chats/chat.css": [
+      {
+        "path": "frontend/src/features/chats/chats.tsx",
+        "batchIndex": 8,
+        "symbols": [
+          "ChatPanel",
+          "Chats"
+        ]
+      }
+    ],
+    "frontend/src/features/daily-login/daily-login-admin.css": [
+      {
+        "path": "frontend/src/features/daily-login/daily-login-admin-card.tsx",
+        "batchIndex": 7,
+        "symbols": [
+          "DailyLoginAdminCard"
+        ]
+      }
+    ],
+    "frontend/src/features/daily-login/daily-login-popup.css": [
+      {
+        "path": "frontend/src/features/daily-login/daily-login-popup.tsx",
+        "batchIndex": 7,
+        "symbols": [
+          "DailyLoginPopup"
+        ]
+      }
+    ],
+    "frontend/src/features/dashboard/dashboard.css": [
+      {
+        "path": "frontend/src/features/dashboard/dashboard.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "Dashboard"
+        ]
+      }
+    ],
+    "frontend/src/features/notifications/notifications.css": [
+      {
+        "path": "frontend/src/features/notifications/notification-center.tsx",
+        "batchIndex": 5,
+        "symbols": [
+          "NotificationCenter"
+        ]
+      }
+    ],
+    "frontend/src/features/profile/profile-card.css": [
+      {
+        "path": "frontend/src/features/profile/profile-card.tsx",
+        "batchIndex": 4,
+        "symbols": [
+          "ProfileCard"
+        ]
+      }
+    ],
+    "frontend/src/features/profile/public-profile-page.css": [
+      {
+        "path": "frontend/src/features/profile/public-profile-page.tsx",
+        "batchIndex": 4,
+        "symbols": [
+          "PublicProfilePage"
+        ]
+      }
+    ],
+    "frontend/src/features/shell/app-header.css": [
+      {
+        "path": "frontend/src/features/shell/app-header.tsx",
+        "batchIndex": 6,
+        "symbols": [
+          "AppHeader"
+        ]
+      }
+    ]
+  }
+}

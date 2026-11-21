@@ -1,0 +1,3466 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 16,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 16,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 16,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/app/dashboard/systems/[systemId]/manage/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "ManageSystemRoute",
+          "startLine": 5,
+          "endLine": 7,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ManageSystemRoute",
+          "line": 5,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 106,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "DailyLoginAdminCard",
+          "startLine": 26,
+          "endLine": 106,
+          "params": [
+            "{\n  systems,\n  selectedSystemId,\n  calendar,\n  loading,\n  saving,\n  message,\n  messageIsError,\n  onSystemChange,\n  onRewardChange,\n  onActiveChange,\n  onSave,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DailyLoginAdminCard",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "systems.filter",
+          "lineNumber": 39
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "manageableSystems.find",
+          "lineNumber": 42
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "rewards.map",
+          "lineNumber": 44
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "weekdays.every",
+          "lineNumber": 45
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "rewardByDay.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "calendar?.items.some",
+          "lineNumber": 48
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "Number.isInteger",
+          "lineNumber": 49
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "Number.isFinite",
+          "lineNumber": 52
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "manageableSystems.some",
+          "lineNumber": 58
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "onSystemChange",
+          "lineNumber": 62
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "manageableSystems.map",
+          "lineNumber": 63
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "weekdays.map",
+          "lineNumber": 71
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "rewardByDay.get",
+          "lineNumber": 73
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "onRewardChange",
+          "lineNumber": 77
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "calendar.items.map",
+          "lineNumber": 79
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "onRewardChange",
+          "lineNumber": 90
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "Number",
+          "lineNumber": 90
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "onRewardChange",
+          "lineNumber": 94
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "Number",
+          "lineNumber": 94
+        },
+        {
+          "caller": "DailyLoginAdminCard",
+          "callee": "onActiveChange",
+          "lineNumber": 99
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-card.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "DailyLoginCard",
+          "startLine": 15,
+          "endLine": 69,
+          "params": [
+            "{ systems, loading, claimingSystemId, message, messageIsError, onClaim }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DailyLoginCard",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DailyLoginCard",
+          "callee": "systems.filter",
+          "lineNumber": 16
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "availableSystems.find",
+          "lineNumber": 19
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "selected?.characters.filter",
+          "lineNumber": 20
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "selected.today?.claimed_character_ids?.includes",
+          "lineNumber": 20
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "eligibleCharacters.find",
+          "lineNumber": 21
+        },
+        {
+          "caller": "submitClaim",
+          "callee": "event.preventDefault",
+          "lineNumber": 27
+        },
+        {
+          "caller": "submitClaim",
+          "callee": "onClaim",
+          "lineNumber": 28
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "setSelectedSystemId",
+          "lineNumber": 40
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "setSelectedCharacterId",
+          "lineNumber": 41
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "availableSystems.map",
+          "lineNumber": 43
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "today.local_date.split('-').reverse().join",
+          "lineNumber": 49
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "today.local_date.split('-').reverse",
+          "lineNumber": 49
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "today.local_date.split",
+          "lineNumber": 49
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "reward.currency_amount?.toLocaleString",
+          "lineNumber": 52
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "selected.characters.find",
+          "lineNumber": 55
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "setSelectedCharacterId",
+          "lineNumber": 59
+        },
+        {
+          "caller": "DailyLoginCard",
+          "callee": "eligibleCharacters.map",
+          "lineNumber": 60
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-messages.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 11,
+      "functions": [
+        {
+          "name": "formatDailyLoginClaimSuccess",
+          "startLine": 3,
+          "endLine": 12,
+          "params": [
+            "result"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "formatDailyLoginClaimSuccess",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatDailyLoginClaimSuccess",
+          "callee": "result.currency_awarded?.toLocaleString",
+          "lineNumber": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/daily-login/daily-login-popup.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 74,
+      "functions": [
+        {
+          "name": "DailyLoginPopup",
+          "startLine": 9,
+          "endLine": 80,
+          "params": [
+            "{ systemId, onClaimed }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DailyLoginPopup",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "useRef",
+          "lineNumber": 10
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "useEffect",
+          "lineNumber": 17
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "window.setTimeout",
+          "lineNumber": 20
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "takeDailyLoginPopup(systemId).then((result) => {\n        if (!active || !result.show) return;\n        setSystems(result.systems);\n        if (dialog.current && !dialog.current.open) dialog.current.showModal();\n      }).catch",
+          "lineNumber": 21
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "takeDailyLoginPopup(systemId).then",
+          "lineNumber": 21
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "takeDailyLoginPopup",
+          "lineNumber": 21
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "setSystems",
+          "lineNumber": 23
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "dialog.current.showModal",
+          "lineNumber": 24
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "window.clearTimeout",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "dialog.current?.close",
+          "lineNumber": 29
+        },
+        {
+          "caller": "openRewards",
+          "callee": "setLoading",
+          "lineNumber": 33
+        },
+        {
+          "caller": "openRewards",
+          "callee": "setMessage",
+          "lineNumber": 34
+        },
+        {
+          "caller": "openRewards",
+          "callee": "setSystems",
+          "lineNumber": 36
+        },
+        {
+          "caller": "openRewards",
+          "callee": "getDailyLoginSystem",
+          "lineNumber": 36
+        },
+        {
+          "caller": "openRewards",
+          "callee": "setError",
+          "lineNumber": 37
+        },
+        {
+          "caller": "openRewards",
+          "callee": "setSystems",
+          "lineNumber": 39
+        },
+        {
+          "caller": "openRewards",
+          "callee": "setError",
+          "lineNumber": 40
+        },
+        {
+          "caller": "openRewards",
+          "callee": "setMessage",
+          "lineNumber": 41
+        },
+        {
+          "caller": "openRewards",
+          "callee": "setLoading",
+          "lineNumber": 43
+        },
+        {
+          "caller": "openRewards",
+          "callee": "dialog.current.showModal",
+          "lineNumber": 44
+        },
+        {
+          "caller": "claim",
+          "callee": "setBusy",
+          "lineNumber": 50
+        },
+        {
+          "caller": "claim",
+          "callee": "setMessage",
+          "lineNumber": 51
+        },
+        {
+          "caller": "claim",
+          "callee": "claimDailyLoginReward",
+          "lineNumber": 53
+        },
+        {
+          "caller": "claim",
+          "callee": "setError",
+          "lineNumber": 54
+        },
+        {
+          "caller": "claim",
+          "callee": "setMessage",
+          "lineNumber": 55
+        },
+        {
+          "caller": "claim",
+          "callee": "formatDailyLoginClaimSuccess",
+          "lineNumber": 55
+        },
+        {
+          "caller": "claim",
+          "callee": "setSystems",
+          "lineNumber": 56
+        },
+        {
+          "caller": "claim",
+          "callee": "current.map",
+          "lineNumber": 56
+        },
+        {
+          "caller": "claim",
+          "callee": "entry.characters.some",
+          "lineNumber": 60
+        },
+        {
+          "caller": "claim",
+          "callee": "claimed.includes",
+          "lineNumber": 60
+        },
+        {
+          "caller": "claim",
+          "callee": "onClaimed",
+          "lineNumber": 62
+        },
+        {
+          "caller": "claim",
+          "callee": "setError",
+          "lineNumber": 64
+        },
+        {
+          "caller": "claim",
+          "callee": "setMessage",
+          "lineNumber": 65
+        },
+        {
+          "caller": "claim",
+          "callee": "getDailyLoginSystem",
+          "lineNumber": 68
+        },
+        {
+          "caller": "claim",
+          "callee": "setSystems",
+          "lineNumber": 69
+        },
+        {
+          "caller": "claim",
+          "callee": "current.map",
+          "lineNumber": 69
+        },
+        {
+          "caller": "claim",
+          "callee": "setBusy",
+          "lineNumber": 71
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "openRewards",
+          "lineNumber": 74
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "dialog.current?.close",
+          "lineNumber": 76
+        },
+        {
+          "caller": "DailyLoginPopup",
+          "callee": "claim",
+          "lineNumber": 78
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/experience/experience-admin-card.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 130,
+      "nonEmptyLines": 124,
+      "functions": [
+        {
+          "name": "ExperienceAdminCard",
+          "startLine": 30,
+          "endLine": 130,
+          "params": [
+            "{\n  systems,\n  selectedSystemId,\n  settings,\n  loading,\n  saving,\n  message,\n  messageIsError,\n  onSystemChange,\n  onXpPerLevelChange,\n  onSourceChange,\n  onAddCustomSource,\n  onRemoveCustomSource,\n  onSave,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ExperienceAdminCard",
+          "line": 30,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "systems.filter",
+          "lineNumber": 45
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "manageableSystems.find",
+          "lineNumber": 48
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "experienceSettingsAreValid",
+          "lineNumber": 50
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "manageableSystems.some",
+          "lineNumber": 55
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "onSystemChange",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "manageableSystems.map",
+          "lineNumber": 59
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "onXpPerLevelChange",
+          "lineNumber": 74
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "Number",
+          "lineNumber": 74
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "current.sources.map",
+          "lineNumber": 78
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "onSourceChange",
+          "lineNumber": 88
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "onSourceChange",
+          "lineNumber": 101
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "Number",
+          "lineNumber": 101
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "onSourceChange",
+          "lineNumber": 109
+        },
+        {
+          "caller": "ExperienceAdminCard",
+          "callee": "onRemoveCustomSource",
+          "lineNumber": 116
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/experience/experience-model.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "addCustomExperienceSource",
+          "startLine": 5,
+          "endLine": 15,
+          "params": [
+            "sources"
+          ]
+        },
+        {
+          "name": "experienceSettingsAreValid",
+          "startLine": 17,
+          "endLine": 36,
+          "params": [
+            "settings"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "addCustomExperienceSource",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "experienceSettingsAreValid",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "addCustomExperienceSource",
+          "callee": "sources.filter((source) => source.source_type === 'custom')\n    .map",
+          "lineNumber": 6
+        },
+        {
+          "caller": "addCustomExperienceSource",
+          "callee": "sources.filter",
+          "lineNumber": 6
+        },
+        {
+          "caller": "addCustomExperienceSource",
+          "callee": "source.name.trim().toLocaleLowerCase",
+          "lineNumber": 7
+        },
+        {
+          "caller": "addCustomExperienceSource",
+          "callee": "source.name.trim",
+          "lineNumber": 7
+        },
+        {
+          "caller": "addCustomExperienceSource",
+          "callee": "usedNames.has",
+          "lineNumber": 10
+        },
+        {
+          "caller": "addCustomExperienceSource",
+          "callee": "name.toLocaleLowerCase",
+          "lineNumber": 10
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "Number.isInteger",
+          "lineNumber": 18
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "sources.filter",
+          "lineNumber": 24
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "sources.some",
+          "lineNumber": 26
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "source.name.trim",
+          "lineNumber": 26
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "source.name.trim",
+          "lineNumber": 26
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "Number.isInteger",
+          "lineNumber": 27
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "sources.filter((source) => source.source_type === 'custom')\n    .map",
+          "lineNumber": 30
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "sources.filter",
+          "lineNumber": 30
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "source.name.trim().toLocaleLowerCase",
+          "lineNumber": 31
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "source.name.trim",
+          "lineNumber": 31
+        },
+        {
+          "caller": "experienceSettingsAreValid",
+          "callee": "sources.flatMap",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/store/store-admin-card.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 300,
+      "nonEmptyLines": 274,
+      "functions": [
+        {
+          "name": "useAutosaveField",
+          "startLine": 20,
+          "endLine": 70,
+          "params": [
+            "initialValue",
+            "save",
+            "isValid"
+          ]
+        },
+        {
+          "name": "autosaveStatusText",
+          "startLine": 72,
+          "endLine": 81,
+          "params": [
+            "status",
+            "invalidMessage"
+          ]
+        },
+        {
+          "name": "isValidCurrencyName",
+          "startLine": 83,
+          "endLine": 85,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "isValidImageUrl",
+          "startLine": 87,
+          "endLine": 91,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "isValidPrice",
+          "startLine": 93,
+          "endLine": 97,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "SaveStatus",
+          "startLine": 99,
+          "endLine": 105,
+          "params": [
+            "{ status, invalidMessage }"
+          ]
+        },
+        {
+          "name": "CurrencySlot",
+          "startLine": 107,
+          "endLine": 136,
+          "params": [
+            "{ store, onSaveField }"
+          ]
+        },
+        {
+          "name": "OfferEditor",
+          "startLine": 138,
+          "endLine": 173,
+          "params": [
+            "{ item, offer, currencyName, onSaveField }"
+          ]
+        },
+        {
+          "name": "StoreAdminCard",
+          "startLine": 175,
+          "endLine": 240,
+          "params": [
+            "{ store, message, creatingItem = false, onCreateItem = async () => false, onSaveCurrencyField, onSaveOfferField }"
+          ]
+        },
+        {
+          "name": "SystemStoreAdmin",
+          "startLine": 242,
+          "endLine": 300,
+          "params": [
+            "{ systemId }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "StoreAdminCard",
+          "line": 175,
+          "isDefault": false
+        },
+        {
+          "name": "SystemStoreAdmin",
+          "line": 242,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "useAutosaveField",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useState",
+          "lineNumber": 22
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useState",
+          "lineNumber": 23
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useRef",
+          "lineNumber": 24
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useRef",
+          "lineNumber": 25
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useRef",
+          "lineNumber": 26
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useRef",
+          "lineNumber": 27
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useRef",
+          "lineNumber": 28
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useRef",
+          "lineNumber": 29
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useEffect",
+          "lineNumber": 31
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useEffect",
+          "lineNumber": 32
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useEffect",
+          "lineNumber": 33
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "isValidRef.current",
+          "lineNumber": 37
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "setStatus",
+          "lineNumber": 37
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "window.setTimeout",
+          "lineNumber": 38
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "setStatus",
+          "lineNumber": 40
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "saveRef.current(currentValue).then(() => {\n        savedRevisionRef.current = Math.max(savedRevisionRef.current, currentRevision);\n        if (revisionRef.current === currentRevision) setStatus('saved');\n      }).catch(() => {\n        if (revisionRef.current === currentRevision) setStatus('error');\n      }).finally",
+          "lineNumber": 41
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "saveRef.current(currentValue).then(() => {\n        savedRevisionRef.current = Math.max(savedRevisionRef.current, currentRevision);\n        if (revisionRef.current === currentRevision) setStatus('saved');\n      }).catch",
+          "lineNumber": 41
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "saveRef.current(currentValue).then",
+          "lineNumber": 41
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "saveRef.current",
+          "lineNumber": 41
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "Math.max",
+          "lineNumber": 42
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "setStatus",
+          "lineNumber": 43
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "setStatus",
+          "lineNumber": 45
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "window.clearTimeout",
+          "lineNumber": 50
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "useEffect",
+          "lineNumber": 53
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "isValidRef.current",
+          "lineNumber": 56
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "saveRef.current(pendingValue).then(() => {\n      savedRevisionRef.current = Math.max(savedRevisionRef.current, pendingRevision);\n    }).catch",
+          "lineNumber": 57
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "saveRef.current(pendingValue).then",
+          "lineNumber": 57
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "saveRef.current",
+          "lineNumber": 57
+        },
+        {
+          "caller": "useAutosaveField",
+          "callee": "Math.max",
+          "lineNumber": 58
+        },
+        {
+          "caller": "updateValue",
+          "callee": "setRevision",
+          "lineNumber": 65
+        },
+        {
+          "caller": "updateValue",
+          "callee": "setValue",
+          "lineNumber": 66
+        },
+        {
+          "caller": "updateValue",
+          "callee": "setStatus",
+          "lineNumber": 67
+        },
+        {
+          "caller": "updateValue",
+          "callee": "isValid",
+          "lineNumber": 67
+        },
+        {
+          "caller": "isValidCurrencyName",
+          "callee": "value.trim",
+          "lineNumber": 84
+        },
+        {
+          "caller": "isValidCurrencyName",
+          "callee": "value.trim",
+          "lineNumber": 84
+        },
+        {
+          "caller": "isValidImageUrl",
+          "callee": "value.trim",
+          "lineNumber": 88
+        },
+        {
+          "caller": "isValidImageUrl",
+          "callee": "value.trim",
+          "lineNumber": 89
+        },
+        {
+          "caller": "isValidImageUrl",
+          "callee": "value.trim",
+          "lineNumber": 90
+        },
+        {
+          "caller": "isValidPrice",
+          "callee": "value.trim",
+          "lineNumber": 94
+        },
+        {
+          "caller": "isValidPrice",
+          "callee": "/^[0-9]+(?:\\.[0-9]{1,2})?$/.test",
+          "lineNumber": 94
+        },
+        {
+          "caller": "isValidPrice",
+          "callee": "Number",
+          "lineNumber": 95
+        },
+        {
+          "caller": "isValidPrice",
+          "callee": "Number.isFinite",
+          "lineNumber": 96
+        },
+        {
+          "caller": "SaveStatus",
+          "callee": "autosaveStatusText",
+          "lineNumber": 103
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "useRef",
+          "lineNumber": 111
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "useAutosaveField",
+          "lineNumber": 112
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "onSaveField",
+          "lineNumber": 113
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "value.trim",
+          "lineNumber": 113
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "useAutosaveField",
+          "lineNumber": 114
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "onSaveField",
+          "lineNumber": 115
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "value.trim",
+          "lineNumber": 115
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "dialog.current?.showModal",
+          "lineNumber": 118
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "currencyName.onChange",
+          "lineNumber": 125
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "currencyImage.onChange",
+          "lineNumber": 128
+        },
+        {
+          "caller": "CurrencySlot",
+          "callee": "dialog.current?.close",
+          "lineNumber": 132
+        },
+        {
+          "caller": "OfferEditor",
+          "callee": "useAutosaveField",
+          "lineNumber": 144
+        },
+        {
+          "caller": "OfferEditor",
+          "callee": "String",
+          "lineNumber": 144
+        },
+        {
+          "caller": "OfferEditor",
+          "callee": "onSaveField",
+          "lineNumber": 145
+        },
+        {
+          "caller": "OfferEditor",
+          "callee": "Number",
+          "lineNumber": 145
+        },
+        {
+          "caller": "OfferEditor",
+          "callee": "useState",
+          "lineNumber": 146
+        },
+        {
+          "caller": "OfferEditor",
+          "callee": "useState",
+          "lineNumber": 147
+        },
+        {
+          "caller": "OfferEditor",
+          "callee": "useRef",
+          "lineNumber": 148
+        },
+        {
+          "caller": "updateAvailability",
+          "callee": "setAvailable",
+          "lineNumber": 151
+        },
+        {
+          "caller": "updateAvailability",
+          "callee": "setAvailabilityStatus",
+          "lineNumber": 155
+        },
+        {
+          "caller": "updateAvailability",
+          "callee": "onSaveField(item.id, { is_available: next }).then(() => {\n      if (availabilityRevision.current === currentRevision) setAvailabilityStatus('saved');\n    }).catch",
+          "lineNumber": 156
+        },
+        {
+          "caller": "updateAvailability",
+          "callee": "onSaveField(item.id, { is_available: next }).then",
+          "lineNumber": 156
+        },
+        {
+          "caller": "updateAvailability",
+          "callee": "onSaveField",
+          "lineNumber": 156
+        },
+        {
+          "caller": "updateAvailability",
+          "callee": "setAvailabilityStatus",
+          "lineNumber": 157
+        },
+        {
+          "caller": "updateAvailability",
+          "callee": "setAvailabilityStatus",
+          "lineNumber": 159
+        },
+        {
+          "caller": "OfferEditor",
+          "callee": "price.onChange",
+          "lineNumber": 166
+        },
+        {
+          "caller": "OfferEditor",
+          "callee": "updateAvailability",
+          "lineNumber": 169
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "useState",
+          "lineNumber": 183
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "useState",
+          "lineNumber": 184
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "useState",
+          "lineNumber": 185
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "useState",
+          "lineNumber": 186
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "useState",
+          "lineNumber": 187
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "useRef",
+          "lineNumber": 188
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "useState",
+          "lineNumber": 189
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "useRef",
+          "lineNumber": 190
+        },
+        {
+          "caller": "submitItem",
+          "callee": "event.preventDefault",
+          "lineNumber": 193
+        },
+        {
+          "caller": "submitItem",
+          "callee": "setItemError",
+          "lineNumber": 194
+        },
+        {
+          "caller": "submitItem",
+          "callee": "onCreateItem",
+          "lineNumber": 195
+        },
+        {
+          "caller": "submitItem",
+          "callee": "itemName.trim",
+          "lineNumber": 195
+        },
+        {
+          "caller": "submitItem",
+          "callee": "itemDescription.trim",
+          "lineNumber": 195
+        },
+        {
+          "caller": "submitItem",
+          "callee": "itemImageUrl.trim",
+          "lineNumber": 195
+        },
+        {
+          "caller": "submitItem",
+          "callee": "itemDialog.current?.close",
+          "lineNumber": 196
+        },
+        {
+          "caller": "submitItem",
+          "callee": "setItemError",
+          "lineNumber": 197
+        },
+        {
+          "caller": "resetItemForm",
+          "callee": "setItemName",
+          "lineNumber": 200
+        },
+        {
+          "caller": "resetItemForm",
+          "callee": "setItemDescription",
+          "lineNumber": 200
+        },
+        {
+          "caller": "resetItemForm",
+          "callee": "setItemType",
+          "lineNumber": 200
+        },
+        {
+          "caller": "resetItemForm",
+          "callee": "setItemImageUrl",
+          "lineNumber": 200
+        },
+        {
+          "caller": "resetItemForm",
+          "callee": "setItemError",
+          "lineNumber": 200
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "store.offers.map",
+          "lineNumber": 203
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "Math.max",
+          "lineNumber": 204
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "Math.floor",
+          "lineNumber": 204
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "store.items.find",
+          "lineNumber": 205
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "Array.from",
+          "lineNumber": 213
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "offerByItem.get",
+          "lineNumber": 215
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "setOfferItemId",
+          "lineNumber": 216
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "offerDialog.current?.showModal",
+          "lineNumber": 216
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "setItemError",
+          "lineNumber": 220
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "itemDialog.current?.showModal",
+          "lineNumber": 220
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "submitItem",
+          "lineNumber": 224
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "setItemName",
+          "lineNumber": 227
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "setItemType",
+          "lineNumber": 228
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "setItemDescription",
+          "lineNumber": 229
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "setItemImageUrl",
+          "lineNumber": 230
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "itemDialog.current?.close",
+          "lineNumber": 231
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "offerByItem.get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "StoreAdminCard",
+          "callee": "offerDialog.current?.close",
+          "lineNumber": 236
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "useState",
+          "lineNumber": 243
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "useState",
+          "lineNumber": 244
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "useState",
+          "lineNumber": 245
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "useState",
+          "lineNumber": 246
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "useRef",
+          "lineNumber": 247
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "useEffect",
+          "lineNumber": 249
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "setStore",
+          "lineNumber": 250
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "setMessage",
+          "lineNumber": 250
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "getOwnerStore(systemId).then((data) => { if (active) setStore(data); })\n      .catch",
+          "lineNumber": 251
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "getOwnerStore(systemId).then",
+          "lineNumber": 251
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "getOwnerStore",
+          "lineNumber": 251
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "setStore",
+          "lineNumber": 251
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "setMessage",
+          "lineNumber": 252
+        },
+        {
+          "caller": "enqueueFieldWrite",
+          "callee": "writeQueues.current.get",
+          "lineNumber": 257
+        },
+        {
+          "caller": "enqueueFieldWrite",
+          "callee": "Promise.resolve",
+          "lineNumber": 257
+        },
+        {
+          "caller": "enqueueFieldWrite",
+          "callee": "previous.catch(() => undefined).then",
+          "lineNumber": 258
+        },
+        {
+          "caller": "enqueueFieldWrite",
+          "callee": "previous.catch",
+          "lineNumber": 258
+        },
+        {
+          "caller": "enqueueFieldWrite",
+          "callee": "writeQueues.current.set",
+          "lineNumber": 259
+        },
+        {
+          "caller": "clear",
+          "callee": "writeQueues.current.get",
+          "lineNumber": 260
+        },
+        {
+          "caller": "clear",
+          "callee": "writeQueues.current.delete",
+          "lineNumber": 260
+        },
+        {
+          "caller": "enqueueFieldWrite",
+          "callee": "current.then",
+          "lineNumber": 261
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "useCallback",
+          "lineNumber": 265
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "enqueueFieldWrite",
+          "lineNumber": 267
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "updateOwnerStoreCurrencyField",
+          "lineNumber": 268
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "setStore",
+          "lineNumber": 269
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "useCallback",
+          "lineNumber": 273
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "enqueueFieldWrite",
+          "lineNumber": 275
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "updateOwnerStoreOfferField",
+          "lineNumber": 276
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "setStore",
+          "lineNumber": 277
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "[...current.offers.filter((entry) => entry.item_id !== itemId), offer].sort",
+          "lineNumber": 279
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "current.offers.filter",
+          "lineNumber": 279
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "a.item_name.localeCompare",
+          "lineNumber": 279
+        },
+        {
+          "caller": "addItem",
+          "callee": "setCreatingItem",
+          "lineNumber": 286
+        },
+        {
+          "caller": "addItem",
+          "callee": "setMessage",
+          "lineNumber": 286
+        },
+        {
+          "caller": "addItem",
+          "callee": "createOwnerStoreItem",
+          "lineNumber": 288
+        },
+        {
+          "caller": "addItem",
+          "callee": "setStore",
+          "lineNumber": 289
+        },
+        {
+          "caller": "addItem",
+          "callee": "[...current.items, item].sort",
+          "lineNumber": 289
+        },
+        {
+          "caller": "addItem",
+          "callee": "a.name.localeCompare",
+          "lineNumber": 289
+        },
+        {
+          "caller": "addItem",
+          "callee": "setMessage",
+          "lineNumber": 290
+        },
+        {
+          "caller": "addItem",
+          "callee": "setMessage",
+          "lineNumber": 293
+        },
+        {
+          "caller": "addItem",
+          "callee": "setCreatingItem",
+          "lineNumber": 295
+        },
+        {
+          "caller": "SystemStoreAdmin",
+          "callee": "setReload",
+          "lineNumber": 298
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/store/store-card.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "money",
+          "startLine": 7,
+          "endLine": 7,
+          "params": [
+            "amount"
+          ]
+        },
+        {
+          "name": "StoreCard",
+          "startLine": 10,
+          "endLine": 34,
+          "params": [
+            "{ characterId, characterName, store, busy, message, onPurchase }"
+          ]
+        },
+        {
+          "name": "SystemStore",
+          "startLine": 36,
+          "endLine": 68,
+          "params": [
+            "{ systemId, characterId, characterName }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "StoreCard",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "SystemStore",
+          "line": 36,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "money",
+          "callee": "amount.toLocaleString",
+          "lineNumber": 7
+        },
+        {
+          "caller": "StoreCard",
+          "callee": "useRef",
+          "lineNumber": 14
+        },
+        {
+          "caller": "StoreCard",
+          "callee": "money",
+          "lineNumber": 19
+        },
+        {
+          "caller": "StoreCard",
+          "callee": "offersRef.current?.scrollIntoView",
+          "lineNumber": 21
+        },
+        {
+          "caller": "StoreCard",
+          "callee": "store?.offers.map",
+          "lineNumber": 26
+        },
+        {
+          "caller": "StoreCard",
+          "callee": "[offer.item_type ? itemTypeLabels[offer.item_type] ?? offer.item_type : null, offer.item_description].filter(Boolean).join",
+          "lineNumber": 28
+        },
+        {
+          "caller": "StoreCard",
+          "callee": "[offer.item_type ? itemTypeLabels[offer.item_type] ?? offer.item_type : null, offer.item_description].filter",
+          "lineNumber": 28
+        },
+        {
+          "caller": "StoreCard",
+          "callee": "money",
+          "lineNumber": 29
+        },
+        {
+          "caller": "StoreCard",
+          "callee": "onPurchase",
+          "lineNumber": 30
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "useState",
+          "lineNumber": 37
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "useState",
+          "lineNumber": 38
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "useState",
+          "lineNumber": 39
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "useRef",
+          "lineNumber": 40
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "useRef",
+          "lineNumber": 41
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "useEffect",
+          "lineNumber": 42
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "setStore",
+          "lineNumber": 44
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "setMessage",
+          "lineNumber": 44
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "setBusy",
+          "lineNumber": 44
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "setBusy",
+          "lineNumber": 46
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "getCharacterStore(systemId, characterId).then((data) => { if (generation.current === current) setStore(data); })\n      .catch((error: unknown) => { if (generation.current === current) setMessage(error instanceof Error ? error.message : 'Não foi possível carregar a loja.'); })\n      .finally",
+          "lineNumber": 47
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "getCharacterStore(systemId, characterId).then((data) => { if (generation.current === current) setStore(data); })\n      .catch",
+          "lineNumber": 47
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "getCharacterStore(systemId, characterId).then",
+          "lineNumber": 47
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "getCharacterStore",
+          "lineNumber": 47
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "setStore",
+          "lineNumber": 47
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "setMessage",
+          "lineNumber": 48
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "setBusy",
+          "lineNumber": 49
+        },
+        {
+          "caller": "purchase",
+          "callee": "setBusy",
+          "lineNumber": 54
+        },
+        {
+          "caller": "purchase",
+          "callee": "setMessage",
+          "lineNumber": 54
+        },
+        {
+          "caller": "purchase",
+          "callee": "purchaseStoreOffer",
+          "lineNumber": 57
+        },
+        {
+          "caller": "purchase",
+          "callee": "setStore",
+          "lineNumber": 59
+        },
+        {
+          "caller": "purchase",
+          "callee": "setMessage",
+          "lineNumber": 60
+        },
+        {
+          "caller": "purchase",
+          "callee": "setMessage",
+          "lineNumber": 64
+        },
+        {
+          "caller": "purchase",
+          "callee": "setBusy",
+          "lineNumber": 65
+        },
+        {
+          "caller": "SystemStore",
+          "callee": "purchase",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/system-management/book-category.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 88,
+      "nonEmptyLines": 82,
+      "functions": [
+        {
+          "name": "BookCategory",
+          "startLine": 6,
+          "endLine": 88,
+          "params": [
+            "{ children, inert, ...props }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BookCategory",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "BookCategory",
+          "callee": "Children.toArray",
+          "lineNumber": 7
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "useRef",
+          "lineNumber": 8
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "useRef",
+          "lineNumber": 9
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "useRef",
+          "lineNumber": 10
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "geometry",
+          "callee": "getComputedStyle",
+          "lineNumber": 19
+        },
+        {
+          "caller": "geometry",
+          "callee": "Number",
+          "lineNumber": 20
+        },
+        {
+          "caller": "geometry",
+          "callee": "parseFloat",
+          "lineNumber": 21
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "useEffect",
+          "lineNumber": 25
+        },
+        {
+          "caller": "measure",
+          "callee": "cancelAnimationFrame",
+          "lineNumber": 33
+        },
+        {
+          "caller": "measure",
+          "callee": "requestAnimationFrame",
+          "lineNumber": 34
+        },
+        {
+          "caller": "measure",
+          "callee": "geometry",
+          "lineNumber": 35
+        },
+        {
+          "caller": "measure",
+          "callee": "Math.max",
+          "lineNumber": 38
+        },
+        {
+          "caller": "measure",
+          "callee": "Math.round",
+          "lineNumber": 38
+        },
+        {
+          "caller": "measure",
+          "callee": "Math.floor",
+          "lineNumber": 39
+        },
+        {
+          "caller": "measure",
+          "callee": "Math.min",
+          "lineNumber": 40
+        },
+        {
+          "caller": "measure",
+          "callee": "Math.round",
+          "lineNumber": 40
+        },
+        {
+          "caller": "measure",
+          "callee": "Math.ceil",
+          "lineNumber": 41
+        },
+        {
+          "caller": "measure",
+          "callee": "setVisiblePages",
+          "lineNumber": 42
+        },
+        {
+          "caller": "measure",
+          "callee": "setPageCount",
+          "lineNumber": 43
+        },
+        {
+          "caller": "measure",
+          "callee": "setPage",
+          "lineNumber": 44
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "resize.observe",
+          "lineNumber": 49
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "mutations.observe",
+          "lineNumber": 51
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "content.addEventListener",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "document.fonts.ready.then",
+          "lineNumber": 53
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "measure",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "cancelAnimationFrame",
+          "lineNumber": 57
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "resize.disconnect",
+          "lineNumber": 58
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "mutations.disconnect",
+          "lineNumber": 59
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "content.removeEventListener",
+          "lineNumber": 60
+        },
+        {
+          "caller": "turnPage",
+          "callee": "geometry",
+          "lineNumber": 66
+        },
+        {
+          "caller": "turnPage",
+          "callee": "setPage",
+          "lineNumber": 69
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "geometry",
+          "lineNumber": 76
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "setPage",
+          "lineNumber": 77
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "Math.round",
+          "lineNumber": 77
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "turnPage",
+          "lineNumber": 83
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "Math.ceil",
+          "lineNumber": 84
+        },
+        {
+          "caller": "BookCategory",
+          "callee": "turnPage",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/system-management/system-management-page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 363,
+      "nonEmptyLines": 344,
+      "functions": [
+        {
+          "name": "SystemManagementPage",
+          "startLine": 39,
+          "endLine": 363,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SystemManagementPage",
+          "line": 39,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useParams",
+          "lineNumber": 40
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useRouter",
+          "lineNumber": 41
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 42
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 43
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 44
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 45
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 46
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 47
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 48
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 49
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 50
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 51
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 52
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 53
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 54
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 55
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 56
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 57
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 58
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 59
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 60
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 61
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 62
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 63
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 64
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 65
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 66
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 67
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useState",
+          "lineNumber": 68
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "useEffect",
+          "lineNumber": 70
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "hasSession",
+          "lineNumber": 71
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "router.replace",
+          "lineNumber": 72
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setActiveCategory",
+          "lineNumber": 77
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setPageState",
+          "lineNumber": 78
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setPageError",
+          "lineNumber": 79
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setCalendar",
+          "lineNumber": 80
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setExperience",
+          "lineNumber": 81
+        },
+        {
+          "caller": "load",
+          "callee": "Promise.all",
+          "lineNumber": 85
+        },
+        {
+          "caller": "load",
+          "callee": "getMyDailyLoginSystems",
+          "lineNumber": 85
+        },
+        {
+          "caller": "load",
+          "callee": "getMySystemMemberships",
+          "lineNumber": 85
+        },
+        {
+          "caller": "load",
+          "callee": "getGameSystems",
+          "lineNumber": 85
+        },
+        {
+          "caller": "load",
+          "callee": "systems.find",
+          "lineNumber": 87
+        },
+        {
+          "caller": "load",
+          "callee": "setManageableSystems",
+          "lineNumber": 88
+        },
+        {
+          "caller": "load",
+          "callee": "systems.filter",
+          "lineNumber": 88
+        },
+        {
+          "caller": "load",
+          "callee": "setAccess",
+          "lineNumber": 89
+        },
+        {
+          "caller": "load",
+          "callee": "setSystemView",
+          "lineNumber": 91
+        },
+        {
+          "caller": "load",
+          "callee": "setPageState",
+          "lineNumber": 92
+        },
+        {
+          "caller": "load",
+          "callee": "setSystemView",
+          "lineNumber": 96
+        },
+        {
+          "caller": "load",
+          "callee": "allSystems.systems.find",
+          "lineNumber": 97
+        },
+        {
+          "caller": "load",
+          "callee": "setGameSystem",
+          "lineNumber": 98
+        },
+        {
+          "caller": "load",
+          "callee": "setSystemIsPublic",
+          "lineNumber": 99
+        },
+        {
+          "caller": "load",
+          "callee": "setPageState",
+          "lineNumber": 100
+        },
+        {
+          "caller": "load",
+          "callee": "setCalendarLoading",
+          "lineNumber": 101
+        },
+        {
+          "caller": "load",
+          "callee": "setExperienceLoading",
+          "lineNumber": 102
+        },
+        {
+          "caller": "load",
+          "callee": "getOwnerDailyLoginCalendar(systemId).then((data) => {\n          if (active) setCalendar(data);\n        }).catch((error) => {\n          if (active) {\n            setCalendarMessage(error instanceof Error ? error.message : 'Não foi possível carregar o calendário.');\n            setCalendarMessageIsError(true);\n          }\n        }).finally",
+          "lineNumber": 103
+        },
+        {
+          "caller": "load",
+          "callee": "getOwnerDailyLoginCalendar(systemId).then((data) => {\n          if (active) setCalendar(data);\n        }).catch",
+          "lineNumber": 103
+        },
+        {
+          "caller": "load",
+          "callee": "getOwnerDailyLoginCalendar(systemId).then",
+          "lineNumber": 103
+        },
+        {
+          "caller": "load",
+          "callee": "getOwnerDailyLoginCalendar",
+          "lineNumber": 103
+        },
+        {
+          "caller": "load",
+          "callee": "setCalendar",
+          "lineNumber": 104
+        },
+        {
+          "caller": "load",
+          "callee": "setCalendarMessage",
+          "lineNumber": 107
+        },
+        {
+          "caller": "load",
+          "callee": "setCalendarMessageIsError",
+          "lineNumber": 108
+        },
+        {
+          "caller": "load",
+          "callee": "setCalendarLoading",
+          "lineNumber": 110
+        },
+        {
+          "caller": "load",
+          "callee": "getOwnerExperienceSettings(systemId).then((data) => {\n          if (active) setExperience(data);\n        }).catch((error) => {\n          if (active) {\n            setExperienceMessage(error instanceof Error ? error.message : 'Não foi possível carregar as regras de XP.');\n            setExperienceMessageIsError(true);\n          }\n        }).finally",
+          "lineNumber": 111
+        },
+        {
+          "caller": "load",
+          "callee": "getOwnerExperienceSettings(systemId).then((data) => {\n          if (active) setExperience(data);\n        }).catch",
+          "lineNumber": 111
+        },
+        {
+          "caller": "load",
+          "callee": "getOwnerExperienceSettings(systemId).then",
+          "lineNumber": 111
+        },
+        {
+          "caller": "load",
+          "callee": "getOwnerExperienceSettings",
+          "lineNumber": 111
+        },
+        {
+          "caller": "load",
+          "callee": "setExperience",
+          "lineNumber": 112
+        },
+        {
+          "caller": "load",
+          "callee": "setExperienceMessage",
+          "lineNumber": 115
+        },
+        {
+          "caller": "load",
+          "callee": "setExperienceMessageIsError",
+          "lineNumber": 116
+        },
+        {
+          "caller": "load",
+          "callee": "setExperienceLoading",
+          "lineNumber": 118
+        },
+        {
+          "caller": "load",
+          "callee": "setPageError",
+          "lineNumber": 121
+        },
+        {
+          "caller": "load",
+          "callee": "setPageState",
+          "lineNumber": 122
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "load",
+          "lineNumber": 125
+        },
+        {
+          "caller": "changeReward",
+          "callee": "setCalendar",
+          "lineNumber": 130
+        },
+        {
+          "caller": "changeReward",
+          "callee": "current.rewards.find",
+          "lineNumber": 132
+        },
+        {
+          "caller": "changeReward",
+          "callee": "String",
+          "lineNumber": 133
+        },
+        {
+          "caller": "changeReward",
+          "callee": "current.items.find",
+          "lineNumber": 134
+        },
+        {
+          "caller": "changeReward",
+          "callee": "Number",
+          "lineNumber": 137
+        },
+        {
+          "caller": "changeReward",
+          "callee": "Number",
+          "lineNumber": 137
+        },
+        {
+          "caller": "changeReward",
+          "callee": "[...current.rewards.filter((reward) => reward.weekday !== weekday), next].sort",
+          "lineNumber": 138
+        },
+        {
+          "caller": "changeReward",
+          "callee": "current.rewards.filter",
+          "lineNumber": 138
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "event.preventDefault",
+          "lineNumber": 143
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "Array.from({ length: 7 }, (_, index) => calendar.rewards.find((reward) => reward.weekday === index + 1))\n      .filter((reward): reward is NonNullable<typeof reward> => Boolean(reward))\n      .map",
+          "lineNumber": 145
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "Array.from({ length: 7 }, (_, index) => calendar.rewards.find((reward) => reward.weekday === index + 1))\n      .filter",
+          "lineNumber": 145
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "Array.from",
+          "lineNumber": 145
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "calendar.rewards.find",
+          "lineNumber": 145
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "Boolean",
+          "lineNumber": 146
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "rewards.some",
+          "lineNumber": 148
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "Number.isInteger",
+          "lineNumber": 148
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "Number.isFinite",
+          "lineNumber": 148
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "Math.abs",
+          "lineNumber": 148
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "Math.round",
+          "lineNumber": 148
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "setCalendarMessage",
+          "lineNumber": 149
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "setCalendarMessageIsError",
+          "lineNumber": 150
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "setCalendarSaving",
+          "lineNumber": 153
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "setCalendarMessage",
+          "lineNumber": 154
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "saveOwnerDailyLoginCalendar",
+          "lineNumber": 156
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "setCalendarMessage",
+          "lineNumber": 157
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "setCalendarMessageIsError",
+          "lineNumber": 158
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "setCalendarMessage",
+          "lineNumber": 160
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "setCalendarMessageIsError",
+          "lineNumber": 161
+        },
+        {
+          "caller": "saveCalendar",
+          "callee": "setCalendarSaving",
+          "lineNumber": 162
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "event.preventDefault",
+          "lineNumber": 166
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "setExperienceSaving",
+          "lineNumber": 168
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "setExperienceMessage",
+          "lineNumber": 169
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "experience.sources.map",
+          "lineNumber": 171
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "saveOwnerExperienceSettings",
+          "lineNumber": 172
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "setExperienceMessage",
+          "lineNumber": 173
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "setExperienceMessageIsError",
+          "lineNumber": 174
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "setExperienceMessage",
+          "lineNumber": 176
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "setExperienceMessageIsError",
+          "lineNumber": 177
+        },
+        {
+          "caller": "saveExperience",
+          "callee": "setExperienceSaving",
+          "lineNumber": 178
+        },
+        {
+          "caller": "assignModerator",
+          "callee": "setMembershipBusy",
+          "lineNumber": 182
+        },
+        {
+          "caller": "assignModerator",
+          "callee": "setMembershipMessage",
+          "lineNumber": 183
+        },
+        {
+          "caller": "assignModerator",
+          "callee": "setSystemModerator",
+          "lineNumber": 185
+        },
+        {
+          "caller": "assignModerator",
+          "callee": "setMembershipMessage",
+          "lineNumber": 186
+        },
+        {
+          "caller": "assignModerator",
+          "callee": "setMembershipMessageIsError",
+          "lineNumber": 187
+        },
+        {
+          "caller": "assignModerator",
+          "callee": "setMembershipMessage",
+          "lineNumber": 189
+        },
+        {
+          "caller": "assignModerator",
+          "callee": "setMembershipMessageIsError",
+          "lineNumber": 190
+        },
+        {
+          "caller": "assignModerator",
+          "callee": "setMembershipBusy",
+          "lineNumber": 191
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "window.confirm",
+          "lineNumber": 197
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setLifecycleBusy",
+          "lineNumber": 198
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setLifecycleMessage",
+          "lineNumber": 199
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "updateGameSystemLifecycle",
+          "lineNumber": 201
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setSystemView",
+          "lineNumber": 202
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setManageableSystems",
+          "lineNumber": 203
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "current.map",
+          "lineNumber": 203
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setGameSystem",
+          "lineNumber": 206
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setLifecycleMessage",
+          "lineNumber": 207
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setLifecycleMessageIsError",
+          "lineNumber": 208
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setLifecycleMessage",
+          "lineNumber": 210
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setLifecycleMessageIsError",
+          "lineNumber": 211
+        },
+        {
+          "caller": "changeSystemAvailability",
+          "callee": "setLifecycleBusy",
+          "lineNumber": 213
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "event.preventDefault",
+          "lineNumber": 218
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "deleteConfirmation.trim",
+          "lineNumber": 220
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "setLifecycleBusy",
+          "lineNumber": 221
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "setLifecycleMessage",
+          "lineNumber": 222
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "sendDeletionEmailLink",
+          "lineNumber": 224
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "setDeleteEmailLinkSent",
+          "lineNumber": 225
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "setLifecycleMessage",
+          "lineNumber": 226
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "setLifecycleMessageIsError",
+          "lineNumber": 227
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "setLifecycleMessage",
+          "lineNumber": 229
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "setLifecycleMessageIsError",
+          "lineNumber": 230
+        },
+        {
+          "caller": "permanentlyDeleteSystem",
+          "callee": "setLifecycleBusy",
+          "lineNumber": 232
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "manageableSystems.find",
+          "lineNumber": 236
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "access.memberships.filter",
+          "lineNumber": 237
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "Boolean",
+          "lineNumber": 238
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "access?.memberships.some",
+          "lineNumber": 238
+        },
+        {
+          "caller": "updateSystemDetails",
+          "callee": "setSystemIsPublic",
+          "lineNumber": 253
+        },
+        {
+          "caller": "updateSystemDetails",
+          "callee": "setGameSystem",
+          "lineNumber": 254
+        },
+        {
+          "caller": "updateSystemDetails",
+          "callee": "setSystemView",
+          "lineNumber": 255
+        },
+        {
+          "caller": "updateSystemDetails",
+          "callee": "setManageableSystems",
+          "lineNumber": 256
+        },
+        {
+          "caller": "updateSystemDetails",
+          "callee": "current.map",
+          "lineNumber": 256
+        },
+        {
+          "caller": "selectCategory",
+          "callee": "setActiveCategory",
+          "lineNumber": 262
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setReloadKey",
+          "lineNumber": 277
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "router.push",
+          "lineNumber": 278
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "selectCategory",
+          "lineNumber": 292
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "selectCategory",
+          "lineNumber": 293
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "selectCategory",
+          "lineNumber": 294
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "selectCategory",
+          "lineNumber": 295
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "selectCategory",
+          "lineNumber": 296
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "selectCategory",
+          "lineNumber": 297
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "selectCategory",
+          "lineNumber": 298
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "selectCategory",
+          "lineNumber": 299
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "isVisibleCategory",
+          "lineNumber": 302
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "categoryPageClass",
+          "lineNumber": 302
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "isVisibleCategory",
+          "lineNumber": 310
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "categoryPageClass",
+          "lineNumber": 310
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "assignModerator",
+          "lineNumber": 311
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "isVisibleCategory",
+          "lineNumber": 313
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "categoryPageClass",
+          "lineNumber": 313
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setExperience",
+          "lineNumber": 314
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setExperience",
+          "lineNumber": 314
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "current.sources.map",
+          "lineNumber": 314
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setExperience",
+          "lineNumber": 314
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "addCustomExperienceSource",
+          "lineNumber": 314
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setExperience",
+          "lineNumber": 314
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "current.sources.filter",
+          "lineNumber": 314
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "saveExperience",
+          "lineNumber": 314
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setCalendar",
+          "lineNumber": 315
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "saveCalendar",
+          "lineNumber": 315
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "isVisibleCategory",
+          "lineNumber": 317
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "categoryPageClass",
+          "lineNumber": 317
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "isVisibleCategory",
+          "lineNumber": 320
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "categoryPageClass",
+          "lineNumber": 320
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "isVisibleCategory",
+          "lineNumber": 323
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "categoryPageClass",
+          "lineNumber": 323
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "isVisibleCategory",
+          "lineNumber": 324
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "categoryPageClass",
+          "lineNumber": 324
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "isVisibleCategory",
+          "lineNumber": 325
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "categoryPageClass",
+          "lineNumber": 325
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "changeSystemAvailability",
+          "lineNumber": 336
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "permanentlyDeleteSystem",
+          "lineNumber": 347
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "setDeleteConfirmation",
+          "lineNumber": 349
+        },
+        {
+          "caller": "SystemManagementPage",
+          "callee": "deleteConfirmation.trim",
+          "lineNumber": 350
+        }
+      ],
+      "metrics": {
+        "importCount": 15,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/system-membership/system-membership-card.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 115,
+      "nonEmptyLines": 107,
+      "functions": [
+        {
+          "name": "SystemMembershipError",
+          "startLine": 15,
+          "endLine": 21,
+          "params": [
+            "{ message, onRetry }"
+          ]
+        },
+        {
+          "name": "SystemMembershipCard",
+          "startLine": 25,
+          "endLine": 115,
+          "params": [
+            "{ access, manageableSystems = [], busy, message, messageIsError, onAssign }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SystemMembershipError",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "SystemMembershipCard",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "access.memberships.filter",
+          "lineNumber": 26
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "useState",
+          "lineNumber": 28
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "useState",
+          "lineNumber": 29
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "useState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "useState",
+          "lineNumber": 31
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "useState",
+          "lineNumber": 32
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "useState",
+          "lineNumber": 33
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "useState",
+          "lineNumber": 34
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "availableSystems.find",
+          "lineNumber": 35
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "useEffect",
+          "lineNumber": 37
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "memberQuery.trim",
+          "lineNumber": 38
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberResults",
+          "lineNumber": 40
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberSearchLoading",
+          "lineNumber": 41
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberSearchError",
+          "lineNumber": 42
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "window.setTimeout",
+          "lineNumber": 46
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberSearchLoading",
+          "lineNumber": 47
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberSearchError",
+          "lineNumber": 48
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "searchSystemMembersByCharacterName(selectedSystem.game_system_id, query)\n        .then((response) => { if (active) setMemberResults(response.results); })\n        .catch(() => { if (active) { setMemberResults([]); setMemberSearchError('Não foi possível pesquisar personagens.'); } })\n        .finally",
+          "lineNumber": 49
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "searchSystemMembersByCharacterName(selectedSystem.game_system_id, query)\n        .then((response) => { if (active) setMemberResults(response.results); })\n        .catch",
+          "lineNumber": 49
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "searchSystemMembersByCharacterName(selectedSystem.game_system_id, query)\n        .then",
+          "lineNumber": 49
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "searchSystemMembersByCharacterName",
+          "lineNumber": 49
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberResults",
+          "lineNumber": 50
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberResults",
+          "lineNumber": 51
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberSearchError",
+          "lineNumber": 51
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberSearchLoading",
+          "lineNumber": 52
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "window.clearTimeout",
+          "lineNumber": 54
+        },
+        {
+          "caller": "submit",
+          "callee": "event.preventDefault",
+          "lineNumber": 58
+        },
+        {
+          "caller": "submit",
+          "callee": "onAssign",
+          "lineNumber": 60
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "access.memberships.map",
+          "lineNumber": 68
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setSelectedSystemId",
+          "lineNumber": 78
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setSelectedMember",
+          "lineNumber": 78
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberQuery",
+          "lineNumber": 78
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "availableSystems.map",
+          "lineNumber": 79
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberQuery",
+          "lineNumber": 94
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setSelectedMember",
+          "lineNumber": 94
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "memberQuery.trim",
+          "lineNumber": 96
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "memberResults.map",
+          "lineNumber": 100
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setSelectedMember",
+          "lineNumber": 100
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setMemberQuery",
+          "lineNumber": 100
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "memberQuery.trim",
+          "lineNumber": 103
+        },
+        {
+          "caller": "SystemMembershipCard",
+          "callee": "setIsModerator",
+          "lineNumber": 106
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/daily-login-render.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 122,
+      "nonEmptyLines": 114,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/experience-render.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 71,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/store-render.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 26,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/system-membership-render.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 56,
+      "nonEmptyLines": 52,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

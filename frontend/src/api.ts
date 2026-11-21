@@ -29,19 +29,19 @@ export interface ProfileComment { id: string; content: string; created_at: strin
 export interface DirectMessage { id: string; sender_user_id: string; recipient_user_id: string; content: string; created_at: string; }
 export function getPublicPlayerProfile(username: string) { return authenticatedRequest<{ profile: PublicPlayerProfile; systems: PublicPlayerSystem[] }>(`/api/v1/social/profiles/${encodeURIComponent(username)}`); }
 export function getProfileComments(username: string) { return authenticatedRequest<{ comments: ProfileComment[] }>(`/api/v1/social/profiles/${encodeURIComponent(username)}/comments`); }
-export function postProfileComment(username: string, content: string) { return authenticatedRequest<{ status: string; id: string }>(`/api/v1/social/profiles/${encodeURIComponent(username)}/comments`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) }); }
+export function postProfileComment(username: string, content: string) { return jsonRequest<{ status: string; id: string }>(`/api/v1/social/profiles/${encodeURIComponent(username)}/comments`, 'POST', { content }); }
 export function deleteProfileComment(id: string) { return authenticatedRequest<{ status: string }>(`/api/v1/social/comments/${encodeURIComponent(id)}`, { method: 'DELETE' }); }
 export function getDirectMessages(userId: string) { return authenticatedRequest<{ messages: DirectMessage[] }>(`/api/v1/direct-messages/${encodeURIComponent(userId)}`); }
-export function sendDirectMessage(userId: string, content: string) { return authenticatedRequest<{ status: string; id: string }>(`/api/v1/direct-messages/${encodeURIComponent(userId)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) }); }
+export function sendDirectMessage(userId: string, content: string) { return jsonRequest<{ status: string; id: string }>(`/api/v1/direct-messages/${encodeURIComponent(userId)}`, 'POST', { content }); }
 export function searchSocialProfiles(query: string) { return authenticatedRequest<{ results: SocialProfile[] }>(`/api/v1/social/search?q=${encodeURIComponent(query)}`); }
 export function getMyFriends() { return authenticatedRequest<FriendshipList>('/api/v1/me/friends'); }
 export function getSocialInvitations() { return authenticatedRequest<SocialInvitationList>('/api/v1/me/social-invitations'); }
-export function sendFriendRequest(userId: string) { return authenticatedRequest<{ status: string }>('/api/v1/friend-requests', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ recipient_user_id: userId }) }); }
-export function respondToFriendRequest(id: string, decision: 'accept' | 'decline' | 'cancel') { return authenticatedRequest<{ status: string }>(`/api/v1/friend-requests/${encodeURIComponent(id)}/respond`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ decision }) }); }
+export function sendFriendRequest(userId: string) { return jsonRequest<{ status: string }>('/api/v1/friend-requests', 'POST', { recipient_user_id: userId }); }
+export function respondToFriendRequest(id: string, decision: 'accept' | 'decline' | 'cancel') { return jsonRequest<{ status: string }>(`/api/v1/friend-requests/${encodeURIComponent(id)}/respond`, 'POST', { decision }); }
 export function removeMyFriend(userId: string) { return authenticatedRequest<{ status: string }>(`/api/v1/me/friends/${encodeURIComponent(userId)}`, { method: 'DELETE' }); }
-export function createSystemFriendInvitation(systemId: string, friendUserId: string) { return authenticatedRequest<{ status: string }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/invitations`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ friend_user_id: friendUserId }) }); }
-export function createChatFriendInvitation(chatId: string, friendUserId: string) { return authenticatedRequest<{ status: string }>(`/api/v1/chats/${encodeURIComponent(chatId)}/invitations`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ friend_user_id: friendUserId }) }); }
-export function respondToSocialInvitation(id: string, decision: 'approve' | 'decline' | 'accept' | 'cancel', characterId?: string) { return authenticatedRequest<{ status: string }>(`/api/v1/social-invitations/${encodeURIComponent(id)}/respond`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ decision, ...(characterId ? { character_id: characterId } : {}) }) }); }
+export function createSystemFriendInvitation(systemId: string, friendUserId: string) { return jsonRequest<{ status: string }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/invitations`, 'POST', { friend_user_id: friendUserId }); }
+export function createChatFriendInvitation(chatId: string, friendUserId: string) { return jsonRequest<{ status: string }>(`/api/v1/chats/${encodeURIComponent(chatId)}/invitations`, 'POST', { friend_user_id: friendUserId }); }
+export function respondToSocialInvitation(id: string, decision: 'approve' | 'decline' | 'accept' | 'cancel', characterId?: string) { return jsonRequest<{ status: string }>(`/api/v1/social-invitations/${encodeURIComponent(id)}/respond`, 'POST', { decision, ...(characterId ? { character_id: characterId } : {}) }); }
 
 export interface ProfilePatch {
   username?: string;
@@ -92,10 +92,7 @@ export function deleteMyAccount() {
 }
 
 export function requestSystemOwnerTransfer(systemId: string, targetUserId: string) {
-  return authenticatedRequest<{ status: 'created'; transfer_id: string }>('/api/v1/me/account/owner-transfers', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ system_id: systemId, target_user_id: targetUserId }),
-  });
+  return jsonRequest<{ status: 'created'; transfer_id: string }>('/api/v1/me/account/owner-transfers', 'POST', { system_id: systemId, target_user_id: targetUserId });
 }
 
 export function acceptSystemOwnerTransfer(transferId: string) {
@@ -228,9 +225,7 @@ export function getSystemLobbySettings(systemId: string) {
 }
 
 export function updateSystemLobbySettings(systemId: string, settings: SystemLobbySettings) {
-  return authenticatedRequest<{ settings: SystemLobbySettings }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/lobby-settings`, {
-    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings),
-  });
+  return jsonRequest<{ settings: SystemLobbySettings }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/lobby-settings`, 'PUT', settings);
 }
 
 export function startSystemEvent(systemId: string, eventId: string) {
@@ -246,15 +241,11 @@ export function heartbeatSystemLobbyPresence(systemId: string) {
 }
 
 export function createSystemEvent(systemId: string, event: SystemEventInput) {
-  return authenticatedRequest<{ event: SystemEvent }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/events`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(event),
-  });
+  return jsonRequest<{ event: SystemEvent }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/events`, 'POST', event);
 }
 
 export function updateSystemEvent(systemId: string, eventId: string, event: SystemEventInput) {
-  return authenticatedRequest<{ event: SystemEvent }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/events/${encodeURIComponent(eventId)}`, {
-    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(event),
-  });
+  return jsonRequest<{ event: SystemEvent }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/events/${encodeURIComponent(eventId)}`, 'PUT', event);
 }
 
 export function deleteSystemEvent(systemId: string, eventId: string) {
@@ -295,9 +286,9 @@ export interface Chat {
 }
 
 export function createSystemChat(systemId: string, input: { character_id: string; name: string; description?: string | null }) {
-  return authenticatedRequest<{ chat: Chat; character_id: string }>(
+  return jsonRequest<{ chat: Chat; character_id: string }>(
     `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/chats`,
-    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) },
+    'POST', input,
   );
 }
 
@@ -322,9 +313,9 @@ export function getCharacterChatMessages(characterId: string, chatId: string) {
 }
 
 export function sendCharacterChatMessage(characterId: string, chatId: string, content: string) {
-  return authenticatedRequest<{ message: ChatMessage }>(
+  return jsonRequest<{ message: ChatMessage }>(
     `/api/v1/me/characters/${encodeURIComponent(characterId)}/chats/${encodeURIComponent(chatId)}/messages`,
-    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) },
+    'POST', { content },
   );
 }
 
@@ -622,9 +613,9 @@ export function searchSystemMembersByCharacterName(gameSystemId: string, query: 
 }
 
 export async function setSystemModerator(gameSystemId: string, userId: string, isModerator: boolean) {
-  return authenticatedRequest<{ status: 'updated' }>(
+  return jsonRequest<{ status: 'updated' }>(
     `/api/v1/owner/game-systems/${encodeURIComponent(gameSystemId)}/members/${encodeURIComponent(userId)}/moderator`,
-    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ is_moderator: isModerator }) },
+    'PUT', { is_moderator: isModerator },
   );
 }
 
@@ -641,9 +632,9 @@ export function markNotificationRead(notificationId: string) {
 }
 
 export function publishSystemAnnouncement(systemId: string, input: SystemAnnouncementInput) {
-  return authenticatedRequest<{ status: 'created' }>(
+  return jsonRequest<{ status: 'created' }>(
     `/api/v1/game-systems/${encodeURIComponent(systemId)}/announcements`,
-    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) },
+    'POST', input,
   );
 }
 
@@ -654,7 +645,7 @@ export async function checkHealth(): Promise<{ status: string }> {
 }
 
 export function getMyProfile() {
-  return profileRequest('/api/v1/me/profile') as Promise<Profile>;
+  return authenticatedRequest<Profile>('/api/v1/me/profile');
 }
 
 export function getGameSystems(options: { includeArchived?: boolean } = {}) {
@@ -663,9 +654,7 @@ export function getGameSystems(options: { includeArchived?: boolean } = {}) {
 }
 
 export function createGameSystem(input: CreateGameSystemInput) {
-  return authenticatedRequest<{ system: GameSystem; definition: CharacterSheetDefinition }>('/api/v1/game-systems', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
-  });
+  return jsonRequest<{ system: GameSystem; definition: CharacterSheetDefinition }>('/api/v1/game-systems', 'POST', input);
 }
 
 export function getGameSystemTagOptions() {
@@ -673,15 +662,13 @@ export function getGameSystemTagOptions() {
 }
 
 export function updateGameSystem(systemId: string, input: UpdateGameSystemInput) {
-  return authenticatedRequest<{ system: GameSystem }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}`, {
-    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
-  });
+  return jsonRequest<{ system: GameSystem }>(`/api/v1/game-systems/${encodeURIComponent(systemId)}`, 'PUT', input);
 }
 
 export function updateGameSystemLifecycle(systemId: string, action: 'archive' | 'activate') {
-  return authenticatedRequest<{ status: 'archived' | 'activated'; is_active: boolean }>(
+  return jsonRequest<{ status: 'archived' | 'activated'; is_active: boolean }>(
     `/api/v1/game-systems/${encodeURIComponent(systemId)}/lifecycle`,
-    { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action }) },
+    'PATCH', { action },
   );
 }
 
@@ -753,9 +740,9 @@ export function getCharacterSheet(systemId: string) {
 }
 
 export function updateGameSystemCharacterSheet(systemId: string, definition: CharacterSheetDefinition) {
-  return authenticatedRequest<{ definition: CharacterSheetDefinition }>(
+  return jsonRequest<{ definition: CharacterSheetDefinition }>(
     `/api/v1/game-systems/${encodeURIComponent(systemId)}/character-sheet`,
-    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ definition }) },
+    'PUT', { definition },
   );
 }
 
@@ -766,25 +753,21 @@ export function getSystemCharacters(systemId: string) {
 }
 
 export function requestSystemAccess(systemId: string, password: string) {
-  return authenticatedRequest<{ status: 'authorized' }>(
+  return jsonRequest<{ status: 'authorized' }>(
     `/api/v1/game-systems/${encodeURIComponent(systemId)}/access`,
-    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ system_password: password }) },
+    'POST', { system_password: password },
   );
 }
 
 export function createSystemCharacter(systemId: string, input: CreateCharacterInput) {
-  return authenticatedRequest<{ character: SystemCharacter }>(
+  return jsonRequest<{ character: SystemCharacter }>(
     `/api/v1/game-systems/${encodeURIComponent(systemId)}/characters`,
-    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) },
+    'POST', input,
   );
 }
 
 export function updateMyProfile(patch: ProfilePatch) {
-  return profileRequest('/api/v1/me/profile', {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(patch),
-  }) as Promise<Profile>;
+  return jsonRequest<Profile>('/api/v1/me/profile', 'PATCH', patch);
 }
 
 export function getMyDailyLoginSystems() {
@@ -815,27 +798,19 @@ export function getTradeOffers(box: TradeOfferBox, limit = 50, offset = 0) {
 }
 
 export function createTradeOffer(input: TradeOfferInput) {
-  return authenticatedRequest<TradeMutationResult>('/api/v1/me/trade-offers', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
-  });
+  return jsonRequest<TradeMutationResult>('/api/v1/me/trade-offers', 'POST', input);
 }
 
 export function respondToTradeOffer(offerId: string, action: 'accept' | 'decline') {
-  return authenticatedRequest<TradeMutationResult>(`/api/v1/me/trade-offers/${encodeURIComponent(offerId)}/respond`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action }),
-  });
+  return jsonRequest<TradeMutationResult>(`/api/v1/me/trade-offers/${encodeURIComponent(offerId)}/respond`, 'POST', { action });
 }
 
 export function counterTradeOffer(offerId: string, input: TradeCounterOfferInput) {
-  return authenticatedRequest<TradeMutationResult>(`/api/v1/me/trade-offers/${encodeURIComponent(offerId)}/counter`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
-  });
+  return jsonRequest<TradeMutationResult>(`/api/v1/me/trade-offers/${encodeURIComponent(offerId)}/counter`, 'POST', input);
 }
 
 export function cancelTradeOffer(offerId: string) {
-  return authenticatedRequest<TradeMutationResult>(`/api/v1/me/trade-offers/${encodeURIComponent(offerId)}/cancel`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}',
-  });
+  return jsonRequest<TradeMutationResult>(`/api/v1/me/trade-offers/${encodeURIComponent(offerId)}/cancel`, 'POST', {});
 }
 
 export function getDailyLoginSystem(systemId: string) {
@@ -845,9 +820,9 @@ export function getDailyLoginSystem(systemId: string) {
 }
 
 export function claimDailyLoginReward(systemId: string, characterId: string) {
-  return authenticatedRequest<DailyLoginClaimResult>(
+  return jsonRequest<DailyLoginClaimResult>(
     `/api/v1/game-systems/${encodeURIComponent(systemId)}/daily-login/claims`,
-    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ character_id: characterId }) },
+    'POST', { character_id: characterId },
   );
 }
 
@@ -858,9 +833,9 @@ export function getOwnerDailyLoginCalendar(systemId: string) {
 }
 
 export function saveOwnerDailyLoginCalendar(systemId: string, schedule: DailyLoginScheduleInput) {
-  return authenticatedRequest<{ status: string }>(
+  return jsonRequest<{ status: string }>(
     `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/daily-login/rewards`,
-    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(schedule) },
+    'PUT', schedule,
   );
 }
 
@@ -871,9 +846,9 @@ export function getOwnerExperienceSettings(systemId: string) {
 }
 
 export function saveOwnerExperienceSettings(systemId: string, settings: ExperienceSettingsInput) {
-  return authenticatedRequest<{ status: 'updated' }>(
+  return jsonRequest<{ status: 'updated' }>(
     `/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/xp`,
-    { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings) },
+    'PUT', settings,
   );
 }
 
@@ -883,8 +858,10 @@ export function getCharacterExperience(characterId: string) {
   );
 }
 
-async function profileRequest(path: string, init: RequestInit = {}) {
-  return authenticatedRequest<Profile>(path, init);
+const jsonHeaders = { 'Content-Type': 'application/json' };
+
+function jsonRequest<T>(path: string, method: 'POST' | 'PUT' | 'PATCH', body: unknown): Promise<T> {
+  return authenticatedRequest<T>(path, { method, headers: jsonHeaders, body: JSON.stringify(body) });
 }
 
 async function authenticatedRequest<T>(path: string, init: RequestInit = {}): Promise<T> {
@@ -951,31 +928,20 @@ export function getOwnerStore(systemId: string) {
   return authenticatedRequest<OwnerStore>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store`);
 }
 export function createOwnerStoreItem(systemId: string, input: CreateStoreItemInput) {
-  return authenticatedRequest<{ item: StoreItem }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/items`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
-  });
+  return jsonRequest<{ item: StoreItem }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/items`, 'POST', input);
 }
 export function saveOwnerStore(systemId: string, input: StoreSettingsInput) {
-  return authenticatedRequest<OwnerStore>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store`, {
-    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
-  });
+  return jsonRequest<OwnerStore>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store`, 'PUT', input);
 }
 export function updateOwnerStoreCurrencyField(systemId: string, input: StoreCurrencyFieldUpdate) {
-  return authenticatedRequest<{ currency_name: string; currency_image_url: string | null }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store/currency`, {
-    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
-  });
+  return jsonRequest<{ currency_name: string; currency_image_url: string | null }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store/currency`, 'PATCH', input);
 }
 export function updateOwnerStoreOfferField(systemId: string, itemId: string, input: StoreOfferFieldUpdate) {
-  return authenticatedRequest<{ offer: StoreOffer }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store/items/${encodeURIComponent(itemId)}/offer`, {
-    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
-  });
+  return jsonRequest<{ offer: StoreOffer }>(`/api/v1/owner/game-systems/${encodeURIComponent(systemId)}/store/items/${encodeURIComponent(itemId)}/offer`, 'PATCH', input);
 }
 export function getCharacterStore(systemId: string, characterId: string) {
   return authenticatedRequest<CharacterStore>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/store?character_id=${encodeURIComponent(characterId)}`);
 }
 export function purchaseStoreOffer(systemId: string, characterId: string, offerId: string) {
-  return authenticatedRequest<StorePurchaseResult>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/store/purchases`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ character_id: characterId, store_product_id: offerId, quantity: 1 }),
-  });
+  return jsonRequest<StorePurchaseResult>(`/api/v1/game-systems/${encodeURIComponent(systemId)}/store/purchases`, 'POST', { character_id: characterId, store_product_id: offerId, quantity: 1 });
 }

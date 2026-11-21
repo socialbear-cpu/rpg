@@ -1,0 +1,87 @@
+{
+  "nodes": [
+    {
+      "id": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v1.html",
+      "type": "file",
+      "name": "layout-v1.html",
+      "filePath": ".superpowers/brainstorm/sheet-mockup/content/layout-v1.html",
+      "summary": "Protótipo HTML de uma tela para configurar a ficha de personagem de um sistema de RPG, com etapas, campos editáveis e uma prévia da composição visual. Esta versão documenta uma alternativa de layout para o editor de ficha.",
+      "tags": [
+        "protótipo",
+        "interface",
+        "ficha-de-personagem",
+        "editor"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Mockup estático com HTML e CSS; não contém comportamento de aplicação."
+    },
+    {
+      "id": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v2.html",
+      "type": "file",
+      "name": "layout-v2.html",
+      "filePath": ".superpowers/brainstorm/sheet-mockup/content/layout-v2.html",
+      "summary": "Protótipo HTML de uma tela para configurar a ficha de personagem de um sistema de RPG, com etapas, campos editáveis e uma prévia da composição visual. Esta versão documenta uma alternativa de layout para o editor de ficha.",
+      "tags": [
+        "protótipo",
+        "interface",
+        "ficha-de-personagem",
+        "editor"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Mockup estático com HTML e CSS; não contém comportamento de aplicação."
+    },
+    {
+      "id": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v3.html",
+      "type": "file",
+      "name": "layout-v3.html",
+      "filePath": ".superpowers/brainstorm/sheet-mockup/content/layout-v3.html",
+      "summary": "Protótipo HTML de uma tela para configurar a ficha de personagem de um sistema de RPG, com etapas, campos editáveis e uma prévia da composição visual. Esta versão documenta uma alternativa de layout para o editor de ficha.",
+      "tags": [
+        "protótipo",
+        "interface",
+        "ficha-de-personagem",
+        "editor"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Mockup estático com HTML e CSS; não contém comportamento de aplicação."
+    },
+    {
+      "id": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v4.html",
+      "type": "file",
+      "name": "layout-v4.html",
+      "filePath": ".superpowers/brainstorm/sheet-mockup/content/layout-v4.html",
+      "summary": "Protótipo HTML de uma tela para configurar a ficha de personagem de um sistema de RPG, com etapas, campos editáveis e uma prévia da composição visual. Esta versão documenta uma alternativa de layout para o editor de ficha.",
+      "tags": [
+        "protótipo",
+        "interface",
+        "ficha-de-personagem",
+        "editor"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Mockup estático com HTML e CSS; não contém comportamento de aplicação."
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v1.html",
+      "target": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v2.html",
+      "type": "similar_to",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v2.html",
+      "target": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v3.html",
+      "type": "similar_to",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v3.html",
+      "target": "file:.superpowers/brainstorm/sheet-mockup/content/layout-v4.html",
+      "type": "similar_to",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

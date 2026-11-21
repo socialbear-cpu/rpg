@@ -1,0 +1,719 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/features/characters/lobby-customization-form.tsx",
+      "type": "file",
+      "name": "lobby-customization-form.tsx",
+      "filePath": "frontend/src/features/characters/lobby-customization-form.tsx",
+      "summary": "Formulário de personalização das configurações visuais e funcionais do lobby.",
+      "tags": [
+        "component",
+        "lobby",
+        "form",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/characters/lobby-presence.ts",
+      "type": "file",
+      "name": "lobby-presence.ts",
+      "filePath": "frontend/src/features/characters/lobby-presence.ts",
+      "summary": "Mantém a presença do jogador no lobby por heartbeat periódico e fornece o hook de ciclo de vida da presença.",
+      "tags": [
+        "hook",
+        "lobby",
+        "presence",
+        "heartbeat"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "type": "file",
+      "name": "lobby-settings-page.tsx",
+      "filePath": "frontend/src/features/characters/lobby-settings-page.tsx",
+      "summary": "Página de gerenciamento das configurações do lobby de um sistema.",
+      "tags": [
+        "component",
+        "lobby",
+        "settings",
+        "page-composition"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "type": "file",
+      "name": "lobby-stats.tsx",
+      "filePath": "frontend/src/features/characters/lobby-stats.tsx",
+      "summary": "Calcula e apresenta contagens e horários das sessões ativas do lobby.",
+      "tags": [
+        "component",
+        "lobby",
+        "statistics",
+        "time-formatting"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "type": "file",
+      "name": "dashboard.tsx",
+      "filePath": "frontend/src/features/dashboard/dashboard.tsx",
+      "summary": "Dashboard do jogador que carrega memberships e organiza sistemas próprios e acessíveis.",
+      "tags": [
+        "component",
+        "dashboard",
+        "systems",
+        "data-loading"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/dashboard/systems-section.tsx",
+      "type": "file",
+      "name": "systems-section.tsx",
+      "filePath": "frontend/src/features/dashboard/systems-section.tsx",
+      "summary": "Seção reutilizável do dashboard para exibir sistemas e ações de gerenciamento ou entrada.",
+      "tags": [
+        "component",
+        "dashboard",
+        "systems",
+        "navigation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/notifications/notification-center.tsx",
+      "type": "file",
+      "name": "notification-center.tsx",
+      "filePath": "frontend/src/features/notifications/notification-center.tsx",
+      "summary": "Central de notificações com apresentação de eventos, anúncios e alterações de função, além de ações de leitura.",
+      "tags": [
+        "component",
+        "notifications",
+        "event-handling",
+        "formatting"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-customization-form.tsx:LobbyCustomizationForm",
+      "type": "function",
+      "name": "LobbyCustomizationForm",
+      "filePath": "frontend/src/features/characters/lobby-customization-form.tsx",
+      "summary": "Componente lobby customization form, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        17,
+        73
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-presence.ts:startSystemLobbyPresenceHeartbeat",
+      "type": "function",
+      "name": "startSystemLobbyPresenceHeartbeat",
+      "filePath": "frontend/src/features/characters/lobby-presence.ts",
+      "summary": "Função start system lobby presence heartbeat, usada no fluxo de characters.",
+      "tags": [
+        "hook",
+        "lobby",
+        "presence"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        13,
+        45
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-presence.ts:useSystemLobbyPresence",
+      "type": "function",
+      "name": "useSystemLobbyPresence",
+      "filePath": "frontend/src/features/characters/lobby-presence.ts",
+      "summary": "Função use system lobby presence, usada no fluxo de characters.",
+      "tags": [
+        "hook",
+        "lobby",
+        "presence"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        47,
+        61
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-settings-page.tsx:LobbySettingsPage",
+      "type": "function",
+      "name": "LobbySettingsPage",
+      "filePath": "frontend/src/features/characters/lobby-settings-page.tsx",
+      "summary": "Componente lobby settings page, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        14,
+        88
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-stats.tsx:countActiveLobbyChats",
+      "type": "function",
+      "name": "countActiveLobbyChats",
+      "filePath": "frontend/src/features/characters/lobby-stats.tsx",
+      "summary": "Função count active lobby chats, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        6,
+        8
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-stats.tsx:findNextLobbySession",
+      "type": "function",
+      "name": "findNextLobbySession",
+      "filePath": "frontend/src/features/characters/lobby-stats.tsx",
+      "summary": "Função find next lobby session, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        10,
+        14
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-stats.tsx:startLobbySessionClock",
+      "type": "function",
+      "name": "startLobbySessionClock",
+      "filePath": "frontend/src/features/characters/lobby-stats.tsx",
+      "summary": "Função start lobby session clock, usada no fluxo de characters.",
+      "tags": [
+        "hook",
+        "lobby",
+        "presence"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        16,
+        27
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-stats.tsx:formatLobbySession",
+      "type": "function",
+      "name": "formatLobbySession",
+      "filePath": "frontend/src/features/characters/lobby-stats.tsx",
+      "summary": "Função format lobby session, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        29,
+        42
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-stats.tsx:LobbyStatsDisplay",
+      "type": "function",
+      "name": "LobbyStatsDisplay",
+      "filePath": "frontend/src/features/characters/lobby-stats.tsx",
+      "summary": "Componente lobby stats display, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        59,
+        66
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/characters/lobby-stats.tsx:LobbyStats",
+      "type": "function",
+      "name": "LobbyStats",
+      "filePath": "frontend/src/features/characters/lobby-stats.tsx",
+      "summary": "Componente lobby stats, usada no fluxo de characters.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        68,
+        103
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/dashboard/dashboard.tsx:Dashboard",
+      "type": "function",
+      "name": "Dashboard",
+      "filePath": "frontend/src/features/dashboard/dashboard.tsx",
+      "summary": "Componente dashboard, usada no fluxo de dashboard.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        17,
+        91
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/dashboard/systems-section.tsx:SystemsSection",
+      "type": "function",
+      "name": "SystemsSection",
+      "filePath": "frontend/src/features/dashboard/systems-section.tsx",
+      "summary": "Componente systems section, usada no fluxo de dashboard.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        16,
+        83
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/notifications/notification-center.tsx:roleChangePayload",
+      "type": "function",
+      "name": "roleChangePayload",
+      "filePath": "frontend/src/features/notifications/notification-center.tsx",
+      "summary": "Função role change payload, usada no fluxo de notifications.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        22,
+        31
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/notifications/notification-center.tsx:NotificationContent",
+      "type": "function",
+      "name": "NotificationContent",
+      "filePath": "frontend/src/features/notifications/notification-center.tsx",
+      "summary": "Componente notification content, usada no fluxo de notifications.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        48,
+        62
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/notifications/notification-center.tsx:BellIcon",
+      "type": "function",
+      "name": "BellIcon",
+      "filePath": "frontend/src/features/notifications/notification-center.tsx",
+      "summary": "Função bell icon, usada no fluxo de notifications.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        64,
+        81
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/notifications/notification-center.tsx:NotificationCenter",
+      "type": "function",
+      "name": "NotificationCenter",
+      "filePath": "frontend/src/features/notifications/notification-center.tsx",
+      "summary": "Componente notification center, usada no fluxo de notifications.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        83,
+        271
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/features/characters/lobby-customization-form.tsx",
+      "target": "function:frontend/src/features/characters/lobby-customization-form.tsx:LobbyCustomizationForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-customization-form.tsx",
+      "target": "function:frontend/src/features/characters/lobby-customization-form.tsx:LobbyCustomizationForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-presence.ts",
+      "target": "function:frontend/src/features/characters/lobby-presence.ts:startSystemLobbyPresenceHeartbeat",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-presence.ts",
+      "target": "function:frontend/src/features/characters/lobby-presence.ts:startSystemLobbyPresenceHeartbeat",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-presence.ts",
+      "target": "function:frontend/src/features/characters/lobby-presence.ts:useSystemLobbyPresence",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-presence.ts",
+      "target": "function:frontend/src/features/characters/lobby-presence.ts:useSystemLobbyPresence",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "target": "function:frontend/src/features/characters/lobby-settings-page.tsx:LobbySettingsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "target": "function:frontend/src/features/characters/lobby-settings-page.tsx:LobbySettingsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:countActiveLobbyChats",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:countActiveLobbyChats",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:findNextLobbySession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:findNextLobbySession",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:startLobbySessionClock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:startLobbySessionClock",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:formatLobbySession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:formatLobbySession",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:LobbyStatsDisplay",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:LobbyStatsDisplay",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:LobbyStats",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "function:frontend/src/features/characters/lobby-stats.tsx:LobbyStats",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "target": "function:frontend/src/features/dashboard/dashboard.tsx:Dashboard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "target": "function:frontend/src/features/dashboard/dashboard.tsx:Dashboard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/systems-section.tsx",
+      "target": "function:frontend/src/features/dashboard/systems-section.tsx:SystemsSection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/systems-section.tsx",
+      "target": "function:frontend/src/features/dashboard/systems-section.tsx:SystemsSection",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/notifications/notification-center.tsx",
+      "target": "function:frontend/src/features/notifications/notification-center.tsx:roleChangePayload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/notifications/notification-center.tsx",
+      "target": "function:frontend/src/features/notifications/notification-center.tsx:NotificationContent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/notifications/notification-center.tsx",
+      "target": "function:frontend/src/features/notifications/notification-center.tsx:BellIcon",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/notifications/notification-center.tsx",
+      "target": "function:frontend/src/features/notifications/notification-center.tsx:NotificationCenter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/notifications/notification-center.tsx",
+      "target": "function:frontend/src/features/notifications/notification-center.tsx:NotificationCenter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-customization-form.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-customization-form.tsx",
+      "target": "file:frontend/src/features/characters/lobby-creator-tools.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-customization-form.tsx",
+      "target": "file:frontend/src/features/system-management/system-details-editor.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-presence.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "target": "file:frontend/src/features/characters/characters.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "target": "file:frontend/src/features/characters/lobby-creator-tools.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "target": "file:frontend/src/features/characters/lobby-creator-tools.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "target": "file:frontend/src/features/characters/lobby-customization-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "target": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "target": "file:frontend/src/features/dashboard/dashboard.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "target": "file:frontend/src/features/dashboard/systems-section.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "target": "file:frontend/src/features/notifications/notification-center.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/systems-section.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/notifications/notification-center.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/notifications/notification-center.tsx",
+      "target": "file:frontend/src/features/notifications/notifications.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

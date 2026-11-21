@@ -58,6 +58,22 @@ export interface DailyLoginClaim {
   claimed_at: string;
 }
 
+export interface DailyLoginClaimResult {
+  status: 'claimed' | 'already_claimed' | 'invalid_character' | 'calendar_unavailable' | 'system_unavailable' | 'unauthorized';
+  claim_id?: string;
+  game_system_id?: string;
+  character_id?: string;
+  item_id?: string;
+  item_name?: string;
+  quantity?: number;
+  weekday?: number;
+  local_claim_date?: string;
+  timezone?: string;
+  xp_awarded: number;
+  currency_awarded: number;
+  currency_name: string;
+}
+
 export interface DailyLoginTodayState {
   claimed_character_ids?: string[];
   status: 'available' | 'already_claimed' | 'calendar_unavailable' | 'system_unavailable' | 'unauthorized';

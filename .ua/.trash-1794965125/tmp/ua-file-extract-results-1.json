@@ -1,0 +1,4166 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 28,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 28,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 28,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/src/authenticate-user.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "parseBearerToken",
+          "startLine": 10,
+          "endLine": 12,
+          "params": [
+            "authorization"
+          ]
+        },
+        {
+          "name": "authenticateAccessToken",
+          "startLine": 14,
+          "endLine": 23,
+          "params": [
+            "accessToken"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "parseBearerToken",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "authenticateAccessToken",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseBearerToken",
+          "callee": "/^Bearer ([A-Za-z0-9._~+\\/-]+=*)$/i.exec",
+          "lineNumber": 11
+        },
+        {
+          "caller": "authenticateAccessToken",
+          "callee": "createUserSupabaseClient",
+          "lineNumber": 15
+        },
+        {
+          "caller": "authenticateAccessToken",
+          "callee": "supabase.auth.getUser",
+          "lineNumber": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/clients/supabase.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 13,
+      "functions": [
+        {
+          "name": "createUserSupabaseClient",
+          "startLine": 4,
+          "endLine": 14,
+          "params": [
+            "accessToken"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createUserSupabaseClient",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createUserSupabaseClient",
+          "callee": "loadConfig",
+          "lineNumber": 5
+        },
+        {
+          "caller": "createUserSupabaseClient",
+          "callee": "createClient",
+          "lineNumber": 6
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "loadRuntimeConfig",
+          "startLine": 14,
+          "endLine": 25,
+          "params": [
+            "env"
+          ]
+        },
+        {
+          "name": "loadConfig",
+          "startLine": 27,
+          "endLine": 44,
+          "params": [
+            "env"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "loadRuntimeConfig",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "loadConfig",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loadRuntimeConfig",
+          "callee": "runtimeConfigSchema.safeParse",
+          "lineNumber": 15
+        },
+        {
+          "caller": "loadRuntimeConfig",
+          "callee": "result.error.issues.map",
+          "lineNumber": 17
+        },
+        {
+          "caller": "loadRuntimeConfig",
+          "callee": "fields.join",
+          "lineNumber": 18
+        },
+        {
+          "caller": "loadConfig",
+          "callee": "configSchema.safeParse",
+          "lineNumber": 28
+        },
+        {
+          "caller": "loadConfig",
+          "callee": "result.error.issues.map",
+          "lineNumber": 34
+        },
+        {
+          "caller": "loadConfig",
+          "callee": "fields.join",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/account/account.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 218,
+      "nonEmptyLines": 208,
+      "functions": [
+        {
+          "name": "databaseError",
+          "startLine": 53,
+          "endLine": 55,
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "name": "sendRpcStatus",
+          "startLine": 57,
+          "endLine": 61,
+          "params": [
+            "reply",
+            "result"
+          ]
+        },
+        {
+          "name": "accountRoutes",
+          "startLine": 63,
+          "endLine": 218,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "accountRoutes",
+          "line": 63,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "databaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 54
+        },
+        {
+          "caller": "databaseError",
+          "callee": "reply.code",
+          "lineNumber": 54
+        },
+        {
+          "caller": "sendRpcStatus",
+          "callee": "reply.code(403).send",
+          "lineNumber": 58
+        },
+        {
+          "caller": "sendRpcStatus",
+          "callee": "reply.code",
+          "lineNumber": 58
+        },
+        {
+          "caller": "sendRpcStatus",
+          "callee": "reply.code(401).send",
+          "lineNumber": 59
+        },
+        {
+          "caller": "sendRpcStatus",
+          "callee": "reply.code",
+          "lineNumber": 59
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "app.get",
+          "lineNumber": 64
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 71
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 72
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 73
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 73
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.send",
+          "lineNumber": 74
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 76
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "app.post",
+          "lineNumber": 80
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 88
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 89
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "sendRpcStatus",
+          "lineNumber": 91
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 93
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.send",
+          "lineNumber": 94
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 96
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "app.post",
+          "lineNumber": 100
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 108
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 109
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "sendRpcStatus",
+          "lineNumber": 111
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 113
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.send",
+          "lineNumber": 114
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 116
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "app.delete",
+          "lineNumber": 120
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 128
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 129
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "sendRpcStatus",
+          "lineNumber": 131
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(409).send",
+          "lineNumber": 133
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 133
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 134
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.send",
+          "lineNumber": 135
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 137
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "app.post",
+          "lineNumber": 141
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "transferInputSchema.safeParse",
+          "lineNumber": 148
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 149
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 149
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 151
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 155
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "sendRpcStatus",
+          "lineNumber": 157
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 159
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 159
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 160
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 160
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(409).send",
+          "lineNumber": 161
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 161
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 162
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 163
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 163
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 165
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "app.post",
+          "lineNumber": 169
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "transferIdSchema.safeParse",
+          "lineNumber": 178
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 179
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 179
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 181
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 182
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "sendRpcStatus",
+          "lineNumber": 184
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 186
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 186
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 187
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.send",
+          "lineNumber": 188
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 190
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "app.post",
+          "lineNumber": 194
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "transferIdSchema.safeParse",
+          "lineNumber": 203
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 204
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 204
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 206
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 207
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "sendRpcStatus",
+          "lineNumber": 209
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 211
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.code",
+          "lineNumber": 211
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 212
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "reply.send",
+          "lineNumber": 213
+        },
+        {
+          "caller": "accountRoutes",
+          "callee": "databaseError",
+          "lineNumber": 215
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/chats/chats.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 100,
+      "nonEmptyLines": 90,
+      "functions": [
+        {
+          "name": "createSystemChat",
+          "startLine": 17,
+          "endLine": 45,
+          "params": [
+            "client",
+            "userId",
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "readOwnedActiveCharacter",
+          "startLine": 47,
+          "endLine": 52,
+          "params": [
+            "client",
+            "userId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "listCharacterChatIds",
+          "startLine": 54,
+          "endLine": 58,
+          "params": [
+            "client",
+            "characterId"
+          ]
+        },
+        {
+          "name": "listCharacterChats",
+          "startLine": 60,
+          "endLine": 71,
+          "params": [
+            "client",
+            "userId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "canCharacterAccessChat",
+          "startLine": 73,
+          "endLine": 80,
+          "params": [
+            "client",
+            "userId",
+            "characterId",
+            "chatId"
+          ]
+        },
+        {
+          "name": "listChatMessages",
+          "startLine": 82,
+          "endLine": 90,
+          "params": [
+            "client",
+            "userId",
+            "characterId",
+            "chatId"
+          ]
+        },
+        {
+          "name": "createChatMessage",
+          "startLine": 92,
+          "endLine": 100,
+          "params": [
+            "client",
+            "userId",
+            "characterId",
+            "chatId",
+            "content"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createSystemChat",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "listCharacterChats",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "listChatMessages",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "createChatMessage",
+          "line": 92,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createSystemChat",
+          "callee": "readMySystemMemberships",
+          "lineNumber": 18
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "access.memberships.some",
+          "lineNumber": 19
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "client.from('characters')\n    .select('id,user_id,game_system_id,status')\n    .eq('id', input.character_id).eq('user_id', userId).eq('game_system_id', systemId).eq('status', 'active').maybeSingle",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "client.from('characters')\n    .select('id,user_id,game_system_id,status')\n    .eq('id', input.character_id).eq('user_id', userId).eq('game_system_id', systemId).eq",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "client.from('characters')\n    .select('id,user_id,game_system_id,status')\n    .eq('id', input.character_id).eq('user_id', userId).eq",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "client.from('characters')\n    .select('id,user_id,game_system_id,status')\n    .eq('id', input.character_id).eq",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "client.from('characters')\n    .select('id,user_id,game_system_id,status')\n    .eq",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "client.from('characters')\n    .select",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "client.from",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "client.rpc",
+          "lineNumber": 31
+        },
+        {
+          "caller": "createSystemChat",
+          "callee": "createChatRpcResponseSchema.safeParse",
+          "lineNumber": 38
+        },
+        {
+          "caller": "readOwnedActiveCharacter",
+          "callee": "client.from('characters').select('id,user_id,status,game_system_id')\n    .eq('id', characterId).eq('user_id', userId).eq('status', 'active').maybeSingle",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readOwnedActiveCharacter",
+          "callee": "client.from('characters').select('id,user_id,status,game_system_id')\n    .eq('id', characterId).eq('user_id', userId).eq",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readOwnedActiveCharacter",
+          "callee": "client.from('characters').select('id,user_id,status,game_system_id')\n    .eq('id', characterId).eq",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readOwnedActiveCharacter",
+          "callee": "client.from('characters').select('id,user_id,status,game_system_id')\n    .eq",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readOwnedActiveCharacter",
+          "callee": "client.from('characters').select",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readOwnedActiveCharacter",
+          "callee": "client.from",
+          "lineNumber": 48
+        },
+        {
+          "caller": "listCharacterChatIds",
+          "callee": "client.from('chat_members').select('chat_id').eq",
+          "lineNumber": 55
+        },
+        {
+          "caller": "listCharacterChatIds",
+          "callee": "client.from('chat_members').select",
+          "lineNumber": 55
+        },
+        {
+          "caller": "listCharacterChatIds",
+          "callee": "client.from",
+          "lineNumber": 55
+        },
+        {
+          "caller": "listCharacterChatIds",
+          "callee": "(data ?? []).map",
+          "lineNumber": 57
+        },
+        {
+          "caller": "listCharacterChats",
+          "callee": "readOwnedActiveCharacter",
+          "lineNumber": 61
+        },
+        {
+          "caller": "listCharacterChats",
+          "callee": "listCharacterChatIds",
+          "lineNumber": 63
+        },
+        {
+          "caller": "listCharacterChats",
+          "callee": "client.from('chats').select(chatColumns).eq('game_system_id', character.game_system_id)\n    .in('id', chatIds).order('name', { ascending: true }).order",
+          "lineNumber": 65
+        },
+        {
+          "caller": "listCharacterChats",
+          "callee": "client.from('chats').select(chatColumns).eq('game_system_id', character.game_system_id)\n    .in('id', chatIds).order",
+          "lineNumber": 65
+        },
+        {
+          "caller": "listCharacterChats",
+          "callee": "client.from('chats').select(chatColumns).eq('game_system_id', character.game_system_id)\n    .in",
+          "lineNumber": 65
+        },
+        {
+          "caller": "listCharacterChats",
+          "callee": "client.from('chats').select(chatColumns).eq",
+          "lineNumber": 65
+        },
+        {
+          "caller": "listCharacterChats",
+          "callee": "client.from('chats').select",
+          "lineNumber": 65
+        },
+        {
+          "caller": "listCharacterChats",
+          "callee": "client.from",
+          "lineNumber": 65
+        },
+        {
+          "caller": "listCharacterChats",
+          "callee": "chatsResponseSchema.safeParse",
+          "lineNumber": 68
+        },
+        {
+          "caller": "canCharacterAccessChat",
+          "callee": "readOwnedActiveCharacter",
+          "lineNumber": 74
+        },
+        {
+          "caller": "canCharacterAccessChat",
+          "callee": "client.from('chat_members').select('chat_id,game_system_id')\n    .eq('chat_id', chatId).eq('character_id', characterId).maybeSingle",
+          "lineNumber": 76
+        },
+        {
+          "caller": "canCharacterAccessChat",
+          "callee": "client.from('chat_members').select('chat_id,game_system_id')\n    .eq('chat_id', chatId).eq",
+          "lineNumber": 76
+        },
+        {
+          "caller": "canCharacterAccessChat",
+          "callee": "client.from('chat_members').select('chat_id,game_system_id')\n    .eq",
+          "lineNumber": 76
+        },
+        {
+          "caller": "canCharacterAccessChat",
+          "callee": "client.from('chat_members').select",
+          "lineNumber": 76
+        },
+        {
+          "caller": "canCharacterAccessChat",
+          "callee": "client.from",
+          "lineNumber": 76
+        },
+        {
+          "caller": "listChatMessages",
+          "callee": "canCharacterAccessChat",
+          "lineNumber": 83
+        },
+        {
+          "caller": "listChatMessages",
+          "callee": "client.from('messages').select(messageColumns).eq('chat_id', chatId)\n    .order('created_at', { ascending: true }).order",
+          "lineNumber": 84
+        },
+        {
+          "caller": "listChatMessages",
+          "callee": "client.from('messages').select(messageColumns).eq('chat_id', chatId)\n    .order",
+          "lineNumber": 84
+        },
+        {
+          "caller": "listChatMessages",
+          "callee": "client.from('messages').select(messageColumns).eq",
+          "lineNumber": 84
+        },
+        {
+          "caller": "listChatMessages",
+          "callee": "client.from('messages').select",
+          "lineNumber": 84
+        },
+        {
+          "caller": "listChatMessages",
+          "callee": "client.from",
+          "lineNumber": 84
+        },
+        {
+          "caller": "listChatMessages",
+          "callee": "chatMessagesResponseSchema.safeParse",
+          "lineNumber": 87
+        },
+        {
+          "caller": "createChatMessage",
+          "callee": "canCharacterAccessChat",
+          "lineNumber": 93
+        },
+        {
+          "caller": "createChatMessage",
+          "callee": "client.from('messages').insert({ chat_id: chatId, character_id: characterId, content })\n    .select(messageColumns).single",
+          "lineNumber": 94
+        },
+        {
+          "caller": "createChatMessage",
+          "callee": "client.from('messages').insert({ chat_id: chatId, character_id: characterId, content })\n    .select",
+          "lineNumber": 94
+        },
+        {
+          "caller": "createChatMessage",
+          "callee": "client.from('messages').insert",
+          "lineNumber": 94
+        },
+        {
+          "caller": "createChatMessage",
+          "callee": "client.from",
+          "lineNumber": 94
+        },
+        {
+          "caller": "createChatMessage",
+          "callee": "chatMessageSchema.safeParse",
+          "lineNumber": 97
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 4,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/chats/chats.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 84,
+      "nonEmptyLines": 78,
+      "functions": [
+        {
+          "name": "documentedChatInput",
+          "startLine": 9,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "chatsRoutes",
+          "startLine": 20,
+          "endLine": 84,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "chatsRoutes",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "chatsRoutes",
+          "callee": "app.post",
+          "lineNumber": 21
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "documentedChatInput",
+          "lineNumber": 24
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "chatSystemParamsSchema.safeParse",
+          "lineNumber": 26
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "createChatInputSchema.safeParse",
+          "lineNumber": 27
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 28
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 28
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 29
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 29
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "createSystemChat",
+          "lineNumber": 31
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 32
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 32
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 33
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 33
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 34
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 34
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 35
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 35
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 36
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 36
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "app.get",
+          "lineNumber": 39
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "characterIdParamsSchema.safeParse",
+          "lineNumber": 43
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 44
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 44
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "listCharacterChats",
+          "lineNumber": 46
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 47
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 47
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 47
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 48
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 48
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "app.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "chatParamsSchema.safeParse",
+          "lineNumber": 55
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 56
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 56
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "listChatMessages",
+          "lineNumber": 58
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 59
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 59
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 59
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 60
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 60
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "app.post",
+          "lineNumber": 63
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "chatParamsSchema.safeParse",
+          "lineNumber": 75
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "sendMessageInputSchema.safeParse",
+          "lineNumber": 76
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 77
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 77
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 78
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 78
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "createChatMessage",
+          "lineNumber": 80
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 81
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 81
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 81
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 81
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 82
+        },
+        {
+          "caller": "chatsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/chats/chats.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 42,
+      "nonEmptyLines": 38,
+      "exports": [
+        {
+          "name": "characterIdParamsSchema",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "chatParamsSchema",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "chatSystemParamsSchema",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "createChatInputSchema",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "sendMessageInputSchema",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "chatSchema",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "chatsResponseSchema",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "chatMessageSchema",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "chatMessagesResponseSchema",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "createChatRpcResponseSchema",
+          "line": 34,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/direct-messages/direct-messages.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "directMessagesRoutes",
+          "startLine": 5,
+          "endLine": 25,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "directMessagesRoutes",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "app.get",
+          "lineNumber": 7
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.uuid().safeParse",
+          "lineNumber": 8
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.uuid",
+          "lineNumber": 8
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 9
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code",
+          "lineNumber": 9
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 10
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 11
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code",
+          "lineNumber": 11
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.send",
+          "lineNumber": 12
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "[...(data?.messages ?? [])].reverse",
+          "lineNumber": 12
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "app.post",
+          "lineNumber": 14
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.uuid().safeParse",
+          "lineNumber": 15
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.uuid",
+          "lineNumber": 15
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.strictObject({ content: z.string().trim().min(1).max(2000) }).safeParse",
+          "lineNumber": 16
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.strictObject",
+          "lineNumber": 16
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.string().trim().min(1).max",
+          "lineNumber": 16
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.string().trim().min",
+          "lineNumber": 16
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.string().trim",
+          "lineNumber": 16
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "z.string",
+          "lineNumber": 16
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 17
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code",
+          "lineNumber": 17
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 18
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 19
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code",
+          "lineNumber": 19
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 20
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code",
+          "lineNumber": 20
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 21
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code",
+          "lineNumber": 21
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 22
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code",
+          "lineNumber": 22
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 23
+        },
+        {
+          "caller": "directMessagesRoutes",
+          "callee": "reply.code",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/experience/experience.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "readOwnerExperienceSettings",
+          "startLine": 10,
+          "endLine": 18,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "saveOwnerExperienceSettings",
+          "startLine": 20,
+          "endLine": 33,
+          "params": [
+            "client",
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "readCharacterExperience",
+          "startLine": 35,
+          "endLine": 47,
+          "params": [
+            "client",
+            "characterId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "readOwnerExperienceSettings",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "saveOwnerExperienceSettings",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "readCharacterExperience",
+          "line": 35,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readOwnerExperienceSettings",
+          "callee": "client.rpc",
+          "lineNumber": 11
+        },
+        {
+          "caller": "readOwnerExperienceSettings",
+          "callee": "experienceSettingsResultSchema.safeParse",
+          "lineNumber": 15
+        },
+        {
+          "caller": "saveOwnerExperienceSettings",
+          "callee": "client.rpc",
+          "lineNumber": 25
+        },
+        {
+          "caller": "saveOwnerExperienceSettings",
+          "callee": "experienceSettingsUpdateResultSchema.safeParse",
+          "lineNumber": 30
+        },
+        {
+          "caller": "readCharacterExperience",
+          "callee": "client.rpc",
+          "lineNumber": 39
+        },
+        {
+          "caller": "readCharacterExperience",
+          "callee": "characterExperienceSummarySchema.safeParse",
+          "lineNumber": 44
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/experience/experience.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 121,
+      "nonEmptyLines": 114,
+      "functions": [
+        {
+          "name": "databaseError",
+          "startLine": 27,
+          "endLine": 29,
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "name": "systemIdFromParams",
+          "startLine": 31,
+          "endLine": 34,
+          "params": [
+            "params"
+          ]
+        },
+        {
+          "name": "characterIdFromParams",
+          "startLine": 36,
+          "endLine": 39,
+          "params": [
+            "params"
+          ]
+        },
+        {
+          "name": "experienceRoutes",
+          "startLine": 41,
+          "endLine": 121,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "experienceRoutes",
+          "line": 41,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "databaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 28
+        },
+        {
+          "caller": "databaseError",
+          "callee": "reply.code",
+          "lineNumber": 28
+        },
+        {
+          "caller": "systemIdFromParams",
+          "callee": "systemParamsSchema.safeParse",
+          "lineNumber": 32
+        },
+        {
+          "caller": "characterIdFromParams",
+          "callee": "characterParamsSchema.safeParse",
+          "lineNumber": 37
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "app.get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 53
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 54
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 54
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "readOwnerExperienceSettings",
+          "lineNumber": 56
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 58
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 58
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 60
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 60
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.send",
+          "lineNumber": 61
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "databaseError",
+          "lineNumber": 63
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "app.put",
+          "lineNumber": 67
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 82
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 83
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 83
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "experienceSettingsInputSchema.safeParse",
+          "lineNumber": 84
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 85
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 85
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "saveOwnerExperienceSettings",
+          "lineNumber": 87
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.send",
+          "lineNumber": 89
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 90
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 90
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 91
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 91
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 92
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 92
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "databaseError",
+          "lineNumber": 93
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "databaseError",
+          "lineNumber": 96
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "app.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "characterIdFromParams",
+          "lineNumber": 111
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 112
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 112
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "readCharacterExperience",
+          "lineNumber": 114
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 115
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 115
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "reply.send",
+          "lineNumber": 116
+        },
+        {
+          "caller": "experienceRoutes",
+          "callee": "databaseError",
+          "lineNumber": 118
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/experience/experience.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 126,
+      "nonEmptyLines": 113,
+      "exports": [
+        {
+          "name": "experienceSourceTypeSchema",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "experienceSourceSchema",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "experienceSettingsSchema",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "experienceSourceInputSchema",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "experienceSettingsInputSchema",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "experienceSettingsResultSchema",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "experienceSettingsUpdateResultSchema",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "experienceHistoryItemSchema",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "characterExperienceSummarySchema",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "experienceSettingsResponseSchema",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "characterExperienceSummaryResponseSchema",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "experienceSettingsInputOpenApiSchema",
+          "line": 113,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 12,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/health/health.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "healthRoutes",
+          "startLine": 3,
+          "endLine": 20,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "healthRoutes",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "healthRoutes",
+          "callee": "app.get",
+          "lineNumber": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/lobby-presence/lobby-presence.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 9,
+      "functions": [
+        {
+          "name": "heartbeatGameSystemLobbyPresence",
+          "startLine": 4,
+          "endLine": 10,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "heartbeatGameSystemLobbyPresence",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "heartbeatGameSystemLobbyPresence",
+          "callee": "client.rpc",
+          "lineNumber": 5
+        },
+        {
+          "caller": "heartbeatGameSystemLobbyPresence",
+          "callee": "lobbyPresenceCountSchema.safeParse",
+          "lineNumber": 7
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/lobby-presence/lobby-presence.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "lobbyPresenceRoutes",
+          "startLine": 9,
+          "endLine": 35,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "lobbyPresenceRoutes",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "app.post",
+          "lineNumber": 10
+        },
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "lobbyPresenceParamsSchema.safeParse",
+          "lineNumber": 23
+        },
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 24
+        },
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 24
+        },
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "heartbeatGameSystemLobbyPresence",
+          "lineNumber": 26
+        },
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "reply.send",
+          "lineNumber": 27
+        },
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 30
+        },
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 30
+        },
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 32
+        },
+        {
+          "caller": "lobbyPresenceRoutes",
+          "callee": "reply.code",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/lobby-presence/lobby-presence.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 4,
+      "nonEmptyLines": 3,
+      "exports": [
+        {
+          "name": "lobbyPresenceParamsSchema",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "lobbyPresenceCountSchema",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/notifications/notifications.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 67,
+      "functions": [
+        {
+          "name": "parseNotification",
+          "startLine": 13,
+          "endLine": 24,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "listMyNotifications",
+          "startLine": 26,
+          "endLine": 49,
+          "params": [
+            "client",
+            "limit",
+            "offset"
+          ]
+        },
+        {
+          "name": "markMyNotificationRead",
+          "startLine": 51,
+          "endLine": 59,
+          "params": [
+            "client",
+            "notificationId"
+          ]
+        },
+        {
+          "name": "createSystemAnnouncement",
+          "startLine": 61,
+          "endLine": 75,
+          "params": [
+            "client",
+            "systemId",
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "listMyNotifications",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "markMyNotificationRead",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "createSystemAnnouncement",
+          "line": 61,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseNotification",
+          "callee": "notificationSchema.safeParse",
+          "lineNumber": 14
+        },
+        {
+          "caller": "parseNotification",
+          "callee": "Object.hasOwn",
+          "lineNumber": 17
+        },
+        {
+          "caller": "parseNotification",
+          "callee": "payloadSchema.safeParse",
+          "lineNumber": 21
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "Promise.all",
+          "lineNumber": 27
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "client.from('notifications')\n      .select(notificationColumns)\n      .order('created_at', { ascending: false })\n      .order('id', { ascending: false })\n      .range",
+          "lineNumber": 28
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "client.from('notifications')\n      .select(notificationColumns)\n      .order('created_at', { ascending: false })\n      .order",
+          "lineNumber": 28
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "client.from('notifications')\n      .select(notificationColumns)\n      .order",
+          "lineNumber": 28
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "client.from('notifications')\n      .select",
+          "lineNumber": 28
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "client.from",
+          "lineNumber": 28
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "client.from('notifications')\n      .select('id', { count: 'exact', head: true })\n      .is",
+          "lineNumber": 33
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "client.from('notifications')\n      .select",
+          "lineNumber": 33
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "client.from",
+          "lineNumber": 33
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "notificationsResponseSchema.safeParse",
+          "lineNumber": 41
+        },
+        {
+          "caller": "listMyNotifications",
+          "callee": "(pageResult.data ?? []).map",
+          "lineNumber": 42
+        },
+        {
+          "caller": "markMyNotificationRead",
+          "callee": "client.rpc",
+          "lineNumber": 52
+        },
+        {
+          "caller": "markMyNotificationRead",
+          "callee": "notificationReadResultSchema.safeParse",
+          "lineNumber": 56
+        },
+        {
+          "caller": "createSystemAnnouncement",
+          "callee": "client.rpc",
+          "lineNumber": 66
+        },
+        {
+          "caller": "createSystemAnnouncement",
+          "callee": "systemAnnouncementResultSchema.safeParse",
+          "lineNumber": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/notifications/notifications.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 154,
+      "nonEmptyLines": 146,
+      "functions": [
+        {
+          "name": "databaseError",
+          "startLine": 25,
+          "endLine": 27,
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "name": "notificationsRoutes",
+          "startLine": 29,
+          "endLine": 154,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "notificationsRoutes",
+          "line": 29,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "databaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 26
+        },
+        {
+          "caller": "databaseError",
+          "callee": "reply.code",
+          "lineNumber": 26
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "app.get",
+          "lineNumber": 30
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "notificationPaginationSchema.safeParse",
+          "lineNumber": 68
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 69
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 69
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "listMyNotifications",
+          "lineNumber": 72
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "notificationsResponseSchema.safeParse",
+          "lineNumber": 73
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 74
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 75
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 77
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "app.patch",
+          "lineNumber": 81
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "notificationParamsSchema.safeParse",
+          "lineNumber": 99
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 100
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 100
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "markMyNotificationRead",
+          "lineNumber": 103
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 104
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 105
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 105
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 106
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 106
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 107
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 109
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "app.post",
+          "lineNumber": 113
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "systemAnnouncementParamsSchema.safeParse",
+          "lineNumber": 138
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 139
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 139
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "announcementInputSchema.safeParse",
+          "lineNumber": 140
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 141
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 141
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "createSystemAnnouncement",
+          "lineNumber": 144
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 145
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 145
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 146
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 146
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 147
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 147
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 148
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 148
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 149
+        },
+        {
+          "caller": "notificationsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 151
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/notifications/notifications.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 50,
+      "exports": [
+        {
+          "name": "notificationParamsSchema",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "systemAnnouncementParamsSchema",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "announcementInputSchema",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "notificationPayloadSchemas",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "notificationSchema",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "notificationsResponseSchema",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "notificationPaginationSchema",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "notificationReadResultSchema",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "systemAnnouncementResultSchema",
+          "line": 53,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/social/public-profile.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "publicProfileRoutes",
+          "startLine": 9,
+          "endLine": 50,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "publicProfileRoutes",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "app.get",
+          "lineNumber": 10
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "username.safeParse",
+          "lineNumber": 11
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 12
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 12
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 13
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 14
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 14
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 15
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 15
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 16
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 16
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.send",
+          "lineNumber": 17
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "app.get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "username.safeParse",
+          "lineNumber": 21
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 22
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 22
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 23
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 24
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 24
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 25
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 25
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.send",
+          "lineNumber": 26
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "app.post",
+          "lineNumber": 29
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "username.safeParse",
+          "lineNumber": 30
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "z.strictObject({ content: z.string().trim().min(1).max(500) }).safeParse",
+          "lineNumber": 31
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "z.strictObject",
+          "lineNumber": 31
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "z.string().trim().min(1).max",
+          "lineNumber": 31
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "z.string().trim().min",
+          "lineNumber": 31
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "z.string().trim",
+          "lineNumber": 31
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "z.string",
+          "lineNumber": 31
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 32
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 32
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 33
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 34
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 34
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 35
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 35
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 36
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 36
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 37
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 37
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 38
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 38
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "app.delete",
+          "lineNumber": 41
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "z.uuid().safeParse",
+          "lineNumber": 42
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "z.uuid",
+          "lineNumber": 42
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 43
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 43
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 44
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 45
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 45
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 46
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 46
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 47
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 47
+        },
+        {
+          "caller": "publicProfileRoutes",
+          "callee": "reply.send",
+          "lineNumber": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/social/social.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "rpc",
+          "startLine": 11,
+          "endLine": 15,
+          "params": [
+            "client",
+            "name",
+            "args"
+          ]
+        },
+        {
+          "name": "searchSocialProfiles",
+          "startLine": 17,
+          "endLine": 21,
+          "params": [
+            "client",
+            "query"
+          ]
+        },
+        {
+          "name": "listMyFriendships",
+          "startLine": 23,
+          "endLine": 27,
+          "params": [
+            "client"
+          ]
+        },
+        {
+          "name": "createFriendRequest",
+          "startLine": 29,
+          "endLine": 35,
+          "params": [
+            "client",
+            "recipientUserId"
+          ]
+        },
+        {
+          "name": "respondFriendRequest",
+          "startLine": 37,
+          "endLine": 48,
+          "params": [
+            "client",
+            "requestId",
+            "decision"
+          ]
+        },
+        {
+          "name": "cancelFriendRequest",
+          "startLine": 50,
+          "endLine": 56,
+          "params": [
+            "client",
+            "requestId"
+          ]
+        },
+        {
+          "name": "removeFriend",
+          "startLine": 58,
+          "endLine": 64,
+          "params": [
+            "client",
+            "friendUserId"
+          ]
+        },
+        {
+          "name": "createRpgInvitation",
+          "startLine": 66,
+          "endLine": 72,
+          "params": [
+            "client",
+            "friendUserId",
+            "gameSystemId",
+            "chatId"
+          ]
+        },
+        {
+          "name": "listMySocialInvitations",
+          "startLine": 74,
+          "endLine": 78,
+          "params": [
+            "client"
+          ]
+        },
+        {
+          "name": "respondRpgInvitation",
+          "startLine": 80,
+          "endLine": 86,
+          "params": [
+            "client",
+            "invitationId",
+            "decision",
+            "characterId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "searchSocialProfiles",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "listMyFriendships",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "createFriendRequest",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "respondFriendRequest",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "cancelFriendRequest",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "removeFriend",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "createRpgInvitation",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "listMySocialInvitations",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "respondRpgInvitation",
+          "line": 80,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "rpc",
+          "callee": "client.rpc",
+          "lineNumber": 12
+        },
+        {
+          "caller": "searchSocialProfiles",
+          "callee": "socialSearchResponseSchema.safeParse",
+          "lineNumber": 18
+        },
+        {
+          "caller": "searchSocialProfiles",
+          "callee": "rpc",
+          "lineNumber": 18
+        },
+        {
+          "caller": "listMyFriendships",
+          "callee": "friendshipListResponseSchema.safeParse",
+          "lineNumber": 24
+        },
+        {
+          "caller": "listMyFriendships",
+          "callee": "rpc",
+          "lineNumber": 24
+        },
+        {
+          "caller": "createFriendRequest",
+          "callee": "socialMutationResultSchema.safeParse",
+          "lineNumber": 30
+        },
+        {
+          "caller": "createFriendRequest",
+          "callee": "rpc",
+          "lineNumber": 30
+        },
+        {
+          "caller": "respondFriendRequest",
+          "callee": "socialMutationResultSchema.safeParse",
+          "lineNumber": 42
+        },
+        {
+          "caller": "respondFriendRequest",
+          "callee": "rpc",
+          "lineNumber": 42
+        },
+        {
+          "caller": "cancelFriendRequest",
+          "callee": "socialMutationResultSchema.safeParse",
+          "lineNumber": 51
+        },
+        {
+          "caller": "cancelFriendRequest",
+          "callee": "rpc",
+          "lineNumber": 51
+        },
+        {
+          "caller": "removeFriend",
+          "callee": "socialMutationResultSchema.safeParse",
+          "lineNumber": 59
+        },
+        {
+          "caller": "removeFriend",
+          "callee": "rpc",
+          "lineNumber": 59
+        },
+        {
+          "caller": "createRpgInvitation",
+          "callee": "socialInvitationMutationResultSchema.safeParse",
+          "lineNumber": 67
+        },
+        {
+          "caller": "createRpgInvitation",
+          "callee": "rpc",
+          "lineNumber": 67
+        },
+        {
+          "caller": "listMySocialInvitations",
+          "callee": "socialInvitationListResponseSchema.safeParse",
+          "lineNumber": 75
+        },
+        {
+          "caller": "listMySocialInvitations",
+          "callee": "rpc",
+          "lineNumber": 75
+        },
+        {
+          "caller": "respondRpgInvitation",
+          "callee": "socialInvitationMutationResultSchema.safeParse",
+          "lineNumber": 81
+        },
+        {
+          "caller": "respondRpgInvitation",
+          "callee": "rpc",
+          "lineNumber": 81
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 9,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/social/social.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 333,
+      "nonEmptyLines": 311,
+      "functions": [
+        {
+          "name": "databaseError",
+          "startLine": 111,
+          "endLine": 113,
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "name": "sendMutationResult",
+          "startLine": 115,
+          "endLine": 132,
+          "params": [
+            "reply",
+            "result",
+            "operation"
+          ]
+        },
+        {
+          "name": "sendInvitationResult",
+          "startLine": 134,
+          "endLine": 146,
+          "params": [
+            "reply",
+            "result",
+            "created"
+          ]
+        },
+        {
+          "name": "socialRoutes",
+          "startLine": 148,
+          "endLine": 333,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "socialRoutes",
+          "line": 148,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "databaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 112
+        },
+        {
+          "caller": "databaseError",
+          "callee": "reply.code",
+          "lineNumber": 112
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code(201).send",
+          "lineNumber": 117
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code",
+          "lineNumber": 117
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.send",
+          "lineNumber": 119
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code(409).send",
+          "lineNumber": 120
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code",
+          "lineNumber": 120
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code(400).send",
+          "lineNumber": 121
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code",
+          "lineNumber": 121
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code(400).send",
+          "lineNumber": 122
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code",
+          "lineNumber": 122
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code(404).send",
+          "lineNumber": 123
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code",
+          "lineNumber": 123
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code(404).send",
+          "lineNumber": 124
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code",
+          "lineNumber": 124
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code(403).send",
+          "lineNumber": 125
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code",
+          "lineNumber": 125
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code(409).send",
+          "lineNumber": 128
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code",
+          "lineNumber": 128
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code(401).send",
+          "lineNumber": 129
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "reply.code",
+          "lineNumber": 129
+        },
+        {
+          "caller": "sendMutationResult",
+          "callee": "databaseError",
+          "lineNumber": 130
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code(created ? 201 : 200).send",
+          "lineNumber": 136
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code",
+          "lineNumber": 136
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.send",
+          "lineNumber": 137
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code(409).send",
+          "lineNumber": 138
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code",
+          "lineNumber": 138
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code(400).send",
+          "lineNumber": 139
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code",
+          "lineNumber": 139
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code(403).send",
+          "lineNumber": 140
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code",
+          "lineNumber": 140
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code(403).send",
+          "lineNumber": 141
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code",
+          "lineNumber": 141
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code(404).send",
+          "lineNumber": 142
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code",
+          "lineNumber": 142
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code(401).send",
+          "lineNumber": 143
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "reply.code",
+          "lineNumber": 143
+        },
+        {
+          "caller": "sendInvitationResult",
+          "callee": "databaseError",
+          "lineNumber": 144
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "app.post",
+          "lineNumber": 149
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "rpgSystemParamsSchema.safeParse",
+          "lineNumber": 157
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "rpgInvitationBodySchema.safeParse",
+          "lineNumber": 158
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 159
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code",
+          "lineNumber": 159
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "sendInvitationResult",
+          "lineNumber": 160
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "createRpgInvitation",
+          "lineNumber": 160
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "databaseError",
+          "lineNumber": 161
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "app.post",
+          "lineNumber": 164
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "rpgChatParamsSchema.safeParse",
+          "lineNumber": 172
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "rpgInvitationBodySchema.safeParse",
+          "lineNumber": 173
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 174
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code",
+          "lineNumber": 174
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "sendInvitationResult",
+          "lineNumber": 175
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "createRpgInvitation",
+          "lineNumber": 175
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "databaseError",
+          "lineNumber": 176
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "app.get",
+          "lineNumber": 179
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "listMySocialInvitations",
+          "lineNumber": 185
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.send",
+          "lineNumber": 185
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "request.log.error",
+          "lineNumber": 187
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "databaseError",
+          "lineNumber": 188
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "app.post",
+          "lineNumber": 192
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "socialInvitationParamsSchema.safeParse",
+          "lineNumber": 200
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "socialInvitationDecisionSchema.safeParse",
+          "lineNumber": 201
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 202
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code",
+          "lineNumber": 202
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "sendInvitationResult",
+          "lineNumber": 203
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "respondRpgInvitation",
+          "lineNumber": 203
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "databaseError",
+          "lineNumber": 204
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "app.get",
+          "lineNumber": 207
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "socialSearchQuerySchema.safeParse",
+          "lineNumber": 228
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 229
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code",
+          "lineNumber": 229
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "searchSocialProfiles",
+          "lineNumber": 231
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.send",
+          "lineNumber": 232
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "databaseError",
+          "lineNumber": 234
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "app.get",
+          "lineNumber": 238
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "listMyFriendships",
+          "lineNumber": 247
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.send",
+          "lineNumber": 248
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "request.log.error",
+          "lineNumber": 254
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "databaseError",
+          "lineNumber": 255
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "app.post",
+          "lineNumber": 259
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "friendRequestBodySchema.safeParse",
+          "lineNumber": 274
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 275
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code",
+          "lineNumber": 275
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "sendMutationResult",
+          "lineNumber": 277
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "createFriendRequest",
+          "lineNumber": 277
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "databaseError",
+          "lineNumber": 279
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "app.post",
+          "lineNumber": 283
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "friendRequestParamsSchema.safeParse",
+          "lineNumber": 298
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "friendRequestDecisionSchema.safeParse",
+          "lineNumber": 299
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 300
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code",
+          "lineNumber": 300
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "cancelFriendRequest",
+          "lineNumber": 303
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "respondFriendRequest",
+          "lineNumber": 304
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "sendMutationResult",
+          "lineNumber": 305
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "databaseError",
+          "lineNumber": 307
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "app.delete",
+          "lineNumber": 311
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "friendUserParamsSchema.safeParse",
+          "lineNumber": 325
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 326
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "reply.code",
+          "lineNumber": 326
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "sendMutationResult",
+          "lineNumber": 328
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "removeFriend",
+          "lineNumber": 328
+        },
+        {
+          "caller": "socialRoutes",
+          "callee": "databaseError",
+          "lineNumber": 330
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/social/social.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 76,
+      "exports": [
+        {
+          "name": "socialSearchQuerySchema",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "socialSearchResponseSchema",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "friendshipListResponseSchema",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "friendRequestBodySchema",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "friendRequestDecisionSchema",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "friendRequestParamsSchema",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "friendUserParamsSchema",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "rpgSystemParamsSchema",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "rpgChatParamsSchema",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "socialInvitationParamsSchema",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "rpgInvitationBodySchema",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "socialInvitationDecisionSchema",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "socialInvitationListResponseSchema",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "socialInvitationMutationResultSchema",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "socialMutationResultSchema",
+          "line": 79,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 15,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/plugins/authenticate.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "authenticateRequest",
+          "startLine": 12,
+          "endLine": 35,
+          "params": [
+            "request",
+            "reply",
+            "allowInactive"
+          ]
+        },
+        {
+          "name": "authenticate",
+          "startLine": 38,
+          "endLine": 40,
+          "params": [
+            "request",
+            "reply"
+          ]
+        },
+        {
+          "name": "authenticateAllowInactive",
+          "startLine": 42,
+          "endLine": 44,
+          "params": [
+            "request",
+            "reply"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "authenticate",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "authenticateAllowInactive",
+          "line": 42,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "authenticateRequest",
+          "callee": "parseBearerToken",
+          "lineNumber": 13
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "reply.code(401).send",
+          "lineNumber": 15
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "reply.code",
+          "lineNumber": 15
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "authenticateAccessToken",
+          "lineNumber": 19
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "reply.code(401).send",
+          "lineNumber": 21
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "reply.code",
+          "lineNumber": 21
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "context.supabase.rpc",
+          "lineNumber": 24
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "reply.code(500).send",
+          "lineNumber": 26
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "reply.code",
+          "lineNumber": 26
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "reply.code(403).send",
+          "lineNumber": 30
+        },
+        {
+          "caller": "authenticateRequest",
+          "callee": "reply.code",
+          "lineNumber": 30
+        },
+        {
+          "caller": "authenticate",
+          "callee": "authenticateRequest",
+          "lineNumber": 39
+        },
+        {
+          "caller": "authenticateAllowInactive",
+          "callee": "authenticateRequest",
+          "lineNumber": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/register-app.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 55,
+      "functions": [
+        {
+          "name": "registerApp",
+          "startLine": 23,
+          "endLine": 59,
+          "params": [
+            "app",
+            "nodeEnv"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "registerApp",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "registerApp",
+          "callee": "app.decorateRequest",
+          "lineNumber": 24
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.decorateRequest",
+          "lineNumber": 25
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 27
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 39
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 42
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 43
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 44
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 45
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 46
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 47
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 48
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 49
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 50
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 51
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 52
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 53
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 54
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 55
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 56
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 57
+        },
+        {
+          "caller": "registerApp",
+          "callee": "app.register",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 18,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/vercel-app.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 8,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/config.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 53,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/social.schema.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 43,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,1399 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 25,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 25,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/src/create-app.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "functions": [
+        {
+          "name": "buildApp",
+          "startLine": 7,
+          "endLine": 11,
+          "params": [
+            "{ nodeEnv = 'development', ...options }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildApp",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "buildApp",
+          "callee": "Fastify",
+          "lineNumber": 8
+        },
+        {
+          "caller": "buildApp",
+          "callee": "registerApp",
+          "lineNumber": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/profile/profile.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "readProfile",
+          "startLine": 8,
+          "endLine": 13,
+          "params": [
+            "client",
+            "userId"
+          ]
+        },
+        {
+          "name": "updateProfile",
+          "startLine": 15,
+          "endLine": 24,
+          "params": [
+            "client",
+            "userId",
+            "patch"
+          ]
+        },
+        {
+          "name": "claimUsername",
+          "startLine": 26,
+          "endLine": 34,
+          "params": [
+            "client",
+            "userId",
+            "username"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "readProfile",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "updateProfile",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "claimUsername",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readProfile",
+          "callee": "await client.from('user_profiles')\n    .select(columns).eq('user_id', userId).maybeSingle",
+          "lineNumber": 9
+        },
+        {
+          "caller": "readProfile",
+          "callee": "client.from('user_profiles')\n    .select(columns).eq",
+          "lineNumber": 9
+        },
+        {
+          "caller": "readProfile",
+          "callee": "client.from('user_profiles')\n    .select",
+          "lineNumber": 9
+        },
+        {
+          "caller": "readProfile",
+          "callee": "client.from",
+          "lineNumber": 9
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "client.rpc",
+          "lineNumber": 18
+        },
+        {
+          "caller": "updateProfile",
+          "callee": "readProfile",
+          "lineNumber": 22
+        },
+        {
+          "caller": "claimUsername",
+          "callee": "await client.from('user_profiles')\n    .update({ username }).eq('user_id', userId)\n    .select(columns).maybeSingle",
+          "lineNumber": 29
+        },
+        {
+          "caller": "claimUsername",
+          "callee": "client.from('user_profiles')\n    .update({ username }).eq('user_id', userId)\n    .select",
+          "lineNumber": 29
+        },
+        {
+          "caller": "claimUsername",
+          "callee": "client.from('user_profiles')\n    .update({ username }).eq",
+          "lineNumber": 29
+        },
+        {
+          "caller": "claimUsername",
+          "callee": "client.from('user_profiles')\n    .update",
+          "lineNumber": 29
+        },
+        {
+          "caller": "claimUsername",
+          "callee": "client.from",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/profile/profile.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 115,
+      "nonEmptyLines": 110,
+      "functions": [
+        {
+          "name": "respondWithProfile",
+          "startLine": 6,
+          "endLine": 14,
+          "params": [
+            "reply",
+            "operation"
+          ]
+        },
+        {
+          "name": "isUniqueViolation",
+          "startLine": 16,
+          "endLine": 18,
+          "params": [
+            "error"
+          ]
+        },
+        {
+          "name": "isUsernameChangeUsed",
+          "startLine": 20,
+          "endLine": 22,
+          "params": [
+            "error"
+          ]
+        },
+        {
+          "name": "respondWithUsernameClaim",
+          "startLine": 24,
+          "endLine": 39,
+          "params": [
+            "reply",
+            "claim",
+            "read"
+          ]
+        },
+        {
+          "name": "profileRoutes",
+          "startLine": 41,
+          "endLine": 115,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "profileRoutes",
+          "line": 41,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "respondWithProfile",
+          "callee": "operation",
+          "lineNumber": 8
+        },
+        {
+          "caller": "respondWithProfile",
+          "callee": "reply.code(404).send",
+          "lineNumber": 9
+        },
+        {
+          "caller": "respondWithProfile",
+          "callee": "reply.code",
+          "lineNumber": 9
+        },
+        {
+          "caller": "respondWithProfile",
+          "callee": "reply.send",
+          "lineNumber": 10
+        },
+        {
+          "caller": "respondWithProfile",
+          "callee": "reply.code(500).send",
+          "lineNumber": 12
+        },
+        {
+          "caller": "respondWithProfile",
+          "callee": "reply.code",
+          "lineNumber": 12
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "claim",
+          "lineNumber": 30
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.send",
+          "lineNumber": 31
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "read",
+          "lineNumber": 32
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code(409).send",
+          "lineNumber": 32
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code",
+          "lineNumber": 32
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code(404).send",
+          "lineNumber": 33
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code",
+          "lineNumber": 33
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "isUniqueViolation",
+          "lineNumber": 35
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code(409).send",
+          "lineNumber": 35
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code",
+          "lineNumber": 35
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "isUsernameChangeUsed",
+          "lineNumber": 36
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code(409).send",
+          "lineNumber": 36
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code",
+          "lineNumber": 36
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code(500).send",
+          "lineNumber": 37
+        },
+        {
+          "caller": "respondWithUsernameClaim",
+          "callee": "reply.code",
+          "lineNumber": 37
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "app.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "respondWithProfile",
+          "lineNumber": 59
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "readProfile",
+          "lineNumber": 59
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "app.patch",
+          "lineNumber": 61
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "profilePatchSchema.safeParse",
+          "lineNumber": 95
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 96
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 96
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "respondWithUsernameClaim",
+          "lineNumber": 99
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "claimUsername",
+          "lineNumber": 101
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "readProfile",
+          "lineNumber": 102
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "updateProfile",
+          "lineNumber": 106
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 107
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 107
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 108
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 108
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 109
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 109
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.send",
+          "lineNumber": 110
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 112
+        },
+        {
+          "caller": "profileRoutes",
+          "callee": "reply.code",
+          "lineNumber": 112
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/profile/profile.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 43,
+      "exports": [
+        {
+          "name": "profilePatchSchema",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "profileResponseSchema",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/authenticate.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 121,
+      "nonEmptyLines": 113,
+      "functions": [
+        {
+          "name": "protectedApp",
+          "startLine": 42,
+          "endLine": 52,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "protectedApp",
+          "callee": "buildApp",
+          "lineNumber": 43
+        },
+        {
+          "caller": "protectedApp",
+          "callee": "app.get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "protectedApp",
+          "callee": "request.supabase!.from('characters').select",
+          "lineNumber": 47
+        },
+        {
+          "caller": "protectedApp",
+          "callee": "request.supabase!.from",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/chats.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 129,
+      "nonEmptyLines": 115,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 50,
+          "endLine": 55,
+          "params": [
+            "method",
+            "path",
+            "payload"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 51
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 53
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 53
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/daily-login.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 282,
+      "nonEmptyLines": 264,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 151,
+          "endLine": 165,
+          "params": [
+            "method",
+            "url",
+            "payload",
+            "authorized"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 152
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 154
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 162
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 164
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/experience.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 143,
+      "nonEmptyLines": 130,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 62,
+          "endLine": 71,
+          "params": [
+            "method",
+            "url",
+            "payload",
+            "authorized"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 63
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 65
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 68
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/fixtures/profile.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 12,
+      "exports": [
+        {
+          "name": "invalidPatches",
+          "line": 1,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/game-systems.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 410,
+      "nonEmptyLines": 373,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 153,
+          "endLine": 165,
+          "params": [
+            "method",
+            "url",
+            "payload",
+            "authorized"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 154
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 156
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 160
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 163
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/health.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 31,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/lobby-presence.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 55,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 33,
+          "endLine": 38,
+          "params": [
+            "token"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 34
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 36
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/lobby-settings.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 102,
+      "nonEmptyLines": 92,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 41,
+          "endLine": 46,
+          "params": [
+            "method",
+            "path",
+            "payload"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 42
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 44
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 44
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/openapi.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 115,
+      "nonEmptyLines": 105,
+      "functions": [
+        {
+          "name": "contract",
+          "startLine": 10,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "contract",
+          "callee": "app.inject",
+          "lineNumber": 11
+        },
+        {
+          "caller": "contract",
+          "callee": "expect(response.statusCode).toBe",
+          "lineNumber": 12
+        },
+        {
+          "caller": "contract",
+          "callee": "expect",
+          "lineNumber": 12
+        },
+        {
+          "caller": "contract",
+          "callee": "response.json",
+          "lineNumber": 13
+        },
+        {
+          "caller": "resolve",
+          "callee": "schema.$ref.split('/').at",
+          "lineNumber": 15
+        },
+        {
+          "caller": "resolve",
+          "callee": "schema.$ref.split",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/profile.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 172,
+      "nonEmptyLines": 157,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 77,
+          "endLine": 86,
+          "params": [
+            "method",
+            "payload",
+            "authorized",
+            "suffix"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 78
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 80
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 83
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/profile.schema.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 23,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/social.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 191,
+      "nonEmptyLines": 174,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 60,
+          "endLine": 73,
+          "params": [
+            "method",
+            "url",
+            "payload",
+            "authorized"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 61
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 63
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 70
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/store.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 127,
+      "nonEmptyLines": 124,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 35,
+          "endLine": 38,
+          "params": [
+            "method",
+            "path",
+            "payload",
+            "auth"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 36
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 37
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 37
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/system-events.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 167,
+      "nonEmptyLines": 150,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 48,
+          "endLine": 53,
+          "params": [
+            "method",
+            "path",
+            "payload"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 49
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 51
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 51
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/system-membership.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 111,
+      "nonEmptyLines": 101,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 50,
+          "endLine": 59,
+          "params": [
+            "method",
+            "url",
+            "payload",
+            "authorized"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 51
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 53
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 56
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/trading.routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 247,
+      "nonEmptyLines": 231,
+      "functions": [
+        {
+          "name": "request",
+          "startLine": 83,
+          "endLine": 92,
+          "params": [
+            "method",
+            "url",
+            "payload",
+            "authorized"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "buildApp",
+          "lineNumber": 84
+        },
+        {
+          "caller": "request",
+          "callee": "app.inject",
+          "lineNumber": 86
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 89
+        },
+        {
+          "caller": "request",
+          "callee": "app.close",
+          "lineNumber": 91
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/app/api/[...path]/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "exports": [
+        {
+          "name": "dynamic",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "runtime",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "GET",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "DELETE",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "PATCH",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "POST",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "PUT",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 7,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/app/healthz/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 6,
+      "nonEmptyLines": 4,
+      "exports": [
+        {
+          "name": "dynamic",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "runtime",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "GET",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/fastify-request.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "getApp",
+          "startLine": 19,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "handleFastifyRequest",
+          "startLine": 27,
+          "endLine": 55,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "handleFastifyRequest",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getApp",
+          "callee": "buildApp",
+          "lineNumber": 20
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "Object.fromEntries",
+          "lineNumber": 29
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "[...request.headers].filter",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "hopByHopHeaders.has",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "name.toLowerCase",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "['GET', 'HEAD'].includes",
+          "lineNumber": 32
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "Buffer.from",
+          "lineNumber": 34
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "request.arrayBuffer",
+          "lineNumber": 34
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "getApp().inject",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "getApp",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "Object.entries",
+          "lineNumber": 44
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "hopByHopHeaders.has",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "name.toLowerCase",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "Array.isArray",
+          "lineNumber": 46
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "responseHeaders.append",
+          "lineNumber": 47
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "String",
+          "lineNumber": 47
+        },
+        {
+          "caller": "handleFastifyRequest",
+          "callee": "bodylessStatuses.has",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/test/next-routes.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 24,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

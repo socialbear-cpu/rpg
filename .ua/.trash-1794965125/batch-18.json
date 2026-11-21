@@ -1,0 +1,426 @@
+{
+  "nodes": [
+    {
+      "id": "table:supabase/tests/004_profile_rls.test.sql:test_suite",
+      "type": "table",
+      "name": "004_profile_rls.test.sql",
+      "filePath": "supabase/tests/004_profile_rls.test.sql",
+      "summary": "Valida o isolamento de linhas e as permissões de leitura e escrita para perfis e contas, cobrindo usuários anônimos, autenticados e proprietários.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:supabase/tests/005_daily_login_rewards.test.sql:test_suite",
+      "type": "table",
+      "name": "005_daily_login_rewards.test.sql",
+      "filePath": "supabase/tests/005_daily_login_rewards.test.sql",
+      "summary": "Verifica agendas de recompensas diárias, limites de resgate, permissões de proprietários e jogadores e consistência dos prêmios concedidos.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:supabase/tests/006_user_hierarchy.test.sql:test_suite",
+      "type": "table",
+      "name": "006_user_hierarchy.test.sql",
+      "filePath": "supabase/tests/006_user_hierarchy.test.sql",
+      "summary": "Testa a hierarquia entre administradores da plataforma e membros de sistemas de jogo, incluindo políticas de acesso e funções auxiliares.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:supabase/tests/008_daily_login_popup.test.sql:test_suite",
+      "type": "table",
+      "name": "008_daily_login_popup.test.sql",
+      "filePath": "supabase/tests/008_daily_login_popup.test.sql",
+      "summary": "Confirma o registro e a exibição de avisos de login diário por usuário, impedindo alterações no estado de outras pessoas.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:supabase/tests/010_daily_login_popup_per_system.test.sql:test_suite",
+      "type": "table",
+      "name": "010_daily_login_popup_per_system.test.sql",
+      "filePath": "supabase/tests/010_daily_login_popup_per_system.test.sql",
+      "summary": "Valida que o estado de avisos de login diário é independente para cada sistema de jogo.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:supabase/tests/011_character_experience.test.sql:test_suite",
+      "type": "table",
+      "name": "011_character_experience.test.sql",
+      "filePath": "supabase/tests/011_character_experience.test.sql",
+      "summary": "Exercita configurações de XP, fontes de experiência e histórico de XP de personagens, incluindo autorização e efeitos de resgate.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:supabase/tests/012_character_item_trading.test.sql:test_suite",
+      "type": "table",
+      "name": "012_character_item_trading.test.sql",
+      "filePath": "supabase/tests/012_character_item_trading.test.sql",
+      "summary": "Testa ofertas de troca entre personagens, respostas, contrapropostas, cancelamento, expiração e transferência segura de itens.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:supabase/tests/013_system_character_sheets.test.sql:test_suite",
+      "type": "table",
+      "name": "013_system_character_sheets.test.sql",
+      "filePath": "supabase/tests/013_system_character_sheets.test.sql",
+      "summary": "Verifica a criação e o preenchimento de fichas de personagem por sistema, inclusive metadados de descoberta e restrições de acesso.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:supabase/tests/016_character_sheet_visual_elements.test.sql:test_suite",
+      "type": "table",
+      "name": "016_character_sheet_visual_elements.test.sql",
+      "filePath": "supabase/tests/016_character_sheet_visual_elements.test.sql",
+      "summary": "Confirma que elementos visuais da ficha são persistidos e acessíveis conforme as permissões do sistema.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:supabase/tests/017_character_sheet_choices.test.sql:test_suite",
+      "type": "table",
+      "name": "017_character_sheet_choices.test.sql",
+      "filePath": "supabase/tests/017_character_sheet_choices.test.sql",
+      "summary": "Valida escolhas de ficha e suas condições, incluindo persistência e leitura por usuários autorizados.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:supabase/tests/018_system_store_economy.test.sql:test_suite",
+      "type": "table",
+      "name": "018_system_store_economy.test.sql",
+      "filePath": "supabase/tests/018_system_store_economy.test.sql",
+      "summary": "Exercita a economia do sistema: saldos, compras, recompensas em moeda, ledger e reversão atômica quando uma operação falha.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:supabase/tests/019_system_member_character_search.test.sql:test_suite",
+      "type": "table",
+      "name": "019_system_member_character_search.test.sql",
+      "filePath": "supabase/tests/019_system_member_character_search.test.sql",
+      "summary": "Testa a busca de personagens por membros do sistema e restringe os resultados segundo participação e permissões.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:supabase/tests/021_system_password_access_enforcement.test.sql:test_suite",
+      "type": "table",
+      "name": "021_system_password_access_enforcement.test.sql",
+      "filePath": "supabase/tests/021_system_password_access_enforcement.test.sql",
+      "summary": "Confirma a validação de acesso a sistemas protegidos por senha e o bloqueio de tentativas não autorizadas.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:supabase/tests/022_system_discovery_metadata.test.sql:test_suite",
+      "type": "table",
+      "name": "022_system_discovery_metadata.test.sql",
+      "filePath": "supabase/tests/022_system_discovery_metadata.test.sql",
+      "summary": "Verifica metadados e tags usados na descoberta de sistemas, incluindo validação e permissões de alteração.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:supabase/tests/023_system_lifecycle.test.sql:test_suite",
+      "type": "table",
+      "name": "023_system_lifecycle.test.sql",
+      "filePath": "supabase/tests/023_system_lifecycle.test.sql",
+      "summary": "Testa transições do ciclo de vida de sistemas de jogo, regras de encerramento e acesso dos participantes.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:supabase/tests/027_system_events.test.sql:test_suite",
+      "type": "table",
+      "name": "027_system_events.test.sql",
+      "filePath": "supabase/tests/027_system_events.test.sql",
+      "summary": "Valida a criação e consulta de eventos do sistema, respeitando papéis de proprietário, membro e administrador.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:supabase/tests/029_lobby_creator_tools_integrity.test.sql:test_suite",
+      "type": "table",
+      "name": "029_lobby_creator_tools_integrity.test.sql",
+      "filePath": "supabase/tests/029_lobby_creator_tools_integrity.test.sql",
+      "summary": "Confirma a integridade das ferramentas de criação do lobby e das configurações que controlam a participação.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:supabase/tests/030_chats_as_game_space.test.sql:test_suite",
+      "type": "table",
+      "name": "030_chats_as_game_space.test.sql",
+      "filePath": "supabase/tests/030_chats_as_game_space.test.sql",
+      "summary": "Verifica chats como espaço principal de jogo, associação de membros e vínculo direto das mensagens ao chat.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:supabase/tests/031_friendships.test.sql:test_suite",
+      "type": "table",
+      "name": "031_friendships.test.sql",
+      "filePath": "supabase/tests/031_friendships.test.sql",
+      "summary": "Testa solicitações e relações de amizade, incluindo aceitação, recusas, duplicatas e isolamento entre usuários.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:supabase/tests/032_rpg_invitations.test.sql:test_suite",
+      "type": "table",
+      "name": "032_rpg_invitations.test.sql",
+      "filePath": "supabase/tests/032_rpg_invitations.test.sql",
+      "summary": "Valida convites de RPG, seus destinatários e estados, além das regras de autorização e uso.",
+      "tags": [
+        "teste-de-banco",
+        "supabase",
+        "postgresql",
+        "regressao"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "table:database/migrations/004_profile_rls.sql:user_profiles",
+      "target": "table:supabase/tests/004_profile_rls.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/005_daily_login_rewards.sql:daily_login_rewards",
+      "target": "table:supabase/tests/005_daily_login_rewards.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/006_user_hierarchy.sql:game_system_memberships",
+      "target": "table:supabase/tests/006_user_hierarchy.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/008_daily_login_popup.sql:daily_login_popup_views",
+      "target": "table:supabase/tests/008_daily_login_popup.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/010_daily_login_popup_per_system.sql:daily_login_system_popup_views",
+      "target": "table:supabase/tests/010_daily_login_popup_per_system.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/011_character_experience.sql:character_xp_ledger",
+      "target": "table:supabase/tests/011_character_experience.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/012_character_item_trading.sql:trade_offers",
+      "target": "table:supabase/tests/012_character_item_trading.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/013_system_character_sheets.sql:game_system_character_sheets",
+      "target": "table:supabase/tests/013_system_character_sheets.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/016_character_sheet_visual_elements.sql:game_system_character_sheets",
+      "target": "table:supabase/tests/016_character_sheet_visual_elements.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/017_character_sheet_choices_and_conditions.sql:game_system_character_sheets",
+      "target": "table:supabase/tests/017_character_sheet_choices.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/018_system_store_economy.sql:character_currency_ledger",
+      "target": "table:supabase/tests/018_system_store_economy.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/019_system_member_character_search.sql:migration",
+      "target": "table:supabase/tests/019_system_member_character_search.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/021_system_password_access_enforcement.sql:migration",
+      "target": "table:supabase/tests/021_system_password_access_enforcement.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/022_system_discovery_metadata.sql:game_system_tag_catalog",
+      "target": "table:supabase/tests/022_system_discovery_metadata.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/023_system_lifecycle.sql:migration",
+      "target": "table:supabase/tests/023_system_lifecycle.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/027_system_events.sql:game_system_events",
+      "target": "table:supabase/tests/027_system_events.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/029_lobby_creator_tools.sql:game_system_lobby_settings",
+      "target": "table:supabase/tests/029_lobby_creator_tools_integrity.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/032_chats_as_game_space.sql:chats",
+      "target": "table:supabase/tests/030_chats_as_game_space.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/035_friendships.sql:friend_requests",
+      "target": "table:supabase/tests/031_friendships.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:database/migrations/036_rpg_invitations.sql:rpg_invitations",
+      "target": "table:supabase/tests/032_rpg_invitations.test.sql:test_suite",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

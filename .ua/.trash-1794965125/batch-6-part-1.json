@@ -1,0 +1,1248 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "file",
+      "name": "app-header.tsx",
+      "filePath": "frontend/src/features/shell/app-header.tsx",
+      "summary": "Componente de cabeçalho que coordena navegação autenticada, perfil do jogador e acesso às principais áreas do app.",
+      "tags": [
+        "componente",
+        "navegacao",
+        "perfil",
+        "autenticacao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/shell/app-header.tsx:AppHeader",
+      "type": "function",
+      "name": "AppHeader",
+      "filePath": "frontend/src/features/shell/app-header.tsx",
+      "lineRange": [
+        34,
+        138
+      ],
+      "summary": "Carrega o perfil autenticado e apresenta o cabeçalho e a navegação principal.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "type": "file",
+      "name": "character-sheet-builder.tsx",
+      "filePath": "frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "summary": "Editor visual para montar etapas e componentes de fichas de personagem, com opções posicionadas em uma grade.",
+      "tags": [
+        "componente",
+        "editor-visual",
+        "ficha",
+        "formulario"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/character-sheet-builder.tsx:optionPosition",
+      "type": "function",
+      "name": "optionPosition",
+      "filePath": "frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "lineRange": [
+        19,
+        30
+      ],
+      "summary": "Calcula a posição de uma opção na grade do editor de ficha.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/character-sheet-builder.tsx:CharacterSheetBuilder",
+      "type": "function",
+      "name": "CharacterSheetBuilder",
+      "filePath": "frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "lineRange": [
+        32,
+        311
+      ],
+      "summary": "Renderiza e edita etapas e elementos de uma ficha visual.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/sheet-model.test.ts",
+      "type": "file",
+      "name": "sheet-model.test.ts",
+      "filePath": "frontend/src/features/system-creation/sheet-model.test.ts",
+      "summary": "Testes unitários para as transformações e regras do modelo de fichas de personagem.",
+      "tags": [
+        "teste",
+        "modelo-de-dados",
+        "ficha",
+        "validacao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "type": "file",
+      "name": "sheet-model.ts",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "summary": "Define operações de criação, ordenação, conversão e validação de definições de fichas de personagem.",
+      "tags": [
+        "modelo-de-dados",
+        "ficha",
+        "validacao",
+        "transformacao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:createEmptySheetField",
+      "type": "function",
+      "name": "createEmptySheetField",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        5,
+        14
+      ],
+      "summary": "Implementa a operação createEmptySheetField usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetField",
+      "type": "function",
+      "name": "addSheetField",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        24,
+        26
+      ],
+      "summary": "Implementa a operação addSheetField usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetField",
+      "type": "function",
+      "name": "removeSheetField",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        28,
+        30
+      ],
+      "summary": "Implementa a operação removeSheetField usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetField",
+      "type": "function",
+      "name": "moveSheetField",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        32,
+        39
+      ],
+      "summary": "Implementa a operação moveSheetField usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:isLegacyCharacterSheetDefinitionValid",
+      "type": "function",
+      "name": "isLegacyCharacterSheetDefinitionValid",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        41,
+        66
+      ],
+      "summary": "Implementa a operação isLegacyCharacterSheetDefinitionValid usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:createEmptySheetComponent",
+      "type": "function",
+      "name": "createEmptySheetComponent",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        68,
+        78
+      ],
+      "summary": "Implementa a operação createEmptySheetComponent usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:createDefaultCharacterSheetDefinition",
+      "type": "function",
+      "name": "createDefaultCharacterSheetDefinition",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        80,
+        82
+      ],
+      "summary": "Implementa a operação createDefaultCharacterSheetDefinition usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:legacyFieldsToDefinition",
+      "type": "function",
+      "name": "legacyFieldsToDefinition",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        84,
+        91
+      ],
+      "summary": "Implementa a operação legacyFieldsToDefinition usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:definitionToLegacyFields",
+      "type": "function",
+      "name": "definitionToLegacyFields",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        93,
+        102
+      ],
+      "summary": "Implementa a operação definitionToLegacyFields usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetStep",
+      "type": "function",
+      "name": "addSheetStep",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        116,
+        126
+      ],
+      "summary": "Implementa a operação addSheetStep usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetVisualElement",
+      "type": "function",
+      "name": "addSheetVisualElement",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        128,
+        138
+      ],
+      "summary": "Implementa a operação addSheetVisualElement usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetVisualElement",
+      "type": "function",
+      "name": "removeSheetVisualElement",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        140,
+        147
+      ],
+      "summary": "Implementa a operação removeSheetVisualElement usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetStep",
+      "type": "function",
+      "name": "removeSheetStep",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        149,
+        153
+      ],
+      "summary": "Implementa a operação removeSheetStep usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetStep",
+      "type": "function",
+      "name": "moveSheetStep",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        155,
+        163
+      ],
+      "summary": "Implementa a operação moveSheetStep usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetComponent",
+      "type": "function",
+      "name": "addSheetComponent",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        165,
+        172
+      ],
+      "summary": "Implementa a operação addSheetComponent usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetComponent",
+      "type": "function",
+      "name": "removeSheetComponent",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        174,
+        182
+      ],
+      "summary": "Implementa a operação removeSheetComponent usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetComponent",
+      "type": "function",
+      "name": "moveSheetComponent",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        184,
+        198
+      ],
+      "summary": "Implementa a operação moveSheetComponent usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetComponentToStep",
+      "type": "function",
+      "name": "moveSheetComponentToStep",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        200,
+        212
+      ],
+      "summary": "Implementa a operação moveSheetComponentToStep usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/sheet-model.ts:isCharacterSheetDefinitionValid",
+      "type": "function",
+      "name": "isCharacterSheetDefinitionValid",
+      "filePath": "frontend/src/features/system-creation/sheet-model.ts",
+      "lineRange": [
+        214,
+        294
+      ],
+      "summary": "Implementa a operação isCharacterSheetDefinitionValid usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "type": "file",
+      "name": "system-creation-wizard.tsx",
+      "filePath": "frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "summary": "Fluxo em etapas para criar um sistema de jogo, reunindo detalhes, apresentação e configuração da ficha.",
+      "tags": [
+        "componente",
+        "fluxo-em-etapas",
+        "sistema",
+        "formulario"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/system-creation-wizard.tsx:SystemCreationWizard",
+      "type": "function",
+      "name": "SystemCreationWizard",
+      "filePath": "frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "lineRange": [
+        17,
+        177
+      ],
+      "summary": "Coordena os estados e as etapas do formulário de criação do sistema.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/system-details-fields.tsx",
+      "type": "file",
+      "name": "system-details-fields.tsx",
+      "filePath": "frontend/src/features/system-creation/system-details-fields.tsx",
+      "summary": "Campos controlados para editar nome e descrição de um sistema de jogo.",
+      "tags": [
+        "componente",
+        "formulario",
+        "sistema",
+        "entrada-de-dados"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/system-details-fields.tsx:SystemDetailsFields",
+      "type": "function",
+      "name": "SystemDetailsFields",
+      "filePath": "frontend/src/features/system-creation/system-details-fields.tsx",
+      "lineRange": [
+        1,
+        16
+      ],
+      "summary": "Renderiza os campos de nome e descrição do sistema.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/system-presentation-fields.tsx",
+      "type": "file",
+      "name": "system-presentation-fields.tsx",
+      "filePath": "frontend/src/features/system-creation/system-presentation-fields.tsx",
+      "summary": "Editor da apresentação visual do sistema, incluindo seleção de tags e mídia associada.",
+      "tags": [
+        "componente",
+        "apresentacao",
+        "sistema",
+        "formulario"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/system-presentation-fields.tsx:SystemPresentationFields",
+      "type": "function",
+      "name": "SystemPresentationFields",
+      "filePath": "frontend/src/features/system-creation/system-presentation-fields.tsx",
+      "lineRange": [
+        8,
+        105
+      ],
+      "summary": "Gerencia e renderiza as opções de apresentação visual do sistema.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "type": "file",
+      "name": "system-sheet-editor.tsx",
+      "filePath": "frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "summary": "Tela de edição da ficha do sistema que conecta o construtor visual ao modelo persistido.",
+      "tags": [
+        "componente",
+        "editor",
+        "ficha",
+        "sistema"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/system-creation/system-sheet-editor.tsx:SystemSheetEditor",
+      "type": "function",
+      "name": "SystemSheetEditor",
+      "filePath": "frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "lineRange": [
+        15,
+        67
+      ],
+      "summary": "Carrega a definição da ficha e conecta as alterações do editor ao estado da página.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "type": "file",
+      "name": "system-events-card.tsx",
+      "filePath": "frontend/src/features/system-events/system-events-card.tsx",
+      "summary": "Exibe eventos de um sistema e oferece ações para iniciar e acompanhar sessões.",
+      "tags": [
+        "componente",
+        "eventos",
+        "sessao",
+        "data-e-hora"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/system-events/system-events-card.tsx:SystemEventsList",
+      "type": "function",
+      "name": "SystemEventsList",
+      "filePath": "frontend/src/features/system-events/system-events-card.tsx",
+      "lineRange": [
+        19,
+        30
+      ],
+      "summary": "Lista eventos do sistema com datas formatadas e ações disponíveis.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/system-events/system-events-card.tsx:SystemEventsCard",
+      "type": "function",
+      "name": "SystemEventsCard",
+      "filePath": "frontend/src/features/system-events/system-events-card.tsx",
+      "lineRange": [
+        39,
+        112
+      ],
+      "summary": "Carrega eventos do sistema e expõe ações de criação e atualização da sessão.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/system-management/system-details-editor.tsx",
+      "type": "file",
+      "name": "system-details-editor.tsx",
+      "filePath": "frontend/src/features/system-management/system-details-editor.tsx",
+      "summary": "Formulário para atualizar detalhes e configurações editáveis de um sistema existente.",
+      "tags": [
+        "componente",
+        "formulario",
+        "sistema",
+        "edicao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/system-management/system-details-editor.tsx:SystemDetailsEditor",
+      "type": "function",
+      "name": "SystemDetailsEditor",
+      "filePath": "frontend/src/features/system-management/system-details-editor.tsx",
+      "lineRange": [
+        8,
+        150
+      ],
+      "summary": "Carrega e salva as alterações dos detalhes do sistema.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/features/shell/app-header.tsx",
+      "target": "function:frontend/src/features/shell/app-header.tsx:AppHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/shell/app-header.tsx",
+      "target": "function:frontend/src/features/shell/app-header.tsx:AppHeader",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "target": "function:frontend/src/features/system-creation/character-sheet-builder.tsx:optionPosition",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "target": "function:frontend/src/features/system-creation/character-sheet-builder.tsx:CharacterSheetBuilder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "target": "function:frontend/src/features/system-creation/character-sheet-builder.tsx:CharacterSheetBuilder",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:createEmptySheetField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:createEmptySheetField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:isLegacyCharacterSheetDefinitionValid",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:createEmptySheetComponent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:createDefaultCharacterSheetDefinition",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:createDefaultCharacterSheetDefinition",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:legacyFieldsToDefinition",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:legacyFieldsToDefinition",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:definitionToLegacyFields",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:definitionToLegacyFields",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetStep",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetStep",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetVisualElement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetVisualElement",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetVisualElement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetVisualElement",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetStep",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetStep",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetStep",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetStep",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetComponent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetComponent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetComponent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:removeSheetComponent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetComponent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetComponent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetComponentToStep",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:moveSheetComponentToStep",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:isCharacterSheetDefinitionValid",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:isCharacterSheetDefinitionValid",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "target": "function:frontend/src/features/system-creation/system-creation-wizard.tsx:SystemCreationWizard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "target": "function:frontend/src/features/system-creation/system-creation-wizard.tsx:SystemCreationWizard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-details-fields.tsx",
+      "target": "function:frontend/src/features/system-creation/system-details-fields.tsx:SystemDetailsFields",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-details-fields.tsx",
+      "target": "function:frontend/src/features/system-creation/system-details-fields.tsx:SystemDetailsFields",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-presentation-fields.tsx",
+      "target": "function:frontend/src/features/system-creation/system-presentation-fields.tsx:SystemPresentationFields",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-presentation-fields.tsx",
+      "target": "function:frontend/src/features/system-creation/system-presentation-fields.tsx:SystemPresentationFields",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "target": "function:frontend/src/features/system-creation/system-sheet-editor.tsx:SystemSheetEditor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "target": "function:frontend/src/features/system-creation/system-sheet-editor.tsx:SystemSheetEditor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "target": "function:frontend/src/features/system-events/system-events-card.tsx:SystemEventsList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "target": "function:frontend/src/features/system-events/system-events-card.tsx:SystemEventsList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "target": "function:frontend/src/features/system-events/system-events-card.tsx:SystemEventsCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "target": "function:frontend/src/features/system-events/system-events-card.tsx:SystemEventsCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-details-editor.tsx",
+      "target": "function:frontend/src/features/system-management/system-details-editor.tsx:SystemDetailsEditor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-details-editor.tsx",
+      "target": "function:frontend/src/features/system-management/system-details-editor.tsx:SystemDetailsEditor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/shell/app-header.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/shell/app-header.tsx",
+      "target": "file:frontend/src/features/character-sheet/format-value.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/shell/app-header.tsx",
+      "target": "file:frontend/src/features/shell/app-header.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/shell/app-header.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "target": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "target": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "target": "file:frontend/src/features/system-creation/system-creation.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.test.ts",
+      "target": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "target": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "target": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "target": "file:frontend/src/features/system-creation/system-creation.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "target": "file:frontend/src/features/system-creation/system-details-fields.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "target": "file:frontend/src/features/system-creation/system-presentation-fields.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-presentation-fields.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "target": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "target": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "target": "file:frontend/src/features/system-events/system-events-card.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-details-editor.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-details-editor.tsx",
+      "target": "file:frontend/src/features/system-creation/system-details-fields.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/system-management/system-details-editor.tsx",
+      "target": "file:frontend/src/features/system-creation/system-presentation-fields.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/system-creation/character-sheet-builder.tsx:CharacterSheetBuilder",
+      "target": "function:frontend/src/features/system-creation/character-sheet-builder.tsx:optionPosition",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetField",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:createEmptySheetField",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/system-creation/sheet-model.ts:addSheetComponent",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:createEmptySheetComponent",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/system-creation/sheet-model.ts:isCharacterSheetDefinitionValid",
+      "target": "function:frontend/src/features/system-creation/sheet-model.ts:isLegacyCharacterSheetDefinitionValid",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "target": "file:frontend/src/features/system-creation/sheet-model.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

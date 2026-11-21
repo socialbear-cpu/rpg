@@ -15,68 +15,77 @@ interface SystemsSectionProps {
 
 export function SystemsSection({ systems, loading, error, onCreate, onEnter, ownerSystemIds = new Set(), isPlatformAdmin = false, onManage }: SystemsSectionProps) {
   return (
-    <section className="systems-section" aria-labelledby="systems-title">
-      <div className="section-heading">
+    <section className="worlds-section" aria-labelledby="systems-title">
+      <div className="worlds-section-heading">
         <div>
-          <h2 id="systems-title">Meus sistemas</h2>
-          <p>Escolha um sistema para abrir sua aventura ou crie um novo.</p>
+          <h1 id="systems-title">Meus sistemas</h1>
+          <p>Seus mundos, suas histórias. Escolha onde jogar.</p>
         </div>
         {(systems.length > 0 || loading || error) && (
-          <button type="button" className="primary-button" onClick={onCreate}>+ Criar sistema</button>
+          <button type="button" className="worlds-create" onClick={onCreate}><span aria-hidden="true">+</span> Criar sistema</button>
         )}
       </div>
       {loading && (
         <>
-          <p className="systems-loading-label" role="status">Preparando seus mundos...</p>
-          <div className="system-grid" aria-hidden="true">
-            {[0, 1, 2].map((item) => <div className="system-card-skeleton" key={item} />)}
+          <p className="worlds-status" role="status">Preparando seus mundos...</p>
+          <div className="worlds-skeletons" aria-hidden="true">
+            {[0, 1, 2].map((item) => <div className="worlds-skeleton" key={item} />)}
           </div>
         </>
       )}
-      {error && <p className="systems-error" role="alert">{error}</p>}
+      {error && <p className="worlds-error" role="alert">{error}</p>}
       {!loading && !error && systems.length === 0 && (
-        <div className="systems-empty-state">
-          <span className="systems-empty-sigil" aria-hidden="true">✧</span>
-          <span className="system-card-eyebrow">SUA AVENTURA COMEÇA AQUI</span>
-          <h3>Seu próximo mundo começa aqui</h3>
-          <p>Crie um sistema, personalize a ficha e reúna seu grupo em torno de uma nova aventura.</p>
-          <button type="button" className="primary-button" onClick={onCreate}>Criar meu primeiro sistema</button>
+        <div className="worlds-empty">
+          <svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M20 65V30a20 20 0 0 1 40 0v35M27 65V30a13 13 0 0 1 26 0v35M12 65h56M40 29v20m-10-10h20" stroke="currentColor" /></svg>
+          <span className="worlds-overline">O PRIMEIRO PASSO É SEU</span>
+          <h2>Toda ponte leva a uma história.</h2>
+          <p>Crie seu primeiro sistema, reúna seu grupo e descubra o que existe do outro lado.</p>
+          <button type="button" className="worlds-primary" onClick={onCreate}>Criar meu primeiro sistema <span aria-hidden="true">↗</span></button>
         </div>
       )}
       {!loading && !error && systems.length > 0 && (
-        <div className="system-grid">
+        <ul className="worlds-grid" aria-label="Seus sistemas" role="list">
           {systems.map((system, index) => (
-            <article className={`system-card system-card-tone-${index % 4}${system.is_active === false ? ' system-card-archived' : ''}`} key={system.id}>
-              <div className={`system-card-art${system.cover_image_path ? ' has-cover' : ''}`} aria-hidden="true">
-                {system.cover_image_path
-                  ? <img className="system-card-cover" src={getGameSystemCoverUrl(system.cover_image_path) ?? undefined} alt="" style={{ objectPosition: `${system.cover_focus_x ?? 50}% ${system.cover_focus_y ?? 50}%` }} />
-                  : <>
-                    <span className="system-card-art-brand">BIFROST RPG</span>
-                    <span className="system-card-art-sigil">✧</span>
-                    <span className="system-card-art-caption">UM MUNDO À SUA MANEIRA</span>
-                  </>}
-              </div>
-              {(ownerSystemIds.has(system.id) || isPlatformAdmin) && <button type="button" className="system-card-settings" aria-label={`Gerenciar ${system.name}`} title="Gerenciar sistema" onClick={() => onManage?.(system.id)}>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg>
-              </button>}
-              <div className="system-card-content">
-                <span className="system-card-eyebrow">{system.is_active === false ? 'SISTEMA DESATIVADO' : 'SISTEMA DE RPG'}</span>
-                <h3>{system.name}</h3>
-                <p>{system.is_active === false ? 'Este sistema está desativado. Você pode reativá-lo nas configurações.' : system.description || 'Uma nova aventura espera pelo seu grupo.'}</p>
-                <div className="system-card-metadata">
-                  <span className="system-card-mode">{system.play_mode === 'voice' ? '◉ Voz' : system.play_mode === 'hybrid' ? '◈ Híbrido' : '▤ Texto'}</span>
-                  {(system.tags ?? []).slice(0, 3).map((tag) => <span className="system-card-tag" key={tag.slug}>{tag.label}</span>)}
-                  {(system.tags?.length ?? 0) > 3 && <span className="system-card-tag">+{(system.tags?.length ?? 0) - 3}</span>}
+            <li className={`worlds-stop${system.is_active === false ? ' worlds-stop-archived' : ''}`} key={system.id}>
+              <article className={`worlds-destination worlds-tone-${index % 4}`}>
+                <div className={`worlds-cover${system.cover_image_path ? '' : ' worlds-cover-fallback'}`} aria-hidden="true">
+                  {system.cover_image_path
+                    ? <img src={getGameSystemCoverUrl(system.cover_image_path) ?? undefined} alt="" loading="lazy" style={{ objectPosition: `${system.cover_focus_x ?? 50}% ${system.cover_focus_y ?? 50}%` }} />
+                    : <><svg className="worlds-cover-bridge" viewBox="0 0 160 90" fill="none"><path d="m60 0-50 90M70 0 45 90M80 0v90M90 0l25 90M100 0l50 90M60 0h40" stroke="currentColor" /></svg><span className="worlds-cover-name">ᛒᛁᚠᚱᛟᛊᛏ</span></>}
                 </div>
-                {system.is_active === false
-                  ? <span className="system-card-disabled">Aventura indisponível</span>
-                  : <button type="button" className="system-card-enter" aria-label={`Entrar no sistema ${system.name}`} onClick={() => onEnter(system.id)}>
-                    Abrir aventura <span aria-hidden="true">↗</span>
+                <div className="worlds-destination-heading">
+                  <span className="worlds-mode">{system.is_active === false ? 'Em pausa' : system.play_mode === 'voice' ? '◉ Voz' : '▤ Texto'}</span>
+                  {(ownerSystemIds.has(system.id) || isPlatformAdmin) && <button type="button" className="worlds-manage" aria-label={`Gerenciar ${system.name}`} title="Gerenciar sistema" onClick={() => onManage?.(system.id)}>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg>
                   </button>}
-              </div>
-            </article>
+                </div>
+                <div className="worlds-destination-content">
+                  <h2 title={system.name}>{system.name}</h2>
+                  <p>{system.is_active === false ? 'Este mundo está em pausa. Você pode reativá-lo nas configurações.' : system.description || 'Uma nova aventura espera pelo seu grupo.'}</p>
+                  <div className="worlds-card-footer">
+                    <div className="worlds-metadata">
+                      {(system.tags ?? []).slice(0, 2).map((tag) => <span key={tag.slug}>{tag.label}</span>)}
+                      {(system.tags?.length ?? 0) > 2 && <span>+{(system.tags?.length ?? 0) - 2}</span>}
+                    </div>
+                    {system.is_active === false
+                      ? <span className="worlds-unavailable">Aventura indisponível</span>
+                      : <button type="button" className="worlds-enter" aria-label={`Jogar no sistema ${system.name}`} onClick={() => onEnter(system.id)}>
+                        Jogar
+                      </button>}
+                  </div>
+                </div>
+              </article>
+            </li>
           ))}
-        </div>
+          <li className="worlds-new-system">
+            <button type="button" onClick={onCreate} aria-label="Criar novo sistema">
+              <span className="worlds-new-system-symbol" aria-hidden="true">+</span>
+              <strong>Um mundo à sua maneira.</strong>
+              <span>Transforme sua próxima ideia em uma aventura.</span>
+              <span className="worlds-new-system-action">Criar novo sistema <span aria-hidden="true">↗</span></span>
+            </button>
+          </li>
+        </ul>
       )}
     </section>
   );

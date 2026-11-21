@@ -34,6 +34,7 @@ export function ProfileCard({
   onLoadProfile,
   onSaveProfile,
 }: ProfileCardProps) {
+  const interests = previewing ? profile.interests.split(',').map((interest) => interest.trim()).filter(Boolean).slice(0, 12) : [];
   return (
     <article className={`card profile-card${previewing ? ' profile-card-previewing' : ''}`}>
       <div className="section-heading">
@@ -54,8 +55,8 @@ export function ProfileCard({
         {profile.status.trim() && <blockquote className="profile-visitor-status">“{profile.status.trim()}”</blockquote>}
         <div className="profile-visitor-bio"><h4>Sobre mim</h4><p>{profile.bio.trim() || 'Este jogador ainda não escreveu uma apresentação.'}</p></div>
         <div className="profile-visitor-interests"><h4>Interesses</h4>
-          {profile.interests.split(',').map((interest) => interest.trim()).filter(Boolean).length > 0
-            ? profile.interests.split(',').map((interest) => interest.trim()).filter(Boolean).slice(0, 12).map((interest) => <span key={interest}>{interest}</span>)
+          {interests.length > 0
+            ? interests.map((interest) => <span key={interest}>{interest}</span>)
             : <p>Nenhum interesse adicionado.</p>}
         </div>
         <p className="profile-visitor-note">É assim que seu perfil aparece para outros jogadores. Dados de conta, como e-mail e telefone, não são exibidos.</p>

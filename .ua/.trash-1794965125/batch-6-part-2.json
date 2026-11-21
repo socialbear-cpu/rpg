@@ -1,0 +1,551 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/features/trading/trading-card.tsx",
+      "type": "file",
+      "name": "trading-card.tsx",
+      "filePath": "frontend/src/features/trading/trading-card.tsx",
+      "summary": "Apresenta ofertas de troca, itens e quantidades, com ações conforme o estado da negociação.",
+      "tags": [
+        "componente",
+        "trocas",
+        "inventario",
+        "ofertas"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/trading/trading-card.tsx:OfferLines",
+      "type": "function",
+      "name": "OfferLines",
+      "filePath": "frontend/src/features/trading/trading-card.tsx",
+      "lineRange": [
+        66,
+        76
+      ],
+      "summary": "Renderiza as linhas de itens incluídas em uma oferta de troca.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/trading/trading-card.tsx:StackQuantityRows",
+      "type": "function",
+      "name": "StackQuantityRows",
+      "filePath": "frontend/src/features/trading/trading-card.tsx",
+      "lineRange": [
+        78,
+        104
+      ],
+      "summary": "Agrupa quantidades de itens em linhas visuais para a interface de troca.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/trading/trading-card.tsx:TradingCardView",
+      "type": "function",
+      "name": "TradingCardView",
+      "filePath": "frontend/src/features/trading/trading-card.tsx",
+      "lineRange": [
+        106,
+        239
+      ],
+      "summary": "Mostra os detalhes de uma oferta e as ações compatíveis com seu estado.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/trading/trading-card.tsx:TradingCard",
+      "type": "function",
+      "name": "TradingCard",
+      "filePath": "frontend/src/features/trading/trading-card.tsx",
+      "lineRange": [
+        241,
+        464
+      ],
+      "summary": "Organiza a visualização completa do cartão da oferta e seus controles.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/trading/trading-page.tsx",
+      "type": "file",
+      "name": "trading-page.tsx",
+      "filePath": "frontend/src/features/trading/trading-page.tsx",
+      "summary": "Página autenticada que carrega e organiza a interface de trocas de personagens.",
+      "tags": [
+        "componente",
+        "pagina",
+        "trocas",
+        "autenticacao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/trading/trading-page.tsx:TradingPage",
+      "type": "function",
+      "name": "TradingPage",
+      "filePath": "frontend/src/features/trading/trading-page.tsx",
+      "lineRange": [
+        10,
+        42
+      ],
+      "summary": "Carrega os dados necessários e apresenta a página de negociação.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/character-entry-render.test.ts",
+      "type": "file",
+      "name": "character-entry-render.test.ts",
+      "filePath": "frontend/test/character-entry-render.test.ts",
+      "summary": "Testes de renderização da entrada de personagem e dos componentes relacionados à ficha.",
+      "tags": [
+        "teste",
+        "componente",
+        "rpg"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/test/character-home-chat.test.ts",
+      "type": "file",
+      "name": "character-home-chat.test.ts",
+      "filePath": "frontend/test/character-home-chat.test.ts",
+      "summary": "Testes de renderização e comportamento da área de conversa na página inicial do personagem.",
+      "tags": [
+        "teste",
+        "componente",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/character-home-page.test.ts",
+      "type": "file",
+      "name": "character-home-page.test.ts",
+      "filePath": "frontend/test/character-home-page.test.ts",
+      "summary": "Testes da página inicial do personagem e de seus principais estados visuais.",
+      "tags": [
+        "teste",
+        "componente",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/lobby-creator-tools.test.ts",
+      "type": "file",
+      "name": "lobby-creator-tools.test.ts",
+      "filePath": "frontend/test/lobby-creator-tools.test.ts",
+      "summary": "Testes de renderização das ferramentas de criação e personalização do lobby.",
+      "tags": [
+        "teste",
+        "componente",
+        "rpg"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/test/lobby-creator-tools.test.ts:renderLobby",
+      "type": "function",
+      "name": "renderLobby",
+      "filePath": "frontend/test/lobby-creator-tools.test.ts",
+      "lineRange": [
+        21,
+        37
+      ],
+      "summary": "Renderiza a interface do lobby em um ambiente de teste.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/lobby-stats.test.ts",
+      "type": "file",
+      "name": "lobby-stats.test.ts",
+      "filePath": "frontend/test/lobby-stats.test.ts",
+      "summary": "Testes das funções que calculam e formatam estatísticas e sessões do lobby.",
+      "tags": [
+        "teste",
+        "componente",
+        "rpg"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/test/system-creation-render.test.ts",
+      "type": "file",
+      "name": "system-creation-render.test.ts",
+      "filePath": "frontend/test/system-creation-render.test.ts",
+      "summary": "Testes de renderização do fluxo de criação e edição de sistemas.",
+      "tags": [
+        "teste",
+        "componente",
+        "rpg"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/test/system-events-render.test.ts",
+      "type": "file",
+      "name": "system-events-render.test.ts",
+      "filePath": "frontend/test/system-events-render.test.ts",
+      "summary": "Testes de renderização dos cartões e listas de eventos do sistema.",
+      "tags": [
+        "teste",
+        "componente",
+        "rpg"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/trading-render.test.ts",
+      "type": "file",
+      "name": "trading-render.test.ts",
+      "filePath": "frontend/test/trading-render.test.ts",
+      "summary": "Testes de renderização das ofertas e visualizações da área de trocas.",
+      "tags": [
+        "teste",
+        "componente",
+        "rpg"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/test/trading-render.test.ts:renderView",
+      "type": "function",
+      "name": "renderView",
+      "filePath": "frontend/test/trading-render.test.ts",
+      "lineRange": [
+        45,
+        57
+      ],
+      "summary": "Implementa a operação renderView usada pela funcionalidade deste arquivo.",
+      "tags": [
+        "funcao",
+        "rpg",
+        "frontend"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/features/trading/trading-card.tsx",
+      "target": "function:frontend/src/features/trading/trading-card.tsx:OfferLines",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-card.tsx",
+      "target": "function:frontend/src/features/trading/trading-card.tsx:StackQuantityRows",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-card.tsx",
+      "target": "function:frontend/src/features/trading/trading-card.tsx:TradingCardView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-card.tsx",
+      "target": "function:frontend/src/features/trading/trading-card.tsx:TradingCardView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-card.tsx",
+      "target": "function:frontend/src/features/trading/trading-card.tsx:TradingCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-card.tsx",
+      "target": "function:frontend/src/features/trading/trading-card.tsx:TradingCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-page.tsx",
+      "target": "function:frontend/src/features/trading/trading-page.tsx:TradingPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-page.tsx",
+      "target": "function:frontend/src/features/trading/trading-page.tsx:TradingPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/test/lobby-creator-tools.test.ts",
+      "target": "function:frontend/test/lobby-creator-tools.test.ts:renderLobby",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/test/trading-render.test.ts",
+      "target": "function:frontend/test/trading-render.test.ts:renderView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-card.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-page.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-page.tsx",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-page.tsx",
+      "target": "file:frontend/src/features/trading/trading-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/character-entry-render.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/character-entry-render.test.ts",
+      "target": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/character-entry-render.test.ts",
+      "target": "file:frontend/src/features/characters/character-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/character-entry-render.test.ts",
+      "target": "file:frontend/src/features/characters/character-gallery.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/character-entry-render.test.ts",
+      "target": "file:frontend/src/features/characters/character-home.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/character-entry-render.test.ts",
+      "target": "file:frontend/src/features/characters/character-record.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/character-entry-render.test.ts",
+      "target": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/character-home-chat.test.ts",
+      "target": "file:frontend/src/features/characters/character-home.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/character-home-page.test.ts",
+      "target": "file:frontend/src/features/characters/character-home-page.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/lobby-creator-tools.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/lobby-creator-tools.test.ts",
+      "target": "file:frontend/src/features/characters/character-home.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/lobby-creator-tools.test.ts",
+      "target": "file:frontend/src/features/characters/lobby-creator-tools.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/lobby-creator-tools.test.ts",
+      "target": "file:frontend/src/features/characters/lobby-customization-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/lobby-creator-tools.test.ts",
+      "target": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/lobby-stats.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/lobby-stats.test.ts",
+      "target": "file:frontend/src/features/characters/lobby-presence.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/lobby-stats.test.ts",
+      "target": "file:frontend/src/features/characters/lobby-stats.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-creation-render.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-creation-render.test.ts",
+      "target": "file:frontend/src/features/dashboard/systems-section.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-creation-render.test.ts",
+      "target": "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-creation-render.test.ts",
+      "target": "file:frontend/src/features/system-creation/sheet-model.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-creation-render.test.ts",
+      "target": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-creation-render.test.ts",
+      "target": "file:frontend/src/features/system-management/system-details-editor.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/system-events-render.test.ts",
+      "target": "file:frontend/src/features/system-events/system-events-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/trading-render.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/trading-render.test.ts",
+      "target": "file:frontend/src/features/trading/trading-card.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/trading/trading-card.tsx",
+      "target": "file:frontend/test/trading-render.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

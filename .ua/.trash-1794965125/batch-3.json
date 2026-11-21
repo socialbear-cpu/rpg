@@ -1,0 +1,1103 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/src/create-app.ts",
+      "type": "file",
+      "name": "create-app.ts",
+      "filePath": "backend/src/create-app.ts",
+      "summary": "Constrói o servidor Fastify e registra rotas e plugins da API.",
+      "tags": [
+        "typescript",
+        "api",
+        "servico"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/profile/profile.repository.ts",
+      "type": "file",
+      "name": "profile.repository.ts",
+      "filePath": "backend/src/modules/profile/profile.repository.ts",
+      "summary": "Implementa leitura e atualização do perfil no Supabase com filtros explícitos de propriedade.",
+      "tags": [
+        "perfil",
+        "api",
+        "validacao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/src/modules/profile/profile.routes.ts",
+      "type": "file",
+      "name": "profile.routes.ts",
+      "filePath": "backend/src/modules/profile/profile.routes.ts",
+      "summary": "Registra endpoints autenticados do perfil e trata validação, conflitos e respostas HTTP.",
+      "tags": [
+        "perfil",
+        "api",
+        "validacao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/src/modules/profile/profile.schema.ts",
+      "type": "file",
+      "name": "profile.schema.ts",
+      "filePath": "backend/src/modules/profile/profile.schema.ts",
+      "summary": "Define validações e tipos de entrada e saída para o perfil.",
+      "tags": [
+        "perfil",
+        "api",
+        "validacao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/test/authenticate.test.ts",
+      "type": "file",
+      "name": "authenticate.test.ts",
+      "filePath": "backend/test/authenticate.test.ts",
+      "summary": "Testa os fluxos de authenticate da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/chats.routes.test.ts",
+      "type": "file",
+      "name": "chats.routes.test.ts",
+      "filePath": "backend/test/chats.routes.test.ts",
+      "summary": "Testa os fluxos de chats routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/daily-login.routes.test.ts",
+      "type": "file",
+      "name": "daily-login.routes.test.ts",
+      "filePath": "backend/test/daily-login.routes.test.ts",
+      "summary": "Testa os fluxos de daily login routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/test/experience.routes.test.ts",
+      "type": "file",
+      "name": "experience.routes.test.ts",
+      "filePath": "backend/test/experience.routes.test.ts",
+      "summary": "Testa os fluxos de experience routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/fixtures/profile.ts",
+      "type": "file",
+      "name": "profile.ts",
+      "filePath": "backend/test/fixtures/profile.ts",
+      "summary": "Testa os fluxos de profile ts da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/test/game-systems.routes.test.ts",
+      "type": "file",
+      "name": "game-systems.routes.test.ts",
+      "filePath": "backend/test/game-systems.routes.test.ts",
+      "summary": "Testa os fluxos de game systems routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/test/health.test.ts",
+      "type": "file",
+      "name": "health.test.ts",
+      "filePath": "backend/test/health.test.ts",
+      "summary": "Testa os fluxos de health da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/test/lobby-presence.routes.test.ts",
+      "type": "file",
+      "name": "lobby-presence.routes.test.ts",
+      "filePath": "backend/test/lobby-presence.routes.test.ts",
+      "summary": "Testa os fluxos de lobby presence routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/lobby-settings.routes.test.ts",
+      "type": "file",
+      "name": "lobby-settings.routes.test.ts",
+      "filePath": "backend/test/lobby-settings.routes.test.ts",
+      "summary": "Testa os fluxos de lobby settings routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/openapi.test.ts",
+      "type": "file",
+      "name": "openapi.test.ts",
+      "filePath": "backend/test/openapi.test.ts",
+      "summary": "Testa os fluxos de openapi da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/profile.routes.test.ts",
+      "type": "file",
+      "name": "profile.routes.test.ts",
+      "filePath": "backend/test/profile.routes.test.ts",
+      "summary": "Testa os fluxos de profile routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/profile.schema.test.ts",
+      "type": "file",
+      "name": "profile.schema.test.ts",
+      "filePath": "backend/test/profile.schema.test.ts",
+      "summary": "Testa os fluxos de profile schema da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/test/social.routes.test.ts",
+      "type": "file",
+      "name": "social.routes.test.ts",
+      "filePath": "backend/test/social.routes.test.ts",
+      "summary": "Testa os fluxos de social routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/store.routes.test.ts",
+      "type": "file",
+      "name": "store.routes.test.ts",
+      "filePath": "backend/test/store.routes.test.ts",
+      "summary": "Testa os fluxos de store routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/system-events.routes.test.ts",
+      "type": "file",
+      "name": "system-events.routes.test.ts",
+      "filePath": "backend/test/system-events.routes.test.ts",
+      "summary": "Testa os fluxos de system events routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/system-membership.routes.test.ts",
+      "type": "file",
+      "name": "system-membership.routes.test.ts",
+      "filePath": "backend/test/system-membership.routes.test.ts",
+      "summary": "Testa os fluxos de system membership routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/test/trading.routes.test.ts",
+      "type": "file",
+      "name": "trading.routes.test.ts",
+      "filePath": "backend/test/trading.routes.test.ts",
+      "summary": "Testa os fluxos de trading routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/app/api/[...path]/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "frontend/app/api/[...path]/route.ts",
+      "summary": "Encaminha métodos HTTP do Next.js para a aplicação Fastify.",
+      "tags": [
+        "api-handler",
+        "rota",
+        "fastify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/app/healthz/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "frontend/app/healthz/route.ts",
+      "summary": "Expõe a verificação de saúde da aplicação pelo Next.js.",
+      "tags": [
+        "api-handler",
+        "rota",
+        "fastify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/fastify-request.ts",
+      "type": "file",
+      "name": "fastify-request.ts",
+      "filePath": "frontend/src/fastify-request.ts",
+      "summary": "Adapta requisições Web para Fastify inject e converte o resultado em uma Response Web.",
+      "tags": [
+        "typescript",
+        "api",
+        "servico"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/test/next-routes.test.ts",
+      "type": "file",
+      "name": "next-routes.test.ts",
+      "filePath": "frontend/test/next-routes.test.ts",
+      "summary": "Testa os fluxos de next routes da API.",
+      "tags": [
+        "teste",
+        "api",
+        "regressao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/create-app.ts:buildApp",
+      "type": "function",
+      "name": "buildApp",
+      "filePath": "backend/src/create-app.ts",
+      "lineRange": [
+        7,
+        11
+      ],
+      "summary": "Cria o servidor Fastify com as opções fornecidas e registra a aplicação.",
+      "tags": [
+        "api-handler",
+        "fastify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/profile/profile.repository.ts:readProfile",
+      "type": "function",
+      "name": "readProfile",
+      "filePath": "backend/src/modules/profile/profile.repository.ts",
+      "lineRange": [
+        8,
+        13
+      ],
+      "summary": "Executa uma requisição auxiliar usada pelos testes da API.",
+      "tags": [
+        "api-handler",
+        "fastify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/profile/profile.repository.ts:updateProfile",
+      "type": "function",
+      "name": "updateProfile",
+      "filePath": "backend/src/modules/profile/profile.repository.ts",
+      "lineRange": [
+        15,
+        24
+      ],
+      "summary": "Atualiza os dados do perfil pelo RPC e relê o registro quando a operação termina.",
+      "tags": [
+        "api-handler",
+        "fastify"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/profile/profile.repository.ts:claimUsername",
+      "type": "function",
+      "name": "claimUsername",
+      "filePath": "backend/src/modules/profile/profile.repository.ts",
+      "lineRange": [
+        26,
+        34
+      ],
+      "summary": "Executa uma requisição auxiliar usada pelos testes da API.",
+      "tags": [
+        "api-handler",
+        "fastify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/src/modules/profile/profile.routes.ts:respondWithUsernameClaim",
+      "type": "function",
+      "name": "respondWithUsernameClaim",
+      "filePath": "backend/src/modules/profile/profile.routes.ts",
+      "lineRange": [
+        24,
+        39
+      ],
+      "summary": "Converte sucesso da troca de username e conflitos em respostas HTTP adequadas.",
+      "tags": [
+        "api-handler",
+        "fastify"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/src/modules/profile/profile.routes.ts:profileRoutes",
+      "type": "function",
+      "name": "profileRoutes",
+      "filePath": "backend/src/modules/profile/profile.routes.ts",
+      "lineRange": [
+        41,
+        115
+      ],
+      "summary": "Registra GET e PATCH do perfil, exige autenticação e valida os dados recebidos.",
+      "tags": [
+        "api-handler",
+        "fastify"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:backend/test/authenticate.test.ts:protectedApp",
+      "type": "function",
+      "name": "protectedApp",
+      "filePath": "backend/test/authenticate.test.ts",
+      "lineRange": [
+        42,
+        52
+      ],
+      "summary": "Monta uma aplicação Fastify de teste com autenticação configurada.",
+      "tags": [
+        "teste",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/test/daily-login.routes.test.ts:request",
+      "type": "function",
+      "name": "request",
+      "filePath": "backend/test/daily-login.routes.test.ts",
+      "lineRange": [
+        151,
+        165
+      ],
+      "summary": "Executa uma requisição auxiliar usada pelos testes da API.",
+      "tags": [
+        "teste",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/test/experience.routes.test.ts:request",
+      "type": "function",
+      "name": "request",
+      "filePath": "backend/test/experience.routes.test.ts",
+      "lineRange": [
+        62,
+        71
+      ],
+      "summary": "Executa uma requisição auxiliar usada pelos testes da API.",
+      "tags": [
+        "teste",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/test/game-systems.routes.test.ts:request",
+      "type": "function",
+      "name": "request",
+      "filePath": "backend/test/game-systems.routes.test.ts",
+      "lineRange": [
+        153,
+        165
+      ],
+      "summary": "Executa uma requisição auxiliar usada pelos testes da API.",
+      "tags": [
+        "teste",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/test/profile.routes.test.ts:request",
+      "type": "function",
+      "name": "request",
+      "filePath": "backend/test/profile.routes.test.ts",
+      "lineRange": [
+        77,
+        86
+      ],
+      "summary": "Executa uma requisição auxiliar usada pelos testes da API.",
+      "tags": [
+        "teste",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/test/social.routes.test.ts:request",
+      "type": "function",
+      "name": "request",
+      "filePath": "backend/test/social.routes.test.ts",
+      "lineRange": [
+        60,
+        73
+      ],
+      "summary": "Executa uma requisição auxiliar usada pelos testes da API.",
+      "tags": [
+        "teste",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/test/system-membership.routes.test.ts:request",
+      "type": "function",
+      "name": "request",
+      "filePath": "backend/test/system-membership.routes.test.ts",
+      "lineRange": [
+        50,
+        59
+      ],
+      "summary": "Executa uma requisição auxiliar usada pelos testes da API.",
+      "tags": [
+        "teste",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/test/trading.routes.test.ts:request",
+      "type": "function",
+      "name": "request",
+      "filePath": "backend/test/trading.routes.test.ts",
+      "lineRange": [
+        83,
+        92
+      ],
+      "summary": "Executa uma requisição auxiliar usada pelos testes da API.",
+      "tags": [
+        "teste",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/fastify-request.ts:handleFastifyRequest",
+      "type": "function",
+      "name": "handleFastifyRequest",
+      "filePath": "frontend/src/fastify-request.ts",
+      "lineRange": [
+        27,
+        55
+      ],
+      "summary": "Converte uma Request do Next.js para Fastify inject e traduz a resposta em Response.",
+      "tags": [
+        "api-handler",
+        "fastify"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "function:backend/src/create-app.ts:buildApp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "function:backend/src/create-app.ts:buildApp",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.repository.ts",
+      "target": "function:backend/src/modules/profile/profile.repository.ts:readProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.repository.ts",
+      "target": "function:backend/src/modules/profile/profile.repository.ts:readProfile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.repository.ts",
+      "target": "function:backend/src/modules/profile/profile.repository.ts:updateProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.repository.ts",
+      "target": "function:backend/src/modules/profile/profile.repository.ts:updateProfile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.repository.ts",
+      "target": "function:backend/src/modules/profile/profile.repository.ts:claimUsername",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.repository.ts",
+      "target": "function:backend/src/modules/profile/profile.repository.ts:claimUsername",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.routes.ts",
+      "target": "function:backend/src/modules/profile/profile.routes.ts:respondWithUsernameClaim",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.routes.ts",
+      "target": "function:backend/src/modules/profile/profile.routes.ts:profileRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.routes.ts",
+      "target": "function:backend/src/modules/profile/profile.routes.ts:profileRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/test/authenticate.test.ts",
+      "target": "function:backend/test/authenticate.test.ts:protectedApp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/test/daily-login.routes.test.ts",
+      "target": "function:backend/test/daily-login.routes.test.ts:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/test/experience.routes.test.ts",
+      "target": "function:backend/test/experience.routes.test.ts:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/test/game-systems.routes.test.ts",
+      "target": "function:backend/test/game-systems.routes.test.ts:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/test/profile.routes.test.ts",
+      "target": "function:backend/test/profile.routes.test.ts:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/test/social.routes.test.ts",
+      "target": "function:backend/test/social.routes.test.ts:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/test/system-membership.routes.test.ts",
+      "target": "function:backend/test/system-membership.routes.test.ts:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/test/trading.routes.test.ts",
+      "target": "function:backend/test/trading.routes.test.ts:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/fastify-request.ts",
+      "target": "function:frontend/src/fastify-request.ts:handleFastifyRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/fastify-request.ts",
+      "target": "function:frontend/src/fastify-request.ts:handleFastifyRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/src/register-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.repository.ts",
+      "target": "file:backend/src/modules/profile/profile.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.routes.ts",
+      "target": "file:backend/src/modules/profile/profile.repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.routes.ts",
+      "target": "file:backend/src/modules/profile/profile.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.routes.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/authenticate.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/authenticate.test.ts",
+      "target": "file:backend/src/plugins/authenticate.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/chats.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/daily-login.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/experience.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/game-systems.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/health.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/lobby-presence.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/lobby-settings.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/openapi.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/openapi.test.ts",
+      "target": "file:backend/src/modules/profile/profile.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/profile.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/profile.routes.test.ts",
+      "target": "file:backend/test/fixtures/profile.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/profile.schema.test.ts",
+      "target": "file:backend/src/modules/profile/profile.schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/profile.schema.test.ts",
+      "target": "file:backend/test/fixtures/profile.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/social.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/store.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/system-events.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/system-membership.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/test/trading.routes.test.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/api/[...path]/route.ts",
+      "target": "file:frontend/src/fastify-request.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/healthz/route.ts",
+      "target": "file:frontend/src/fastify-request.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/fastify-request.ts",
+      "target": "file:backend/src/create-app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/next-routes.test.ts",
+      "target": "file:frontend/app/api/[...path]/route.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/test/next-routes.test.ts",
+      "target": "file:frontend/app/healthz/route.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:backend/src/modules/profile/profile.routes.ts:profileRoutes",
+      "target": "function:backend/src/modules/profile/profile.repository.ts:readProfile",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:backend/src/modules/profile/profile.routes.ts:profileRoutes",
+      "target": "function:backend/src/modules/profile/profile.repository.ts:updateProfile",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:backend/src/modules/profile/profile.routes.ts:profileRoutes",
+      "target": "function:backend/src/modules/profile/profile.repository.ts:claimUsername",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/fastify-request.ts:handleFastifyRequest",
+      "target": "function:backend/src/create-app.ts:buildApp",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/authenticate.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/plugins/authenticate.ts",
+      "target": "file:backend/test/authenticate.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/chats.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/daily-login.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/experience.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/game-systems.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/health.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/lobby-presence.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/lobby-settings.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/openapi.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.schema.ts",
+      "target": "file:backend/test/openapi.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/profile.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/modules/profile/profile.schema.ts",
+      "target": "file:backend/test/profile.schema.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/social.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/store.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/system-events.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/system-membership.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/src/create-app.ts",
+      "target": "file:backend/test/trading.routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/app/api/[...path]/route.ts",
+      "target": "file:frontend/test/next-routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/app/healthz/route.ts",
+      "target": "file:frontend/test/next-routes.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

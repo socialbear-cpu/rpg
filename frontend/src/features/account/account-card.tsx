@@ -1,6 +1,6 @@
 'use client';
 
-import type { FormEventHandler } from 'react';
+import type { FormEventHandler, KeyboardEvent } from 'react';
 
 export type AccountMode = 'login' | 'signup';
 
@@ -45,21 +45,33 @@ export function AccountCard({
   onResetPassword,
   onLogout,
 }: AccountCardProps) {
+  function handleTabKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    let nextMode: AccountMode;
+    if (event.key === 'Home') nextMode = 'login';
+    else if (event.key === 'End') nextMode = 'signup';
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') nextMode = mode === 'login' ? 'signup' : 'login';
+    else return;
+
+    event.preventDefault();
+    onModeChange(nextMode);
+    event.currentTarget.querySelector<HTMLButtonElement>(`#tab-${nextMode}`)?.focus();
+  }
+
   return (
     <article className="card auth-card">
-      <div className="section-heading account-card-heading"><div><p className="eyebrow">{recovery ? 'RECUPERAÇÃO DE ACESSO' : mode === 'signup' ? 'COMECE SUA JORNADA' : 'BEM-VINDO DE VOLTA'}</p><h2>{recovery ? 'Nova senha' : mode === 'signup' ? 'Crie sua conta' : 'Entre no seu mundo'}</h2><p className="account-card-description">{recovery ? 'Escolha uma nova senha para sua conta.' : mode === 'signup' ? 'Crie sua conta e prepare sua próxima aventura.' : 'Acesse seus sistemas e continue de onde a aventura parou.'}</p></div>{authenticated && <span className="step">01</span>}</div>
-      {!recovery && <div className="tabs bifrost-tab-list--segment" role="tablist" aria-label="Acesso à conta">
-        <button className="tab bifrost-tab" id="tab-login" type="button" role="tab" aria-selected={mode === 'login'} aria-controls="panel-auth" onClick={() => onModeChange('login')}>Entrar</button>
-        <button className="tab bifrost-tab" id="tab-signup" type="button" role="tab" aria-selected={mode === 'signup'} aria-controls="panel-auth" onClick={() => onModeChange('signup')}>Criar conta</button>
+      <div className="section-heading account-card-heading"><div><p className="eyebrow">{recovery ? 'RECUPERAÇÃO DE ACESSO' : mode === 'signup' ? 'COMECE SUA JORNADA' : 'BEM-VINDO DE VOLTA'}</p><h2>{recovery ? 'Nova senha' : mode === 'signup' ? 'Comece sua aventura' : 'A mesa está pronta.'}</h2><p className="account-card-description">{recovery ? 'Escolha uma nova senha para sua conta.' : mode === 'signup' ? 'Crie personagens, reúna seu grupo e dê vida às suas histórias.' : 'Suas fichas, seus personagens e seus sistemas de RPG em um só lugar.'}</p></div>{authenticated && <span className="step">01</span>}</div>
+      {!recovery && <div className="tabs bifrost-tab-list--segment" role="tablist" aria-label="Acesso à conta" onKeyDown={handleTabKeyDown}>
+        <button className="tab bifrost-tab" id="tab-login" type="button" role="tab" aria-selected={mode === 'login'} aria-controls="panel-auth" tabIndex={mode === 'login' ? 0 : -1} onClick={() => onModeChange('login')}>Entrar</button>
+        <button className="tab bifrost-tab" id="tab-signup" type="button" role="tab" aria-selected={mode === 'signup'} aria-controls="panel-auth" tabIndex={mode === 'signup' ? 0 : -1} onClick={() => onModeChange('signup')}>Criar conta</button>
       </div>}
-      <div id="panel-auth">
-        {recovery ? <form className="form" autoComplete="off" onSubmit={onSubmitRecovery}>
+      <div id="panel-auth" role={recovery ? undefined : 'tabpanel'} aria-labelledby={recovery ? undefined : `tab-${mode}`} tabIndex={recovery ? undefined : 0}>
+        {recovery ? <form className="form" autoComplete="off" aria-busy={recoveryBusy} onSubmit={onSubmitRecovery}>
           <p className="card-copy">Defina uma nova senha para concluir a recuperação da conta.</p>
           <label>Nova senha<input value={newPassword} onChange={(event) => onNewPasswordChange(event.target.value)} type="password" minLength={6} autoComplete="new-password" required placeholder="Mínimo de 6 caracteres" /></label>
           <button className="button primary" type="submit" disabled={recoveryBusy}>{recoveryBusy ? 'Atualizando…' : 'Atualizar senha'}</button>
-        </form> : <form className="form" autoComplete="on" onSubmit={onSubmitAuth}>
+        </form> : <form className="form" autoComplete="on" aria-busy={authBusy} onSubmit={onSubmitAuth}>
           {mode === 'signup' && <label>Nome de exibição<input value={displayName} onChange={(event) => onDisplayNameChange(event.target.value)} type="text" maxLength={80} autoComplete="nickname" placeholder="Como devemos chamar você?" required /></label>}
-          <label>E-mail<input value={email} onChange={(event) => onEmailChange(event.target.value)} type="email" autoComplete="email" required placeholder="voce@exemplo.com" /></label>
+          <label>E-mail<input value={email} onChange={(event) => onEmailChange(event.target.value)} type="email" autoComplete="email" autoCapitalize="none" spellCheck={false} required placeholder="voce@exemplo.com" /></label>
           <label>Senha<input value={password} onChange={(event) => onPasswordChange(event.target.value)} type="password" minLength={6} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} required placeholder="Mínimo de 6 caracteres" /></label>
           <button className="button primary" type="submit" disabled={authBusy}>{authBusy ? (mode === 'signup' ? 'Criando…' : 'Entrando…') : mode === 'signup' ? 'Criar conta' : 'Entrar'}</button>
         </form>}

@@ -1,0 +1,2965 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/app/dashboard/systems/new/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/dashboard/systems/new/page.tsx",
+      "summary": "Página Next.js de rota protegida para iniciar a criação de um sistema, validando a sessão antes de abrir o assistente.",
+      "tags": [
+        "entry-point",
+        "next-route",
+        "system-creation",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/app/systems/[systemId]/home/[characterId]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/systems/[systemId]/home/[characterId]/page.tsx",
+      "summary": "Rota dinâmica que valida a sessão e encaminha o jogador para a página inicial do personagem no sistema selecionado.",
+      "tags": [
+        "entry-point",
+        "next-route",
+        "character-home",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/app/trading/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/app/trading/page.tsx",
+      "summary": "Rota Next.js que monta a área de trocas entre personagens.",
+      "tags": [
+        "entry-point",
+        "next-route",
+        "trading",
+        "route-composition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api.ts",
+      "type": "file",
+      "name": "api.ts",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Cliente central da API frontend: define contratos de dados e funções autenticadas para perfis, sistemas, chat, presença, progressão, trocas e loja.",
+      "tags": [
+        "api-client",
+        "http-requests",
+        "authentication",
+        "data-contracts",
+        "frontend-service"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "type": "file",
+      "name": "character-sheet-step-renderer.tsx",
+      "filePath": "frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "summary": "Renderiza etapas e componentes de fichas de personagem, incluindo opções de escolha e layouts visuais.",
+      "tags": [
+        "component",
+        "character-sheet",
+        "form-rendering",
+        "selection-ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/character-sheet/format-value.test.ts",
+      "type": "file",
+      "name": "format-value.test.ts",
+      "filePath": "frontend/src/features/character-sheet/format-value.test.ts",
+      "summary": "Testes da formatação de valores de componentes de ficha, com foco nas opções de seleção e nos valores ausentes.",
+      "tags": [
+        "test",
+        "character-sheet",
+        "formatting",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/character-sheet/format-value.ts",
+      "type": "file",
+      "name": "format-value.ts",
+      "filePath": "frontend/src/features/character-sheet/format-value.ts",
+      "summary": "Formata valores de componentes da ficha para exibição legível, incluindo rótulos de opções e valores vazios.",
+      "tags": [
+        "utility",
+        "character-sheet",
+        "formatting",
+        "display"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/app/dashboard/systems/new/page.tsx:NewSystemPage",
+      "type": "function",
+      "name": "NewSystemPage",
+      "filePath": "frontend/app/dashboard/systems/new/page.tsx",
+      "summary": "Função new system page, usada no fluxo de new.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        9,
+        20
+      ]
+    },
+    {
+      "id": "function:frontend/app/systems/[systemId]/home/[characterId]/page.tsx:SystemCharacterHomePage",
+      "type": "function",
+      "name": "SystemCharacterHomePage",
+      "filePath": "frontend/app/systems/[systemId]/home/[characterId]/page.tsx",
+      "summary": "Função system character home page, usada no fluxo de [characterId].",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        9,
+        11
+      ]
+    },
+    {
+      "id": "function:frontend/app/trading/page.tsx:PlayerTradingRoute",
+      "type": "function",
+      "name": "PlayerTradingRoute",
+      "filePath": "frontend/app/trading/page.tsx",
+      "summary": "Função player trading route, usada no fluxo de trading.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getPublicPlayerProfile",
+      "type": "function",
+      "name": "getPublicPlayerProfile",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de public player profile por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        30,
+        30
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getProfileComments",
+      "type": "function",
+      "name": "getProfileComments",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de profile comments por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        31,
+        31
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:postProfileComment",
+      "type": "function",
+      "name": "postProfileComment",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de profile comment por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        32,
+        32
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:deleteProfileComment",
+      "type": "function",
+      "name": "deleteProfileComment",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Remove dados de profile comment por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        33,
+        33
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getDirectMessages",
+      "type": "function",
+      "name": "getDirectMessages",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de direct messages por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        34,
+        34
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:sendDirectMessage",
+      "type": "function",
+      "name": "sendDirectMessage",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de direct message por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        35,
+        35
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:searchSocialProfiles",
+      "type": "function",
+      "name": "searchSocialProfiles",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de social profiles por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        36,
+        36
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getMyFriends",
+      "type": "function",
+      "name": "getMyFriends",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de my friends por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        37,
+        37
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getSocialInvitations",
+      "type": "function",
+      "name": "getSocialInvitations",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de social invitations por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        38,
+        38
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:sendFriendRequest",
+      "type": "function",
+      "name": "sendFriendRequest",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de friend request por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        39,
+        39
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:respondToFriendRequest",
+      "type": "function",
+      "name": "respondToFriendRequest",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de to friend request por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        40,
+        40
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:removeMyFriend",
+      "type": "function",
+      "name": "removeMyFriend",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Remove dados de my friend por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        41,
+        41
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:createSystemFriendInvitation",
+      "type": "function",
+      "name": "createSystemFriendInvitation",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de system friend invitation por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        42,
+        42
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:createChatFriendInvitation",
+      "type": "function",
+      "name": "createChatFriendInvitation",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de chat friend invitation por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        43,
+        43
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:respondToSocialInvitation",
+      "type": "function",
+      "name": "respondToSocialInvitation",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de to social invitation por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getMyAccountSettings",
+      "type": "function",
+      "name": "getMyAccountSettings",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de my account settings por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        78,
+        80
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:deactivateMyAccount",
+      "type": "function",
+      "name": "deactivateMyAccount",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de my account por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        82,
+        84
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:reactivateMyAccount",
+      "type": "function",
+      "name": "reactivateMyAccount",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de my account por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        86,
+        88
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:deleteMyAccount",
+      "type": "function",
+      "name": "deleteMyAccount",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Remove dados de my account por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        90,
+        92
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:requestSystemOwnerTransfer",
+      "type": "function",
+      "name": "requestSystemOwnerTransfer",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de system owner transfer por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        94,
+        99
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:acceptSystemOwnerTransfer",
+      "type": "function",
+      "name": "acceptSystemOwnerTransfer",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de system owner transfer por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        101,
+        103
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:cancelSystemOwnerTransfer",
+      "type": "function",
+      "name": "cancelSystemOwnerTransfer",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Remove dados de system owner transfer por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        105,
+        107
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getSystemLobbySettings",
+      "type": "function",
+      "name": "getSystemLobbySettings",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de system lobby settings por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        225,
+        227
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:updateSystemLobbySettings",
+      "type": "function",
+      "name": "updateSystemLobbySettings",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de system lobby settings por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        229,
+        233
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:startSystemEvent",
+      "type": "function",
+      "name": "startSystemEvent",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Executa dados de start system event por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        235,
+        237
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getSystemEvents",
+      "type": "function",
+      "name": "getSystemEvents",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de system events por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        239,
+        241
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:heartbeatSystemLobbyPresence",
+      "type": "function",
+      "name": "heartbeatSystemLobbyPresence",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Executa dados de heartbeat system lobby presence por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        243,
+        245
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:createSystemEvent",
+      "type": "function",
+      "name": "createSystemEvent",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de system event por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        247,
+        251
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:updateSystemEvent",
+      "type": "function",
+      "name": "updateSystemEvent",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de system event por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        253,
+        257
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:deleteSystemEvent",
+      "type": "function",
+      "name": "deleteSystemEvent",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Remove dados de system event por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        259,
+        261
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:createSystemChat",
+      "type": "function",
+      "name": "createSystemChat",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de system chat por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        296,
+        301
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getCharacterChats",
+      "type": "function",
+      "name": "getCharacterChats",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de character chats por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        311,
+        315
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getCharacterChatMessages",
+      "type": "function",
+      "name": "getCharacterChatMessages",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de character chat messages por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        317,
+        321
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:sendCharacterChatMessage",
+      "type": "function",
+      "name": "sendCharacterChatMessage",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de character chat message por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        323,
+        328
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:takeDailyLoginPopup",
+      "type": "function",
+      "name": "takeDailyLoginPopup",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de daily login popup por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        489,
+        493
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getMySystemMemberships",
+      "type": "function",
+      "name": "getMySystemMemberships",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de my system memberships por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        612,
+        614
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:searchSystemMembersByCharacterName",
+      "type": "function",
+      "name": "searchSystemMembersByCharacterName",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de system members by character name por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        616,
+        621
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:setSystemModerator",
+      "type": "function",
+      "name": "setSystemModerator",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de system moderator por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        623,
+        628
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getMyNotifications",
+      "type": "function",
+      "name": "getMyNotifications",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de my notifications por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        630,
+        633
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:markNotificationRead",
+      "type": "function",
+      "name": "markNotificationRead",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de notification read por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        635,
+        640
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:publishSystemAnnouncement",
+      "type": "function",
+      "name": "publishSystemAnnouncement",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de system announcement por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        642,
+        647
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:checkHealth",
+      "type": "function",
+      "name": "checkHealth",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de health por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        649,
+        653
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getMyProfile",
+      "type": "function",
+      "name": "getMyProfile",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de my profile por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        655,
+        657
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getGameSystems",
+      "type": "function",
+      "name": "getGameSystems",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de game systems por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        659,
+        662
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:createGameSystem",
+      "type": "function",
+      "name": "createGameSystem",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de game system por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        664,
+        668
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getGameSystemTagOptions",
+      "type": "function",
+      "name": "getGameSystemTagOptions",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de game system tag options por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        670,
+        672
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:updateGameSystem",
+      "type": "function",
+      "name": "updateGameSystem",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de game system por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        674,
+        678
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:updateGameSystemLifecycle",
+      "type": "function",
+      "name": "updateGameSystemLifecycle",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de game system lifecycle por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        680,
+        685
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:deleteGameSystem",
+      "type": "function",
+      "name": "deleteGameSystem",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Remove dados de game system por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        687,
+        691
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getGameSystemCoverUrl",
+      "type": "function",
+      "name": "getGameSystemCoverUrl",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de game system cover url por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        693,
+        697
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:uploadGameSystemCover",
+      "type": "function",
+      "name": "uploadGameSystemCover",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de game system cover por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        699,
+        727
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:deleteGameSystemCover",
+      "type": "function",
+      "name": "deleteGameSystemCover",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Remove dados de game system cover por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        729,
+        746
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getCharacterSheet",
+      "type": "function",
+      "name": "getCharacterSheet",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de character sheet por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        748,
+        752
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:updateGameSystemCharacterSheet",
+      "type": "function",
+      "name": "updateGameSystemCharacterSheet",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de game system character sheet por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        754,
+        759
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getSystemCharacters",
+      "type": "function",
+      "name": "getSystemCharacters",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de system characters por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        761,
+        765
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:requestSystemAccess",
+      "type": "function",
+      "name": "requestSystemAccess",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de system access por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        767,
+        772
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:createSystemCharacter",
+      "type": "function",
+      "name": "createSystemCharacter",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de system character por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        774,
+        779
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:updateMyProfile",
+      "type": "function",
+      "name": "updateMyProfile",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de my profile por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        781,
+        787
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getMyDailyLoginSystems",
+      "type": "function",
+      "name": "getMyDailyLoginSystems",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de my daily login systems por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        789,
+        791
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getTradeCharacters",
+      "type": "function",
+      "name": "getTradeCharacters",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de trade characters por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        793,
+        797
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getTradeCharacterInventory",
+      "type": "function",
+      "name": "getTradeCharacterInventory",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de trade character inventory por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        799,
+        803
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getMyCharacterInventory",
+      "type": "function",
+      "name": "getMyCharacterInventory",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de my character inventory por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        805,
+        809
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getTradeOffers",
+      "type": "function",
+      "name": "getTradeOffers",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de trade offers por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        811,
+        814
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:createTradeOffer",
+      "type": "function",
+      "name": "createTradeOffer",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de trade offer por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        816,
+        820
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:respondToTradeOffer",
+      "type": "function",
+      "name": "respondToTradeOffer",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de to trade offer por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        822,
+        826
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:counterTradeOffer",
+      "type": "function",
+      "name": "counterTradeOffer",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de trade offer por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        828,
+        832
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:cancelTradeOffer",
+      "type": "function",
+      "name": "cancelTradeOffer",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Remove dados de trade offer por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        834,
+        838
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getDailyLoginSystem",
+      "type": "function",
+      "name": "getDailyLoginSystem",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de daily login system por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        840,
+        844
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:claimDailyLoginReward",
+      "type": "function",
+      "name": "claimDailyLoginReward",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de daily login reward por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        846,
+        851
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getOwnerDailyLoginCalendar",
+      "type": "function",
+      "name": "getOwnerDailyLoginCalendar",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de owner daily login calendar por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        853,
+        857
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:saveOwnerDailyLoginCalendar",
+      "type": "function",
+      "name": "saveOwnerDailyLoginCalendar",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de owner daily login calendar por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        859,
+        864
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getOwnerExperienceSettings",
+      "type": "function",
+      "name": "getOwnerExperienceSettings",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de owner experience settings por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        866,
+        870
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:saveOwnerExperienceSettings",
+      "type": "function",
+      "name": "saveOwnerExperienceSettings",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de owner experience settings por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        872,
+        877
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getCharacterExperience",
+      "type": "function",
+      "name": "getCharacterExperience",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de character experience por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        879,
+        883
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:authenticatedRequest",
+      "type": "function",
+      "name": "authenticatedRequest",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Executa dados de authenticated request por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        889,
+        903
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getOwnerStore",
+      "type": "function",
+      "name": "getOwnerStore",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de owner store por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        949,
+        951
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:createOwnerStoreItem",
+      "type": "function",
+      "name": "createOwnerStoreItem",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Envia ou cria dados de owner store item por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        952,
+        956
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:saveOwnerStore",
+      "type": "function",
+      "name": "saveOwnerStore",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de owner store por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        957,
+        961
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:updateOwnerStoreCurrencyField",
+      "type": "function",
+      "name": "updateOwnerStoreCurrencyField",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de owner store currency field por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        962,
+        966
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:updateOwnerStoreOfferField",
+      "type": "function",
+      "name": "updateOwnerStoreOfferField",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Atualiza ou processa dados de owner store offer field por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        967,
+        971
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:getCharacterStore",
+      "type": "function",
+      "name": "getCharacterStore",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Consulta dados de character store por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        972,
+        974
+      ]
+    },
+    {
+      "id": "function:frontend/src/api.ts:purchaseStoreOffer",
+      "type": "function",
+      "name": "purchaseStoreOffer",
+      "filePath": "frontend/src/api.ts",
+      "summary": "Executa dados de purchase store offer por meio do cliente autenticado da API.",
+      "tags": [
+        "api-client",
+        "request",
+        "frontend-service"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        975,
+        980
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx:optionLayout",
+      "type": "function",
+      "name": "optionLayout",
+      "filePath": "frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "summary": "Função option layout, usada no fluxo de character sheet.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        6,
+        18
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx:CanvasChoiceOptions",
+      "type": "function",
+      "name": "CanvasChoiceOptions",
+      "filePath": "frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "summary": "Componente canvas choice options, usada no fluxo de character sheet.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        24,
+        57
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx:CharacterSheetField",
+      "type": "function",
+      "name": "CharacterSheetField",
+      "filePath": "frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "summary": "Componente character sheet field, usada no fluxo de character sheet.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        59,
+        98
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx:CharacterSheetStepRenderer",
+      "type": "function",
+      "name": "CharacterSheetStepRenderer",
+      "filePath": "frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "summary": "Componente character sheet step renderer, usada no fluxo de character sheet.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        100,
+        142
+      ]
+    },
+    {
+      "id": "function:frontend/src/features/character-sheet/format-value.ts:formatCharacterSheetValue",
+      "type": "function",
+      "name": "formatCharacterSheetValue",
+      "filePath": "frontend/src/features/character-sheet/format-value.ts",
+      "summary": "Função format character sheet value, usada no fluxo de character sheet.",
+      "tags": [
+        "typescript",
+        "frontend",
+        "component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        3,
+        14
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/app/dashboard/systems/new/page.tsx",
+      "target": "function:frontend/app/dashboard/systems/new/page.tsx:NewSystemPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/dashboard/systems/new/page.tsx",
+      "target": "function:frontend/app/dashboard/systems/new/page.tsx:NewSystemPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/home/[characterId]/page.tsx",
+      "target": "function:frontend/app/systems/[systemId]/home/[characterId]/page.tsx:SystemCharacterHomePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/home/[characterId]/page.tsx",
+      "target": "function:frontend/app/systems/[systemId]/home/[characterId]/page.tsx:SystemCharacterHomePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/app/trading/page.tsx",
+      "target": "function:frontend/app/trading/page.tsx:PlayerTradingRoute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/trading/page.tsx",
+      "target": "function:frontend/app/trading/page.tsx:PlayerTradingRoute",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getPublicPlayerProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getPublicPlayerProfile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getProfileComments",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getProfileComments",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:postProfileComment",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:postProfileComment",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteProfileComment",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteProfileComment",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getDirectMessages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getDirectMessages",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:sendDirectMessage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:sendDirectMessage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:searchSocialProfiles",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:searchSocialProfiles",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyFriends",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyFriends",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getSocialInvitations",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getSocialInvitations",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:sendFriendRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:sendFriendRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:respondToFriendRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:respondToFriendRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:removeMyFriend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:removeMyFriend",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createSystemFriendInvitation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createSystemFriendInvitation",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createChatFriendInvitation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createChatFriendInvitation",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:respondToSocialInvitation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:respondToSocialInvitation",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyAccountSettings",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyAccountSettings",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deactivateMyAccount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deactivateMyAccount",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:reactivateMyAccount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:reactivateMyAccount",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteMyAccount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteMyAccount",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:requestSystemOwnerTransfer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:requestSystemOwnerTransfer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:acceptSystemOwnerTransfer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:acceptSystemOwnerTransfer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:cancelSystemOwnerTransfer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:cancelSystemOwnerTransfer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getSystemLobbySettings",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getSystemLobbySettings",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateSystemLobbySettings",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateSystemLobbySettings",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:startSystemEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:startSystemEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getSystemEvents",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getSystemEvents",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:heartbeatSystemLobbyPresence",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:heartbeatSystemLobbyPresence",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createSystemEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createSystemEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateSystemEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateSystemEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteSystemEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteSystemEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createSystemChat",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createSystemChat",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterChats",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterChats",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterChatMessages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterChatMessages",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:sendCharacterChatMessage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:sendCharacterChatMessage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:takeDailyLoginPopup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:takeDailyLoginPopup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMySystemMemberships",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMySystemMemberships",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:searchSystemMembersByCharacterName",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:searchSystemMembersByCharacterName",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:setSystemModerator",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:setSystemModerator",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyNotifications",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyNotifications",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:markNotificationRead",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:markNotificationRead",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:publishSystemAnnouncement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:publishSystemAnnouncement",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:checkHealth",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:checkHealth",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyProfile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getGameSystems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getGameSystems",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createGameSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createGameSystem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getGameSystemTagOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getGameSystemTagOptions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateGameSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateGameSystem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateGameSystemLifecycle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateGameSystemLifecycle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteGameSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteGameSystem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getGameSystemCoverUrl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getGameSystemCoverUrl",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:uploadGameSystemCover",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:uploadGameSystemCover",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteGameSystemCover",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:deleteGameSystemCover",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterSheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterSheet",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateGameSystemCharacterSheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateGameSystemCharacterSheet",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getSystemCharacters",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getSystemCharacters",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:requestSystemAccess",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:requestSystemAccess",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createSystemCharacter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createSystemCharacter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateMyProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateMyProfile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyDailyLoginSystems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyDailyLoginSystems",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getTradeCharacters",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getTradeCharacters",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getTradeCharacterInventory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getTradeCharacterInventory",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyCharacterInventory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getMyCharacterInventory",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getTradeOffers",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getTradeOffers",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createTradeOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createTradeOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:respondToTradeOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:respondToTradeOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:counterTradeOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:counterTradeOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:cancelTradeOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:cancelTradeOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getDailyLoginSystem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getDailyLoginSystem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:claimDailyLoginReward",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:claimDailyLoginReward",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getOwnerDailyLoginCalendar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getOwnerDailyLoginCalendar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:saveOwnerDailyLoginCalendar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:saveOwnerDailyLoginCalendar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getOwnerExperienceSettings",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getOwnerExperienceSettings",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:saveOwnerExperienceSettings",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:saveOwnerExperienceSettings",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterExperience",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterExperience",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:authenticatedRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getOwnerStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getOwnerStore",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createOwnerStoreItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:createOwnerStoreItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:saveOwnerStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:saveOwnerStore",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateOwnerStoreCurrencyField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateOwnerStoreCurrencyField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateOwnerStoreOfferField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:updateOwnerStoreOfferField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:getCharacterStore",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:purchaseStoreOffer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "function:frontend/src/api.ts:purchaseStoreOffer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "target": "function:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx:optionLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "target": "function:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx:CanvasChoiceOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "target": "function:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx:CharacterSheetField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "target": "function:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx:CharacterSheetStepRenderer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "target": "function:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx:CharacterSheetStepRenderer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/format-value.ts",
+      "target": "function:frontend/src/features/character-sheet/format-value.ts:formatCharacterSheetValue",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/format-value.ts",
+      "target": "function:frontend/src/features/character-sheet/format-value.ts:formatCharacterSheetValue",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/app/dashboard/systems/new/page.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/dashboard/systems/new/page.tsx",
+      "target": "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/dashboard/systems/new/page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/home/[characterId]/page.tsx",
+      "target": "file:frontend/src/features/characters/character-home-page.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/systems/[systemId]/home/[characterId]/page.tsx",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/trading/page.tsx",
+      "target": "file:frontend/src/features/trading/trading-page.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "file:frontend/src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "file:frontend/src/supabase-auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/character-sheet-step-renderer.tsx",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/format-value.test.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/format-value.test.ts",
+      "target": "file:frontend/src/features/character-sheet/format-value.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/format-value.ts",
+      "target": "file:frontend/src/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api.ts",
+      "target": "file:frontend/src/features/character-sheet/format-value.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/character-sheet/format-value.ts",
+      "target": "file:frontend/src/features/character-sheet/format-value.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

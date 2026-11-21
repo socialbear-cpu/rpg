@@ -1,0 +1,111 @@
+[
+  {
+    "order": 1,
+    "title": "Visão geral",
+    "description": "Comece pela documentação do backend para entender o produto, os workspaces e como a API Fastify se integra ao frontend Next.js e ao Supabase. O manifesto da raiz mostra os comandos que coordenam desenvolvimento, build, testes e verificação de tipos.",
+    "nodeIds": [
+      "document:backend/README.md",
+      "config:package.json"
+    ]
+  },
+  {
+    "order": 2,
+    "title": "Inicialização da aplicação",
+    "description": "A partir dessa estrutura, o servidor de desenvolvimento carrega a configuração e monta o Fastify por meio do registro central de plugins e rotas. Em produção, a rota dinâmica do Next.js encaminha as requisições para a mesma aplicação, conectando os dois workspaces no deploy.",
+    "nodeIds": [
+      "file:backend/src/server.ts",
+      "file:backend/src/create-app.ts",
+      "file:backend/src/register-app.ts",
+      "file:frontend/app/api/[...path]/route.ts"
+    ]
+  },
+  {
+    "order": 3,
+    "title": "Autenticação de ponta a ponta",
+    "description": "Com o fluxo de requisições em mente, acompanhe a sessão do usuário no cliente e a validação do bearer token no backend. A API associa o token a um cliente Supabase autenticado, permitindo que as rotas apliquem as regras de acesso no contexto de quem fez a chamada.",
+    "nodeIds": [
+      "file:frontend/src/supabase-auth.ts",
+      "file:backend/src/plugins/authenticate.ts",
+      "file:backend/src/authenticate-user.ts",
+      "file:backend/src/clients/supabase.ts"
+    ]
+  },
+  {
+    "order": 4,
+    "title": "Cliente web e API",
+    "description": "O layout raiz do Next.js define a estrutura compartilhada da interface e seu idioma pt-BR. A partir das telas, o cliente central da API concentra contratos e chamadas autenticadas para perfis, sistemas, conversas, progressão, trocas e loja.",
+    "nodeIds": [
+      "file:frontend/app/layout.tsx",
+      "file:frontend/src/api.ts"
+    ]
+  },
+  {
+    "order": 5,
+    "title": "Domínio dos sistemas",
+    "description": "Os sistemas de jogo são um eixo central do produto: suas rotas expõem operações de ciclo de vida, membros, personagens e fichas. O repositório coordena a persistência, enquanto os schemas validam os formatos aceitos pela API e a política de acesso mantém as respostas de autorização consistentes.",
+    "nodeIds": [
+      "file:backend/src/modules/game-systems/game-systems.routes.ts",
+      "file:backend/src/modules/game-systems/game-systems.repository.ts",
+      "file:backend/src/modules/game-systems/game-systems.schema.ts",
+      "file:backend/src/modules/game-systems/system-access.ts"
+    ],
+    "languageLesson": "No TypeScript, schemas Zod transformam dados externos em contratos validados antes de chegarem às regras de domínio. Isso mantém validação de entrada e tipos usados pela API alinhados."
+  },
+  {
+    "order": 6,
+    "title": "Criação de fichas",
+    "description": "Na interface, a criação de sistemas combina um fluxo em etapas com um editor visual de fichas. O modelo compartilhado concentra operações de ordenação, conversão e validação, enquanto os componentes React apresentam essas opções para quem administra o sistema.",
+    "nodeIds": [
+      "file:frontend/src/features/system-creation/system-creation-wizard.tsx",
+      "file:frontend/src/features/system-creation/character-sheet-builder.tsx",
+      "file:frontend/src/features/system-creation/system-sheet-editor.tsx",
+      "file:frontend/src/features/system-creation/sheet-model.ts"
+    ],
+    "languageLesson": "Em React, componentes menores podem separar a apresentação de cada etapa das regras do modelo. Manter transformações puras no módulo de modelo facilita reutilizá-las e testá-las sem depender da interface."
+  },
+  {
+    "order": 7,
+    "title": "Modelo relacional",
+    "description": "O banco organiza contas, perfis, sistemas e personagens em tabelas relacionadas; a documentação do esquema descreve esses domínios e aponta as migrações como definição canônica. Observe como os registros de sistema e personagem dão suporte às operações da API apresentadas nas etapas anteriores.",
+    "nodeIds": [
+      "document:database/schema/README.md",
+      "table:database/migrations/001_initial_schema.sql:users",
+      "table:database/migrations/001_initial_schema.sql:game_systems",
+      "table:database/migrations/001_initial_schema.sql:characters"
+    ]
+  },
+  {
+    "order": 8,
+    "title": "Segurança e migrações",
+    "description": "O Supabase configura os serviços locais e a aplicação usa migrações para evoluir autenticação e permissões. As políticas de Row Level Security restringem o acesso aos dados de perfil, enquanto as regras de autenticação devem ser lidas junto com o documento que distingue o comportamento implementado de recomendações futuras.",
+    "nodeIds": [
+      "config:supabase/config.toml",
+      "table:supabase/migrations/004_profile_rls.sql:migration",
+      "table:supabase/migrations/005_daily_login_rewards.sql:migration",
+      "document:AUTH_AND_STACK.md"
+    ],
+    "languageLesson": "Row Level Security (RLS) aplica políticas diretamente no banco para limitar quais linhas uma sessão pode ler ou alterar. Uma API autenticada ainda precisa encaminhar o contexto do usuário para que essas políticas sejam avaliadas corretamente."
+  },
+  {
+    "order": 9,
+    "title": "Testes e contratos",
+    "description": "Depois de percorrer as camadas, veja como o projeto verifica seus contratos: testes do backend cobrem autenticação e schemas de sistemas, enquanto testes SQL exercitam isolamento e permissões no banco. Os testes do frontend também conferem a configuração que conecta as variáveis Supabase do Vercel ao cliente Next.js.",
+    "nodeIds": [
+      "file:backend/test/authenticate.test.ts",
+      "file:backend/test/game-systems.schema.test.ts",
+      "table:supabase/tests/004_profile_rls.test.sql:test_suite",
+      "file:frontend/test/next-config-env.test.ts"
+    ]
+  },
+  {
+    "order": 10,
+    "title": "Execução e publicação",
+    "description": "Para fechar o percurso, a documentação do frontend explica configuração e publicação, e a configuração do Vercel aponta o serviço Next.js para o diretório correto. Os manifestos dos workspaces registram os comandos de build e execução que sustentam esse caminho de desenvolvimento até a produção.",
+    "nodeIds": [
+      "document:frontend/README.md",
+      "config:vercel.json",
+      "config:frontend/package.json",
+      "config:backend/package.json"
+    ]
+  }
+]

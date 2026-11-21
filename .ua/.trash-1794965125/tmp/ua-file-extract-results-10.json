@@ -1,0 +1,1567 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 44,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 44,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 44
+    }
+  },
+  "results": [
+    {
+      "path": "supabase/migrations/001_initial_schema.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 247,
+      "nonEmptyLines": 225,
+      "definitions": [
+        {
+          "name": "users",
+          "kind": "table",
+          "fields": [
+            "id",
+            "email",
+            "password_hash",
+            "is_active",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 6,
+          "endLine": 13
+        },
+        {
+          "name": "user_profiles",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "display_name",
+            "avatar_url",
+            "bio",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 16,
+          "endLine": 23
+        },
+        {
+          "name": "game_systems",
+          "kind": "table",
+          "fields": [
+            "id",
+            "slug",
+            "name",
+            "description",
+            "is_active",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 25,
+          "endLine": 33
+        },
+        {
+          "name": "characters",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "game_system_id",
+            "name",
+            "status",
+            "attributes",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 35,
+          "endLine": 46
+        },
+        {
+          "name": "character_info",
+          "kind": "table",
+          "fields": [
+            "character_id",
+            "biography",
+            "appearance",
+            "notes",
+            "sheet_data",
+            "updated_at"
+          ],
+          "startLine": 51,
+          "endLine": 58
+        },
+        {
+          "name": "abilities",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "slug",
+            "name",
+            "description",
+            "ability_type",
+            "rules_data",
+            "created_at"
+          ],
+          "startLine": 60,
+          "endLine": 71
+        },
+        {
+          "name": "items",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "slug",
+            "name",
+            "description",
+            "item_type",
+            "grants_ability_id",
+            "rules_data",
+            "created_at"
+          ],
+          "startLine": 73,
+          "endLine": 87
+        },
+        {
+          "name": "achievements",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "slug",
+            "name",
+            "description",
+            "icon_url",
+            "criteria",
+            "created_at"
+          ],
+          "startLine": 89,
+          "endLine": 98
+        },
+        {
+          "name": "user_achievements",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "achievement_id",
+            "earned_at"
+          ],
+          "startLine": 104,
+          "endLine": 109
+        },
+        {
+          "name": "character_achievements",
+          "kind": "table",
+          "fields": [
+            "character_id",
+            "achievement_id",
+            "earned_at"
+          ],
+          "startLine": 111,
+          "endLine": 116
+        },
+        {
+          "name": "character_abilities",
+          "kind": "table",
+          "fields": [
+            "character_id",
+            "ability_id",
+            "acquired_at",
+            "source"
+          ],
+          "startLine": 118,
+          "endLine": 124
+        },
+        {
+          "name": "character_inventory",
+          "kind": "table",
+          "fields": [
+            "character_id",
+            "item_id",
+            "quantity",
+            "metadata",
+            "acquired_at"
+          ],
+          "startLine": 126,
+          "endLine": 133
+        },
+        {
+          "name": "products",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "item_id",
+            "ability_id",
+            "created_at"
+          ],
+          "startLine": 137,
+          "endLine": 149
+        },
+        {
+          "name": "store_products",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "product_id",
+            "price",
+            "currency_code",
+            "stock_quantity",
+            "is_available",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 151,
+          "endLine": 164
+        },
+        {
+          "name": "purchases",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "game_system_id",
+            "character_id",
+            "status",
+            "total_amount",
+            "currency_code",
+            "purchased_at"
+          ],
+          "startLine": 166,
+          "endLine": 179
+        },
+        {
+          "name": "purchase_items",
+          "kind": "table",
+          "fields": [
+            "id",
+            "purchase_id",
+            "store_product_id",
+            "game_system_id",
+            "quantity",
+            "unit_price",
+            "product_name",
+            "created_at"
+          ],
+          "startLine": 182,
+          "endLine": 195
+        },
+        {
+          "name": "campaigns",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "owner_user_id",
+            "name",
+            "description",
+            "status",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 198,
+          "endLine": 209
+        },
+        {
+          "name": "campaign_members",
+          "kind": "table",
+          "fields": [
+            "campaign_id",
+            "character_id",
+            "game_system_id",
+            "role",
+            "joined_at"
+          ],
+          "startLine": 211,
+          "endLine": 223
+        },
+        {
+          "name": "chat_rooms",
+          "kind": "table",
+          "fields": [
+            "id",
+            "campaign_id",
+            "name",
+            "created_at"
+          ],
+          "startLine": 225,
+          "endLine": 231
+        },
+        {
+          "name": "messages",
+          "kind": "table",
+          "fields": [
+            "id",
+            "room_id",
+            "campaign_id",
+            "character_id",
+            "content",
+            "created_at"
+          ],
+          "startLine": 233,
+          "endLine": 244
+        },
+        {
+          "name": "users_email_lower_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 14,
+          "endLine": 14
+        },
+        {
+          "name": "characters_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 47,
+          "endLine": 47
+        },
+        {
+          "name": "characters_system_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 48,
+          "endLine": 48
+        },
+        {
+          "name": "achievements_system_slug_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 99,
+          "endLine": 99
+        },
+        {
+          "name": "achievements_global_slug_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 101,
+          "endLine": 101
+        },
+        {
+          "name": "purchases_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 180,
+          "endLine": 180
+        },
+        {
+          "name": "purchase_items_purchase_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 196,
+          "endLine": 196
+        },
+        {
+          "name": "messages_room_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 245,
+          "endLine": 245
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 28
+      }
+    },
+    {
+      "path": "supabase/migrations/002_character_fields.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 16,
+      "nonEmptyLines": 12,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/003_supabase_auth.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 77,
+      "nonEmptyLines": 67,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/004_profile_rls.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 42,
+      "nonEmptyLines": 35,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/005_daily_login_rewards.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 410,
+      "nonEmptyLines": 363,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "game_system_id",
+            "weekday",
+            "item_id",
+            "quantity",
+            "updated_at"
+          ],
+          "startLine": 43,
+          "endLine": 52
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "game_system_id",
+            "character_id",
+            "item_id",
+            "item_name_snapshot",
+            "quantity",
+            "weekday",
+            "local_claim_date",
+            "timezone_name",
+            "claimed_at"
+          ],
+          "startLine": 54,
+          "endLine": 71
+        },
+        {
+          "name": "daily_login_claims_system_date_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 73,
+          "endLine": 73
+        },
+        {
+          "name": "daily_login_claims_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 75,
+          "endLine": 75
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 4
+      }
+    },
+    {
+      "path": "supabase/migrations/006_user_hierarchy.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 329,
+      "nonEmptyLines": 299,
+      "definitions": [
+        {
+          "name": "private",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "granted_at",
+            "granted_by"
+          ],
+          "startLine": 7,
+          "endLine": 11
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "game_system_id",
+            "role",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 14,
+          "endLine": 21
+        },
+        {
+          "name": "game_system_memberships_system_role_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 22,
+          "endLine": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    },
+    {
+      "path": "supabase/migrations/007_system_hierarchy_rls.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 270,
+      "nonEmptyLines": 252,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/008_daily_login_popup.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 37,
+      "nonEmptyLines": 33,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "viewed_on"
+          ],
+          "startLine": 3,
+          "endLine": 6
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/20261111014645_notifications.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 209,
+      "nonEmptyLines": 184,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "recipient_user_id",
+            "game_system_id",
+            "type",
+            "payload",
+            "read_at",
+            "created_at"
+          ],
+          "startLine": 4,
+          "endLine": 12
+        },
+        {
+          "name": "notifications_recipient_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 14,
+          "endLine": 14
+        },
+        {
+          "name": "notifications_unread_recipient_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 16,
+          "endLine": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    },
+    {
+      "path": "supabase/migrations/20261111021246_daily_login_popup_per_system.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 49,
+      "nonEmptyLines": 45,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "game_system_id",
+            "viewed_on"
+          ],
+          "startLine": 4,
+          "endLine": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/20261111181232_character_experience.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 508,
+      "nonEmptyLines": 471,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "game_system_id",
+            "xp_per_level",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 6,
+          "endLine": 12
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "source_type",
+            "name",
+            "award_amount",
+            "is_enabled",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 14,
+          "endLine": 25
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "character_id",
+            "source_id",
+            "source_type_snapshot",
+            "source_name_snapshot",
+            "event_key",
+            "amount",
+            "created_at"
+          ],
+          "startLine": 33,
+          "endLine": 48
+        },
+        {
+          "name": "game_system_xp_sources_builtin_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 26,
+          "endLine": 26
+        },
+        {
+          "name": "game_system_xp_sources_custom_name_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 29,
+          "endLine": 29
+        },
+        {
+          "name": "character_xp_ledger_character_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 49,
+          "endLine": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 6
+      }
+    },
+    {
+      "path": "supabase/migrations/20261111190000_character_item_trading.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 843,
+      "nonEmptyLines": 786,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "sender_user_id",
+            "recipient_user_id",
+            "sender_character_id",
+            "recipient_character_id",
+            "countered_from_offer_id",
+            "status",
+            "created_at",
+            "expires_at",
+            "responded_at"
+          ],
+          "startLine": 16,
+          "endLine": 37
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "offer_id",
+            "game_system_id",
+            "side",
+            "stack_id",
+            "item_id",
+            "item_name_snapshot",
+            "quantity",
+            "metadata_snapshot",
+            "created_at"
+          ],
+          "startLine": 46,
+          "endLine": 62
+        },
+        {
+          "name": "character_inventory_character_item_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 13,
+          "endLine": 13
+        },
+        {
+          "name": "trade_offers_countered_from_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 38,
+          "endLine": 38
+        },
+        {
+          "name": "trade_offers_incoming_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 41,
+          "endLine": 41
+        },
+        {
+          "name": "trade_offers_sent_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 43,
+          "endLine": 43
+        },
+        {
+          "name": "trade_offer_lines_offer_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 63,
+          "endLine": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 7
+      }
+    },
+    {
+      "path": "supabase/migrations/20261111200000_system_character_sheets.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 194,
+      "nonEmptyLines": 170,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "game_system_id",
+            "fields",
+            "created_at"
+          ],
+          "startLine": 4,
+          "endLine": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/20261112183000_profile_usernames.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 42,
+      "nonEmptyLines": 34,
+      "definitions": [
+        {
+          "name": "user_profiles_username_lower_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 16,
+          "endLine": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/20261112193504_visual_character_sheet.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 330,
+      "nonEmptyLines": 301,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261112210000_system_store_economy.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 398,
+      "nonEmptyLines": 363,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "character_id",
+            "game_system_id",
+            "balance"
+          ],
+          "startLine": 11,
+          "endLine": 17
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "character_id",
+            "game_system_id",
+            "amount",
+            "balance_after",
+            "source_type",
+            "source_id",
+            "currency_name_snapshot",
+            "item_id_snapshot",
+            "item_name_snapshot",
+            "created_at"
+          ],
+          "startLine": 18,
+          "endLine": 32
+        },
+        {
+          "name": "character_currency_ledger_character_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 33,
+          "endLine": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    },
+    {
+      "path": "supabase/migrations/20261112223000_character_sheet_visual_elements.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 151,
+      "nonEmptyLines": 136,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261112224500_character_sheet_choices_and_conditions.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 253,
+      "nonEmptyLines": 231,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261113220000_game_system_visibility_password.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 191,
+      "nonEmptyLines": 174,
+      "definitions": [
+        {
+          "name": "private",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "game_system_id",
+            "window_started_at",
+            "failure_count"
+          ],
+          "startLine": 13,
+          "endLine": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/20261113221000_system_password_access_enforcement.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 549,
+      "nonEmptyLines": 518,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261114001000_system_discovery_metadata.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 343,
+      "nonEmptyLines": 322,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "slug",
+            "label",
+            "sort_order",
+            "is_active"
+          ],
+          "startLine": 3,
+          "endLine": 8
+        },
+        {
+          "name": "game_systems_tags_gin_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 51,
+          "endLine": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "supabase/migrations/20261114144818_system_lifecycle.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 97,
+      "nonEmptyLines": 90,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261114145224_fix_system_tag_labels.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 31,
+      "nonEmptyLines": 23,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261114151644_require_email_confirmation_for_system_deletion.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 51,
+      "nonEmptyLines": 48,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261114210354_system_member_character_search.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 77,
+      "nonEmptyLines": 71,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261114215315_atomic_system_store_update.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 139,
+      "nonEmptyLines": 131,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261114223717_system_events.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 41,
+      "nonEmptyLines": 37,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "title",
+            "description",
+            "starts_at",
+            "ends_at",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 3,
+          "endLine": 15
+        },
+        {
+          "name": "game_system_events_system_start_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 16,
+          "endLine": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "supabase/migrations/20261114232728_campaign_chat_room_authorization.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 27,
+      "nonEmptyLines": 24,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261115013118_lobby_creator_tools.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 169,
+      "nonEmptyLines": 152,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "game_system_id",
+            "section_order",
+            "hidden_sections",
+            "welcome_title",
+            "welcome_message",
+            "accent_color",
+            "updated_at"
+          ],
+          "startLine": 120,
+          "endLine": 152
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/20261115120000_store_item_images.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 9,
+      "nonEmptyLines": 9,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261115125424_store_currency_and_offer_autosave.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 149,
+      "nonEmptyLines": 139,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261115140000_chats_as_game_space.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 336,
+      "nonEmptyLines": 312,
+      "definitions": [
+        {
+          "name": "messages_chat_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 44,
+          "endLine": 44
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/20261115155939_store_currency_image_permissions.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 6,
+      "nonEmptyLines": 4,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261115162952_daily_login_per_character.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 194,
+      "nonEmptyLines": 175,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261115170000_remove_character_sheet_conditions.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 38,
+      "nonEmptyLines": 35,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261115180000_account_settings.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 349,
+      "nonEmptyLines": 325,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "game_system_id",
+            "requested_by",
+            "target_user_id",
+            "created_at",
+            "accepted_at",
+            "status"
+          ],
+          "startLine": 8,
+          "endLine": 18
+        },
+        {
+          "name": "system_owner_transfer_requests_pending_system_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 20,
+          "endLine": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "supabase/migrations/20261115210000_profile_customization.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 77,
+      "nonEmptyLines": 71,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261116180000_friendships.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 304,
+      "nonEmptyLines": 285,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "requester_user_id",
+            "recipient_user_id",
+            "status",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 3,
+          "endLine": 12
+        },
+        {
+          "name": "friend_requests_active_pair_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 14,
+          "endLine": 14
+        },
+        {
+          "name": "friend_requests_recipient_status_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 20,
+          "endLine": 20
+        },
+        {
+          "name": "friend_requests_requester_status_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 22,
+          "endLine": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 4
+      }
+    },
+    {
+      "path": "supabase/migrations/20261116190000_rpg_invitations.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 284,
+      "nonEmptyLines": 268,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "inviter_user_id",
+            "invitee_user_id",
+            "game_system_id",
+            "chat_id",
+            "status",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 45,
+          "endLine": 59
+        },
+        {
+          "name": "rpg_invitations_active_target_uq",
+          "kind": "index",
+          "fields": [],
+          "startLine": 61,
+          "endLine": 61
+        },
+        {
+          "name": "rpg_invitations_invitee_status_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 64,
+          "endLine": 64
+        },
+        {
+          "name": "rpg_invitations_system_status_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 66,
+          "endLine": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 4
+      }
+    },
+    {
+      "path": "supabase/migrations/20261116191152_public_player_profiles.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 100,
+      "nonEmptyLines": 97,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "profile_user_id",
+            "author_user_id",
+            "content",
+            "created_at"
+          ],
+          "startLine": 1,
+          "endLine": 7
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "sender_user_id",
+            "recipient_user_id",
+            "content",
+            "created_at"
+          ],
+          "startLine": 12,
+          "endLine": 19
+        },
+        {
+          "name": "profile_comments_profile_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 8,
+          "endLine": 8
+        },
+        {
+          "name": "direct_messages_conversation_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 20,
+          "endLine": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 4
+      }
+    },
+    {
+      "path": "supabase/migrations/20261116195000_allow_profile_timestamp_updates.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261116200000_username_change_once.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 24,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20261117013820_system_lobby_presence.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 63,
+      "nonEmptyLines": 53,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "game_system_id",
+            "user_id",
+            "last_seen_at"
+          ],
+          "startLine": 3,
+          "endLine": 8
+        },
+        {
+          "name": "game_system_lobby_presence_last_seen_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 10,
+          "endLine": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "supabase/migrations/20261117014550_lobby_welcome_copy_defaults.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    }
+  ]
+}

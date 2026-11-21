@@ -4,18 +4,21 @@ import { authenticate } from '../src/plugins/authenticate.js';
 
 const userId = 'a72adcaf-9d23-46cc-b312-5fbe7fb6214b';
 let verification: 'accepted' | 'rejected' | 'unavailable';
+let accountStatus: unknown;
 let requests: { url: string; headers: Headers }[];
 
 beforeEach(() => {
   vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
   vi.stubEnv('SUPABASE_PUBLISHABLE_KEY', 'sb_publishable_test');
   verification = 'accepted';
+  accountStatus = true;
   requests = [];
   // Keep the real Supabase client; replace only the external HTTP boundary.
   vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = String(input);
     const headers = new Headers(init?.headers);
     requests.push({ url, headers });
+    if (url.endsWith('/rest/v1/rpc/get_my_account_status')) return Response.json(accountStatus);
     if (url.endsWith('/auth/v1/user')) {
       if (verification === 'unavailable') throw new Error('Auth unavailable');
       if (verification === 'rejected') {
@@ -95,6 +98,7 @@ describe('route-level authentication', () => {
       expect(wasHandled()).toBe(true);
       expect(requests.map(({ url }) => url)).toEqual([
         'https://example.supabase.co/auth/v1/user',
+        'https://example.supabase.co/rest/v1/rpc/get_my_account_status',
         'https://example.supabase.co/rest/v1/characters?select=id',
       ]);
       for (const request of requests) {
@@ -104,6 +108,21 @@ describe('route-level authentication', () => {
     } finally {
       await app.close();
     }
+  });
+
+  it.each([
+    { status: false, code: 403, error: 'Account is deactivated' },
+    { status: null, code: 500, error: 'Unable to verify account status' },
+    { status: 'invalid', code: 500, error: 'Unable to verify account status' },
+  ])('blocks protected handlers for account status $status', async ({ status, code, error }) => {
+    accountStatus = status;
+    const { app, wasHandled } = protectedApp();
+    try {
+      const response = await app.inject({ method: 'GET', url: '/protected', headers: { authorization: 'Bearer accepted-token' } });
+      expect(response.statusCode).toBe(code);
+      expect(response.json()).toEqual({ error });
+      expect(wasHandled()).toBe(false);
+    } finally { await app.close(); }
   });
 
   it('keeps health public when no token or Supabase configuration is present', async () => {

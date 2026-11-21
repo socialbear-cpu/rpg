@@ -1,10 +1,7 @@
+import { authOptions as auth, errorSchema } from '../../http/route-options.js';
 import type { FastifyInstance, FastifySchema } from 'fastify';
-import { authenticate } from '../../plugins/authenticate.js';
 import { createSystemChat, createChatMessage, listCharacterChats, listChatMessages } from './chats.repository.js';
 import { chatParamsSchema, chatSystemParamsSchema, characterIdParamsSchema, createChatInputSchema, sendMessageInputSchema } from './chats.schema.js';
-
-const auth = { preHandler: authenticate, schema: { security: [{ bearerAuth: [] }] } };
-const errorSchema = { type: 'object', required: ['error'], additionalProperties: false, properties: { error: { type: 'string' } } } as const;
 
 function documentedChatInput() {
   return { swaggerTransform: ({ schema, url }: { schema: FastifySchema; url: string }) => ({

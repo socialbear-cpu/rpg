@@ -1,6 +1,6 @@
+import { errorSchema, authOptions, systemIdFromParams } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { z } from 'zod';
-import { authenticate } from '../../plugins/authenticate.js';
 import {
   characterAttributesSchemaFor,
   createCharacterInputSchema,
@@ -21,15 +21,6 @@ import {
 import { characterSheetDefinitionSchema } from './game-systems.schema.js';
 import { rejectSystemAccess } from './system-access.js';
 
-const errorSchema = {
-  type: 'object', required: ['error'], additionalProperties: false,
-  properties: { error: { type: 'string' } },
-} as const;
-const authOptions = {
-  preHandler: authenticate,
-  schema: { security: [{ bearerAuth: [] }] },
-};
-const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
 const systemAccessInputSchema = z.strictObject({ system_password: z.string().max(72).optional() });
 const systemLifecycleInputSchema = z.strictObject({ action: z.enum(['archive', 'activate']) });
 const systemListQuerySchema = z.strictObject({ include_archived: z.enum(['true', 'false']).optional() });
@@ -110,11 +101,6 @@ function gameSystemLifecycleDatabaseError(reply: FastifyReply, action: 'update' 
       ? 'Não foi possível excluir o sistema.'
       : 'Não foi possível alterar a disponibilidade do sistema.',
   });
-}
-
-function systemIdFromParams(params: unknown) {
-  const result = systemParamsSchema.safeParse(params);
-  return result.success ? result.data.systemId : null;
 }
 
 export async function gameSystemsRoutes(app: FastifyInstance) {

@@ -1,6 +1,6 @@
+import { errorSchema, authOptions, systemIdFromParams } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { z } from 'zod';
-import { authenticate } from '../../plugins/authenticate.js';
 import {
   readCharacterExperience,
   readOwnerExperienceSettings,
@@ -13,24 +13,10 @@ import {
   experienceSettingsResponseSchema,
 } from './experience.schema.js';
 
-const errorSchema = {
-  type: 'object', required: ['error'], additionalProperties: false,
-  properties: { error: { type: 'string' } },
-} as const;
-const authOptions = {
-  preHandler: authenticate,
-  schema: { security: [{ bearerAuth: [] }] },
-};
-const systemParamsSchema = z.strictObject({ systemId: z.uuid() });
 const characterParamsSchema = z.strictObject({ characterId: z.uuid() });
 
 function databaseError(reply: FastifyReply) {
   return reply.code(500).send({ error: 'Unable to access character experience' });
-}
-
-function systemIdFromParams(params: unknown) {
-  const result = systemParamsSchema.safeParse(params);
-  return result.success ? result.data.systemId : null;
 }
 
 function characterIdFromParams(params: unknown) {

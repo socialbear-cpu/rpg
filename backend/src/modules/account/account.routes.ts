@@ -1,11 +1,8 @@
+import { errorSchema } from '../../http/route-options.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { z } from 'zod';
 import { authenticate, authenticateAllowInactive } from '../../plugins/authenticate.js';
 
-const errorSchema = {
-  type: 'object', required: ['error'], additionalProperties: false,
-  properties: { error: { type: 'string' } },
-} as const;
 const accountSettingsSchema = {
   type: 'object',
   required: ['user_id', 'email', 'is_active', 'profile', 'owned_systems', 'incoming_transfers'],
@@ -18,29 +15,35 @@ const accountSettingsSchema = {
       type: 'object', required: ['username', 'display_name', 'phone'], additionalProperties: false,
       properties: { username: { type: ['string', 'null'] }, display_name: { type: 'string' }, phone: { type: ['string', 'null'] } },
     },
-    owned_systems: { type: 'array', items: {
-      type: 'object', required: ['id', 'name', 'pending_transfer_id', 'pending_target_user_id', 'pending_target_display_name', 'candidates'], additionalProperties: false,
-      properties: {
-        id: { type: 'string', format: 'uuid' },
-        name: { type: 'string' },
-        pending_transfer_id: { type: ['string', 'null'] },
-        pending_target_user_id: { type: ['string', 'null'] },
-        pending_target_display_name: { type: ['string', 'null'] },
-        candidates: { type: 'array', items: {
-          type: 'object', required: ['user_id', 'display_name'], additionalProperties: false,
-          properties: { user_id: { type: 'string', format: 'uuid' }, display_name: { type: 'string' } },
-        } },
-      },
-    } },
-    incoming_transfers: { type: 'array', items: {
-      type: 'object', required: ['id', 'system_id', 'system_name', 'from_display_name'], additionalProperties: false,
-      properties: {
-        id: { type: 'string', format: 'uuid' },
-        system_id: { type: 'string', format: 'uuid' },
-        system_name: { type: 'string' },
-        from_display_name: { type: 'string' },
-      },
-    } },
+    owned_systems: {
+      type: 'array', items: {
+        type: 'object', required: ['id', 'name', 'pending_transfer_id', 'pending_target_user_id', 'pending_target_display_name', 'candidates'], additionalProperties: false,
+        properties: {
+          id: { type: 'string', format: 'uuid' },
+          name: { type: 'string' },
+          pending_transfer_id: { type: ['string', 'null'] },
+          pending_target_user_id: { type: ['string', 'null'] },
+          pending_target_display_name: { type: ['string', 'null'] },
+          candidates: {
+            type: 'array', items: {
+              type: 'object', required: ['user_id', 'display_name'], additionalProperties: false,
+              properties: { user_id: { type: 'string', format: 'uuid' }, display_name: { type: 'string' } },
+            }
+          },
+        },
+      }
+    },
+    incoming_transfers: {
+      type: 'array', items: {
+        type: 'object', required: ['id', 'system_id', 'system_name', 'from_display_name'], additionalProperties: false,
+        properties: {
+          id: { type: 'string', format: 'uuid' },
+          system_id: { type: 'string', format: 'uuid' },
+          system_name: { type: 'string' },
+          from_display_name: { type: 'string' },
+        },
+      }
+    },
   },
 } as const;
 const transferInputSchema = z.strictObject({
@@ -63,9 +66,11 @@ function sendRpcStatus(reply: FastifyReply, result: RpcResult) {
 export async function accountRoutes(app: FastifyInstance) {
   app.get('/api/v1/me/account', {
     preHandler: authenticateAllowInactive,
-    schema: { security: [{ bearerAuth: [] }], response: {
-      200: accountSettingsSchema, 401: errorSchema, 404: errorSchema, 500: errorSchema,
-    } },
+    schema: {
+      security: [{ bearerAuth: [] }], response: {
+        200: accountSettingsSchema, 401: errorSchema, 404: errorSchema, 500: errorSchema,
+      }
+    },
   }, async (request, reply) => {
     try {
       const { data, error } = await request.supabase!.rpc('get_my_account_settings');
@@ -79,10 +84,12 @@ export async function accountRoutes(app: FastifyInstance) {
 
   app.post('/api/v1/me/account/deactivate', {
     preHandler: authenticate,
-    schema: { security: [{ bearerAuth: [] }], response: {
-      200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'deactivated' } } },
-      401: errorSchema, 403: errorSchema, 500: errorSchema,
-    } },
+    schema: {
+      security: [{ bearerAuth: [] }], response: {
+        200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'deactivated' } } },
+        401: errorSchema, 403: errorSchema, 500: errorSchema,
+      }
+    },
   }, async (request, reply) => {
     try {
       const { data, error } = await request.supabase!.rpc('set_my_account_active', { p_is_active: false });
@@ -99,10 +106,12 @@ export async function accountRoutes(app: FastifyInstance) {
 
   app.post('/api/v1/me/account/reactivate', {
     preHandler: authenticateAllowInactive,
-    schema: { security: [{ bearerAuth: [] }], response: {
-      200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'activated' } } },
-      401: errorSchema, 403: errorSchema, 500: errorSchema,
-    } },
+    schema: {
+      security: [{ bearerAuth: [] }], response: {
+        200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'activated' } } },
+        401: errorSchema, 403: errorSchema, 500: errorSchema,
+      }
+    },
   }, async (request, reply) => {
     try {
       const { data, error } = await request.supabase!.rpc('set_my_account_active', { p_is_active: true });
@@ -119,10 +128,12 @@ export async function accountRoutes(app: FastifyInstance) {
 
   app.delete('/api/v1/me/account', {
     preHandler: authenticateAllowInactive,
-    schema: { security: [{ bearerAuth: [] }], response: {
-      200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'deleted' } } },
-      401: errorSchema, 403: errorSchema, 409: errorSchema, 500: errorSchema,
-    } },
+    schema: {
+      security: [{ bearerAuth: [] }], response: {
+        200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'deleted' } } },
+        401: errorSchema, 403: errorSchema, 409: errorSchema, 500: errorSchema,
+      }
+    },
   }, async (request, reply) => {
     try {
       const { data, error } = await request.supabase!.rpc('delete_my_account');
@@ -140,10 +151,12 @@ export async function accountRoutes(app: FastifyInstance) {
 
   app.post('/api/v1/me/account/owner-transfers', {
     preHandler: authenticate,
-    schema: { security: [{ bearerAuth: [] }], response: {
-      201: { type: 'object', required: ['status', 'transfer_id'], additionalProperties: false, properties: { status: { const: 'created' }, transfer_id: { type: 'string', format: 'uuid' } } },
-      400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 409: errorSchema, 500: errorSchema,
-    } },
+    schema: {
+      security: [{ bearerAuth: [] }], response: {
+        201: { type: 'object', required: ['status', 'transfer_id'], additionalProperties: false, properties: { status: { const: 'created' }, transfer_id: { type: 'string', format: 'uuid' } } },
+        400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 409: errorSchema, 500: errorSchema,
+      }
+    },
   }, async (request, reply) => {
     const input = transferInputSchema.safeParse(request.body);
     if (!input.success) return reply.code(400).send({ error: 'Invalid owner transfer' });
@@ -168,12 +181,14 @@ export async function accountRoutes(app: FastifyInstance) {
 
   app.post('/api/v1/me/account/owner-transfers/:transferId/accept', {
     preHandler: authenticate,
-    schema: { security: [{ bearerAuth: [] }], params: {
-      type: 'object', required: ['transferId'], additionalProperties: false, properties: { transferId: { type: 'string', format: 'uuid' } },
-    }, response: {
-      200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'accepted' } } },
-      400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 500: errorSchema,
-    } },
+    schema: {
+      security: [{ bearerAuth: [] }], params: {
+        type: 'object', required: ['transferId'], additionalProperties: false, properties: { transferId: { type: 'string', format: 'uuid' } },
+      }, response: {
+        200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'accepted' } } },
+        400: errorSchema, 401: errorSchema, 403: errorSchema, 404: errorSchema, 500: errorSchema,
+      }
+    },
   }, async (request, reply) => {
     const params = transferIdSchema.safeParse(request.params);
     if (!params.success) return reply.code(400).send({ error: 'Invalid transfer ID' });
@@ -193,12 +208,14 @@ export async function accountRoutes(app: FastifyInstance) {
 
   app.post('/api/v1/me/account/owner-transfers/:transferId/cancel', {
     preHandler: authenticate,
-    schema: { security: [{ bearerAuth: [] }], params: {
-      type: 'object', required: ['transferId'], additionalProperties: false, properties: { transferId: { type: 'string', format: 'uuid' } },
-    }, response: {
-      200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'cancelled' } } },
-      400: errorSchema, 401: errorSchema, 404: errorSchema, 500: errorSchema,
-    } },
+    schema: {
+      security: [{ bearerAuth: [] }], params: {
+        type: 'object', required: ['transferId'], additionalProperties: false, properties: { transferId: { type: 'string', format: 'uuid' } },
+      }, response: {
+        200: { type: 'object', required: ['status'], additionalProperties: false, properties: { status: { const: 'cancelled' } } },
+        400: errorSchema, 401: errorSchema, 404: errorSchema, 500: errorSchema,
+      }
+    },
   }, async (request, reply) => {
     const params = transferIdSchema.safeParse(request.params);
     if (!params.success) return reply.code(400).send({ error: 'Invalid transfer ID' });

@@ -158,7 +158,7 @@ describe('system dashboard and creation', () => {
     expect(html).toContain('Fantasia');
     expect(html).toContain('◉ Voz');
     expect(html).toContain('Terror');
-    expect(html).toContain('Entrar no sistema Fantasia');
+    expect(html).toContain('Jogar no sistema Fantasia');
     expect(html).toContain('Criar sistema');
     expect(html).toContain('Gerenciar Fantasia');
     expect(html).not.toContain('Editar ficha');

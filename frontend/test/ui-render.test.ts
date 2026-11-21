@@ -54,6 +54,16 @@ describe('account card', () => {
     expect(html).toContain('id="tab-signup" type="button" role="tab" aria-selected="true"');
   });
 
+  it.each(['login', 'signup'] as const)('links the %s tab to its panel and keeps the other tab out of the tab order', (mode) => {
+    const html = renderToStaticMarkup(createElement(AccountCard, { ...accountCardProps, mode }));
+    const selected = html.match(new RegExp(`<button[^>]*id="tab-${mode}"[^>]*>`))?.[0];
+    const other = html.match(new RegExp(`<button[^>]*id="tab-${mode === 'login' ? 'signup' : 'login'}"[^>]*>`))?.[0];
+
+    expect(selected).toContain('tabindex="0"');
+    expect(other).toContain('tabindex="-1"');
+    expect(html).toContain(`role="tabpanel" aria-labelledby="tab-${mode}"`);
+  });
+
   it('shows the recovery form without tabs and disables submit while busy', () => {
     const html = renderToStaticMarkup(createElement(AccountCard, { ...accountCardProps, recovery: true, recoveryBusy: true }));
 
@@ -64,6 +74,21 @@ describe('account card', () => {
 });
 
 describe('profile card', () => {
+  it.each([
+    { interests: ' ,  , ', expected: [] },
+    { interests: ' RPG , , fantasia, jogos ', expected: ['RPG', 'fantasia', 'jogos'] },
+    { interests: Array.from({ length: 13 }, (_, index) => `interesse-${index}`).join(','), expected: Array.from({ length: 12 }, (_, index) => `interesse-${index}`) },
+  ])('renders cleaned preview interests with a twelve-item limit: $interests', ({ interests, expected }) => {
+    const html = renderToStaticMarkup(createElement(ProfileCard, {
+      profile: { username: 'player', displayName: 'Jogador', avatarUrl: '', bannerUrl: '', bio: '', status: '', interests },
+      authenticated: true, profileBusy: false, previewing: true,
+      onTogglePreview: () => {}, onProfileChange: () => {}, onLoadProfile: () => {}, onSaveProfile: () => {},
+    }));
+    const section = html.match(/class="profile-visitor-interests"[^>]*>(.*?)<\/div>/)?.[1] ?? '';
+    expect([...section.matchAll(/<span>(.*?)<\/span>/g)].map((match) => match[1])).toEqual(expected);
+    expect(section.includes('Nenhum interesse adicionado.')).toBe(expected.length === 0);
+  });
+
   it('renders profile fields and actions disabled while signed out', () => {
     const html = renderToStaticMarkup(createElement(ProfileCard, {
       profile: { username: 'rpg_player', displayName: '', avatarUrl: '', bannerUrl: '', bio: '', status: '', interests: '' },
@@ -113,14 +138,15 @@ describe('initial application UI', () => {
     const html = renderToStaticMarkup(createElement(AppHeader, { activeItem: 'Trocas' }));
 
     expect(html).toContain('href="/dashboard"');
-    const tradeLinks = html.match(/<a\b[^>]*>TROCAS<\/a>/g) ?? [];
+    const tradeLinks = html.match(/<a\b[^>]*>Trocas<\/a>/g) ?? [];
     expect(tradeLinks).toHaveLength(2);
     for (const link of tradeLinks) {
       expect(link).toContain('href="/trading"');
       expect(link).toContain('aria-current="page"');
-      expect(link).toContain('bifrost-tab');
     }
-    expect(html).toMatch(/href="\/dashboard\/systems\/new"[^>]*>CRIAR SISTEMA/);
+    expect(html).not.toContain('href="/dashboard/systems/new"');
+    expect(html).toContain('>Jogar</a>');
+    expect(html).toContain('class="app-header-social"');
     expect(html).toContain('href="/profile">Meu perfil');
     expect(html).not.toContain('Explorar sistemas');
     expect(html).not.toContain('Comunidade');
@@ -128,8 +154,8 @@ describe('initial application UI', () => {
 
   it('shows the public login experience without exposing profile controls before sign-in', () => {
     const html = renderToStaticMarkup(createElement(RpgApp));
-    expect(html).toContain('class="auth-landing "');
-    expect(html).toContain('O seu mundo.');
+    expect(html).toContain('class="auth-landing auth-bifrost-landing "');
+    expect(html).toContain('RPG de mesa, do seu jeito.');
     expect(html).toContain('role="tab" aria-selected="true" aria-controls="panel-auth"');
     expect(html).toContain('id="tab-signup" type="button" role="tab" aria-selected="false"');
     expect(html).not.toContain('id="profile-name"');

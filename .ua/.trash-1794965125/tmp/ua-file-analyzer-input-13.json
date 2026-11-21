@@ -1,0 +1,35 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": ".superpowers/brainstorm/codex-cards-v10.html",
+      "language": "html",
+      "sizeLines": 17,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-v7.html",
+      "language": "html",
+      "sizeLines": 13,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-v8.html",
+      "language": "html",
+      "sizeLines": 15,
+      "fileCategory": "markup"
+    },
+    {
+      "path": ".superpowers/brainstorm/codex-cards-v9.html",
+      "language": "html",
+      "sizeLines": 16,
+      "fileCategory": "markup"
+    }
+  ],
+  "batchImportData": {
+    ".superpowers/brainstorm/codex-cards-v10.html": [],
+    ".superpowers/brainstorm/codex-cards-v7.html": [],
+    ".superpowers/brainstorm/codex-cards-v8.html": [],
+    ".superpowers/brainstorm/codex-cards-v9.html": []
+  }
+}

@@ -1,0 +1,6578 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 27,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 27,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 27,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/src/modules/daily-login/daily-login.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 192,
+      "nonEmptyLines": 176,
+      "functions": [
+        {
+          "name": "readActiveCharacters",
+          "startLine": 47,
+          "endLine": 54,
+          "params": [
+            "client",
+            "userId",
+            "systemId"
+          ]
+        },
+        {
+          "name": "readState",
+          "startLine": 56,
+          "endLine": 62,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "listMyDailyLoginSystems",
+          "startLine": 64,
+          "endLine": 110,
+          "params": [
+            "client",
+            "userId"
+          ]
+        },
+        {
+          "name": "readPlayerDailyLoginSystem",
+          "startLine": 112,
+          "endLine": 131,
+          "params": [
+            "client",
+            "userId",
+            "systemId"
+          ]
+        },
+        {
+          "name": "readOwnerDailyLoginCalendar",
+          "startLine": 133,
+          "endLine": 165,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "saveOwnerDailyLoginCalendar",
+          "startLine": 167,
+          "endLine": 179,
+          "params": [
+            "client",
+            "systemId",
+            "schedule"
+          ]
+        },
+        {
+          "name": "claimDailyLoginReward",
+          "startLine": 181,
+          "endLine": 192,
+          "params": [
+            "client",
+            "systemId",
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "listMyDailyLoginSystems",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "readPlayerDailyLoginSystem",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "readOwnerDailyLoginCalendar",
+          "line": 133,
+          "isDefault": false
+        },
+        {
+          "name": "saveOwnerDailyLoginCalendar",
+          "line": 167,
+          "isDefault": false
+        },
+        {
+          "name": "claimDailyLoginReward",
+          "line": 181,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readActiveCharacters",
+          "callee": "client.from('characters').select(characterColumns)\n    .eq('user_id', userId).eq('status', 'active').order",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readActiveCharacters",
+          "callee": "client.from('characters').select(characterColumns)\n    .eq('user_id', userId).eq",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readActiveCharacters",
+          "callee": "client.from('characters').select(characterColumns)\n    .eq",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readActiveCharacters",
+          "callee": "client.from('characters').select",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readActiveCharacters",
+          "callee": "client.from",
+          "lineNumber": 48
+        },
+        {
+          "caller": "readActiveCharacters",
+          "callee": "query.eq",
+          "lineNumber": 50
+        },
+        {
+          "caller": "readState",
+          "callee": "client.rpc",
+          "lineNumber": 57
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "readMySystemMemberships",
+          "lineNumber": 68
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "access.memberships\n    .filter((membership) => membership.role === 'owner')\n    .map",
+          "lineNumber": 69
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "access.memberships\n    .filter",
+          "lineNumber": 69
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "Promise.all",
+          "lineNumber": 72
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "readActiveCharacters",
+          "lineNumber": 73
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from('game_systems').select(systemColumns).order",
+          "lineNumber": 75
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from('game_systems').select",
+          "lineNumber": 75
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from",
+          "lineNumber": 75
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from('game_systems').select(systemColumns).eq('is_active', true).order",
+          "lineNumber": 76
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from('game_systems').select(systemColumns).eq",
+          "lineNumber": 76
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from('game_systems').select",
+          "lineNumber": 76
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from",
+          "lineNumber": 76
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from('game_systems').select(systemColumns).in('id', ownerSystemIds).order",
+          "lineNumber": 78
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from('game_systems').select(systemColumns).in",
+          "lineNumber": 78
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from('game_systems').select",
+          "lineNumber": 78
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "client.from",
+          "lineNumber": 78
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "Promise.resolve",
+          "lineNumber": 79
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "systems.set",
+          "lineNumber": 86
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "bySystem.get",
+          "lineNumber": 91
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "group.push",
+          "lineNumber": 92
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "bySystem.set",
+          "lineNumber": 93
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "[...systems.values()].filter",
+          "lineNumber": 96
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "systems.values",
+          "lineNumber": 96
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "ownerIds.has",
+          "lineNumber": 97
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "bySystem.get",
+          "lineNumber": 97
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "Promise.all",
+          "lineNumber": 98
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "visible.map",
+          "lineNumber": 98
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "bySystem.get",
+          "lineNumber": 99
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "ownerIds.has",
+          "lineNumber": 102
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "ownerIds.has",
+          "lineNumber": 103
+        },
+        {
+          "caller": "listMyDailyLoginSystems",
+          "callee": "readState",
+          "lineNumber": 106
+        },
+        {
+          "caller": "readPlayerDailyLoginSystem",
+          "callee": "Promise.all",
+          "lineNumber": 117
+        },
+        {
+          "caller": "readPlayerDailyLoginSystem",
+          "callee": "readActiveCharacters",
+          "lineNumber": 118
+        },
+        {
+          "caller": "readPlayerDailyLoginSystem",
+          "callee": "client.from('game_systems').select(systemColumns)\n      .eq('id', systemId).eq('is_active', true).maybeSingle",
+          "lineNumber": 119
+        },
+        {
+          "caller": "readPlayerDailyLoginSystem",
+          "callee": "client.from('game_systems').select(systemColumns)\n      .eq('id', systemId).eq",
+          "lineNumber": 119
+        },
+        {
+          "caller": "readPlayerDailyLoginSystem",
+          "callee": "client.from('game_systems').select(systemColumns)\n      .eq",
+          "lineNumber": 119
+        },
+        {
+          "caller": "readPlayerDailyLoginSystem",
+          "callee": "client.from('game_systems').select",
+          "lineNumber": 119
+        },
+        {
+          "caller": "readPlayerDailyLoginSystem",
+          "callee": "client.from",
+          "lineNumber": 119
+        },
+        {
+          "caller": "readPlayerDailyLoginSystem",
+          "callee": "readState",
+          "lineNumber": 129
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "readMySystemMemberships",
+          "lineNumber": 137
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "access.memberships.some",
+          "lineNumber": 138
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from('game_systems')\n    .select(systemColumns).eq('id', systemId).maybeSingle",
+          "lineNumber": 142
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from('game_systems')\n    .select(systemColumns).eq",
+          "lineNumber": 142
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from('game_systems')\n    .select",
+          "lineNumber": 142
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from",
+          "lineNumber": 142
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "Promise.all",
+          "lineNumber": 147
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from('items').select('id,name').eq('game_system_id', systemId).order",
+          "lineNumber": 148
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from('items').select('id,name').eq",
+          "lineNumber": 148
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from('items').select",
+          "lineNumber": 148
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from",
+          "lineNumber": 148
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from('daily_login_rewards').select('weekday,item_id,quantity,currency_amount')\n      .eq('game_system_id', systemId).order",
+          "lineNumber": 149
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from('daily_login_rewards').select('weekday,item_id,quantity,currency_amount')\n      .eq",
+          "lineNumber": 149
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from('daily_login_rewards').select",
+          "lineNumber": 149
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "client.from",
+          "lineNumber": 149
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "items.map",
+          "lineNumber": 156
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "((rewardsResult.data ?? []) as Omit<DailyLoginReward, 'item_name'>[])\n    .map",
+          "lineNumber": 157
+        },
+        {
+          "caller": "readOwnerDailyLoginCalendar",
+          "callee": "itemNames.get",
+          "lineNumber": 158
+        },
+        {
+          "caller": "saveOwnerDailyLoginCalendar",
+          "callee": "client.rpc",
+          "lineNumber": 172
+        },
+        {
+          "caller": "claimDailyLoginReward",
+          "callee": "client.rpc",
+          "lineNumber": 186
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/daily-login/daily-login.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 202,
+      "nonEmptyLines": 193,
+      "functions": [
+        {
+          "name": "getSystemId",
+          "startLine": 42,
+          "endLine": 47,
+          "params": [
+            "params"
+          ]
+        },
+        {
+          "name": "databaseError",
+          "startLine": 49,
+          "endLine": 51,
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "name": "dailyLoginRoutes",
+          "startLine": 53,
+          "endLine": 202,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "dailyLoginRoutes",
+          "line": 53,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getSystemId",
+          "callee": "/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test",
+          "lineNumber": 44
+        },
+        {
+          "caller": "databaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 50
+        },
+        {
+          "caller": "databaseError",
+          "callee": "reply.code",
+          "lineNumber": 50
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "app.post",
+          "lineNumber": 54
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "getSystemId",
+          "lineNumber": 55
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 56
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 56
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 58
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 58
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "readPlayerDailyLoginSystem",
+          "lineNumber": 60
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.send",
+          "lineNumber": 61
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 62
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "databaseError",
+          "lineNumber": 63
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.send",
+          "lineNumber": 64
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "databaseError",
+          "lineNumber": 66
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "app.get",
+          "lineNumber": 70
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.send",
+          "lineNumber": 79
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "listMyDailyLoginSystems",
+          "lineNumber": 79
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "databaseError",
+          "lineNumber": 81
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "app.get",
+          "lineNumber": 85
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "getSystemId",
+          "lineNumber": 93
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 94
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 94
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 96
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 96
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "readPlayerDailyLoginSystem",
+          "lineNumber": 98
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 99
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 99
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.send",
+          "lineNumber": 100
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "databaseError",
+          "lineNumber": 102
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "app.post",
+          "lineNumber": 106
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "getSystemId",
+          "lineNumber": 133
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 134
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 134
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "dailyLoginClaimSchema.safeParse",
+          "lineNumber": 135
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 136
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 136
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 138
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 138
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "claimDailyLoginReward",
+          "lineNumber": 140
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 142
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 142
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(409).send",
+          "lineNumber": 143
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 143
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 144
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 144
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(409).send",
+          "lineNumber": 145
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 145
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 146
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 146
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 147
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 147
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "databaseError",
+          "lineNumber": 148
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "databaseError",
+          "lineNumber": 151
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "app.get",
+          "lineNumber": 155
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "getSystemId",
+          "lineNumber": 163
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 164
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 164
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "readOwnerDailyLoginCalendar",
+          "lineNumber": 166
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 167
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 167
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.send",
+          "lineNumber": 168
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "databaseError",
+          "lineNumber": 170
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "app.put",
+          "lineNumber": 174
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "getSystemId",
+          "lineNumber": 185
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 186
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 186
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "dailyLoginScheduleSchema.safeParse",
+          "lineNumber": 187
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 188
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 188
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "saveOwnerDailyLoginCalendar",
+          "lineNumber": 190
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.send",
+          "lineNumber": 192
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 193
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 193
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 194
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 194
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 195
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "reply.code",
+          "lineNumber": 195
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "databaseError",
+          "lineNumber": 196
+        },
+        {
+          "caller": "dailyLoginRoutes",
+          "callee": "databaseError",
+          "lineNumber": 199
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/daily-login/daily-login.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 65,
+      "exports": [
+        {
+          "name": "dailyLoginClaimSchema",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "dailyLoginRewardSchema",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "dailyLoginScheduleSchema",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/game-systems/game-systems.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 204,
+      "nonEmptyLines": 191,
+      "functions": [
+        {
+          "name": "getTagOptions",
+          "startLine": 23,
+          "endLine": 31,
+          "params": [
+            "client",
+            "activeOnly"
+          ]
+        },
+        {
+          "name": "parseGameSystem",
+          "startLine": 33,
+          "endLine": 49,
+          "params": [
+            "client",
+            "value"
+          ]
+        },
+        {
+          "name": "manageGameSystemLifecycle",
+          "startLine": 51,
+          "endLine": 64,
+          "params": [
+            "client",
+            "systemId",
+            "action"
+          ]
+        },
+        {
+          "name": "listAccessibleGameSystems",
+          "startLine": 66,
+          "endLine": 102,
+          "params": [
+            "client",
+            "includeArchived"
+          ]
+        },
+        {
+          "name": "listSystemTagOptions",
+          "startLine": 104,
+          "endLine": 106,
+          "params": [
+            "client"
+          ]
+        },
+        {
+          "name": "createGameSystem",
+          "startLine": 108,
+          "endLine": 120,
+          "params": [
+            "client",
+            "input"
+          ]
+        },
+        {
+          "name": "updateGameSystem",
+          "startLine": 122,
+          "endLine": 141,
+          "params": [
+            "client",
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "authorizeSystemAccess",
+          "startLine": 143,
+          "endLine": 152,
+          "params": [
+            "client",
+            "systemId",
+            "password"
+          ]
+        },
+        {
+          "name": "readActiveGameSystem",
+          "startLine": 154,
+          "endLine": 159,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "readGameSystemCharacterSheet",
+          "startLine": 161,
+          "endLine": 169,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "listSystemCharacters",
+          "startLine": 171,
+          "endLine": 182,
+          "params": [
+            "client",
+            "userId",
+            "systemId"
+          ]
+        },
+        {
+          "name": "createSystemCharacter",
+          "startLine": 184,
+          "endLine": 204,
+          "params": [
+            "client",
+            "userId",
+            "systemId",
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "manageGameSystemLifecycle",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "listAccessibleGameSystems",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "listSystemTagOptions",
+          "line": 104,
+          "isDefault": false
+        },
+        {
+          "name": "createGameSystem",
+          "line": 108,
+          "isDefault": false
+        },
+        {
+          "name": "updateGameSystem",
+          "line": 122,
+          "isDefault": false
+        },
+        {
+          "name": "authorizeSystemAccess",
+          "line": 143,
+          "isDefault": false
+        },
+        {
+          "name": "readActiveGameSystem",
+          "line": 154,
+          "isDefault": false
+        },
+        {
+          "name": "readGameSystemCharacterSheet",
+          "line": 161,
+          "isDefault": false
+        },
+        {
+          "name": "listSystemCharacters",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "createSystemCharacter",
+          "line": 184,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getTagOptions",
+          "callee": "client.from('game_system_tag_catalog').select",
+          "lineNumber": 24
+        },
+        {
+          "caller": "getTagOptions",
+          "callee": "client.from",
+          "lineNumber": 24
+        },
+        {
+          "caller": "getTagOptions",
+          "callee": "query.eq",
+          "lineNumber": 25
+        },
+        {
+          "caller": "getTagOptions",
+          "callee": "query.order",
+          "lineNumber": 26
+        },
+        {
+          "caller": "getTagOptions",
+          "callee": "systemTagOptionsResponseSchema.safeParse",
+          "lineNumber": 28
+        },
+        {
+          "caller": "parseGameSystem",
+          "callee": "storedGameSystemSchema.safeParse",
+          "lineNumber": 34
+        },
+        {
+          "caller": "parseGameSystem",
+          "callee": "getTagOptions",
+          "lineNumber": 36
+        },
+        {
+          "caller": "parseGameSystem",
+          "callee": "options.map",
+          "lineNumber": 37
+        },
+        {
+          "caller": "parseGameSystem",
+          "callee": "stored.data.tags.map",
+          "lineNumber": 40
+        },
+        {
+          "caller": "parseGameSystem",
+          "callee": "labels.get",
+          "lineNumber": 41
+        },
+        {
+          "caller": "parseGameSystem",
+          "callee": "gameSystemSchema.safeParse",
+          "lineNumber": 46
+        },
+        {
+          "caller": "manageGameSystemLifecycle",
+          "callee": "client.rpc",
+          "lineNumber": 56
+        },
+        {
+          "caller": "manageGameSystemLifecycle",
+          "callee": "gameSystemLifecycleResultSchema.safeParse",
+          "lineNumber": 61
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "client.from('game_systems')\n    .select(systemColumns).eq('is_active', true).order",
+          "lineNumber": 67
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "client.from('game_systems')\n    .select(systemColumns).eq",
+          "lineNumber": 67
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "client.from('game_systems')\n    .select",
+          "lineNumber": 67
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "client.from",
+          "lineNumber": 67
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "readMySystemMemberships",
+          "lineNumber": 72
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "access.memberships\n      .filter((membership) => membership.role === 'owner')\n      .map",
+          "lineNumber": 73
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "access.memberships\n      .filter",
+          "lineNumber": 73
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "client.from('game_systems')\n        .select(systemColumns).eq",
+          "lineNumber": 77
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "client.from('game_systems')\n        .select",
+          "lineNumber": 77
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "client.from",
+          "lineNumber": 77
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "archivedQuery.in",
+          "lineNumber": 79
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "archivedQuery.order",
+          "lineNumber": 80
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "getTagOptions",
+          "lineNumber": 85
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "options.map",
+          "lineNumber": 86
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "[...(activeSystems ?? []), ...archivedSystems].map",
+          "lineNumber": 87
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "storedGameSystemSchema.safeParse",
+          "lineNumber": 88
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "stored.data.tags.map",
+          "lineNumber": 92
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "labels.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "listAccessibleGameSystems",
+          "callee": "gameSystemsResponseSchema.safeParse",
+          "lineNumber": 99
+        },
+        {
+          "caller": "listSystemTagOptions",
+          "callee": "getTagOptions",
+          "lineNumber": 105
+        },
+        {
+          "caller": "createGameSystem",
+          "callee": "client.rpc",
+          "lineNumber": 109
+        },
+        {
+          "caller": "createGameSystem",
+          "callee": "createGameSystemResultSchema.safeParse",
+          "lineNumber": 117
+        },
+        {
+          "caller": "createGameSystem",
+          "callee": "parseGameSystem",
+          "lineNumber": 119
+        },
+        {
+          "caller": "updateGameSystem",
+          "callee": "client.rpc",
+          "lineNumber": 123
+        },
+        {
+          "caller": "updateGameSystem",
+          "callee": "updateGameSystemResultSchema.safeParse",
+          "lineNumber": 136
+        },
+        {
+          "caller": "updateGameSystem",
+          "callee": "parseGameSystem",
+          "lineNumber": 140
+        },
+        {
+          "caller": "authorizeSystemAccess",
+          "callee": "client.rpc",
+          "lineNumber": 144
+        },
+        {
+          "caller": "authorizeSystemAccess",
+          "callee": "joinGameSystemResultSchema.safeParse",
+          "lineNumber": 149
+        },
+        {
+          "caller": "readActiveGameSystem",
+          "callee": "client.from('game_systems')\n    .select('id').eq('id', systemId).eq('is_active', true).maybeSingle",
+          "lineNumber": 155
+        },
+        {
+          "caller": "readActiveGameSystem",
+          "callee": "client.from('game_systems')\n    .select('id').eq('id', systemId).eq",
+          "lineNumber": 155
+        },
+        {
+          "caller": "readActiveGameSystem",
+          "callee": "client.from('game_systems')\n    .select('id').eq",
+          "lineNumber": 155
+        },
+        {
+          "caller": "readActiveGameSystem",
+          "callee": "client.from('game_systems')\n    .select",
+          "lineNumber": 155
+        },
+        {
+          "caller": "readActiveGameSystem",
+          "callee": "client.from",
+          "lineNumber": 155
+        },
+        {
+          "caller": "readGameSystemCharacterSheet",
+          "callee": "client.from('game_system_character_sheets')\n    .select('game_system_id,definition').eq('game_system_id', systemId).maybeSingle",
+          "lineNumber": 162
+        },
+        {
+          "caller": "readGameSystemCharacterSheet",
+          "callee": "client.from('game_system_character_sheets')\n    .select('game_system_id,definition').eq",
+          "lineNumber": 162
+        },
+        {
+          "caller": "readGameSystemCharacterSheet",
+          "callee": "client.from('game_system_character_sheets')\n    .select",
+          "lineNumber": 162
+        },
+        {
+          "caller": "readGameSystemCharacterSheet",
+          "callee": "client.from",
+          "lineNumber": 162
+        },
+        {
+          "caller": "readGameSystemCharacterSheet",
+          "callee": "characterSheetResponseSchema.safeParse",
+          "lineNumber": 166
+        },
+        {
+          "caller": "listSystemCharacters",
+          "callee": "client.from('characters')\n    .select(characterColumns)\n    .eq('user_id', userId)\n    .eq('game_system_id', systemId)\n    .eq('status', 'active')\n    .order",
+          "lineNumber": 172
+        },
+        {
+          "caller": "listSystemCharacters",
+          "callee": "client.from('characters')\n    .select(characterColumns)\n    .eq('user_id', userId)\n    .eq('game_system_id', systemId)\n    .eq",
+          "lineNumber": 172
+        },
+        {
+          "caller": "listSystemCharacters",
+          "callee": "client.from('characters')\n    .select(characterColumns)\n    .eq('user_id', userId)\n    .eq",
+          "lineNumber": 172
+        },
+        {
+          "caller": "listSystemCharacters",
+          "callee": "client.from('characters')\n    .select(characterColumns)\n    .eq",
+          "lineNumber": 172
+        },
+        {
+          "caller": "listSystemCharacters",
+          "callee": "client.from('characters')\n    .select",
+          "lineNumber": 172
+        },
+        {
+          "caller": "listSystemCharacters",
+          "callee": "client.from",
+          "lineNumber": 172
+        },
+        {
+          "caller": "listSystemCharacters",
+          "callee": "systemCharactersResponseSchema.safeParse",
+          "lineNumber": 179
+        },
+        {
+          "caller": "createSystemCharacter",
+          "callee": "client.from('characters')\n    .insert({\n      user_id: userId,\n      game_system_id: systemId,\n      character_name: input.character_name,\n      attributes: input.attributes,\n      status: 'active',\n    })\n    .select(characterColumns)\n    .single",
+          "lineNumber": 190
+        },
+        {
+          "caller": "createSystemCharacter",
+          "callee": "client.from('characters')\n    .insert({\n      user_id: userId,\n      game_system_id: systemId,\n      character_name: input.character_name,\n      attributes: input.attributes,\n      status: 'active',\n    })\n    .select",
+          "lineNumber": 190
+        },
+        {
+          "caller": "createSystemCharacter",
+          "callee": "client.from('characters')\n    .insert",
+          "lineNumber": 190
+        },
+        {
+          "caller": "createSystemCharacter",
+          "callee": "client.from",
+          "lineNumber": 190
+        },
+        {
+          "caller": "createSystemCharacter",
+          "callee": "createSystemCharacterResultSchema.safeParse",
+          "lineNumber": 201
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 10,
+        "functionCount": 12,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/game-systems/game-systems.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 447,
+      "nonEmptyLines": 431,
+      "functions": [
+        {
+          "name": "databaseError",
+          "startLine": 103,
+          "endLine": 105,
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "name": "gameSystemLifecycleDatabaseError",
+          "startLine": 107,
+          "endLine": 113,
+          "params": [
+            "reply",
+            "action"
+          ]
+        },
+        {
+          "name": "systemIdFromParams",
+          "startLine": 115,
+          "endLine": 118,
+          "params": [
+            "params"
+          ]
+        },
+        {
+          "name": "gameSystemsRoutes",
+          "startLine": 120,
+          "endLine": 447,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "gameSystemsRoutes",
+          "line": 120,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "databaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 104
+        },
+        {
+          "caller": "databaseError",
+          "callee": "reply.code",
+          "lineNumber": 104
+        },
+        {
+          "caller": "gameSystemLifecycleDatabaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 108
+        },
+        {
+          "caller": "gameSystemLifecycleDatabaseError",
+          "callee": "reply.code",
+          "lineNumber": 108
+        },
+        {
+          "caller": "systemIdFromParams",
+          "callee": "systemParamsSchema.safeParse",
+          "lineNumber": 116
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 133
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "listSystemTagOptions",
+          "lineNumber": 133
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 135
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemListQuerySchema.safeParse",
+          "lineNumber": 155
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 156
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 156
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 158
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "listAccessibleGameSystems",
+          "lineNumber": 158
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.patch",
+          "lineNumber": 164
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 175
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 176
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 176
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemLifecycleInputSchema.safeParse",
+          "lineNumber": 177
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 178
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 178
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "manageGameSystemLifecycle",
+          "lineNumber": 180
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 181
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 181
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 182
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 182
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 183
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 183
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "gameSystemLifecycleDatabaseError",
+          "lineNumber": 184
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "gameSystemLifecycleDatabaseError",
+          "lineNumber": 185
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 186
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "request.log.error",
+          "lineNumber": 188
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "gameSystemLifecycleDatabaseError",
+          "lineNumber": 189
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.delete",
+          "lineNumber": 193
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 204
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 205
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 205
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "manageGameSystemLifecycle",
+          "lineNumber": 207
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 208
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 208
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 209
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 209
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 210
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 210
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 211
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 211
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "gameSystemLifecycleDatabaseError",
+          "lineNumber": 212
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 213
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "request.log.error",
+          "lineNumber": 215
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "gameSystemLifecycleDatabaseError",
+          "lineNumber": 216
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.post",
+          "lineNumber": 220
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "createSystemInputSchema.safeParse",
+          "lineNumber": 246
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 247
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 247
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 249
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 249
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "createGameSystem",
+          "lineNumber": 249
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 252
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 252
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 254
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.put",
+          "lineNumber": 258
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 279
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 280
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 280
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "updateGameSystemInputSchema.safeParse",
+          "lineNumber": 281
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 282
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 282
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "updateGameSystem",
+          "lineNumber": 284
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 285
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 285
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 286
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 286
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 287
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 287
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 288
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 288
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 289
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 289
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 290
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 290
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 291
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 292
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 294
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 294
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 295
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.post",
+          "lineNumber": 299
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 316
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 317
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 317
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemAccessInputSchema.safeParse",
+          "lineNumber": 318
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 319
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 319
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 321
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 322
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 324
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 326
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.get",
+          "lineNumber": 330
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 341
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 342
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 342
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 344
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 345
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "readGameSystemCharacterSheet",
+          "lineNumber": 347
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 348
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 348
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 349
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 351
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.put",
+          "lineNumber": 355
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 363
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 364
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 364
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "z.strictObject({ definition: characterSheetDefinitionSchema }).safeParse",
+          "lineNumber": 365
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "z.strictObject",
+          "lineNumber": 365
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 366
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 366
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "request.supabase!.rpc",
+          "lineNumber": 368
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 370
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 370
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 371
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 371
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 372
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 372
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 373
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "z.strictObject({ game_system_id: z.uuid(), definition: characterSheetDefinitionSchema }).safeParse",
+          "lineNumber": 375
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "z.strictObject",
+          "lineNumber": 375
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "z.uuid",
+          "lineNumber": 375
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 376
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 377
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 378
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.get",
+          "lineNumber": 381
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 392
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 393
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 393
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 395
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 396
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 398
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "listSystemCharacters",
+          "lineNumber": 398
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 400
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "app.post",
+          "lineNumber": 404
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "systemIdFromParams",
+          "lineNumber": 424
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 425
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 425
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "createCharacterInputSchema.safeParse",
+          "lineNumber": 426
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 427
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 427
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 430
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 431
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "readGameSystemCharacterSheet",
+          "lineNumber": 433
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 434
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 434
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "characterAttributesSchemaFor(sheet.definition).safeParse",
+          "lineNumber": 435
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "characterAttributesSchemaFor",
+          "lineNumber": 435
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 436
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 436
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "createSystemCharacter",
+          "lineNumber": 437
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 441
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 441
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "request.log.error",
+          "lineNumber": 443
+        },
+        {
+          "caller": "gameSystemsRoutes",
+          "callee": "databaseError",
+          "lineNumber": 444
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/game-systems/game-systems.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 360,
+      "nonEmptyLines": 312,
+      "functions": [
+        {
+          "name": "legacyFieldsToDefinition",
+          "startLine": 173,
+          "endLine": 183,
+          "params": [
+            "fields"
+          ]
+        },
+        {
+          "name": "hasValue",
+          "startLine": 282,
+          "endLine": 287,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "characterAttributesSchemaFor",
+          "startLine": 289,
+          "endLine": 354,
+          "params": [
+            "definition"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "characterSheetComponentSchema",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "characterSheetStepSchema",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "characterSheetDefinitionSchema",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "legacyCharacterSheetFieldSchema",
+          "line": 153,
+          "isDefault": false
+        },
+        {
+          "name": "legacyCharacterSheetFieldsSchema",
+          "line": 160,
+          "isDefault": false
+        },
+        {
+          "name": "legacyFieldsToDefinition",
+          "line": 173,
+          "isDefault": false
+        },
+        {
+          "name": "createSystemInputSchema",
+          "line": 185,
+          "isDefault": false
+        },
+        {
+          "name": "updateGameSystemInputSchema",
+          "line": 193,
+          "isDefault": false
+        },
+        {
+          "name": "createCharacterInputSchema",
+          "line": 205,
+          "isDefault": false
+        },
+        {
+          "name": "systemTagOptionSchema",
+          "line": 211,
+          "isDefault": false
+        },
+        {
+          "name": "storedGameSystemSchema",
+          "line": 216,
+          "isDefault": false
+        },
+        {
+          "name": "gameSystemSchema",
+          "line": 230,
+          "isDefault": false
+        },
+        {
+          "name": "updateGameSystemResultSchema",
+          "line": 235,
+          "isDefault": false
+        },
+        {
+          "name": "gameSystemLifecycleResultSchema",
+          "line": 240,
+          "isDefault": false
+        },
+        {
+          "name": "joinGameSystemResultSchema",
+          "line": 245,
+          "isDefault": false
+        },
+        {
+          "name": "gameSystemsResponseSchema",
+          "line": 247,
+          "isDefault": false
+        },
+        {
+          "name": "systemTagOptionsResponseSchema",
+          "line": 251,
+          "isDefault": false
+        },
+        {
+          "name": "createGameSystemResultSchema",
+          "line": 255,
+          "isDefault": false
+        },
+        {
+          "name": "characterSheetResponseSchema",
+          "line": 261,
+          "isDefault": false
+        },
+        {
+          "name": "systemCharacterSchema",
+          "line": 266,
+          "isDefault": false
+        },
+        {
+          "name": "systemCharactersResponseSchema",
+          "line": 274,
+          "isDefault": false
+        },
+        {
+          "name": "createSystemCharacterResultSchema",
+          "line": 278,
+          "isDefault": false
+        },
+        {
+          "name": "characterAttributesSchemaFor",
+          "line": 289,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "legacyFieldsToDefinition",
+          "callee": "[...fields].sort((a, b) => a.position - b.position).map",
+          "lineNumber": 174
+        },
+        {
+          "caller": "legacyFieldsToDefinition",
+          "callee": "[...fields].sort",
+          "lineNumber": 174
+        },
+        {
+          "caller": "legacyFieldsToDefinition",
+          "callee": "field.options.map",
+          "lineNumber": 177
+        },
+        {
+          "caller": "hasValue",
+          "callee": "Array.isArray",
+          "lineNumber": 283
+        },
+        {
+          "caller": "hasValue",
+          "callee": "value.trim",
+          "lineNumber": 284
+        },
+        {
+          "caller": "hasValue",
+          "callee": "Number.isFinite",
+          "lineNumber": 285
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "[...definition.steps].sort",
+          "lineNumber": 290
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "orderedSteps.flatMap",
+          "lineNumber": 291
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "z.record(z.string(), z.unknown()).superRefine((attributes, context) => {\n    const componentKeys = new Set(components.map((component) => component.key));\n    Object.keys(attributes).forEach((key) => {\n      if (!componentKeys.has(key)) context.addIssue({ code: 'custom', message: 'Unknown character attribute', path: [key] });\n    });\n\n    for (const step of orderedSteps) {\n      for (const component of [...step.components].sort((a, b) => a.position - b.position)) {\n        if (!Object.hasOwn(attributes, component.key)) {\n          if (component.required) context.addIssue({ code: 'custom', message: 'Required character attribute is missing', path: [component.key] });\n          continue;\n        }\n\n        const value = attributes[component.key];\n        if (!component.required && !hasValue(value)) continue;\n\n        if (component.type === 'short_text' || component.type === 'long_text') {\n          if (typeof value !== 'string' || (component.required && value.trim().length === 0)) {\n            context.addIssue({ code: 'custom', message: 'Character attribute must be nonblank text', path: [component.key] });\n          }\n          continue;\n        }\n\n        if (component.type === 'number') {\n          if (typeof value !== 'number' || !Number.isFinite(value)) {\n            context.addIssue({ code: 'custom', message: 'Character attribute must be a finite number', path: [component.key] });\n          }\n          continue;\n        }\n\n        const allowedValues = new Set(component.options.map((option) => option.value ?? option.label));\n        if (component.selection_mode === 'multiple') {\n          if (!Array.isArray(value) || value.some((selected) => typeof selected !== 'string' || !allowedValues.has(selected)) || new Set(value).size !== value.length || (component.required && value.length === 0)) {\n            context.addIssue({ code: 'custom', message: 'Character attribute must match configured options', path: [component.key] });\n          }\n        } else if (typeof value !== 'string' || !allowedValues.has(value)) {\n          context.addIssue({ code: 'custom', message: 'Character attribute must match a configured option', path: [component.key] });\n        }\n      }\n    }\n  }).transform",
+          "lineNumber": 293
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "z.record(z.string(), z.unknown()).superRefine",
+          "lineNumber": 293
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "z.record",
+          "lineNumber": 293
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "z.string",
+          "lineNumber": 293
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "z.unknown",
+          "lineNumber": 293
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "components.map",
+          "lineNumber": 294
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "Object.keys(attributes).forEach",
+          "lineNumber": 295
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "Object.keys",
+          "lineNumber": 295
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "componentKeys.has",
+          "lineNumber": 296
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "context.addIssue",
+          "lineNumber": 296
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "[...step.components].sort",
+          "lineNumber": 300
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "Object.hasOwn",
+          "lineNumber": 301
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "context.addIssue",
+          "lineNumber": 302
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "hasValue",
+          "lineNumber": 307
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "value.trim",
+          "lineNumber": 310
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "context.addIssue",
+          "lineNumber": 311
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "Number.isFinite",
+          "lineNumber": 317
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "context.addIssue",
+          "lineNumber": 318
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "component.options.map",
+          "lineNumber": 323
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "Array.isArray",
+          "lineNumber": 325
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "value.some",
+          "lineNumber": 325
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "allowedValues.has",
+          "lineNumber": 325
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "context.addIssue",
+          "lineNumber": 326
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "allowedValues.has",
+          "lineNumber": 328
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "context.addIssue",
+          "lineNumber": 329
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "[...step.components].sort",
+          "lineNumber": 336
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "value.trim",
+          "lineNumber": 340
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "Array.isArray",
+          "lineNumber": 343
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "component.options.map",
+          "lineNumber": 344
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "value.filter",
+          "lineNumber": 345
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "item.trim",
+          "lineNumber": 345
+        },
+        {
+          "caller": "characterAttributesSchemaFor",
+          "callee": "allowedValues.has",
+          "lineNumber": 345
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 23,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/game-systems/system-access.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "functions": [
+        {
+          "name": "rejectSystemAccess",
+          "startLine": 7,
+          "endLine": 16,
+          "params": [
+            "reply",
+            "status"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "rejectSystemAccess",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code(401).send",
+          "lineNumber": 10
+        },
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code",
+          "lineNumber": 10
+        },
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code(404).send",
+          "lineNumber": 11
+        },
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code",
+          "lineNumber": 11
+        },
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code(429).send",
+          "lineNumber": 12
+        },
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code",
+          "lineNumber": 12
+        },
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code(403).send",
+          "lineNumber": 13
+        },
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code",
+          "lineNumber": 13
+        },
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code(403).send",
+          "lineNumber": 14
+        },
+        {
+          "caller": "rejectSystemAccess",
+          "callee": "reply.code",
+          "lineNumber": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/lobby-settings/lobby-settings.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 35,
+      "functions": [
+        {
+          "name": "getSystemLobbySettings",
+          "startLine": 6,
+          "endLine": 20,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "saveSystemLobbySettings",
+          "startLine": 22,
+          "endLine": 38,
+          "params": [
+            "client",
+            "systemId",
+            "settings"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getSystemLobbySettings",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "saveSystemLobbySettings",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getSystemLobbySettings",
+          "callee": "client.from('game_system_lobby_settings')\n    .select(settingsColumns).eq('game_system_id', systemId).maybeSingle",
+          "lineNumber": 7
+        },
+        {
+          "caller": "getSystemLobbySettings",
+          "callee": "client.from('game_system_lobby_settings')\n    .select(settingsColumns).eq",
+          "lineNumber": 7
+        },
+        {
+          "caller": "getSystemLobbySettings",
+          "callee": "client.from('game_system_lobby_settings')\n    .select",
+          "lineNumber": 7
+        },
+        {
+          "caller": "getSystemLobbySettings",
+          "callee": "client.from",
+          "lineNumber": 7
+        },
+        {
+          "caller": "getSystemLobbySettings",
+          "callee": "lobbySettingsSchema.safeParse",
+          "lineNumber": 11
+        },
+        {
+          "caller": "saveSystemLobbySettings",
+          "callee": "client.from('game_system_lobby_settings').upsert({\n    game_system_id: systemId,\n    ...settings,\n    updated_at: new Date().toISOString(),\n  }, { onConflict: 'game_system_id' }).select(settingsColumns).single",
+          "lineNumber": 23
+        },
+        {
+          "caller": "saveSystemLobbySettings",
+          "callee": "client.from('game_system_lobby_settings').upsert({\n    game_system_id: systemId,\n    ...settings,\n    updated_at: new Date().toISOString(),\n  }, { onConflict: 'game_system_id' }).select",
+          "lineNumber": 23
+        },
+        {
+          "caller": "saveSystemLobbySettings",
+          "callee": "client.from('game_system_lobby_settings').upsert",
+          "lineNumber": 23
+        },
+        {
+          "caller": "saveSystemLobbySettings",
+          "callee": "client.from",
+          "lineNumber": 23
+        },
+        {
+          "caller": "saveSystemLobbySettings",
+          "callee": "new Date().toISOString",
+          "lineNumber": 26
+        },
+        {
+          "caller": "saveSystemLobbySettings",
+          "callee": "lobbySettingsSchema.safeParse",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/lobby-settings/lobby-settings.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "checkMemberAccess",
+          "startLine": 14,
+          "endLine": 17,
+          "params": [
+            "client",
+            "reply",
+            "systemId"
+          ]
+        },
+        {
+          "name": "canManage",
+          "startLine": 19,
+          "endLine": 23,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "lobbySettingsRoutes",
+          "startLine": 25,
+          "endLine": 58,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "lobbySettingsRoutes",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "checkMemberAccess",
+          "callee": "import",
+          "lineNumber": 14
+        },
+        {
+          "caller": "checkMemberAccess",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 15
+        },
+        {
+          "caller": "checkMemberAccess",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 16
+        },
+        {
+          "caller": "canManage",
+          "callee": "import",
+          "lineNumber": 19
+        },
+        {
+          "caller": "canManage",
+          "callee": "readMySystemMemberships",
+          "lineNumber": 20
+        },
+        {
+          "caller": "canManage",
+          "callee": "access.memberships.some",
+          "lineNumber": 21
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "app.get",
+          "lineNumber": 26
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "systemParamsSchema.safeParse",
+          "lineNumber": 30
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 31
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 31
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "checkMemberAccess",
+          "lineNumber": 33
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 35
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "getSystemLobbySettings",
+          "lineNumber": 35
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "request.log.error",
+          "lineNumber": 37
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 38
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 38
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "app.put",
+          "lineNumber": 42
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "systemParamsSchema.safeParse",
+          "lineNumber": 46
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "lobbySettingsSchema.safeParse",
+          "lineNumber": 47
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 48
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 48
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 49
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 49
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "canManage",
+          "lineNumber": 51
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 51
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 51
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 52
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "saveSystemLobbySettings",
+          "lineNumber": 52
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "request.log.error",
+          "lineNumber": 54
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 55
+        },
+        {
+          "caller": "lobbySettingsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/lobby-settings/lobby-settings.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 23,
+      "exports": [
+        {
+          "name": "lobbySectionIds",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "lobbySettingsSchema",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "lobbySettingsDefaults",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/store/store.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "result",
+          "startLine": 5,
+          "endLine": 9,
+          "params": [
+            "query"
+          ]
+        },
+        {
+          "name": "canManageStore",
+          "startLine": 10,
+          "endLine": 13,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "createStoreItem",
+          "startLine": 14,
+          "endLine": 27,
+          "params": [
+            "client",
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "readStoreCharacter",
+          "startLine": 28,
+          "endLine": 31,
+          "params": [
+            "client",
+            "userId",
+            "systemId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "readCatalog",
+          "startLine": 32,
+          "endLine": 55,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "readStore",
+          "startLine": 56,
+          "endLine": 66,
+          "params": [
+            "client",
+            "systemId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "updateStoreCurrencyField",
+          "startLine": 67,
+          "endLine": 72,
+          "params": [
+            "client",
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "updateStoreOfferField",
+          "startLine": 73,
+          "endLine": 81,
+          "params": [
+            "client",
+            "systemId",
+            "itemId",
+            "input"
+          ]
+        },
+        {
+          "name": "replaceStore",
+          "startLine": 82,
+          "endLine": 92,
+          "params": [
+            "client",
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "purchaseStoreOffer",
+          "startLine": 93,
+          "endLine": 96,
+          "params": [
+            "client",
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "canManageStore",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "createStoreItem",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "readStoreCharacter",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "readStore",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "updateStoreCurrencyField",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "updateStoreOfferField",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "replaceStore",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "purchaseStoreOffer",
+          "line": 93,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "canManageStore",
+          "callee": "readMySystemMemberships",
+          "lineNumber": 11
+        },
+        {
+          "caller": "canManageStore",
+          "callee": "access.memberships.some",
+          "lineNumber": 12
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "input.name.normalize('NFKD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "input.name.normalize('NFKD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "input.name.normalize('NFKD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase().replace",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "input.name.normalize('NFKD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "input.name.normalize('NFKD').replace",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "input.name.normalize",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "globalThis.crypto.randomUUID().slice",
+          "lineNumber": 16
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "globalThis.crypto.randomUUID",
+          "lineNumber": 16
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "result",
+          "lineNumber": 17
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "client.from('items').insert({\n    game_system_id: systemId,\n    slug,\n    name: input.name,\n    description: input.description || null,\n    item_type: input.item_type,\n    image_url: input.image_url || null,\n    rules_data: {},\n  }).select('id,name,description,item_type,image_url').single",
+          "lineNumber": 17
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "client.from('items').insert({\n    game_system_id: systemId,\n    slug,\n    name: input.name,\n    description: input.description || null,\n    item_type: input.item_type,\n    image_url: input.image_url || null,\n    rules_data: {},\n  }).select",
+          "lineNumber": 17
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "client.from('items').insert",
+          "lineNumber": 17
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "client.from",
+          "lineNumber": 17
+        },
+        {
+          "caller": "createStoreItem",
+          "callee": "storeItemSchema.parse",
+          "lineNumber": 26
+        },
+        {
+          "caller": "readStoreCharacter",
+          "callee": "result",
+          "lineNumber": 29
+        },
+        {
+          "caller": "readStoreCharacter",
+          "callee": "client.from('characters').select('id,game_system_id').eq('id', characterId)\n    .eq('user_id', userId).eq('game_system_id', systemId).eq('status', 'active').maybeSingle",
+          "lineNumber": 29
+        },
+        {
+          "caller": "readStoreCharacter",
+          "callee": "client.from('characters').select('id,game_system_id').eq('id', characterId)\n    .eq('user_id', userId).eq('game_system_id', systemId).eq",
+          "lineNumber": 29
+        },
+        {
+          "caller": "readStoreCharacter",
+          "callee": "client.from('characters').select('id,game_system_id').eq('id', characterId)\n    .eq('user_id', userId).eq",
+          "lineNumber": 29
+        },
+        {
+          "caller": "readStoreCharacter",
+          "callee": "client.from('characters').select('id,game_system_id').eq('id', characterId)\n    .eq",
+          "lineNumber": 29
+        },
+        {
+          "caller": "readStoreCharacter",
+          "callee": "client.from('characters').select('id,game_system_id').eq",
+          "lineNumber": 29
+        },
+        {
+          "caller": "readStoreCharacter",
+          "callee": "client.from('characters').select",
+          "lineNumber": 29
+        },
+        {
+          "caller": "readStoreCharacter",
+          "callee": "client.from",
+          "lineNumber": 29
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "Promise.all",
+          "lineNumber": 33
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "result",
+          "lineNumber": 34
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from('products').select('id,item_id,ability_id').eq('game_system_id', systemId).not",
+          "lineNumber": 34
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from('products').select('id,item_id,ability_id').eq",
+          "lineNumber": 34
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from('products').select",
+          "lineNumber": 34
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from",
+          "lineNumber": 34
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "result",
+          "lineNumber": 35
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from('store_products').select('id,product_id,price,is_available').eq('game_system_id', systemId).order",
+          "lineNumber": 35
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from('store_products').select('id,product_id,price,is_available').eq",
+          "lineNumber": 35
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from('store_products').select",
+          "lineNumber": 35
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from",
+          "lineNumber": 35
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "result",
+          "lineNumber": 36
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from('items').select('id,name,description,item_type,image_url').eq('game_system_id', systemId).order",
+          "lineNumber": 36
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from('items').select('id,name,description,item_type,image_url').eq",
+          "lineNumber": 36
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from('items').select",
+          "lineNumber": 36
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "client.from",
+          "lineNumber": 36
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "(items ?? []).map",
+          "lineNumber": 38
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "(products ?? []).filter",
+          "lineNumber": 39
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "itemMap.has",
+          "lineNumber": 39
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "itemProducts.map",
+          "lineNumber": 40
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "(listings ?? []).flatMap",
+          "lineNumber": 41
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "productMap.get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "itemMap.get",
+          "lineNumber": 43
+        },
+        {
+          "caller": "readCatalog",
+          "callee": "Number",
+          "lineNumber": 50
+        },
+        {
+          "caller": "readStore",
+          "callee": "client.from('game_systems').select('id,currency_name,currency_image_url,is_active').eq",
+          "lineNumber": 57
+        },
+        {
+          "caller": "readStore",
+          "callee": "client.from('game_systems').select",
+          "lineNumber": 57
+        },
+        {
+          "caller": "readStore",
+          "callee": "client.from",
+          "lineNumber": 57
+        },
+        {
+          "caller": "readStore",
+          "callee": "query.eq",
+          "lineNumber": 58
+        },
+        {
+          "caller": "readStore",
+          "callee": "result",
+          "lineNumber": 59
+        },
+        {
+          "caller": "readStore",
+          "callee": "query.maybeSingle",
+          "lineNumber": 59
+        },
+        {
+          "caller": "readStore",
+          "callee": "readCatalog",
+          "lineNumber": 61
+        },
+        {
+          "caller": "readStore",
+          "callee": "result",
+          "lineNumber": 63
+        },
+        {
+          "caller": "readStore",
+          "callee": "client.from('character_wallets').select('balance').eq('character_id', characterId).eq('game_system_id', systemId).maybeSingle",
+          "lineNumber": 63
+        },
+        {
+          "caller": "readStore",
+          "callee": "client.from('character_wallets').select('balance').eq('character_id', characterId).eq",
+          "lineNumber": 63
+        },
+        {
+          "caller": "readStore",
+          "callee": "client.from('character_wallets').select('balance').eq",
+          "lineNumber": 63
+        },
+        {
+          "caller": "readStore",
+          "callee": "client.from('character_wallets').select",
+          "lineNumber": 63
+        },
+        {
+          "caller": "readStore",
+          "callee": "client.from",
+          "lineNumber": 63
+        },
+        {
+          "caller": "readStore",
+          "callee": "Number",
+          "lineNumber": 65
+        },
+        {
+          "caller": "readStore",
+          "callee": "catalog.offers.filter",
+          "lineNumber": 65
+        },
+        {
+          "caller": "updateStoreCurrencyField",
+          "callee": "client.from('game_systems').update(input)\n    .eq('id', systemId).select('currency_name,currency_image_url').single",
+          "lineNumber": 68
+        },
+        {
+          "caller": "updateStoreCurrencyField",
+          "callee": "client.from('game_systems').update(input)\n    .eq('id', systemId).select",
+          "lineNumber": 68
+        },
+        {
+          "caller": "updateStoreCurrencyField",
+          "callee": "client.from('game_systems').update(input)\n    .eq",
+          "lineNumber": 68
+        },
+        {
+          "caller": "updateStoreCurrencyField",
+          "callee": "client.from('game_systems').update",
+          "lineNumber": 68
+        },
+        {
+          "caller": "updateStoreCurrencyField",
+          "callee": "client.from",
+          "lineNumber": 68
+        },
+        {
+          "caller": "updateStoreOfferField",
+          "callee": "result",
+          "lineNumber": 77
+        },
+        {
+          "caller": "updateStoreOfferField",
+          "callee": "client.rpc",
+          "lineNumber": 77
+        },
+        {
+          "caller": "updateStoreOfferField",
+          "callee": "storeOfferFieldResultSchema.parse",
+          "lineNumber": 80
+        },
+        {
+          "caller": "replaceStore",
+          "callee": "result",
+          "lineNumber": 83
+        },
+        {
+          "caller": "replaceStore",
+          "callee": "client.rpc",
+          "lineNumber": 83
+        },
+        {
+          "caller": "purchaseStoreOffer",
+          "callee": "result",
+          "lineNumber": 94
+        },
+        {
+          "caller": "purchaseStoreOffer",
+          "callee": "client.rpc",
+          "lineNumber": 94
+        },
+        {
+          "caller": "purchaseStoreOffer",
+          "callee": "storePurchaseResultSchema.parse",
+          "lineNumber": 95
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 8,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/store/store.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 117,
+      "nonEmptyLines": 117,
+      "functions": [
+        {
+          "name": "documentedInputs",
+          "startLine": 9,
+          "endLine": 16,
+          "params": [
+            "body",
+            "querystring",
+            "paramsSchema"
+          ]
+        },
+        {
+          "name": "storeRoutes",
+          "startLine": 18,
+          "endLine": 117,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "storeRoutes",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "documentedInputs",
+          "callee": "z.toJSONSchema",
+          "lineNumber": 11
+        },
+        {
+          "caller": "documentedInputs",
+          "callee": "z.toJSONSchema",
+          "lineNumber": 12
+        },
+        {
+          "caller": "documentedInputs",
+          "callee": "z.toJSONSchema",
+          "lineNumber": 13
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "app.get",
+          "lineNumber": 19
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "documentedInputs",
+          "lineNumber": 19
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeParamsSchema.safeParse",
+          "lineNumber": 20
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeCharacterQuerySchema.safeParse",
+          "lineNumber": 21
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 22
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 22
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 25
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 25
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "readStoreCharacter",
+          "lineNumber": 28
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 28
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 28
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "readStore",
+          "lineNumber": 29
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.send",
+          "lineNumber": 30
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 30
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 30
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 31
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 31
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "app.post",
+          "lineNumber": 33
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "documentedInputs",
+          "lineNumber": 33
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeParamsSchema.safeParse",
+          "lineNumber": 34
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storePurchaseSchema.safeParse",
+          "lineNumber": 35
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 36
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 36
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 38
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 38
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "readStoreCharacter",
+          "lineNumber": 40
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 40
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 40
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "purchaseStoreOffer",
+          "lineNumber": 41
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 43
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 43
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 44
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 44
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 45
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 45
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 46
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 46
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(409).send",
+          "lineNumber": 47
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 47
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 49
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 49
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "app.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeParamsSchema.safeParse",
+          "lineNumber": 52
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 53
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 53
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 55
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 55
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "canManageStore",
+          "lineNumber": 57
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 57
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 57
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "readStore",
+          "lineNumber": 58
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.send",
+          "lineNumber": 59
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 59
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 59
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 60
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 60
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "app.post",
+          "lineNumber": 62
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "documentedInputs",
+          "lineNumber": 62
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeParamsSchema.safeParse",
+          "lineNumber": 63
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeItemCreateSchema.safeParse",
+          "lineNumber": 64
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 65
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 65
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 67
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 67
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "canManageStore",
+          "lineNumber": 69
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 69
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 69
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "createStoreItem",
+          "lineNumber": 70
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 71
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 71
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 72
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 72
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "app.put",
+          "lineNumber": 74
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "documentedInputs",
+          "lineNumber": 74
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeParamsSchema.safeParse",
+          "lineNumber": 75
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeScheduleSchema.safeParse",
+          "lineNumber": 76
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 77
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 77
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 79
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 79
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "canManageStore",
+          "lineNumber": 81
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 81
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 81
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "readStore",
+          "lineNumber": 82
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 82
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 82
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "replaceStore",
+          "lineNumber": 83
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 83
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 83
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.send",
+          "lineNumber": 84
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "readStore",
+          "lineNumber": 84
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 85
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 85
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "app.patch",
+          "lineNumber": 87
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "documentedInputs",
+          "lineNumber": 87
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeParamsSchema.safeParse",
+          "lineNumber": 88
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeCurrencyFieldSchema.safeParse",
+          "lineNumber": 89
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 90
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 90
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 92
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 92
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "canManageStore",
+          "lineNumber": 94
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 94
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 94
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.send",
+          "lineNumber": 95
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "updateStoreCurrencyField",
+          "lineNumber": 95
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 96
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 96
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "app.patch",
+          "lineNumber": 98
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "documentedInputs",
+          "lineNumber": 98
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeOfferParamsSchema.safeParse",
+          "lineNumber": 99
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "storeOfferFieldSchema.safeParse",
+          "lineNumber": 100
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 101
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 101
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 103
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 103
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "canManageStore",
+          "lineNumber": 105
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 105
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 105
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "updateStoreOfferField",
+          "lineNumber": 106
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.send",
+          "lineNumber": 108
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 109
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 109
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 110
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 110
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 111
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 111
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 112
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 112
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 113
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 113
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 115
+        },
+        {
+          "caller": "storeRoutes",
+          "callee": "reply.code",
+          "lineNumber": 115
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/store/store.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 56,
+      "nonEmptyLines": 56,
+      "exports": [
+        {
+          "name": "storeMoneySchema",
+          "line": 2,
+          "isDefault": false
+        },
+        {
+          "name": "storeOfferSchema",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "storeScheduleSchema",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "storeCurrencyFieldSchema",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "storeOfferFieldSchema",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "storeOfferFieldResultSchema",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "storeItemCreateSchema",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "storeItemSchema",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "storePurchaseSchema",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "storeCharacterQuerySchema",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "storeParamsSchema",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "storeOfferParamsSchema",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "storePurchaseResultSchema",
+          "line": 53,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 13,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/system-events/system-events.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "canManageSystemEvents",
+          "startLine": 7,
+          "endLine": 11,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "listSystemEvents",
+          "startLine": 13,
+          "endLine": 20,
+          "params": [
+            "client",
+            "systemId"
+          ]
+        },
+        {
+          "name": "createSystemEvent",
+          "startLine": 22,
+          "endLine": 34,
+          "params": [
+            "client",
+            "systemId",
+            "input"
+          ]
+        },
+        {
+          "name": "updateSystemEvent",
+          "startLine": 36,
+          "endLine": 49,
+          "params": [
+            "client",
+            "systemId",
+            "eventId",
+            "input"
+          ]
+        },
+        {
+          "name": "deleteSystemEvent",
+          "startLine": 51,
+          "endLine": 56,
+          "params": [
+            "client",
+            "systemId",
+            "eventId"
+          ]
+        },
+        {
+          "name": "startSystemEvent",
+          "startLine": 58,
+          "endLine": 73,
+          "params": [
+            "client",
+            "systemId",
+            "eventId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "canManageSystemEvents",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "listSystemEvents",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "createSystemEvent",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "updateSystemEvent",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "deleteSystemEvent",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "startSystemEvent",
+          "line": 58,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "canManageSystemEvents",
+          "callee": "readMySystemMemberships",
+          "lineNumber": 8
+        },
+        {
+          "caller": "canManageSystemEvents",
+          "callee": "access.memberships.some",
+          "lineNumber": 9
+        },
+        {
+          "caller": "listSystemEvents",
+          "callee": "client.from('game_system_events').select(eventColumns)\n    .eq('game_system_id', systemId).order('starts_at', { ascending: true }).order",
+          "lineNumber": 14
+        },
+        {
+          "caller": "listSystemEvents",
+          "callee": "client.from('game_system_events').select(eventColumns)\n    .eq('game_system_id', systemId).order",
+          "lineNumber": 14
+        },
+        {
+          "caller": "listSystemEvents",
+          "callee": "client.from('game_system_events').select(eventColumns)\n    .eq",
+          "lineNumber": 14
+        },
+        {
+          "caller": "listSystemEvents",
+          "callee": "client.from('game_system_events').select",
+          "lineNumber": 14
+        },
+        {
+          "caller": "listSystemEvents",
+          "callee": "client.from",
+          "lineNumber": 14
+        },
+        {
+          "caller": "listSystemEvents",
+          "callee": "systemEventsResponseSchema.safeParse",
+          "lineNumber": 17
+        },
+        {
+          "caller": "createSystemEvent",
+          "callee": "client.from('game_system_events').insert({\n    game_system_id: systemId,\n    title: input.title,\n    description: input.description,\n    starts_at: input.starts_at,\n    ends_at: input.ends_at,\n  }).select(eventColumns).single",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemEvent",
+          "callee": "client.from('game_system_events').insert({\n    game_system_id: systemId,\n    title: input.title,\n    description: input.description,\n    starts_at: input.starts_at,\n    ends_at: input.ends_at,\n  }).select",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemEvent",
+          "callee": "client.from('game_system_events').insert",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemEvent",
+          "callee": "client.from",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createSystemEvent",
+          "callee": "systemEventSchema.safeParse",
+          "lineNumber": 31
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "client.from('game_system_events').update({\n    title: input.title,\n    description: input.description,\n    starts_at: input.starts_at,\n    ends_at: input.ends_at,\n    updated_at: new Date().toISOString(),\n  }).eq('id', eventId).eq('game_system_id', systemId).select(eventColumns).maybeSingle",
+          "lineNumber": 37
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "client.from('game_system_events').update({\n    title: input.title,\n    description: input.description,\n    starts_at: input.starts_at,\n    ends_at: input.ends_at,\n    updated_at: new Date().toISOString(),\n  }).eq('id', eventId).eq('game_system_id', systemId).select",
+          "lineNumber": 37
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "client.from('game_system_events').update({\n    title: input.title,\n    description: input.description,\n    starts_at: input.starts_at,\n    ends_at: input.ends_at,\n    updated_at: new Date().toISOString(),\n  }).eq('id', eventId).eq",
+          "lineNumber": 37
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "client.from('game_system_events').update({\n    title: input.title,\n    description: input.description,\n    starts_at: input.starts_at,\n    ends_at: input.ends_at,\n    updated_at: new Date().toISOString(),\n  }).eq",
+          "lineNumber": 37
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "client.from('game_system_events').update",
+          "lineNumber": 37
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "client.from",
+          "lineNumber": 37
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "new Date().toISOString",
+          "lineNumber": 42
+        },
+        {
+          "caller": "updateSystemEvent",
+          "callee": "systemEventSchema.safeParse",
+          "lineNumber": 46
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "client.from('game_system_events').delete()\n    .eq('id', eventId).eq('game_system_id', systemId).select('id').maybeSingle",
+          "lineNumber": 52
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "client.from('game_system_events').delete()\n    .eq('id', eventId).eq('game_system_id', systemId).select",
+          "lineNumber": 52
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "client.from('game_system_events').delete()\n    .eq('id', eventId).eq",
+          "lineNumber": 52
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "client.from('game_system_events').delete()\n    .eq",
+          "lineNumber": 52
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "client.from('game_system_events').delete",
+          "lineNumber": 52
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "client.from",
+          "lineNumber": 52
+        },
+        {
+          "caller": "deleteSystemEvent",
+          "callee": "Boolean",
+          "lineNumber": 55
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "new Date().toISOString",
+          "lineNumber": 59
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events').update({ started_at: startedAt, updated_at: startedAt })\n    .eq('id', eventId).eq('game_system_id', systemId).is('started_at', null).select(eventColumns).maybeSingle",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events').update({ started_at: startedAt, updated_at: startedAt })\n    .eq('id', eventId).eq('game_system_id', systemId).is('started_at', null).select",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events').update({ started_at: startedAt, updated_at: startedAt })\n    .eq('id', eventId).eq('game_system_id', systemId).is",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events').update({ started_at: startedAt, updated_at: startedAt })\n    .eq('id', eventId).eq",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events').update({ started_at: startedAt, updated_at: startedAt })\n    .eq",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events').update",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from",
+          "lineNumber": 60
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "systemEventSchema.safeParse",
+          "lineNumber": 64
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events')\n    .select('id,started_at').eq('id', eventId).eq('game_system_id', systemId).maybeSingle",
+          "lineNumber": 68
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events')\n    .select('id,started_at').eq('id', eventId).eq",
+          "lineNumber": 68
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events')\n    .select('id,started_at').eq",
+          "lineNumber": 68
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from('game_system_events')\n    .select",
+          "lineNumber": 68
+        },
+        {
+          "caller": "startSystemEvent",
+          "callee": "client.from",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/system-events/system-events.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 118,
+      "nonEmptyLines": 109,
+      "functions": [
+        {
+          "name": "checkEventAccess",
+          "startLine": 21,
+          "endLine": 26,
+          "params": [
+            "client",
+            "reply",
+            "systemId"
+          ]
+        },
+        {
+          "name": "documentedBody",
+          "startLine": 38,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "systemEventsRoutes",
+          "startLine": 44,
+          "endLine": 118,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "systemEventsRoutes",
+          "line": 44,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "checkEventAccess",
+          "callee": "canManageSystemEvents",
+          "lineNumber": 22
+        },
+        {
+          "caller": "checkEventAccess",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 24
+        },
+        {
+          "caller": "checkEventAccess",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 24
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "app.post",
+          "lineNumber": 45
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "eventParamsSchema.safeParse",
+          "lineNumber": 49
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 50
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 50
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "checkEventAccess",
+          "lineNumber": 52
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 54
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 54
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "startSystemEvent",
+          "lineNumber": 55
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 56
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 56
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(409).send",
+          "lineNumber": 57
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 57
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 58
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 59
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 59
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "app.get",
+          "lineNumber": 62
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "systemParamsSchema.safeParse",
+          "lineNumber": 63
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 64
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 64
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "checkEventAccess",
+          "lineNumber": 66
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 68
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "listSystemEvents",
+          "lineNumber": 68
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 69
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 69
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "app.post",
+          "lineNumber": 72
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "documentedBody",
+          "lineNumber": 75
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "systemParamsSchema.safeParse",
+          "lineNumber": 77
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "systemEventInputSchema.safeParse",
+          "lineNumber": 78
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 79
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 79
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 80
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 80
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "checkEventAccess",
+          "lineNumber": 82
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 84
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 84
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(201).send",
+          "lineNumber": 85
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 85
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "createSystemEvent",
+          "lineNumber": 85
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 86
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 86
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "app.put",
+          "lineNumber": 89
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "documentedBody",
+          "lineNumber": 92
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "eventParamsSchema.safeParse",
+          "lineNumber": 94
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "systemEventInputSchema.safeParse",
+          "lineNumber": 95
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 96
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 96
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 97
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 97
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "checkEventAccess",
+          "lineNumber": 99
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 101
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 101
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "updateSystemEvent",
+          "lineNumber": 102
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.send",
+          "lineNumber": 103
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 103
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 103
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 104
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 104
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "app.delete",
+          "lineNumber": 107
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "eventParamsSchema.safeParse",
+          "lineNumber": 108
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 109
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 109
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "checkEventAccess",
+          "lineNumber": 111
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 113
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 113
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "deleteSystemEvent",
+          "lineNumber": 114
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(204).send",
+          "lineNumber": 115
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 115
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 115
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 115
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code(500).send",
+          "lineNumber": 116
+        },
+        {
+          "caller": "systemEventsRoutes",
+          "callee": "reply.code",
+          "lineNumber": 116
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/system-events/system-events.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 24,
+      "exports": [
+        {
+          "name": "systemEventInputSchema",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "systemEventSchema",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "systemEventsResponseSchema",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/system-membership/system-membership.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "readMySystemMemberships",
+          "startLine": 8,
+          "endLine": 14,
+          "params": [
+            "client"
+          ]
+        },
+        {
+          "name": "setSystemModerator",
+          "startLine": 16,
+          "endLine": 29,
+          "params": [
+            "client",
+            "gameSystemId",
+            "userId",
+            "assignment"
+          ]
+        },
+        {
+          "name": "searchSystemMembersByCharacterName",
+          "startLine": 31,
+          "endLine": 40,
+          "params": [
+            "client",
+            "gameSystemId",
+            "query"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "readMySystemMemberships",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "setSystemModerator",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "searchSystemMembersByCharacterName",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readMySystemMemberships",
+          "callee": "client.rpc",
+          "lineNumber": 9
+        },
+        {
+          "caller": "readMySystemMemberships",
+          "callee": "systemMembershipsResponseSchema.safeParse",
+          "lineNumber": 11
+        },
+        {
+          "caller": "setSystemModerator",
+          "callee": "client.rpc",
+          "lineNumber": 22
+        },
+        {
+          "caller": "searchSystemMembersByCharacterName",
+          "callee": "client.rpc",
+          "lineNumber": 32
+        },
+        {
+          "caller": "searchSystemMembersByCharacterName",
+          "callee": "systemMemberSearchResponseSchema.safeParse",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/system-membership/system-membership.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 134,
+      "nonEmptyLines": 128,
+      "functions": [
+        {
+          "name": "databaseError",
+          "startLine": 22,
+          "endLine": 24,
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "name": "systemMembershipRoutes",
+          "startLine": 26,
+          "endLine": 134,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "systemMembershipRoutes",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "databaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 23
+        },
+        {
+          "caller": "databaseError",
+          "callee": "reply.code",
+          "lineNumber": 23
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "app.get",
+          "lineNumber": 27
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "memberSearchParamsSchema.safeParse",
+          "lineNumber": 43
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 44
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code",
+          "lineNumber": 44
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "memberSearchQuerySchema.safeParse",
+          "lineNumber": 45
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 46
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code",
+          "lineNumber": 46
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "systemMemberSearchResponseSchema.safeParse",
+          "lineNumber": 48
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "searchSystemMembersByCharacterName",
+          "lineNumber": 48
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "databaseError",
+          "lineNumber": 49
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 50
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code",
+          "lineNumber": 50
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 51
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code",
+          "lineNumber": 51
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.send",
+          "lineNumber": 52
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "databaseError",
+          "lineNumber": 54
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "app.get",
+          "lineNumber": 58
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "systemMembershipsResponseSchema.safeParse",
+          "lineNumber": 84
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "readMySystemMemberships",
+          "lineNumber": 84
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "databaseError",
+          "lineNumber": 85
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.send",
+          "lineNumber": 86
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "databaseError",
+          "lineNumber": 88
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "app.put",
+          "lineNumber": 92
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "membershipParamsSchema.safeParse",
+          "lineNumber": 116
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 117
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code",
+          "lineNumber": 117
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "moderatorAssignmentSchema.safeParse",
+          "lineNumber": 118
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 119
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code",
+          "lineNumber": 119
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "setSystemModerator",
+          "lineNumber": 122
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.send",
+          "lineNumber": 124
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code(403).send",
+          "lineNumber": 125
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code",
+          "lineNumber": 125
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 126
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code",
+          "lineNumber": 126
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code(401).send",
+          "lineNumber": 127
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "reply.code",
+          "lineNumber": 127
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "databaseError",
+          "lineNumber": 128
+        },
+        {
+          "caller": "systemMembershipRoutes",
+          "callee": "databaseError",
+          "lineNumber": 131
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/system-membership/system-membership.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 28,
+      "exports": [
+        {
+          "name": "systemIdSchema",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "membershipParamsSchema",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "moderatorAssignmentSchema",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "memberSearchParamsSchema",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "memberSearchQuerySchema",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "systemMemberSearchResponseSchema",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "systemRoleSchema",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "systemMembershipSchema",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "systemMembershipsResponseSchema",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/trading/trading.repository.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 129,
+      "nonEmptyLines": 115,
+      "functions": [
+        {
+          "name": "parseRpc",
+          "startLine": 15,
+          "endLine": 19,
+          "params": [
+            "schema",
+            "value"
+          ]
+        },
+        {
+          "name": "callRpc",
+          "startLine": 21,
+          "endLine": 25,
+          "params": [
+            "client",
+            "name",
+            "args"
+          ]
+        },
+        {
+          "name": "readTradeCharacters",
+          "startLine": 27,
+          "endLine": 31,
+          "params": [
+            "client",
+            "gameSystemId"
+          ]
+        },
+        {
+          "name": "readTradeInventory",
+          "startLine": 33,
+          "endLine": 38,
+          "params": [
+            "client",
+            "gameSystemId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "readOwnedInventoryCharacter",
+          "startLine": 40,
+          "endLine": 52,
+          "params": [
+            "client",
+            "userId",
+            "characterId"
+          ]
+        },
+        {
+          "name": "readOwnedCharacterInventory",
+          "startLine": 54,
+          "endLine": 91,
+          "params": [
+            "client",
+            "character"
+          ]
+        },
+        {
+          "name": "readTradeOffers",
+          "startLine": 93,
+          "endLine": 99,
+          "params": [
+            "client",
+            "query"
+          ]
+        },
+        {
+          "name": "createTradeOffer",
+          "startLine": 101,
+          "endLine": 108,
+          "params": [
+            "client",
+            "input"
+          ]
+        },
+        {
+          "name": "counterTradeOffer",
+          "startLine": 110,
+          "endLine": 116,
+          "params": [
+            "client",
+            "offerId",
+            "input"
+          ]
+        },
+        {
+          "name": "respondToTradeOffer",
+          "startLine": 118,
+          "endLine": 123,
+          "params": [
+            "client",
+            "offerId",
+            "input"
+          ]
+        },
+        {
+          "name": "cancelTradeOffer",
+          "startLine": 125,
+          "endLine": 129,
+          "params": [
+            "client",
+            "offerId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "readTradeCharacters",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "readTradeInventory",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "readOwnedInventoryCharacter",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "readOwnedCharacterInventory",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "readTradeOffers",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "createTradeOffer",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "counterTradeOffer",
+          "line": 110,
+          "isDefault": false
+        },
+        {
+          "name": "respondToTradeOffer",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "cancelTradeOffer",
+          "line": 125,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseRpc",
+          "callee": "schema.safeParse",
+          "lineNumber": 16
+        },
+        {
+          "caller": "callRpc",
+          "callee": "client.rpc",
+          "lineNumber": 22
+        },
+        {
+          "caller": "readTradeCharacters",
+          "callee": "parseRpc",
+          "lineNumber": 28
+        },
+        {
+          "caller": "readTradeCharacters",
+          "callee": "callRpc",
+          "lineNumber": 28
+        },
+        {
+          "caller": "readTradeInventory",
+          "callee": "parseRpc",
+          "lineNumber": 34
+        },
+        {
+          "caller": "readTradeInventory",
+          "callee": "callRpc",
+          "lineNumber": 34
+        },
+        {
+          "caller": "readOwnedInventoryCharacter",
+          "callee": "client.from('characters')\n    .select('id,game_system_id,character_name')\n    .eq('id', characterId)\n    .eq('user_id', userId)\n    .eq('status', 'active')\n    .maybeSingle",
+          "lineNumber": 41
+        },
+        {
+          "caller": "readOwnedInventoryCharacter",
+          "callee": "client.from('characters')\n    .select('id,game_system_id,character_name')\n    .eq('id', characterId)\n    .eq('user_id', userId)\n    .eq",
+          "lineNumber": 41
+        },
+        {
+          "caller": "readOwnedInventoryCharacter",
+          "callee": "client.from('characters')\n    .select('id,game_system_id,character_name')\n    .eq('id', characterId)\n    .eq",
+          "lineNumber": 41
+        },
+        {
+          "caller": "readOwnedInventoryCharacter",
+          "callee": "client.from('characters')\n    .select('id,game_system_id,character_name')\n    .eq",
+          "lineNumber": 41
+        },
+        {
+          "caller": "readOwnedInventoryCharacter",
+          "callee": "client.from('characters')\n    .select",
+          "lineNumber": 41
+        },
+        {
+          "caller": "readOwnedInventoryCharacter",
+          "callee": "client.from",
+          "lineNumber": 41
+        },
+        {
+          "caller": "readOwnedInventoryCharacter",
+          "callee": "ownedInventoryCharacterSchema.safeParse",
+          "lineNumber": 49
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "client.from('character_inventory')\n    .select('id,item_id,quantity,metadata')\n    .eq('character_id', character.id)\n    .order",
+          "lineNumber": 58
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "client.from('character_inventory')\n    .select('id,item_id,quantity,metadata')\n    .eq",
+          "lineNumber": 58
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "client.from('character_inventory')\n    .select",
+          "lineNumber": 58
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "client.from",
+          "lineNumber": 58
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "(inventory ?? []).map",
+          "lineNumber": 64
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "client.from('items')\n    .select('id,name,description,item_type,rules_data')\n    .eq('game_system_id', character.game_system_id)\n    .in",
+          "lineNumber": 67
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "client.from('items')\n    .select('id,name,description,item_type,rules_data')\n    .eq",
+          "lineNumber": 67
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "client.from('items')\n    .select",
+          "lineNumber": 67
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "client.from",
+          "lineNumber": 67
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "(items ?? []).map",
+          "lineNumber": 73
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "(inventory ?? []).map",
+          "lineNumber": 74
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "itemById.get",
+          "lineNumber": 75
+        },
+        {
+          "caller": "readOwnedCharacterInventory",
+          "callee": "ownedCharacterInventorySchema.safeParse",
+          "lineNumber": 88
+        },
+        {
+          "caller": "readTradeOffers",
+          "callee": "parseRpc",
+          "lineNumber": 94
+        },
+        {
+          "caller": "readTradeOffers",
+          "callee": "callRpc",
+          "lineNumber": 94
+        },
+        {
+          "caller": "createTradeOffer",
+          "callee": "parseRpc",
+          "lineNumber": 102
+        },
+        {
+          "caller": "createTradeOffer",
+          "callee": "callRpc",
+          "lineNumber": 102
+        },
+        {
+          "caller": "counterTradeOffer",
+          "callee": "parseRpc",
+          "lineNumber": 111
+        },
+        {
+          "caller": "counterTradeOffer",
+          "callee": "callRpc",
+          "lineNumber": 111
+        },
+        {
+          "caller": "respondToTradeOffer",
+          "callee": "parseRpc",
+          "lineNumber": 119
+        },
+        {
+          "caller": "respondToTradeOffer",
+          "callee": "callRpc",
+          "lineNumber": 119
+        },
+        {
+          "caller": "cancelTradeOffer",
+          "callee": "parseRpc",
+          "lineNumber": 126
+        },
+        {
+          "caller": "cancelTradeOffer",
+          "callee": "callRpc",
+          "lineNumber": 126
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 9,
+        "functionCount": 11,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/trading/trading.routes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 246,
+      "nonEmptyLines": 233,
+      "functions": [
+        {
+          "name": "databaseError",
+          "startLine": 37,
+          "endLine": 39,
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "name": "inventoryDatabaseError",
+          "startLine": 41,
+          "endLine": 43,
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "name": "mutationReply",
+          "startLine": 45,
+          "endLine": 94,
+          "params": [
+            "reply",
+            "result"
+          ]
+        },
+        {
+          "name": "uuidParam",
+          "startLine": 96,
+          "endLine": 98,
+          "params": [
+            "schema",
+            "params"
+          ]
+        },
+        {
+          "name": "tradingRoutes",
+          "startLine": 100,
+          "endLine": 246,
+          "params": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "tradingRoutes",
+          "line": 100,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "databaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 38
+        },
+        {
+          "caller": "databaseError",
+          "callee": "reply.code",
+          "lineNumber": 38
+        },
+        {
+          "caller": "inventoryDatabaseError",
+          "callee": "reply.code(500).send",
+          "lineNumber": 42
+        },
+        {
+          "caller": "inventoryDatabaseError",
+          "callee": "reply.code",
+          "lineNumber": 42
+        },
+        {
+          "caller": "mutationReply",
+          "callee": "databaseError",
+          "lineNumber": 70
+        },
+        {
+          "caller": "mutationReply",
+          "callee": "reply.code(code).send",
+          "lineNumber": 91
+        },
+        {
+          "caller": "mutationReply",
+          "callee": "reply.code",
+          "lineNumber": 91
+        },
+        {
+          "caller": "mutationReply",
+          "callee": "reply.code(code).send",
+          "lineNumber": 93
+        },
+        {
+          "caller": "mutationReply",
+          "callee": "reply.code",
+          "lineNumber": 93
+        },
+        {
+          "caller": "uuidParam",
+          "callee": "schema.safeParse",
+          "lineNumber": 97
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "app.get",
+          "lineNumber": 101
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "uuidParam",
+          "lineNumber": 102
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 103
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 103
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 105
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 105
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "readTradeCharacters",
+          "lineNumber": 107
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "mutationReply",
+          "lineNumber": 108
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.send",
+          "lineNumber": 109
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "databaseError",
+          "lineNumber": 111
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "app.get",
+          "lineNumber": 115
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "uuidParam",
+          "lineNumber": 116
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 117
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 117
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 119
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 119
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "readTradeInventory",
+          "lineNumber": 121
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "mutationReply",
+          "lineNumber": 122
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.send",
+          "lineNumber": 123
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "databaseError",
+          "lineNumber": 125
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "app.get",
+          "lineNumber": 129
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "uuidParam",
+          "lineNumber": 130
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 131
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 131
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "readOwnedInventoryCharacter",
+          "lineNumber": 133
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(404).send",
+          "lineNumber": 134
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 134
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "rejectSystemAccess",
+          "lineNumber": 135
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "authorizeSystemAccess",
+          "lineNumber": 135
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.send",
+          "lineNumber": 137
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "readOwnedCharacterInventory",
+          "lineNumber": 137
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "inventoryDatabaseError",
+          "lineNumber": 139
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "app.get",
+          "lineNumber": 143
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "tradeOffersQuerySchema.safeParse",
+          "lineNumber": 144
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 145
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 145
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "readTradeOffers",
+          "lineNumber": 147
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "mutationReply",
+          "lineNumber": 148
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.send",
+          "lineNumber": 149
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "databaseError",
+          "lineNumber": 151
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "app.post",
+          "lineNumber": 155
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "createTradeOfferSchema.safeParse",
+          "lineNumber": 177
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 178
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 178
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "mutationReply",
+          "lineNumber": 180
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "createTradeOffer",
+          "lineNumber": 180
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "databaseError",
+          "lineNumber": 182
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "app.post",
+          "lineNumber": 186
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "uuidParam",
+          "lineNumber": 196
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 197
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 197
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "tradeOfferResponseInputSchema.safeParse",
+          "lineNumber": 198
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 199
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 199
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "mutationReply",
+          "lineNumber": 201
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "respondToTradeOffer",
+          "lineNumber": 201
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "databaseError",
+          "lineNumber": 203
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "app.post",
+          "lineNumber": 207
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "uuidParam",
+          "lineNumber": 223
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 224
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 224
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "counterTradeOfferSchema.safeParse",
+          "lineNumber": 225
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 226
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 226
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "mutationReply",
+          "lineNumber": 228
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "counterTradeOffer",
+          "lineNumber": 228
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "databaseError",
+          "lineNumber": 230
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "app.post",
+          "lineNumber": 234
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "uuidParam",
+          "lineNumber": 238
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code(400).send",
+          "lineNumber": 239
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "reply.code",
+          "lineNumber": 239
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "mutationReply",
+          "lineNumber": 241
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "cancelTradeOffer",
+          "lineNumber": 241
+        },
+        {
+          "caller": "tradingRoutes",
+          "callee": "databaseError",
+          "lineNumber": 243
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/src/modules/trading/trading.schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 168,
+      "nonEmptyLines": 142,
+      "exports": [
+        {
+          "name": "tradeCharacterSchema",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "tradeInventoryCharacterSchema",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "tradeInventoryStackSchema",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "tradeInventorySchema",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "tradeOfferSchema",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "tradeCharactersResponseSchema",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "tradeCharactersRpcSchema",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "tradeInventoryResponseSchema",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "ownedInventoryCharacterSchema",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "ownedInventoryStackSchema",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "ownedCharacterInventorySchema",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "tradeInventoryRpcSchema",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "tradeOffersQuerySchema",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "tradeOffersResponseSchema",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "tradeOffersRpcSchema",
+          "line": 123,
+          "isDefault": false
+        },
+        {
+          "name": "createTradeOfferSchema",
+          "line": 128,
+          "isDefault": false
+        },
+        {
+          "name": "counterTradeOfferSchema",
+          "line": 138,
+          "isDefault": false
+        },
+        {
+          "name": "tradeOfferResponseInputSchema",
+          "line": 146,
+          "isDefault": false
+        },
+        {
+          "name": "tradeMutationResponseSchema",
+          "line": 150,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 19,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/daily-login.schema.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 61,
+      "nonEmptyLines": 55,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/game-systems.schema.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 187,
+      "nonEmptyLines": 169,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/store.schema.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/system-membership.schema.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/test/trading.schema.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 125,
+      "nonEmptyLines": 118,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

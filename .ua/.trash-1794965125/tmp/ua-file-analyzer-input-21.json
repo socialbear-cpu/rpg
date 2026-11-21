@@ -1,0 +1,112 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": "frontend/src/features/social/friends-page.css",
+      "language": "css",
+      "sizeLines": 155,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/social/invite-friend-control.css",
+      "language": "css",
+      "sizeLines": 7,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/store/store.css",
+      "language": "css",
+      "sizeLines": 44,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/system-creation/system-creation.css",
+      "language": "css",
+      "sizeLines": 476,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/system-events/system-events-card.css",
+      "language": "css",
+      "sizeLines": 31,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/system-management/system-management-codex.css",
+      "language": "css",
+      "sizeLines": 210,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/system-management/system-management-page.css",
+      "language": "css",
+      "sizeLines": 504,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/features/trading/trading.css",
+      "language": "css",
+      "sizeLines": 2,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/test/character-home-layout.test.ts",
+      "language": "typescript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/next-config-env.test.ts",
+      "language": "typescript",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/workspace-scripts.test.ts",
+      "language": "typescript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/config.toml",
+      "language": "toml",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "supabase/templates/signup-confirmation.html",
+      "language": "html",
+      "sizeLines": 25,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "supabase/templates/system-deletion-magic-link.html",
+      "language": "html",
+      "sizeLines": 25,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "supabase/tests/store-concurrency.mjs",
+      "language": "javascript",
+      "sizeLines": 162,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "frontend/src/features/social/friends-page.css": [],
+    "frontend/src/features/social/invite-friend-control.css": [],
+    "frontend/src/features/store/store.css": [],
+    "frontend/src/features/system-creation/system-creation.css": [],
+    "frontend/src/features/system-events/system-events-card.css": [],
+    "frontend/src/features/system-management/system-management-codex.css": [],
+    "frontend/src/features/system-management/system-management-page.css": [],
+    "frontend/src/features/trading/trading.css": [],
+    "frontend/test/character-home-layout.test.ts": [],
+    "frontend/test/next-config-env.test.ts": [],
+    "frontend/test/workspace-scripts.test.ts": [],
+    "supabase/config.toml": [],
+    "supabase/templates/signup-confirmation.html": [],
+    "supabase/templates/system-deletion-magic-link.html": [],
+    "supabase/tests/store-concurrency.mjs": []
+  }
+}

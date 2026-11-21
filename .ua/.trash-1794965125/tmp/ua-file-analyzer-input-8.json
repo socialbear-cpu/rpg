@@ -1,0 +1,102 @@
+{
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": "frontend/app/friends/page.tsx",
+      "language": "typescript",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/chats/chat-state.ts",
+      "language": "typescript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/chats/chats.tsx",
+      "language": "typescript",
+      "sizeLines": 168,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/social/friend-state.ts",
+      "language": "typescript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/social/friends-page.tsx",
+      "language": "typescript",
+      "sizeLines": 254,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/social/invite-friend-control.tsx",
+      "language": "typescript",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/chats-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/chats-state.test.ts",
+      "language": "typescript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/friend-state.test.ts",
+      "language": "typescript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/test/friends-render.test.ts",
+      "language": "typescript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "frontend/app/friends/page.tsx": [
+      "frontend/src/features/social/friends-page.tsx"
+    ],
+    "frontend/src/features/chats/chat-state.ts": [],
+    "frontend/src/features/chats/chats.tsx": [
+      "frontend/src/api.ts",
+      "frontend/src/features/chats/chat-state.ts",
+      "frontend/src/features/chats/chat.css",
+      "frontend/src/features/social/invite-friend-control.tsx"
+    ],
+    "frontend/src/features/social/friend-state.ts": [],
+    "frontend/src/features/social/friends-page.tsx": [
+      "frontend/src/api.ts",
+      "frontend/src/features/shell/app-header.tsx",
+      "frontend/src/features/social/friend-state.ts",
+      "frontend/src/features/social/friends-page.css",
+      "frontend/src/supabase-auth.ts"
+    ],
+    "frontend/src/features/social/invite-friend-control.tsx": [
+      "frontend/src/api.ts",
+      "frontend/src/features/social/invite-friend-control.css"
+    ],
+    "frontend/test/chats-render.test.ts": [
+      "frontend/src/features/chats/chats.tsx"
+    ],
+    "frontend/test/chats-state.test.ts": [
+      "frontend/src/features/chats/chat-state.ts"
+    ],
+    "frontend/test/friend-state.test.ts": [
+      "frontend/src/features/social/friend-state.ts"
+    ],
+    "frontend/test/friends-render.test.ts": [
+      "frontend/src/features/social/friends-page.tsx",
+      "frontend/src/features/social/invite-friend-control.tsx"
+    ]
+  }
+}

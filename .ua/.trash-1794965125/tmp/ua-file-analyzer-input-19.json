@@ -1,0 +1,28 @@
+{
+  "batchImportData": {
+    "supabase/tests/033_public_player_profiles.test.sql": [],
+    "supabase/tests/034_system_lobby_presence.test.sql": [],
+    "supabase/tests/CONCURRENCY.md": []
+  },
+  "projectRoot": "C:\\Users\\opsce\\OneDrive\\Documents\\ChatGPT\\RPG",
+  "batchFiles": [
+    {
+      "path": "supabase/tests/033_public_player_profiles.test.sql",
+      "language": "sql",
+      "sizeLines": 38,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/034_system_lobby_presence.test.sql",
+      "language": "sql",
+      "sizeLines": 59,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/tests/CONCURRENCY.md",
+      "language": "markdown",
+      "sizeLines": 45,
+      "fileCategory": "docs"
+    }
+  ]
+}

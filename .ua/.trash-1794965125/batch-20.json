@@ -1,0 +1,497 @@
+{
+  "nodes": [
+    {
+      "id": "file:.superpowers/brainstorm/astra-review/state/server-info",
+      "type": "file",
+      "name": "server-info",
+      "filePath": ".superpowers/brainstorm/astra-review/state/server-info",
+      "summary": "Marcador de estado de um servidor local de prévia usado durante a revisão Astra. Registra metadados de execução; valores voláteis foram omitidos.",
+      "tags": [
+        "estado",
+        "revisao",
+        "desenvolvimento"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/character-sheet-visual/content/approaches.html",
+      "type": "file",
+      "name": "approaches.html",
+      "filePath": ".superpowers/brainstorm/character-sheet-visual/content/approaches.html",
+      "summary": "Protótipo visual em português que compara dois fluxos para montar fichas de personagem: campos organizados e montagem livre por etapas, ambos com opções gráficas e prévia do jogador.",
+      "tags": [
+        "prototipo",
+        "ficha-personagem",
+        "experiencia-usuario"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/character-sheet-visual/state/server-stopped",
+      "type": "file",
+      "name": "server-stopped",
+      "filePath": ".superpowers/brainstorm/character-sheet-visual/state/server-stopped",
+      "summary": "Registro de que o servidor local de prévia do protótipo de ficha foi encerrado após inatividade.",
+      "tags": [
+        "estado",
+        "prototipo",
+        "desenvolvimento"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/codex-cards-20261115/state/server-stopped",
+      "type": "file",
+      "name": "server-stopped",
+      "filePath": ".superpowers/brainstorm/codex-cards-20261115/state/server-stopped",
+      "summary": "Registro de encerramento por inatividade do servidor local usado para visualizar os cartões de Codex.",
+      "tags": [
+        "estado",
+        "prototipo",
+        "desenvolvimento"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.superpowers/brainstorm/sheet-mockup/state/server-info",
+      "type": "file",
+      "name": "server-info",
+      "filePath": ".superpowers/brainstorm/sheet-mockup/state/server-info",
+      "summary": "Metadados de execução do servidor local de prévia do mockup de fichas; detalhes voláteis da conexão foram omitidos.",
+      "tags": [
+        "estado",
+        "mockup",
+        "desenvolvimento"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.ua/config.json",
+      "type": "config",
+      "name": "config.json",
+      "filePath": ".ua/config.json",
+      "summary": "Preferência do Understand Anything para gerar o conteúdo do grafo em português.",
+      "tags": [
+        "configuracao",
+        "idioma",
+        "understand-anything"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:database/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "database/README.md",
+      "summary": "Documenta a organização das migrações SQL, os domínios do banco e convenções de segurança e evolução; detalha ainda a economia da loja, carteiras, lançamentos e compras atômicas.",
+      "tags": [
+        "documentacao",
+        "banco-de-dados",
+        "convencoes"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:database/schema/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "database/schema/README.md",
+      "summary": "Resume os domínios do esquema relacional, incluindo contas, autorização, sistemas de jogo, progressão, trocas, loja e conversas; aponta as migrações como DDL canônico.",
+      "tags": [
+        "documentacao",
+        "esquema",
+        "banco-de-dados"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:database/tests/daily_login_per_character_rollback.sql",
+      "type": "file",
+      "name": "daily_login_per_character_rollback.sql",
+      "filePath": "database/tests/daily_login_per_character_rollback.sql",
+      "summary": "Teste transacional que valida reivindicações de recompensa diária por personagem, atualização de saldo, disponibilidade entre personagens do mesmo sistema e prevenção de crédito duplicado; desfaz as alterações ao final.",
+      "tags": [
+        "teste",
+        "sql",
+        "recompensa-diaria",
+        "rollback"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/app/account-page.css",
+      "type": "file",
+      "name": "account-page.css",
+      "filePath": "frontend/app/account-page.css",
+      "summary": "Define a apresentação responsiva da página de autenticação, com painéis de narrativa e formulário, identidade visual escura e componentes de acesso.",
+      "tags": [
+        "estilos",
+        "autenticacao",
+        "interface"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/app/globals.css",
+      "type": "file",
+      "name": "globals.css",
+      "filePath": "frontend/app/globals.css",
+      "summary": "Define estilos globais, tokens de cor e tipografia da aplicação, além de padrões compartilhados para navegação por abas e superfícies visuais.",
+      "tags": [
+        "estilos",
+        "tema-global",
+        "interface"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/app/layout.tsx",
+      "type": "file",
+      "name": "layout.tsx",
+      "filePath": "frontend/app/layout.tsx",
+      "summary": "Layout raiz do Next.js que define viewport, metadados, idioma pt-BR e envolve as páginas com a estrutura HTML base.",
+      "tags": [
+        "ponto-de-entrada",
+        "layout",
+        "nextjs"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/next-env.d.ts",
+      "type": "file",
+      "name": "next-env.d.ts",
+      "filePath": "frontend/next-env.d.ts",
+      "summary": "Declarações de tipos geradas pelo Next.js para integrar os tipos do framework e as definições de rotas geradas.",
+      "tags": [
+        "typescript",
+        "tipos",
+        "gerado"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/next.config.ts",
+      "type": "file",
+      "name": "next.config.ts",
+      "filePath": "frontend/next.config.ts",
+      "summary": "Configura o Next.js para o workspace: injeta variáveis públicas de URL do Supabase e da aplicação, define a raiz do Turbopack e ajusta aliases de extensão do webpack.",
+      "tags": [
+        "configuracao",
+        "nextjs",
+        "supabase",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/account/account-settings-page.css",
+      "type": "file",
+      "name": "account-settings-page.css",
+      "filePath": "frontend/src/features/account/account-settings-page.css",
+      "summary": "Estiliza a página de configurações da conta, seus cartões, avisos de confirmação e estados inativos, mantendo hierarquia de títulos e campos consistente.",
+      "tags": [
+        "estilos",
+        "conta",
+        "interface"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/characters/characters.css",
+      "type": "file",
+      "name": "characters.css",
+      "filePath": "frontend/src/features/characters/characters.css",
+      "summary": "Reúne estilos das telas e componentes de personagens, incluindo entradas, formulários, galerias, cartões e áreas de lobby.",
+      "tags": [
+        "estilos",
+        "personagens",
+        "interface"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/characters/lobby-creator-tools.css",
+      "type": "file",
+      "name": "lobby-creator-tools.css",
+      "filePath": "frontend/src/features/characters/lobby-creator-tools.css",
+      "summary": "Estiliza controles de criação e personalização do lobby, com campos, opções e ações compactas.",
+      "tags": [
+        "estilos",
+        "lobby",
+        "ferramentas"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/chats/chat.css",
+      "type": "file",
+      "name": "chat.css",
+      "filePath": "frontend/src/features/chats/chat.css",
+      "summary": "Define a apresentação dos painéis de chat, mensagens e controles associados à conversa durante o jogo.",
+      "tags": [
+        "estilos",
+        "chat",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/daily-login/daily-login-admin.css",
+      "type": "file",
+      "name": "daily-login-admin.css",
+      "filePath": "frontend/src/features/daily-login/daily-login-admin.css",
+      "summary": "Estiliza os controles administrativos de configuração das recompensas de login diário.",
+      "tags": [
+        "estilos",
+        "recompensa-diaria",
+        "administracao"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/daily-login/daily-login-popup.css",
+      "type": "file",
+      "name": "daily-login-popup.css",
+      "filePath": "frontend/src/features/daily-login/daily-login-popup.css",
+      "summary": "Define o layout visual do popup de login diário, incluindo apresentação da recompensa e ações de reivindicação.",
+      "tags": [
+        "estilos",
+        "recompensa-diaria",
+        "popup"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/dashboard/dashboard.css",
+      "type": "file",
+      "name": "dashboard.css",
+      "filePath": "frontend/src/features/dashboard/dashboard.css",
+      "summary": "Folha extensa de estilos do dashboard, cobrindo navegação, painéis, cartões, listas e layouts responsivos da área principal do jogo.",
+      "tags": [
+        "estilos",
+        "dashboard",
+        "responsivo"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/notifications/notifications.css",
+      "type": "file",
+      "name": "notifications.css",
+      "filePath": "frontend/src/features/notifications/notifications.css",
+      "summary": "Estiliza a central de notificações, seus itens, estados de leitura, ações e apresentação responsiva.",
+      "tags": [
+        "estilos",
+        "notificacoes",
+        "interface"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/profile/profile-card.css",
+      "type": "file",
+      "name": "profile-card.css",
+      "filePath": "frontend/src/features/profile/profile-card.css",
+      "summary": "Define cartões de perfil, avatares, identidade visual e estados de interação usados na apresentação de jogadores.",
+      "tags": [
+        "estilos",
+        "perfil",
+        "cartao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/profile/public-profile-page.css",
+      "type": "file",
+      "name": "public-profile-page.css",
+      "filePath": "frontend/src/features/profile/public-profile-page.css",
+      "summary": "Estiliza a página pública de perfil e os elementos de apresentação compartilháveis do jogador.",
+      "tags": [
+        "estilos",
+        "perfil-publico",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/shell/app-header.css",
+      "type": "file",
+      "name": "app-header.css",
+      "filePath": "frontend/src/features/shell/app-header.css",
+      "summary": "Define a barra superior da aplicação, incluindo marca, navegação e menu popover do perfil do usuário.",
+      "tags": [
+        "estilos",
+        "cabecalho",
+        "navegacao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/app/layout.tsx:RootLayout",
+      "type": "function",
+      "name": "RootLayout",
+      "filePath": "frontend/app/layout.tsx",
+      "lineRange": [
+        16,
+        22
+      ],
+      "summary": "Monta a estrutura HTML raiz da aplicação, aplica o idioma pt-BR e renderiza o conteúdo das páginas dentro do body.",
+      "tags": [
+        "layout",
+        "nextjs",
+        "componente-raiz"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/app/layout.tsx",
+      "target": "file:frontend/app/globals.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/app/layout.tsx",
+      "target": "function:frontend/app/layout.tsx:RootLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/app/layout.tsx",
+      "target": "function:frontend/app/layout.tsx:RootLayout",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/app/account-page.css",
+      "target": "file:frontend/app/rpg-app.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/account/account-settings-page.css",
+      "target": "file:frontend/src/features/account/account-settings-page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/characters/characters.css",
+      "target": "file:frontend/src/features/characters/character-entry.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/characters/characters.css",
+      "target": "file:frontend/src/features/characters/character-form.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/characters/characters.css",
+      "target": "file:frontend/src/features/characters/character-gallery.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/characters/characters.css",
+      "target": "file:frontend/src/features/characters/character-home.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/characters/characters.css",
+      "target": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-creator-tools.css",
+      "target": "file:frontend/src/features/characters/lobby-creator-tools.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-creator-tools.css",
+      "target": "file:frontend/src/features/characters/lobby-customization-form.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/characters/lobby-creator-tools.css",
+      "target": "file:frontend/src/features/characters/lobby-settings-page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/chats/chat.css",
+      "target": "file:frontend/src/features/chats/chats.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-admin.css",
+      "target": "file:frontend/src/features/daily-login/daily-login-admin-card.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/daily-login/daily-login-popup.css",
+      "target": "file:frontend/src/features/daily-login/daily-login-popup.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/dashboard/dashboard.css",
+      "target": "file:frontend/src/features/dashboard/dashboard.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/notifications/notifications.css",
+      "target": "file:frontend/src/features/notifications/notification-center.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/profile/profile-card.css",
+      "target": "file:frontend/src/features/profile/profile-card.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/profile/public-profile-page.css",
+      "target": "file:frontend/src/features/profile/public-profile-page.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/shell/app-header.css",
+      "target": "file:frontend/src/features/shell/app-header.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

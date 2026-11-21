@@ -1,3 +1,4 @@
+import { withActiveAccount } from './fixtures/supabase-fetch.js';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildApp } from '../src/create-app.js';
 
@@ -23,7 +24,7 @@ beforeEach(() => {
   characterRows = [{ id: characterId, user_id: userId, status: 'active', game_system_id: systemId, name: 'Liora' }];
   systemMemberships = { is_platform_admin: false, memberships: [{ game_system_id: systemId, game_system_name: 'System', role: 'owner' }] };
   requests = [];
-  vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+  vi.stubGlobal('fetch', withActiveAccount(async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input));
     const method = init?.method ?? 'GET';
     const body: unknown = init?.body ? JSON.parse(String(init.body)) : null;
@@ -42,7 +43,7 @@ beforeEach(() => {
       ? Response.json(messages)
       : Response.json({ ...body as object, id: 'e5000000-0000-4000-8000-000000000002', created_at: createdAt });
     throw new Error(`Unexpected request: ${url}`);
-  });
+  }));
 });
 
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });

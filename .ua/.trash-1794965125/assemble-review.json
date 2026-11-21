@@ -1,0 +1,15 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 0,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Os 20 ajustes reportados pelo agregador foram considerados coerentes; não restaram tipos de nó ou valores de complexidade desconhecidos.",
+    "Os 351 arquivos do inventário têm nós de arquivo correspondentes no grafo.",
+    "As 363 relações de import resolvíveis no mapa de imports já existem como arestas imports entre nós de arquivo; nenhuma aresta adicional foi necessária.",
+    "O agregador descartou 20 relações tested_by com endpoints órfãos ou pares/direções semanticamente inválidos. As 56 relações tested_by restantes e as 37 tags tested em nós de produção foram preservadas.",
+    "Nenhuma correção semântica adicional foi necessária durante a revisão."
+  ]
+}

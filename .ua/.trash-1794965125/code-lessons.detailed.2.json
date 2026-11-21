@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-17T12:00:00.000Z",
+  "files": {
+    "backend/src/modules/game-systems/game-systems.routes.ts": {
+      "overview": "Este módulo declara as rotas Fastify para sistemas de RPG e personagens. Ele valida os contratos de entrada e saída, aplica autenticação compartilhada e converte resultados do repositório em respostas HTTP; a etapa 5 do tour acompanha essas operações de domínio.",
+      "sections": [
+        {"title":"Contratos e esquemas","lineRange":[1,102],"explanation":"Os esquemas Zod e JSON descrevem parâmetros, payloads e respostas de sistemas, fichas e personagens. Manter esses contratos perto das rotas ajuda a documentar a API e a rejeitar formatos inesperados antes de chamar o banco.","tourOrder":5},
+        {"title":"Listagem e criação","lineRange":[103,257],"explanation":"Os helpers centralizam respostas de erro, e as primeiras rotas autenticadas listam tags e sistemas, alteram o ciclo de vida e criam um sistema com sua ficha. Cada handler trata a validação e delega a persistência ao repositório, deixando a camada HTTP responsável pelos códigos e mensagens de resposta.","tourOrder":5},
+        {"title":"Acesso e personagens","lineRange":[258,447],"explanation":"As rotas restantes atualizam detalhes, autorizam acesso por senha, leem ou alteram fichas e listam ou criam personagens. A separação entre status de domínio e resposta HTTP permite traduzir situações como sistema inexistente, senha necessária e falta de permissão sem expor detalhes internos do banco.","tourOrder":5}
+      ]
+    },
+    "backend/src/modules/game-systems/game-systems.repository.ts": {
+      "overview": "Este repositório implementa as operações de leitura e escrita de sistemas e personagens usando Supabase. Também valida respostas externas com esquemas Zod e prepara os dados para as rotas da etapa 5 do tour.",
+      "sections": [
+        {"title":"Leitura e normalização","lineRange":[1,64],"explanation":"As constantes selecionam as colunas usadas pelas consultas; os helpers carregam tags e convertem slugs armazenados em rótulos para a resposta pública. Cada resultado passa por validação antes de sair desta camada, e o ciclo de vida do sistema usa uma RPC para concentrar a operação no banco.","tourOrder":5},
+        {"title":"Consulta e criação","lineRange":[66,120],"explanation":"A listagem combina sistemas ativos com os arquivados quando o chamador solicita essa opção e possui papel de Owner ou administrador da plataforma. A criação usa a RPC create_game_system_with_metadata, valida o formato retornado e resolve os rótulos das tags antes de devolver o sistema.","tourOrder":5},
+        {"title":"Atualização e personagens","lineRange":[122,204],"explanation":"As funções de atualização e acesso usam RPCs e validam seus estados de resultado; a leitura da ficha e a listagem de personagens consultam tabelas diretamente. A criação de personagem insere usuário, sistema e atributos juntos e valida a linha retornada antes de responder.","tourOrder":5}
+      ]
+    },
+    "backend/src/modules/game-systems/game-systems.schema.ts": {
+      "overview": "Este arquivo define os contratos Zod para fichas de personagem, dados de sistema e respostas da API. A definição da ficha também dirige a validação dinâmica dos atributos enviados pelos jogadores, conectando o editor da etapa 6 aos limites impostos pelo backend.",
+      "sections": [
+        {"title":"Definição da ficha","lineRange":[1,144],"explanation":"Os esquemas modelam componentes, opções, elementos visuais e etapas, incluindo tipos discriminados para campos e elementos. A validação global exige chaves e posições únicas e verifica limites de posicionamento no canvas, de modo que uma definição inválida seja rejeitada antes de ser persistida.","tourOrder":6},
+        {"title":"Compatibilidade e API","lineRange":[145,281],"explanation":"Esta parte aceita a forma antiga de campos e a converte em uma ficha de uma etapa, além de descrever payloads de criação, atualização e respostas do repositório. Os esquemas estritos e valores padrão tornam explícitos os campos opcionais sem permitir propriedades arbitrárias nos objetos de domínio.","tourOrder":6},
+        {"title":"Atributos dinâmicos","lineRange":[282,360],"explanation":"characterAttributesSchemaFor constrói a validação a partir dos componentes definidos na ficha: bloqueia chaves desconhecidas, verifica campos obrigatórios e confere tipos e opções. A transformação final remove valores vazios e normaliza strings e seleções múltiplas antes que os atributos sejam usados pela aplicação.","tourOrder":6}
+      ]
+    },
+    "backend/src/modules/game-systems/system-access.ts": {
+      "overview": "Este pequeno adaptador transforma o status de acesso ao sistema em uma resposta Fastify de erro quando necessário. Ele é usado pelas rotas para manter a tradução de erros centralizada.",
+      "sections": [
+        {"title":"Tipo derivado do contrato","lineRange":[1,6],"explanation":"O tipo SystemAccessStatus é inferido do esquema de resultado de acesso em vez de repetir manualmente a união de status. Assim, mudanças no contrato do repositório aparecem como incompatibilidades de tipo neste adaptador.","tourOrder":5},
+        {"title":"Resposta por status","lineRange":[7,16],"explanation":"rejectSystemAccess retorna null para o status ok e responde com o código HTTP correspondente para erros como falta de autenticação, sistema ausente, senha inválida ou limite de tentativas. A rota pode então continuar apenas quando não há resposta de erro a devolver.","tourOrder":5}
+      ]
+    },
+    "frontend/src/features/system-creation/system-creation-wizard.tsx": {
+      "overview": "Este componente client conduz a criação de um sistema em duas etapas: detalhes e ficha de personagem. Ele combina estado do formulário, criação do sistema e envio opcional da capa, acompanhando a etapa de criação de fichas no tour.",
+      "sections": [
+        {"title":"Estado e primeira etapa","lineRange":[1,58],"explanation":"O componente mantém os dados do sistema, arquivo de capa, prévia e posição atual do fluxo. A URL temporária da imagem é revogada ao trocar o arquivo ou desmontar o componente; a validação inicial impede avançar sem nome, modalidade ou com erro de arquivo.","tourOrder":6},
+        {"title":"Envio e recuperação","lineRange":[59,126],"explanation":"finishCreation envia a capa e atualiza o sistema antes de navegar para a lista de personagens. submitSystem valida a definição da ficha, cria o sistema uma vez e guarda o resultado para que uma falha posterior ao salvar a imagem possa ser recuperada sem criar outro sistema.","tourOrder":6},
+        {"title":"Renderização do assistente","lineRange":[127,177],"explanation":"A interface alterna entre os formulários de detalhes e o CharacterSheetBuilder, mantendo mensagens de erro acessíveis e controles desabilitados durante o salvamento. Quando a criação já ocorreu, a tela também permite tentar a capa novamente ou seguir sem imagem.","tourOrder":6}
+      ]
+    },
+    "frontend/src/features/system-creation/character-sheet-builder.tsx": {
+      "overview": "Este editor React permite compor campos e elementos visuais de uma ficha de personagem e emitir cada alteração pelo callback onChange. Ele é usado tanto durante a criação do sistema quanto na edição posterior da ficha.",
+      "sections": [
+        {"title":"Estado e atualizações","lineRange":[1,100],"explanation":"O componente calcula a posição padrão de opções e mantém seleção, avisos e estado de arraste em referências e estados locais. Os helpers patch atualizam componentes, elementos ou opções de forma imutável; addOption cria opções com identificadores e dimensões iniciais para o canvas.","tourOrder":6},
+        {"title":"Campos e movimentação","lineRange":[101,224],"explanation":"Os helpers adicionam e removem grupos de escolha, opções e elementos visuais, preservando a definição enviada ao componente pai. Os handlers de ponteiro convertem o deslocamento em percentuais do canvas e limitam as coordenadas para que elementos e opções permaneçam dentro da área editável.","tourOrder":6},
+        {"title":"Editor visual e prévia","lineRange":[225,311],"explanation":"A renderização apresenta os campos, etapas e canvas, além de controles para editar propriedades do item selecionado. A prévia final usa CharacterSheetStepRenderer em modo preview, permitindo conferir a ficha sem criar valores reais de personagem.","tourOrder":6}
+      ]
+    },
+    "frontend/src/features/system-creation/system-sheet-editor.tsx": {
+      "overview": "Este componente carrega e salva a ficha de um sistema existente. Ele reaproveita o CharacterSheetBuilder e as regras de validade do modelo, formando a parte de edição da etapa sobre fichas.",
+      "sections": [
+        {"title":"Carregamento por sistema","lineRange":[1,29],"explanation":"Quando systemId muda, o efeito limpa os dados anteriores e busca a definição da ficha. A flag cancelled evita atualizar o estado após a desmontagem ou após uma troca rápida de sistema, e falhas de leitura viram uma mensagem exibida na tela.","tourOrder":6},
+        {"title":"Validação e gravação","lineRange":[31,53],"explanation":"save força o modo single_page antes de validar a definição e chamar a API de atualização. O estado de carregamento é sempre encerrado no finally, enquanto sucesso e falha atualizam mensagens e notificam o chamador quando a ficha foi salva.","tourOrder":6},
+        {"title":"Estados da interface","lineRange":[55,67],"explanation":"A tela mostra o editor apenas depois que a ficha foi carregada e oferece ações de cancelar e salvar. Mensagens de carregamento, erro e confirmação usam papéis status ou alert para também serem percebidas por tecnologias assistivas.","tourOrder":6}
+      ]
+    },
+    "frontend/src/features/system-creation/sheet-model.ts": {
+      "overview": "Este módulo reúne operações puras para criar, ordenar, mover e validar campos, etapas e elementos visuais da ficha. A interface usa essas funções para manter posições consistentes e compatibilidade com definições antigas.",
+      "sections": [
+        {"title":"Campos legados","lineRange":[1,67],"explanation":"As funções iniciais criam campos com chaves UUID e tratam a lista antiga por posição: ordenar e reindexar depois de inserir, remover ou mover evita posições duplicadas. A validação legada limita quantidade, chaves, rótulos, posições e opções de seleção.","tourOrder":6},
+        {"title":"Conversão de definições","lineRange":[68,103],"explanation":"A seção constrói componentes padrão, cria uma definição de ficha inicial e converte entre a forma legada de campos e o modelo versionado de etapas e componentes. Ao voltar para o formato antigo, opções preservam rótulos e também recebem um mapa de valores para rótulos.","tourOrder":6},
+        {"title":"Edição de etapas e campos","lineRange":[104,213],"explanation":"As operações ordenam e reindexam etapas e componentes depois de adicionar, remover ou mover itens, sempre retornando novas estruturas. moveSheetComponentToStep também verifica a capacidade do destino e reposiciona o componente sem alterar a definição original.","tourOrder":6},
+        {"title":"Validação final","lineRange":[214,294],"explanation":"A validação pública encaminha arrays para as regras legadas e verifica definições versionadas, unicidade de chaves e posições, limites de componentes e opções e regras para elementos do canvas. Isso permite que formulários e o editor usem uma única checagem antes de salvar.","tourOrder":6}
+      ]
+    },
+    "database/schema/README.md": {
+      "overview": "Este README resume os domínios do esquema relacional e aponta as migrations ordenadas como fonte canônica de DDL. Ele ajuda a navegar o modelo de dados que o tour apresenta na etapa 7.",
+      "sections": [
+        {"title":"Mapa de domínios","lineRange":[1,15],"explanation":"A tabela relaciona áreas do produto, como contas, autorização, fichas, progressão, comércio e conversas, aos grupos de tabelas correspondentes. O documento evita duplicar SQL e direciona o leitor para database/migrations.","tourOrder":7},
+        {"title":"Notas do modelo","lineRange":[16,22],"explanation":"As notas detalham a distinção entre catálogo e ofertas da loja, metadados de imagens, moeda e papéis globais ou por sistema. Elas registram também uma decisão de compatibilidade: a propriedade antiga do sistema permanece durante a migração para memberships.","tourOrder":7}
+      ]
+    },
+    "database/migrations/001_initial_schema.sql": {
+      "overview": "Esta migration inicial cria as tabelas relacionais centrais do RPG, incluindo usuários, sistemas, personagens, conteúdo, loja e conversas. A etapa 7 do tour usa o arquivo para acompanhar chaves estrangeiras e limites de integridade desde o primeiro esquema.",
+      "sections": [
+        {"title":"Contas e personagens","lineRange":[1,49],"explanation":"A transação cria usuários, perfis, sistemas e personagens com UUIDs, timestamps, índices e restrições de status. As chaves estrangeiras expressam a posse e o sistema de cada personagem e restringem exclusões que poderiam quebrar essas relações.","tourOrder":7},
+        {"title":"Conteúdo do personagem","lineRange":[50,133],"explanation":"As tabelas de detalhes, habilidades, itens, conquistas e inventário usam JSONB para dados variáveis e chaves compostas para manter conteúdo associado ao sistema correto. Quantidades positivas, unicidade por sistema e regras de exclusão protegem a consistência do inventário.","tourOrder":7},
+        {"title":"Loja e compras","lineRange":[135,197],"explanation":"Produtos referenciam exatamente um item ou habilidade, enquanto store_products guarda preço, moeda, estoque e disponibilidade. Compras e linhas registram os valores da transação e usam chaves estrangeiras compostas para impedir misturar entidades de sistemas diferentes.","tourOrder":7},
+        {"title":"Campanhas e mensagens","lineRange":[198,247],"explanation":"Campanhas pertencem a um sistema e a um Owner; membros vinculam personagens à campanha com papéis limitados. Salas e mensagens completam o fluxo, com referências compostas que garantem que a mensagem pertença à campanha e a um personagem participante.","tourOrder":7}
+      ]
+    },
+    "supabase/config.toml": {
+      "overview": "Este arquivo configura o projeto Supabase local, incluindo portas da API e do banco, Auth e templates de e-mail. Ele conecta a configuração de infraestrutura aos caminhos de execução e publicação mostrados na etapa 8 do tour.",
+      "sections": [
+        {"title":"Serviços locais","lineRange":[1,24],"explanation":"O bloco inicial define o identificador do projeto, schemas da API, portas, versão principal do PostgreSQL, Storage e opções básicas do Auth. Os endereços locais configurados para redirecionamento correspondem aos ambientes de desenvolvimento da aplicação.","tourOrder":8},
+        {"title":"Templates de e-mail","lineRange":[25,36],"explanation":"As configurações de e-mail habilitam confirmações e apontam os templates de confirmação e magic link para arquivos dentro de supabase/templates. Assim, o Supabase Auth controla os eventos enquanto a aplicação mantém o conteúdo das mensagens no repositório.","tourOrder":8}
+      ]
+    },
+    "supabase/migrations/004_profile_rls.sql": {
+      "overview": "Esta migration ativa RLS nas tabelas de usuário e perfil e concede aos usuários autenticados acesso limitado ao próprio perfil. Ela ilustra a fronteira entre identidade mantida pelo Auth e os campos públicos editáveis pelo cliente.",
+      "sections": [
+        {"title":"Privilégios das tabelas","lineRange":[1,19],"explanation":"A migration inicia uma transação, habilita RLS e revoga privilégios amplos de public, anon e authenticated nas tabelas. Em seguida, concede leitura do perfil e atualização apenas de display_name, avatar_url e bio, sem permitir que o cliente altere dados sensíveis da conta.","tourOrder":8},
+        {"title":"Políticas do próprio perfil","lineRange":[20,42],"explanation":"As políticas de SELECT e UPDATE exigem que auth.uid() exista e coincida com user_id. A cláusula WITH CHECK repete essa condição após a atualização, impedindo que um usuário redirecione a linha para outra identidade.","tourOrder":8}
+      ]
+    }
+  }
+}

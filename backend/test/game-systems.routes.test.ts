@@ -1,3 +1,4 @@
+import { withActiveAccount } from './fixtures/supabase-fetch.js';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildApp } from '../src/create-app.js';
 
@@ -76,7 +77,7 @@ beforeEach(() => {
   accessStatus = 'ok';
   membershipsResult = { is_platform_admin: false, memberships: [] };
   lifecycleResult = { status: 'archived', is_active: false };
-  vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+  vi.stubGlobal('fetch', withActiveAccount(async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = new URL(String(input));
     const method = init?.method ?? 'GET';
     const headers = new Headers(init?.headers);
@@ -142,7 +143,7 @@ beforeEach(() => {
     if (url.pathname === '/rest/v1/characters' && method === 'GET') return Response.json([character]);
     if (url.pathname === '/rest/v1/characters' && method === 'POST') return Response.json(character);
     throw new Error(`Unexpected request: ${method} ${url}`);
-  });
+  }));
 });
 
 afterEach(() => {
