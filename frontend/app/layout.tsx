@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import '../src/features/shell/workspace.css';
+import '../src/features/shell/overlays.css';
 
 export const viewport = {
   width: 'device-width',

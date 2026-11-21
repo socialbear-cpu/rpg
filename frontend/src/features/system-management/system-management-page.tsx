@@ -20,6 +20,7 @@ import {
 } from '../../api';
 import { hasSession, sendDeletionEmailLink } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
+import { Modal } from '../shell/modal';
 import { LoginBridge, LoginTabletopMark } from '../dashboard/login-identity';
 import { DailyLoginAdminCard } from '../daily-login/daily-login-admin-card';
 import { SystemStoreAdmin } from '../store/store-admin-card';
@@ -71,6 +72,7 @@ export function SystemManagementPage() {
   const [membershipMessage, setMembershipMessage] = useState<string | null>(null);
   const [membershipMessageIsError, setMembershipMessageIsError] = useState(false);
   const [lifecycleBusy, setLifecycleBusy] = useState(false);
+  const [archiveConfirmOpen, setArchiveConfirmOpen] = useState(false);
   const [lifecycleMessage, setLifecycleMessage] = useState<string | null>(null);
   const [lifecycleMessageIsError, setLifecycleMessageIsError] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState('');
@@ -85,6 +87,7 @@ export function SystemManagementPage() {
 
     let active = true;
     setActiveCategory('overview');
+    setArchiveConfirmOpen(false);
     setPageState('loading');
     setPageError('');
     setCalendar(null);
@@ -201,10 +204,10 @@ export function SystemManagementPage() {
     } finally { setMembershipBusy(false); }
   }
 
-  async function changeSystemAvailability() {
-    if (!systemView || !canEditOwnerSettings) return;
+  async function changeSystemAvailability(confirmed = false) {
+    if (!systemView || !canEditOwnerSettings || lifecycleBusy) return;
     const action = systemView.system.is_active ? 'archive' : 'activate';
-    if (action === 'archive' && !window.confirm(`Desativar "${systemView.system.name}"? Os dados serão preservados e o sistema poderá ser reativado depois.`)) return;
+    if (action === 'archive' && !confirmed) { setLifecycleMessage(null); setArchiveConfirmOpen(true); return; }
     setLifecycleBusy(true);
     setLifecycleMessage(null);
     try {
@@ -216,6 +219,7 @@ export function SystemManagementPage() {
       setGameSystem((current) => current ? { ...current, is_active: result.is_active } : current);
       setLifecycleMessage(result.is_active ? 'Sistema reativado; ele voltou a ficar disponível para os jogadores.' : 'Sistema desativado. Os dados foram preservados.');
       setLifecycleMessageIsError(false);
+      setArchiveConfirmOpen(false);
     } catch (error) {
       setLifecycleMessage(error instanceof Error ? error.message : 'Não foi possível alterar a disponibilidade do sistema.');
       setLifecycleMessageIsError(true);
@@ -367,5 +371,12 @@ export function SystemManagementPage() {
         </div>
       </>}
     </div>
+    <Modal open={archiveConfirmOpen} onClose={() => setArchiveConfirmOpen(false)} busy={lifecycleBusy} title="Desativar sistema?" actions={<>
+      <button className="button secondary" type="button" data-modal-autofocus disabled={lifecycleBusy} onClick={() => setArchiveConfirmOpen(false)}>Cancelar</button>
+      <button className="button danger" type="button" disabled={lifecycleBusy} onClick={() => void changeSystemAvailability(true)}>{lifecycleBusy ? 'Desativando…' : 'Desativar sistema'}</button>
+    </>}>
+      <p>Ao desativar <strong>{systemView?.system.name}</strong>, ele deixará de ficar disponível para os jogadores. Os dados serão preservados e você poderá reativá-lo depois.</p>
+      {lifecycleMessageIsError && lifecycleMessage && <p role="alert">{lifecycleMessage}</p>}
+    </Modal>
   </main>;
 }

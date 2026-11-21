@@ -6,6 +6,7 @@ import { getMyDailyLoginSystems, type DailyLoginSystemView } from '../../api';
 import { hasSession } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
 import { TradingCard } from './trading-card';
+import { WorkspaceHeading } from '../shell/workspace-heading';
 
 export function TradingPage() {
   const router = useRouter();
@@ -33,9 +34,9 @@ export function TradingPage() {
   }, [router, reloadKey]);
 
   if (!authenticated) return null;
-  return <main className="shell">
+  return <main className="shell bifrost-workspace trading-page">
     <AppHeader activeItem="Trocas" backHref="/dashboard" backLabel="Voltar aos sistemas" />
-    <section className="intro"><p className="eyebrow">ENTRE PERSONAGENS</p><h1>Trocas</h1><p>Negocie itens com outros jogadores dos seus sistemas.</p></section>
+    <WorkspaceHeading eyebrow="ENTRE PERSONAGENS" title="Trocas" description="Encontre o que falta na sua próxima aventura. Negocie itens com jogadores dos seus sistemas." />
     {error ? <section><p className="notice error" role="alert">{error}</p><button className="button secondary" type="button" onClick={() => setReloadKey((key) => key + 1)}>Tentar novamente</button></section>
       : <TradingCard systems={systems} systemsLoading={loading} />}
   </main>;

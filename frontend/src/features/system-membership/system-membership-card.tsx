@@ -31,8 +31,18 @@ export function SystemMembershipCard({ access, manageableSystems = [], busy, mes
   const [selectedMember, setSelectedMember] = useState<SystemMemberCharacterSearchResult | null>(null);
   const [memberSearchLoading, setMemberSearchLoading] = useState(false);
   const [memberSearchError, setMemberSearchError] = useState('');
+  const [resultsOpen, setResultsOpen] = useState(false);
+  const [activeResult, setActiveResult] = useState(-1);
   const [isModerator, setIsModerator] = useState(true);
   const selectedSystem = availableSystems.find((membership) => membership.game_system_id === selectedSystemId) ?? availableSystems[0];
+  const showResults = resultsOpen && !selectedMember && memberQuery.trim().length >= 2;
+
+  function chooseMember(member: SystemMemberCharacterSearchResult) {
+    setSelectedMember(member);
+    setMemberQuery(`${member.character_name} — ${member.display_name}`);
+    setResultsOpen(false);
+    setActiveResult(-1);
+  }
 
   useEffect(() => {
     const query = memberQuery.trim();
@@ -79,7 +89,7 @@ export function SystemMembershipCard({ access, manageableSystems = [], busy, mes
         {availableSystems.map((membership) => <option key={membership.game_system_id} value={membership.game_system_id}>{membership.game_system_name}</option>)}
           </select>
         </label>
-        <label className="daily-field system-member-search" htmlFor="membership-character-search">Personagem da pessoa
+        <label className="daily-field system-member-search" htmlFor="membership-character-search" onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setResultsOpen(false); }}>Personagem da pessoa
           <input
             id="membership-character-search"
             type="text"
@@ -87,17 +97,26 @@ export function SystemMembershipCard({ access, manageableSystems = [], busy, mes
             required
             role="combobox"
             aria-autocomplete="list"
-            aria-expanded={!selectedMember && memberResults.length > 0}
-            aria-controls="membership-character-results"
+            aria-expanded={showResults}
+            aria-controls={showResults ? 'membership-character-results' : undefined}
+            aria-activedescendant={showResults && activeResult >= 0 ? `membership-result-${activeResult}` : undefined}
             placeholder="Digite o nome do personagem"
             value={memberQuery}
-            onChange={(event) => { setMemberQuery(event.target.value); setSelectedMember(null); }}
+            onFocus={() => setResultsOpen(true)}
+            onChange={(event) => { setMemberQuery(event.target.value); setSelectedMember(null); setResultsOpen(true); setActiveResult(-1); }}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') { event.preventDefault(); setResultsOpen(false); setActiveResult(-1); }
+              else if ((event.key === 'ArrowDown' || event.key === 'ArrowUp') && memberResults.length > 0) {
+                event.preventDefault(); setResultsOpen(true);
+                setActiveResult((current) => event.key === 'ArrowDown' ? (current + 1) % memberResults.length : (current <= 0 ? memberResults.length - 1 : current - 1));
+              } else if (event.key === 'Enter' && showResults && memberResults[activeResult]) { event.preventDefault(); chooseMember(memberResults[activeResult]!); }
+            }}
           />
-          {!selectedMember && memberQuery.trim().length >= 2 && <div className="system-member-search-results" id="membership-character-results" role="listbox" aria-label="Personagens encontrados">
+          {showResults && <div className="system-member-search-results" id="membership-character-results" role="listbox" aria-label="Personagens encontrados">
             {memberSearchLoading && <span role="status">Pesquisando…</span>}
             {!memberSearchLoading && memberSearchError && <span role="alert">{memberSearchError}</span>}
             {!memberSearchLoading && !memberSearchError && memberResults.length === 0 && <span role="status">Nenhum personagem encontrado.</span>}
-            {!memberSearchLoading && memberResults.map((member) => <button key={`${member.user_id}:${member.character_name}`} type="button" role="option" aria-selected={false} onClick={() => { setSelectedMember(member); setMemberQuery(`${member.character_name} — ${member.display_name}`); }}><strong>{member.character_name}</strong><small>{member.display_name}</small></button>)}
+            {!memberSearchLoading && memberResults.map((member, index) => <button id={`membership-result-${index}`} key={`${member.user_id}:${member.character_name}`} type="button" role="option" tabIndex={-1} aria-selected={activeResult === index} onClick={() => chooseMember(member)}><strong>{member.character_name}</strong><small>{member.display_name}</small></button>)}
           </div>}
           {selectedMember && <small className="system-member-search-selected">Selecionado: {selectedMember.character_name} · {selectedMember.display_name}</small>}
           {memberQuery.trim().length < 2 && <small>Digite ao menos 2 letras para pesquisar.</small>}

@@ -14,13 +14,17 @@ describe('system store', () => {
   const html = renderToStaticMarkup(createElement(StoreCard, { characterId: null, characterName: '', store: { currency_name: 'Cristais', character_id: 'hero', balance: 20, offers: [offer] }, busy: false, message: null, onPurchase: vi.fn() }));
   expect(html).toMatch(/<button[^>]*disabled=""[^>]*>Comprar/); expect(html).toContain('Selecione um personagem');
  });
- it('lets owners edit currency, price and availability', () => {
+ it('exposes named currency and offer controls before opening their editors', () => {
   const html = renderToStaticMarkup(createElement(StoreAdminCard, { store: { currency_name: 'Cristais', items: [{ id: 'item', name: 'Poção' }], offers: [offer] }, message: null, onSaveCurrencyField: vi.fn(async () => {}), onSaveOfferField: vi.fn(async () => {}) }));
-  expect(html).toContain('Nome da moeda'); expect(html).toContain('value="Cristais"'); expect(html).toContain('Preço'); expect(html).toContain('value="12.5"'); expect(html).toContain('Disponível'); expect(html).toContain('Adicionar oferta');
-  expect(html).toContain('Desativar oferta'); expect(html).not.toContain('Remover oferta');
+  expect(html).toContain('aria-label="Editar moeda: Cristais"');
+  expect(html).toContain('Nome da moeda'); expect(html).toContain('value="Cristais"');
+  expect(html).toContain('aria-label="Poção, oferta de 12.5 Cristais"');
+  expect(html).toContain('aria-labelledby="store-admin-offer-dialog-title"');
  });
- it('keeps removal wording for unsaved offers', () => {
+ it('provides an accessible item creation control for an empty catalog', () => {
   const html = renderToStaticMarkup(createElement(StoreAdminCard, { store: { currency_name: 'Cristais', items: [], offers: [{ ...offer, store_product_id: undefined }] }, message: null, onSaveCurrencyField: vi.fn(async () => {}), onSaveOfferField: vi.fn(async () => {}) }));
-  expect(html).toContain('Remover oferta');
+  expect(html).toContain('aria-label="Criar item no espaço 1"');
+  expect(html).toContain('aria-labelledby="store-admin-item-dialog-title"');
+  expect(html).toContain('Nome do item');
  });
 });

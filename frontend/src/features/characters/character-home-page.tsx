@@ -118,9 +118,9 @@ export function CharacterHomePage({ systemId, characterId, preferredChatId = nul
     setRecordLoading(false);
   }
 
-  if (loading) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando personagem...</p></main>;
-  if (loadError) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><section aria-labelledby="character-home-load-error"><h1 id="character-home-load-error">Não foi possível abrir o sistema</h1><p role="alert">{loadError}</p><button className="character-primary-button" type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</button></section></main>;
-  if (!system) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><h1>Sistema indisponível</h1></main>;
+  if (loading) return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando personagem...</p></main>;
+  if (loadError) return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><section aria-labelledby="character-home-load-error"><h1 id="character-home-load-error">Não foi possível abrir o sistema</h1><p role="alert">{loadError}</p><button className="character-primary-button" type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</button></section></main>;
+  if (!system) return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><h1>Sistema indisponível</h1></main>;
   return <CharacterHome
     system={system}
     character={character}

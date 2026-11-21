@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { claimDailyLoginReward, getDailyLoginSystem, takeDailyLoginPopup, type DailyLoginSystemView } from '../../api';
 import { DailyLoginCard } from './daily-login-card';
 import { formatDailyLoginClaimSuccess } from './daily-login-messages';
+import { closeOnBackdrop, trapDialogFocus } from '../shell/modal';
 import './daily-login-popup.css';
 
 export function DailyLoginPopup({ systemId, onClaimed }: { systemId: string; onClaimed?: () => void }) {
@@ -72,8 +73,8 @@ export function DailyLoginPopup({ systemId, onClaimed }: { systemId: string; onC
   }
 
   return <><button className="character-secondary-button" type="button" disabled={loading} onClick={() => { void openRewards(); }}>{loading ? 'Carregando recompensa…' : 'Recompensa diária'}</button>
-  <dialog ref={dialog} className="daily-login-popup" aria-label="Recompensa de login diário">
-    <button className="daily-popup-close" type="button" onClick={() => dialog.current?.close()} aria-label="Fechar login diário">×</button>
+  <dialog ref={dialog} className="daily-login-popup" aria-label="Recompensa de login diário" aria-busy={Boolean(busy) || undefined} onKeyDown={trapDialogFocus} onClick={(event) => closeOnBackdrop(event, Boolean(busy))} onCancel={(event) => { if (busy) event.preventDefault(); }}>
+    <button className="daily-popup-close" type="button" disabled={Boolean(busy)} onClick={() => dialog.current?.close()} aria-label="Fechar login diário">×</button>
     <DailyLoginCard systems={systems} loading={loading} claimingSystemId={busy}
       message={message} messageIsError={error} onClaim={(systemId, characterId) => { void claim(systemId, characterId); }} />
   </dialog></>;

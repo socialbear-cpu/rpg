@@ -18,7 +18,6 @@ import {
 import {
   clearPendingAccountAction,
   consumeAuthCallback,
-  currentAccessToken,
   getCurrentAuthUser,
   hasSession,
   readPendingAccountAction,
@@ -28,6 +27,7 @@ import {
   type PendingAccountAction,
 } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
+import { SettingsNav, WorkspaceHeading } from '../shell/workspace-heading';
 import { UsernameSettingsField } from './username-settings-field';
 import './account-settings-page.css';
 
@@ -45,6 +45,7 @@ function draftFrom(account: MyAccountSettings): ProfileDraft {
 export function AccountSettingsPage() {
   const router = useRouter();
   const [account, setAccount] = useState<MyAccountSettings | null>(null);
+  const [authenticated, setAuthenticated] = useState(false);
   const [draft, setDraft] = useState<ProfileDraft | null>(null);
   const [usernameDraft, setUsernameDraft] = useState('');
   const [usernameChangeUsed, setUsernameChangeUsed] = useState<boolean | null>(null);
@@ -69,6 +70,7 @@ export function AccountSettingsPage() {
       router.replace('/');
       return () => { active = false; };
     }
+    setAuthenticated(true);
     async function load() {
       try {
         if (callback.emailSignIn) {
@@ -241,24 +243,22 @@ export function AccountSettingsPage() {
     }
   }
 
-  if (!hasSession() && !currentAccessToken()) return null;
+  if (!authenticated) return null;
 
-  return <main className="shell account-settings-page">
+  return <main className="shell account-settings-page bifrost-workspace">
     <AppHeader activeItem="" backHref="/dashboard" backLabel="Voltar aos sistemas" />
-    <section className="intro">
-      <p className="eyebrow">SUA CONTA</p>
-      <h1>Configurações da conta</h1>
-      <p>Consulte seus dados e gerencie o acesso à sua conta.</p>
-    </section>
+    <WorkspaceHeading eyebrow="SUA CONTA" title="Configurações da conta" description="Seus dados, sua segurança e o controle das suas histórias." />
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role={messageIsError ? 'alert' : 'status'}>{message}</p>}
-    {loading ? <p role="status">Carregando configurações da conta…</p> : account && draft && <>
+    {loading ? <p role="status">Carregando configurações da conta…</p> : account && draft && <div className="settings-layout">
+      <SettingsNav items={[{ href: '#account-info', label: 'Dados pessoais' }, { href: '#account-security', label: 'Senha e segurança' }, { href: '#account-transfers', label: 'Titularidade' }, { href: '#account-lifecycle', label: 'Ações da conta' }]} />
+      <div className="settings-content">
       {!account.is_active && <div className="account-settings-inactive" role="status">
         <strong>Conta desativada</strong>
         <p>Seus dados estão preservados. Confirme pelo e-mail para reativar o acesso.</p>
         <button type="button" disabled={busy} onClick={() => void sendAction({ kind: 'reactivate' })}>Enviar link para reativar</button>
       </div>}
 
-      <section className="account-settings-card" aria-labelledby="account-info-heading">
+      <section id="account-info" className="account-settings-card" aria-labelledby="account-info-heading">
         <div className="account-settings-heading"><div><p className="eyebrow">DADOS PESSOAIS</p><h2 id="account-info-heading">Informações da conta</h2></div></div>
         <UsernameSettingsField
           username={account.profile.username}
@@ -278,7 +278,7 @@ export function AccountSettingsPage() {
         </form>
       </section>
 
-      <section className="account-settings-card" aria-labelledby="account-security-heading">
+      <section id="account-security" className="account-settings-card" aria-labelledby="account-security-heading">
         <div className="account-settings-heading"><div><p className="eyebrow">PROTEÇÃO</p><h2 id="account-security-heading">Senha e segurança</h2></div></div>
         <div className="account-settings-action">
           <div><strong>Senha</strong><p>Enviaremos um link para confirmar sua identidade antes de definir uma nova senha.</p></div>
@@ -301,7 +301,7 @@ export function AccountSettingsPage() {
         <button className="account-settings-cancel" type="button" disabled={busy} onClick={() => { clearPendingAccountAction(); setPendingAction(null); setDeleteConfirmation(''); }}>Cancelar</button>
       </section>}
 
-      <section className="account-settings-card" aria-labelledby="account-transfers-heading">
+      <section id="account-transfers" className="account-settings-card" aria-labelledby="account-transfers-heading">
         <div className="account-settings-heading"><div><p className="eyebrow">SISTEMAS COMPARTILHADOS</p><h2 id="account-transfers-heading">Transferências de titularidade</h2></div></div>
         {account.incoming_transfers.length > 0 && <div className="account-settings-transfer-list">
           {account.incoming_transfers.map((transfer) => <div className="account-settings-transfer" key={transfer.id}>
@@ -326,7 +326,7 @@ export function AccountSettingsPage() {
         </div> : <p className="account-settings-hint">Você não tem sistemas aguardando transferência.</p>}
       </section>
 
-      <section className="account-settings-card account-settings-danger-zone" aria-labelledby="account-lifecycle-heading">
+      <section id="account-lifecycle" className="account-settings-card account-settings-danger-zone" aria-labelledby="account-lifecycle-heading">
         <div className="account-settings-heading"><div><p className="eyebrow">AÇÕES DA CONTA</p><h2 id="account-lifecycle-heading">Desativar ou excluir</h2></div></div>
         {account.is_active && <div className="account-settings-action">
           <div><strong>Desative sua conta</strong><p>O acesso será suspenso, mas seus dados permanecerão guardados. Você poderá reativá-la pelo link enviado ao seu e-mail.</p></div>
@@ -340,7 +340,8 @@ export function AccountSettingsPage() {
           </button>
         </div>
       </section>
-    </>}
+      </div>
+    </div>}
   </main>;
 }
 
