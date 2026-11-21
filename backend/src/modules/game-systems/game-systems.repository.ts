@@ -106,17 +106,20 @@ export async function listSystemTagOptions(client: SupabaseClient) {
 }
 
 export async function createGameSystem(client: SupabaseClient, input: CreateSystemInput) {
+  // layout_mode is API/editor metadata. The database sheet validator only
+  // stores version and steps, so do not send this frontend-only property to the RPC.
+  const databaseDefinition = { version: input.definition.version, steps: input.definition.steps };
   const { data, error } = await client.rpc('create_game_system_with_metadata', {
     p_name: input.name,
     p_description: input.description ?? null,
-    p_fields: input.definition,
+    p_fields: databaseDefinition,
     p_play_mode: input.play_mode,
     p_tags: input.tags,
   });
   if (error) throw error;
   const result = createGameSystemResultSchema.safeParse(data);
   if (!result.success) throw new Error('Invalid game system creation response');
-  return { system: await parseGameSystem(client, result.data.system), definition: result.data.definition };
+  return { system: await parseGameSystem(client, result.data.system), definition: input.definition };
 }
 
 export async function updateGameSystem(client: SupabaseClient, systemId: string, input: UpdateGameSystemInput) {
