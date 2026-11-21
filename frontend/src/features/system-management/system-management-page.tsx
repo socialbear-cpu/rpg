@@ -20,6 +20,7 @@ import {
 } from '../../api';
 import { hasSession, sendDeletionEmailLink } from '../../supabase-auth';
 import { AppHeader } from '../shell/app-header';
+import { LoginBridge, LoginTabletopMark } from '../dashboard/login-identity';
 import { DailyLoginAdminCard } from '../daily-login/daily-login-admin-card';
 import { SystemStoreAdmin } from '../store/store-admin-card';
 import { ExperienceAdminCard } from '../experience/experience-admin-card';
@@ -276,6 +277,7 @@ export function SystemManagementPage() {
   }
 
   return <main className="system-management-page">
+    <LoginBridge />
     <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar aos sistemas" />
     <div className="system-management-content">
       {pageState === 'loading' && <p className="system-management-state" role="status">Verificando acesso ao sistema…</p>}
@@ -302,7 +304,7 @@ export function SystemManagementPage() {
                 <span>{label}</span>
               </button>)}
             </nav>
-            <div className="system-management-sidebar-note"><strong>Tudo no seu lugar</strong><p>Gerencie as regras, os jogadores e as experiências do seu sistema.</p></div>
+            <div className="system-management-sidebar-note"><LoginTabletopMark /><p>Uma ponte entre mestres, jogadores e histórias.</p></div>
           </aside>
           <div className="system-management-workspace">
             {isVisibleCategory('overview') && <section className="system-management-section" id="overview" aria-labelledby="management-heading-overview"><header className="system-management-section-heading"><h2 id="management-heading-overview">Informações do sistema</h2><p>Personalize a identidade e a apresentação do seu universo.</p></header>
