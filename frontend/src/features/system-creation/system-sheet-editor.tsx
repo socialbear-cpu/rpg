@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getCharacterSheet, updateGameSystemCharacterSheet, type CharacterSheetDefinition } from '../../api';
 import { isCharacterSheetDefinitionValid } from './sheet-model';
 import { CharacterSheetBuilder } from './character-sheet-builder';
+import { normalizeSingleVisualComposition } from '../character-sheet/composition';
 
 function getImageValidationError(definition: CharacterSheetDefinition): string | null {
   for (const step of definition.steps) {
@@ -64,6 +65,7 @@ export function SystemSheetEditor({ systemId, systemName, onCancel, onSaved }: S
     const singlePageDefinition = definition && {
       ...definition,
       layout_mode: 'single_page' as const,
+      steps: definition.steps.map(normalizeSingleVisualComposition),
     };
     if (!singlePageDefinition || !isCharacterSheetDefinitionValid(singlePageDefinition)) {
       setError(singlePageDefinition
@@ -77,6 +79,7 @@ export function SystemSheetEditor({ systemId, systemName, onCancel, onSaved }: S
     setSaved(false);
     try {
       await updateGameSystemCharacterSheet(systemId, singlePageDefinition);
+      setDefinition(singlePageDefinition);
       setSaved(true);
       onSaved?.();
     } catch (saveError) {

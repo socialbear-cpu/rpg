@@ -13,6 +13,17 @@ export function activeSheetCompositionKey(step: CharacterSheetStep, requestedKey
   return requestedKey && keys.includes(requestedKey) ? requestedKey : keys[0]!;
 }
 
+export function normalizeSingleVisualComposition(step: CharacterSheetStep): CharacterSheetStep {
+  const compositions = step.components.filter((component) => component.type === 'visual_composition');
+  if (compositions.length !== 1) return step;
+  const compositionKey = compositions[0]!.composition_key;
+  const elements = step.elements?.map((element) => ({ ...element, composition_key: compositionKey }));
+  const components = step.components.map((component) => component.type === 'single_select' && component.presentation === 'canvas'
+    ? { ...component, composition_key: compositionKey }
+    : component);
+  return { ...step, components, ...(elements ? { elements } : {}) };
+}
+
 export function canvasChoiceCompositionKey(step: CharacterSheetStep, component: Extract<CharacterSheetComponent, { type: 'single_select' }>): string {
   if (component.composition_key) return component.composition_key;
   return step.components

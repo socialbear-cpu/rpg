@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { CharacterSheetDefinition } from '../../api';
-import { canvasChoiceCompositionKey, activeSheetCompositionKey } from '../character-sheet/composition';
+import { canvasChoiceCompositionKey, activeSheetCompositionKey, normalizeSingleVisualComposition } from '../character-sheet/composition';
 import { addSheetComposition, createDefaultCharacterSheetDefinition, definitionToLegacyFields, isCharacterSheetDefinitionValid, removeSheetComposition } from './sheet-model';
 
 describe('character-sheet model', () => {
@@ -47,6 +47,22 @@ describe('character-sheet model', () => {
     expect(canvasChoiceCompositionKey(step, step.components[2] as Extract<CharacterSheetDefinition['steps'][number]['components'][number], { type: 'single_select' }>)).toBe('art_a');
     expect(activeSheetCompositionKey(step, 'removed_art')).toBe('art_a');
     expect(activeSheetCompositionKey(step, 'art_b')).toBe('art_b');
+  });
+
+  it('aligns canvas options and visual elements to the only visual composition before saving', () => {
+    const step: CharacterSheetDefinition['steps'][number] = {
+      key: 'step_1', label: 'Ficha', position: 0,
+      components: [
+        { key: 'art', label: 'Composição visual', type: 'visual_composition', composition_key: 'art', required: false, position: 0, width: 'full', show_on_card: false },
+        { key: 'villages', label: 'Vilas', type: 'single_select', presentation: 'canvas', composition_key: 'composition_1', required: true, position: 1, width: 'full', show_on_card: false, options: [{ label: 'Kiri', x: 5, y: 5, width: 28, height: 35, rotation: 0 }] },
+      ],
+      elements: [{ key: 'title', composition_key: 'composition_1', type: 'text', text: 'Escolha sua vila', x: 5, y: 5, width: 30, height: 15, rotation: 0 }],
+    };
+
+    const normalized = normalizeSingleVisualComposition(step);
+    expect(normalized.components.find((component) => component.key === 'villages')).toMatchObject({ composition_key: 'art' });
+    expect(normalized.elements?.[0]?.composition_key).toBe('art');
+    expect(step.components.find((component) => component.key === 'villages')).toMatchObject({ composition_key: 'composition_1' });
   });
 
   it('removes a composition together with its own visual elements and canvas choices', () => {
