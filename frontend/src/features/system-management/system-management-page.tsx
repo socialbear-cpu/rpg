@@ -260,7 +260,7 @@ export function SystemManagementPage() {
     cover_focus_x: 50,
     cover_focus_y: 50,
     tags: [],
-    play_mode: 'text',
+    play_mode: ['text'],
   } : null);
 
   function updateSystemDetails(updated: GameSystem) {

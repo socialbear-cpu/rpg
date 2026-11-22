@@ -24,6 +24,7 @@ import { rejectSystemAccess } from './system-access.js';
 const systemAccessInputSchema = z.strictObject({ system_password: z.string().max(72).optional() });
 const systemLifecycleInputSchema = z.strictObject({ action: z.enum(['archive', 'activate']) });
 const systemListQuerySchema = z.strictObject({ include_archived: z.enum(['true', 'false']).optional() });
+const playModeJsonSchema = { type: 'array', minItems: 1, maxItems: 2, uniqueItems: true, items: { type: 'string', enum: ['text', 'voice'] } } as const;
 const systemJsonSchema = {
   type: 'object', required: ['id', 'slug', 'name', 'description', 'is_public', 'cover_image_path', 'cover_focus_x', 'cover_focus_y', 'tags', 'play_mode'], additionalProperties: false,
   properties: {
@@ -35,7 +36,7 @@ const systemJsonSchema = {
     cover_focus_x: { type: 'integer', minimum: 0, maximum: 100 },
     cover_focus_y: { type: 'integer', minimum: 0, maximum: 100 },
     tags: { type: 'array', items: { type: 'object', required: ['slug', 'label'], additionalProperties: false, properties: { slug: { type: 'string' }, label: { type: 'string' } } } },
-    play_mode: { type: 'string', enum: ['text', 'voice', 'hybrid'] },
+    play_mode: playModeJsonSchema,
   },
 } as const;
 const fieldJsonSchema = {
@@ -222,7 +223,7 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
             name: { type: 'string', minLength: 1, maxLength: 80 },
             description: { type: ['string', 'null'], maxLength: 10000 },
             definition: definitionJsonSchema,
-            play_mode: { type: 'string', enum: ['text', 'voice', 'hybrid'] },
+            play_mode: playModeJsonSchema,
             tags: { type: 'array', maxItems: 5, items: { type: 'string' } },
           },
         },
@@ -254,7 +255,7 @@ export async function gameSystemsRoutes(app: FastifyInstance) {
         description: { type: ['string', 'null'], maxLength: 10000 },
         is_public: { type: 'boolean' },
         password: { type: 'string', minLength: 8, maxLength: 72 },
-        play_mode: { type: 'string', enum: ['text', 'voice', 'hybrid'] },
+        play_mode: playModeJsonSchema,
         tags: { type: 'array', maxItems: 5, items: { type: 'string' } },
         cover_image_path: { type: ['string', 'null'] },
         cover_focus_x: { type: 'integer', minimum: 0, maximum: 100 },

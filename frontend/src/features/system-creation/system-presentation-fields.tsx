@@ -20,7 +20,7 @@ export function SystemPresentationFields({
   showModeAndTags = true,
   showCover = true,
 }: {
-  playMode: GameSystemPlayMode | '';
+  playMode: GameSystemPlayMode;
   tags: string[];
   imagePreviewUrl: string | null;
   focusX: number;
@@ -62,11 +62,12 @@ export function SystemPresentationFields({
 
   return <section className="system-presentation-fields" aria-label="Apresentação do sistema">
     {showModeAndTags && <fieldset className="system-presentation-mode">
-      <legend>Modalidade principal</legend>
+      <legend>Modalidades</legend>
       <div>
-        <label><input type="radio" name="game-system-play-mode" value="text" checked={playMode === 'text'} onChange={() => onPlayModeChange('text')} /> Texto</label>
-        <label><input type="radio" name="game-system-play-mode" value="voice" checked={playMode === 'voice'} onChange={() => onPlayModeChange('voice')} /> Voz</label>
-        <label><input type="radio" name="game-system-play-mode" value="hybrid" checked={playMode === 'hybrid'} onChange={() => onPlayModeChange('hybrid')} /> Híbrido</label>
+        {(['text', 'voice'] as const).map((mode) => {
+          const selected = playMode.includes(mode);
+          return <label key={mode}><input type="checkbox" name="game-system-play-mode" value={mode} checked={selected} onChange={() => onPlayModeChange(selected ? playMode.filter((item) => item !== mode) : [...playMode, mode])} /> {mode === 'text' ? 'Texto' : 'Voz'}</label>;
+        })}
       </div>
     </fieldset>}
 

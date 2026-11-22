@@ -17,7 +17,7 @@ const system = {
   cover_focus_x: 50,
   cover_focus_y: 50,
   tags: [],
-  play_mode: 'text' as const,
+  play_mode: ['text'] as ('text' | 'voice')[],
 };
 const archivedSystem = { ...system, name: 'Archived Forest System', is_active: false };
 const definition = {
@@ -108,7 +108,7 @@ beforeEach(() => {
       if (updateResult === 'forbidden') return Response.json({ status: 'not_owner', system: null });
       if (updateResult === 'not_found') return Response.json({ status: 'not_found', system: null });
       if (updateResult === 'invalid') return Response.json({ status: 'invalid_details', system: null });
-      const payload = body as { p_name: string; p_description: string | null; p_is_public: boolean; p_play_mode: 'text' | 'voice'; p_tags: string[]; p_cover_image_path: string | null; p_cover_focus_x: number; p_cover_focus_y: number };
+      const payload = body as { p_name: string; p_description: string | null; p_is_public: boolean; p_play_mode: ('text' | 'voice')[]; p_tags: string[]; p_cover_image_path: string | null; p_cover_focus_x: number; p_cover_focus_y: number };
       return Response.json({ status: 'updated', system: {
         ...system,
         name: payload.p_name,
@@ -170,7 +170,7 @@ describe('game system and character API', () => {
     name: 'Updated System',
     description: 'Updated description',
     is_public: true,
-    play_mode: 'voice' as const,
+    play_mode: ['voice'] as ('text' | 'voice')[],
     tags: ['fantasia'],
     cover_image_path: null,
     cover_focus_x: 50,
@@ -245,11 +245,11 @@ describe('game system and character API', () => {
   });
 
   it('creates a system and its sheet through one metadata RPC', async () => {
-    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', description: null, definition, play_mode: 'text', tags: [] });
+    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', description: null, definition, play_mode: ['text', 'voice'], tags: [] });
     expect(response.statusCode).toBe(201);
     expect(response.json()).toEqual({ system, definition });
     const rpc = requests.find(({ url }) => url.pathname.endsWith('/create_game_system_with_metadata'))!;
-    expect(rpc.body).toEqual({ p_name: 'Forest System', p_description: null, p_fields: definition, p_play_mode: 'text', p_tags: [] });
+    expect(rpc.body).toEqual({ p_name: 'Forest System', p_description: null, p_fields: definition, p_play_mode: ['text', 'voice'], p_tags: [] });
   });
 
   it('updates system metadata for its owner', async () => {
@@ -263,7 +263,7 @@ describe('game system and character API', () => {
       p_description: 'Updated description',
       p_is_public: true,
       p_password: null,
-      p_play_mode: 'voice',
+      p_play_mode: ['voice'],
       p_tags: ['fantasia'],
       p_cover_image_path: null,
       p_cover_focus_x: 50,
@@ -285,18 +285,18 @@ describe('game system and character API', () => {
 
   it('requires a valid play mode and caps the selected tags', async () => {
     expect((await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition, tags: [] })).statusCode).toBe(400);
-    expect((await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition, play_mode: 'text', tags: ['a', 'b', 'c', 'd', 'e', 'f'] })).statusCode).toBe(400);
-    expect((await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition, play_mode: 'text', tags: ['fantasia', 'fantasia'] })).statusCode).toBe(400);
+    expect((await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition, play_mode: ['text'], tags: ['a', 'b', 'c', 'd', 'e', 'f'] })).statusCode).toBe(400);
+    expect((await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition, play_mode: ['text'], tags: ['fantasia', 'fantasia'] })).statusCode).toBe(400);
   });
 
   it('creates and returns sheets with positioned visual elements', async () => {
-    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: visualDefinition, play_mode: 'text', tags: [] });
+    const response = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: visualDefinition, play_mode: ['text'], tags: [] });
     expect(response.statusCode).toBe(201);
     expect(response.json()).toEqual({ system, definition: visualDefinition });
   });
 
   it('creates and updates sheets with image-choice configuration', async () => {
-    const created = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: interactiveDefinition, play_mode: 'text', tags: [] });
+    const created = await request('POST', '/api/v1/game-systems', { name: 'Forest System', definition: interactiveDefinition, play_mode: ['text'], tags: [] });
     expect(created.statusCode).toBe(201);
     expect(created.json()).toEqual({ system, definition: interactiveDefinition });
 

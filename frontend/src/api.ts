@@ -277,7 +277,7 @@ export interface SystemTagOption {
   label: string;
 }
 
-export type GameSystemPlayMode = 'text' | 'voice' | 'hybrid';
+export type GameSystemPlayMode = Array<'text' | 'voice'>;
 
 export type UpdateGameSystemInput = Pick<GameSystem, 'name' | 'description' | 'is_public'> & {
   password?: string;

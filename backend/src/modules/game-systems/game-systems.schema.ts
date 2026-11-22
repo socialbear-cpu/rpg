@@ -5,6 +5,7 @@ const labelSchema = z.string().trim().min(1).max(80);
 const systemTagSlugsSchema = z.array(z.string().regex(/^[a-z][a-z0-9-]{0,39}$/))
   .max(5)
   .refine((tags) => new Set(tags).size === tags.length);
+const playModesSchema = z.array(z.enum(['text', 'voice'])).min(1).max(2).refine((modes) => new Set(modes).size === modes.length);
 const componentBaseSchema = {
   key: keySchema,
   label: labelSchema,
@@ -222,7 +223,7 @@ export const createSystemInputSchema = z.strictObject({
   name: z.string().trim().min(1).max(80),
   description: z.string().trim().max(10000).nullable().optional(),
   definition: characterSheetDefinitionSchema,
-  play_mode: z.enum(['text', 'voice', 'hybrid']),
+  play_mode: playModesSchema,
   tags: systemTagSlugsSchema,
 });
 
@@ -231,7 +232,7 @@ export const updateGameSystemInputSchema = z.strictObject({
   description: z.string().trim().max(10000).nullable(),
   is_public: z.boolean(),
   password: z.string().min(8).max(72).optional(),
-  play_mode: z.enum(['text', 'voice', 'hybrid']),
+  play_mode: playModesSchema,
   tags: systemTagSlugsSchema,
   cover_image_path: z.string().regex(/^[0-9a-f-]{36}\/[0-9a-f-]{36}\.(jpg|png|webp|avif)$/i).nullable(),
   cover_focus_x: z.number().int().min(0).max(100),
@@ -260,7 +261,7 @@ export const storedGameSystemSchema = z.strictObject({
   cover_focus_x: z.number().int().min(0).max(100).default(50),
   cover_focus_y: z.number().int().min(0).max(100).default(50),
   tags: z.array(z.string()).default([]),
-  play_mode: z.enum(['text', 'voice', 'hybrid']).default('text'),
+  play_mode: playModesSchema.default(['text']),
 });
 
 export const gameSystemSchema = z.strictObject({

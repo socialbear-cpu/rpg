@@ -54,7 +54,7 @@ export function SystemsSection({ systems, loading, error, onCreate, onEnter, own
                     : <><svg className="worlds-cover-bridge" viewBox="0 0 160 90" fill="none"><path d="m60 0-50 90M70 0 45 90M80 0v90M90 0l25 90M100 0l50 90M60 0h40" stroke="currentColor" /></svg><span className="worlds-cover-name">ᛒᛁᚠᚱᛟᛊᛏ</span></>}
                 </div>
                 <div className="worlds-destination-heading">
-                  <span className="worlds-mode">{system.is_active === false ? 'Em pausa' : system.play_mode === 'voice' ? '◉ Voz' : '▤ Texto'}</span>
+                  <span className="worlds-mode">{system.is_active === false ? 'Em pausa' : system.play_mode?.map((mode) => mode === 'voice' ? '◉ Voz' : '▤ Texto').join(' · ')}</span>
                   {(ownerSystemIds.has(system.id) || isPlatformAdmin) && <button type="button" className="worlds-manage" aria-label={`Gerenciar ${system.name}`} title="Gerenciar sistema" onClick={() => onManage?.(system.id)}>
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg>
                   </button>}
