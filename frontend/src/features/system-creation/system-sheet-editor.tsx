@@ -5,6 +5,38 @@ import { getCharacterSheet, updateGameSystemCharacterSheet, type CharacterSheetD
 import { isCharacterSheetDefinitionValid } from './sheet-model';
 import { CharacterSheetBuilder } from './character-sheet-builder';
 
+function getImageValidationError(definition: CharacterSheetDefinition): string | null {
+  for (const step of definition.steps) {
+    for (const component of step.components) {
+      if (component.type !== 'visual_composition') continue;
+      const hasVisualElement = (step.elements ?? []).some((element) => (element.composition_key ?? 'composition_1') === component.composition_key);
+      if (!hasVisualElement) {
+        return `A composição visual “${component.label}” precisa ter pelo menos um texto ou uma imagem no canvas. Use “+ Texto” ou “+ Imagem”.`;
+      }
+    }
+    for (const element of step.elements ?? []) {
+      if (element.type !== 'image') continue;
+      try {
+        if (element.image_url.length > 2048 || new URL(element.image_url).protocol !== 'https:') throw new Error();
+      } catch {
+        return `Confira a URL HTTPS da imagem na etapa “${step.label}”. URLs precisam começar com https:// e ter até 2048 caracteres.`;
+      }
+    }
+    for (const component of step.components) {
+      if (component.type !== 'single_select') continue;
+      for (const option of component.options) {
+        if (!option.image_url) continue;
+        try {
+          if (option.image_url.length > 2048 || new URL(option.image_url).protocol !== 'https:') throw new Error();
+        } catch {
+          return `Confira a URL HTTPS da imagem da opção “${option.label}” na etapa “${step.label}”. URLs precisam começar com https:// e ter até 2048 caracteres.`;
+        }
+      }
+    }
+  }
+  return null;
+}
+
 interface SystemSheetEditorProps {
   systemId: string;
   systemName: string;
@@ -34,7 +66,9 @@ export function SystemSheetEditor({ systemId, systemName, onCancel, onSaved }: S
       layout_mode: 'single_page' as const,
     };
     if (!singlePageDefinition || !isCharacterSheetDefinitionValid(singlePageDefinition)) {
-      setError('Revise os campos e opções antes de salvar.');
+      setError(singlePageDefinition
+        ? getImageValidationError(singlePageDefinition) ?? 'Não foi possível validar a ficha. Confira se todos os campos e opções têm nomes preenchidos e sem duplicatas, e se os elementos visuais estão dentro dos limites do canvas.'
+        : 'A ficha ainda está carregando. Tente novamente em instantes.');
       setSaved(false);
       return;
     }
@@ -45,8 +79,10 @@ export function SystemSheetEditor({ systemId, systemName, onCancel, onSaved }: S
       await updateGameSystemCharacterSheet(systemId, singlePageDefinition);
       setSaved(true);
       onSaved?.();
-    } catch {
-      setError('Não foi possível salvar. Confirme se você é proprietário deste sistema.');
+    } catch (saveError) {
+      setError(saveError instanceof Error
+        ? `Falha ao salvar a ficha: ${saveError.message}`
+        : 'Falha ao salvar a ficha. Tente novamente.');
     } finally {
       setSaving(false);
     }
