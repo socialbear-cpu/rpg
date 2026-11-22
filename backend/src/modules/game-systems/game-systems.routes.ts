@@ -64,7 +64,7 @@ const componentJsonSchema = {
     key: { type: 'string', pattern: '^[a-z][a-z0-9_]{0,39}$' }, label: { type: 'string', minLength: 1, maxLength: 80 },
     required: { type: 'boolean' }, position: { type: 'integer', minimum: 0, maximum: 49 }, width: { type: 'string', enum: ['full', 'half', 'third'] },
     show_on_card: { type: 'boolean' }, type: { type: 'string', enum: ['short_text', 'long_text', 'number', 'single_select'] },
-    presentation: { type: 'string', enum: ['select', 'cards', 'canvas'] }, selection_mode: { type: 'string', enum: ['single', 'multiple'] },
+    presentation: { type: 'string', enum: ['select', 'cards', 'canvas'] }, selection_mode: { type: 'string', enum: ['single', 'multiple'] }, composition_key: { type: 'string', pattern: '^[a-z][a-z0-9_]{0,39}$' },
     options: { type: 'array', minItems: 1, maxItems: 50, items: optionJsonSchema },
   },
 } as const;

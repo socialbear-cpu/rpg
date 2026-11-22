@@ -124,6 +124,75 @@ describe('character entry', () => {
     expect(html).not.toContain('Fazendeira');
   });
 
+  it('renders each canvas choice in its own composition and keeps unlinked legacy choices with the first one', () => {
+    const step: CharacterSheetDefinition['steps'][number] = {
+      key: 'identity', label: 'Identidade', position: 0,
+      components: [
+        { key: 'art_a', label: 'Arte A', type: 'visual_composition', composition_key: 'art_a', required: false, position: 0, width: 'full', show_on_card: false },
+        { key: 'choice_a', label: 'Escolha A', type: 'single_select', presentation: 'canvas', composition_key: 'art_a', required: false, position: 1, width: 'full', show_on_card: false, options: [{ label: 'Opção A', x: 5, y: 5, width: 28, height: 35, rotation: 0 }] },
+        { key: 'art_b', label: 'Arte B', type: 'visual_composition', composition_key: 'art_b', required: false, position: 2, width: 'full', show_on_card: false },
+        { key: 'choice_b', label: 'Escolha B', type: 'single_select', presentation: 'canvas', composition_key: 'art_b', required: false, position: 3, width: 'full', show_on_card: false, options: [{ label: 'Opção B', x: 5, y: 5, width: 28, height: 35, rotation: 0 }] },
+        { key: 'legacy_choice', label: 'Escolha antiga', type: 'single_select', presentation: 'canvas', required: false, position: 4, width: 'full', show_on_card: false, options: [{ label: 'Opção antiga', x: 36, y: 5, width: 28, height: 35, rotation: 0 }] },
+      ],
+      elements: [
+        { key: 'element_a', composition_key: 'art_a', type: 'text', text: 'Elemento A', x: 5, y: 45, width: 30, height: 15, rotation: 0 },
+        { key: 'element_b', composition_key: 'art_b', type: 'text', text: 'Elemento B', x: 5, y: 45, width: 30, height: 15, rotation: 0 },
+      ],
+    };
+    const html = renderToStaticMarkup(createElement(CharacterSheetStepRenderer, { step, values: {}, onValueChange: vi.fn(), mode: 'preview' }));
+    const firstComposition = html.slice(html.indexOf('aria-label="Arte A"'), html.indexOf('aria-label="Arte B"'));
+    const secondComposition = html.slice(html.indexOf('aria-label="Arte B"'));
+
+    expect(firstComposition).toContain('Escolha A');
+    expect(firstComposition).toContain('Escolha antiga');
+    expect(firstComposition).not.toContain('Escolha B');
+    expect(secondComposition).toContain('Escolha B');
+    expect(secondComposition).not.toContain('Escolha A');
+    expect(secondComposition).not.toContain('Escolha antiga');
+  });
+
+  it('keeps configured canvas positions when a conditional option is hidden', () => {
+    const step: CharacterSheetDefinition['steps'][number] = {
+      key: 'identity', label: 'Identidade', position: 0,
+      components: [{
+        key: 'origin', label: 'Origem', type: 'single_select', presentation: 'select', required: false, position: 0, width: 'full', show_on_card: false,
+        options: [{ label: 'Cidade', value: 'city' }],
+      }, {
+        key: 'portrait', label: 'Retrato', type: 'single_select', presentation: 'canvas', required: false, position: 1, width: 'full', show_on_card: false,
+        options: [
+          { label: 'Campo', value: 'field', condition: { logic: 'all', rules: [{ component_key: 'origin', operator: 'equals', value: 'field' }] }, x: 5, y: 5, width: 28, height: 35, rotation: 0 },
+          { label: 'Cidade', value: 'city', x: 36, y: 5, width: 28, height: 35, rotation: 0 },
+        ],
+      }],
+    };
+    const html = renderToStaticMarkup(createElement(CharacterSheetStepRenderer, { step, values: { origin: 'city' }, onValueChange: vi.fn(), mode: 'entry' }));
+
+    expect(html).not.toContain('Campo</strong>');
+    expect(html).toContain('aria-label="Retrato: Cidade" style="left:36%;top:5%;width:28%;height:35%;transform:rotate(0deg)"');
+  });
+
+  it('uses the configured composition names in the visual editor tabs', () => {
+    const namedDefinition: CharacterSheetDefinition = {
+      version: 1,
+      steps: [{
+        key: 'identity', label: 'Identidade', position: 0,
+        components: [
+          { key: 'front', label: 'Retrato principal', type: 'visual_composition', composition_key: 'front_art', required: false, position: 0, width: 'full', show_on_card: false },
+          { key: 'back', label: 'Detalhes do verso', type: 'visual_composition', composition_key: 'back_art', required: false, position: 1, width: 'full', show_on_card: false },
+        ],
+        elements: [
+          { key: 'front_text', composition_key: 'front_art', type: 'text', text: 'Frente', x: 5, y: 5, width: 30, height: 15, rotation: 0 },
+          { key: 'back_text', composition_key: 'back_art', type: 'text', text: 'Verso', x: 5, y: 5, width: 30, height: 15, rotation: 0 },
+        ],
+      }],
+    };
+    const html = renderToStaticMarkup(createElement(CharacterSheetBuilder, { definition: namedDefinition, onChange: vi.fn() }));
+
+    expect(html).toContain('>Retrato principal</button>');
+    expect(html).toContain('>Detalhes do verso</button>');
+    expect(html).not.toContain('>Composição 1</button>');
+  });
+
   it('renders fields from every legacy stage without stage controls', () => {
     const html = renderToStaticMarkup(createElement(CharacterSheetBuilder, { definition, onChange: vi.fn() }));
     expect(html).toContain('História');

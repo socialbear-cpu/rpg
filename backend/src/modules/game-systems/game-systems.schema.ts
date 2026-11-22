@@ -56,6 +56,7 @@ export const characterSheetComponentSchema = z.discriminatedUnion('type', [
     type: z.literal('single_select'),
     presentation: z.enum(['select', 'cards', 'canvas']),
     selection_mode: z.enum(['single', 'multiple']).optional(),
+    composition_key: keySchema.optional(),
     options: selectOptionsSchema,
   }),
 ]);
@@ -115,6 +116,7 @@ export const characterSheetDefinitionSchema = z.strictObject({
 
     const componentPositions = new Set<number>();
     const compositionKeys = new Set((step.elements ?? []).map((element) => element.composition_key ?? 'composition_1'));
+    const linkedCompositionKeys = new Set(step.components.flatMap((component) => component.type === 'visual_composition' ? [component.composition_key] : []));
     const referencedCompositions = new Set<string>();
     [...step.components].sort((a, b) => a.position - b.position).forEach((component, componentIndex) => {
       if (componentKeys.has(component.key)) {
@@ -127,6 +129,9 @@ export const characterSheetDefinitionSchema = z.strictObject({
       componentPositions.add(component.position);
 
       if (component.type === 'single_select') {
+        if (component.presentation === 'canvas' && component.composition_key && !linkedCompositionKeys.has(component.composition_key)) {
+          context.addIssue({ code: 'custom', message: 'Canvas choices must reference a composition in this step', path: ['steps', stepIndex, 'components', componentIndex, 'composition_key'] });
+        }
         component.options.forEach((option, optionIndex) => {
           option.condition?.rules.forEach((rule, ruleIndex) => {
             const priorValues = priorSelectableComponents.get(rule.component_key);
