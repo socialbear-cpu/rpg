@@ -1,2 +1,3 @@
-import { MessagesPage } from '../../src/features/messages/messages-page';
-export default function Page() { return <MessagesPage />; }
+import { redirect } from 'next/navigation';
+
+export default function Page() { redirect('/dashboard'); }

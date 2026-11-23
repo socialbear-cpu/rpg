@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { ApiError, changeSocialGroupMember, createSocialGroup, getDirectConversations, getDirectMessages, getMyProfile, getSocialGroup, getSocialGroups, leaveSocialGroup, renameSocialGroup, searchSocialProfiles, sendDirectMessage, sendSocialGroupMessage, transferSocialGroup, type DirectConversation, type SocialGroup, type SocialGroupMember, type SocialProfile } from '../../api';
+import { ApiError, changeSocialGroupMember, createSocialGroup, getDirectConversations, getDirectMessages, getMyFriends, getMyProfile, getSocialGroup, getSocialGroups, leaveSocialGroup, renameSocialGroup, searchSocialProfiles, sendDirectMessage, sendSocialGroupMessage, transferSocialGroup, type DirectConversation, type SocialGroup, type SocialGroupMember, type SocialProfile } from '../../api';
 import { hasSession } from '../../supabase-auth';
-import { AppHeader } from '../shell/app-header';
 import { clearChatDraftIfUnchanged, emptyChatDrafts, updateChatDraft } from '../chats/chat-state';
+import { GroupCreationForm } from './group-creation-form';
 import './messages.css';
 
 interface AccountMessage { id: string; sender_user_id: string; content: string; created_at: string; }
@@ -25,12 +25,12 @@ export function MessagesConversation({ title, messages, members, userId, draft, 
     {messages.length === 0 && <p>Nenhuma mensagem ainda.</p>}
     <form className="messages-composer" onSubmit={onSend}><label htmlFor="account-message">Mensagem para {title}</label>
       <textarea id="account-message" required maxLength={2000} value={draft} onChange={event => onDraft(event.target.value)} disabled={busy} />
-      <button disabled={busy || !draft.trim()}>{busy ? 'Enviando…' : 'Enviar mensagem'}</button>
+      <button type="submit" className="button primary" disabled={busy || !draft.trim()}>{busy ? 'Enviando…' : 'Enviar mensagem'}</button>
     </form>
   </section>;
 }
 
-export function MessagesPage() {
+export function MessagesPanel() {
   const router = useRouter();
   const [userId, setUserId] = useState(''), [userName, setUserName] = useState('Você');
   const [directs, setDirects] = useState<DirectConversation[]>([]), [groups, setGroups] = useState<SocialGroup[]>([]);
@@ -38,6 +38,8 @@ export function MessagesPage() {
   const [messages, setMessages] = useState<AccountMessage[]>([]), [members, setMembers] = useState<SocialGroupMember[]>([]), [group, setGroup] = useState<SocialGroup | null>(null);
   const [query, setQuery] = useState(''), [results, setResults] = useState<SocialProfile[]>([]), [searching, setSearching] = useState(false);
   const [newName, setNewName] = useState(''), [picked, setPicked] = useState<SocialGroupMember[]>([]), [groupName, setGroupName] = useState('');
+  const [creatingGroup, setCreatingGroup] = useState(false), [friends, setFriends] = useState<SocialGroupMember[]>([]);
+  const [friendsLoading, setFriendsLoading] = useState(true), [friendsError, setFriendsError] = useState(''), [friendsReload, setFriendsReload] = useState(0);
   const [drafts, setDrafts] = useState(emptyChatDrafts), [busy, setBusy] = useState(false), [loading, setLoading] = useState(true), [loadingConversation, setLoadingConversation] = useState(false), [error, setError] = useState(''), [reload, setReload] = useState(0);
   const selectedKey = keyOf(selected), currentKey = useRef(selectedKey);
   currentKey.current = selectedKey;
@@ -53,6 +55,19 @@ export function MessagesPage() {
     }).catch(reason => { if (active) setError(reason instanceof Error ? reason.message : 'Não foi possível carregar suas conversas.'); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [router, reload]);
+
+  useEffect(() => {
+    if (!creatingGroup) return;
+    let active = true; setFriendsLoading(true); setFriendsError('');
+    getMyFriends().then(value => {
+      if (!active) return;
+      setFriends(value.friends);
+      setPicked(current => current.filter(member => value.friends.some(friend => friend.user_id === member.user_id)));
+    }).catch(reason => {
+      if (active) setFriendsError(reason instanceof Error ? reason.message : 'Não foi possível carregar seus amigos.');
+    }).finally(() => { if (active) setFriendsLoading(false); });
+    return () => { active = false; };
+  }, [creatingGroup, friendsReload]);
 
   useEffect(() => {
     let active = true; setResults([]);
@@ -123,39 +138,39 @@ export function MessagesPage() {
     finally { setBusy(false); }
   }
   async function create(event: FormEvent) {
-    event.preventDefault(); setBusy(true); setError('');
+    event.preventDefault();
+    if (busy || friendsLoading || friendsError || !newName.trim()) return;
+    setBusy(true); setError('');
     try {
       const value = await createSocialGroup(newName, picked.map(member => member.user_id));
-      setNewName(''); setPicked([]); setSelected({ type: 'group', id: value.group.id, name: value.group.name }); setReload(value => value + 1);
+      setNewName(''); setPicked([]); setCreatingGroup(false); setSelected({ type: 'group', id: value.group.id, name: value.group.name }); setReload(value => value + 1);
     } catch (reason) { setError(reason instanceof Error ? reason.message : 'Não foi possível criar o grupo.'); }
     finally { setBusy(false); }
   }
 
-  return <main className="messages-page bifrost-workspace"><AppHeader activeItem="Mensagens" />
-    <header className="messages-heading"><h1>Mensagens</h1><p>Converse com jogadores por mensagens diretas ou grupos. As salas de RPG ficam dentro de cada sistema.</p><button type="button" disabled={busy || loading} onClick={() => setReload(value => value + 1)}>Atualizar conversas</button></header>
+  return <section className="messages-panel" aria-label="Conversas e grupos">
+    <header className="messages-heading"><p>Converse com jogadores por mensagens diretas ou grupos. As salas de RPG ficam dentro de cada sistema.</p>
+      <div className="messages-heading-actions"><button type="button" className="button primary" disabled={busy} aria-expanded={creatingGroup} aria-controls="new-group-panel" onClick={() => setCreatingGroup(open => !open)}>Novo grupo</button>
+      <button type="button" disabled={busy || loading} onClick={() => setReload(value => value + 1)}>Atualizar conversas</button></div></header>
     {error && <p role="alert">{error}<button type="button" onClick={() => setReload(value => value + 1)}>Tentar novamente</button></p>}
     <div className="messages-layout"><aside className="messages-directory">
+      {creatingGroup && <div id="new-group-panel"><GroupCreationForm name={newName} friends={friends} selectedIds={picked.map(member => member.user_id)} loading={friendsLoading} error={friendsError} busy={busy}
+        onNameChange={setNewName} onToggleFriend={friend => setPicked(current => current.some(member => member.user_id === friend.user_id) ? current.filter(member => member.user_id !== friend.user_id) : [...current, friend])}
+        onSubmit={event => void create(event)} onCancel={() => setCreatingGroup(false)} onRetry={() => setFriendsReload(value => value + 1)} /></div>}
       <label htmlFor="message-player-search">Buscar jogadores<input id="message-player-search" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Nome do jogador" /></label>
       {searching && <p role="status">Buscando…</p>}
       <ul>{results.map(profile => <li key={profile.user_id}><strong>{profile.display_name} @{profile.username}</strong>
         <button type="button" onClick={() => setSelected({ type: 'direct', id: profile.user_id, name: profile.display_name })}>Conversar</button>
-        <button type="button" disabled={picked.some(member => member.user_id === profile.user_id)} onClick={() => setPicked(current => [...current, { user_id: profile.user_id, display_name: profile.display_name, username: profile.username }])}>Selecionar para novo grupo</button>
         {owner && group && <button type="button" disabled={busy || members.some(member => member.user_id === profile.user_id)} onClick={() => void groupAction(() => changeSocialGroupMember(group.id, profile.user_id, true))}>Adicionar ao grupo atual</button>}
       </li>)}</ul>
-      <details><summary>Criar grupo</summary><form onSubmit={create}>
-        <label>Nome do grupo<input required maxLength={80} value={newName} onChange={event => setNewName(event.target.value)} /></label>
-        <p>Selecione jogadores na busca acima.</p>
-        <ul>{picked.map(member => <li key={member.user_id}>{member.display_name}<button type="button" aria-label={`Remover ${member.display_name} da seleção`} onClick={() => setPicked(current => current.filter(item => item.user_id !== member.user_id))}>Remover</button></li>)}</ul>
-        <button disabled={busy || !newName.trim()}>Criar grupo</button>
-      </form></details>
       {loading ? <p role="status">Carregando conversas…</p> : <>
         <h2>Diretas</h2>{directs.length === 0 && <p>Busque um jogador para começar.</p>}<ul>{directs.map(conversation => <li key={conversation.user_id}>
-          <button type="button" aria-pressed={selectedKey === `direct:${conversation.user_id}`} onClick={() => setSelected({ type: 'direct', id: conversation.user_id, name: conversation.display_name ?? conversation.username ?? 'Jogador' })}>{conversation.display_name ?? conversation.username ?? 'Jogador'}<small>{conversation.content}</small></button>
+          <button type="button" className="messages-conversation-link" aria-pressed={selectedKey === `direct:${conversation.user_id}`} onClick={() => setSelected({ type: 'direct', id: conversation.user_id, name: conversation.display_name ?? conversation.username ?? 'Jogador' })}>{conversation.display_name ?? conversation.username ?? 'Jogador'}<small>{conversation.content}</small></button>
         </li>)}</ul>
-        <h2>Grupos</h2>{groups.length === 0 && <p>Você ainda não participa de grupos.</p>}<ul>{groups.map(item => <li key={item.id}><button type="button" aria-pressed={selectedKey === `group:${item.id}`} onClick={() => setSelected({ type: 'group', id: item.id, name: item.name })}>{item.name}</button></li>)}</ul>
+        <h2>Grupos</h2>{groups.length === 0 && <p>Você ainda não participa de grupos.</p>}<ul>{groups.map(item => <li key={item.id}><button type="button" className="messages-conversation-link" aria-pressed={selectedKey === `group:${item.id}`} onClick={() => setSelected({ type: 'group', id: item.id, name: item.name })}>{item.name}</button></li>)}</ul>
       </>}
     </aside><div className="messages-detail">
-      {!selected ? <p>Selecione uma conversa ou busque um jogador.</p> : loadingConversation ? <p role="status">Carregando mensagens…</p> : ready && <>
+      {!selected ? <div className="messages-empty"><span>SUAS CONVERSAS</span><h3>Um espaço para conversar</h3><p>Selecione uma conversa ou busque um jogador.</p></div> : loadingConversation ? <p role="status">Carregando mensagens…</p> : ready && <>
         <MessagesConversation title={group?.name ?? selected.name} messages={messages} members={members} userId={userId} draft={drafts.values[selectedKey] ?? ''} busy={busy} onDraft={value => setDrafts(current => updateChatDraft(current, selectedKey, value))} onSend={event => void send(event)} />
         {group && <section className="messages-group-settings" aria-label="Participantes do grupo"><h3>Participantes</h3>
           {owner && <form onSubmit={event => { event.preventDefault(); void groupAction(() => renameSocialGroup(group.id, groupName)); }}><label>Nome do grupo<input required maxLength={80} value={groupName} onChange={event => setGroupName(event.target.value)} /></label><button disabled={busy || !groupName.trim()}>Renomear grupo</button></form>}
@@ -167,5 +182,5 @@ export function MessagesPage() {
         </section>}
       </>}
     </div></div>
-  </main>;
+  </section>;
 }

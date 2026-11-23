@@ -55,6 +55,8 @@ it('groups social routes, keeps play direct, and leaves system creation on the d
   expect(html).toContain('class="app-header-social"');
   expect(html).toContain('href="/friends"');
   expect(html).toContain('href="/trading"');
+  expect(html).not.toContain('href="/messages"');
+  expect(html.match(/aria-haspopup="dialog"/g)).toHaveLength(2);
   expect(html).not.toContain('href="/dashboard/systems/new"');
   expect(html).not.toContain('class="app-header-character-menu"');
   expect(html).not.toContain('Selecione um personagem para ver a ficha completa aqui.');
