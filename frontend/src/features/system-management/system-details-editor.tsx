@@ -13,7 +13,7 @@ export function SystemDetailsEditor({ system, section, onSaved }: {
   const [name, setName] = useState(system.name);
   const [description, setDescription] = useState(system.description ?? '');
   const [isPublic, setIsPublic] = useState(system.is_public ?? true);
-  const [playMode, setPlayMode] = useState<GameSystemPlayMode>(system.play_mode ?? 'text');
+  const [playMode, setPlayMode] = useState<GameSystemPlayMode>(system.play_mode ?? ['text']);
   const [tags, setTags] = useState((system.tags ?? []).map(({ slug }) => slug));
   const [coverImagePath, setCoverImagePath] = useState(system.cover_image_path ?? null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
@@ -39,6 +39,11 @@ export function SystemDetailsEditor({ system, section, onSaved }: {
     event.preventDefault();
     if (!name.trim()) {
       setMessage('Informe o nome do sistema.');
+      setError(true);
+      return;
+    }
+    if (!playMode.length) {
+      setMessage('Escolha ao menos uma modalidade.');
       setError(true);
       return;
     }

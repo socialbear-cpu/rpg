@@ -2,21 +2,9 @@
 
 import { useEffect, useState, type CSSProperties } from 'react';
 import type { CharacterSheetComponent, CharacterSheetStep, CharacterSheetVisualElement } from '../../api';
-import { availableOptions } from './conditions';
-
-function optionLayout(component: Extract<CharacterSheetComponent, { type: 'single_select' }>, optionIndex: number): CSSProperties {
-  const option = component.options[optionIndex]!;
-  const columns = Math.max(1, Math.ceil(Math.sqrt(component.options.length)));
-  const width = 90 / columns;
-  const height = 80 / Math.ceil(component.options.length / columns);
-  return {
-    left: `${option.x ?? 5 + (optionIndex % columns) * (width + 2)}%`,
-    top: `${option.y ?? 5 + Math.floor(optionIndex / columns) * (height + 2)}%`,
-    width: `${option.width ?? width}%`,
-    height: `${option.height ?? height}%`,
-    transform: `rotate(${option.rotation ?? 0}deg)`,
-  };
-}
+import { availableOptions, nextSelectionValue } from './conditions';
+import { canvasChoiceCompositionKey } from './composition';
+import { getCharacterSheetOptionLayout } from './visual-layout';
 
 function isSelected(value: unknown, optionValue: string): boolean {
   return Array.isArray(value) ? value.includes(optionValue) : value === optionValue;
@@ -33,19 +21,18 @@ function CanvasChoiceOptions({ component, values, onValueChange, mode }: {
   mode: 'preview' | 'entry';
 }) {
   const options = availableOptions(component, values);
+  const optionIndexes = new Map(component.options.map((option, index) => [option, index]));
   const multiple = component.selection_mode === 'multiple';
-  const selectedValues = selectedStrings(values[component.key]);
   function selectOption(optionValue: string) {
-    if (!multiple) return onValueChange(component.key, optionValue);
-    onValueChange(component.key, selectedValues.includes(optionValue)
-      ? selectedValues.filter((item) => item !== optionValue)
-      : [...selectedValues, optionValue]);
+    onValueChange(component.key, nextSelectionValue(values[component.key], optionValue, multiple));
   }
   return <div className="character-sheet-canvas-choice-group" role={multiple ? 'group' : 'radiogroup'} aria-label={component.label} aria-required={component.required}>
-    {options.map((option) => {
+    {options.map((option, optionIndex) => {
       const optionValue = option.value ?? option.label;
       const selected = isSelected(values[component.key], optionValue);
-      return <button key={optionValue} type="button" className={`character-sheet-canvas-option ${selected ? 'selected' : ''}`} role={multiple ? 'checkbox' : 'radio'} aria-checked={selected} aria-label={`${component.label}: ${option.label}${option.description ? `: ${option.description}` : ''}`} title={option.description} style={optionLayout(component, component.options.indexOf(option))} disabled={mode === 'preview'} onClick={() => selectOption(optionValue)}>
+      const layout = getCharacterSheetOptionLayout(option, optionIndexes.get(option) ?? optionIndex, component.options.length);
+      const style: CSSProperties = { left: `${layout.x}%`, top: `${layout.y}%`, width: `${layout.width}%`, height: `${layout.height}%`, transform: `rotate(${option.rotation ?? 0}deg)` };
+      return <button key={optionValue} type="button" className={`character-sheet-canvas-option ${selected ? 'selected' : ''}`} role={multiple ? 'checkbox' : 'radio'} aria-checked={selected} aria-label={`${component.label}: ${option.label}${option.description ? `: ${option.description}` : ''}`} title={option.description} style={style} disabled={mode === 'preview'} onClick={() => selectOption(optionValue)}>
         {option.image_url ? <img src={option.image_url} alt="" draggable={false} /> : null}<strong>{option.label}</strong>
       </button>;
     })}
@@ -64,10 +51,7 @@ function CharacterSheetField({ component, values, onValueChange, mode }: {
     const multiple = component.selection_mode === 'multiple';
     const selectedValues = selectedStrings(value);
     function selectOption(optionValue: string) {
-      if (!multiple) return onValueChange(component.key, optionValue);
-      onValueChange(component.key, selectedValues.includes(optionValue)
-        ? selectedValues.filter((item) => item !== optionValue)
-        : [...selectedValues, optionValue]);
+      onValueChange(component.key, nextSelectionValue(value, optionValue, multiple));
     }
     if (component.presentation === 'cards') {
       return <div className="character-sheet-option-cards" role={multiple ? 'group' : 'radiogroup'} aria-label={component.label}>{options.map((option) => {
@@ -113,34 +97,38 @@ export function CharacterSheetStepRenderer({ step, values, onValueChange, mode }
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, [expandedComposition]);
 
-  function renderComposition(compositionKey: string, includeCanvasChoices: boolean, key?: string) {
+  function renderCanvasChoiceLabels(compositionKey: string) {
+    const choices = canvasComponents.filter((component) => canvasChoiceCompositionKey(step, component) === compositionKey);
+    return choices.length > 0 && <div className="character-sheet-canvas-labels">{choices.map((component) => <span key={component.key}>{component.label}{component.required ? ' *' : ''}</span>)}</div>;
+  }
+
+  function renderComposition(compositionKey: string, key?: string) {
     return <div key={key} className="character-sheet-visual-stage" aria-label="Composição visual da ficha">
       {elements.filter((element) => (element.composition_key ?? 'composition_1') === compositionKey).map((element) => <VisualElement key={element.key} element={element} />)}
-      {includeCanvasChoices && canvasComponents.map((component) => <CanvasChoiceOptions key={component.key} component={component} values={values} onValueChange={onValueChange} mode={mode} />)}
+      {canvasComponents.filter((component) => canvasChoiceCompositionKey(step, component) === compositionKey).map((component) => <CanvasChoiceOptions key={component.key} component={component} values={values} onValueChange={onValueChange} mode={mode} />)}
     </div>;
   }
 
   const visualStageKeys = legacyCompositionGroups.length > 0 ? legacyCompositionGroups : canvasComponents.length > 0 && visualComponents.length === 0 ? ['composition_1'] : [];
-  const visualStage = visualStageKeys.length > 0 ? <>{visualStageKeys.map((key, index) => renderComposition(key, index === 0, key))}</> : null;
+  const visualStage = visualStageKeys.length > 0 ? <>{visualStageKeys.map((key) => <div key={key}>{renderCanvasChoiceLabels(key)}{renderComposition(key)}</div>)}</> : null;
 
   return <>
     {visualStage && (mode === 'entry'
       ? <section className={`character-sheet-visual-experience${expandedComposition === 'legacy' ? ' is-expanded' : ''}`} aria-label="Área visual da ficha">
         <div className="character-sheet-visual-toolbar">
-          {canvasComponents.length > 0 && <div className="character-sheet-canvas-labels">{canvasComponents.map((component) => <span key={component.key}>{component.label}{component.required ? ' *' : ''}</span>)}</div>}
           <button type="button" className="character-sheet-visual-expand" aria-pressed={expandedComposition === 'legacy'} onClick={() => setExpandedComposition((current) => current === 'legacy' ? null : 'legacy')}>{expandedComposition === 'legacy' ? 'Reduzir composição' : 'Ampliar composição'}</button>
         </div>{visualStage}
       </section>
-      : <>{canvasComponents.length > 0 && <div className="character-sheet-canvas-labels">{canvasComponents.map((component) => <span key={component.key}>{component.label}{component.required ? ' *' : ''}</span>)}</div>}{visualStage}</>)}
+      : visualStage)}
     <div className="character-sheet-step-grid">{regularComponents.map((component) => component.type === 'visual_composition'
       ? <section className={`character-sheet-visual-component width-${component.width}`} key={component.key} aria-label={component.label}>
         <div className={`character-sheet-visual-experience${expandedComposition === component.key ? ' is-expanded' : ''}`}>
           <div className="character-sheet-visual-toolbar">
-            {visualStageKeys.length === 0 && visualComponents[0]?.key === component.key && canvasComponents.length > 0 && <div className="character-sheet-canvas-labels">{canvasComponents.map((choice) => <span key={choice.key}>{choice.label}{choice.required ? ' *' : ''}</span>)}</div>}
+            {renderCanvasChoiceLabels(component.composition_key)}
             <h3>{component.label}</h3>
             {mode === 'entry' && <button type="button" className="character-sheet-visual-expand" aria-pressed={expandedComposition === component.key} onClick={() => setExpandedComposition((current) => current === component.key ? null : component.key)}>{expandedComposition === component.key ? 'Reduzir composição' : 'Ampliar composição'}</button>}
           </div>
-          {renderComposition(component.composition_key, visualStageKeys.length === 0 && visualComponents[0]?.key === component.key)}
+          {renderComposition(component.composition_key)}
         </div>
       </section>
       : <fieldset className={`character-sheet-component width-${component.width}`} key={component.key}>

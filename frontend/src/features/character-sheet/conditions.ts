@@ -24,6 +24,14 @@ export function availableOptions(component: Extract<CharacterSheetComponent, { t
   return component.options.filter((option) => conditionMatches(option.condition, values));
 }
 
+export function nextSelectionValue(current: unknown, optionValue: string, multiple: boolean): string | string[] {
+  if (!multiple) return optionValue;
+  const selected = Array.isArray(current) ? current.filter((item): item is string => typeof item === 'string') : [];
+  return selected.includes(optionValue)
+    ? selected.filter((item) => item !== optionValue)
+    : [...selected, optionValue];
+}
+
 export function pruneCharacterSheetValues(definition: CharacterSheetDefinition, values: Record<string, unknown>): Record<string, unknown> {
   const next = { ...values };
   const components = definition.steps.slice().sort((a, b) => a.position - b.position)

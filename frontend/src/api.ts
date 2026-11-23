@@ -174,7 +174,7 @@ export type CharacterSheetComponent =
   | (CharacterSheetComponentBase & { type: 'short_text' })
   | (CharacterSheetComponentBase & { type: 'long_text' })
   | (CharacterSheetComponentBase & { type: 'number' })
-  | (CharacterSheetComponentBase & { type: 'single_select'; presentation: 'select' | 'cards' | 'canvas'; selection_mode?: 'single' | 'multiple'; options: CharacterSheetOption[] })
+  | (CharacterSheetComponentBase & { type: 'single_select'; presentation: 'select' | 'cards' | 'canvas'; selection_mode?: 'single' | 'multiple'; composition_key?: string; options: CharacterSheetOption[] })
   | (CharacterSheetComponentBase & { type: 'visual_composition'; composition_key: string });
 
 export interface CharacterSheetStep {
@@ -277,7 +277,7 @@ export interface SystemTagOption {
   label: string;
 }
 
-export type GameSystemPlayMode = 'text' | 'voice' | 'hybrid';
+export type GameSystemPlayMode = Array<'text' | 'voice'>;
 
 export type UpdateGameSystemInput = Pick<GameSystem, 'name' | 'description' | 'is_public'> & {
   password?: string;

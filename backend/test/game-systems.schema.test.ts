@@ -30,11 +30,11 @@ const legacyFields: LegacyCharacterSheetField[] = [
 ];
 
 describe('versioned character-sheet definitions', () => {
-  it('accepts all three play modes and expanded system descriptions', () => {
-    const input = { name: 'Sistema', description: 'x'.repeat(10000), definition, play_mode: 'hybrid', tags: [] };
+  it('accepts both play modes together and expanded system descriptions', () => {
+    const input = { name: 'Sistema', description: 'x'.repeat(10000), definition, play_mode: ['text', 'voice'], tags: [] };
     expect(createSystemInputSchema.safeParse(input).success).toBe(true);
     expect(createSystemInputSchema.safeParse({ ...input, description: 'x'.repeat(10001) }).success).toBe(false);
-    expect(createSystemInputSchema.safeParse({ ...input, play_mode: 'invalid' }).success).toBe(false);
+    expect(createSystemInputSchema.safeParse({ ...input, play_mode: ['invalid'] }).success).toBe(false);
   });
 
   it('accepts fields arranged across steps, including visual select cards', () => {
@@ -186,7 +186,7 @@ describe('versioned character-sheet definitions', () => {
 
 describe('system and character input schemas', () => {
   it('trims and bounds system and character names while accepting an optional description', () => {
-    const presentation = { play_mode: 'text', tags: [] };
+    const presentation = { play_mode: ['text'], tags: [] };
     expect(createSystemInputSchema.safeParse({ name: '  Meu Sistema  ', definition, ...presentation }).success).toBe(true);
     expect(createSystemInputSchema.safeParse({ name: '  Meu Sistema  ', definition, tags: [] }).success).toBe(false);
     expect(createSystemInputSchema.safeParse({ name: '  ', definition, ...presentation }).success).toBe(false);

@@ -18,7 +18,7 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
   const [step, setStep] = useState<'details' | 'sheet'>('details');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [playMode, setPlayMode] = useState<GameSystemPlayMode | ''>('');
+  const [playMode, setPlayMode] = useState<GameSystemPlayMode>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
@@ -48,8 +48,8 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
       setError(coverFileError);
       return;
     }
-    if (!playMode) {
-      setError('Escolha a modalidade principal do RPG.');
+    if (!playMode.length) {
+      setError('Escolha ao menos uma modalidade.');
       return;
     }
     setError(null);
@@ -85,8 +85,8 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
       setError('Revise as etapas, campos, opções e elementos visuais (incluindo URLs HTTPS) antes de continuar.');
       return;
     }
-    if (!playMode) {
-      setError('Escolha a modalidade principal do RPG.');
+    if (!playMode.length) {
+      setError('Escolha ao menos uma modalidade.');
       setStep('details');
       return;
     }

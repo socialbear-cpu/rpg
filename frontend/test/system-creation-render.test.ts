@@ -132,14 +132,14 @@ describe('character sheet builder', () => {
     const html = renderToStaticMarkup(createElement(CharacterSheetBuilder, {
       definition, onChange: vi.fn(),
     }));
-    expect(html).toContain('Adicionar componente');
+    expect(html).toContain('+ Campo de texto');
     expect(html).toContain('Mover campo Origem para cima');
     expect(html).toContain('Mover campo Origem para baixo');
     expect(html).toContain('Remover</button>');
     expect(html).not.toContain('Adicionar etapa');
     expect(html).toContain('Prévia completa para jogadores');
     expect(html).toContain('Composição visual da ficha');
-    expect(html).toContain('Arraste os itens para posicioná-los');
+    expect(html).toContain('arraste-o para posicionar');
     expect(html).toContain('+ Imagem');
   });
 });
@@ -147,7 +147,7 @@ describe('character sheet builder', () => {
 describe('system dashboard and creation', () => {
   it('lists owned systems with entry and management actions plus a create action', () => {
     const html = renderToStaticMarkup(createElement(SystemsSection, {
-      systems: [{ id: 'sys-1', slug: 'fantasia', name: 'Fantasia', description: null, play_mode: 'voice', tags: [{ slug: 'terror', label: 'Terror' }] }],
+      systems: [{ id: 'sys-1', slug: 'fantasia', name: 'Fantasia', description: null, play_mode: ['voice'], tags: [{ slug: 'terror', label: 'Terror' }] }],
       loading: false,
       error: null,
       onCreate: vi.fn(),
@@ -170,14 +170,14 @@ describe('system dashboard and creation', () => {
     const html = renderToStaticMarkup(createElement(SystemCreationWizard, { createSystem, push }));
     expect(html).toContain('Nome do sistema');
     expect(html).toContain('Descrição');
-    expect(html).toContain('Modalidade principal');
+    expect(html).toContain('Modalidades');
     expect(html).toContain('Etiquetas');
     expect(html).toContain('Continuar para ficha');
   });
 
   it('edits the same basic system fields used during creation', () => {
     const html = renderToStaticMarkup(createElement(SystemDetailsEditor, {
-      system: { id: 'sys-1', name: 'Meu Sistema', description: 'Uma descrição', play_mode: 'voice', tags: [{ slug: 'fantasia', label: 'Fantasia' }] },
+      system: { id: 'sys-1', name: 'Meu Sistema', description: 'Uma descrição', play_mode: ['voice'], tags: [{ slug: 'fantasia', label: 'Fantasia' }] },
       section: 'overview',
       onSaved: vi.fn(),
     }));
@@ -186,10 +186,9 @@ describe('system dashboard and creation', () => {
     expect(html).toContain('value="Meu Sistema"');
     expect(html).toContain('Uma descrição');
     expect(html).toContain('Voz');
-    expect(html.match(/type="radio"/g)).toHaveLength(3);
-    expect(html).toContain('Híbrido');
+    expect(html.match(/type="checkbox"/g)).toHaveLength(2);
     expect(html).toContain('maxLength="10000"');
-    expect(html).toContain('Modalidade principal');
+    expect(html).toContain('Modalidades');
     expect(html).toContain('Salvar visão geral');
   });
 });

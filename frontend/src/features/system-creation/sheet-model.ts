@@ -233,6 +233,22 @@ export function removeSheetComponent(definition: CharacterSheetDefinition, stepK
   return next;
 }
 
+export function removeSheetComposition(definition: CharacterSheetDefinition, stepKey: string, componentKey: string): CharacterSheetDefinition {
+  const step = definition.steps.find((item) => item.key === stepKey);
+  const composition = step?.components.find((item) => item.key === componentKey && item.type === 'visual_composition');
+  if (!step || !composition || composition.type !== 'visual_composition') return definition;
+
+  return {
+    ...definition,
+    steps: definition.steps.map((item) => item.key !== stepKey ? item : {
+      ...item,
+      components: reindexComponents(item.components.filter((component) => component.key !== componentKey
+        && !(component.type === 'single_select' && component.presentation === 'canvas' && component.composition_key === composition.composition_key))),
+      elements: (item.elements ?? []).filter((element) => element.composition_key !== composition.composition_key),
+    }),
+  };
+}
+
 export function moveSheetComponent(definition: CharacterSheetDefinition, stepKey: string, componentKey: string, direction: 'up' | 'down'): CharacterSheetDefinition {
   const next = {
     ...definition,
@@ -283,6 +299,7 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
 
     const componentPositions = new Set<number>();
     const compositions = new Set((step.elements ?? []).map((element) => element.composition_key ?? 'composition_1'));
+    const linkedCompositions = new Set(step.components.flatMap((component) => component.type === 'visual_composition' ? [component.composition_key] : []));
     const referencedCompositions = new Set<string>();
     for (const component of [...step.components].sort((a, b) => a.position - b.position)) {
       if (!/^[a-z][a-z0-9_]{0,39}$/.test(component.key) || componentKeys.has(component.key)) return false;
@@ -293,6 +310,7 @@ export function isCharacterSheetDefinitionValid(definition: CharacterSheetDefini
       if (!supportedTypes.has(component.type) && component.type !== 'visual_composition') return false;
 
       if (component.type === 'single_select') {
+        if (component.presentation === 'canvas' && component.composition_key !== undefined && !linkedCompositions.has(component.composition_key)) return false;
         if (!['select', 'cards', 'canvas'].includes(component.presentation) || ![undefined, 'single', 'multiple'].includes(component.selection_mode) || component.options.length < 1 || component.options.length > 50) return false;
         const labels = new Set<string>();
         const values = new Set<string>();

@@ -124,7 +124,7 @@ describe('lobby creator tools', () => {
 describe('lobby customization form', () => {
   it('renders the standalone settings without requiring a character', () => {
     const html = renderToStaticMarkup(createElement(LobbyCustomizationForm, {
-      system: { ...system, is_public: true, play_mode: 'text', tags: [] },
+      system: { ...system, is_public: true, play_mode: ['text'], tags: [] },
       settings: defaultSettings,
       onSettingsSaved: vi.fn(),
       onSystemSaved: vi.fn(),

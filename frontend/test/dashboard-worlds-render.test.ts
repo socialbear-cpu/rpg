@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { SystemsSection } from '../src/features/dashboard/systems-section.js';
 
 const systems = [
-  { id: 'first', slug: 'first', name: 'Mundo primeiro', description: 'Uma história para contar.', play_mode: 'voice' as const },
+  { id: 'first', slug: 'first', name: 'Mundo primeiro', description: 'Uma história para contar.', play_mode: ['voice'] as ('text' | 'voice')[] },
   { id: 'archived', slug: 'archived', name: 'Mundo adormecido', description: null, is_active: false },
 ];
 const props = { systems, loading: false, error: null, onCreate: vi.fn(), onEnter: vi.fn(), onManage: vi.fn() };
