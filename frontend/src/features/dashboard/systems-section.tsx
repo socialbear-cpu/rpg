@@ -1,6 +1,7 @@
 'use client';
 
 import { getGameSystemCoverUrl, type GameSystem } from '../../api';
+import { BifrostLoading } from '../loading/bifrost-loading';
 
 interface SystemsSectionProps {
   systems: GameSystem[];
@@ -26,12 +27,7 @@ export function SystemsSection({ systems, loading, error, onCreate, onEnter, own
         )}
       </div>
       {loading && (
-        <>
-          <p className="worlds-status" role="status">Preparando seus mundos...</p>
-          <div className="worlds-skeletons" aria-hidden="true">
-            {[0, 1, 2].map((item) => <div className="worlds-skeleton" key={item} />)}
-          </div>
-        </>
+        <BifrostLoading variant="screen" label="Preparando seus mundos..." />
       )}
       {error && <p className="worlds-error" role="alert">{error}</p>}
       {!loading && !error && systems.length === 0 && (

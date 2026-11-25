@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ApiError, getCharacterChatMessages, getCharacterChats, joinCharacterChat, leaveCharacterChat, sendCharacterChatMessage, type Chat, type ChatMessage } from '../../api';
 import { chatsForCurrentCharacter, clearChatDraftIfUnchanged, emptyChatDrafts, updateChatDraft } from './chat-state';
@@ -43,7 +45,7 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
     return <>
       <section className="chat-directory" aria-labelledby="chats-heading">
         <header className="lobby-section-heading"><h2 id="chats-heading">Salas e conversas</h2>{!loadingChats && chats.length > 0 && <span className="lobby-room-count">{chats.length} {chats.length === 1 ? 'sala' : 'salas'}</span>}</header>
-        {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
+        {loadingChats ? <BifrostLoading variant="panel" label="Carregando chats…" /> : chats.length === 0
           ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
           : <div className="lobby-room-list">{chats.map((item) => <button className="lobby-room-row" key={item.id} type="button" aria-label={`Abrir sala ${item.name}`} aria-pressed={selectedChatId === item.id} onClick={() => { onSelectChat(item.id); onOpenConversation?.(item.id); }}>
             <span className="lobby-room-symbol" aria-hidden="true">✦</span><span className="lobby-room-copy"><strong>{item.name}</strong>{item.description && <small>{item.description}</small>}</span>
@@ -52,9 +54,9 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
       </section>
       <section className="chat-recents" aria-labelledby="chat-recents-heading">
         <header className="lobby-section-heading"><h2 id="chat-recents-heading">Conversas recentes</h2>{selectedChat && <button className="chat-recent-open" type="button" onClick={() => onOpenConversation?.(selectedChat.id)}>Abrir chat <span aria-hidden="true">→</span></button>}</header>
-        {loadingChats ? <p role="status">Carregando conversas…</p> : !selectedChat
+        {loadingChats ? <BifrostLoading variant="panel" label="Carregando conversas…" /> : !selectedChat
           ? <p className="chat-empty">Nenhuma conversa recente.</p>
-          : loadingMessages ? <p role="status">Carregando mensagens…</p>
+          : loadingMessages ? <BifrostLoading variant="panel" label="Carregando mensagens…" />
             : latestMessage ? <button className="chat-recent-preview" type="button" onClick={() => onOpenConversation?.(selectedChat.id)}>
               <span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{selectedChat.name}</strong><small>{latestMessage.character_id === characterId ? 'Você' : 'Outro personagem'}: “{latestMessage.content}”</small></span>
             </button> : <div className="chat-recent-preview chat-recent-preview-empty"><span className="chat-recent-icon" aria-hidden="true">✦</span><span className="chat-recent-copy"><strong>{selectedChat.name}</strong><small>Nenhuma mensagem ainda.</small></span></div>}
@@ -64,7 +66,7 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
 
   return <section className="chat" aria-labelledby="chats-heading">
     <header className="lobby-section-heading"><div><span className="character-entry-eyebrow">CHAT DA MESA</span><h2 id="chats-heading">{selectedChat?.name ?? 'Salas de RPG'}</h2></div>{onRetry && <button type="button" disabled={sending || loadingChats} onClick={onRetry}>Atualizar salas</button>}</header>
-    {loadingChats ? <p role="status">Carregando chats…</p> : chats.length === 0
+    {loadingChats ? <BifrostLoading variant="panel" label="Carregando chats…" /> : chats.length === 0
       ? <p className="chat-empty">Este personagem ainda não participa de nenhum chat.</p>
       : <div className="chat-layout">
         <nav className="chat-list" aria-label="Chats do personagem">
@@ -80,7 +82,7 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
             <div className="room-participation">{selectedChat.is_member ? <button type="button" disabled={sending} onClick={onLeave}>Sair da sala com este personagem</button>
               : selectedChat.permissions.view && <button type="button" disabled={sending || full || !selectedChat.permissions.enter} onClick={onJoin}>{full ? 'Sala cheia' : selectedChat.permissions.enter ? 'Entrar na sala' : 'Entrada não permitida'}</button>}</div>
             {!selectedChat.permissions.view ? <p>Você pode configurar esta sala, mas não tem permissão para visualizar as mensagens.</p> : <>
-            {loadingMessages ? <p role="status">Carregando mensagens…</p> : <ol ref={messageList} className="chat-messages" aria-label={`Mensagens do chat ${selectedChat.name}`} aria-live="polite">
+            {loadingMessages ? <BifrostLoading variant="panel" label="Carregando mensagens…" /> : <ol ref={messageList} className="chat-messages" aria-label={`Mensagens do chat ${selectedChat.name}`} aria-live="polite">
               {messages.map((message) => <li className={message.character_id === characterId ? 'chat-message-own' : undefined} key={message.id}>
                 <span>{message.character_id === characterId ? 'Você' : 'Personagem'} · {formatMessageTime(message.created_at)}</span><p>{message.content}</p>
               </li>)}
@@ -88,7 +90,7 @@ export function ChatPanel({ chats, selectedChatId, messages, characterId, conten
             <form className="chat-composer" onSubmit={onSubmit}>
               <label className="sr-only" htmlFor="chat-message">Mensagem para {selectedChat.name}</label>
               <textarea id="chat-message" disabled={!canWrite || sending} value={canWrite ? content : ''} onChange={(event) => onContentChange(event.target.value)} placeholder="Escreva uma mensagem…" maxLength={2000} />
-              <button type="submit" disabled={!canWrite || sending || !content.trim()}>{sending ? 'Enviando…' : 'Enviar mensagem'}</button>
+              <button type="submit" disabled={!canWrite || sending || !content.trim()}>{sending ? <BifrostLoading variant="inline" label="Enviando…" /> : 'Enviar mensagem'}</button>
             </form>
             {!canWrite && <p>{selectedChat.is_member ? 'Você não tem permissão para digitar nesta sala.' : 'Entre com seu personagem para enviar mensagens.'}</p>}
             </>}

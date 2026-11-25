@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading, useBifrostScreenLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useRef, useState } from 'react';
 import { claimDailyLoginReward, getDailyLoginSystem, takeDailyLoginPopup, type DailyLoginSystemView } from '../../api';
 import { DailyLoginCard } from './daily-login-card';
@@ -14,8 +16,10 @@ export function DailyLoginPopup({ systemId, onClaimed }: { systemId: string; onC
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const screenLoading = useBifrostScreenLoading();
 
   useEffect(() => {
+    if (screenLoading) return;
     let active = true;
     // Defer to avoid consuming the daily display during Strict Mode's trial mount.
     const timer = window.setTimeout(() => {
@@ -28,7 +32,7 @@ export function DailyLoginPopup({ systemId, onClaimed }: { systemId: string; onC
       });
     }, 0);
     return () => { active = false; window.clearTimeout(timer); dialog.current?.close(); };
-  }, [systemId]);
+  }, [systemId, screenLoading]);
 
   async function openRewards() {
     setLoading(true);
@@ -72,7 +76,7 @@ export function DailyLoginPopup({ systemId, onClaimed }: { systemId: string; onC
     } finally { setBusy(null); }
   }
 
-  return <><button className="character-secondary-button" type="button" disabled={loading} onClick={() => { void openRewards(); }}>{loading ? 'Carregando recompensa…' : 'Recompensa diária'}</button>
+  return <><button className="character-secondary-button" type="button" disabled={loading} onClick={() => { void openRewards(); }}>{loading ? <BifrostLoading variant="inline" label="Carregando recompensa…" /> : 'Recompensa diária'}</button>
   <dialog ref={dialog} className="daily-login-popup" aria-label="Recompensa de login diário" aria-busy={Boolean(busy) || undefined} onKeyDown={trapDialogFocus} onClick={(event) => closeOnBackdrop(event, Boolean(busy))} onCancel={(event) => { if (busy) event.preventDefault(); }}>
     <button className="daily-popup-close" type="button" disabled={Boolean(busy)} onClick={() => dialog.current?.close()} aria-label="Fechar login diário">×</button>
     <DailyLoginCard systems={systems} loading={loading} claimingSystemId={busy}

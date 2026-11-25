@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useState, type FormEvent } from 'react';
 import type { CharacterSheetComponent, CharacterSheetDefinition, CharacterSheetStep } from '../../api';
 import { CharacterSheetStepRenderer } from '../character-sheet/character-sheet-step-renderer';
@@ -152,7 +154,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
       {error && <p role="alert" className="character-form-error">{error}</p>}
       <div className="character-form-actions">
         <button type="button" className="character-secondary-button" onClick={onCancel}>Cancelar</button>
-        <button type="submit" className="character-primary-button" disabled={saving}>{saving ? 'Salvando...' : submitLabel}</button>
+        <button type="submit" className="character-primary-button" disabled={saving}>{saving ? <BifrostLoading variant="inline" label="Salvando..." /> : submitLabel}</button>
       </div>
     </form>;
   }
@@ -188,7 +190,7 @@ export function CharacterForm({ definition, initialName = '', initialAttributes 
         }
       }}>{activePageIndex === 0 ? 'Cancelar' : 'Voltar'}</button>
       {page.kind === 'summary'
-        ? <button type="submit" className="character-primary-button" disabled={saving}>{saving ? 'Salvando...' : submitLabel}</button>
+        ? <button type="submit" className="character-primary-button" disabled={saving}>{saving ? <BifrostLoading variant="inline" label="Salvando..." /> : submitLabel}</button>
         : <button type="submit" className="character-primary-button">{page.kind === 'component' && activePageIndex === pages.length - 2 ? 'Revisar ficha' : 'Próxima etapa'}</button>}
     </div>
   </form>;

@@ -1,0 +1,212 @@
+<style>
+#bifrost-demo{font:14px/1.5 'DM Sans',system-ui,sans-serif;color:var(--foreground);width:100%}
+#bifrost-demo *{box-sizing:border-box}
+#bifrost-demo .test-controls{display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin-bottom:16px;padding-right:90px}
+#bifrost-demo .test-controls label{display:grid;gap:5px;font-size:12px}
+#bifrost-demo .test-controls .error-option{display:flex;align-items:center;gap:7px;min-height:38px;font-size:13px}
+#bifrost-demo .test-controls select{max-width:100%}
+#bifrost-demo .product{--bf-bg:#101117;--bf-panel:#191b25;--bf-line:#303240;--bf-text:#f0eff7;--bf-muted:#b1adbf;--bf-purple:#c2a8fa;background:var(--bf-bg);color:var(--bf-text);border:1px solid var(--bf-line);border-radius:16px;overflow:hidden;color-scheme:dark}
+#bifrost-demo .product-header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px 24px;border-bottom:1px solid var(--bf-line)}
+#bifrost-demo .brand{font-size:20px;letter-spacing:3px;font-weight:800;color:var(--bf-purple)}
+#bifrost-demo .brand small{font-size:10px;letter-spacing:1px;margin-left:9px;color:var(--bf-muted)}
+#bifrost-demo .location{font-size:12px;color:var(--bf-muted)}
+#bifrost-demo .stage{min-height:430px;display:grid;position:relative;isolation:isolate;overflow:hidden}
+#bifrost-demo .view{grid-area:1/1;padding:32px;min-width:0;background:var(--bf-bg);visibility:hidden;pointer-events:none;transform:translateY(100%)}
+#bifrost-demo .view.is-visible{visibility:visible;pointer-events:auto;transform:translateY(0);z-index:1}
+#bifrost-demo .stage.has-transition .view.is-visible{animation:bf-view-up-in 460ms cubic-bezier(.65,0,.35,1)}
+#bifrost-demo .stage.has-transition .loading-view.is-visible{animation:bf-portal-open 900ms cubic-bezier(.2,.7,.2,1)}
+#bifrost-demo .view.is-under-portal{visibility:visible;transform:none;z-index:0;animation:bf-enter-screen 900ms ease both;transform-origin:50% 42%}
+#bifrost-demo .view.is-leaving{visibility:visible;transform:translateY(-100%);z-index:2;animation:bf-view-up-out 460ms cubic-bezier(.65,0,.35,1)}
+#bifrost-demo .loading-view.is-leaving{transform:none;animation:bf-voyage-out 760ms ease both}
+#bifrost-demo .stage.is-arriving .view.is-visible{animation:bf-arrive 760ms cubic-bezier(.2,.7,.2,1)}
+@keyframes bf-portal-open{from{clip-path:circle(0% at 50% 50%);transform:none}to{clip-path:circle(75% at 50% 50%);transform:none}}
+@keyframes bf-enter-screen{from{transform:scale(1);opacity:1}to{transform:scale(.78);opacity:0}}
+@keyframes bf-voyage-out{0%,35%{opacity:1}100%{opacity:0}}
+@keyframes bf-arrive{from{transform:scale(.88);opacity:.2;filter:blur(3px)}to{transform:scale(1);opacity:1;filter:blur(0)}}
+@keyframes bf-light-pass{0%{opacity:0}45%{opacity:.65}100%{opacity:0}}
+@keyframes bf-view-up-in{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes bf-view-up-out{from{transform:translateY(0)}to{transform:translateY(-100%)}}
+#bifrost-demo [hidden]{display:none!important}
+#bifrost-demo .eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--bf-purple);margin:0 0 8px}
+#bifrost-demo h2{font-size:26px;line-height:1.2;margin:0 0 10px;letter-spacing:-.6px}
+#bifrost-demo p{margin:0 0 18px}
+#bifrost-demo .muted{color:var(--bf-muted)}
+#bifrost-demo .character-head{display:flex;gap:20px;align-items:center;margin-bottom:24px}
+#bifrost-demo .avatar{width:68px;height:68px;flex-shrink:0;display:grid;place-items:center;background:#30253e;border:1px solid #66517c;border-radius:18px;font-size:28px;font-weight:700;color:var(--bf-purple)}
+#bifrost-demo .character-head p{margin:0}
+#bifrost-demo .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:24px}
+#bifrost-demo .stat{background:var(--bf-panel);border:1px solid var(--bf-line);border-radius:10px;padding:16px}
+#bifrost-demo .stat span{display:block;color:var(--bf-muted);font-size:12px}
+#bifrost-demo .stat strong{display:block;font-size:25px;margin-top:4px}
+#bifrost-demo .character-note{color:var(--bf-muted);max-width:460px}
+#bifrost-demo .product button{font-family:inherit;font-size:13px;font-weight:600;line-height:1.4;min-height:40px;padding:10px 18px;border-radius:8px;border:1px solid #6c5687;background:#352541;color:#f5efff;cursor:pointer}
+#bifrost-demo .product button:hover{background:#473255}
+#bifrost-demo .product button:disabled{cursor:wait;opacity:.65}
+#bifrost-demo .product button:focus-visible{outline:2px solid #cfb8ff;outline-offset:3px}
+#bifrost-demo .loading-view,#bifrost-demo .error-view{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:22px 20px 32px}
+#bifrost-demo .loading-view{position:relative;padding:0;overflow:hidden;background:#090b16}
+#bifrost-demo .portal{position:absolute;inset:0;display:block;width:100%;height:100%;margin:0}
+#bifrost-demo .loading-view::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 38.7%,#e8deff 0,rgba(194,168,250,.3) 30%,transparent 72%);opacity:0}
+#bifrost-demo .loading-view.is-leaving::after{animation:bf-light-pass 760ms ease both}
+#bifrost-demo .loading-view .loading-label{position:absolute;bottom:30px;left:16px;right:16px;z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;margin:0;color:#e7dcfb;text-shadow:0 1px 8px #090b16,0 0 22px rgba(194,168,250,.4)}
+#bifrost-demo .rune-inscription{display:flex;align-items:center;justify-content:center;gap:12px;color:#c8b3ed;font-family:'Segoe UI Historic','Noto Sans Runic',serif;font-size:18px;font-weight:400;line-height:1.2;letter-spacing:5px;padding-left:5px;text-shadow:0 0 8px rgba(194,168,250,.45),0 0 18px rgba(161,125,226,.2)}
+#bifrost-demo .rune-inscription::before,#bifrost-demo .rune-inscription::after{content:'';display:block;flex:0 0 clamp(12px,3vw,28px);height:1px;background:linear-gradient(90deg,transparent,#967bbf)}
+#bifrost-demo .rune-inscription::after{transform:rotate(180deg)}
+#bifrost-demo .loading-view.is-leaving .loading-label{opacity:0;transition:opacity 120ms ease}
+#bifrost-demo .error-mark{font-size:28px;color:#e6b6ca;display:grid;place-items:center;width:56px;height:56px;border:1px solid #785467;border-radius:50%;margin-bottom:20px}
+#bifrost-demo .error-view h2{font-size:22px}
+#bifrost-demo .error-view p{color:var(--bf-muted);max-width:340px}
+#bifrost-demo .error-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+#bifrost-demo .feedback{min-height:24px;font-size:13px;color:var(--bf-purple);margin-top:12px}
+#bifrost-demo .footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 24px;border-top:1px solid var(--bf-line);font-size:11px;color:var(--bf-muted)}
+#bifrost-demo .spin{display:inline-block;width:12px;height:12px;border:2px solid #887397;border-top-color:#f5efff;border-radius:50%;animation:bf-spin .65s linear infinite;vertical-align:-1px;margin-right:6px}
+@keyframes bf-spin{to{transform:rotate(360deg)}}
+@media(max-width:500px){#bifrost-demo .test-controls{padding-right:0;gap:10px}#bifrost-demo .view{padding:24px 18px}#bifrost-demo .product-header{padding:16px 18px}#bifrost-demo .stats{gap:8px}#bifrost-demo .stat{padding:12px}#bifrost-demo .stat strong{font-size:22px}#bifrost-demo h2{font-size:23px}#bifrost-demo .stage{min-height:440px}#bifrost-demo .product button{min-height:44px}}
+@media(prefers-reduced-motion:reduce){#bifrost-demo .spin{animation:none}#bifrost-demo .view,#bifrost-demo .stage.has-transition .view.is-visible,#bifrost-demo .stage.has-transition .loading-view.is-visible,#bifrost-demo .loading-view.is-visible .portal,#bifrost-demo .loading-view.is-leaving .portal,#bifrost-demo .loading-view.is-leaving::after,#bifrost-demo .portal{animation:none;transition:none;transform:none;filter:none}#bifrost-demo .view.is-leaving,#bifrost-demo .view.is-under-portal{animation:none;visibility:hidden}}
+</style>
+<div id="bifrost-demo">
+ <div class="test-controls viz-controls" aria-label="Simular carregamento">
+  <label class="form-label">Ação<select class="form-select" id="bf-scenario"><option value="character">Abrir ficha</option><option value="system">Entrar no sistema</option><option value="save">Salvar ficha</option></select></label>
+  <label class="form-label">Tempo de espera<select class="form-select" id="bf-duration"><option value="200">Rápido · 0,2 s</option><option value="2400" selected>Normal · 2,4 s</option><option value="6000">Demorado · 6 s</option></select></label>
+  <label class="form-check error-option"><input class="form-check-input" id="bf-fail" type="checkbox"><span class="form-check-label">Simular erro</span></label>
+  <button class="btn btn-primary" id="bf-test" type="button">Testar</button>
+ </div>
+ <section class="product" aria-label="Bifrost RPG — prévia do carregamento">
+  <header class="product-header"><div class="brand">BIFROST<small>RPG</small></div><span class="location">Sistemas / Crônicas de Aether</span></header>
+  <div class="stage" id="bf-stage" aria-busy="false">
+   <section class="view is-visible" id="bf-content" aria-hidden="false" aria-label="Ficha de personagem de exemplo">
+    <p class="eyebrow">Seu personagem</p>
+    <div class="character-head"><div class="avatar" aria-hidden="true">L</div><div><h2>Lyra Ventobravo</h2><p class="muted">Maga · Nível 5 · Crônicas de Aether</p></div></div>
+    <div class="stats"><div class="stat"><span>Vida</span><strong>38 / 42</strong></div><div class="stat"><span>Mana</span><strong>24 / 30</strong></div><div class="stat"><span>Defesa</span><strong>16</strong></div></div>
+    <p class="character-note">Sua próxima aventura começa do outro lado da ponte.</p>
+    <button id="bf-save" type="button">Salvar ficha</button>
+    <div class="feedback" id="bf-save-feedback" aria-live="polite"></div>
+   </section>
+   <section class="view loading-view" id="bf-loading" inert aria-hidden="true" aria-label="Carregando">
+    <canvas class="portal" id="bf-portal" aria-hidden="true"></canvas>
+    <div class="loading-label" aria-hidden="true"><span class="rune-inscription">ᛒᛁᚠᚱᛟᛊᛏ</span></div>
+   </section>
+   <section class="view error-view" id="bf-error" inert aria-hidden="true" aria-label="Falha no carregamento">
+    <span class="error-mark" aria-hidden="true">!</span><h2>Não foi possível atravessar.</h2><p>O carregamento falhou. Tente novamente para continuar sua aventura.</p>
+    <div class="error-actions"><button id="bf-retry" type="button">Tentar novamente</button><button id="bf-back" type="button">Voltar à ficha</button></div>
+   </section>
+  </div>
+  <footer class="footer"><span>Prévia interativa · dados de exemplo</span><span id="bf-status" role="status" aria-live="polite">Pronto para testar</span></footer>
+ </section>
+</div>
+<script>
+(()=>{
+ const root=document.getElementById('bifrost-demo');
+ const el=id=>root.querySelector('#bf-'+id);
+ const portal=el('portal'), motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+ const ctx=portal.getContext('2d');
+ let width=1,height=1,dpr=1,frame=0,travel=0,previous=0,departure=0;
+ let seed=74123;
+ const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
+ const stars=Array.from({length:190},()=>({angle:random()*Math.PI*2,phase:random(),distance:.35+random()*.75,size:.4+random()*.75}));
+ function paint(now){
+  const active=el('loading').classList.contains('is-visible');
+  const leaving=el('loading').classList.contains('is-leaving');
+  const elapsed=previous?Math.min((now-previous)/1000,.05):0;previous=now;
+  const dive=leaving?Math.min(1,(now-departure)/760):0;
+  if(!motion.matches)travel+=elapsed*(.55+dive*2.4);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.fillStyle='#090b16';ctx.fillRect(0,0,width,height);
+  const x=width*.5,y=height*.39,unit=Math.max(width,height);
+  const glow=ctx.createRadialGradient(x,y,0,x,y,unit*(.47+dive*.3));
+  glow.addColorStop(0,'#695b8d');glow.addColorStop(.16,'#272039');glow.addColorStop(1,'#090b16');
+  ctx.fillStyle=glow;ctx.fillRect(0,0,width,height);
+  for(const star of stars){
+   const q=(star.phase+travel)%1,r=(.018+q*q*star.distance)*unit;
+   const tail=Math.max(0,r-(2+q*q*(unit*.065)*(1+dive*2)));
+   const ax=Math.cos(star.angle),ay=Math.sin(star.angle)*.76;
+   const alpha=Math.min(1,q*7,(1-q)*8)*.85;
+   const a=x+ax*tail,b=y+ay*tail,c=x+ax*r,d=y+ay*r;
+   const streak=ctx.createLinearGradient(a,b,c+.01,d+.01);
+   streak.addColorStop(0,'rgba(206,192,240,0)');streak.addColorStop(1,`rgba(230,222,250,${alpha})`);
+   ctx.strokeStyle=streak;ctx.lineWidth=star.size*(.6+q)*Math.max(1,width/1100);
+   ctx.beginPath();ctx.moveTo(a,b);ctx.lineTo(c,d);ctx.stroke();
+  }
+  const half=width*.68,bottom=height*1.16;
+  ctx.beginPath();ctx.moveTo(x-3,y);ctx.lineTo(x+3,y);ctx.lineTo(x+half,bottom);ctx.lineTo(x-half,bottom);ctx.closePath();
+  const deck=ctx.createLinearGradient(0,y,0,height);deck.addColorStop(0,'rgba(211,190,255,.4)');deck.addColorStop(1,'rgba(155,126,221,.08)');ctx.fillStyle=deck;ctx.fill();
+  for(let i=0;i<=8;i++){
+   const edge=i===0||i===8,bx=x-half+i*half/4;
+   ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(x+(bx-x)*.18,y+(height-y)*.35,bx,bottom);
+   ctx.strokeStyle=edge?'#e3d5ff':'rgba(199,176,249,.65)';ctx.lineWidth=edge?1.8:1;
+   ctx.shadowColor='#bda1f2';ctx.shadowBlur=edge?14:5;ctx.stroke();ctx.shadowBlur=0;
+  }
+  for(let i=0;i<18;i++){
+   const q=(i/18+travel)%1,z=q*q,py=y+z*(bottom-y),hw=3+half*z;
+   ctx.strokeStyle=`rgba(219,203,255,${Math.min(1,q*8,(1-q)*7)*.42})`;ctx.lineWidth=.5+z*1.1;
+   ctx.beginPath();ctx.moveTo(x-hw,py);ctx.quadraticCurveTo(x,py+z*height*.025,x+hw,py);ctx.stroke();
+  }
+  const core=ctx.createRadialGradient(x,y,0,x,y,Math.max(40,width*.1)*(1+dive*5));
+  core.addColorStop(0,'rgba(248,242,255,.95)');core.addColorStop(.08,'rgba(223,203,255,.65)');core.addColorStop(.4,'rgba(183,151,240,.15)');core.addColorStop(1,'rgba(183,151,240,0)');
+  ctx.fillStyle=core;ctx.fillRect(0,0,width,height);
+  if(!motion.matches&&(active||leaving))frame=requestAnimationFrame(paint);else frame=0;
+ }
+ function resize(){
+  const bounds=el('stage').getBoundingClientRect();
+  width=Math.max(1,bounds.width);height=Math.max(1,bounds.height);dpr=Math.min(window.devicePixelRatio||1,3);
+  portal.width=Math.round(width*dpr);portal.height=Math.round(height*dpr);
+  if(!frame)paint(performance.now());
+ }
+ const startVoyage=()=>{previous=0;if(!frame)paint(performance.now());};
+ new ResizeObserver(resize).observe(el('stage'));
+ motion.addEventListener('change',()=>{cancelAnimationFrame(frame);frame=0;startVoyage();});
+ window.addEventListener('pagehide',()=>cancelAnimationFrame(frame));
+ resize();
+ let busy=false,lastAction='character',timers=[];
+ const show=view=>{
+  if(el(view).classList.contains('is-visible'))return;
+  if(el('loading').classList.contains('is-visible')&&view!=='loading')departure=performance.now();
+  el('stage').classList.toggle('is-arriving',el('loading').classList.contains('is-visible')&&view!=='loading');
+  el('stage').classList.add('has-transition');
+  ['content','loading','error'].forEach(id=>{
+   const node=el(id),active=id===view,leaving=node.classList.contains('is-visible')&&!active;
+   node.classList.toggle('is-leaving',leaving&&view!=='loading');
+   node.classList.toggle('is-under-portal',leaving&&view==='loading');
+   node.classList.toggle('is-visible',active);
+   node.inert=!active;node.setAttribute('aria-hidden',String(!active));
+  });
+  if(view==='loading')startVoyage();
+ };
+ ['content','loading','error'].forEach(id=>el(id).addEventListener('animationend',event=>{
+  if(event.target===el(id)&&['bf-view-up-out','bf-voyage-out'].includes(event.animationName))el(id).classList.remove('is-leaving');
+  if(event.target===el(id)&&event.animationName==='bf-portal-open'){
+   ['content','loading','error'].forEach(name=>el(name).classList.remove('is-under-portal'));
+  }
+ }));
+ const setBusy=value=>{busy=value;el('stage').setAttribute('aria-busy',String(value));['test','save','retry','back'].forEach(id=>{el(id).disabled=value;});};
+ const saveState=()=>{if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{scenario:el('scenario').value,durationMs:Number(el('duration').value),simulateError:el('fail').checked},privateContent:null}).catch(()=>{});};
+ const restore=s=>{const v=s?.modelContent;if(!v)return;if(['character','system','save'].includes(v.scenario))el('scenario').value=v.scenario;if([200,2400,6000].includes(v.durationMs))el('duration').value=String(v.durationMs);if(typeof v.simulateError==='boolean')el('fail').checked=v.simulateError;};
+ restore(window.openai?.widgetState);
+ window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));
+ function run(action,forceSuccess=false){
+  if(busy)return;
+  timers.forEach(clearTimeout);timers=[];lastAction=action;
+  const delay=Number(el('duration').value),fail=el('fail').checked&&!forceSuccess;
+  el('save-feedback').textContent='';setBusy(true);el('status').textContent=action==='save'?'Salvando alterações…':'Aguardando resposta…';
+  if(action==='save'){show('content');el('save').innerHTML='<span class="spin" aria-hidden="true"></span>Salvando…';}
+  else timers.push(setTimeout(()=>{
+   show('loading');el('status').textContent='Carregando…';
+  },300));
+  timers.push(setTimeout(()=>{
+   timers.forEach(clearTimeout);timers=[];setBusy(false);el('save').textContent='Salvar ficha';
+   if(fail){
+    if(action==='save'){show('content');el('save-feedback').textContent='Não foi possível salvar. Tente novamente.';el('status').textContent='Falha ao salvar';}
+    else{show('error');el('status').textContent='Falha no carregamento';el('retry').focus({preventScroll:true});}
+   }else{
+    show('content');el('status').textContent=action==='save'?'Alterações salvas':action==='system'?'Sistema carregado':'Ficha carregada';
+    if(action==='save')el('save-feedback').textContent='Ficha salva com sucesso.';
+   }
+  },delay));saveState();
+ }
+ el('test').addEventListener('click',()=>run(el('scenario').value));
+ el('save').addEventListener('click',()=>run('save'));
+ el('retry').addEventListener('click',()=>run(lastAction,true));
+ el('back').addEventListener('click',()=>{show('content');el('status').textContent='Pronto para testar';el('test').focus({preventScroll:true});});
+ ['scenario','duration','fail'].forEach(id=>el(id).addEventListener('change',saveState));
+})();
+</script>

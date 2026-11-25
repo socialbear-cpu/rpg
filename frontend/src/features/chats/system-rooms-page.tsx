@@ -1,4 +1,6 @@
 'use client';
+
+import { BifrostLoading } from '../loading/bifrost-loading';
 import { useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { createSystemChat, getMySystemMemberships, getSystemChats, type Chat } from '../../api';
@@ -30,11 +32,11 @@ export function SystemRoomsPage({ systemId }: { systemId: string }) {
     <AppHeader backHref={`/systems/${encodeURIComponent(systemId)}/characters`} backLabel="Voltar ao sistema" />
     <h1>Salas de RPG</h1><p>As salas pertencem a este sistema. Owner e moderadores definem o acesso e as vagas.</p>
     {error && <p role="alert">{error}<button onClick={() => setReload(value => value + 1)}>Tentar novamente</button></p>}
-    {loading ? <p role="status">Carregando salas…</p> : <>
+    {loading ? <BifrostLoading variant="screen" label="Carregando salas…" /> : <>
       {isOwner && <form className="room-settings-form" onSubmit={create}><h2>Criar sala</h2>
         <label>Nome<input required maxLength={80} value={name} onChange={event => setName(event.target.value)} /></label>
         <label>Descrição<textarea maxLength={2000} value={description} onChange={event => setDescription(event.target.value)} /></label>
-        <button disabled={busy || !name.trim()}>{busy ? 'Criando…' : 'Criar sala'}</button>
+        <button disabled={busy || !name.trim()}>{busy ? <BifrostLoading variant="inline" label="Criando…" /> : 'Criar sala'}</button>
       </form>}
       <ul className="room-directory">{rooms.map(room => <li key={room.id}><strong>{room.name}</strong><span>{room.player_count} / {room.max_players ?? 'sem limite'} jogadores</span>
         {room.can_manage && <button type="button" onClick={() => setSelected(room.id)}>Configurar sala {room.name}</button>}</li>)}</ul>

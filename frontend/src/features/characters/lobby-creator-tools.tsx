@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { createSystemChat, type GameSystem, type SystemCharacter } from '../../api';
@@ -36,7 +38,7 @@ export function LobbyCreatorTools({ system, onChatCreated, canCreateRooms = true
         <h3>Criar chat</h3>
         <label>Nome do chat<input required minLength={1} maxLength={80} value={chatName} onChange={(event) => setChatName(event.target.value)} /></label>
         <label>Descrição (opcional)<textarea maxLength={2000} value={chatDescription} onChange={(event) => setChatDescription(event.target.value)} /></label>
-        <button type="submit" disabled={savingChat || !chatName.trim()}>{savingChat ? 'Criando…' : 'Criar chat'}</button>
+        <button type="submit" disabled={savingChat || !chatName.trim()}>{savingChat ? <BifrostLoading variant="inline" label="Criando…" /> : 'Criar chat'}</button>
       </form>}
     {message && <p role="status">{message}</p>}{error && <p role="alert">{error}</p>}
   </section>;

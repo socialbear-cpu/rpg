@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useId, useState } from 'react';
 import { createChatFriendInvitation, createSystemFriendInvitation, getMyFriends, type FriendItem } from '../../api';
 import './invite-friend-control.css';
@@ -29,6 +31,6 @@ export function InviteFriendControl({ systemId, chatId }: { systemId?: string; c
     finally { setBusy(false); }
   }
   return <div className="invite-friend-control" ref={container}><button type="button" disabled={busy} aria-expanded={open} aria-controls={open ? pickerId : undefined} onClick={() => open ? setOpen(false) : void show()}>{open ? 'Fechar convites' : 'Convidar amigo'}</button>
-    {open && <div id={pickerId} className="invite-friend-picker"><label>Amigo<select value={selected} disabled={busy} onChange={(event) => setSelected(event.target.value)}><option value="">Escolha um amigo</option>{friends.map((friend) => <option key={friend.user_id} value={friend.user_id}>@{friend.username} · {friend.display_name}</option>)}</select></label><button type="button" disabled={!selected || busy} onClick={() => void invite()}>{busy ? 'Enviando…' : 'Enviar convite'}</button>{friends.length === 0 && <span>Adicione amigos antes de enviar convites.</span>}{message && <span role="status">{message}</span>}</div>}
+    {open && <div id={pickerId} className="invite-friend-picker"><label>Amigo<select value={selected} disabled={busy} onChange={(event) => setSelected(event.target.value)}><option value="">Escolha um amigo</option>{friends.map((friend) => <option key={friend.user_id} value={friend.user_id}>@{friend.username} · {friend.display_name}</option>)}</select></label><button type="button" disabled={!selected || busy} onClick={() => void invite()}>{busy ? <BifrostLoading variant="inline" label="Enviando…" /> : 'Enviar convite'}</button>{friends.length === 0 && <span>Adicione amigos antes de enviar convites.</span>}{message && <span role="status">{message}</span>}</div>}
   </div>;
 }

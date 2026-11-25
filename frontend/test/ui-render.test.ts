@@ -69,7 +69,7 @@ describe('account card', () => {
 
     expect(html).toContain('Defina uma nova senha para concluir a recuperação da conta.');
     expect(html).not.toContain('role="tablist"');
-    expect(html).toContain('disabled="">Atualizando…</button>');
+    expect(html).toMatch(/<button[^>]*type="submit"[^>]*disabled=""[^>]*><span class="bifrost-loading bifrost-loading--inline"[\s\S]*?Atualizando…[\s\S]*?<\/button>/);
   });
 });
 
@@ -129,7 +129,7 @@ describe('profile card', () => {
 
     expect(html).toContain('value="RPG Player"');
     expect(html).not.toMatch(/id="profile-name"[^>]*disabled/);
-    expect(html).toContain('disabled="">Salvando…</button>');
+    expect(html).toMatch(/<button[^>]*id="save-profile"[^>]*disabled=""[^>]*><span class="bifrost-loading bifrost-loading--inline"[\s\S]*?Salvando…[\s\S]*?<\/button>/);
   });
 });
 

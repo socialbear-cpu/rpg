@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import type { FormEventHandler } from 'react';
 import './profile-card.css';
 
@@ -70,7 +72,7 @@ export function ProfileCard({
         <label>Frase de status<input id="profile-status" value={profile.status} onChange={(event) => onProfileChange('status', event.target.value)} name="status" type="text" maxLength={120} placeholder="Uma frase para seu perfil" disabled={!authenticated} /><span className="field-hint">Até 120 caracteres</span></label>
         <label>Bio<textarea id="profile-bio" value={profile.bio} onChange={(event) => onProfileChange('bio', event.target.value)} name="bio" maxLength={500} rows={4} placeholder="Conte um pouco sobre você" disabled={!authenticated} /><span className="field-hint">Até 500 caracteres</span></label>
         <label>Interesses<input id="profile-interests" value={profile.interests} onChange={(event) => onProfileChange('interests', event.target.value)} name="interests" type="text" placeholder="RPG de mesa, fantasia, jogos…" disabled={!authenticated} /><span className="field-hint">Separe por vírgulas; até 12 itens com 40 caracteres cada.</span></label>
-        <div className="actions"><button id="load-profile" className="button secondary" type="button" onClick={onLoadProfile} disabled={!authenticated}>Carregar perfil</button><button id="save-profile" className="button primary" type="submit" disabled={!authenticated || profileBusy}>{profileBusy ? 'Salvando…' : 'Salvar alterações'}</button></div>
+        <div className="actions"><button id="load-profile" className="button secondary" type="button" onClick={onLoadProfile} disabled={!authenticated}>Carregar perfil</button><button id="save-profile" className="button primary" type="submit" disabled={!authenticated || profileBusy}>{profileBusy ? <BifrostLoading variant="inline" label="Salvando…" /> : 'Salvar alterações'}</button></div>
       </form>
       </>}
     </article>

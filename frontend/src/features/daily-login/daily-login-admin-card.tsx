@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import type { FormEventHandler } from 'react';
 import './daily-login-admin.css';
 import type { DailyLoginOwnerCalendar, DailyLoginSystemView } from '../../api';
@@ -63,7 +65,7 @@ export function DailyLoginAdminCard({
         {manageableSystems.map(({ system }) => <option key={system.id} value={system.id}>{system.name}</option>)}
       </select>
     </label>}
-    {loading && <p className="card-copy" role="status">Carregando calendário…</p>}
+    {loading && <BifrostLoading variant="panel" label="Carregando calendário…" />}
     {!loading && calendar?.system.id === selected.system.id && <>
       {calendar.items.length === 0 && <p className="daily-state" role="status">Cadastre itens neste sistema antes de ativar as recompensas.</p>}
       <form className="daily-admin-form" onSubmit={onSave}>
@@ -98,7 +100,7 @@ export function DailyLoginAdminCard({
         </div>
         <label className="daily-active-toggle"><input type="checkbox" checked={calendar.is_active} onChange={(event) => onActiveChange(event.target.checked)} /> Ativar calendário de recompensas</label>
         <div className="actions"><button className="button primary" type="submit" disabled={saving || !complete}>
-          {saving ? 'Salvando…' : 'Salvar calendário'}
+          {saving ? <BifrostLoading variant="inline" label="Salvando…" /> : 'Salvar calendário'}
         </button></div>
       </form>
     </>}

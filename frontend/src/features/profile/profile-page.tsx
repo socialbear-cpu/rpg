@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { getMyProfile, updateMyProfile, type Profile, type ProfilePatch } from '../../api';
@@ -76,13 +78,13 @@ export function ProfilePage() {
     } finally { setSaving(false); }
   }
 
-  if (!authenticated) return null;
+  if (!authenticated) return <BifrostLoading variant="screen" label="Verificando sessão…" />;
   if (profile?.username) return <PublicProfilePage key={profile.username} username={profile.username} isOwnProfile onUsernameChanged={(username) => setProfile((current) => current ? { ...current, username } : current)} />;
   return <main className="shell bifrost-workspace profile-settings-page">
     <AppHeader activeItem="" backHref="/dashboard" backLabel="Voltar aos sistemas" />
     <WorkspaceHeading eyebrow="SUA IDENTIDADE" title="Meu perfil" description="Conte quem está por trás das suas histórias." />
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status">{message}</p>}
-    {loading ? <p role="status">Carregando perfil…</p> : profile ? <ProfileCard
+    {loading ? <BifrostLoading variant="screen" label="Carregando perfil…" /> : profile ? <ProfileCard
       profile={profile} authenticated profileBusy={saving}
       previewing={previewing} onTogglePreview={() => setPreviewing((value) => !value)}
       onProfileChange={(field, value) => setProfile((current) => current ? { ...current, [field]: value } : current)}

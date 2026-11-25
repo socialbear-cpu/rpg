@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEventHandler } from 'react';
 import { searchSystemMembersByCharacterName, type SystemMemberCharacterSearchResult, type SystemMemberships } from '../../api';
 
@@ -113,7 +115,7 @@ export function SystemMembershipCard({ access, manageableSystems = [], busy, mes
             }}
           />
           {showResults && <div className="system-member-search-results" id="membership-character-results" role="listbox" aria-label="Personagens encontrados">
-            {memberSearchLoading && <span role="status">Pesquisando…</span>}
+            {memberSearchLoading && <BifrostLoading variant="inline" label="Pesquisando…" />}
             {!memberSearchLoading && memberSearchError && <span role="alert">{memberSearchError}</span>}
             {!memberSearchLoading && !memberSearchError && memberResults.length === 0 && <span role="status">Nenhum personagem encontrado.</span>}
             {!memberSearchLoading && memberResults.map((member, index) => <button id={`membership-result-${index}`} key={`${member.user_id}:${member.character_name}`} type="button" role="option" tabIndex={-1} aria-selected={activeResult === index} onClick={() => chooseMember(member)}><strong>{member.character_name}</strong><small>{member.display_name}</small></button>)}
@@ -126,7 +128,7 @@ export function SystemMembershipCard({ access, manageableSystems = [], busy, mes
           Tornar moderador (desmarque para remover Mod)
         </label>
         <div className="actions"><button className="button primary" type="submit" disabled={busy || !selectedSystem || !selectedMember}>
-          {busy ? 'Salvando…' : 'Salvar cargo'}
+          {busy ? <BifrostLoading variant="inline" label="Salvando…" /> : 'Salvar cargo'}
         </button></div>
       </form>
     </>}

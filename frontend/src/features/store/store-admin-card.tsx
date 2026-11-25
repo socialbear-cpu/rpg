@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useCallback, useEffect, useRef, useState, type FormEvent, type FormEventHandler } from 'react';
 import {
   createOwnerStoreItem,
@@ -99,6 +101,7 @@ function isValidPrice(value: string) {
 
 function SaveStatus({ status, invalidMessage }: { status: AutosaveStatus; invalidMessage: string }) {
   if (status === 'idle') return null;
+  if (status === 'pending' || status === 'saving') return <BifrostLoading variant="inline" label={autosaveStatusText(status, invalidMessage)} />;
   const isError = status === 'invalid' || status === 'error';
   return <span className={`store-admin-autosave-status${isError ? ' is-error' : ''}`} role={isError ? 'alert' : 'status'} aria-live="polite">
     {autosaveStatusText(status, invalidMessage)}
@@ -232,7 +235,7 @@ export function StoreAdminCard({ store, message, creatingItem = false, onCreateI
           <label>Tipo<select value={itemType} onChange={(event) => setItemType(event.target.value as CreateStoreItemInput['item_type'])}><option value="consumable">Consumível</option><option value="equipment">Equipamento</option><option value="misc">Outro</option></select></label>
           <label className="store-admin-item-description">Descrição<textarea maxLength={500} value={itemDescription} onChange={(event) => setItemDescription(event.target.value)} /></label>
           <label className="store-admin-item-description">Endereço da imagem<input type="url" pattern="https://.*" maxLength={2048} placeholder="https://…" value={itemImageUrl} onChange={(event) => setItemImageUrl(event.target.value)} /><span>Opcional · use um endereço HTTPS.</span></label>
-          <div className="store-admin-item-dialog-actions"><button className="button secondary" type="button" disabled={creatingItem} onClick={() => itemDialog.current?.close()}>Cancelar</button><button className="button primary" type="submit" disabled={creatingItem}>{creatingItem ? 'Adicionando…' : 'Adicionar item'}</button></div>
+          <div className="store-admin-item-dialog-actions"><button className="button secondary" type="button" disabled={creatingItem} onClick={() => itemDialog.current?.close()}>Cancelar</button><button className="button primary" type="submit" disabled={creatingItem}>{creatingItem ? <BifrostLoading variant="inline" label="Adicionando…" /> : 'Adicionar item'}</button></div>
         </form>
       </dialog>
       <dialog onKeyDown={trapDialogFocus} className="store-admin-item-dialog" ref={offerDialog} aria-labelledby="store-admin-offer-dialog-title" aria-busy={offerBusy || undefined} onClick={(event) => closeOnBackdrop(event, offerBusy)} onCancel={(event) => { if (offerBusy) event.preventDefault(); }}>
@@ -299,6 +302,6 @@ export function SystemStoreAdmin({ systemId }: { systemId: string }) {
     } finally { setCreatingItem(false); }
   }
 
-  if (!store) return <article className="card store-admin-card"><h2>Gerenciar loja</h2><p role="status">{message ?? 'Carregando loja…'}</p>{message && <button type="button" className="button secondary" onClick={() => setReload((value) => value + 1)}>Tentar novamente</button>}</article>;
+  if (!store) return <article className="card store-admin-card"><h2>Gerenciar loja</h2>{message ? <p role="status">{message}</p> : <BifrostLoading label="Carregando loja…" />}{message && <button type="button" className="button secondary" onClick={() => setReload((value) => value + 1)}>Tentar novamente</button>}</article>;
   return <StoreAdminCard store={store} creatingItem={creatingItem} message={message} onCreateItem={addItem} onSaveCurrencyField={saveCurrencyField} onSaveOfferField={saveOfferField} />;
 }

@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { createSystemEvent, deleteSystemEvent, getSystemEvents, startSystemEvent, updateSystemEvent, type SystemEvent, type SystemEventInput } from '../../api';
 import './system-events-card.css';
@@ -104,9 +106,9 @@ export function SystemEventsCard({ systemId, canManage = false }: { systemId: st
       <label>Título<input required minLength={1} maxLength={120} value={title} onChange={(event) => setTitle(event.target.value)} /></label>
       <label>Descrição (opcional)<textarea maxLength={2000} value={description} onChange={(event) => setDescription(event.target.value)} /></label>
       <div className="system-events-dates"><label>Início<input required type="datetime-local" value={startsAt} onChange={(event) => setStartsAt(event.target.value)} /></label><label>Término<input required type="datetime-local" value={endsAt} onChange={(event) => setEndsAt(event.target.value)} /></label></div>
-      <div className="system-events-form-actions"><button type="submit" disabled={busy || !startsAt || !endsAt}>{busy ? 'Salvando…' : editing ? 'Salvar evento' : 'Criar evento'}</button>{editing && <button type="button" disabled={busy} onClick={resetForm}>Cancelar edição</button>}</div>
+      <div className="system-events-form-actions"><button type="submit" disabled={busy || !startsAt || !endsAt}>{busy ? <BifrostLoading variant="inline" label="Salvando…" /> : editing ? 'Salvar evento' : 'Criar evento'}</button>{editing && <button type="button" disabled={busy} onClick={resetForm}>Cancelar edição</button>}</div>
     </form></details>}
     {error && <p role="alert" className="system-events-error">{error}</p>}
-    {loading ? <p role="status">Carregando eventos…</p> : <SystemEventsList events={events} canManage={canManage} onEdit={startEditing} onDelete={(event) => void remove(event)} onStart={(event) => { if (startingEventId !== event.id) void start(event); }} />}
+    {loading ? <BifrostLoading variant="panel" label="Carregando eventos…" /> : <SystemEventsList events={events} canManage={canManage} onEdit={startEditing} onDelete={(event) => void remove(event)} onStart={(event) => { if (startingEventId !== event.id) void start(event); }} />}
   </section>;
 }

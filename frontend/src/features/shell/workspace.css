@@ -121,11 +121,11 @@ main.bifrost-workspace .lobby-stat-icon { width: 32px; height: 32px; border: 0; 
 main.bifrost-workspace .lobby-stat-card small { color: var(--workspace-muted); font-size: 13px; }
 main.bifrost-workspace .lobby-stat-card strong { overflow: visible; white-space: normal; font-size: 18px; font-weight: 500; }
 main.bifrost-workspace .lobby-context { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 32px; align-items: center; }
-main.bifrost-workspace .character-system-presentation { display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: center; gap: 24px; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
-main.bifrost-workspace .character-system-cover { width: 120px; height: 100px; border: 1px solid var(--workspace-divider); border-radius: 5px; object-fit: cover; box-shadow: none; }
+main.bifrost-workspace .character-system-presentation { border-color: var(--workspace-divider); background: var(--workspace-surface); box-shadow: none; }
+main.bifrost-workspace .character-system-cover { border-bottom-color: var(--workspace-divider); }
 main.bifrost-workspace .character-system-cover-default { display: block; position: relative; overflow: hidden; background: var(--workspace-surface); }
 main.bifrost-workspace .character-system-cover-default .worlds-login-bridge { width: 100%; height: 100%; opacity: .6; }
-main.bifrost-workspace .character-system-details > p { margin: 8px 0 0; color: var(--workspace-muted); font-size: 14px; line-height: 1.7; }
+main.bifrost-workspace .character-system-details > p { border-top-color: var(--workspace-divider); color: var(--workspace-muted); }
 main.bifrost-workspace .lobby-matchmaking { display: flex; flex-wrap: wrap; min-height: auto; gap: 12px; padding: 20px; border: 1px dashed var(--workspace-line); border-radius: 5px; background: transparent; }
 main.bifrost-workspace .lobby-matchmaking::after { display: none; }
 main.bifrost-workspace .lobby-search-button { flex-wrap: wrap; min-height: 44px; padding: 0; border: 0; border-radius: 0; color: var(--workspace-muted); background: transparent; font-size: 15px; box-shadow: none; }
@@ -135,7 +135,7 @@ main.bifrost-workspace .lobby-dashboard-heading h2 { font-size: 28px; font-weigh
 main.bifrost-workspace .lobby-rooms { gap: 32px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 main.bifrost-workspace .lobby-rooms-default { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); grid-template-areas: 'chat events' 'recent events' 'store store'; align-items: start; }
 main.bifrost-workspace .lobby-section-slot[data-section='chat'] :is(.chat, .chat-directory, .chat-recents),
-main.bifrost-workspace :is(.store-card, .character-system-presentation) { padding: 24px; border: 1px solid var(--workspace-divider); border-radius: 5px; background: var(--workspace-surface); box-shadow: none; }
+main.bifrost-workspace .store-card { padding: 24px; border: 1px solid var(--workspace-divider); border-radius: 5px; background: var(--workspace-surface); box-shadow: none; }
 main.bifrost-workspace .lobby-section-slot[data-section='events'] .system-events-card { padding: 24px 0 24px 24px; border: 0; border-left: 1px solid var(--workspace-divider); border-radius: 0; background: transparent; }
 main.bifrost-workspace .lobby-section-slot[data-section='chat'] .lobby-section-heading h2,
 main.bifrost-workspace .store-card-heading h2 { font-size: 23px; font-weight: 500; }
@@ -303,8 +303,6 @@ main.bifrost-workspace .trade-expiry { color: var(--workspace-muted); font-size:
   main.bifrost-workspace .lobby-stat-card:last-child { border-bottom: 0; }
   main.bifrost-workspace :is(.store-offers, .player-overview-grid, .player-systems ul, .trade-composer-columns) { grid-template-columns: minmax(0, 1fr); }
   main.bifrost-workspace .lobby-character-record-actions { width: 100%; }
-  main.bifrost-workspace .character-system-presentation { grid-template-columns: 80px minmax(0, 1fr); gap: 16px; }
-  main.bifrost-workspace .character-system-cover { width: 80px; height: 90px; }
   main.bifrost-workspace .lobby-section-slot[data-section='chat'] :is(.chat, .chat-directory, .chat-recents), main.bifrost-workspace .store-card { padding: 20px; }
   main.bifrost-workspace.public-profile .public-profile-content { width: calc(100% - 40px); margin-top: 24px; }
   main.bifrost-workspace .player-banner { height: 110px; }

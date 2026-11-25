@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import { deleteGameSystemCover, getGameSystemCoverUrl, updateGameSystem, uploadGameSystemCover, type GameSystem, type GameSystemPlayMode } from '../../api';
 import { SystemDetailsFields } from '../system-creation/system-details-fields';
@@ -148,7 +150,7 @@ export function SystemDetailsEditor({ system, section, onSaved }: {
       {(system.is_public ?? true) ? <small>Jogadores precisarão desta senha antes de acessar o sistema.</small> : <small>Preencha para trocar a senha. Vazia, a senha atual será mantida.</small>}
     </label>}
     <div className="system-details-editor-actions">
-      <button type="submit" className="primary-button" disabled={saving}>{saving ? 'Salvando...' : section === 'overview' ? 'Salvar visão geral' : 'Salvar configurações'}</button>
+      <button type="submit" className="primary-button" disabled={saving}>{saving ? <BifrostLoading variant="inline" label="Salvando..." /> : section === 'overview' ? 'Salvar visão geral' : 'Salvar configurações'}</button>
     </div>
     {message && <p className={error ? 'systems-error' : 'system-sheet-saved'} role={error ? 'alert' : 'status'}>{message}</p>}
   </form>;

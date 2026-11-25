@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState } from 'react';
 import { getCharacterSheet, updateGameSystemCharacterSheet, type CharacterSheetDefinition } from '../../api';
 import { isCharacterSheetDefinitionValid } from './sheet-model';
@@ -97,9 +99,9 @@ export function SystemSheetEditor({ systemId, systemName, onCancel, onSaved }: S
       <CharacterSheetBuilder definition={definition} onChange={(next) => { setDefinition(next); setSaved(false); }} />
       <div className="system-creation-actions">
         {onCancel && <button type="button" className="secondary-button" onClick={onCancel}>Cancelar</button>}
-        <button type="button" className="primary-button" disabled={saving} onClick={() => void save()}>{saving ? 'Salvando...' : 'Salvar ficha'}</button>
+        <button type="button" className="primary-button" disabled={saving} onClick={() => void save()}>{saving ? <BifrostLoading variant="inline" label="Salvando..." /> : 'Salvar ficha'}</button>
       </div>
-    </> : !error && <p role="status">Carregando ficha...</p>}
+    </> : !error && <BifrostLoading variant="panel" label="Carregando ficha..." />}
     {error && <p className="systems-error" role="alert">{error}</p>}
     {saved && <p className="system-sheet-saved" role="status">Ficha salva com sucesso.</p>}
   </div>;

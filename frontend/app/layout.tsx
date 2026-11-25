@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import '../src/features/shell/workspace.css';
 import '../src/features/shell/overlays.css';
+import '../src/features/loading/bifrost-loading.css';
+import { BifrostLoadingProvider } from '../src/features/loading/bifrost-loading';
 
 export const viewport = {
   width: 'device-width',
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body><BifrostLoadingProvider>{children}</BifrostLoadingProvider></body>
     </html>
   );
 }

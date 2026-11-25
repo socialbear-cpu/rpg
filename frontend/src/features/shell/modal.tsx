@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useId, useRef, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
+import { useBifrostScreenLoading } from '../loading/bifrost-loading';
 
 export function trapDialogFocus(event: KeyboardEvent<HTMLDialogElement>) {
   if (event.key !== 'Tab') return;
@@ -26,16 +27,17 @@ export function Modal({ open, onClose, title, children, busy = false, className 
   const dialog = useRef<HTMLDialogElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const titleId = useId();
+  const screenLoading = useBifrostScreenLoading();
 
   useEffect(() => {
     const element = dialog.current;
-    if (!open || !element) return;
+    if (!open || !element || screenLoading) return;
     const trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     element.showModal();
     const initialFocus = element.querySelector<HTMLElement>('[data-modal-autofocus]');
     (initialFocus ?? heading.current)?.focus();
     return () => { element.close(); if (trigger?.isConnected) trigger.focus(); };
-  }, [open]);
+  }, [open, screenLoading]);
 
   return <dialog ref={dialog} className={`bifrost-modal ${className}`} aria-labelledby={titleId} aria-busy={busy || undefined}
     onKeyDown={trapDialogFocus}

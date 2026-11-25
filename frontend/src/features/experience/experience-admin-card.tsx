@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import type { FormEventHandler } from 'react';
 import type { DailyLoginSystemView, ExperienceSettingsInput } from '../../api';
 import { experienceSettingsAreValid } from './experience-model';
@@ -59,7 +61,7 @@ export function ExperienceAdminCard({
         {manageableSystems.map(({ system }) => <option key={system.id} value={system.id}>{system.name}</option>)}
       </select>
     </label>}
-    {loading && <p className="card-copy" role="status">Carregando regras de XP…</p>}
+    {loading && <BifrostLoading variant="panel" label="Carregando regras de XP…" />}
     {!loading && !current && <p className="daily-state" role="status">Não foi possível carregar as regras deste sistema.</p>}
     {!loading && current && <form className="experience-admin-form" onSubmit={onSave}>
       <label className="daily-field" htmlFor="experience-xp-per-level">XP necessário por nível
@@ -123,7 +125,7 @@ export function ExperienceAdminCard({
       </button>
       {!valid && <p className="field-hint" role="status">Confira o valor por nível, os nomes das fontes e os valores das fontes ativas.</p>}
       <div className="actions"><button className="button primary" type="submit" disabled={saving || !valid}>
-        {saving ? 'Salvando…' : 'Salvar configuração de XP'}
+        {saving ? <BifrostLoading variant="inline" label="Salvando…" /> : 'Salvar configuração de XP'}
       </button></div>
     </form>}
   </article>;

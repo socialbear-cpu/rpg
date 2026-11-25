@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useRef, useState } from 'react';
 import { defaultSystemLobbySettings, getCharacterExperience, getCharacterSheet, getGameSystems, getMyCharacterInventory, getMySystemMemberships, getSystemLobbySettings, getSystemCharacters, type CharacterExperienceSummary, type CharacterInventory, type CharacterSheetDefinition, type CharacterSheetField, type GameSystem, type SystemCharacter, type SystemLobbySettings } from '../../api';
 import { CharacterHome } from './character-home';
@@ -118,7 +120,7 @@ export function CharacterHomePage({ systemId, characterId, preferredChatId = nul
     setRecordLoading(false);
   }
 
-  if (loading) return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando personagem...</p></main>;
+  if (loading) return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" /><BifrostLoading variant="screen" label="Carregando personagem..." /></main>;
   if (loadError) return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><section aria-labelledby="character-home-load-error"><h1 id="character-home-load-error">Não foi possível abrir o sistema</h1><p role="alert">{loadError}</p><button className="character-primary-button" type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</button></section></main>;
   if (!system) return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><h1>Sistema indisponível</h1></main>;
   return <CharacterHome

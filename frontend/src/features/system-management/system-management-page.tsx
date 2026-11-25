@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
@@ -284,7 +286,7 @@ export function SystemManagementPage() {
     <LoginBridge />
     <AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar aos sistemas" />
     <div className="system-management-content">
-      {pageState === 'loading' && <p className="system-management-state" role="status">Verificando acesso ao sistema…</p>}
+      {pageState === 'loading' && <BifrostLoading variant="screen" label="Verificando acesso ao sistema…" />}
       {pageState === 'error' && <section className="system-management-state"><h1>Não foi possível abrir o gerenciamento</h1><p role="alert">{pageError}</p><button className="button secondary" type="button" onClick={() => setReloadKey((key) => key + 1)}>Tentar novamente</button></section>}
       {pageState === 'forbidden' && <section className="system-management-state"><span className="system-management-eyebrow">ACESSO RESTRITO</span><h1>Você não pode gerenciar este sistema</h1><p>Somente o Owner do sistema ou um Admin global pode acessar estas configurações.</p><button className="button secondary" type="button" onClick={() => router.push('/dashboard')}>Voltar aos sistemas</button></section>}
       {pageState === 'ready' && systemView && <>
@@ -346,7 +348,7 @@ export function SystemManagementPage() {
                   <h3>{systemView.system.is_active ? 'Sistema ativo' : 'Sistema desativado'}</h3>
                 </div>
                 {canEditOwnerSettings && <button className="button secondary" type="button" disabled={lifecycleBusy} onClick={() => void changeSystemAvailability()}>
-                  {lifecycleBusy ? 'Salvando...' : systemView.system.is_active ? 'Desativar sistema' : 'Reativar sistema'}
+                  {lifecycleBusy ? <BifrostLoading variant="inline" label="Salvando..." /> : systemView.system.is_active ? 'Desativar sistema' : 'Reativar sistema'}
                 </button>}
               </section>
               <section className="system-management-danger-zone" aria-label="Excluir sistema permanentemente">
@@ -360,7 +362,7 @@ export function SystemManagementPage() {
                       <label htmlFor="delete-system-confirmation">Digite <strong>{systemView.system.name}</strong> para enviar um link de confirmação por e-mail</label>
                       <input id="delete-system-confirmation" value={deleteConfirmation} onChange={(event) => setDeleteConfirmation(event.target.value)} autoComplete="off" required disabled={lifecycleBusy} />
                       <button className="system-management-delete-button" type="submit" disabled={lifecycleBusy || deleteConfirmation.trim() !== systemView.system.name}>
-                        {lifecycleBusy ? 'Enviando...' : 'Enviar link de confirmação'}
+                        {lifecycleBusy ? <BifrostLoading variant="inline" label="Enviando..." /> : 'Enviar link de confirmação'}
                       </button>
                     </form>
                   : <p>Somente o Owner do sistema ou um Admin global pode excluir este sistema.</p>}

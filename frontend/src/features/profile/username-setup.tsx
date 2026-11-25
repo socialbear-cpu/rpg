@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useState, type FormEvent } from 'react';
 
 interface UsernameSetupProps {
@@ -57,7 +59,7 @@ export function UsernameSetup({ onSubmit }: UsernameSetupProps) {
           </p>
           {error && <p className="username-setup-error" role="alert">{error}</p>}
           <button type="submit" disabled={!validUsername || saving}>
-            {saving ? 'Salvando…' : 'Continuar'}
+            {saving ? <BifrostLoading variant="inline" label="Salvando…" /> : 'Continuar'}
           </button>
         </form>
       </section>

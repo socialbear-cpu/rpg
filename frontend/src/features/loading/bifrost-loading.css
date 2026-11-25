@@ -1,0 +1,61 @@
+.bifrost-loading-content { display: contents; }
+.bifrost-loading-content[data-arriving] > main { animation: bifrost-arrive 760ms cubic-bezier(.2,.7,.2,1); }
+.bifrost-loading {
+  --bifrost-loading-bg: #090b16;
+  --bifrost-loading-rune: #c8b3ed;
+  position: relative;
+  display: grid;
+  isolation: isolate;
+  place-items: center;
+  overflow: hidden;
+  min-width: 0;
+  color: var(--bifrost-loading-rune);
+  background: var(--bifrost-loading-bg);
+}
+.bifrost-loading-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.bifrost-loading-runes {
+  position: absolute;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 400 18px/1.2 'Segoe UI Historic', 'Noto Sans Runic', serif;
+  letter-spacing: 5px;
+  padding-left: 5px;
+  text-shadow: 0 0 8px rgba(194,168,250,.45), 0 0 18px rgba(161,125,226,.2);
+  pointer-events: none;
+}
+.bifrost-loading-runes::before, .bifrost-loading-runes::after {
+  content: ''; width: clamp(12px,3vw,28px); height: 1px;
+  background: linear-gradient(90deg,transparent,#967bbf);
+}
+.bifrost-loading-runes::after { transform: rotate(180deg); }
+.bifrost-loading-sr {
+  position: absolute !important; width: 1px !important; height: 1px !important;
+  padding: 0 !important; margin: -1px !important; overflow: hidden !important;
+  clip-path: inset(50%) !important; white-space: nowrap !important; border: 0 !important;
+}
+.bifrost-loading--screen {
+  position: fixed; inset: 0; z-index: 10000; width: 100%; height: 100%;
+  animation: bifrost-portal-open 900ms cubic-bezier(.2,.7,.2,1);
+}
+.bifrost-loading--departing { pointer-events: none; animation: bifrost-voyage-out 760ms ease both; }
+.bifrost-loading--departing::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 39%,#e8deff 0,rgba(194,168,250,.3) 30%,transparent 72%);
+  animation: bifrost-light-pass 760ms ease both;
+}
+.bifrost-loading--departing .bifrost-loading-runes { opacity: 0; transition: opacity 120ms ease; }
+.bifrost-loading--settled:not(.bifrost-loading--departing) { animation: none; }
+.bifrost-loading--panel { width: 100%; min-height: clamp(140px,24vw,240px); border-radius: 10px; animation: bifrost-portal-open 420ms ease; }
+.bifrost-loading--panel .bifrost-loading-runes { font-size: 14px; letter-spacing: 4px; bottom: 16px; }
+.bifrost-loading--inline { display: inline-grid; vertical-align: middle; width: 72px; height: 24px; border-radius: 4px; }
+.bifrost-loading--inline .bifrost-loading-runes { bottom: 3px; gap: 0; font-size: 10px; letter-spacing: 1px; padding-left: 1px; }
+.bifrost-loading--inline .bifrost-loading-runes::before, .bifrost-loading--inline .bifrost-loading-runes::after { display: none; }
+@keyframes bifrost-portal-open { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(75% at 50% 50%); } }
+@keyframes bifrost-voyage-out { 0%,35% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes bifrost-light-pass { 0% { opacity: 0; } 45% { opacity: .65; } 100% { opacity: 0; } }
+@keyframes bifrost-arrive { from { transform: scale(.88); opacity: .2; filter: blur(3px); } to { transform: scale(1); opacity: 1; filter: blur(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .bifrost-loading, .bifrost-loading--departing, .bifrost-loading--departing::after, .bifrost-loading-runes, .bifrost-loading-content[data-arriving] > main { animation: none; transition: none; }
+}

@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../../src/features/loading/bifrost-loading';
+
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dashboard } from '../../src/features/dashboard/dashboard';
@@ -48,7 +50,7 @@ export default function DashboardPage() {
     setProfile(await updateMyProfile({ username }));
   }
 
-  if (!authenticated || profileLoading) return null;
+  if (!authenticated || profileLoading) return <BifrostLoading variant="screen" label="Carregando perfil…" />;
   if (profileError) {
     return (
       <main className="username-setup-page">

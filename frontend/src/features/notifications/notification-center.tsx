@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import {
   getMyNotifications,
@@ -217,7 +219,7 @@ export function NotificationCenter({ compact = false }: { compact?: boolean }) {
         onClick={() => { setComposerOpen((value) => !value); setPublishMessage(null); }}
       >{composerOpen ? 'Fechar comunicados' : 'Publicar comunicado'}</button>}
 
-      {membershipLoading && <p className="notification-muted" role="status">Carregando seus sistemas…</p>}
+      {membershipLoading && <BifrostLoading variant="panel" label="Carregando seus sistemas…" />}
       {membershipError && <div className="notification-error-block" role="alert">
         <p>{membershipError}</p><button type="button" onClick={() => void loadMemberships()}>Tentar carregar sistemas novamente</button>
       </div>}
@@ -239,14 +241,14 @@ export function NotificationCenter({ compact = false }: { compact?: boolean }) {
         </label>
         {publishMessage && <p className={publishError ? 'notification-error' : 'notification-success'} role="status">{publishMessage}</p>}
         <button className="notification-submit" type="submit" disabled={publishing || !selectedSystemId}>
-          {publishing ? 'Enviando…' : 'Enviar para os membros'}
+          {publishing ? <BifrostLoading variant="inline" label="Enviando…" /> : 'Enviar para os membros'}
         </button>
       </form>}
 
       {error && <div className="notification-error-block" role="alert">
         <p>{error}</p><button type="button" onClick={() => void loadNotifications()}>Tentar novamente</button>
       </div>}
-      {loading && <p className="notification-muted" role="status">Carregando notificações…</p>}
+      {loading && <BifrostLoading variant="panel" label="Carregando notificações…" />}
       {!loading && !error && notifications.length === 0 && <p className="notification-muted">Você ainda não tem notificações.</p>}
       {!loading && notifications.length > 0 && <ul className="notification-list">
         {notifications.map((notification) => <li key={notification.id} className={notification.read_at ? '' : 'unread'}>
@@ -261,7 +263,7 @@ export function NotificationCenter({ compact = false }: { compact?: boolean }) {
               type="button"
               disabled={updatingId === notification.id}
               onClick={() => void handleMarkRead(notification)}
-            >{updatingId === notification.id ? 'Salvando…' : 'Marcar como lida'}</button>}
+            >{updatingId === notification.id ? <BifrostLoading variant="inline" label="Salvando…" /> : 'Marcar como lida'}</button>}
         </li>)}
       </ul>}
       {!loading && hasMore && <button
@@ -269,7 +271,7 @@ export function NotificationCenter({ compact = false }: { compact?: boolean }) {
         type="button"
         disabled={loadingMore}
         onClick={() => void loadNotifications(nextOffset, true)}
-      >{loadingMore ? 'Carregando…' : 'Carregar mais'}</button>}
+      >{loadingMore ? <BifrostLoading variant="inline" label="Carregando…" /> : 'Carregar mais'}</button>}
     </section>}
   </div>;
 }

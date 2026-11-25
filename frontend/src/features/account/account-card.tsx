@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import type { FormEventHandler, KeyboardEvent } from 'react';
 
 export type AccountMode = 'login' | 'signup';
@@ -68,12 +70,12 @@ export function AccountCard({
         {recovery ? <form className="form" autoComplete="off" aria-busy={recoveryBusy} onSubmit={onSubmitRecovery}>
           <p className="card-copy">Defina uma nova senha para concluir a recuperação da conta.</p>
           <label>Nova senha<input value={newPassword} onChange={(event) => onNewPasswordChange(event.target.value)} type="password" minLength={6} autoComplete="new-password" required placeholder="Mínimo de 6 caracteres" /></label>
-          <button className="button primary" type="submit" disabled={recoveryBusy}>{recoveryBusy ? 'Atualizando…' : 'Atualizar senha'}</button>
+          <button className="button primary" type="submit" disabled={recoveryBusy}>{recoveryBusy ? <BifrostLoading variant="inline" label="Atualizando…" /> : 'Atualizar senha'}</button>
         </form> : <form className="form" autoComplete="on" aria-busy={authBusy} onSubmit={onSubmitAuth}>
           {mode === 'signup' && <label>Nome de exibição<input value={displayName} onChange={(event) => onDisplayNameChange(event.target.value)} type="text" maxLength={80} autoComplete="nickname" placeholder="Como devemos chamar você?" required /></label>}
           <label>E-mail<input value={email} onChange={(event) => onEmailChange(event.target.value)} type="email" autoComplete="email" autoCapitalize="none" spellCheck={false} required placeholder="voce@exemplo.com" /></label>
           <label>Senha<input value={password} onChange={(event) => onPasswordChange(event.target.value)} type="password" minLength={6} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} required placeholder="Mínimo de 6 caracteres" /></label>
-          <button className="button primary" type="submit" disabled={authBusy}>{authBusy ? (mode === 'signup' ? 'Criando…' : 'Entrando…') : mode === 'signup' ? 'Criar conta' : 'Entrar'}</button>
+          <button className="button primary" type="submit" disabled={authBusy}>{authBusy ? (mode === 'signup' ? <BifrostLoading variant="inline" label="Criando…" /> : <BifrostLoading variant="inline" label="Entrando…" />) : mode === 'signup' ? 'Criar conta' : 'Entrar'}</button>
         </form>}
       </div>
       {!recovery && mode === 'login' && <button className="text-button" type="button" onClick={onResetPassword}>Esqueci minha senha</button>}

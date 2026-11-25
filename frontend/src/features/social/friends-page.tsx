@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useCallback, useEffect, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -130,9 +132,9 @@ export function FriendsPage() {
                 <span aria-hidden="true">@</span>
                 <input id="friend-search" value={query} onChange={(event) => { setQuery(event.target.value); setEmptySearchQuery(null); setResults([]); }} minLength={2} maxLength={20} pattern="[a-zA-Z0-9_]+" placeholder="nome_do_jogador" disabled={searching} required />
               </div>
-              <button type="submit" disabled={searching}>{searching ? 'Buscando…' : 'Buscar jogador'}<SocialIcon kind="arrow" /></button>
+              <button type="submit" disabled={searching}>{searching ? <BifrostLoading variant="inline" label="Buscando…" /> : 'Buscar jogador'}<SocialIcon kind="arrow" /></button>
             </form>
-            {searching && <p className="friends-muted" role="status">Procurando jogadores…</p>}
+            {searching && <BifrostLoading variant="inline" label="Procurando jogadores…" />}
             {results.length > 0 && (
               <ul className="friends-list friends-search-results" aria-label="Resultados da busca">
                 {results.map((profile) => {
@@ -185,7 +187,7 @@ export function FriendsPage() {
             <section className="friends-panel friends-tab-panel" id="friends-panel-friends" role="tabpanel" tabIndex={0} aria-labelledby="friends-tab-friends" hidden={activeTab !== 'friends'}>
               <div className="friends-panel-heading"><div><span className="friends-eyebrow">SEU GRUPO DE AVENTURAS</span><h2>Meus amigos</h2><p>As pessoas que fazem parte da sua jornada.</p></div></div>
               {loadErrors.friends && <p role="alert" className="friends-section-error">{loadErrors.friends}</p>}
-              {loading ? <p className="friends-loading" role="status">Carregando seus amigos…</p>
+              {loading ? <BifrostLoading variant="panel" label="Carregando seus amigos…" />
                 : friends.friends.length > 0 ? (
                   <ul className="friends-list friends-roster">
                     {friends.friends.map((friend) => (
@@ -201,7 +203,7 @@ export function FriendsPage() {
             <section className="friends-panel friends-tab-panel" id="friends-panel-requests" role="tabpanel" tabIndex={0} aria-labelledby="friends-tab-requests" hidden={activeTab !== 'requests'}>
               <div className="friends-panel-heading"><div><span className="friends-eyebrow">NOVAS COMPANHIAS</span><h2>Pedidos de amizade</h2><p>Gerencie quem quer fazer parte da sua rede.</p></div></div>
               {loadErrors.friends && <p role="alert" className="friends-section-error">{loadErrors.friends}</p>}
-              {loading ? <p className="friends-loading" role="status">Carregando pedidos…</p>
+              {loading ? <BifrostLoading variant="panel" label="Carregando pedidos…" />
                 : tabCounts.requests > 0 ? (
                   <ul className="friends-list">
                     {friends.incoming_requests.map((item) => (
@@ -226,7 +228,7 @@ export function FriendsPage() {
             <section className="friends-panel friends-tab-panel" id="friends-panel-invitations" role="tabpanel" tabIndex={0} aria-labelledby="friends-tab-invitations" hidden={activeTab !== 'invitations'}>
               <div className="friends-panel-heading"><div><span className="friends-eyebrow">PRÓXIMO CAPÍTULO</span><h2>Convites e aprovações</h2><p>Novas mesas e histórias esperando por você.</p></div></div>
               {loadErrors.invitations && <p role="alert" className="friends-section-error">{loadErrors.invitations}</p>}
-              {loading ? <p className="friends-loading" role="status">Carregando convites…</p>
+              {loading ? <BifrostLoading variant="panel" label="Carregando convites…" />
                 : tabCounts.invitations > 0 ? (
                   <div className="friends-invitation-groups">
                     <InvitationGroup title="Aprovações como dono" count={invitations.owner_approvals.length} empty="Nenhuma solicitação aguardando sua aprovação.">

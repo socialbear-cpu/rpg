@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useRef, useState, type KeyboardEvent } from 'react';
 import type { CharacterInventory, CharacterSheetDefinition, SystemCharacter } from '../../api';
 import type { CharacterSheetComponent, CharacterSheetStep } from '../../api';
@@ -67,7 +69,7 @@ function CharacterSheetView({ character, definition, experience, error }: {
   error: string | null;
 }) {
   if (error) return <p role="alert" className="character-record-notice">{error}</p>;
-  if (!definition) return <p role="status" className="character-record-notice">Carregando ficha...</p>;
+  if (!definition) return <BifrostLoading variant="panel" label="Carregando ficha..." />;
 
   const componentsByStep = new Map(definition.steps.map((step) => [step.key, [...step.components]
     .sort((a, b) => a.position - b.position).map((component) => ({ step, component }))]));
@@ -187,7 +189,7 @@ export function CharacterRecord({ character, definition, experience, inventory, 
   return <section className="character-record-page" aria-labelledby="character-record-title">
     <div className="character-record-topline">
       <button type="button" className="character-record-back" onClick={onClose}>← Voltar à aventura</button>
-      <button type="button" className="character-record-refresh" onClick={onRefresh} disabled={loading}>{loading ? 'Atualizando...' : 'Atualizar dados'}</button>
+      <button type="button" className="character-record-refresh" onClick={onRefresh} disabled={loading}>{loading ? <BifrostLoading variant="inline" label="Atualizando..." /> : 'Atualizar dados'}</button>
     </div>
     <header className="character-record-heading">
       <span className="character-entry-eyebrow">FICHA DA AVENTURA</span>

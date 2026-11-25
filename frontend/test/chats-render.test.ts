@@ -15,6 +15,16 @@ const messages = [{
 }];
 
 describe('chat panel', () => {
+  it.each([true, false])('uses the contained Bifrost while loading chat data (rooms: %s)', (loadingChats) => {
+    const html = renderToStaticMarkup(createElement(ChatPanel, {
+      chats: [chat], selectedChatId: chat.id, messages, characterId: 'hero', content: '',
+      loadingChats, loadingMessages: true, sending: false, error: null,
+      onSelectChat: vi.fn(), onContentChange: vi.fn(), onSubmit: vi.fn(),
+    }));
+    expect(html).toContain('bifrost-loading--panel');
+    expect(html).toContain(loadingChats ? 'Carregando chats…' : 'Carregando mensagens…');
+    expect(html).not.toContain('A missão começa!');
+  });
   it('shows one chat and its activity in a single message timeline', () => {
     const html = renderToStaticMarkup(createElement(ChatPanel, {
       chats: [chat], selectedChatId: chat.id, messages, characterId: 'f2000000-0000-4000-8000-000000000001',

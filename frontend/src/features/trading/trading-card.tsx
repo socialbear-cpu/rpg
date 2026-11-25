@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import type { FormEventHandler } from 'react';
 import {
@@ -147,7 +149,7 @@ export function TradingCardView({
     <div className="trade-guide"><span aria-hidden="true">01</span><p>Escolha os personagens</p><span aria-hidden="true">02</span><p>Compare os inventários</p><span aria-hidden="true">03</span><p>Revise e envie</p></div>
     <p className="card-copy trade-safety-note">Os itens só mudam de inventário quando a oferta é aceita.</p>
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role="status" aria-live="polite">{message}</p>}
-    {(systemsLoading || loading) && <p className="card-copy" role="status">Carregando ofertas e personagens…</p>}
+    {(systemsLoading || loading) && <BifrostLoading variant="panel" label="Carregando ofertas e personagens…" />}
     {!systemsLoading && activeSystems.length === 0 && <p className="card-copy">Nenhum sistema com personagem ativo disponível para troca.</p>}
     {activeSystems.length > 0 && <>
       <div className="trade-workspace">
@@ -194,7 +196,7 @@ export function TradingCardView({
         </div>
         <div className="trade-composer-actions">
           <button className="button primary" type="submit" disabled={submitting || !hasSelectedItems || !senderCharacterId || !recipientCharacterId}>
-            {submitting ? 'Enviando…' : counterOfferId ? 'Enviar contraproposta' : 'Enviar oferta'}
+            {submitting ? <BifrostLoading variant="inline" label="Enviando…" /> : counterOfferId ? 'Enviar contraproposta' : 'Enviar oferta'}
           </button>
           {counterOfferId && <button className="button secondary" type="button" onClick={onCancelCounter}>Cancelar</button>}
         </div>
@@ -209,7 +211,7 @@ export function TradingCardView({
             onClick={() => onBoxChange(value)}
           >{value === 'incoming' ? 'Recebidas' : value === 'sent' ? 'Enviadas' : 'Histórico'}</button>)}
         </div>
-        {loading && <p className="card-copy" role="status">Carregando caixa de ofertas…</p>}
+        {loading && <BifrostLoading variant="panel" label="Carregando caixa de ofertas…" />}
         {!loading && offers.length === 0 && <p className="card-copy">Não há ofertas nesta caixa.</p>}
         <div className="trade-offer-list">
           {offers.map((offer) => <article className="trade-offer" key={offer.id}>

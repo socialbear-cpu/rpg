@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -243,13 +245,13 @@ export function AccountSettingsPage() {
     }
   }
 
-  if (!authenticated) return null;
+  if (!authenticated) return <BifrostLoading variant="screen" label="Verificando sessão…" />;
 
   return <main className="shell account-settings-page bifrost-workspace">
     <AppHeader activeItem="" backHref="/dashboard" backLabel="Voltar aos sistemas" />
     <WorkspaceHeading eyebrow="SUA CONTA" title="Configurações da conta" description="Seus dados, sua segurança e o controle das suas histórias." />
     {message && <p className={`notice${messageIsError ? ' error' : ''}`} role={messageIsError ? 'alert' : 'status'}>{message}</p>}
-    {loading ? <p role="status">Carregando configurações da conta…</p> : account && draft && <div className="settings-layout">
+    {loading ? <BifrostLoading variant="screen" label="Carregando configurações da conta…" /> : account && draft && <div className="settings-layout">
       <SettingsNav items={[{ href: '#account-info', label: 'Dados pessoais' }, { href: '#account-security', label: 'Senha e segurança' }, { href: '#account-transfers', label: 'Titularidade' }, { href: '#account-lifecycle', label: 'Ações da conta' }]} />
       <div className="settings-content">
       {!account.is_active && <div className="account-settings-inactive" role="status">
@@ -273,7 +275,7 @@ export function AccountSettingsPage() {
           <label>E-mail<input type="email" value={account.email ?? ''} readOnly /></label>
           <label>Nome de exibição<input value={draft.displayName} maxLength={80} onChange={(event) => setDraft({ ...draft, displayName: event.target.value })} disabled={!account.is_active} required /></label>
           <label>Telefone<input type="tel" value={draft.phone} maxLength={32} onChange={(event) => setDraft({ ...draft, phone: event.target.value })} disabled={!account.is_active} placeholder="Opcional" /></label>
-          <button type="submit" disabled={!account.is_active || busy}>{busy ? 'Enviando…' : 'Salvar informações'}</button>
+          <button type="submit" disabled={!account.is_active || busy}>{busy ? <BifrostLoading variant="inline" label="Enviando…" /> : 'Salvar informações'}</button>
           <p className="account-settings-hint">As alterações só serão aplicadas depois que você confirmar o link enviado ao seu e-mail.</p>
         </form>
       </section>
@@ -296,7 +298,7 @@ export function AccountSettingsPage() {
         </div>}
         {pendingAction.kind === 'delete' && <label className="account-settings-delete-check">Digite EXCLUIR para confirmar<input value={deleteConfirmation} onChange={(event) => setDeleteConfirmation(event.target.value)} autoComplete="off" /></label>}
         <button className={pendingAction.kind === 'delete' || pendingAction.kind === 'deactivate' ? 'account-settings-danger' : ''} type="button" disabled={busy || (pendingAction.kind === 'delete' && deleteConfirmation !== 'EXCLUIR')} onClick={() => void confirmAction()}>
-          {busy ? 'Confirmando…' : confirmationButton(pendingAction)}
+          {busy ? <BifrostLoading variant="inline" label="Confirmando…" /> : confirmationButton(pendingAction)}
         </button>
         <button className="account-settings-cancel" type="button" disabled={busy} onClick={() => { clearPendingAccountAction(); setPendingAction(null); setDeleteConfirmation(''); }}>Cancelar</button>
       </section>}

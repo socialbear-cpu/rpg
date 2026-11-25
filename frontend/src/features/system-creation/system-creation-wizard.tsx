@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import { deleteGameSystemCover, updateGameSystem, uploadGameSystemCover, type CharacterSheetDefinition, type CreateGameSystemInput, type GameSystem, type GameSystemPlayMode } from '../../api';
 import { CharacterSheetBuilder } from './character-sheet-builder';
@@ -167,7 +169,7 @@ export function SystemCreationWizard({ createSystem, push }: SystemCreationWizar
           {error && <p className="systems-error" role="alert">{error}</p>}
           <div className="system-creation-actions">
             <button type="button" className="secondary-button" disabled={saving || Boolean(createdSystem)} onClick={() => setStep('details')}>Voltar</button>
-            <button type="button" className="primary-button" disabled={saving} onClick={() => void submitSystem()}>{saving ? (createdSystem ? 'Salvando imagem...' : 'Criando sistema...') : createdSystem ? 'Tentar salvar imagem novamente' : 'Criar sistema'}</button>
+            <button type="button" className="primary-button" disabled={saving} onClick={() => void submitSystem()}>{saving ? (createdSystem ? <BifrostLoading variant="inline" label="Salvando imagem..." /> : <BifrostLoading variant="inline" label="Criando sistema..." />) : createdSystem ? 'Tentar salvar imagem novamente' : 'Criar sistema'}</button>
           </div>
           {createdSystem && <button type="button" className="secondary-button" disabled={saving} onClick={() => void continueWithoutCover()}>Continuar sem imagem</button>}
         </div>

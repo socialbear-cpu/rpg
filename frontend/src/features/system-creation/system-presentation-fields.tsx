@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useRef, useState } from 'react';
 import { getGameSystemTagOptions, type GameSystemPlayMode, type SystemTagOption } from '../../api';
 
@@ -74,7 +76,7 @@ export function SystemPresentationFields({
     {showModeAndTags && <fieldset className="system-presentation-tags">
       <legend>Etiquetas <span>(até {maximumTags})</span></legend>
       {tagError ? <p className="systems-error" role="alert">{tagError}</p> : tagOptions.length === 0
-        ? <p role="status">Carregando etiquetas…</p>
+        ? <BifrostLoading variant="panel" label="Carregando etiquetas…" />
         : <div className="system-tag-options">
           {tagOptions.map((option) => {
             const selected = tags.includes(option.slug);

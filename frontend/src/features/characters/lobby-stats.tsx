@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState } from 'react';
 import { getCharacterChats, getSystemEvents, type Chat, type SystemEvent } from '../../api';
 
@@ -62,11 +64,11 @@ function formatCount(value: number) {
 }
 
 export function LobbyStatsDisplay({ onlineCount, onlineUnavailable, activeRoomCount, roomsUnavailable, nextSession, sessionsUnavailable, roomsLoading, sessionsLoading }: LobbyStatsDisplayProps) {
-  const summaryValue = (value: number | null, unavailable: boolean, loading = false) => unavailable ? 'Indisponível' : loading || value === null ? 'Carregando…' : formatCount(value);
+  const summaryValue = (value: number | null, unavailable: boolean, loading = false) => unavailable ? 'Indisponível' : loading || value === null ? <BifrostLoading variant="inline" label="Carregando…" /> : formatCount(value);
   return <section className="lobby-stats" aria-label="Resumo da campanha">
     <article className="lobby-stat-card"><span className="lobby-stat-icon" aria-hidden="true">♧</span><span><small>Jogadores online</small><strong>{summaryValue(onlineCount, onlineUnavailable)}</strong></span></article>
     <article className="lobby-stat-card"><span className="lobby-stat-icon" aria-hidden="true">▤</span><span><small>Salas ativas</small><strong>{summaryValue(activeRoomCount, roomsUnavailable, roomsLoading)}</strong></span></article>
-    <article className="lobby-stat-card"><span className="lobby-stat-icon" aria-hidden="true">◷</span><span><small>Próxima sessão</small><strong>{sessionsUnavailable ? 'Indisponível' : sessionsLoading ? 'Carregando…' : nextSession ? formatLobbySession(nextSession.starts_at) : 'Sem sessão marcada'}</strong></span></article>
+    <article className="lobby-stat-card"><span className="lobby-stat-icon" aria-hidden="true">◷</span><span><small>Próxima sessão</small><strong>{sessionsUnavailable ? 'Indisponível' : sessionsLoading ? <BifrostLoading variant="inline" label="Carregando…" /> : nextSession ? formatLobbySession(nextSession.starts_at) : 'Sem sessão marcada'}</strong></span></article>
   </section>;
 }
 

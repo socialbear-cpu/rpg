@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getMyDailyLoginSystems, type DailyLoginSystemView } from '../../api';
@@ -33,7 +35,7 @@ export function TradingPage() {
     return () => { active = false; };
   }, [router, reloadKey]);
 
-  if (!authenticated) return null;
+  if (!authenticated) return <BifrostLoading variant="screen" label="Verificando sessão…" />;
   return <main className="shell bifrost-workspace trading-page">
     <AppHeader activeItem="Trocas" backHref="/dashboard" backLabel="Voltar aos sistemas" />
     <WorkspaceHeading eyebrow="ENTRE PERSONAGENS" title="Trocas" description="Encontre o que falta na sua próxima aventura. Negocie itens com jogadores dos seus sistemas." />

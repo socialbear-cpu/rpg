@@ -5,6 +5,15 @@ import { StoreCard } from '../src/features/store/store-card.js';
 import { StoreAdminCard } from '../src/features/store/store-admin-card.js';
 const offer = { store_product_id: 'offer', item_id: 'item', item_name: 'Poção', price: 12.5, is_available: true };
 describe('system store', () => {
+ it('uses one shared loading scene while loading or purchasing, without repeating it for every offer', () => {
+  const common = { characterId: 'hero', characterName: 'Heroína', busy: true, message: null, onPurchase: vi.fn() };
+  const loading = renderToStaticMarkup(createElement(StoreCard, { ...common, store: null }));
+  expect(loading).toContain('bifrost-loading--panel'); expect(loading).toContain('Carregando loja…');
+  const purchasing = renderToStaticMarkup(createElement(StoreCard, { ...common, store: { currency_name: 'Cristais', character_id: 'hero', balance: 20, offers: [offer, { ...offer, store_product_id: 'second' }] } }));
+  expect(purchasing.match(/<canvas/g)).toHaveLength(1);
+  expect(purchasing).toContain('Comprando…');
+  expect(purchasing.match(/<button[^>]*disabled=""[^>]*>Comprar/g)).toHaveLength(2);
+ });
  it('displays the market balance, named currency and offer price', () => {
   const html = renderToStaticMarkup(createElement(StoreCard, { characterId: 'hero', characterName: 'Heroína', store: { currency_name: 'Cristais', character_id: 'hero', balance: 20, offers: [offer] }, busy: false, message: null, onPurchase: vi.fn() }));
   expect(html).toContain('Saldo disponível:');

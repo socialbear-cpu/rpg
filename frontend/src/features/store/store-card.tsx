@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { getCharacterStore, purchaseStoreOffer, type CharacterStore } from '../../api';
 import './store.css';
+import { BifrostLoading } from '../loading/bifrost-loading';
 
 const money = (amount: number) => amount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const itemTypeLabels: Record<string, string> = { consumable: 'Consumível', equipment: 'Equipamento', misc: 'Diversos' };
@@ -21,6 +22,7 @@ export function StoreCard({ characterId, characterName, store, busy, message, on
       <button className="store-explore-link" type="button" disabled={!store?.offers.length} onClick={() => offersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}>Explorar <span aria-hidden="true">→</span></button>
     </header>
     {!characterId && <p>Selecione um personagem para comprar.</p>}
+    {busy && <BifrostLoading variant={store ? 'inline' : 'panel'} label={store ? 'Comprando…' : 'Carregando loja…'} />}
     {message && <p role="status" aria-live="polite">{message}</p>}
     {store?.offers.length === 0 && <p>Nenhuma oferta disponível.</p>}
     <div className="store-offers" ref={offersRef}>{store?.offers.map((offer, index) => <section className="store-offer" key={offer.store_product_id ?? index}>
@@ -64,5 +66,5 @@ export function SystemStore({ systemId, characterId, characterName }: { systemId
       setMessage(text === 'Insufficient balance' ? 'Saldo insuficiente para esta compra.' : text === 'Store offer unavailable' ? 'Esta oferta não está mais disponível.' : 'Não foi possível concluir a compra. Confira seu inventário antes de tentar novamente.');
     } finally { if (current === generation.current) { purchasing.current = false; setBusy(false); } }
   }
-  return <StoreCard characterId={characterId} characterName={characterName} store={store} busy={busy} message={message ?? (busy && !store ? 'Carregando loja…' : null)} onPurchase={(id) => void purchase(id)} />;
+  return <StoreCard characterId={characterId} characterName={characterName} store={store} busy={busy} message={message} onPurchase={(id) => void purchase(id)} />;
 }

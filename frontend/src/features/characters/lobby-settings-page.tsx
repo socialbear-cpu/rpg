@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState } from 'react';
 import { getGameSystems, getMySystemMemberships, getSystemCharacters, getSystemLobbySettings, type GameSystem, type SystemCharacter, type SystemLobbySettings } from '../../api';
 import { AppHeader } from '../shell/app-header';
@@ -70,7 +72,7 @@ export function LobbySettingsPage({ systemId }: { systemId: string }) {
   }, [systemId, loadAttempt]);
 
   const charactersHref = `/systems/${encodeURIComponent(systemId)}/characters`;
-  if (pageState === 'loading') return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando configuração do saguão...</p></main>;
+  if (pageState === 'loading') return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" /><BifrostLoading variant="screen" label="Carregando configuração do saguão..." /></main>;
   if (pageState === 'forbidden') return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" backHref={charactersHref} backLabel="Voltar aos personagens" /><section className="character-unavailable"><h1>Acesso restrito</h1><p>Somente o dono do sistema ou um administrador da plataforma pode configurar o saguão.</p></section></main>;
   if (pageState === 'error') return <main className="character-entry-page bifrost-workspace"><AppHeader activeItem="Meus Sistemas" backHref={charactersHref} backLabel="Voltar aos personagens" /><section className="character-unavailable"><h1>Não foi possível carregar a configuração</h1><p role="alert">{pageError}</p><button className="character-primary-button" type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</button></section></main>;
   if (!system || !settings) return null;

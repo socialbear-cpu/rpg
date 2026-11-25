@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../src/features/loading/bifrost-loading';
+
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { AccountCard, type AccountMode } from '../src/features/account/account-card';
@@ -186,7 +188,7 @@ export function RpgApp() {
     onLogout={() => void logout()}
   />;
 
-  if (systemDeletionChecking) return <main className="shell"><p role="status">Verificando confirmação por e-mail…</p></main>;
+  if (systemDeletionChecking) return <main className="shell"><BifrostLoading variant="screen" label="Verificando confirmação por e-mail…" /></main>;
 
   if (pendingSystemDeletion) return <main className="auth-landing">
     <section className="auth-form-panel">
@@ -196,7 +198,7 @@ export function RpgApp() {
           <p>Você confirmou seu e-mail. Confirme a exclusão permanente de <strong>{pendingSystemDeletion.systemName}</strong> e dos dados relacionados.</p>
           {systemDeletionMessage && <div className="notice error" role="alert">{systemDeletionMessage}</div>}
           <button className="system-deletion-confirm-button" type="button" disabled={systemDeletionBusy} onClick={() => void confirmSystemDeletion()}>
-            {systemDeletionBusy ? 'Excluindo...' : 'Confirmar exclusão permanente'}
+            {systemDeletionBusy ? <BifrostLoading variant="inline" label="Excluindo..." /> : 'Confirmar exclusão permanente'}
           </button>
         </div>
       </div>

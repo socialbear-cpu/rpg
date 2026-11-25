@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { ApiError, changeSocialGroupMember, createSocialGroup, getDirectConversations, getDirectMessages, getMyFriends, getMyProfile, getSocialGroup, getSocialGroups, leaveSocialGroup, renameSocialGroup, searchSocialProfiles, sendDirectMessage, sendSocialGroupMessage, transferSocialGroup, type DirectConversation, type SocialGroup, type SocialGroupMember, type SocialProfile } from '../../api';
@@ -25,7 +27,7 @@ export function MessagesConversation({ title, messages, members, userId, draft, 
     {messages.length === 0 && <p>Nenhuma mensagem ainda.</p>}
     <form className="messages-composer" onSubmit={onSend}><label htmlFor="account-message">Mensagem para {title}</label>
       <textarea id="account-message" required maxLength={2000} value={draft} onChange={event => onDraft(event.target.value)} disabled={busy} />
-      <button type="submit" className="button primary" disabled={busy || !draft.trim()}>{busy ? 'Enviando…' : 'Enviar mensagem'}</button>
+      <button type="submit" className="button primary" disabled={busy || !draft.trim()}>{busy ? <BifrostLoading variant="inline" label="Enviando…" /> : 'Enviar mensagem'}</button>
     </form>
   </section>;
 }
@@ -158,19 +160,19 @@ export function MessagesPanel() {
         onNameChange={setNewName} onToggleFriend={friend => setPicked(current => current.some(member => member.user_id === friend.user_id) ? current.filter(member => member.user_id !== friend.user_id) : [...current, friend])}
         onSubmit={event => void create(event)} onCancel={() => setCreatingGroup(false)} onRetry={() => setFriendsReload(value => value + 1)} /></div>}
       <label htmlFor="message-player-search">Buscar jogadores<input id="message-player-search" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Nome do jogador" /></label>
-      {searching && <p role="status">Buscando…</p>}
+      {searching && <BifrostLoading variant="inline" label="Buscando…" />}
       <ul>{results.map(profile => <li key={profile.user_id}><strong>{profile.display_name} @{profile.username}</strong>
         <button type="button" onClick={() => setSelected({ type: 'direct', id: profile.user_id, name: profile.display_name })}>Conversar</button>
         {owner && group && <button type="button" disabled={busy || members.some(member => member.user_id === profile.user_id)} onClick={() => void groupAction(() => changeSocialGroupMember(group.id, profile.user_id, true))}>Adicionar ao grupo atual</button>}
       </li>)}</ul>
-      {loading ? <p role="status">Carregando conversas…</p> : <>
+      {loading ? <BifrostLoading variant="panel" label="Carregando conversas…" /> : <>
         <h2>Diretas</h2>{directs.length === 0 && <p>Busque um jogador para começar.</p>}<ul>{directs.map(conversation => <li key={conversation.user_id}>
           <button type="button" className="messages-conversation-link" aria-pressed={selectedKey === `direct:${conversation.user_id}`} onClick={() => setSelected({ type: 'direct', id: conversation.user_id, name: conversation.display_name ?? conversation.username ?? 'Jogador' })}>{conversation.display_name ?? conversation.username ?? 'Jogador'}<small>{conversation.content}</small></button>
         </li>)}</ul>
         <h2>Grupos</h2>{groups.length === 0 && <p>Você ainda não participa de grupos.</p>}<ul>{groups.map(item => <li key={item.id}><button type="button" className="messages-conversation-link" aria-pressed={selectedKey === `group:${item.id}`} onClick={() => setSelected({ type: 'group', id: item.id, name: item.name })}>{item.name}</button></li>)}</ul>
       </>}
     </aside><div className="messages-detail">
-      {!selected ? <div className="messages-empty"><span>SUAS CONVERSAS</span><h3>Um espaço para conversar</h3><p>Selecione uma conversa ou busque um jogador.</p></div> : loadingConversation ? <p role="status">Carregando mensagens…</p> : ready && <>
+      {!selected ? <div className="messages-empty"><span>SUAS CONVERSAS</span><h3>Um espaço para conversar</h3><p>Selecione uma conversa ou busque um jogador.</p></div> : loadingConversation ? <BifrostLoading variant="panel" label="Carregando mensagens…" /> : ready && <>
         <MessagesConversation title={group?.name ?? selected.name} messages={messages} members={members} userId={userId} draft={drafts.values[selectedKey] ?? ''} busy={busy} onDraft={value => setDrafts(current => updateChatDraft(current, selectedKey, value))} onSend={event => void send(event)} />
         {group && <section className="messages-group-settings" aria-label="Participantes do grupo"><h3>Participantes</h3>
           {owner && <form onSubmit={event => { event.preventDefault(); void groupAction(() => renameSocialGroup(group.id, groupName)); }}><label>Nome do grupo<input required maxLength={80} value={groupName} onChange={event => setGroupName(event.target.value)} /></label><button disabled={busy || !groupName.trim()}>Renomear grupo</button></form>}

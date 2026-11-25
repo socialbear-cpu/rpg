@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import { updateSystemLobbySettings, type GameSystem, type LobbySectionId, type SystemLobbySettings, lobbySectionIds } from '../../api';
 import { SystemDetailsEditor } from '../system-management/system-details-editor';
@@ -65,7 +67,7 @@ export function LobbyCustomizationForm({ system, settings, onSettingsSaved, onSy
         <button type="button" aria-label={`Mover ${sectionLabels[section]} para cima`} disabled={index === 0} onClick={() => moveSection(section, -1)}>↑</button>
         <button type="button" aria-label={`Mover ${sectionLabels[section]} para baixo`} disabled={index === draft.section_order.length - 1} onClick={() => moveSection(section, 1)}>↓</button>
       </div>)}</fieldset>
-      <button type="submit" disabled={savingSettings}>{savingSettings ? 'Salvando…' : 'Salvar personalização'}</button>
+      <button type="submit" disabled={savingSettings}>{savingSettings ? <BifrostLoading variant="inline" label="Salvando…" /> : 'Salvar personalização'}</button>
     </form>
     {message && <p role="status">{message}</p>}{error && <p role="alert">{error}</p>}
     <details className="lobby-cover-editor"><summary>Alterar capa e apresentação</summary><SystemDetailsEditor system={system} section="settings" onSaved={onSystemSaved} /></details>

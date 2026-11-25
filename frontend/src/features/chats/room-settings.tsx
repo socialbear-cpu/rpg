@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import { ApiError, getRoomSettings, saveRoomSettings, type RoomSettings, type RoomSettingsInput, type RoomRoleRule, type RoomUserRule } from '../../api';
 
@@ -37,7 +39,7 @@ export function RoomSettingsForm({ settings, busy, onSave }: { settings: RoomSet
         </select></label>;
       })}</fieldset>)}
     </fieldset>
-    <button disabled={busy} type="submit">{busy ? 'Salvando…' : 'Salvar permissões'}</button>
+    <button disabled={busy} type="submit">{busy ? <BifrostLoading variant="inline" label="Salvando…" /> : 'Salvar permissões'}</button>
   </form>;
 }
 
@@ -58,6 +60,6 @@ export function RoomSettingsEditor({ chatId, onSaved, onClose }: { chatId: strin
   return <section className="room-settings" aria-label="Configurar sala">
     <button type="button" onClick={onClose}>Fechar configuração</button>
     {error && <p role="alert">{error}<button type="button" onClick={() => setAttempt(value => value + 1)}>Tentar novamente</button></p>}
-    {settings ? <RoomSettingsForm key={`${chatId}:${attempt}`} settings={settings} busy={busy} onSave={input => void save(input)} /> : !error && <p role="status">Carregando permissões…</p>}
+    {settings ? <RoomSettingsForm key={`${chatId}:${attempt}`} settings={settings} busy={busy} onSave={input => void save(input)} /> : !error && <BifrostLoading variant="panel" label="Carregando permissões…" />}
   </section>;
 }

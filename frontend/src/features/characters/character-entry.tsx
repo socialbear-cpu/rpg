@@ -1,5 +1,7 @@
 'use client';
 
+import { BifrostLoading } from '../loading/bifrost-loading';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import { createSystemCharacter, getCharacterExperience, getCharacterSheet, getGameSystems, getMySystemMemberships, getSystemCharacters, requestSystemAccess, respondToSocialInvitation, type CharacterSheetDefinition, type GameSystem, type SystemCharacter, type SystemMemberships } from '../../api';
 import { CharacterForm } from './character-form';
@@ -127,7 +129,7 @@ export function CharacterEntry({ systemId, push, invitationId = null, invitation
     push(`/systems/${encodeURIComponent(systemId)}/home/${encodeURIComponent(characterId)}`);
   }
 
-  if (loading) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><p role="status">Carregando sistema...</p></main>;
+  if (loading) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" /><BifrostLoading variant="screen" label="Carregando sistema..." /></main>;
   if (error && !system) return <main className="character-entry-page"><AppHeader activeItem="Meus Sistemas" backHref="/dashboard" backLabel="Voltar ao dashboard" /><p role="alert">{error}</p></main>;
   if (!system) return null;
   if (accessRequired) return <main className="character-entry-page character-access-page">
